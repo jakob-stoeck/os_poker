@@ -2,3 +2,7 @@ syntax: glob
 *~
 .svn
 .git
+.buildpath
+.project
+.settings
+
