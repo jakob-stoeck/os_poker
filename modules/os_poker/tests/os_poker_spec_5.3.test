@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Poker 5.3 Buddylist and Ñwho is onlineì functionality
+ * Poker 5.3 Buddylist and ÔøΩwho is onlineÔøΩ functionality
  *
  */
 
@@ -13,21 +13,24 @@
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
 /**
- * Spec: 5.3: Buddylist and Ñwho is onlineì test case
+ * Spec: 5.3: Buddylist and ÔøΩwho is onlineÔøΩ test case
  *
  * Verifies whatever workflow is working according to specifications.
  * Validates this and that.
  *
- * @assert: this little step.
- * @assert: other little step.
+ * @assert: The buddy list is shown on all pages.
+ * @assert: Users who have an established relationship with current user are shown in the buddy list.
+ * @assert: There is a possibility to filter the list by online/offline[S]. This status is shown for every user in the list.
+ * @assert: Buddies in the list are shown by the ranking criterion (default is most chips in descending order).
+ * @assert: If the user has not enough buddies to fill the list, the ‚ÄúInvite friend‚Äù placeholder is shown instead.
  *
  */
 class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
-  /**
-   * @var user object created and logged in during setUp process.
+  /*
+   * The Buddy List page size
    */
-  protected $skel_user;
+  const PAGE_SIZE = 7;
 
   /**
    * Implementation of hook_info().
@@ -35,25 +38,52 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   public static function getInfo() {
     return array(
       'name'        => '5.3 Buddylist and "who is online"',
-      'description' => 'Buddylist and Ñwho is onlineì functionality tests',
+      'description' => 'Buddylist and ÔøΩwho is onlineÔøΩ functionality tests',
       'group'       => 'OS Poker Specifications',
     );
   }
 
+    /**
+   * Assert that the Buddy List is shown on a page.
+   * 
+   * Expect the Buddy List to be in a html element with id="buddylist".
+   * 
+   * @param $path The page to check the for the Buddy List.
+   */
+  private function assertBuddyListOnPage($path) {
+    $this->drupalGet($path);
+    $this->assertRaw('id="buddylist"');
+  }
+  
   /**
    * Implementation of setUp().
+   * 
+   * - Create a main user (in $this->main_user)
+   * - Create 10 users as online buddies of the main user (in $this->buddies and $this->online_buddies)
+   * - Create 10 users as offline buddies of the main user (in $this->buddies and $this->offline_buddies)
+   * - Create a user with no buddy (in $this->lonely_user);
+   * - Log as the main user
    */
   function setUp() {
     // Enable required modules and set default site configuration.
     parent::setUp();
 
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
-    $this->skel_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
-    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+    //Create users
+    $this->main_user = $this->drupalCreateUser();
+    $this->buddies = array();
+    for ($i = 0; $i < 10; $i++) {
+      $buddy = $this->buddies[] = $this->online_buddies[] = $this->drupalCreateUser();
+      //Create a buddy-reliationship with main user
+      $this->OsPokerCreateBuddyRelationShip($this->main_user, $budy);
+    }
+    for ($i = 0; $i < 10; $i++) {
+      $buddy = $this->buddies[] = $this->offline_buddies[] = $this->drupalCreateUser();
+      //Create a buddy-reliationship with main user
+      $this->OsPokerCreateBuddyRelationShip($this->main_user, $budy);
+    }
+    $this->lonely_user = $this->drupalCreateUser();
+    // Login the main user, complete profile form
+    $this->OsPokerLogin($this->main_user, array('profile_nickname' => 'main_user'));
 
   }
 
@@ -65,32 +95,108 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   }
 
   /**
-   * Verify this
-   *
+   * Verify that th buddy list is sown on all pages.
+   */
+  function testBudyListOnAllPages() {
+    //There is no way to visit each and every page, just check a couple of known pages
+    $paths = array(
+      '<front>',
+      'poker/shop',
+      'poker/messagebox',
+      'user',
+    );
+    foreach($paths as $path) {
+      $this->assertBuddyListOnPage($path);
+    }
+  }
+  
+  /**
+   * Verify that users who have an established relationship with current user are shown in the buddy list.
    * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
+   * - go to front page
+   * - iterate over each page of the buddy
+   * - verify that the name of each buddy of the current user is shown in one of the page
    */
   function testBuddylist(){
+    $this->assertBuddyListOnPage('<front>');
+    $all_buddies_found = true;
+    $buddies_count = count($this->buddies);
+    for($i = 0; $i < $buddies_count; $i++) {
+      if($i > 0 && $i % self::PAGE_SIZE) {
+        //go to the next page
+        $this->clickLink('next');
+      }
+      $name = $this->buddies[$i]->name;
+      $all_buddies_found = $all_buddies_found && $this->assertText($name, t('Buddy %name is in the buddy list', array('%name' => $name)));
+    }
+    $this->assertTrue(
+      $all_buddies_found,
+      t('Users who have an established relationship with current user are shown in the buddy list.'),
+      'Specs'
+    );
+  }
+  
+ 
+  /**
+   * Verify that there is a possibility to filter the list by online/offline[S].
+   *
+   * The verification is done through these steps:
+   * - go on front page
+   * - verify the buddy list is on the page
+   * - clik the 'filter offline buddies' link/button
+   * - verify that every online buddy name is on the page
+   * - verify that every offline buddy name is not on the page 
+   * - clik the 'filter online buddies' link/button
+   * - verify that every online buddy name is not the page
+   * - verify that every offline buddy name is on the page 
+   *
+   */
+  function testStatusfilter(){
+    $this->assertBuddyListOnPage('<front>');
+    $this->fail('TODO');
+  }
 
-
-
+  /*
+   * Verify that buddies in the list are shown by the ranking criterion (default is most chips in descending order).
+   * 
+   * 
+   * The verification is done through these steps:
+   * - set buddies stats to a known states
+   * - go on front page
+   * - verify the buddy list is on the page
+   * - verify that buddies are sorted by chips in descending order
+   * - clikc the 'change order' link/button
+   * - verify that buddies are sorted by chips in ascending order
+   * - for other each criteria
+   *   - click the 'sort by criteria'
+   *   - verify that buddies are sorted by the criteria in descending order
+   *   - clikc the 'change order' link/button
+   *   - verify that buddies are sorted by the criteria in ascending order
+   */
+  function testBuddyListSortedByRanking() {
+    $this->assertBuddyListOnPage('<front>');
+    $this->fail('TODO');
   }
 
   /**
-   * Verify this
+   * Verify that if the user has not enough buddies to fill the list, the ‚ÄúInvite friend‚Äù placeholder is shown instead.
    *
    * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
+   * - login as the lonely user
+   * - go on front page
+   * - verify the buddy list is on the page
+   * - for $i = 0..self::PAGE_SIZE
+   *  - verify that there is (self::PAGE_SIZE - $i) ‚ÄúInvite friend‚Äù placeholders on the page
+   *  - make $this->buddies[$i] as buddy of the lonely user 
    */
-  function testWhoIsOnline(){
-
-
-
+  function testPlaceHolders() {
+    $this->assertBuddyListOnPage('<front>');
+    $all_pass = TRUE;
+    for($i = 0; $i < self::PAGE_SIZE; $i++) {
+      $count = self::PAGE_SIZE - $i;
+      $all_pass = $all_pass && $this->assertPattern("/(Invite friend.*){{$count}}/", t('Found !count ‚ÄúInvite friend‚Äù placeholder(s).', array('!count' => $count)));
+      $this->OsPokerCreateBuddyRelationShip($this->main_user, $this->buddies[$i]);
+    }
+    $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the ‚ÄúInvite friend‚Äù placeholder is shown instead.');
   }
-
-
 }

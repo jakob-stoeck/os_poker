@@ -288,7 +288,19 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       );
     }
 
-
+  function OsPokerCreateBuddyRelationShip($user1, $user2) {
+    static $buddy_rtid;
+    if(!isset($relationship_type)) {
+      $buddy_rtid = user_relationships_type_load(array("name" => "buddy"))->rtid;
+    }
+    
+    $relationship = array(
+      'requester_id' => $user1->uid,
+      'requestee_id' => $user2->uid,
+      'rtid' => $buddy_rtid
+    );
+    user_relationships_save_relationship($relationship, 'approve');
+  }
 
 
 
