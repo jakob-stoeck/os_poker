@@ -295,11 +295,10 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       $buddy_rtid = user_relationships_type_load(array("name" => "buddy"))->rtid;
     }
     
-    $relationship = array(
-      'requester_id' => $user1->uid,
-      'requestee_id' => $user2->uid,
-      'rtid' => $buddy_rtid
-    );
+    $relationship = new stdClass();
+    $relationship->requester_id = $user1->uid;
+    $relationship->requestee_id = $user2->uid;
+    $relationship->rtid =  $buddy_rtid;
     user_relationships_save_relationship($relationship, 'approve');
   }
 
