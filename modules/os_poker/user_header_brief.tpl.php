@@ -12,7 +12,7 @@
 				<?php 
 					$buddies = $os_user->Buddies(TRUE);
 				
-					$status_string = t("You have") . " " . count($buddies) . " " . t("Pokerbuddies") . " (<b><u>";
+					$status_string = t("You have @buddies Pokerbuddies", array("@buddies" => count($buddies))) . " (<b><u>";
 					
 					$onl = 0;
 					
@@ -24,7 +24,7 @@
 						}
 					}
 					
-					$status_string .= "{$onl} " . t("Online") . "</u></b>)";
+					$status_string .= t("@buddies Online", array("@buddies" => $onl)) . "</u></b>)";
 					
 					print $status_string;
 				?>
@@ -40,7 +40,7 @@
 		</div>
 		<div class="user_login_brief_row">
 			<p class="chips_count">
-				<?php print(t("You have") . " <u><b class='chips'>" . $os_user->Chips(TRUE) . "</b></u> " . t("Chips")); ?>
+				<?php print t("You have !chips Chips", array("!chips" => "<u><b class='chips'>" . $os_user->Chips(TRUE) . "</b></u>")); ?>
 			</p>
 		</div>
 	</div>

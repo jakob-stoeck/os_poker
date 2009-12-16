@@ -199,7 +199,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		//Assert basic amount of chips
 		$this->drupalGet('');
 		$this->assertText(
-					   t('You have $ 8.000 Chips'),
+					   t('You have $ 8,000 Chips'),
 					   t('User have 8000 Chips.')
 					);
 					
@@ -210,7 +210,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		//Assert 100 chips are allocated to buddy
 		$this->drupalGet('');
 		$this->assertText(
-					   t('You have $ 8.100 Chips'),
+					   t('You have $ 8,100 Chips'),
 					   t('100 chips allocated by daily gift')
 					);			
 					

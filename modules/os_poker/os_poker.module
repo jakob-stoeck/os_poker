@@ -590,39 +590,63 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 		
 			$blocks[0] = array(
 								'info'       => t('Poker : Open Social header user brief'),
+								'weight'	=> -2,
+								'region'	=> "header",
 								);
 			$blocks[1] = array(
 								'info'       => t('Poker : Footer information'),
+								'weight'	=> -1,
+								'region'	=> "footer",
 								);
 			$blocks[2] = array(
 								'info'       => t('Poker : Buddylist'),
+								'weight'	=> -1,
+								'region'	=> "bottom content",
 								);
 			$blocks[3] = array(
 								'info'       => t('Poker : Gadjet'),
+								'weight'	=> -2,
+								'region'	=> "middle content left",
 								);
 			$blocks[4] = array(
 								'info'       => t('Poker : Who is at that Table'),
+								'weight'	=> -3,
+								'region'	=> "middle content right",
 								);
 			$blocks[5] = array(
 								'info'       => t('Poker : Open Social user brief'),
+								'weight'	=> -3,
+								'region'	=> "middle content left",
 								);
 			$blocks[6] = array(
 								'info'       => t('Poker : Play now !'),
+								'weight'	=> -4,
+								'region'	=> "middle content right",
 								);
 			$blocks[7] = array(
 								'info'       => t('Poker : Home Teaser'),
+								'weight'	=> -1,
+								'region'	=> "middle content left",
 								);
 			$blocks[8] = array(
 								'info'       => t('Poker : Home Signup'),
+								'weight'	=> -5,
+								'region'	=> "middle content right",
 								);
 			$blocks[9] = array(
 								'info'       => t('Poker : News'),
+								'weight'	=> -2,
+								'region'	=> "middle content right",
 								);
 			$blocks[10] = array(
 								'info'       => t('Poker : Home Promotions'),
+								'weight'	=> -1,
+								'region'	=> "middle content right",
 								);
 			$blocks[11] = array(
 								'info'       => t('Poker : Language bar'),
+								'weight'	=> -3,
+								'region'	=> "header",
 								);
 			return $blocks;
 		

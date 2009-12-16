@@ -249,12 +249,11 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
-    $this->drupalGet("/");
     /**
      * Verify invited chip reward.
      */
      $this->assertText(
-       t('You have $ 8.000 chips'),
+       t('You have $ 8,000 Chips'),
        t('Invited user has been granted with +$5.000 chips due to invite sign up.')
      );
 
@@ -389,13 +388,29 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
-    $this->drupalGet("/");
+    /**
+     * Verify invited chip reward.
+     */
+/*
+** cmirey : even if he refuse the relationship, he should be granted the chips bonus :
+** v1.0.2 / 4.4 (p.10): "The email provides an invitation link. When the new user clicks on it, he
+** is taken to the to an registration process. It should be possible to track,
+** which user invited him (establishing automatically a buddy relation) and
+** he should be granted 5000 chips for signing up following an invitation
+** (higher than for normal sign up)."
+
+     $this->assertText(
+       t('You have $ 3,000 Chips'),
+       t('Invited user not requesting buddy relationhips has not been granted with +$5.000 chips.')
+     );
+*/
+
     /**
      * Verify invited chip reward.
      */
      $this->assertText(
-       t('You have $ 3.000 chips'),
-       t('Invited user not requesting buddy relationhips has not been granted with +$5.000 chips.')
+       t('You have $ 8,000 Chips'),
+       t('Invited user has been granted with +$5.000 chips due to invite sign up.')
      );
 
     /**
@@ -534,12 +549,11 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
-    $this->drupalGet("/");
     /**
      * Verify invited chip reward.
      */
      $this->assertText(
-       t('You have $ 8.000 Chips'),
+       t('You have $ 8,000 Chips'),
        t('User invited multiple times only gets +$5.000 chips grant once.')
      );
      

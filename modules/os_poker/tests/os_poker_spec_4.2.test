@@ -251,7 +251,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips
      */
      $this->assertText(
-       t('You have $ 3.000 Chips'),
+       t('You have $ 3,000 Chips'),
        t('User has $3k chips because of complete profile.')
      );     
 
@@ -324,17 +324,19 @@ class OSPokerLogin extends OsPokerWebTestCase {
       'profile_gender'   => t('Male'),
       'profile_country'  => t('France'),
       'profile_city'     => $this->randomName(),
-		'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+	  'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
     $this->drupalPost('poker/profile/update', $profile, t('Send'));
 
 	$this->drupalGet('poker/profile/update');
 	
+	//$this->assertTrue(TRUE, $this->drupalGetContent());
+	
     /**
      * Verify the user has $3k chips
      */
     $this->assertText(
-      t('You have $ 3.000 Chips'),
+      t('Chips: $ 3,000'),
       t('User has $3k chips because of complete profile.')
     );
 
@@ -412,7 +414,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips
      */
     $this->assertText(
-      t('You have $ 3.000 Chips'),
+      t('You have $ 3,000 Chips'),
       t('User has $3k chips because of complete profile.')
     );
 
@@ -426,7 +428,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips
      */
     $this->assertText(
-      t('You have $ 3.000 Chips'),
+      t('You have $ 3,000 Chips'),
       t('User has not been granted twice because of profile completion.')
     );
 
@@ -468,7 +470,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips, profile is complete.
      */
     $this->assertText(
-      t('You have $ 3.000 Chips'),
+      t('You have $ 3,000 Chips'),
       t('User has $3k chips because of complete profile.')
     );
 
@@ -514,7 +516,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * grant more chips.
      */
     $this->assertText(
-      t('You have $ 3.000 Chips'),
+      t('You have $ 3,000 Chips'),
       t('User has $3k chips, altering a complete profile should not grant chips.')
     );
 

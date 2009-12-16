@@ -406,6 +406,8 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
        t('Gift message received')
     );	
 	
+    $this->assertTrue(TRUE, $this->drupalGetContent());
+
 	$this->assertText(
        "Send a gift in return",
        t('Link to react present in message')
