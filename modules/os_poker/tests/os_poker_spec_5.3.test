@@ -107,7 +107,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     );
     $all_pass = true;
     foreach($paths as $path) {
-      $all_pass = $all_pass && $this->assertBuddyListOnPage($path);
+      $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
     }
     $this->assertTrue($all_pass, 'The buddy list is shown on all pages.');
   }
@@ -128,7 +128,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
         $this->clickLink('next');
       }
       $name = $this->buddies[$i]->name;
-      $all_buddies_found = $all_buddies_found && $this->assertText($name, t('Buddy %name is in the buddy list', array('%name' => $name)));
+      $all_buddies_found = $all_buddies_found & $this->assertText($name, t('Buddy %name is in the buddy list', array('%name' => $name)));
     }
     $this->assertTrue(
       $all_buddies_found,
@@ -196,7 +196,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     $all_pass = TRUE;
     for($i = 0; $i < self::PAGE_SIZE; $i++) {
       $count = self::PAGE_SIZE - $i;
-      $all_pass = $all_pass && $this->assertPattern("/(Invite friend.*){{$count}}/", t('Found !count “Invite friend” placeholder(s).', array('!count' => $count)));
+      $all_pass = $all_pass & $this->assertPattern("/(Invite friend.*){{$count}}/", t('Found !count “Invite friend” placeholder(s).', array('!count' => $count)));
       $this->OsPokerCreateBuddyRelationShip($this->lonely_user, $this->buddies[$i]);
     }
     $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the “Invite friend” placeholder is shown instead.');
