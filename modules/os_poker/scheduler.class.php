@@ -68,7 +68,8 @@ class CDailyChips implements ITask
 	{
 		$allocation = 500;
 		$attribs = array(
-							50 => 4500,
+							50 => 5000,
+							45 => 4500,
 							40 => 4000,
 							35 => 3500,	
 							30 => 3000,
