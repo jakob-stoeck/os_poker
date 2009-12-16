@@ -38,7 +38,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   public static function getInfo() {
     return array(
       'name'        => '5.3 Buddylist and "who is online"',
-      'description' => 'Buddylist and �who is online� functionality tests',
+      'description' => 'Buddylist and "who is online" functionality tests',
       'group'       => 'OS Poker Specifications',
     );
   }
