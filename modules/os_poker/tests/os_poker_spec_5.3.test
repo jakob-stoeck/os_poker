@@ -74,12 +74,12 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     for ($i = 0; $i < 10; $i++) {
       $buddy = $this->buddies[] = $this->online_buddies[] = $this->drupalCreateUser();
       //Create a buddy-reliationship with main user
-      $this->OsPokerCreateBuddyRelationShip($this->main_user, $budy);
+      $this->OsPokerCreateBuddyRelationShip($this->main_user, $buddy);
     }
     for ($i = 0; $i < 10; $i++) {
       $buddy = $this->buddies[] = $this->offline_buddies[] = $this->drupalCreateUser();
       //Create a buddy-reliationship with main user
-      $this->OsPokerCreateBuddyRelationShip($this->main_user, $budy);
+      $this->OsPokerCreateBuddyRelationShip($this->main_user, $buddy);
     }
     $this->lonely_user = $this->drupalCreateUser();
     // Login the main user, complete profile form
