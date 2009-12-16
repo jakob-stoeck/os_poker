@@ -1,0 +1,119 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.11 specification test case: Multi Language Support
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.11: Multi Language Support test case
+ *
+ * Verifies Multi Language Support is working according to specifications.
+ * Validates that English, French and German are supported
+ * Validates we are able to be switch from one language to another
+ *
+ * @assert: Verifies that language switcher blocks are present
+ * @assert: Verifies a sentence can be translated in every supported languages
+ *
+ */
+ 
+class OSPokerMultiLanguag extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.11 Multi Language Support',
+      'description' => 'Multi language support tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+   * Verifies that language switcher blocks are present
+   *
+   * The verification is done through these steps:
+   * - go to home page.
+   * - log in with a user
+   * - verify that header block (with flags) is present
+   * - verify that footer block is present
+   * - in header user brief we should see "You have $ 1,000 Chips"
+   * - click on german flag
+   * - in header user brief we should see "Sie haben $ 1,000 Chips"
+   * - click on french flag
+   * - in header user brief we should see "Vous avez $ 1,000 Chips"
+   * 
+   */
+	function testMultiLanguage()
+	{
+		$user = $this->drupalCreateUser();
+		// Login the user, complete profile form
+		$this->OsPokerLogin($user);
+		
+		//$this->drupalGet(url('<front>', ));
+
+		/*
+		** Assert text is here
+		*/
+		$this->assertText(
+							t('You have $'),
+							t('Text displayed in english')
+						);
+		/*
+		** Assert text is here
+		*/
+		$this->assertText(
+							t('You have $'),
+							t('Text displayed in french')
+						);
+		/*
+		** Assert text is here
+		*/
+		$this->assertText(
+							t('You have $'),
+							t('Text displayed in german')
+						);
+						
+		
+		
+	}
+
+
+}

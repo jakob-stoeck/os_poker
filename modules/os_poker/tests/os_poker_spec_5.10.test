@@ -1,0 +1,258 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.10 specification test case: Internal Promotions
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.10: Internal Promotions placement
+ *
+ * Verifies Internal Promotion workflow is working according to specifications.
+ *
+ * @assert: Advertising placement
+ *
+ */
+class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.10: Workflow Internal Promotions',
+      'description' => 'Internal Promotions functionalities tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+	/**
+	* Verify Advertising placement
+	*
+	* with a user with at least one buddy :
+	* - Go to Medium Profile verify that "Gift of the Day" is present
+	* - Go to Buddy-List verify that "Gift of the Day" is present on outer right
+	* - Go to Buddy-List verify that "Invite friend" Replace empty buddies
+	* - Go to Search Result verify that "Gift of the Day" is present on right up
+	* - Go to Search Result verify that "Invite friend" is present on right down
+	* - Go to Buddies verify that "Gift of the Day" is present on right up
+	* - Go to Buddies verify that "Invite friend" is present on right down
+	* - Go to Invite Friends verify that "Invite friend" is present on right down
+	*
+	* Verify Todays Gift
+	*
+	* - Create a user, login and complete the profile.
+	* - go to invite page, invite the email address again.
+	* - Logout this user.
+	* - Using the code from the invitation email, register a 'invited' new user
+	* - Complete the profile page.
+	* - On the home page click on the picture "Today's gift, send all" on the bottom of the home page
+	* - Logout this user.
+	* - Login with the first user
+	* - Verify a message saying : You just the daily gift from ... have been received
+	* - Verify 100 chips have been won
+	*
+	*/
+	function testInternalPromotions(){
+		
+		/**
+		 * Register a new 'invitee' account and complete its profile.
+		 */
+		$user = $this->drupalCreateUser();
+		// Login the user, complete profile form
+		$this->OsPokerLogin($user);
+
+		// Create a random name - email pair and send invite
+		$name = $this->randomName();
+		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		
+		// Submit the invitation
+		$this->OsPokerSendInvites(array($name => $email));
+
+		/**
+		 * Verify that invitation email was sent.
+		 */
+		$this->assertInviteMail(
+		  $email,
+		  t('Invitation email message sent for !name.', array('!name' => $name))
+		);
+
+		/**
+		 * Logout current user
+		 */
+
+		$this->drupalLogout();
+
+		/**
+		 * Using invitation code, register the 'invited' user.
+		 * This user has 'invited' for nickname
+		 */
+		// Get the invitation code from the last sent email.
+		$mail_queue = end($this->drupalGetMails());
+		$code = $mail_queue['params']['invite']->code;
+
+		// Use the invitation code to login the site.
+		$this->drupalGet('invite/accept/'. $code);
+
+		// The request has to redirect to user registration form with prepopulated
+		// information from the invite submission. Our email should have been
+		// filled in the form with invite information.
+		$this->assertFieldByName(
+		  'mail',
+		  $email,
+		  t('Invitation verified, invited email found in registration form.')
+		);
+
+		// Complete the fields and submit the registration form.
+		$password = $this->randomName();
+		$options = array(
+		  'name'        => $name,
+		  'pass[pass1]' => $password,
+		  'pass[pass2]' => $password,
+		);
+		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		
+		/**
+		 * completes the 'invited' profile
+		 */
+		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+		
+		//TODO : Medium profile page
+		
+		/**
+		 * Go to Buddy-List
+		 */
+		//FIXME : The block returned is as seen by current logged user (root)
+		$block = os_poker_block('view', 2);
+		$this->assertTrue(preg_match("/" . t('Invite Friends') . "/", $block["content"]) > 0, t("'Invite friend' Replace empty buddies"));
+		
+		// The block is returned for the admin account 
+		$this->assertTrue(preg_match("/banner_free_gifts|banner_invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' is present on buddy list"));
+		
+		/**
+		 * Go to Buddies
+		 */
+		$this->drupalGet('poker/buddies');
+		
+		$this->assertRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' is present on buddies page"));
+		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on buddies page"));	
+		
+		/**
+		 * Go to Search Result
+		 */
+		$this->drupalGet('poker/buddies/search');
+		$this->drupalPost($this->getUrl(), array(), t('Send'));
+		
+		$this->assertRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' is present on search result"));
+		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on search result"));
+		
+		/**
+		 * Go to Invite
+		 */
+		$this->drupalGet('poker/buddies/invitedlist');
+		
+		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on search result"));
+		
+		/**
+		 * Check daily gift
+		 */
+		$first_user = CUserManager::instance()->User($user->uid);
+		
+		$nchips = $first_user->Chips();
+		
+		//Assert basic amount of chips
+		$this->drupalGet('');
+		$this->assertText(
+					   t('You have $ 8.000 Chips'),
+					   t('User have 8000 Chips.')
+					);
+					
+		//Perform daily gift
+		$this->assertTrue($first_user->CanDailyGift(), t('User can use daily gift'));
+		$first_user->DailyGift();
+		
+		//Assert 100 chips are allocated to buddy
+		$this->drupalGet('');
+		$this->assertText(
+					   t('You have $ 8.100 Chips'),
+					   t('100 chips allocated by daily gift')
+					);			
+					
+		//Assert user cannot use daily gift anymore
+		$this->assertFalse($first_user->CanDailyGift(), t('User cannot use daily gift anymore'));
+		
+		//Assert that user giving daily give has a chip count that does not change
+		$this->assertTrue($nchips == $first_user->Chips(), t("User giving daily give has a chip count that does not change"));
+		
+		/**
+		 * Assert image in page changes after daily gift
+		 */
+		 
+		$this->drupalLogout();
+		$this->drupalLogin($user);
+
+		/**
+		 * Go to Buddy-List
+		 */
+		//FIXME : The block returned is as seen by current logged user (root)
+		$block = os_poker_block('view', 2);
+
+		// The block is returned for the admin account 
+		$this->assertTrue(preg_match("/banner_free_gifts|banner_invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' isn't present on buddy list anymore"));
+		
+		/**
+		 * Go to Buddies
+		 */
+		$this->drupalGet('poker/buddies');
+		
+		$this->assertNoRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' isn't present on buddies page anymore"));
+		
+		/**
+		 * Go to Search Result
+		 */
+		$this->drupalGet('poker/buddies/search');
+		$this->drupalPost($this->getUrl(), array(), t('Send'));
+		
+		$this->assertNoRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' isn't present on search result anymore"));
+		
+		
+	}
+
+
+}

@@ -1,0 +1,266 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.1 specification test case: Booking Chips according to n. of invited friends
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.1: Booking Chips test case
+ *
+ * Verifies booking chips on invites is working according to specifications.
+ *
+ * @assert: 
+ *
+ */
+class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.1 Booking',
+      'description' => 'Booking chips functionality tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+
+
+  function testInvitations()
+  {
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+
+	if (function_exists('set_time_limit'))
+	{
+		//script execution time fixed to 10mn
+		@set_time_limit(600);
+	}
+
+    $book_chips = false;
+	
+	//Create user and ensure that a daily chips task is created
+	$test_user = CUserManager::instance()->User($this->skel_user->uid);
+	
+	$previous_chips = $test_user->Chips();
+	//First allocation must be 3000 chips (complete profile)
+	
+    for ($i = 0; $i < 58; $i++)
+    {
+
+
+
+		$this->assertTrue(TRUE, "<b style='color:blue;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
+		
+		//Login to the site
+		$this->drupalLogin($this->skel_user);
+
+
+
+		
+
+	switch ($i)
+	{
+
+	case 1: //500 < 5
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +500");
+	break;
+		}
+		
+	case 6:  //750 >= 5
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 750, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +750");
+	break;
+		}
+
+	case 11:  //1000 >= 10
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 1000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1000");
+	break;
+		}
+
+	case 16:  //1500 >= 15
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 1500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1500");
+	break;
+		}
+
+	case 21:  //2000 >= 20
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 2000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2000");
+	break;
+		}
+
+	case 26:  //2500 >= 25
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 2500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2500");
+	break;
+		}
+
+	case 31:  //3000 >= 30
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 3000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => 3000");
+	break;
+		}
+
+	case 36:  //3500 >= 35
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 3500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +3500");
+	break;
+		}
+
+	case 41:  //4000 >= 40
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 4000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4000");
+	break;
+		}
+
+	case 46:  //4500 >= 45
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 4500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4500");
+	break;
+		}
+
+	case 51:  //5000 >= 50
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
+	break;
+		}
+
+	case 56:  //5000 (MAX) > 50
+		{
+			$this->assertEqual($test_user->Chips(), $previous_chips, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
+	break;
+		}
+
+	default:
+	break;
+
+	}
+		
+		/*
+		**
+		*/
+		
+		//Send invitation
+		$name = $this->randomName();
+		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		$this->OsPokerSendInvites(array($name => $email));
+		
+		//Logout
+		$this->drupalLogout();
+
+		//Accept invitation
+		$mail_queue = end($this->drupalGetMails());
+		$code = $mail_queue['params']['invite']->code;
+		$this->drupalGet('invite/accept/'. $code);
+		$password = $this->randomName();
+		$options = array(
+		'name'        => $name,
+		'pass[pass1]' => $password,
+		'pass[pass2]' => $password,
+		);
+		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
+			
+
+		//Logout
+		$this->drupalLogout();
+
+
+
+		//Trigger user tasks
+		$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
+		$this->assertTrue(TRUE, json_encode($tasks["live"]));
+		$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
+		
+		//Refresh user
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+	
+
+		$this->drupalLogout();
+
+		CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
+		
+		//Create an imediate daily chips task
+		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
+		
+		//Login to the site
+		$this->drupalLogin($this->skel_user);
+		
+		//Trigger user tasks
+		$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
+		$this->assertTrue(TRUE, json_encode($tasks["live"]));
+		$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
+
+
+		/*
+		**	Check chip allocations (take rewards bonus into account)
+		*/
+		
+		$this->assertTrue(TRUE, "<b style='color:red;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
+		
+$previous_chips = $test_user->Chips();
+
+
+			$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
+			$this->assertTrue(TRUE, json_encode($tasks["live"]));
+			$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
+			$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+
+
+
+
+		
+    }
+/*
+     $this->drupalLogin($this->skel_user);
+     $this->drupalGet('poker/buddies');
+     $this->assertTrue(TRUE, $this->drupalGetContent());
+     $this->drupalGet('poker/profile/rewards');
+     $this->assertTrue(TRUE, $this->drupalGetContent());
+*/
+
+  }
+
+
+
+}

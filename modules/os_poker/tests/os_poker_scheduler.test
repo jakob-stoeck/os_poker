@@ -1,0 +1,274 @@
+<?php
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+require_once(drupal_get_path('module', 'os_poker') . "/messages.class.php");
+
+
+/*
+**
+*/
+
+class CTestTask implements ITask
+{
+	public function Run($context_user, $arguments)
+	{   
+		drupal_set_message("TestTask activated");
+	}
+	
+	public function Type()
+	{
+		return get_class($this);
+	}
+	
+	public function MaxInstances()
+	{
+		return -1;
+	}
+	
+	public function AlwaysVisible()
+	{
+		return FALSE;
+	}
+	
+}
+
+class CTestTaskLimited implements ITask
+{
+	public function Run($context_user, $arguments)
+	{   
+		drupal_set_message("TestTaskLimited activated");
+	}
+	
+	public function Type()
+	{
+		return get_class($this);
+	}
+	
+	public function MaxInstances()
+	{
+		return 2;
+	}
+	
+	public function AlwaysVisible()
+	{
+		return FALSE;
+	}
+}
+
+/*
+**
+*/
+
+
+class OSPokerScheduler extends OsPokerWebTestCase
+{
+
+	private $_current_user = NULL;
+	
+	/*
+	**
+	*/
+
+	function getInfo()
+	{
+		return 	array(
+						'name' => t('OS Poker Scheduler class'),
+						'description' => t('CScheduler class tester'),
+						'group' => 'OS Poker',
+				);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+	function setUp() {
+		// Enable required modules and set default site configuration.
+		parent::setUp();
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+	function tearDown() {
+		parent::tearDown();
+	}
+	
+	function	check_drupal_msg($msg)
+	{
+		$messages = drupal_get_messages(NULL, FALSE);
+		$msgCount = 0;
+		
+		foreach ($messages as $key => $mt )
+		{
+			foreach ($mt as $msgrow)
+			{
+				$msgCount += ($msgrow == $msg);
+			}
+		}
+		
+		return $msgCount;
+	}
+
+    function        testSchedulerClass()
+	{
+		$this->_current_user = CUserManager::instance()->CurrentUser();
+	
+		//Create 5 test task
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, "test_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, "test_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, "test_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, "test_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, "test_trigger");
+		//
+		
+		//Create 5 limited test task
+		CScheduler::instance()->RegisterTask(new CTestTaskLimited(), $this->_current_user->uid, "test_limited_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTaskLimited(), $this->_current_user->uid, "test_limited_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTaskLimited(), $this->_current_user->uid, "test_limited_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTaskLimited(), $this->_current_user->uid, "test_limited_trigger");
+		CScheduler::instance()->RegisterTask(new CTestTaskLimited(), $this->_current_user->uid, "test_limited_trigger");
+		//
+		
+		//Create a multi trigger task
+		CScheduler::instance()->RegisterTask(new CTestTask(), $this->_current_user->uid, array("test_limited_trigger", "test_trigger", "test_unique_trigger"));
+		//
+		
+		//parse tasks
+		CScheduler::instance()->ReloadTasks();
+		//
+		
+		//Check triggers
+		$triggers = CScheduler::instance()->GetTriggers();
+		$this->assertEqual(count($triggers), 3, "3 Triggers created");
+		$this->assertTrue(in_array("test_trigger", $triggers) &&
+						in_array("test_limited_trigger", $triggers) &&
+						in_array("test_unique_trigger", $triggers), "Triggers name match");
+		//
+		
+		//Check Tasks assignation / task limit / multi-trigger task assignation
+		$tasks = CScheduler::instance()->GetTasks("test_trigger");
+		$this->assertEqual(count($tasks), 6, "6 tasks assigned to test_trigger");
+		$limitedTasks = CScheduler::instance()->GetTasks("test_limited_trigger");
+		$this->assertEqual(count($limitedTasks), 3, "3 tasks assigned to test_limited_trigger");
+		$uniqueTasks = CScheduler::instance()->GetTasks("test_unique_trigger");
+		$this->assertEqual(count($uniqueTasks), 1, "1 tasks assigned to test_unique_trigger");
+		//
+		
+		//Run unique trigger
+		CScheduler::instance()->Trigger("test_unique_trigger");
+		//
+		
+		//Check Tasks multi-trigger task delete
+		$tasks = CScheduler::instance()->GetTasks("test_trigger");
+		$this->assertEqual(count($tasks), 5, "5 tasks assigned to test_trigger");
+		$limitedTasks = CScheduler::instance()->GetTasks("test_limited_trigger");
+		$this->assertEqual(count($limitedTasks), 2, "2 tasks assigned to test_limited_trigger");
+		$uniqueTasks = CScheduler::instance()->GetTasks("test_unique_trigger");
+		$this->assertEqual(count($uniqueTasks), 0, "No task assigned to test_unique_trigger");
+		//
+		
+		//Refresh
+		$this->assertTrue(TRUE, "Task reloading");
+		CScheduler::instance()->ReloadTasks();
+		//
+		
+		//Same test after reload to be sure that task has been deleted from db
+		$tasks = CScheduler::instance()->GetTasks("test_trigger");
+		$this->assertEqual(count($tasks), 5, "5 tasks assigned to test_trigger");
+		$limitedTasks = CScheduler::instance()->GetTasks("test_limited_trigger");
+		$this->assertEqual(count($limitedTasks), 2, "2 tasks assigned to test_limited_trigger");
+		$uniqueTasks = CScheduler::instance()->GetTasks("test_unique_trigger");
+		$this->assertEqual(count($uniqueTasks), 0, "No task assigned to test_unique_trigger");
+		//
+		
+		//Run other triggers
+		CScheduler::instance()->Trigger("test_limited_trigger");
+		CScheduler::instance()->Trigger("test_trigger");
+		//
+		
+		//Trigger stack must be empty
+		$tasks = CScheduler::instance()->GetTasks("test_trigger");
+		$this->assertEqual(count($tasks), 0, "No task assigned to test_limited_trigger remains");
+		$tasks = CScheduler::instance()->GetTasks("test_limited_trigger");
+		$this->assertEqual(count($tasks), 0, "No task assigned to test_limited_trigger remains");
+		//
+		
+		$msg = array("type" => "testmessage", "body" => array("text" => "testbody"));
+		CScheduler::instance()->RegisterTask(new CMessage(), $this->_current_user->uid, "test_trigger", "-1 min", $msg);
+		$msg = array("type" => "testmessage", "body" => array("text" => "testbody2"));
+		CScheduler::instance()->RegisterTask(new CMessage(), $this->_current_user->uid, "test_trigger", "-1 min", $msg);
+		$msg = array("type" => "testmessage2", "body" => array("text" => "testbody"));
+		CScheduler::instance()->RegisterTask(new CMessage(), $this->_current_user->uid, "test_trigger", "-1 min", $msg);
+		$msg = array("type" => "testmessage2", "body" => array("text" => "testbody2"));
+		CScheduler::instance()->RegisterTask(new CMessage(), $this->_current_user->uid, "test_trigger", "-1 min", $msg);
+		$msg = array("type" => "testmessage3", "body" => array("text" => "testbody"));
+		CScheduler::instance()->RegisterTask(new CMessage(), $this->_current_user->uid, "test_trigger", "-1 min", $msg);
+		
+		//Refresh
+		$this->assertTrue(TRUE, "Task reloading");
+		CScheduler::instance()->ReloadTasks();
+		//
+		
+		//Trigger messages
+		CScheduler::instance()->Trigger("test_trigger");
+		//
+		
+		//Test spooler
+		$messages = CMessageSpool::instance()->Get();
+		$this->assertEqual(count($messages), 5, "5 Messages in spooler");
+		//
+		
+		//test flush
+		CMessageSpool::instance()->Flush();
+		$messages = CMessageSpool::instance()->Get();
+		$this->assertEqual(count($messages), 0, "Messages Flushed");
+		//
+		
+		//Test Messages box
+		
+		//first message
+		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+		$args["text"] = "Message 1";
+		$args["links"] = "<a href='javascript:void(0);' >" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";			
+		$res = CMessageSpool::instance()->SendMessage($this->_current_user->uid, $args);
+		$this->assertTrue($res, "First sent");
+		sleep(2);
+		
+		//second message
+		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+		$args["text"] = "Message 2";
+		$args["links"] = "<a href='javascript:void(0);' >" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";			
+		$res = CMessageSpool::instance()->SendMessage($this->_current_user->uid, $args);
+		$this->assertTrue($res, "Second sent");
+		sleep(2);
+		
+		//third message
+		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+		$args["text"] = "Message 3";
+		$args["links"] = "<a href='javascript:void(0);' >" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";			
+		$res = CMessageSpool::instance()->SendMessage($this->_current_user->uid, $args);
+		$this->assertTrue($res, "Third sent");
+		sleep(2);
+		
+		CScheduler::instance()->ReloadTasks();
+		
+		$msgbox = CScheduler::instance()->GetTasks("inbox");
+		$this->assertEqual(count($msgbox), 3, "3 Messages incoming");
+
+		//Test messages order
+		
+		$i = 0;
+		foreach ($msgbox as $msg)
+		{
+			$mbody = json_decode($msg->arguments, TRUE);
+		
+			$this->assertEqual($mbody["body"]["text"], "Message " . (count($msgbox) - $i), "Good message order");
+			++$i;
+		}
+		
+	}
+
+}
+
+?>

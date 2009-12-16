@@ -1,0 +1,83 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.4: Status/Level Evaluation
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.4: Status/Level Evaluation test case
+ *
+ * Verifies whatever workflow is working according to specifications.
+ * Validates this and that.
+ *
+ * @assert: this little step.
+ * @assert: other little step.
+ *
+ */
+class OSPokerStatusLevelEvaluation extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.4: Status/Level Evaluation',
+      'description' => 'Status/Level Evaluation tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+
+  /**
+   * Verify this
+   *
+   * The verification is done through these steps:
+   * - go here.
+   * - do this.
+   *
+   */
+  function testStatusLevel(){
+
+
+
+  }
+
+
+}

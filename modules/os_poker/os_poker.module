@@ -1,0 +1,786 @@
+<?php
+// $Id$
+
+require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
+
+
+function os_poker_simple_payment_process(&$payment) {
+  $save = FALSE;
+
+// cmirey temporaire, a passer dans les arguments de $payment
+  $chips_array = array();
+  $chips_array['500'] = 7500000;
+  $chips_array['1000'] = 15000000;
+  $chips_array['2000'] = 40000000;
+  $chips_array['5000'] = 100000000;
+  $chips_array['10000'] = 250000000;
+  $chips_array['15000'] = 500000000;
+
+
+
+  $sql = "SELECT `value` FROM `{application_settings}` WHERE `name`='%s' AND `application_id`=%d AND `user_id`=%d";
+
+  $res = db_query($sql, "money", os_poker_get_poker_app_id(), $payment["uid"]);
+
+  if ($res != FALSE)
+  {
+    $row = db_fetch_array($res);
+    $chips = json_decode($row["value"]);
+
+      $chips = $chips->{"1"} + $chips_array[$payment["amount"]]; 
+      $new_chips = array(1 => $chips);
+      $sql = "UPDATE `{application_settings}` SET `value`='%s' WHERE `name`='%s' AND `application_id`=%d AND `user_id`=%d";
+      $res = db_query($sql, json_encode($new_chips), "money", os_poker_get_poker_app_id(), $payment["uid"]);
+
+      $save = $res;
+  }
+
+  
+
+/*
+  watchdog('simple_payments', 'Payment process 1: @info', array('@info' => var_export($payment, TRUE)));
+//  $user = CUserManager::instance()->User($payment["uid"]);
+  $user = new CUser($uid);
+  $payment["custom"] = $user;
+  watchdog('simple_payments', 'Payment process 2: @info', array('@info' => var_export($payment, TRUE)));
+  $nChips = $user->Chips();
+  $user->chips = $nChips + $chips_array[$payment["amount"]];
+  $save = $user->Save();
+*/
+
+  return $save;
+}
+
+
+/**
+* Implementation of hook_form_FORM_ID_alter().
+*/
+
+function os_poker_form_user_login_block_alter(&$form, $form_state)
+{	
+
+	$aAttr = $form['submit']['#attributes'];
+	$aAttr["class"] = "poker_submit";
+	$form['submit']['#attributes']["style"] = "display:none;";
+	
+	$form['f_submit'] = array('#value' => '<div onclick="javascript:os_poker_submit(this, \'' .
+										$form['#id'] . '\');" ' .
+										drupal_attributes($aAttr) .
+										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
+}
+
+/*
+**
+*/
+
+function os_poker_preprocess_page(&$variables)
+{
+	$variables["pokerview"] = NULL;
+	$variables["pokertableid"] = NULL;
+
+	if (isset($_REQUEST["view"]))
+	{
+		$variables["pokerview"] = $_REQUEST["view"];
+		
+		if (isset($_REQUEST["game_id"]))
+		{
+			$variables["pokertableid"] = $_REQUEST["game_id"];
+		}
+	}
+	
+	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " <a href=\"javascript:void(0);\">" . t("Terms of Service and Privacy Policy.") . "</a></div>";
+}
+
+/*
+**
+*/
+
+function	pv_buddy_filter()
+{
+	$form = array();
+	
+	$form['online'] = array(
+							  '#type' => 'checkbox', 
+							  '#title' => t('Show online Poker Buddies only.'),
+							);
+	
+	return $form;
+}
+
+function	os_poker_gadget()
+{
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_toolkit.php");
+
+	$app_id = os_poker_get_poker_app_id();
+	
+	if ($app_id != FALSE)
+	{
+		global $user;
+
+		$path       = drupal_get_path('module', 'shindig_integrator');
+		$image_path = "$path/images/";
+		$view       = "canvas";
+		$ret        = array();
+		$attr       = array();
+		$owner_id   = $user->uid;
+		$app_id     = $app_id;
+		$mod_id     = "os_poker";
+		$output     = "";
+		$output    .= theme('add_gadget', $app_id, $mod_id, $view, $owner_id);
+		$output 	= str_replace("<br>", "", $output);
+		return $output;
+	}
+
+	return NULL;
+}
+
+
+/**
+* Implementation of hook_init().
+*/
+
+function os_poker_init()
+{
+	$inpoker = FALSE;
+	if (isset($_GET["q"]))
+	{
+		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker");
+	}
+	
+	
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/jquery.filestyle.mini.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.toolkit.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messages.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.events.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.slider.js", "theme");
+	
+	if ($inpoker == FALSE)
+	{
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
+		
+		drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
+	}
+	else
+	{
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.pager.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.thickbox.bootstrap.js", "theme");
+	}
+	
+	$poker_url = url("<front>", array("query" => array("view" => "table"), "absolute" => TRUE));
+	$lobby_url = url("<front>", array("absolute" => TRUE));
+	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button.gif";
+	$inline_js = "
+	
+	function	os_poker_goto_table(game_id)
+	{
+		document.location = '{$poker_url}' + '&game_id=' + game_id;
+	}
+	
+	function	os_poker_goto_lobby()
+	{
+		document.location = '{$lobby_url}';
+	}
+	
+	function	os_poker_input_file_style()
+	{
+		$('input[type=file]').filestyle({ 
+		 image: '{$file_button}',
+		 imageheight : 18,
+		 imagewidth : 70,
+		 width : 160
+		 });
+	}
+	
+	function	os_poker_site_root()
+	{
+		return '{$lobby_url}';
+	}
+	
+	";
+	
+	drupal_add_js($inline_js, 'inline');
+	
+	
+	if (user_is_logged_in())
+	{
+		$cuser = CUserManager::instance()->CurrentUser();
+		
+		$prof = $cuser->profile_nickname;
+	
+		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
+		{
+		  drupal_goto("poker/first_profile");
+		}
+	}
+	
+}
+
+/**
+* Implementation of hook_cron().
+*/
+
+function 	os_poker_cron()
+{
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	
+	CScheduler::instance()->Trigger('cron');
+	
+	//Uncomment to check all players rewards
+	/*
+	$sql = "SELECT `uid` FROM `{users}` WHERE `uid` != 0";
+	$res = db_query($sql);
+
+	while (($u = db_result($res)))
+	{
+		CPoker::CheckRewards("invite", $u, array());
+		CPoker::CheckRewards("buddy", $u, array());
+	}
+	*/
+}
+
+/**
+* Implementation of hook_theme().
+*/
+
+function 	os_poker_theme()
+{
+  return array(
+				'os_poker_header_user_brief' => array(
+											  'arguments' => array('os_user' => NULL),
+											  'template' => 'user_header_brief',
+											),
+				'os_poker_user_brief' => array(
+											  'arguments' => array('os_user' => NULL),
+											  'template' => 'user_brief',
+											),
+				'os_poker_buddylist' => array(
+											  'arguments' => array('current_user' => NULL, 'relId' => NULL, 'title' => NULL, 'filter_form' => NULL),
+											  'template' => 'buddy_list',
+											),
+				'os_poker_play_now' => array(
+												'arguments' => array('online' => 0),
+												'template' => 'play_now',
+											),
+				'os_poker_teaser' => array(
+												'arguments' => array('text' => ""),
+												'template' => 'teaser',
+											),
+				'os_poker_home_signup' => array(
+												'arguments' => array('form' => NULL),
+												'template' => 'home_signup',
+											),
+				'os_poker_first_profile' => array(
+												'arguments' => array('form' => NULL, 'userlist' => NULL),
+												'template' => 'first_profile',
+											),
+				'os_poker_shop_tabs' => array(
+												'arguments' => array('active_tab' => NULL, 'content' => NULL),
+												'template' => 'shop_tabs',
+											),
+				'os_poker_shop' => array(
+												'arguments' => array('params' => NULL),
+												'template' => 'shop',
+											),
+				'os_poker_shop_get_chips' => array(
+												'arguments' => array('form' => NULL, 'params' => NULL),
+												'template' => 'shop_get_chips',
+											),
+				'os_poker_item' => array(
+												'arguments' => array('item' => NULL, 'selected' => FALSE),
+												'template' => 'shop_item',
+											),
+				'os_poker_table_users' => array(
+												'arguments' => array('item' => NULL, 'selected' => FALSE),
+												'template' => 'table_users',
+											),
+				'os_poker_profile_tabs' => array(
+												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE),
+												'template' => 'profile_tabs',
+											),
+				'os_poker_profile' => array(
+												'arguments' => array('target_user' => NULL, "external" => TRUE),
+												'template' => 'profile',
+											),
+				'os_poker_medium_profile' => array(
+												'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL),
+												'template' => 'profile_medium',
+											),
+				'os_poker_reward_minilist' => array(
+												'arguments' => array('target_user' => NULL),
+												'template' => 'reward_minilist',
+											),
+				'os_poker_reward_fulllist' => array(
+												'arguments' => array('rewards' => NULL),
+												'template' => 'reward_fulllist',
+											),
+				'os_poker_item_minilist' => array(
+												'arguments' => array('target_user' => NULL),
+												'template' => 'item_minilist',
+											),
+				'os_poker_profile_update' => array(
+												'arguments' => array('target_user' => NULL, 'form' => NULL),
+												'template' => 'profile_update',
+											),
+				'os_poker_profile_settings' => array(
+												'arguments' => array('personal_form' => NULL, 'email_form' => NULL, 'password_form' => NULL),
+												'template' => 'profile_settings',
+											),
+				'os_poker_rewards' => array(
+												'arguments' => array('target_user' => NULL, "external" => TRUE),
+												'template' => 'rewards',
+											),
+				'os_poker_ranking' => array(
+												'arguments' => array('target_user' => NULL, 'user_rank' => NULL, "sorted_users" => NULL),
+												'template' => 'ranking',
+											),
+				'os_poker_ranking_list' => array(
+												'arguments' => array("sorted_users" => NULL),
+												'template' => 'ranking_list',
+											),
+				'os_poker_messagebox' => array(
+												'arguments' => array('messages' => NULL),
+												'template' => 'messagebox',
+											),
+				'os_poker_message_list' => array(
+												'arguments' => array('messages' => NULL),
+												'template' => 'messagebox_list',
+											),
+				'os_poker_message' => array(
+												'arguments' => array('message' => NULL),
+												'template' => 'message',
+											),
+				'os_poker_home_news' => array(
+												'arguments' => array('news' => NULL),
+												'template' => 'news',
+											),
+				'os_poker_home_promotion' => array(
+												//'arguments' => array('message' => NULL),
+												'template' => 'home_promotion',
+											),
+				'os_poker_forgot_password' => array(
+												'arguments' => array('form' => NULL),
+												'template' => 'forgot_password',
+											),
+				'os_poker_languages' => array(
+												'arguments' => array('icons' => FALSE),
+												'template' => 'language_bar',
+											),
+				'os_poker_footer' => array(
+												'arguments' => array(),
+												'template' => 'footer',
+											),
+				);
+				
+	
+}
+
+/**
+* Implementation of hook_user_relationships()
+*/
+
+function	os_poker_user_relationships($type, $relationship)
+{
+		$cuser = CUserManager::instance()->CurrentUser();
+		
+		CPoker::CheckRewards("buddy", $cuser->uid, array());
+
+		CPoker::CheckRewards("invite", $cuser->uid, array());
+
+}
+
+/**
+* Implementation of hook_user().
+*/
+
+function os_poker_user($op, &$edit, &$account, $category = NULL)
+{
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+	
+	switch ($op)
+	{
+		case 'submit':
+			
+		break;
+		
+		case 'validate':
+		
+		break;
+		
+		case 'update':
+
+		break;
+		
+		case 'register':
+			if (($code = $_SESSION[INVITE_SESSION]))
+			{
+				$form['poker_invite'] = array('#type' => 'value', '#value' => TRUE);
+				return $form;
+			}
+		break;
+		
+		case 'login' :
+			CScheduler::instance()->Trigger('login');
+
+		break;
+		
+		case 'logout' :
+			CScheduler::instance()->Trigger('logout');
+		break;
+		
+		case 'insert':
+			if (isset($edit['poker_invite']))
+			{
+				CScheduler::instance()->RegisterTask(new CBonusInviteChips(), $edit["uid"], 'first_login');
+				
+				CPoker::CheckRewards("invite", $edit['relationship_invite_requester']->uid, array($edit["uid"]));
+				$edit['poker_invite'] = NULL;
+			}
+			//Add user initial chips
+			$chips = array(1 => 100000);
+			$sql = "INSERT INTO `{application_settings}` (`application_id`, `user_id`, `name`, `value`) VALUES (%d, %d, '%s', '%s')";
+			$res = db_query($sql, os_poker_get_poker_app_id(), $edit["uid"], "money", json_encode($chips));
+			
+		break;
+		
+		case 'after_update':
+			
+		break;
+		
+		case 'categories':
+		break;
+		
+		case 'form':
+		break;
+		
+		default:
+		break;
+	}
+}
+
+/*
+**
+*/
+
+function _os_poker_no_profil()
+{
+ 	if (user_is_logged_in())
+	{
+		$cuser = CUserManager::instance()->CurrentUser();
+		
+		$prof = $cuser->profile_nickname;
+	
+		if (empty($prof))
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+/**
+* Implementation of hook_menu().
+*/
+
+
+function os_poker_menu()
+{
+	$menu = array(
+					'poker/first_profile' => array(
+													'title'            => '',
+													'access callback'  => '_os_poker_no_profil',
+													'page callback'    => 'os_poker_first_profile_page',
+													'file' 			   => 'os_poker_pages.php',
+													'type'             => MENU_CALLBACK,
+													),
+					'poker/buddies' => array(
+												'title'            => '',
+												'access callback'  => 'user_is_logged_in',
+												'page arguments'   => array(2, 3),
+												'page callback'    => 'os_poker_buddies_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												),
+					'poker/shop' => array(
+												'title'            => '',
+												'access callback'  => 'user_is_logged_in',
+												'page arguments'   => array(2, 3, 4, 5, 6), //tab/category_id/target_type/target_id/subtarget_id
+												'page callback'    => 'os_poker_shop_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												),
+					'admin/poker/shop' => 	array(
+												'title'            => t('Shop administration'),
+												'access arguments' => array('administer users'),
+												'page callback'    => 'os_poker_shop_admin_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+											),
+										
+					'poker/messages/send' => array(
+												'page callback'    => 'os_poker_process_message',
+												'file' 			   => 'os_poker_messages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => MENU_FOUND,
+										),
+										
+					'poker/messages/receive' => array(
+												'page callback'    => 'os_poker_poll_messages',
+												'file' 			   => 'os_poker_messages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => MENU_FOUND,
+										),	
+										
+					'poker/messagebox' => array(
+												'page callback'    => 'os_poker_messagebox_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => MENU_FOUND,
+										),
+										
+					'poker/profile' => array(
+												'page arguments'   => array(2, 3),
+												'page callback'    => 'os_poker_profile_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => 'user_is_logged_in',
+										),
+										
+					'poker/forgot-password' => array(
+												'page callback'    => 'os_poker_forgot_password_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => 'user_is_anonymous',
+										),
+				);
+				
+	return $menu;
+}
+
+/**
+* Implementation of hook_menu_alter().
+*/
+
+function os_poker_menu_alter(&$items)
+{
+  $items['user/reset/%/%/%']['file'] = "../../" . drupal_get_path('module', 'os_poker') . "/os_poker_forms.php";
+  $items['user/reset/%/%/%']['page arguments'] = array('os_poker_pass_reset', 2, 3, 4);
+}
+
+
+/**
+* Implementation of hook_block().
+*/
+
+function os_poker_block($op = 'list', $delta = 0, $edit = array())
+{
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_forms.php");
+
+	switch ($op)
+	{
+		case 'list':
+		
+			$blocks[0] = array(
+								'info'       => t('Poker : Open Social header user brief'),
+								);
+			$blocks[1] = array(
+								'info'       => t('Poker : Footer information'),
+								);
+			$blocks[2] = array(
+								'info'       => t('Poker : Buddylist'),
+								);
+			$blocks[3] = array(
+								'info'       => t('Poker : Gadjet'),
+								);
+			$blocks[4] = array(
+								'info'       => t('Poker : Who is at that Table'),
+								);
+			$blocks[5] = array(
+								'info'       => t('Poker : Open Social user brief'),
+								);
+			$blocks[6] = array(
+								'info'       => t('Poker : Play now !'),
+								);
+			$blocks[7] = array(
+								'info'       => t('Poker : Home Teaser'),
+								);
+			$blocks[8] = array(
+								'info'       => t('Poker : Home Signup'),
+								);
+			$blocks[9] = array(
+								'info'       => t('Poker : News'),
+								);
+			$blocks[10] = array(
+								'info'       => t('Poker : Home Promotions'),
+								);
+			$blocks[11] = array(
+								'info'       => t('Poker : Language bar'),
+								);
+			return $blocks;
+		
+		case 'configure':
+			// If $op is "configure", we need to provide the administrator with a
+			// configuration form. The $delta parameter tells us which block is being
+			// configured. In this example, we'll allow the administrator to customize
+			// the text of the first block.
+			$form = array();
+			
+			switch ($delta)
+			{
+				case 0:
+				case 1:
+				default:
+				break;
+				
+				case 2:
+					/*$form['title'] = array(
+												'#type' => 'textfield',
+												'#title' => t('Block title'),
+												'#size' => 60,
+												'#description' => t('This string will appear in the example block.'),
+												'#default_value' => variable_get('title',  t('Some example content.')),
+											);*/
+					
+				break;
+			}
+
+		return $form;
+		
+		case 'save':
+			// If $op is "save", we need to save settings from the configuration form.
+			// Since the first block is the only one that allows configuration, we
+			// need to check $delta to make sure we only save it.
+			
+			switch ($delta)
+			{
+				case 0:
+				case 1:
+				default:
+				break;
+				
+				case 2:
+					//variable_set('title', $edit['title']);
+					
+				break;
+			}
+			
+			if ($delta == 0)
+			{
+				
+			}
+		return;
+		
+		case 'view':
+		default:
+			switch ($delta)
+			{
+				case 0:
+					$block['subject'] = t('OS header user brief');
+					$block['content'] = theme("os_poker_header_user_brief", CUserManager::instance()->CurrentUser());
+				break;
+				
+				case 1:
+					$block['subject'] = t('Footer information');
+					$block['content'] = theme("os_poker_footer");
+				break;
+				
+				case 2:
+					$block['subject'] = t('Buddielist');
+					
+					$relation = user_relationships_type_load(array("name" => "buddy"));
+
+					$block['content'] = theme("os_poker_buddylist", CUserManager::instance()->CurrentUser(), $relation->rtid, $block['subject'], drupal_get_form("pv_buddy_filter"));
+
+				break;
+
+				case 3:				
+					$block['subject'] = t('Poker Gadjet');
+					$block['content'] = os_poker_gadget();
+				break;
+				
+				case 4:
+					if (!isset($_REQUEST["view"]) || $_REQUEST["view"] != "table")
+					{
+						$block['subject'] = t('Who is at that Table');
+						$block['content'] = theme("os_poker_table_users");
+					}
+				break;
+				
+				case 5:
+					if (!isset($_REQUEST["view"]) || $_REQUEST["view"] != "table")
+					{
+						$block['subject'] = t('OS user brief');
+						$block['content'] = theme("os_poker_user_brief", CUserManager::instance()->CurrentUser());
+					}
+				break;
+				
+				case 6:
+					if (!isset($_REQUEST["view"]) || $_REQUEST["view"] != "table")
+					{
+						$block['subject'] = t('Play now !');
+						$block['content'] = theme("os_poker_play_now", os_poker_online_users());
+					}
+				break;
+				
+				case 7:
+					//TODO: Load teaser text from somewhere ??
+					$teaserText = 	"<h1>" . t("WANT SOME HELP GETTING STARTED") . "?</h1>" .
+									t("We show you how to play poker in just one minute") . "! <a class=\"yellow\" href=\"javascript:void(0);\">" . t("Click here") . "!</a>";
+				
+					$block['subject'] = t('Teaser');
+					$block['content'] = theme("os_poker_teaser", $teaserText);
+				break;
+				
+				case 8:
+					$block['subject'] = t('Home sign up');
+					$block['content'] = theme("os_poker_home_signup", drupal_get_form('os_poker_sign_up_form'));
+				break;
+				
+				case 9:
+					$news = array(
+						t("Westspieler Poker Tour: Toller..."),
+						t("Westspieler Poker Tour: Toller..."),
+						t("Westspieler Poker Tour: Toller..."),
+					);
+				
+					$block['subject'] = t('Home News');
+					$block['content'] = theme("os_poker_home_news", $news);
+				break;	
+				
+				case 10:
+					$block['subject'] = t('Home Promotion');
+					$block['content'] = theme("os_poker_home_promotion");
+				break;
+				
+				case 11:
+					$block['subject'] = t('Language bar');
+					$block['content'] = theme("os_poker_languages", TRUE);
+				break;
+				
+			}
+		return $block;
+	}
+}
+
+
+/*
+** Random user list for first profile
+*/
+
+function	os_poker_random_user_list($count = 6)
+{
+	$sql = "SELECT `uid` FROM `{users}` WHERE LENGTH(`picture`) > 0 ORDER BY rand() LIMIT %d";
+	$res = db_query($sql, $count);
+	
+	$userlist = array();
+	if ($res)
+	while($row = mysql_fetch_row($res))
+	{
+	  $userlist[] = $row[0];
+	}
+
+	return($userlist);
+}

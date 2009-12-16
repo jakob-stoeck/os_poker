@@ -1,0 +1,423 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Os Poker test case: Testing framework for OS Poker specification testing.
+ *
+ * Enable site modules and configure them to create a full working copy of the
+ * web site to be used as test environment.
+ */
+
+
+/** 
+ * Needed to prevent shindig_integrator from writing Config.php on install
+ */
+global $TEST;
+$TEST = TRUE;
+
+/**
+ * Parent class for specification testing
+ */
+class OsPokerWebTestCase extends DrupalWebTestCase {
+
+
+  /**
+   * The current user logged in using the internal browser.
+   *
+   * @var bool
+   */
+  protected $loggedInUser = FALSE;
+
+  /**
+   * Implementation of setUp().
+   *
+   * Install all required modules and setup configuration.
+   */
+  function setUp() {
+    static $run_once;
+
+    // Only do the setUp once per test case, not once per function call.
+    if (!isset($run_once)) {
+
+      /**
+       * Enable required modules.
+       */
+
+      // http://drupal.org/node/610072 Currently setUp only accept one argument,
+      // this is a custom "Call parent::setUp()", to include more than just one
+      // module by childs of this class.
+      $args = func_get_args();
+      array_unshift($args, 
+        'profile',
+        'shindig_integrator',
+        'jquery_ui',
+        'remember_me',
+        'password_policy',
+        'locale',
+        'token',
+        'invite',
+        'user_relationships_api',
+        'user_relationships_ui',
+        'user_relationship_invites',
+        'user_relationship_blocks',
+        'user_relationship_mailer',
+        'os_poker',
+	'simple_payments'
+      );
+      call_user_func_array(array('parent', 'setUp'), $args);
+
+      /**
+       *  Set default application theme.
+       */
+  		$this->setTheme('poker');
+
+      /**
+       *  Set default application permissions.
+       */
+      // Enable permissions to 'anonymous user' and 'authenticated user'
+      $roles = array(
+        'authenticated user'
+      );
+      $permissions = array(
+        'send invitations',
+        'send mass invitations',
+        'track invitations',
+        'withdraw accepted invitations',
+        'view application canvas',
+        'access user profiles',
+        'can have relationships',
+        'maintain own relationships',
+        'view user relationships',
+      );
+      $result = $this->_add_permissions($roles, $permissions);
+
+
+      // Create a default node to be set as Front page
+
+
+      // Configure blocks and visibility..
+
+
+      global $os_poker_db_query_override;
+      $os_poker_db_query_override = "db_query";
+      os_poker_get_poker_app_id(TRUE);
+
+      $root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+      $this->drupalLogin($root);
+      $this->drupalPost('poker/first_profile', array(), t('Send'));
+      $this->drupalPost('admin/build/block',
+        array(
+          'os_poker_8[region]' => 'middle_content_right',
+          'os_poker_0[region]' => 'header',
+          'user_0[region]' => 'header'
+        ),
+      t('Save blocks'));
+    
+      // Enable brief header os poker block only for authenticated users.
+      $this->drupalPost('admin/build/block/configure/os_poker/0', array('roles[2]' => 1) , t('Save block'));
+
+      $this->drupalPost('admin/user/settings', array('user_register' => '1', 'user_email_verification' => FALSE, 'user_pictures' => '1'), t('Save configuration'));
+      $this->drupalPost('admin/settings/site-information', array('site_frontpage' => 'node'), t('Save configuration'));
+
+      // Creates password policy
+      $policy = array(
+        'name' => $this->randomName(),
+        'description' => $this->randomName(),
+        'constraint_length' => 6,
+      );
+      $this->drupalPost('admin/settings/password_policy/add', $policy, t('Create'));
+      $this->assertRaw(
+        t('Policy %name has been created.', array('%name' => $policy['name'])),
+        t('Minimum length password policy created.')
+      );
+
+
+      $this->drupalLogout($root);
+
+      // $run_once = TRUE;
+    }
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    global $os_poker_db_query_override;
+    $os_poker_db_query_override = "db_query";
+    parent::tearDown();
+  }
+
+
+
+  /**
+   * Completes the Sign up operation for an user.
+   *
+   * @param array $options valid "mail" and "pass" fields for sign up form
+   */
+  function OsPokerSignUpUser($options = array()){
+
+    // Set valid default values for the signup
+    $options += array(
+      'mail'    => $this->randomName() . '@' . $this->randomName() .".com",
+      'pass' => $this->randomName(),
+    );
+  	$this->drupalPost('', $options, t('Send'));
+
+    // Verify page is found and access is granted.
+    $this->assertResponse(
+      '200',
+      t("The Sign Up submission produces no errors.")
+    );
+
+    // Make sure the request has been redirected to first profile page.
+		$this->assertTrue(
+      strpos($this->getUrl(),
+      'poker/first_profile'),
+      t('Request redirected to profile page, signup accepted.')
+    );    
+
+  }
+
+  /**
+   * Completes the login operation (including registration form) for an user.
+   *
+   * @param stdClass $user objet to log in.
+   * @param array $profile options to complete registration.
+   */
+  function OsPokerLogin(stdClass $user, $profile = array()){
+
+    // First login using the login form.
+    $result = $this->drupalLogin($user);
+
+    // Fill the user profile.
+    $this->OsPokerProfileSubmit($profile);
+  }
+
+
+  /**
+   * Skips the profile submission
+   */
+  function OsPokerProfileSkip() {
+
+    // check if profile page is there..
+    $this->assertText(
+      t('Create your Profile'),
+      t('After first login the profile page is shown to the user.')
+    );
+
+    // Submit default form
+    $this->drupalPost('poker/first_profile', array(), t('Send'));
+
+    // Once submitted, the form should dissapear.
+    $this->assertNoField(
+      'profile_nickname',
+      t('User %name completed registration.', array('%name' => $user->name)),
+      t('User login')
+    );
+
+  }
+
+  /**
+   * Submits the user profile with default and optional values.
+   *
+   * Requires the user to be logged in and landed in profile page.
+   * @param array $profile information to be submitted.
+   */
+  function OsPokerProfileSubmit($profile = array()) {
+
+    // check if profile page is there..
+    $this->assertText(
+      t('Create your Profile'),
+      t('After first login the profile page is shown to the user.')
+    );
+
+    $profile += array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => t('Male'),
+      'profile_country'  => t('France'),
+      'profile_city'     => $this->randomName(),
+			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    $this->drupalPost('poker/first_profile', $profile, t('Send'));
+
+    // Once submitted, the form should dissapear.
+    $this->assertNoField(
+      'profile_nickname',
+      t('User %name completed registration.', array('%name' => $user->name)),
+      t('User login')
+    );
+
+    // Check that we are redirected to home ( / ) after completing the profile.
+    global $base_url;
+    $this->assertEqual(
+      $this->getUrl(),
+      $base_url . '/',
+      t('User is redirected to home page after profile submission.')
+    );
+  }
+
+  function OsPokerSendInvites($invites) {
+    if (!count ($invites)) {
+      return;
+    }
+
+    // build invite form with values..
+    $cntr = 1;
+    $invite = array();
+    foreach ($invites as $name => $email) {
+      $invite['name_' . $cntr] = $name;
+      $invite['mail_' . $cntr] = $email;
+      $cntr++;
+    }
+
+    // Submit the form.
+    $this->drupalPost('poker/buddies/invite', $invite, t('Send invite'));
+    // verify form is accepted.
+    $this->assertText(
+      t('been successfully sent. You will be notified when'),
+      t('Invitation(s) successfully sent.')
+    );
+
+    // verify the invitation has been tracked for this user.
+    $this->drupalGet('poker/buddies/invitedlist');
+    foreach ($invites as $name => $email) {
+      $this->assertText(
+        $email,
+        t('Invitation for %name is tracked.', array('%name' => $name))
+      );
+    }
+
+
+
+
+
+  }
+
+
+
+  /**
+   * Assert that the most recently sent e-mail message is an invitation for a
+   * user.
+   *
+   * @param $value
+   *   Value of the subject to assert.
+   * @param $message
+   *   Message to display.
+   * @return
+   *   TRUE on pass, FALSE on fail.
+   */
+  protected function assertInviteMail($value = '', $message = '') {
+    $captured_emails = variable_get('drupal_test_email_collector', array());
+    $email = end($captured_emails);
+    $this->assertTrue($email && isset($email['id']) && $email['id'] == 'invite_invite', t('Last sent email is an invitation.'), t('E-mail'));
+    return $this->assertTrue($email && isset($email['to']) && $email['to'] == $value, $message, t('E-mail'));
+  }
+
+
+  /**
+   * Enables a theme.
+   */
+  protected function setTheme($new_theme) {
+    $this->assertTrue(db_query("update {system} set status=1 where type = 'theme' and name = '%s'", $new_theme), "Theme: $new_theme set as default");
+    variable_set('theme_default', $new_theme);
+    unset($GLOBALS['theme']);
+    init_theme();
+  }
+
+  /**
+   * Assign permissions to roles
+   * Foreach entry in $roles, assign all entries in $permissions
+   *
+   * @param array $roles
+   * @param array $permissions
+   * @return array
+   *  List of messages for each role | permission pair
+   */
+  function _add_permissions($roles, $permissions) {
+    $ret = array();
+
+    foreach ($roles as $rid) {
+      if (is_numeric($rid)) {
+        $role = db_fetch_array(db_query("SELECT rid, name FROM {role} WHERE rid=%d", $rid));
+      }
+      else {
+        $role = db_fetch_array(db_query("SELECT rid, name FROM {role} WHERE name='%s'", $rid));
+      }
+      $role_permissions = explode(', ', db_result(db_query('SELECT perm FROM {permission} WHERE rid=%d', $role['rid'])));
+      $role_permissions = array_unique(array_merge($role_permissions, $permissions));
+      db_query('DELETE FROM {permission} WHERE rid = %d', $role['rid']);
+      db_query("INSERT INTO {permission} (rid, perm) VALUES (%d, '%s')", $role['rid'], implode(', ', $role_permissions));
+      $ret[] = array('success' => TRUE, 'query' => "Added " . implode(', ', $permissions) . ' permissions for ' . $role['name']);
+      $this->pass("Added " . implode(', ', $permissions) . ' permissions for ' . $role['name']);
+    }
+
+    return $ret;
+  }
+
+  /**
+   * Remove permissions to roles
+   * Foreach entry in $roles, remove all entries in $permissions
+   *
+   * @param array $roles
+   * @param array $permissions
+   * @return array
+   *  List of messages for each role | permission pair
+   */
+  function _remove_permissions($roles, $permissions) {
+    $ret = array();
+    foreach ($roles as $rid) {
+      if (is_numeric($rid)) {
+        $role = db_fetch_array(db_query("SELECT rid, name FROM {role} WHERE rid=%d", $rid));
+      }
+      else {
+        $role = db_fetch_array(db_query("SELECT rid, name FROM {role} WHERE name='%s'", $rid));
+      }
+      $role_permissions = explode(', ', db_result(db_query('SELECT perm FROM {permission} WHERE rid=%d', $role['rid'])));
+      $role_permissions = array_diff($role_permissions, $permissions);
+      db_query('DELETE FROM {permission} WHERE rid = %d', $role['rid']);
+      db_query("INSERT INTO {permission} (rid, perm) VALUES (%d, '%s')", $role['rid'], implode(', ', $role_permissions));
+      $ret[] = array('success' => TRUE, 'query' => "Removed " . implode(', ', $permissions) . ' permissions for ' . $role['name']);
+      $this->pass("Removed " . implode(', ', $permissions) . ' permissions for ' . $role['name']);
+    }
+
+    return $ret;
+  }
+
+  /**
+   * Overload drupal login function
+   */
+  protected function drupalLogin(stdClass $user) {
+    if ($this->loggedInUser) {
+      $this->drupalLogout();
+    }
+
+    $edit = array(
+      'name' => $user->name,
+      'pass' => $user->pass_raw
+    );
+    $this->drupalPost('user', $edit, t('Log in'));
+
+    // If a "log out" link appears on the page, it is almost certainly because
+    // the login was successful.
+    $pass = $this->assertNoField('name', t('User %name successfully logged in.', array('%name' => $user->name)), t('User login'));
+
+    if ($pass) {
+      $this->loggedInUser = $user;
+    }
+  }
+
+  /*
+   * Overload simpletest Logout function.
+   */
+  protected function drupalLogout() {
+    $this->drupalGet('logout', array('query' => 'destination=user'));
+    $pass = $this->assertField('name', t('Username field found.'), t('Logout'));
+    $pass = $pass && $this->assertField('pass', t('Password field found.'), t('Logout'));
+
+    if ($pass) {
+      $this->loggedInUser = FALSE;
+    }
+  }
+
+}

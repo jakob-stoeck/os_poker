@@ -1,0 +1,14 @@
+; $Id$
+name = Open Social Poker
+description = Pokermania World Open Social plugin
+dependencies[] = remember_me
+dependencies[] = shindig_integrator
+dependencies[] = invite
+dependencies[] = password_policy
+dependencies[] = simple_payments
+dependencies[] = user_relationships_api
+dependencies[] = user_relationships_ui
+dependencies[] = user_relationship_invites
+package = Other
+version = 0.1
+core = 6.x

@@ -1,0 +1,251 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.6 specification test case: Rewards workflow
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.6: Workflow "Rewards" test case
+ *
+ * Verifies rewards workflow is working according to specifications.
+ * Validates achivement of the player are visible on the profile.
+ *
+ * @assert: rewards are updated from application data, and displayed on profile
+ *
+ */
+class OSPokerSpecificationsRewards extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.6 Rewards',
+      'description' => 'Rewards functionality tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+   * Verify that rewards are updated from appdata, and displayed on profile
+   *
+   * The verification is done through these steps:
+   * - Set reward55 value to 1 in skel_user's appdata with timestamp = t
+   * - Go to profile page
+   * - rewards55 should be active
+   *
+   */
+
+  function createJPokerApplication() {
+    db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
+  }
+
+  function insertApplicationData($key, $value) {
+    $app_id = db_last_insert_id("{applications}", "id");
+    $this->assertEqual($app_id, db_last_insert_id("{applications}", "id)"));
+    db_query("INSERT INTO {application_settings} (application_id, user_id, name, value) VALUES(%d, %d, '%s', '%s')", $app_id, $this->skel_user->uid, $key, $value);
+  }
+
+  function testRewardsFromAppData(){
+
+    /**
+     * Go to here.
+     */
+    $this->createJPokerApplication();
+    $this->insertApplicationData('reward55', time());
+    $this->drupalGet('poker/profile/rewards');
+    $this->assertRaw('<div title="Player buys a gift for every player at the table, aggregate value more than 10.000 Chips" class="mask disabled">', 'reward54 should be inactive');
+    $this->assertRaw('<div title="Player wins with a royal flush" class="mask ">', 'reward55 should be active' );
+  }
+
+
+
+/*
++ The Millionaires Club Player has a peek chip count of 1.000.000 chips SN
+Strike! all bronze, silver and goild achievements complete SN
+Big Spender Player buys a gift for every player at the table, aggregate value more than 100.000 Chips SN
+*/
+
+  function testSNOtherRewards()
+  {
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+
+     $this->drupalLogin($this->skel_user);
+
+        /*The Millionaires Club Player has a peek chip count of 1.000.000 chips SN*/
+
+   $player = CUserManager::instance()->User($this->skel_user->uid);
+   $player->chips = 1000042;
+   $player->Save();
+
+     $this->drupalGet('poker/profile/rewards');
+     $this->assertTrue(TRUE, $this->drupalGetContent());
+
+	  $reward_key = "reward40"; // The Millionaires Club
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "GETTING MORE THAN 1M Chips => REWARDED : The Millionaires Club");
+  }
+
+
+/*
++ Follow me I Player has at least 2 successful invitations SN
++ Be my Buddy I Player has at least 5 buddies SN
++ Randy Dandy Player has at least 5 successful invitations SN
++ Lounge Lizard Player has at least 10 buddies SN
++ Party Animal Player has at least 25 successful invitations SN
++ Cool Dude Player has at least 50 buddies SN
++ Invitation King Player has at least 50 successful invitations SN
++ Buddy King Player has at least 100 buddies SN
+*/
+
+  function _testSNBuddiesRewards()
+  {
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+
+	if (function_exists('set_time_limit'))
+       {
+               //script execution time fixed to 10mn
+               @set_time_limit(600);
+       }
+
+        /*The Millionaires Club Player has a peek chip count of 1.000.000 chips SN*/
+
+
+    for ($i = 0; $i < 51; $i++)
+    {
+     $this->drupalLogin($this->skel_user);
+
+        /*Follow me I Player has at least 2 successful invitations SN*/
+	if ($i == 2)
+	{
+	  $reward_key = "reward17"; // Follow me I
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER 2 INVITES => REWARDED : Follow me I");
+	}
+
+	/*Be my Buddy I Player has at least 5 buddies SN*/
+	if ($i == 5)
+	{
+	  $reward_key = "reward16"; // Be my Buddy I
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Be my Buddy I");
+	}
+
+        /*Randy Dandy Player has at least 5 successful invitations SN*/
+	if ($i == 5)
+	{
+	  $reward_key = "reward37"; // Randy Dandy
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Randy Dandy");
+	}
+	
+	/*Lounge Lizard Player has at least 10 buddies SN*/
+	if ($i == 10)
+	{
+	  $reward_key = "reward36"; // Lounge Lizard
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Lounge Lizard");
+	}
+
+	/*Lounge Lizard Player has at least 10 buddies SN*/
+	if ($i == 25)
+	{
+	  $reward_key = "reward52"; // Party Animal
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Party Animal");
+	}
+
+	/*Cool Dude Player has at least 50 buddies SN*/
+	if ($i == 50)
+	{
+	  $reward_key = "reward51"; // Cool Dude
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Cool Dude");
+	}
+
+	/*Invitation King Player has at least 50 successful invitations SN*/
+	if ($i == 50)
+	{
+	  $reward_key = "reward63"; // Invitation King
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Invitation King");
+	}
+
+	/*Buddy King Player has at least 100 buddies SN*/
+	if ($i == 100)
+	{
+	  $reward_key = "reward62"; // Buddy King
+	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
+	  $this->assertEqual($this->skel_user->uid, $reward_uid, "AFTER $i INVITES => REWARDED : Buddy King");
+	}
+
+
+		$name = $this->randomName();
+		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		$this->OsPokerSendInvites(array($name => $email));
+     $this->drupalLogout();
+
+		$mail_queue = end($this->drupalGetMails());
+		$code = $mail_queue['params']['invite']->code;
+		$this->drupalGet('invite/accept/'. $code);
+		$password = $this->randomName();
+		$options = array(
+		  'name'        => $name,
+		  'pass[pass1]' => $password,
+		  'pass[pass2]' => $password,
+		);
+		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
+     $this->drupalLogout();
+
+    }
+
+     $this->drupalLogin($this->skel_user);
+     $this->drupalGet('poker/buddies');
+     $this->assertTrue(TRUE, $this->drupalGetContent());
+     $this->drupalGet('poker/profile/rewards');
+     $this->assertTrue(TRUE, $this->drupalGetContent());
+
+
+  }
+
+
+
+}

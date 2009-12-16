@@ -1,0 +1,245 @@
+<?php
+
+/**
+ * Implementation of hook_schema().
+ */
+function os_poker_schema()
+{
+	$schema['poker_item'] = array(
+									'description' => t('Contains items for gifts'),
+									'fields' => array(
+														'id_item' => 	array(
+																			'type' => 'serial',
+																			'unsigned' => TRUE,
+																			'not null' => TRUE,
+																		),
+														'id_category' => 	array(
+																			'type' => 'int',
+																			'unsigned' => TRUE,
+																			'not null' => TRUE,
+																		),
+														'picture' => 	array(
+																			'type' => 'varchar',
+																			'length' => 255,
+																			'not null' => FALSE,
+																		),
+														'name' => 	array(
+																			'type' => 'varchar',
+																			'length' => 32,
+																			'not null' => TRUE,
+																	),
+														'price' => 	array(
+																			'type' => 'int',
+																			'unsigned' => TRUE,
+																			'not null' => TRUE,
+																	),
+														'available' => 	array(
+																			'type' => 'int',
+																			'size' => 'tiny',
+																			'unsigned' => TRUE,
+																			'not null' => TRUE,
+																			'default' => 1,
+																	),
+														'ttl' => 	array(
+																			'type' => 'varchar',
+																			'not null' => FALSE,
+																			'length' => 32,
+																		),
+												),
+									'primary key' => array('id_item'),
+									'indexes' => 	array(
+														'index_category' => array('id_category'),
+													),
+									'unique keys' => 	array(
+															'unique_name' => array('name', 'id_category'),
+														),
+							);
+							
+	$schema['poker_category'] = array(
+										'description' => t('Items categories'),
+										'fields' => array(
+															'id_category' => 	array(
+																						'type' => 'serial',
+																						'unsigned' => TRUE,
+																						'not null' => TRUE,
+																					),
+															'name' => 	array(
+																				'type' => 'varchar',
+																				'length' => 32,
+																				'not null' => TRUE,
+																		),
+														),		
+										'primary key' => array('id_category'),
+										'unique keys' => 	array(
+																	'unique_name' => array('name'),
+															),
+								);
+								
+	$schema['poker_operation'] = 	array(
+											'description' => t('Items user operations'),
+											'fields' => array(
+																'id_operation' => 	array(
+																						'type' => 'serial',
+																						'unsigned' => TRUE,
+																						'not null' => TRUE,
+																					),
+																'id_item' => 	array(
+																						'type' => 'int',
+																						'unsigned' => TRUE,
+																						'not null' => TRUE,		
+																				),
+																'uid' => 	array(
+																						'type' => 'int',
+																						'unsigned' => TRUE,
+																						'not null' => TRUE,		
+																				),
+																'source_uid' => 	array(
+																							'type' => 'int',
+																							'unsigned' => TRUE,
+																							'not null' => TRUE,		
+																					),
+																'tstamp' => 	array(
+																							'type' => 'datetime',
+																							'not null' => TRUE,		
+																					),
+														),
+											'primary key' => array('id_operation'),
+											'indexes' => 	array(
+																	'index_operation' => array('id_item', 'uid', 'tstamp'),
+																	'index_gift' => array('id_item', 'uid', 'source_uid'),
+															),
+									);
+									
+	$schema['poker_scheduler'] = 	array(
+													'description' => t('Task scheduler'),
+													'fields' => array(
+																		'id_task' => 	array(
+																								'type' => 'serial',
+																								'unsigned' => TRUE,
+																								'not null' => TRUE,
+																						),
+																		'uid' => 	array(
+																						'type' => 'int',
+																						'unsigned' => TRUE,
+																						'not null' => TRUE,		
+																					),
+																		'type' => array(
+																						'type' => 'varchar',
+																						'length' => 32,
+																						'not null' => TRUE,	
+																					),
+																		'trigger' => array(
+																						'type' => 'varchar',
+																						'length' => 256,
+																						'not null' => TRUE,	
+																					),
+																		'arguments' => array(
+																						'type' => 'varchar',
+																						'length' => 1024,
+																						'not null' => FALSE,	
+																					),
+																		'moment' => 	array(
+																							'type' => 'datetime',
+																							'not null' => TRUE,		
+																					),
+																		'visible' => 	array(
+																							'type' => 'int',
+																							'size' => 'tiny',
+																							'not null' => TRUE,
+																							'default' => 0,	
+																					),
+																),
+													'primary key' => array('id_task'),
+													'indexes' =>	array(
+																		'index_user' => array('uid'),
+																	),
+											);
+											
+	$schema['poker_user_ext'] = 	array(
+											'description' => t('User extension'),
+											'fields' => array(
+																'uid' => 	array(
+																				'type' => 'int',
+																					'unsigned' => TRUE,
+																					'not null' => TRUE,		
+																			),
+																'id_operation' => 	array(
+																					'type' => 'int',
+																					'unsigned' => TRUE,	
+																				),
+																'last_gift' => 	array(
+																					'type' => 'datetime',
+																					'not null' => FALSE,
+																				),
+																'complete_profile' => 	array(
+																					'type' => 'int',
+																					'size' => 'tiny',
+																					'not null' => TRUE,
+																					'default' => 0,	
+																				),
+																'dirty_flags' =>	array(
+																							'type' => 'int',
+																							'unsigned' => TRUE,
+																							'not null' => TRUE,	
+																							'default' => 0,																								
+																					),
+																
+														),
+											'primary key' => array('uid'),
+										);
+	
+	return $schema;
+}
+
+/**
+* Implementation of hook_install().
+*/
+
+function os_poker_install()
+{
+	//Set module weight lower than user module (to overload hook_user)
+	$res = db_query("SELECT `weight` FROM {system} WHERE `name`='user' LIMIT 1");
+	
+	if ($res)
+	{
+		$weight = db_result($res);
+		$weight -= 1;
+		
+		db_query("UPDATE {system} SET `weight`={$weight} WHERE `name`='os_poker'");
+	}
+	
+	db_query("INSERT IGNORE INTO `{profile_fields}` 
+			VALUES (1,'First name','profile_fname','','Personal information','','textfield',-4,0,0,4,0,''),
+			(2,'Last name','profile_lname','','Personal information','','textfield',-3,0,0,4,0,''),
+			(9,'Nickname','profile_nickname','','Personal information','','textfield',-10,1,0,2,0,''),
+			(4,'Date of Birth','profile_dob','','Personal information','','date',-8,0,0,2,0,''),
+			(5,'City','profile_city','','Personal information','','textfield',-7,0,0,2,0,''),
+			(10,'Country','profile_country','','Personal information','','selection',-6,0,0,2,0,'France\r\nGermany'),
+			(7,'Interested in','profile_interest','','Personal information','','textfield',-5,0,0,4,0,''),
+			(8,'Gender','profile_gender','','Personal information','','selection',-9,0,0,2,0,'Male\r\nFemale\r\nDon\'t Display\r\n'),
+			(11,'I don\'t accept gifts','profile_accept_gifts','','Personal information','','checkbox',0,0,0,1,0,''),
+			(12,'Ignore all new buddy request','profile_ignore_buddy','','Personal information','','checkbox',0,0,0,1,0,''),
+			(13,'Please notify me by email whenever I receive a message','profile_email_notify','','Personal information','','checkbox',0,0,0,1,0,''),
+			(14,'I wish to receive the weekly email newsletter','profile_newsletter','','Personal information','','checkbox',0,0,0,1,0,''),
+			(15,'I wish to receive emails in HTML-format','profile_html_email','','Personal information','','checkbox',0,0,0,1,0,'')
+	");
+	
+	db_query("INSERT IGNORE INTO `{user_relationship_types}` VALUES (1,'buddy','buddies',0,1,10)");
+
+	//db_query("INSERT IGNORE INTO `{blocks_roles}` VALUES ('menu','primary-links',1),('menu','primary-links',2),('menu','secondary-links',2),('os_poker','0',2),('os_poker','2',2),('os_poker','3',2),('os_poker','3',3),('os_poker','4',2),('os_poker','5',2),('os_poker','6',2),('os_poker','7',1),('os_poker','8',1),('user','0',1),('user','1',3)");
+
+	//db_query("INSERT IGNORE INTO `{blocks}` VALUES (1,'user','0','garland',1,0,'left',0,0,0,'','',-1),(2,'user','1','garland',1,0,'left',0,0,0,'','',-1),(3,'system','0','garland',1,10,'footer',0,0,0,'','',-1),(4,'system','0','poker',0,-5,'',0,0,0,'','',-1),(5,'user','0','poker',1,-10,'header',0,0,0,'','',-1),(6,'user','1','poker',1,-10,'left',0,0,0,'','',-1),(8,'menu','primary-links','poker',1,-10,'navbar',0,0,0,'','',-1),(9,'menu','secondary-links','poker',1,-6,'navbar',0,0,0,'','',-1),(10,'node','0','poker',0,-1,'',0,0,0,'','',-1),(11,'profile','0','poker',0,-6,'',0,0,0,'','',5),(12,'user','2','poker',0,1,'',0,0,0,'','',1),(13,'user','3','poker',0,-4,'',0,0,0,'','',-1),(14,'shindig_integrator','0','poker',0,-3,'',0,0,0,'','',1),(15,'os_poker','0','poker',1,0,'header',0,0,0,'','',1),(16,'os_poker','1','poker',1,-10,'footer',0,0,0,'','',1),(17,'os_poker','2','poker',1,-10,'bottom_content',0,0,0,'','',1),(46,'user_relationship_blocks','my-1','poker',0,-9,'',0,0,0,'','',-1),(18,'os_poker','3','poker',1,-9,'middle_content_left',0,0,0,'','',1),(19,'os_poker','4','poker',1,-9,'middle_content_right',0,0,0,'','',1),(20,'os_poker','5','poker',1,-10,'middle_content_left',0,0,0,'','',1),(21,'os_poker','6','poker',1,-10,'middle_content_right',0,0,0,'','',1),(40,'invite','0','poker',0,-8,'',0,0,0,'','',1),(22,'comment','0','minnelli',0,-7,'left',0,0,0,'','',1),(23,'menu','primary-links','minnelli',1,-10,'left',0,0,0,'','',-1),(24,'menu','secondary-links','minnelli',1,-6,'left',0,0,0,'','',-1),(25,'node','0','minnelli',0,-6,'left',0,0,0,'','',-1),(26,'os_poker','0','minnelli',1,0,'header',0,0,0,'','',1),(27,'os_poker','1','minnelli',1,-8,'footer',0,0,0,'','',1),(28,'os_poker','2','minnelli',1,0,'left',0,0,0,'','',1),(29,'os_poker','3','minnelli',1,-9,'left',0,0,0,'','',1),(30,'os_poker','4','minnelli',1,-8,'left',0,0,0,'','',1),(31,'os_poker','5','minnelli',1,-10,'left',0,0,0,'','',1),(32,'os_poker','6','minnelli',1,-10,'left',0,0,0,'','',1),(33,'profile','0','minnelli',0,-10,'left',0,0,0,'','',5),(34,'shindig_integrator','0','minnelli',0,-8,'left',0,0,0,'','',1),(35,'system','0','minnelli',0,-9,'left',0,0,0,'','',-1),(36,'user','0','minnelli',1,-10,'header',0,0,0,'','',-1),(37,'user','1','minnelli',1,-10,'left',0,0,0,'','',-1),(38,'user','2','minnelli',0,-5,'left',0,0,0,'','',1),(39,'user','3','minnelli',1,-9,'left',0,0,0,'','',-1),(41,'user_relationship_blocks','my-all','poker',0,0,'',0,0,0,'','',-1),(42,'user_relationship_blocks','user-all','poker',0,-7,'',0,0,0,'','',-1),(43,'user_relationship_blocks','pending','poker',0,2,'',0,0,0,'','',-1),(44,'user_relationship_blocks','actions','poker',0,-10,'',0,0,0,'','',-1),(45,'locale','0','poker',1,-10,'right',0,0,0,'','',-1),(47,'user_relationship_blocks','user-1','poker',0,-10,'',0,0,0,'','',-1),(50,'invite_stats','0','poker',0,0,'',0,0,0,'','',1),(48,'os_poker','7','poker',1,0,'middle_content_left',0,0,0,'','',1),(49,'os_poker','8','poker',1,0,'middle_content_right',0,0,0,'','',1)");
+	
+	$result = drupal_install_schema('os_poker');
+}
+
+
+/**
+* Implementation of hook_uninstall().
+*/
+
+function os_poker_uninstall()
+{
+	$result = drupal_uninstall_schema('os_poker');
+	return $result;
+}

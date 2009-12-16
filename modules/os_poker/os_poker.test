@@ -1,0 +1,605 @@
+<?php
+
+global $TEST;
+$TEST = TRUE;
+
+function db_query_false() {
+	return FALSE;
+}
+
+class OSPokerTestCase extends DrupalWebTestCase
+{
+	/**
+	* Members
+	*/
+	
+	private $_current_user = NULL;
+	
+	/**
+	* Implementation of getInfo().
+	*/
+	
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker'),
+						'description' => t('Open Social Poker unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'jquery_ui', 'remember_me', 'os_poker', 'locale');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+		$this->_current_user = $this->drupalCreateUser(array('administer users'));
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+	
+	/**
+	* Test with not logged in ontext
+	*/
+
+	function	testAnonymousBrowserTests()
+	{
+		$this->assertTrue(TRUE, "Running tests");
+		
+		$this->drupalGet("");
+		$this->assertResponse(200, t('Front page is accessible.'));
+	}
+		
+	/**
+	* Test with logged in ontext
+	*/
+	
+	function	testUserBrowserTests()
+	{
+		$this->assertTrue(TRUE, "Running tests");
+		
+		$this->drupalLogin($this->_current_user);
+		
+		$this->drupalGet("");
+		$this->assertResponse(200, t('Front page is accessible.'));
+		
+	}
+	
+	
+}
+
+class OSPokerUserTestCase extends DrupalWebTestCase
+{
+	/**
+	* Members
+	*/
+	
+	private $_current_user = NULL;
+	
+	/**
+	* Implementation of getInfo().
+	*/
+	
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker User'),
+						'description' => t('Open Social Poker User unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'invite', 'remember_me', 'os_poker', 'locale');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+		$this->_current_user = $this->drupalCreateUser(array('administer users'));
+		$profile = array();
+		$profile["profile_fname"] = "foo_fname";
+		$profile["profile_lname"] = "foo_lname";
+		$profile["profile_nickname"] = "foo_nickname";
+		$profile["profile_city"] = "foo_city";
+		$profile["profile_country"] = "foo_country";
+		$profile["profile_interest"] = "foo_interest";
+		$profile["profile_gender"] = "foo_gender";
+		profile_save_profile($profile, $this->_current_user, "Personal information", FALSE);
+		db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
+		db_query("INSERT INTO {application_settings} (application_id, user_id, name, value) VALUES(%d, %d, 'money', '%s')", db_last_insert_id("{applications}", "id"), $this->_current_user->uid, json_encode(array("1" => 100000)));
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+
+	function	testUserManagerClass()
+	{
+		$userManager = CUserManager::instance(TRUE);
+		$uid = $this->_current_user->uid;
+		$user1 = $userManager->User($uid);
+		$this->assertNotNull($user1);
+		$user2 = $userManager->User($uid);
+		$this->assertEqual($user1, $user2);	
+		$userList = $userManager->UserList(array($uid,2));
+		$this->assertEqual($user1, $userList[0]);
+		$this->assertNull($userList[1]);
+		$this->assertNotNull($userManager->CurrentUser());
+	}
+
+	function	testUserClass()
+	{
+		$userManager = CUserManager::instance(TRUE);
+		$uid = $this->_current_user->uid;
+		$user = $userManager->User($uid);
+		$this->assertTrue($user->IsOSUser());
+		$this->assertEqual($this->_current_user->uid, $user->DrupalUser()->uid);
+		$this->assertNull($user->foo);
+		$this->assertNotNull($user->picture);
+		$this->assertEqual("foo_gender", $user->profile_gender);
+		$user->profile_gender = "bar_gender";
+		$this->assertEqual("bar_gender", $user->profile_gender);
+		$money = $user->money[1];
+		$this->assertEqual(100000, $money, "user money is: $money should be 100000");
+		$user->money = array(1 => 5000050);
+		$money = $user->money[1];
+		$this->assertEqual(5000050, $money, "user money is: $money should be 5000050");
+		$chips = $user->Chips();
+		$this->assertEqual(50000.5, $chips, "user chips is: $chips should be 50000.5");
+		$chips = $user->Chips(TRUE);
+		$this->assertEqual("$ 50,001", $user->Chips(TRUE), "user chips is: $chips should be equals to $ 50,001");
+	}
+	
+	function	testUserClassInvalid()
+	{
+		try
+		{
+			$invalidUser = new CUser(42);
+		}
+		catch (Exception $e)
+		{
+			$this->assertNull($invalidUser);
+		}
+	}
+	
+	function	testUserClassDefaultChips()
+	{
+		$duser2 = $this->drupalCreateUser(array('administer users'));
+		$userManager = CUserManager::instance(TRUE);
+		$user2 = $userManager->User($duser2->uid);
+		$this->assertNotNull($user2);
+		$this->assertEqual(1000, $user2->Chips(), "user chips is: " . $user2->Chips() . " should be equals to 1000");
+	}
+
+	function	testUserClassSetChips()
+	{
+		$duser2 = $this->drupalCreateUser(array('administer users'));
+		$userManager = CUserManager::instance(TRUE);
+		$user2 = $userManager->User($duser2->uid);
+		$this->assertNotNull($user2);
+		$user2->chips = 500.5;
+		$this->assertEqual(500.5, $user2->Chips(), "user chips is: " . $user2->Chips() . " should be equals to 500.5");
+	}
+
+//  	function	testUserClassSave()
+// 	{
+// 		$userManager = CUserManager::instance(TRUE);
+// 		$uid = $this->_current_user->uid;
+// 		$user = $userManager->User($uid);
+// 		$this->assertNotNull($user);
+// 		$user->chips = 42.42;
+// 		$user->Save();
+// 		$money = json_decode(db_fetch_object(db_query("SELECT `name`, `value` FROM `{application_settings}` WHERE `application_id`=%d AND `user_id`=%d", os_poker_get_poker_app_id(), $uid))->value, TRUE);
+// 		$this->assertEqual(4242, $money["1"], "user money is: " . $money[1] . "should be 4242");		
+// 		$user->profile_nickname = "new_nickname"; 
+// 		$user->Save();
+// 		$result = db_fetch_object(db_query("select * from {profile_values} where uid = %d and fid = 9", $uid));
+// 		$profile_nickname = $result->value;
+// 		$this->assertEqual("new_nickname", $profile_nickname, "profile_nickname is: $profile_nickname should be: new_nickname");
+// 	}
+	
+	function	testUserClassOnline()
+	{
+		$userManager = CUserManager::instance(TRUE);
+		$uid = $this->_current_user->uid;
+		$user = $userManager->User($uid);
+		$this->drupalLogin($this->_current_user);
+		$this->assertTrue($user->Online());
+		$this->drupalLogout($this->_current_user);
+		$this->assertFalse($user->Online());
+		$this->drupalLogin($this->_current_user);
+		$this->assertTrue($user->Online());
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query_false";
+		$this->assertFalse($user->Online());
+	}
+
+	function	testUserClassBuddies() {
+		$userManager = CUserManager::instance(TRUE);
+		$uid = $this->_current_user->uid;
+		$user = $userManager->User($uid);
+		$duser2 = $this->drupalCreateUser(array('administer users'));
+		$user2 = $userManager->User($duser2->uid);
+		$buddies = $user->Buddies();
+		$this->assertEqual(0, count($buddies));
+		$buddies = $user->Buddies(TRUE);
+		$this->assertEqual(0, count($buddies));
+		$relationship_type = user_relationships_type_load(array("name" => "buddy"));
+		$relationship = user_relationships_request_relationship($this->_current_user->uid, $duser2->uid, $relationship_type, TRUE);
+		$this->assertNotNull($relationship);
+		$buddies = $user->Buddies();
+		$this->assertEqual(1, count($buddies));
+		$this->assertEqual($duser2->uid, $buddies[0]);
+		$buddies = $user->Buddies(TRUE);
+		$this->assertEqual(1, count($buddies));
+		$this->assertEqual($duser2->uid, $buddies[0]->DrupalUser()->uid);
+	}
+
+	function	testUserClassSearchUsers() {
+	
+		$params = array();
+		
+		$userManager = CUserManager::instance(TRUE);
+		
+		//
+		$u = $this->drupalCreateUser(array('administer users'));
+		$pu = $userManager->User($u->uid);
+		$pu->profile_nickname = $u->name;
+		$pu->profile_country = "France";
+		$pu->profile_city = "Nantes";
+		$pu->profile_gender = "Female";
+		$pu->Save();
+		$this->assertNotNull($pu, "CUser created");				
+		//
+		$u = $this->drupalCreateUser(array('administer users'));
+		$pu = $userManager->User($u->uid);
+		$pu->profile_country = "France";
+		$pu->profile_city = "Nantes";
+		$pu->profile_gender = "Male";
+		$pu->profile_nickname = $u->name;
+		$pu->Save();
+		$this->assertNotNull($pu, "CUser created");				
+		//
+		$u = $this->drupalCreateUser(array('administer users'));
+		$pu = $userManager->User($u->uid);
+		$pu->profile_country = "France";
+		$pu->profile_city = "Paris";
+		$pu->profile_gender = "Female";
+		$pu->profile_nickname = $u->name;
+		$pu->Save();
+		$this->assertNotNull($pu, "CUser created");				
+		//
+		$u = $this->drupalCreateUser(array('administer users'));
+		$pu = $userManager->User($u->uid);
+		$pu->profile_country = "France";
+		$pu->profile_city = "Orléan";
+		$pu->profile_nickname = $u->name;
+		$pu->Save();
+		$this->assertNotNull($pu, "CUser created");				
+		//
+		$u = $this->drupalCreateUser(array('administer users'));
+		$pu = $userManager->User($u->uid);
+		$pu->profile_nickname = $u->name;
+		$pu->profile_gender = "Female";
+		$pu->Save();
+		$this->assertNotNull($pu, "CUser created");		
+
+
+		$allusers = $userManager->SearchUsers($params);
+		
+		//User search without param returns all
+		$this->assertEqual(count($allusers), 6, "6 Users found");
+		
+		$params["profile_country"] = "France";
+		$allusers = $userManager->SearchUsers($params);
+		$this->assertEqual(count($allusers), 4, "4 Users from France");
+		
+		$params["profile_city"] = "Nantes";
+		$allusers = $userManager->SearchUsers($params);
+		$this->assertEqual(count($allusers), 2, "2 Users from France/Nantes");
+		
+		$params["profile_gender"] = "Female";
+		$allusers = $userManager->SearchUsers($params);
+		$this->assertEqual(count($allusers), 1, "1 Female User from France/Nantes");
+	}
+}
+
+class OSPokerFormTestCase extends DrupalWebTestCase
+{
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker Form'),
+						'description' => t('Open Social Poker Form unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'jquery_ui', 'remember_me', 'os_poker', 'locale');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+		$this->_current_user = $this->drupalCreateUser(array('administer users'));
+		$profile = array();
+		$profile["profile_fname"] = "foo_fname";
+		$profile["profile_lname"] = "foo_lname";
+		$profile["profile_nickname"] = "foo_nickname";
+		$profile["profile_city"] = "foo_city";
+		$profile["profile_country"] = "foo_country";
+		$profile["profile_interest"] = "foo_interest";
+		$profile["profile_gender"] = "foo_gender";
+		profile_save_profile($profile, $this->_current_user, "Personal information", FALSE);
+		$this->drupalLogin($this->_current_user);
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+
+	function	testUserLoginBlockAlter()
+	{
+		$form = drupal_get_form('user_login_block');
+		$this->assertTrue(strstr($form, 'os_poker_submit'));
+	}
+
+	function	testGadget()
+	{
+		$this->assertNull(os_poker_gadget());
+		db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
+		$id = os_poker_get_poker_app_id();
+		$this->assertTrue($id, "jpoker application id should not be null: $id");
+		$gadget = os_poker_gadget();
+		$this->assertTrue(strstr($gadget, 'iframe'));
+	}
+}
+
+class OSPokerHookTestCase extends DrupalWebTestCase
+{
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker Hook'),
+						'description' => t('Open Social Poker Hook unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'password_policy', 'remember_me', 'os_poker', 'locale', 'simple_payments');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+
+	function	testPreprocessPage()
+	{
+		$variable = array();
+		$_REQUEST["view"] = "foo";
+		$_REQUEST["game_id"] = 42;
+		os_poker_preprocess_page(&$variable);
+		$this->assertEqual("foo", $variable["pokerview"]);
+		$this->assertEqual(42, $variable["pokertableid"]);
+		$this->assertTrue(strstr($variable["signup_terms"], "terms"));
+	}
+	
+	function	testInit()
+	{
+		os_poker_init();
+		$js = drupal_get_js();
+		$this->assertTrue(strstr($js, 'os_poker_goto_table'));
+		$this->assertTrue(strstr($js, 'os_poker_goto_lobby'));
+	}
+
+	function	testTheme()
+	{
+		$theme = os_poker_theme();
+		$this->assertEqual('user_header_brief', $theme['os_poker_header_user_brief']['template']);
+	}
+
+	function	testMenu()
+	{
+		$menu = os_poker_menu();
+		$this->assertEqual('os_poker_pages.php', $menu['poker/first_profile']['file']);
+	}
+
+	function	testPokerBlock()
+	{
+		$block = os_poker_block('view', 0);
+		$this->assertEqual(t('OS header user brief'), $block['subject']);
+		$block = os_poker_block('view', 1);
+		$this->assertEqual(t('Footer information'), $block['subject']);
+		$block = os_poker_block('view', 2);
+		$this->assertEqual(t('Buddielist'), $block['subject']);
+		$block = os_poker_block('view', 3);
+		$this->assertEqual(t('Poker Gadjet'), $block['subject']);
+		$block = os_poker_block('view', 4);
+		$this->assertEqual(t('Who is at that Table'), $block['subject']);
+		$block = os_poker_block('view', 5);
+		$this->assertEqual(t('OS user brief'), $block['subject']);
+		$block = os_poker_block('view', 6);
+		$this->assertEqual(t('Play now !'), $block['subject']);
+		$block = os_poker_block('view', 7);
+		$this->assertEqual(t('Teaser'), $block['subject']);
+		$block = os_poker_block('view', 8);
+		$this->assertEqual(t('Home sign up'), $block['subject']);
+		$block = os_poker_block('view', 9);
+		$this->assertEqual(t('Home News'), $block['subject']);
+		$block = os_poker_block('view', 10);
+		$this->assertEqual(t('Home Promotion'), $block['subject']);
+		$block = os_poker_block('view', 11);
+		$this->assertEqual(t('Language bar'), $block['subject']);
+		
+	}
+}
+
+class OSPokerToolkitTestCase extends DrupalWebTestCase
+{
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker Toolkit'),
+						'description' => t('Open Social Poker Toolkit unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'jquery_ui', 'remember_me', 'os_poker', 'locale');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+
+	function	testGetPokerAppId()
+	{
+		$this->assertFalse(os_poker_get_poker_app_id());
+		db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
+		$id = db_last_insert_id("{applications}", "id");
+		$this->assertEqual($id, os_poker_get_poker_app_id());
+	}
+
+	function	testOnlineUsers()
+	{
+		$user = $this->drupalCreateUser(array('administer users'));
+
+		$online = os_poker_online_users();
+		$this->assertEqual(0, $online, "users should be: 0, current: $online");
+		$this->drupalLogin($user);		
+		$online = os_poker_online_users();
+		$this->assertEqual(1, $online, "users should be: 1, current: $online");
+		$this->drupalLogout($user);
+		$online = os_poker_online_users();
+		$this->assertEqual(0, $online, "users should be: 0, current: $online");
+	}
+
+	function	testDbQuery()
+	{
+		global $os_poker_db_query_override;
+		$this->assertEqual(42, db_result(os_poker_db_query("SELECT 42")));		
+		function db_query_24() {
+		  return 24;
+		}
+		$os_poker_db_query_override = "db_query_24";
+		$this->assertEqual(24, os_poker_db_query("SELECT 42"));
+	}
+}
+
+class OSPokerThemeTestCase extends DrupalWebTestCase
+{
+	function getInfo()
+	{
+		return array(
+						'name' => t('OS Poker Theme'),
+						'description' => t('Open Social Poker Theme unit tests'),
+						'group' => 'OS Poker',
+					);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+
+	function setUp()
+	{
+		parent::setUp('profile', 'shindig_integrator', 'user_relationships_api', 'user_relationships_ui', 'user_relationship_invites', 'user_relationship_blocks', 'user_relationship_mailer', 'jquery_ui', 'remember_me', 'os_poker', 'locale');
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		os_poker_get_poker_app_id(TRUE);
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+
+	function tearDown()
+	{
+		global $os_poker_db_query_override;
+		$os_poker_db_query_override = "db_query";
+		parent::tearDown();
+	}
+
+	function	testPreprocessUserLoginBlock()
+	{
+		$variables = array();
+		poker_preprocess_user_login_block(&$variables);
+		$this->assertNotNull($variables['f_links']);
+	}
+
+	function	testPokerTheme()
+	{
+		$theme = poker_theme();
+		$this->assertEqual('user_login', $theme['user_login_block']['template']);
+	}
+}
+
+?>

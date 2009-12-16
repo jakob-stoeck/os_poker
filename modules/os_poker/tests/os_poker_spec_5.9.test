@@ -1,0 +1,115 @@
+<?php
+// $Id$
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.9: "Get Chips" test case
+ *
+ * Verifies "Get Chips" page is working according to specifications.
+ * Validates layout
+ *
+in a separate tab :
+initialize a paypal sandbox session
+https://sandbox.paypal.com/cgi-bin/webscr
+log in with cmirey@persistant.fr / testtest
+in poker site :
+login root / root
+go to shop
+click on get chips tab
+select an amount
+click buy chips
+login with fake paypal account : poker_1259758311_per@persistant.fr / testtest
+verify
+pay (automatic redirection to poker site)
+=> go to http://drupal-dev.pokersource.info/drupal6/?q=admin/reports/dblog to verify the IPN validation and amount value
+ 
+ * 
+ * @assert: Chips packages are present, with the good value/amount of chips
+ *
+ */
+class OSPokerGetChips extends OsPokerWebTestCase {
+
+	 protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.9 Get Chips (Shop system)',
+      'description' => 'Get Chips page tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+	
+	 /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+	/**
+	* Verify packages predefined packages matches.
+	*
+	*	75.000 = 5 EUR
+	*	150.000 = 10 EUR
+	*	400.000 = 20 EUR
+	*	1.000.000 = 50 EUR
+	*	2.500.000 = 100 EUR
+	*	5.000.000 = 150 EUR
+    */
+	
+  function testChipsPackages()
+  {
+	$this->drupalGet('poker/shop/get_chips');
+
+/*$this->assertTrue(TRUE, $this->drupalGetContent());*/
+  
+	$this->assertText(
+      t('75.000 Chips for €5'),
+      t('75.000 Chips for €5')
+    );  
+	$this->assertText(
+      t('150.000 Chips for €10'),
+      t('150.000 Chips for €10')
+    );  
+	$this->assertText(
+      t('400.000 Chips for €20'),
+      t('400.000 Chips for €20')
+    );  
+	$this->assertText(
+      t('1.000.000 Chips for €50'),
+      t('1.000.000 Chips for €50')
+    );  
+	$this->assertText(
+      t('2.500.000 Chips for €100'),
+      t('2.500.000 Chips for €100')
+    );  
+	$this->assertText(
+      t('5.000.000 Chips for €150'),
+      t('5.000.000 Chips for €150')
+    );
+  }
+
+}

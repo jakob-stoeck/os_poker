@@ -1,0 +1,623 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 4.4 specification test case: Invite friends workflow
+ *
+ * According to IRC convo with dachary, this test cases assumes any registered 
+ * user may send invitations without any limit. 
+ *
+ *
+ * @TODO: Specs talk about a thickbox, but current code has no thickbox around
+ * invitation process. According to IRC convo with kez:
+ * <kez> the thinckboxes are comming with the next milestone
+ * <kez> so it will be implemented this week
+ *
+ * @TODO: invited user is asked for buddy relationship on registration. If user
+ * does not accept buddy relationship, then invitee should not get any chip
+ * reward from this registration process. According to IRC convo with dachary,
+ * this is verified in other testcase:
+ * <dachary> there is another part in the specifications regarding the chips the
+ *           referee will get
+ * <ilo> should be tested here? or in other testcase?
+ * <dachary> other test cases
+ */
+
+
+/**
+ * Helpers for spec. 4.4: Workflow "Invite friends" test case
+ *
+ * Functionality testing for the SMTP setup. Invite friends workflow requires an
+ * email to be sent by the SMTP server. Verifies that Drupal emails are being
+ * sent through PHP smtp server library (depends on php.ini settings). The test
+ * just verifies PHP mail() function, if other library is in use the test should
+ * be configured for that.
+ *
+ * The email verification is done reading the file /var/spool/mail/$www-user,
+ * where $www-user may depend on the system configuration.
+ *
+ * @assert:  submit email to valid existing address produces no error
+ * @assert:  submit email to invalid existing address produces error ? not sure.
+ *
+ */
+class OSPokerSMTPUnitTest extends DrupalWebTestCase {
+
+  /**
+   * @var string SMTP library in use by simpletest 
+   */
+  protected $smtp_library;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => 'OS Poker SMTP',
+      'description' => 'Open Social Poker SMTP validation tests',
+      'group'       => 'OS Poker',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    parent::setUp();
+
+    // Save current SMTP library in use to not break other testcases in this run
+    $smtp_library = variable_get('smtp_library', '');
+    // Set Drupal's default SMTP library to PHP mail() system.
+    variable_set('smtp_library', '');
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    // Restore SMTP library.
+    variable_set('smtp_library', $this->smtp_library);
+
+    parent::tearDown();
+  }
+
+
+
+  function testValidEmail() {
+
+    // Submit an email using Drupal
+    $message = array(
+      'to' => 'inaki.lopez@gmail.com.',
+      'subject' => t('Example subject'),
+      'body' => t('Example body'),
+      'headers' => array('From' => 'example@mailinator.com'),
+    );
+    drupal_mail_send($message);
+
+    // Verify there are no errors in the email log
+
+  }
+
+}
+
+
+
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 4.4: Workflow "Invite friends" test case
+ *
+ * Verifies invite workflow is working according to specifications. Validates 
+ * that registered users can't be reinvited, and that invite page works with 
+ * 5 invitations in one submission.
+ *
+ * @assert: registered users can view "invite friends" page.
+ * @assert: registered users can submit 1 friend invitation.
+ * @assert: invitation email is being sent.
+ * @assert: invitation link redirects to registration page.
+ * @assert: buddy relationship is asked during registration.
+ * @assert: user gets chip rewards if buddy relationship is accepted.
+ * @assert: chip reward from registration by invite is 5000.
+ * @assert: user does not get chip rewards if relationship is not accepted.
+ * @assert: invited user and invitee are buddies if relationship is accepted.
+ * @assert: invited user appears in invitation tab of invitee user.
+ * @assert: invitee user appears in invitation tab of invited user.
+ *
+ * @assert: registered users can submit 5 friend invitation at once.
+ * @assert: invitation emails are being sent.
+ *
+ * @assert: registered users invited multiple times only get chips rewards once.
+ *
+ */
+class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '4.4 Workflow Invite friends',
+      'description' => 'Invitation and buddy relationship functionality tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+   * Verify regular invitation is working as stated by specification
+   *
+   * The verification is done through these steps:
+   * - Register an 'invitee' user, and complete its profile.
+   * - go to buddy list and verify it is empty.
+   * - go to invite page, and submit one invitation.
+   * - verify the invitation email is sent.
+   * - Logout 'invitee' user.
+   * - using the code from the invitation email, register a 'invited' new user
+   * - complete the profile page.
+   * - Verify chip reward for being invited is granted.
+   * - go to buddies page, there should be the 'invitee' user as buddy
+   * - Logout 'invited' user.
+   * - Login as 'invitee' user.
+   * - go to buddies page, there should be the 'invited' user as buddy
+   *
+   */
+  function testInvitedRegistration(){
+
+    /**
+     * Register an 'invitee' account and complete its profile.
+     * This user has 'invitee' for nickname.
+     */
+    $user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($user, array('profile_nickname' => 'invitee'));
+
+    /**
+     * Verify 'invitee' user has no buddies
+     */
+    $this->verifyUserHasNoBuddies();
+
+    /**
+     * Submit an invitation
+     */
+    // Create a random name - email pair and send invite
+    $name = $this->randomName();
+    $email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+    $this->OsPokerSendInvites(array($name => $email));
+
+    /**
+     * Verify that invitation email was sent.
+     */
+    $this->assertInviteMail(
+      $email,
+      t('Invitation email message sent for !name.', array('!name' => $name))
+    );
+
+    /**
+     * Logout 'invitee' user.
+     */
+    $this->drupalLogout();
+
+    /**
+     * Using invitation code, register the 'invited' user.
+     * This user has 'invited' for nickname
+     */
+    // Get the invitation code from the last sent email.
+    $mail_queue = end($this->drupalGetMails());
+    $code = $mail_queue['params']['invite']->code;
+
+    // Use the invitation code to login the site.
+    $this->drupalGet('invite/accept/'. $code);
+
+    // The request has to redirect to user registration form with prepopulated
+    // information from the invite submission. Our email should have been
+    // filled in the form with invite information.
+    $this->assertFieldByName(
+      'mail',
+      $email,
+      t('Invitation verified, invited email found in registration form.')
+    );
+
+    // Complete the fields and submit the registration form.
+    $password = $this->randomName();
+    $options = array(
+      'name'        => $name,
+      'pass[pass1]' => $password,
+      'pass[pass2]' => $password,
+    );
+    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
+
+    /**
+     * completes the 'invited' profile
+     */
+    $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+
+    /**
+     * Verify invited chip reward.
+     */
+     $this->assertText(
+       t('You have $ 8.000 chips'),
+       t('Invited user has been granted with +$5.000 chips due to invite sign up.')
+     );
+
+    /**
+     * Verify that 'invitee' is a buddy of 'invited' user
+     */
+    // Assert we have at least one entry in the buddy list.
+    $this->drupalGet('poker/buddies');
+    $this->assertNoText(
+      t("You don't have any buddy."),
+      t("Invited user has buddies.")
+    );
+    
+    // There should appear our invitee showed in that page, with a link to its
+    // profile page.
+    $this->assertLink('invitee', 0, t('Invitee %name is already a buddy.', array('%name' => $user->name)));
+
+    /**
+     * Logout 'invited' user.
+     */
+    $this->drupalLogout();
+
+    /**
+     * Login as 'invitee' user.
+     */
+    $this->drupalLogin($user);
+
+    /**
+     * Verify that 'invited' user is a buddy of 'invitee' user.
+     */
+    // Assert we have at least one entry in the buddy list.
+    $this->drupalGet('poker/buddies');
+    $this->assertNoText(
+      t("You don't have any buddy."),
+      t("Invited user has buddies.")
+    );
+
+    // There should appear our invited showed in that page, with a link to its
+    // profile page.
+    $this->assertLink('invited', 0, t('Invited %name is already a buddy.', array('%name' => $name)));
+  }
+
+
+  /**
+   * Verify invited users requesting not to be buddies are not related, neither
+   * chips are granted.
+   *
+   * The verification is done through these steps:
+   * - Register an 'invitee' user, and complete its profile.
+   * - go to buddy list and verify it is empty.
+   * - go to invite page, and submit one invitation.
+   * - verify the invitation email is sent.
+   * - Logout 'invitee' user.
+   * - using the code from the invitation email, register a 'invited' new user
+   *   select NO when asked for buddy relationship.
+   * - complete the profile page.
+   * - Verify chip reward for being invited is NOT granted.
+   * - go to buddies page, there should be NO 'invitee' user as buddy
+   * - Logout 'invited' user.
+   * - Login as 'invitee' user.
+   * - go to buddies page, there should be NO 'invited' user as buddy
+   *
+   */
+  function testInvitedRegistrationNobuddy(){
+
+    /**
+     * Register an 'invitee' account and complete its profile.
+     * This user has 'invitee' for nickname.
+     */
+    $user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($user, array('profile_nickname' => 'invitee'));
+
+    /**
+     * Verify 'invitee' user has no buddies
+     */
+    $this->verifyUserHasNoBuddies();
+
+    /**
+     * Submit an invitation
+     */
+    // Create a random name - email pair and send invite
+    $name = $this->randomName();
+    $email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+    $this->OsPokerSendInvites(array($name => $email));
+
+    /**
+     * Verify that invitation email was sent.
+     */
+    $this->assertInviteMail(
+      $email,
+      t('Invitation email message sent for !name.', array('!name' => $name))
+    );
+
+    /**
+     * Logout 'invitee' user.
+     */
+    $this->drupalLogout();
+
+    /**
+     * Using invitation code, register the 'invited' user.
+     * This user has 'invited' for nickname
+     */
+    // Get the invitation code from the last sent email.
+    $mail_queue = end($this->drupalGetMails());
+    $code = $mail_queue['params']['invite']->code;
+
+    // Use the invitation code to login the site.
+    $this->drupalGet('invite/accept/'. $code);
+
+    // The request has to redirect to user registration form with prepopulated
+    // information from the invite submission. Our email should have been
+    // filled in the form with invite information.
+    $this->assertFieldByName(
+      'mail',
+      $email,
+      t('Invitation verified, invited email found in registration form.')
+    );
+
+    // Complete the fields and submit the registration form.
+    $password = $this->randomName();
+    $options = array(
+      'name'        => $name,
+      'pass[pass1]' => $password,
+      'pass[pass2]' => $password,
+      'relationship_invite_approve' => 'disapprove'
+    );
+    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
+
+    /**
+     * completes the 'invited' profile
+     */
+    $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+
+    /**
+     * Verify invited chip reward.
+     */
+     $this->assertText(
+       t('You have $ 3.000 chips'),
+       t('Invited user not requesting buddy relationhips has not been granted with +$5.000 chips.')
+     );
+
+    /**
+     * Verify that 'invitee' is NOT a buddy of 'invited' user
+     */
+    $this->verifyUserHasNoBuddies();
+
+    /**
+     * Logout 'invited' user.
+     */
+    $this->drupalLogout();
+
+    /**
+     * Login as 'invitee' user.
+     */
+    $this->drupalLogin($user);
+
+    /**
+     * Verify that 'invited' user is NOT a buddy of 'invitee' user.
+     */
+    $this->verifyUserHasNoBuddies();
+  }
+
+
+  /**
+   * Verify users invited several times only gets chips reward once.
+   *
+   * The verification is done through these steps:
+   * - Register an 'invitee' user, and complete its profile.
+   * - go to buddy list and verify it is empty.
+   * - go to invite page, and submit one invitation.
+   * - verify the invitation email is sent.
+   * - Logout this user.
+   * - Create another user, login and complete the profile.
+   * - go to invite page, invite the email address again.
+   * - Verify the invitation email is sent.
+   * - Logout this user.
+   * - using the code from the invitation email, register a 'invited' new user
+   * - complete the profile page.
+   * - Verify chip reward for being invited is granted only once.
+   *
+   */
+  function testReinvitedUsersGetsChipsOnce(){
+
+    /**
+     * Register an 'invitee' account and complete its profile.
+     * This user has 'invitee' for nickname.
+     */
+    $user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($user, array('profile_nickname' => 'invitee'));
+
+    /**
+     * Verify 'invitee' user has no buddies
+     */
+    $this->verifyUserHasNoBuddies();
+
+    /**
+     * Submit an invitation
+     */
+    // Create a random name - email pair and send invite
+    $name = $this->randomName();
+    $email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+    $this->OsPokerSendInvites(array($name => $email));
+
+    /**
+     * Verify that invitation email was sent.
+     */
+    $this->assertInviteMail(
+      $email,
+      t('Invitation email message sent for !name.', array('!name' => $name))
+    );
+
+    $this->drupalLogout();
+
+    /**
+     * Register a new 'invitee' account and complete its profile.
+     */
+    $user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($user);
+
+    /**
+     * Verify 'invitee' user has no buddies
+     */
+    $this->verifyUserHasNoBuddies();
+
+    // Submit the invitation again.
+    $this->OsPokerSendInvites(array($name => $email));
+
+    /**
+     * Verify that invitation email was sent.
+     */
+    $this->assertInviteMail(
+      $email,
+      t('Invitation email message sent for !name.', array('!name' => $name))
+    );
+
+    /**
+     * Logout current user
+     */
+
+    $this->drupalLogout();
+
+    /**
+     * Using invitation code, register the 'invited' user.
+     * This user has 'invited' for nickname
+     */
+    // Get the invitation code from the last sent email.
+    $mail_queue = end($this->drupalGetMails());
+    $code = $mail_queue['params']['invite']->code;
+
+    // Use the invitation code to login the site.
+    $this->drupalGet('invite/accept/'. $code);
+
+    // The request has to redirect to user registration form with prepopulated
+    // information from the invite submission. Our email should have been
+    // filled in the form with invite information.
+    $this->assertFieldByName(
+      'mail',
+      $email,
+      t('Invitation verified, invited email found in registration form.')
+    );
+
+    // Complete the fields and submit the registration form.
+    $password = $this->randomName();
+    $options = array(
+      'name'        => $name,
+      'pass[pass1]' => $password,
+      'pass[pass2]' => $password,
+    );
+    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
+
+    /**
+     * completes the 'invited' profile
+     */
+    $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+
+    /**
+     * Verify invited chip reward.
+     */
+     $this->assertText(
+       t('You have $ 8.000 Chips'),
+       t('User invited multiple times only gets +$5.000 chips grant once.')
+     );
+     
+  }
+
+
+  /**
+   * Verify multiple invite submission: invite 5 users in one request.
+   *
+   * The verification is done through these steps:
+   * - Register an 'invitee' user, and complete its profile.
+   * - go to buddy list and verify it is empty.
+   * - go to invite page, and submit 5 invitations.
+   * - verify the invitation emails are sent.
+   *
+   */
+  function testMultipleInvitation(){
+
+    /**
+     * Register an 'invitee' account and complete its profile.
+     * This user has 'invitee' for nickname.
+     */
+    $user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($user, array('profile_nickname' => 'invitee'));
+
+    /**
+     * Verify 'invitee' user has no buddies
+     */
+    $this->verifyUserHasNoBuddies();
+
+    /**
+     * Submit 5 invitations invitation and verify emails are sent.
+     */
+    // Create 5 random name - email pair invitations
+    $invites = array();
+    $invites[$this->randomName()] = $this->randomName() . '@' . $this->randomName() . ".com";
+    $invites[$this->randomName()] = $this->randomName() . '@' . $this->randomName() . ".com";
+    $invites[$this->randomName()] = $this->randomName() . '@' . $this->randomName() . ".com";
+    $invites[$this->randomName()] = $this->randomName() . '@' . $this->randomName() . ".com";
+    $invites[$this->randomName()] = $this->randomName() . '@' . $this->randomName() . ".com";
+    $this->OsPokerSendInvites($invites);
+
+    /**
+     * Verify all invitation emails are sent ( 5 invite_invite emails ) .
+     */
+    $emails = $this->drupalGetMails();
+    $cntr = 0;
+    foreach ($emails as $email) {
+      $this->assertEqual(
+        $email['id'],
+        'invite_invite',
+        t('Email %cntr is an invitation email.', array('%cntr' => $cntr))
+      );
+      $cntr++;
+      
+      // Only verify last 5 sent emails.
+      if ($cntr > 5) {
+        break;
+      }
+    }
+    // verify that 5 emails were sent.
+    $this->assertEqual(
+      $cntr,
+      5,
+      t('All invitation emails were sent.')
+    );
+
+  }
+
+
+  /**
+   * Check for "You don't have any buddy." string in buddies page.
+   */
+  function verifyUserHasNoBuddies() {
+    $this->drupalGet('poker/buddies');
+
+    $this->assertText(
+      t("You don't have any buddy."),
+      t("User has no buddies.")
+    );
+  }
+
+}

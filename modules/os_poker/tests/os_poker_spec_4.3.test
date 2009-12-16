@@ -1,0 +1,87 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 4.3 specification test case: Forgot Password workflow
+ *
+ * @Note: According to irc convo, this step will use Drupal's password recovery
+ * workflow, so there is nothing to test in this section:
+ *
+ * <ilo--> because the password recovery workflow is very different in specs
+ * <ilo--> and it is already tested by drupal test suite
+ * <ilo--> so.. I don't see a way to define a test not done already, being 'not
+ *      too much deviated' from specs, but having a completely different
+ *      workflow
+ * <dachary> ah
+ * <dachary> I suppose we can say it's done the drupal way...
+ * <dachary> (sent a mail asking for a change on 4.3, thanks)
+ *
+ * @TODO: Due to previous note, this file provides no tests. Leaving as a
+ *        placeholder for other test implementations regarding this workflow.
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 4.3: Workflow "Forgot Password" test case
+ *
+ * Verifies password recovery workflow is working according to specifications.
+ *
+ * @TODO: Rename this class to OsPokerSpecificationForgotPassword once proppy's
+ *        code gets migrated.
+ */
+class OSPokerPasswordRecovery extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '4.3 Workflow Forgot Password',
+      'description' => 'Password recovery functionality tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'invitee' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+
+  /**
+   * Fires the test case, otherwise simpletest may fail.
+   */
+  function testDummy() {
+
+  }
+
+}
