@@ -52,7 +52,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   private function assertBuddyListOnPage($path) {
     $this->drupalGet($path);
-    $this->assertRaw('id="buddylist"');
+    return $this->assertRaw('id="buddylist"', 'Buddy list found on page');
   }
   
   /**
@@ -95,7 +95,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   }
 
   /**
-   * Verify that th buddy list is sown on all pages.
+   * Verify that the buddy list is shown on all pages.
    */
   function testBudyListOnAllPages() {
     //There is no way to visit each and every page, just check a couple of known pages
@@ -105,9 +105,11 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
       'poker/messagebox',
       'user',
     );
+    $all_pass = true;
     foreach($paths as $path) {
-      $this->assertBuddyListOnPage($path);
+      $all_pass = $all_pass && $this->assertBuddyListOnPage($path);
     }
+    $this->assertTrue($all_pass, 'The buddy list is shown on all pages.');
   }
   
   /**
@@ -118,8 +120,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    * - verify that the name of each buddy of the current user is shown in one of the page
    */
   function testBuddylist(){
-    $this->assertBuddyListOnPage('<front>');
-    $all_buddies_found = true;
+    $all_buddies_found = $this->assertBuddyListOnPage('<front>');
     $buddies_count = count($this->buddies);
     for($i = 0; $i < $buddies_count; $i++) {
       if($i > 0 && $i % self::PAGE_SIZE) {
@@ -138,7 +139,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   
  
   /**
-   * Verify that there is a possibility to filter the list by online/offline[S].
+   * Verify that there is a possibility to filter the list by online/offline.
    *
    * The verification is done through these steps:
    * - go on front page
@@ -153,7 +154,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   function testStatusfilter(){
     $this->assertBuddyListOnPage('<front>');
-    $this->fail('TODO');
+    $this->fail('TODO: There is a possibility to filter the list by online/offline.');
   }
 
   /*
@@ -175,7 +176,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   function testBuddyListSortedByRanking() {
     $this->assertBuddyListOnPage('<front>');
-    $this->fail('TODO');
+    $this->fail('TODO: Buddies in the list are shown by the ranking criterion');
   }
 
   /**
@@ -190,12 +191,13 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    *  - make $this->buddies[$i] as buddy of the lonely user 
    */
   function testPlaceHolders() {
+    $this->OsPokerLogin($this->lonely_user, array('profile_nickname' => 'lonely_user'));
     $this->assertBuddyListOnPage('<front>');
     $all_pass = TRUE;
     for($i = 0; $i < self::PAGE_SIZE; $i++) {
       $count = self::PAGE_SIZE - $i;
       $all_pass = $all_pass && $this->assertPattern("/(Invite friend.*){{$count}}/", t('Found !count “Invite friend” placeholder(s).', array('!count' => $count)));
-      $this->OsPokerCreateBuddyRelationShip($this->main_user, $this->buddies[$i]);
+      $this->OsPokerCreateBuddyRelationShip($this->lonely_user, $this->buddies[$i]);
     }
     $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the “Invite friend” placeholder is shown instead.');
   }
