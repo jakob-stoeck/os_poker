@@ -110,6 +110,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         array(
           'os_poker_8[region]' => 'middle_content_right',
           'os_poker_0[region]' => 'header',
+          'os_poker_2[region]' => 'bottom_content',
           'user_0[region]' => 'header'
         ),
       t('Save blocks'));
