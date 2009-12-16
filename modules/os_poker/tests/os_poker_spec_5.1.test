@@ -63,6 +63,22 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
   }
 
 
+/*
+log in a user
+send invite
+logout
+use invite link
+complete invitation process
+logout
+log in with first user and flush rewards
+logout
+register daily chips task
+login
+store current chips amount (previous_chips)
+trigger daily chips allocation
+compare previous_chips and current chips amount at key steps
+repeat until all daily chips amount's checks completes (> 50 buddies, max 5000 daily chips)
+*/
 
   function testInvitations()
   {
@@ -167,7 +183,7 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 
 	case 56:  //5000 (MAX) > 50
 		{
-			$this->assertEqual($test_user->Chips(), $previous_chips, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
+			$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
 	break;
 		}
 

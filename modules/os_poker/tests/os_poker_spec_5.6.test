@@ -133,6 +133,14 @@ Big Spender Player buys a gift for every player at the table, aggregate value mo
 + Cool Dude Player has at least 50 buddies SN
 + Invitation King Player has at least 50 successful invitations SN
 + Buddy King Player has at least 100 buddies SN
+log in a user
+send invite
+logout
+use invite link
+complete invitation process
+logout
+log in with first user and check rewards (directly from db) at key steps
+repeat until all rewards checks completes (> 50 successful invitations / > 100 buddies)
 */
 
   function _testSNBuddiesRewards()
