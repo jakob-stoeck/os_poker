@@ -53,6 +53,8 @@ function	os_poker_process_message(messages)
 
 function	os_poker_send_message(args)
 {
+	args.ajax = 1;
+
 	_os_poker_send_handler = $.ajax({
             type: "GET",
             url: _os_poker_message_url + "/send",
@@ -91,6 +93,7 @@ function	os_poker_message_listen()
             cache: false,
             timeout: _os_poker_timeout,
 			dataType: "json",
+			data: {ajax: 1},
 
             success: function(responseObject)
 			{

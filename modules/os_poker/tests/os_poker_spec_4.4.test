@@ -249,6 +249,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
+    $this->drupalGet("/");
     /**
      * Verify invited chip reward.
      */
@@ -388,6 +389,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
+    $this->drupalGet("/");
     /**
      * Verify invited chip reward.
      */
@@ -532,6 +534,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
+    $this->drupalGet("/");
     /**
      * Verify invited chip reward.
      */

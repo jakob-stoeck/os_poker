@@ -57,8 +57,7 @@ function	os_poker_poll_messages()
 
 			if (count($resp["messages"]) > 0)
 			{
-				print json_encode($resp);
-				exit();
+				return json_encode($resp);
 			}
 			
 			sleep(3); //poll every 3 sec
@@ -74,8 +73,7 @@ function	os_poker_poll_messages()
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
 	
-	print json_encode($resp);
-	exit();
+	return json_encode($resp);
 }
 
 /*
@@ -166,8 +164,7 @@ function	os_poker_process_message()
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-type: application/json');
 	
-	print json_encode($resp);
-	exit();
+	return json_encode($resp);
 }
 
 
