@@ -109,7 +109,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     foreach($paths as $path) {
       $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
     }
-    $this->assertTrue($all_pass, 'The buddy list is shown on all pages.');
+    $this->assertTrue($all_pass, 'The buddy list is shown on all pages.', 'Specs.');
   }
   
   /**
@@ -132,7 +132,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     }
     $this->assertTrue(
       $all_buddies_found,
-      t('Users who have an established relationship with current user are shown in the buddy list.'),
+      t('Users who have an established relationship with current user are shown in the buddy list.', 'Specs.'),
       'Specs'
     );
   }
@@ -154,7 +154,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   function testStatusfilter(){
     $this->assertBuddyListOnPage('<front>');
-    $this->fail('TODO: There is a possibility to filter the list by online/offline.');
+    $this->fail('TODO: There is a possibility to filter the list by online/offline.', 'Specs.');
   }
 
   /*
@@ -176,7 +176,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   function testBuddyListSortedByRanking() {
     $this->assertBuddyListOnPage('<front>');
-    $this->fail('TODO: Buddies in the list are shown by the ranking criterion');
+    $this->fail('TODO: Buddies in the list are shown by the ranking criterion', 'Specs.');
   }
 
   /**
@@ -199,6 +199,6 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
       $all_pass = $all_pass & $this->assertPattern("/(Invite friend.*){{$count}}/", t('Found !count “Invite friend” placeholder(s).', array('!count' => $count)));
       $this->OsPokerCreateBuddyRelationShip($this->lonely_user, $this->buddies[$i]);
     }
-    $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the “Invite friend” placeholder is shown instead.');
+    $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the “Invite friend” placeholder is shown instead.', 'Specs.');
   }
 }
