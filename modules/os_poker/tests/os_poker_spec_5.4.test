@@ -34,7 +34,7 @@ class OSPokerStatusLevelEvaluation extends OsPokerWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name'        => '5.4: Status/Level Evaluation',
+      'name'        => '5.4 Status/Level Evaluation',
       'description' => 'Status/Level Evaluation tests',
       'group'       => 'OS Poker Specifications',
     );

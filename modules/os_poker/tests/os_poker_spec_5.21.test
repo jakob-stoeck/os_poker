@@ -3,7 +3,7 @@
 
 /**
  * @file
- * Poker 5.2: Ranking System
+ * Poker 5.21: Who is at that Table
  *
  */
 
@@ -13,7 +13,7 @@
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
 /**
- * Spec: 5.2: Ranking System test case
+ * Spec: 5.21: Who is at that Table test case
  *
  * Verifies whatever workflow is working according to specifications.
  * Validates this and that.
@@ -22,7 +22,7 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
  * @assert: other little step.
  *
  */
-class OSPokerRankingSystem extends OsPokerWebTestCase {
+class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
 
   /**
    * @var user object created and logged in during setUp process.
@@ -34,8 +34,8 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name'        => '5.2 Ranking System',
-      'description' => 'Ranking system tests',
+      'name'        => '5.21 Who is at that Table test case',
+      'description' => 'Who is at that Table functionality tests',
       'group'       => 'OS Poker Specifications',
     );
   }
@@ -72,12 +72,12 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
    * - do this.
    *
    */
-  function testRankingSystem(){
+  function testWhoIsAtThatTable()
+  {
 
 
 
   }
-
 
 
 }

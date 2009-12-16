@@ -148,7 +148,7 @@ Big Spender Player buys a gift for every player at the table, aggregate value mo
         /*The Millionaires Club Player has a peek chip count of 1.000.000 chips SN*/
 
 
-    for ($i = 0; $i < 51; $i++)
+    for ($i = 0; $i < 101; $i++)
     {
      $this->drupalLogin($this->skel_user);
 
