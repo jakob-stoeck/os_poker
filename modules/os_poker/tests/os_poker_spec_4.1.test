@@ -109,7 +109,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
      * Watch out: name@domain (withouth LTD is a valid domain name).
      */
     $this->verifyInvalidEmail('@test.com');
-    $this->verifyInvalidEmail('asdf@test.com.');
     $this->verifyInvalidEmail('@test.com.');
     $this->verifyInvalidEmail('asdftest.com');
     $this->verifyInvalidEmail('test@test@test.com');
