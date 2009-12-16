@@ -414,7 +414,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips
      */
     $this->assertText(
-      t('You have $ 3,000 Chips'),
+      t('Chips: $ 3,000'),
       t('User has $3k chips because of complete profile.')
     );
 
@@ -428,7 +428,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * Verify the user has $3k chips
      */
     $this->assertText(
-      t('You have $ 3,000 Chips'),
+      t('Chips: $ 3,000'),
       t('User has not been granted twice because of profile completion.')
     );
 
@@ -516,7 +516,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
      * grant more chips.
      */
     $this->assertText(
-      t('You have $ 3,000 Chips'),
+      t('Chips: $ 3,000'),
       t('User has $3k chips, altering a complete profile should not grant chips.')
     );
 
