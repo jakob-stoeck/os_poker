@@ -89,6 +89,11 @@ function os_poker_preprocess_page(&$variables)
 	}
 	
 	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " <a href=\"javascript:void(0);\">" . t("Terms of Service and Privacy Policy.") . "</a></div>";
+	
+	if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] && !empty($_GET['ajax']))
+	{
+		$variables['template_files'][] = 'page-ajax';
+	}
 }
 
 /*

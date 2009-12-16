@@ -174,9 +174,7 @@ function	os_poker_profile_page($tab, $user_id = NULL)
 		case "rewards":
 			if (isset($_GET["list"]) && $_GET["list"] == "rewards" && !empty($_GET["ajax"]))
 			{
-				$content = theme('os_poker_reward_fulllist', $target_user->Rewards());
-				print $content;
-				exit();
+				return theme('os_poker_reward_fulllist', $target_user->Rewards());
 			}
 		
 			$content = theme('os_poker_rewards', $target_user, $external);
@@ -192,9 +190,7 @@ function	os_poker_profile_page($tab, $user_id = NULL)
 			
 			if (isset($_GET["list"]) && $_GET["list"] == "ranking" && !empty($_GET["ajax"]))
 			{
-				$content = theme('os_poker_ranking_list', $userlist);
-				print $content;
-				exit();
+				return theme('os_poker_ranking_list', $userlist);
 			}
 		
 			$content = theme('os_poker_ranking', $target_user, $user_rank + 1, $userlist);
@@ -218,8 +214,7 @@ function	os_poker_profile_page($tab, $user_id = NULL)
 					$content = theme('os_poker_item_minilist', $target_user);
 				}
 			
-				print $content;
-				exit();
+				return $content;
 			}
 			$content = theme('os_poker_profile', $target_user, $external);
 		break;
@@ -240,9 +235,7 @@ function	os_poker_messagebox_page()
 	
 	if (isset($_GET["list"]) && $_GET["list"] == "messages" && !empty($_GET["ajax"]))
 	{
-		$content = theme('os_poker_message_list', $mbox);
-		print $content;
-		exit();
+		return theme('os_poker_message_list', $mbox);
 	}
 	
 	return theme('os_poker_messagebox', $mbox);
