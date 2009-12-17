@@ -15,12 +15,14 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 /**
  * Spec: 5.20: User search test case
  *
- * Verifies whatever workflow is working according to specifications.
- * Validates this and that.
+ * Verifies search for players in the user base of the system.
  *
- * @assert: this little step.
- * @assert: other little step.
- *
+ * @assert: Search page provides fields to search by nickname.
+ * @assert: Search page provides fields to search by sex (gender).
+ * @assert: Search page provides fields to search by city.
+ * @assert: Search page provides fields to search by country.
+ * @assert: Search page provides fields to search by level.
+ * @assert: Search return results according the fields values.
  */
 class OSPokerUserSearch extends OsPokerWebTestCase {
 
@@ -51,9 +53,9 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
      * Register an 'skel_user' account and complete its profile.
      * This user has 'skel_user' for nickname.
      */
-    $this->skel_user = $this->drupalCreateUser();
+    $this->main_user = $this->drupalCreateUser();
     // Login the user, complete profile form
-    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'main_user'));
 
   }
 
@@ -65,18 +67,89 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
   }
 
   /**
-   * Verify this
+   * Verify that search page provides fields to search by nickname, sex
+   * (gender), city, country and level.
    *
    * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
+   * - go to the user search page
+   * - verify that the required fields are on the page
    */
-  function testSearch(){
-
-
-
+  function testSearchFields(){
+    $fields = array('nickname', 'gender', 'city', 'country', 'level');
+    $this->drupalGet('poker/buddies/search');
+    $pass_all = true;
+    foreach($fields as $field) {
+      $field_name = 'profile_'.$field;
+      $this->assertFieldByName($field, '', t('The search page provides fields to search by !name', array('!name' => $field)));
+    }
   }
+  
+  /**
+   * Vaerify that search return results according the fields values.
+   * 
+   * The verification is done through these steps:
+   *  - Create some users with different country, city and gender combinaison
+   *  - Search without any criteria
+   *  - Verify that all users are in the results list
+   *  - Search by one of country, city and gender
+   *  - Verify that users at first steps meeting the criteria are shown in the
+   *    results list
+   *  - Verify that users at first steps not meeting the criteria are not shown
+   *    in the results list
+   *  - Search by country, city and gender
+   *  - Verify that the user meeting the three criteria is shown in the results
+   *    list
+   *  - Verify that all other users are not shown in the results list
+   *  - Repeat the last step for all created user
+   */
+  function  testSearching() {
+    $profiles = array(
+      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
+      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
+      array('profile_country'=>'Belgium', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
+      array('profile_country'=>'Belgium', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
+      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
+      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
+      array('profile_country'=>'Belgium', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Female'),
+      array('profile_country'=>'Belgium', 'profile_city'=>'Namur', 'profile_gender'=>'Female'),
+    );
+    $users = array();
+    foreach($profile as $key => $profile) {
+      $users[$key] = $this->OsPokerCreateUserWithProfile();
+    }
 
+    $this->drupalPost('poker/buddies/search', array());
+    foreach($users as $user) {
+      $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+    }
+    
 
+    $searches = array(
+      'profile_country' => 'France',
+      'profile_city' => 'Paris',
+      'profile_gender' => 'Male',
+    );
+    foreach($searches as $k => $v) {
+      $this->drupalPost('poker/buddies/search', array($k => $v));
+      foreach($users as $user) {
+        if($user->{$k} == $v) {
+          $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+        }
+        else {
+          $this->assertNoText($user->profile_nickname, t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
+        }
+      }
+    }
+
+    foreach($profiles as $pk => $profile) {
+      $this->drupalPost('poker/buddies/search', $profile);
+      foreach($users as $uk => $user) {
+        if($pk == $uk) {
+          $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+        } else {
+          $this->assertNoText($user->profile_nickname, t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
+        }
+      }
+    }
+  }
 }

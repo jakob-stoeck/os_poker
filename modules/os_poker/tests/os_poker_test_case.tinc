@@ -10,7 +10,7 @@
  */
 
 
-/** 
+/**
  * Needed to prevent shindig_integrator from writing Config.php on install
  */
 global $TEST;
@@ -48,7 +48,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       // this is a custom "Call parent::setUp()", to include more than just one
       // module by childs of this class.
       $args = func_get_args();
-      array_unshift($args, 
+      array_unshift($args,
         'profile',
         'shindig_integrator',
         'jquery_ui',
@@ -63,7 +63,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'user_relationship_blocks',
         'user_relationship_mailer',
         'os_poker',
-	'simple_payments'
+        'simple_payments'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
 
@@ -114,16 +114,16 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
           'user_0[region]' => 'header'
         ),
       t('Save blocks'));
-    
+
       // Enable brief header os poker block only for authenticated users.
       $this->drupalPost('admin/build/block/configure/os_poker/0', array('roles[2]' => 1) , t('Save block'));
 
       $this->drupalPost('admin/user/settings', array('user_register' => '1', 'user_email_verification' => FALSE, 'user_pictures' => '1'), t('Save configuration'));
       $this->drupalPost('admin/settings/site-information', array('site_frontpage' => 'node'), t('Save configuration'));
 
-	  
+
       // Creates password policy
-	  
+
 	  db_query("INSERT IGNORE INTO `{password_policy}` VALUES (1,'Min length','Password must contains at least 6 characters',1,'a:1:{s:6:\"length\";s:1:\"6\";}',1258800007,0,'')");
 
      /* $policy = array(
@@ -180,7 +180,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       strpos($this->getUrl(),
       'poker/first_profile'),
       t('Request redirected to profile page, signup accepted.')
-    );    
+    );
 
   }
 
@@ -262,6 +262,23 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     );
   }
 
+  function OsPokerCreateUserWithProfile($profile=array(), $drupal_permissions=array()) {
+    $drupal_user = $this->drupalCreateUser($drupal_permissions);
+    $profile += array(
+      'profile_nickname' => $drupal_user->name,
+      'profile_gender'   => t('Male'),
+      'profile_country'  => t('France'),
+      'profile_city'     => $this->randomName(),
+      'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    $osp_user = CUserManager::instance(TRUE)->User($drupal_user->uid);
+    foreach($profile as $p => $v) {
+      $osp_user->{$p} = $v;
+    }
+    $osp_user->Save();
+    return $osp_user;
+  }
+
   function OsPokerSendInvites($invites) {
     if (!count ($invites)) {
       return;
@@ -307,7 +324,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       '%user1' => $user1->name,
       '%user2' => $user2->name,
     )), 'OS Poker');
-    
+
   }
 
 
