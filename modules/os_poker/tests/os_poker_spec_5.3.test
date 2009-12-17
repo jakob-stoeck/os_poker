@@ -53,19 +53,19 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
     /**
    * Assert that the Buddy List is shown on a page.
-   * 
+   *
    * Expect the Buddy List to be in a html element with id="buddylist".
-   * 
+   *
    * @param $path The page to check the for the Buddy List.
    */
   private function assertBuddyListOnPage($path) {
     $this->drupalGet($path);
     return $this->assertRaw('id="buddylist"', t('Buddy list found on page %path', array('%path' => $path)));
   }
-  
+
   /**
    * Implementation of setUp().
-   * 
+   *
    * - Create a main user (in $this->main_user)
    * - Create 10 users as buddies of the main user (in this->buddies)
    * - Create a user with no buddy (in $this->lonely_user);
@@ -96,9 +96,9 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
   /**
    * Verify that the buddy list is shown on all pages.
-   
+
    * Since there is no no way to visit each and every page, check known pages.
-   * 
+   *
    * The verification is done through these steps:
    *  - For each known page
    *   - Go to the page
@@ -116,15 +116,15 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     }
     $this->assertTrue($all_pass, 'The buddy list is shown on all pages.', 'Specs.');
   }
-  
+
   /**
    * Verify that users who have an established relationship with current user
    * are shown in the buddy list.
-   * 
+   *
    * The verification is done through these steps:
    * - go to front page
    * - verify that the name of each buddy of the current user is shown in one of
-   *   the page (paging is done 
+   *   the page (paging is done
    */
   function testBuddylist(){
     $all_buddies_found = $this->assertBuddyListOnPage('<front>');
@@ -139,8 +139,8 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
       'Specs'
     );
   }
-  
- 
+
+
   /**
    * Verify that there is a possibility to filter the list by online/offline.
    *
@@ -148,7 +148,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    * - go on front page
    * - verify the buddy list is on the page
    * - verify that the filtering checkbox (named online) is on the page
-   * 
+   *
    * @note Filtering is done client-side in JavaScript. SimpleTest does not
    *       support testing JS behavior.
    *
@@ -161,8 +161,8 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
   /*
    * Verify that buddies in the list are shown by the ranking criterion (default
    * is most chips in descending order).
-   * 
-   * 
+   *
+   *
    * The verification is done through these steps:
    * - set buddies stats to a known states
    * - go on front page
@@ -192,10 +192,10 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    *  - verify the buddy list is on the page
    *  - verify that there is (self::PAGE_SIZE - $i) “Invite friends”
    *    placeholders on the page
-   *  - make $this->buddies[$i] as buddy of the lonely user 
+   *  - make $this->buddies[$i] as buddy of the lonely user
    */
   function testBuddyListPlaceHolders() {
-    $this->OsPokerLogin($this->lonely_user, array('profile_nickname' => 'lonely_user'));
+    $this->drupalLogin($this->lonely_user);
     $all_pass = TRUE;
     $i = 0;
     while($i <= self::PAGE_SIZE) {

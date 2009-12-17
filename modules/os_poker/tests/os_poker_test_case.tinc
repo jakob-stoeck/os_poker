@@ -262,8 +262,8 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     );
   }
 
-  function OsPokerCreateUserWithProfile($profile=array(), $drupal_permissions=array()) {
-    $drupal_user = $this->drupalCreateUser($drupal_permissions);
+  function OsPokerCreateUserWithProfile($profile=array(), $permissions=array('access comments', 'access content', 'post comments', 'post comments without approval')) {
+    $drupal_user = $this->drupalCreateUser($permissions);
     $profile += array(
       'profile_nickname' => $drupal_user->name,
       'profile_gender'   => t('Male'),
@@ -276,7 +276,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       $osp_user->{$p} = $v;
     }
     $osp_user->Save();
-    return $osp_user;
+    return $drupal_user;
   }
 
   function OsPokerSendInvites($invites) {
