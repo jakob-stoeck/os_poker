@@ -163,3 +163,12 @@ function	os_poker_show_medium_profile(user_id)
 
 	os_poker_trigger("os_poker_jump", {url: tUrl, lightbox:true});
 }
+
+/*
+**
+*/
+
+function os_poker_play_now_clicked()
+{
+
+}

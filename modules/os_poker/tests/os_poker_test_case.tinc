@@ -121,8 +121,12 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       $this->drupalPost('admin/user/settings', array('user_register' => '1', 'user_email_verification' => FALSE, 'user_pictures' => '1'), t('Save configuration'));
       $this->drupalPost('admin/settings/site-information', array('site_frontpage' => 'node'), t('Save configuration'));
 
+	  
       // Creates password policy
-      $policy = array(
+	  
+	  db_query("INSERT IGNORE INTO `{password_policy}` VALUES (1,'Min length','Password must contains at least 6 characters',1,'a:1:{s:6:\"length\";s:1:\"6\";}',1258800007,0,'')");
+
+     /* $policy = array(
         'name' => $this->randomName(),
         'description' => $this->randomName(),
         'constraint_length' => 6,
@@ -131,7 +135,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       $this->assertRaw(
         t('Policy %name has been created.', array('%name' => $policy['name'])),
         t('Minimum length password policy created.')
-      );
+      );*/
 
 
       $this->drupalLogout($root);
