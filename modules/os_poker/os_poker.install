@@ -197,17 +197,6 @@ function os_poker_schema()
 
 function os_poker_install()
 {
-	//Set module weight lower than user module (to overload hook_user)
-	$res = db_query("SELECT `weight` FROM {system} WHERE `name`='user' LIMIT 1");
-	
-	if ($res)
-	{
-		$weight = db_result($res);
-		$weight -= 1;
-		
-		db_query("UPDATE {system} SET `weight`={$weight} WHERE `name`='os_poker'");
-	}
-	
 	db_query("INSERT IGNORE INTO `{profile_fields}` 
 			VALUES (1,'First name','profile_fname','','Personal information','','textfield',-4,0,0,4,0,''),
 			(2,'Last name','profile_lname','','Personal information','','textfield',-3,0,0,4,0,''),
@@ -225,8 +214,6 @@ function os_poker_install()
 	");
 	
 	db_query("INSERT IGNORE INTO `{user_relationship_types}` VALUES (1,'buddy','buddies',0,1,10)");
-	
-	db_query("INSERT IGNORE INTO `{password_policy}` VALUES (1,'Min length','Password must contains at least 6 characters',1,'a:1:{s:6:\"length\";s:1:\"6\";}',1258800007,0,'')");
 
 	//db_query("INSERT IGNORE INTO `{blocks_roles}` VALUES ('menu','primary-links',1),('menu','primary-links',2),('menu','secondary-links',2),('os_poker','0',2),('os_poker','2',2),('os_poker','3',2),('os_poker','3',3),('os_poker','4',2),('os_poker','5',2),('os_poker','6',2),('os_poker','7',1),('os_poker','8',1),('user','0',1),('user','1',3)");
 

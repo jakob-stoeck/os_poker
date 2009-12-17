@@ -165,6 +165,9 @@ class OSPokerSignUp extends OsPokerWebTestCase {
    */
   function testInvalidPassword(){
 
+	$this->drupalGet('admin/settings/password_policy/list');
+	
+  
     /**
      * Go to front page.
      */
@@ -194,8 +197,10 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $this->pass(t('Testing with "%password" password', array('%password' => $password)));
 
     // options for the signup form.
+	$mail = $this->randomName() . '@email.com';
+	
     $options = array(
-      'mail' => $this->randomName() . '@email.com',
+      'mail' => $mail,
       'pass' => $password,
     );
   	$this->drupalPost('', $options, t('Send'));
@@ -379,7 +384,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
      * Verify user has no chips.
      */
 		$this->assertText(
-      t('You have $ 0 chips'),
+      t('You have $ 1000 Chips'),
       t('User has no chips untill profile skip/completion.')
     );
 
