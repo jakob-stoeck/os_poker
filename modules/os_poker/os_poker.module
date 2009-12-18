@@ -386,13 +386,25 @@ function 	os_poker_theme()
 * Implementation of hook_user_relationships()
 */
 
-function	os_poker_user_relationships($type, $relationship)
+function	os_poker_user_relationships($type, $relationship, $category = NULL)
 {
-		$cuser = CUserManager::instance()->CurrentUser();
+	if ($type == "presave")
+	{
+		CPoker::CheckRewards("buddy", $relationship->requester_id, array());
+		CPoker::CheckRewards("invite", $relationship->requestee_id, array());
+	}
+	else if ($type == "request")
+	{
+		require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 		
-		CPoker::CheckRewards("buddy", $cuser->uid, array());
-
-		CPoker::CheckRewards("invite", $cuser->uid, array());
+		$player = CUserManager::instance()->User($relationship->requester_id);
+		
+		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_buddy_request.jpg";
+		$args["text"] = t("!user want to be your buddy", array("!user", $player->profile_nickname));
+		$args["links"] = l(t("Accept"), "") . " / " . l(t("Refuse"), "");
+	
+		CMessageSpool::instance()->SendMessage($relationship->requestee_id, $args);
+	}
 
 }
 

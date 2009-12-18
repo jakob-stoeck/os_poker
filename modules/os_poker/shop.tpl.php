@@ -121,7 +121,7 @@
 			</div>
 			<?php endif; ?>
 			<div class="clear"></div>
-			<form id="buy_form" action="<?php print url("<front>", array("query" => "q=poker/shop/shop/{$current_category}/{$target_type}/{$target_id}/{$subtarget_id}" )); ?>" method="post">
+			<form id="buy_form" action="<?php print url("poker/shop/shop/{$current_category}/{$target_type}/{$target_id}/{$subtarget_id}"); ?>" method="post">
 				<input id="buy_form_action" type="hidden" name="shop_action" value="" />
 				<input id="buy_form_item" type="hidden" name="shop_item" value="<?php print $fitem->id_item; ?>" />
 				<input type="submit" style="display: none;" value="Send" name="op"/>

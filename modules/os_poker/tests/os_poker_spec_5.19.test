@@ -16,10 +16,15 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
  * Spec: 5.18: Show  Medium Profile test case
  *
  * Verifies whatever workflow is working according to specifications.
- * Validates this and that.
+ * Validates functionality availability.
  *
- * @assert: this little step.
- * @assert: other little step.
+ * @assert: Clicking the profile picture of a player at the table will open a thickbox showing the medium profile of the player.
+ * @assert: Presence of the profile picture, nick, status/level, amount of chips, city and country of origin.
+ * @assert: A link to "buy gift" functionality is present on external view
+ * @assert: A link to "add buddy" functionality is present on external view when target user isn't already a buddy and doesn't have a pending buddy request
+ * @assert: A link to "report abuse" functionality is present on external view [S]
+ * @assert: "Today's-gift" list is present on external view
+ * @assert: "Activate item" functionality is present on self view
  *
  */
 class OSPokerMediumProfile extends OsPokerWebTestCase {
@@ -64,20 +69,107 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
-  /**
-   * Verify this
-   *
-   * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
-   */
-  function testShowMediumProfile()
-  {
+   /**
+	* Verify (manualy) that clicking the profile picture of a player at the table will open a thickbox showing the medium profile of the player.
+	*
+	* The verification is done through these steps:
+	* - Log in with a user
+	* - double click on a table name in le table list
+	* - Click on the user picture
+	* - A thickbox containing the medium profile must pop up
+	*/
+
+	function testShowMediumProfile() {  }
+
+   /**
+	* Verify presence of the profile picture, nick, status/level, amount of chips, city and country of origin on medium profile.
+	*
+	* The verification is done through these steps:
+	* - Log in with a user
+	* - Goto stand alone medium profile (poker/profile/medium/)
+	* - Check the presence of wanted information
+	* - Log out
+	* - Create an other user
+	* - Log in with the first user
+	* - Goto new user medium profile (poker/profile/medium/[uid])
+	* - Check the presence of wanted information for external view
+	* - Invite a user
+	* - Goto new user medium profile (poker/profile/medium/[uid])
+	* - Check the presence of wanted information for buddy external view
+	*
+	*/
+	function testMediumProfile()
+	{
+		//Check information on self view
+		$this->_checkInformation($this->skel_user->uid);
+		
+		$this->assertNoText(t("Add Buddy"), "No link add buddy");
+		$this->assertNoText(t("Report Abuse"), "No link to report abuse");
+		$this->assertText(t("Activate"), "Activate button present");
+		$this->drupalLogout($this->skel_user);
+		
+		//Check information on external view
+		$user2 = $this->drupalCreateUser();
+		$this->OsPokerLogin($user2, array('profile_nickname' => 'user2'));
+		$this->drupalLogout($user2);
+		
+		$this->drupalLogin($this->skel_user);
+		
+		$this->_checkInformation($user2->uid);
+		$this->assertText(t("Add Buddy"), "Link add buddy present");
+		$this->assertText(t("Report Abuse"), "Link to report abuse present");
+		$this->assertNoText(t("Activate"), "Activate button not present");
+		
+		//Send invite
+		$name = $this->randomName();
+		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		$this->OsPokerSendInvites(array($name => $email));
+		$this->drupalLogout($this->skel_user);
+		
+		//Accept invite
+		$mail_queue = end($this->drupalGetMails());
+		$code = $mail_queue['params']['invite']->code;
+		$this->drupalGet('invite/accept/'. $code);
+		$password = $this->randomName();
+		$options = array(
+		  'name'        => $name,
+		  'pass[pass1]' => $password,
+		  'pass[pass2]' => $password,
+		);
+		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
+		$this->drupalLogout();
+		
+		//Find invited user id
+		$params = array("profile_nickname" => $name);
+		$fresult = CUserManager::instance()->SearchUsers($params);
+		
+		$this->assertEqual(count($fresult), 1,  "1 invited user found");
+		
+		//Check information on buddy view
+		$this->drupalLogin($this->skel_user);
+		
+		$this->_checkInformation($fresult[0]);
+		$this->assertNoText(t("Add Buddy"), "Link add buddy not present");
+		$this->assertText(t("Report Abuse"), "Link to report abuse present");
+		$this->assertNoText(t("Activate"), "Activate button not present");
+		
+	}
 
 
-
-  }
-
+	function	_checkInformation($uid)
+	{
+		$cuser = CUserManager::instance()->User($uid);
+		
+		$this->drupalGet("poker/profile/medium/{$uid}");
+		
+		$this->assertRaw("src=\"" . $cuser->picture . "\"", "User picture is present");
+		$this->assertText($cuser->profile_nickname, "User nickname is present");
+		$this->assertText($cuser->Status(), "User status is present");
+		$this->assertText($cuser->Chips(TRUE), "User amount of chips is present");
+		$this->assertText($cuser->profile_city, "User city is present");
+		$this->assertText($cuser->profile_country, "User country is present");
+		$this->assertText(t("Profile"), "Link to full profile is present");
+	}
 
 }

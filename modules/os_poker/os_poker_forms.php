@@ -8,19 +8,18 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
-	$form_state['values']["name"] = "player";
-	
-	user_register_validate($form, $form_state);
-	
 	$form_state['values']["name"] = $form_state['values']["mail"];
 	
 	password_policy_password_validate($form, $form_state);
+	user_register_validate($form, $form_state);
+
 }
 
 function	os_poker_sign_up_form_submit($form, &$form_state)
 {
 	password_policy_password_submit($form, $form_state);
 	user_register_submit($form, $form_state);
+
 }
 
 function	os_poker_sign_up_form($form_state)
@@ -654,25 +653,19 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 		if (isset($edit["first_profile"]))
 		{
 			CScheduler::instance()->RegisterTask(new CDelayMessage(), $cuser->uid, 'login', "-1 Day", array("type" => "os_poker_jump",
-																										"body" => array("lightbox" => FALSE,
-																														"url" => url("<front>", array("query" => array(
-																																										"q" => "poker/buddies/invite",
-																																										
-																																									),											
-																																						"absolute" => TRUE)))));
+																										"body" => array("lightbox" => TRUE,
+																														"url" => url("poker/buddies/invite", array("query" => array("height" => 442, "width" => 603), "absolute" => TRUE)))));
 		}
 	}
 	else if (isset($edit["first_profile"]))
 	{
 		CScheduler::instance()->RegisterTask(new CDelayMessage(), $cuser->uid, 'login', "-1 Day", array("type" => "os_poker_jump",
-																									"body" => array("lightbox" => FALSE,
-																													"url" => url("<front>", array("query" => array(
-																																									"q" => "poker/profile/update",
-																																									
-																																								),
-																																					"absolute" => TRUE)))));
+																									"body" => array("lightbox" => TRUE,
+																													"url" => url("poker/profile/update", array("query" => array("height" => 442, "width" => 603), "absolute" => TRUE)))));
+																													
+																													
 	}
-	
+
 	$cuser->Save();
 	
 	//Trigger the invitation bonus

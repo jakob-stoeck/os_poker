@@ -1309,6 +1309,8 @@ body.iframe #messagebox a.LayerClose
 	border:#501713 solid 1px;
 	width: 380px;
 	padding:15px;
+	margin-left:auto;
+	margin-right:auto;
 }
 
 #poker-first-profile fieldset

@@ -10,7 +10,7 @@ $(document).ready(function () {
 	$("#buddylist #edit-online").click(function () {
 	
 		os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
-		os_poker_slider_reset($('#buddy_panel .cursor'));
+		os_poker_slider_reset($('#buddy_panel .cursor'), 80);
 	});
 	
 });

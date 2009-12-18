@@ -261,7 +261,7 @@ class CShop
 		return TRUE;
 	}
 	
-	public static function GiveItem($item_id, $targets)
+	public static function GiveItem($item_id, $targets, $debug = FALSE)
 	{
 		require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 		require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");	
@@ -292,7 +292,7 @@ class CShop
 			$price = ($item->price * $ntargets);
 			
 			if ($nchips < $price)
-				throw new Exception(t('User doesn\'t have enough money.'));
+				throw new Exception(t('User doesn\'t have enough money (!uc vs !cn needed).', array('!uc' => $nchips, '!cn' => $price)));
 	
 			
 			$sql = "INSERT INTO `{poker_operation}`
@@ -357,6 +357,8 @@ class CShop
 		}
 		catch (Exception $e) 
 		{
+			if ($debug == TRUE)
+				throw $e;
 			return FALSE;
 		}
 		

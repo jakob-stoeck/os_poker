@@ -165,7 +165,13 @@ class OSPokerSignUp extends OsPokerWebTestCase {
    */
   function testInvalidPassword(){
 
+	//Useless
+	/*$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+    $this->drupalLogin($root);
+	$this->drupalPost('poker/first_profile', array(), t('Send'));
 	$this->drupalGet('admin/settings/password_policy/list');
+	$this->drupalPost('admin/settings/password_policy/list', array('default' =>'1'), 'Set default policy');
+	$this->drupalLogout();*/
 	
   
     /**

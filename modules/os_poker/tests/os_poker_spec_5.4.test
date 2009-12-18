@@ -69,13 +69,46 @@ class OSPokerStatusLevelEvaluation extends OsPokerWebTestCase {
    * Verify this
    *
    * The verification is done through these steps:
-   * - go here.
-   * - do this.
+Fish 0
+Chippy 10,000
+Rising Star 50,000
+Chip Hunter 100,000
+Pokermaniac 250,000
+Stone Face 500,000
+Big Rock 1,000,000
+Shark 2,500,000
+Highroller 5,000,000
+Rockefeller 10,000,000
    *
    */
-  function testStatusLevel(){
+  function testStatusLevel()
+  {
+	$level_array = array("Fish" => 0,
+		    "Chippy" => 10000,
+		    "Rising Star" => 50000,
+		    "Chip Hunter" => 100000,
+		    "Pokermaniac" => 250000,
+		    "Stone Face" => 500000,
+		    "Big Rock" => 1000000,
+		    "Shark" => "2500000",
+		    "Highroller" => "5000000",
+		    "Rockefeller" => "10000000");
 
+	foreach ($level_array as $level_name => $chips_amount)
+	{
+	$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
 
+		$test_user->chips = $chips_amount;
+		$test_user->Save();
+
+		$this->drupalGet('poker/profile');
+		$this->assertTrue(TRUE, $this->drupalGetContent());
+
+		$this->assertText($level_name, 'User with '.$chips_amount.' Chips has level '.$level_name);
+
+		$this->assertTrue(TRUE, $test_user->Chips());
+		$this->assertTrue(TRUE, $test_user->Chips());
+	}
 
   }
 

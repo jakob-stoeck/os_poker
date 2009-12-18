@@ -195,8 +195,8 @@ class CUser
 	{
 		if (isset($this->_vars["money"]) && isset($this->_vars["money"]["1"]))
 		{
-			$chips = $this->_vars["money"]["1"];
-			$chips /= 100;
+		  $chips = $this->_vars["money"]["1"];
+		  $chips = bcdiv($chips, 100);
 		}
 		else
 		{
@@ -215,7 +215,7 @@ class CUser
 	{
 		if (is_numeric($value))
 		{
-			$this->_vars["money"] = array("1" => $value * 100);
+		  $this->_vars["money"] = array("1" => (float)bcmul($value, 100));
 			$this->_OSDirty[] = "money";
 			CPoker::CheckRewards("chips", $this->_user->uid, array("chips" => $value));
 
@@ -590,6 +590,7 @@ class CUserManager
 	private static $_instance;
 	
 	private $_users = array();
+	private $_forcedUser = NULL;
 	
 	/*
 	**
@@ -731,6 +732,15 @@ class CUserManager
 			{
 				$ulist[] = $uid;
 			}
+			else if (is_object($uid) && isset($uid->uid) && is_numeric($uid->uid))
+			{
+				$user = $this->User($uid->uid, $forceReload);
+			
+				if ($user != NULL)
+				{
+					$ulist[] = $user;
+				}
+			}
 			else
 			{
 				throw new Exception(t('Requested user is not a uid or a CUser'));
@@ -742,11 +752,36 @@ class CUserManager
 	
 	public function	CurrentUser($forceReload = FALSE)
 	{
-		global $user;
-		
-		return $this->User($user->uid, $forceReload);
+		if ($this->_forcedUser == NULL)
+		{
+			global $user;
+			
+			return $this->User($user->uid, $forceReload);
+		}
+		else
+		{
+			return $this->User($this->_forcedUser, $forceReload);
+		}
 	}
-
+	
+	/*
+	** Debug helpers, only if you know what you are doing
+	*/
+	
+	public function	DebugForceCurrentUser($uid)
+	{
+		$this->_forcedUser = $uid;
+	}
+		
+	public function	DebugRestoreCurrentUser()
+	{
+		$this->_forcedUser = NULL;
+	}
+	
+	/*
+	**
+	*/
+	
 	public function	User($uid, $forceReload = FALSE)
 	{
 		$user = NULL;

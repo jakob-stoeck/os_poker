@@ -68,13 +68,59 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
    * Verify this
    *
    * The verification is done through these steps:
-   * - go here.
-   * - do this.
+login skel_user
+create a buddy with invitation process
+do it n times (let's say 5)
+iterate through skel_user buddies and add them a random amount of Chips
+call usort on buddies list and verify the order
    *
    */
-  function testRankingSystem(){
+  function testRankingSystem()
+  {
 
+    for ($i = 0; $i < 5; $i++)
+    {
+     $this->drupalLogin($this->skel_user);
 
+		$name = $this->randomName();
+		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		$this->OsPokerSendInvites(array($name => $email));
+     $this->drupalLogout();
+
+		$mail_queue = end($this->drupalGetMails());
+		$code = $mail_queue['params']['invite']->code;
+		$this->drupalGet('invite/accept/'. $code);
+		$password = $this->randomName();
+		$options = array(
+		  'name'        => $name,
+		  'pass[pass1]' => $password,
+		  'pass[pass2]' => $password,
+		);
+		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
+     $this->drupalLogout();
+
+    }
+
+	$test_user = CUserManager::instance()->User($this->skel_user->uid);
+	$test_buddies = $test_user->Buddies(TRUE);
+
+	$previous_max_chips = 0;
+	foreach ($test_buddies as $buddy)
+	{
+		$buddy->chips += rand(1000, 5000);
+		$buddy->Save();
+		if ($buddy->Chips() > $previous_max_chips)
+		   $previous_max_chips = $buddy->Chips();
+	}
+
+	$test_buddies = $test_user->Buddies(TRUE, TRUE);
+	
+	foreach ($test_buddies as $buddy)
+	{
+		$this->assertTrue($buddy->Chips() <= $previous_max_chips, "Sort OK : ".$buddy->Chips());
+		$previous_max_chips = $buddy->Chips();
+	}
 
   }
 

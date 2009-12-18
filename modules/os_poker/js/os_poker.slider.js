@@ -1,8 +1,12 @@
 
-function	os_poker_slider_reset(elem)
+function	os_poker_slider_reset(elem, step)
 {
 	elem.css("position", "absolute");
 	elem.css("left", "0px");
+	
+	var children = elem.children(":visible");
+	var vis = children.length * step;
+	elem.css("width", vis + "px");
 }
 
 /*
@@ -38,7 +42,7 @@ function	os_poker_register_slider(elem, step)
 		var nextpos = pos - step;
 		var max = event.data.parent().width();
 		
-		cursor.css("width", vis + "px");
+		event.data.css("width", vis + "px");
 		
 		if (vis + nextpos >= max)
 		{

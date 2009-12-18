@@ -44,7 +44,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 					<?php print $buddies_entry->Chips(TRUE); ?>
 				</div>
 				<div class="buddy_result_list_level">
-					<?php print "level"; ?>
+					<?php print $buddies_entry->Status(); ?>
 				</div>
 				<div class="buddy_result_list_city">
 					<?php print $buddies_entry->profile_city; ?>
