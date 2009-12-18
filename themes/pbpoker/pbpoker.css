@@ -43,7 +43,7 @@ tr.even a
 
 .yellow
 {
-	color:#FABF6A;
+	color:#A8904A;
 }
 
 .darkred
@@ -971,16 +971,16 @@ div#buddylist  .header label
 
 div#buddylist #buddy_panel
 {
-	background-color: #391716;
+	background-color: #EAE8E5;
+	background-image: url(images/bg_buddy_panel.png);
 	width:740px;
-	height:185px;
+	height:182px;
 	padding-top:5px;
 	padding-left:2px;
 }
 
 div#buddylist .list
 {
-	background:#290706 url(images/buddy_separator.png) no-repeat scroll left bottom;
 	float:left;
 	height:172px;
 	margin-top:-5px;
@@ -999,13 +999,14 @@ div#buddylist .cursor
 
 .buddy_list_block
 {
-	border-bottom: 1px dotted #723430;
+	border-bottom:1px dotted #8C8C8C;
+  border-right:1px solid #A2A2A0;
 	height:167px;
 	padding-top:4px;
-	width:80px;
+	width:79px;
 	float:left;
 	text-align:center;
-	background:transparent url(images/buddy_separator.png) no-repeat bottom right;
+	background:transparent url(images/bg_buddy_list_block.png) repeat-x bottom right;
 }
 
 .buddy_list_number
@@ -1035,7 +1036,7 @@ div#buddylist .buddy_list_placeholder
 
 div#buddylist .buddy_list_placeholder .title
 {
-	color:#FABF6A;
+	color:#A8904A;
 	font-weight:bold;
 	left:15px;
 	position:absolute;
@@ -1057,7 +1058,7 @@ div#buddylist .buddy_list_placeholder .body a
 
 .buddy_list_name, .buddy_list_name a
 {
-	color:#FABF6A;
+	color:#A8904A;
 	font-weight:bold;
 	overflow:hidden;
 	padding-bottom:5px;
@@ -1091,8 +1092,8 @@ div#buddylist .buddy_list_placeholder .body a
 
 .buddy_list_chips 
 {
-	color:#FABF6A;
-	padding-bottom:10px;
+	color: #A8904A;
+	padding-bottom: 10px;
 }
 
 .buddy_list_links a
@@ -1152,9 +1153,10 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #middle-content-left .iframe_div
 {
-	height:510px;
+	height: 489px;
 	padding:0 !important;
-	width:405px;
+	width: 401px;
+	overflow: hidden;
 }
 
 #middle-content-left-table .iframe_div
@@ -3189,7 +3191,7 @@ width:87px;
 
 #forgot-password .footer a
 {
-	color: #FABF6A;
+	color: #A8904A;
 }
 
 
