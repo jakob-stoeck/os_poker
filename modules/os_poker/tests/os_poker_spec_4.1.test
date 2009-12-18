@@ -41,6 +41,8 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
  *
  * @assert: nicknames are validated and should be unique on profile submit.
  *
+ * @assert: The active password policy enfore password of at least 6 characters.
+ *
  * @TODO: Player image behaviour is not yet tested. Gender/male icon if sex is
  *        especified.
  * @TODO: rename class to OsPokerSpecificationsSignUp once proppy's code has
@@ -83,7 +85,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 
     // Remove any pending status from signup operations.
     $this->drupalLogout();
-    
+
     parent::tearDown();
   }
 
@@ -154,6 +156,21 @@ class OSPokerSignUp extends OsPokerWebTestCase {
   }
 
   /**
+   * Verify that the active password policy enfore password of at least 6
+   * characters.
+   *
+   * The verification is done through these steps:
+   *  - Load the active password policy (using the private password_policy
+   *    function)
+   *  - Check the policy for a length constraint with a value of 6.
+   */
+  function testPasswordPolicy() {
+    $policy = _password_policy_load_active_policy();
+    $this->assertNotNull($policy, 'Active password policy loaded');
+    $this->assertEqual('6', $policy['policy']['length'], 'The active password policy enfore password of at least 6 characters.');
+  }
+
+  /**
    * Verify that minimum password length is validated
    *
    * The verification is done through these steps:
@@ -164,7 +181,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
    *
    */
   function testInvalidPassword(){
-
 	//Useless
 	/*$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
     $this->drupalLogin($root);
@@ -172,8 +188,8 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 	$this->drupalGet('admin/settings/password_policy/list');
 	$this->drupalPost('admin/settings/password_policy/list', array('default' =>'1'), 'Set default policy');
 	$this->drupalLogout();*/
-	
-  
+
+
     /**
      * Go to front page.
      */
@@ -204,7 +220,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 
     // options for the signup form.
 	$mail = $this->randomName() . '@email.com';
-	
+
     $options = array(
       'mail' => $mail,
       'pass' => $password,
@@ -216,8 +232,8 @@ class OSPokerSignUp extends OsPokerWebTestCase {
       '200',
       t("The submission produces no errors.")
     );
-	
-	// Kez : FIXME, Password policy seems to be not loaded 
+
+	// Kez : FIXME, Password policy seems to be not loaded
 	if (empty($password))
 	{
 		// Verify a message for the invalid address error is shown.
@@ -231,7 +247,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 		// Verify a message for the invalid address error is shown.
 			$this->assertText(
 		  t('Password must be at least 6 characters in length'),
-		// Kez : FIXME, wording of error should be modified   
+		// Kez : FIXME, wording of error should be modified
 		//  t('The password must be at least 6 characters.'),
 		  t('4.1 Minimum length of the password should be a least 6 characters.')
 		);

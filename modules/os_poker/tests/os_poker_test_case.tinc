@@ -123,9 +123,17 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
 
       // Creates password policy
-
-	  db_query("INSERT IGNORE INTO `{password_policy}` VALUES (1,'Min length','Password must contains at least 6 characters',1,'a:1:{s:6:\"length\";s:1:\"6\";}',1258800007,0,'')");
-
+      // NOTE: This should probably be moved into os_poker_enable() or os_poker_install() in os_poker.install
+      $policy = new stdClass();
+      $policy->pid = '1';
+      $policy->name = 'Min length';
+      $policy->description = 'Password must contains at least 6 characters';
+      $policy->enabled = true;
+      $policy->policy = serialize(array('length' => '6'));
+      $policy->created = time();
+      $policy->expiration = 0;
+      $policy->warning = '';
+      drupal_write_record('password_policy', $policy);
      /* $policy = array(
         'name' => $this->randomName(),
         'description' => $this->randomName(),
