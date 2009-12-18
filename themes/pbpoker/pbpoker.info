@@ -1,7 +1,7 @@
 ; $Id: poker.info,v 1.11 2009/11/04 15:00:00 kez Exp $
 
-name        = Poker
-description = Pokermania World theme
+name        = Playboy Poker
+description = Theme for playboypoker.de
 screenshot = screenshot.png
 engine = phptemplate
 version = "6.x-1.0"
