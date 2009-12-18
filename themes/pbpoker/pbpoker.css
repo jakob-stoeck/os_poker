@@ -4,8 +4,8 @@ body
 	margin:0;
 	border:0;
 	padding:0px 0px 18px 0px;
-	background:#7d7d7d url(images/bg.gif) repeat-x fixed top left;
-	font-family:arial, verdana, sans-serif;
+	background: black url(images/bg.jpg) no-repeat fixed top center;
+	font-family: arial, verdana, sans-serif;
 	font-size:11px;	
 	text-align:left;
 	color:gray;
@@ -342,10 +342,10 @@ body.iframe a.LayerClose
 
 #page
 {
-	width: 760px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top:4px;
+  width: 760px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top: 3px;
 }
 
 /*
@@ -354,33 +354,59 @@ body.iframe a.LayerClose
 
 div#header
 {
-	background: black url(images/header.png) no-repeat;
-	width: 760px;
-	height: 95px;
-	border-bottom: 1px solid #929292;
-	overflow:hidden;
+  background-color: black;
+  background-image: url(images/bg_footer.gif);
+  background-repeat: repeat;
+  background-position: -7px 0;
+  width: 760px;
+  height: 100px;
+  overflow:hidden;
+}
+
+#header #header-inner
+{
+  background-color: transparent;
+  background-image: url(images/bg_header_inner.png);
+  background-position: 0px 30px; 
+  background-repeat: repeat-x;
 }
 
 div#header div#logo
 {
-	padding-top:24px;
-	padding-left:12px;
+	padding-top:21px;
+	padding-left:11px;
 	float:left;
 }
 
-div#header div#header-blocks
+/**
+ * We hide all block in header region, except the first two
+ */
+#header-blocks .block
 {
-	float:left;
+  float: right;
+  margin-right: 10px;
+  display: none;
+  overflow: hidden;
+	width: 500px;
 }
 
-/*
-**
-*/
+#header-blocks .block .block-inner {
+	float: right;
+}
+
+#header-blocks .region-block-1 {
+  height: 30px;
+  display: block;
+}
+
+#header-blocks .region-block-2 {
+  height: 66px;
+  display: block;
+}
 
 #header .language-bar
 {
-	margin-left:415px;
-	padding-top:20px;
+  padding-top:5px;
 }
 
 .language-bar a
@@ -420,14 +446,11 @@ div#header div#header-blocks
 
 div#user_login
 {
-	background:transparent url(images/header_block_bg.png) no-repeat scroll 0 0;
 	color:#FFFFFF;
-	font-size:10px;
 	height:45px;
-	margin-left:187px;
 	overflow:hidden;
 	text-decoration:none;
-	margin-top:2px;
+	margin-top:12px;
 	white-space:nowrap;
 	width:305px;
 }
@@ -444,7 +467,7 @@ div#user_login .user_login_brief_row
 	display: block;
 	float: right;
 	white-space:nowrap;
-	padding-right:7px;
+	padding-left:7px;
 	padding-top:2px;
 }
 
