@@ -236,7 +236,7 @@ div.poker_error_message .msg a
 
 #main.logged_in
 {
-	background:transparent url(images/body_bg.png) repeat scroll top left;
+	background:transparent url(images/body_bg.png) repeat-x scroll top left;
 }
 
 
@@ -316,12 +316,17 @@ body.iframe a.LayerClose
 	height: 88px;
 	width: 760px;
 	text-align:right;
+	padding-top: 11px;
 }
 
 #footer #footer-inner 
 {
-	padding-right:7px;
-	padding-top:10px;
+	padding: 5px;
+	background-color: #CCD2D6;
+}
+
+#footer .language-link {
+	color: white;
 }
 
 #sidebar-left
@@ -427,16 +432,20 @@ div#header div#logo
 #footer .language-bar
 {
 	padding-bottom:5px;
-	color:white;
+	color: white;
+}
+
+#footer .language-bar a {
+	color: black;
 }
 
 .footer-links a
 {
-	color:#FABF6A;
+	color:#A8904A;
 }
 .footer-links
 {
-	color:#FABF6A;
+	color:#A8904A;
 	margin-right:5px;
 }
 
@@ -853,10 +862,12 @@ div.poker_submit.medium div.pre
 
 div#navbar 
 {
-	height:29px;
+	height:28px;
 	width:760px;
-	background: transparent url(images/navi_bg.gif) repeat-x;
-	border-bottom:1px solid white;
+	background-color: #1e1e1e;
+	background-image: url(images/navi_bg.png);
+	background-repeat: repeat-x;
+	background-position: 0 0;
 	overflow:hidden;
 }
 
@@ -1126,7 +1137,6 @@ div#buddylist .previous, div#buddylist .previous:hover
 	display:block;
 	float:none;
 	width:100%;
-	padding-top:5px;
 }
 
 #middle-content-left, #middle-content-left-table
@@ -1177,15 +1187,13 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief 
 {
-	background-color:#2f1210;
-	height:81px;
-	width:405px;
+	background-color: #D4D3CF;
+	color: #635E58;
+	font-weight:bold;
+	height:72px;
+	width:391px;
+	padding: 5px;
 	margin-bottom:4px;
-}
-
-#user-brief .avatar
-{
-	padding:5px 7px 5px 5px;
 }
 
 #user-brief .avatar img
@@ -1201,12 +1209,11 @@ div#buddylist .previous, div#buddylist .previous:hover
 #user-brief .info1
 {
 	width: 150px;
+	margin-left: 8px;
 }
 
 #user-brief  p
 {
-	color:white;
-	font-weight:bold;
 	margin: 0;
 	padding-top:5px;
 }
@@ -1214,12 +1221,11 @@ div#buddylist .previous, div#buddylist .previous:hover
 #user-brief  p.info
 {
 	padding-top:10px;
-	color: #fefefe;
 }
 
 #user-brief  p.info b
 {
-	color: #fabf6a;
+	color: #A9804A;
 }
 
 /*
