@@ -632,7 +632,7 @@ class CUserManager
 	**
 	*/
 	
-	public function	SearchUsers(& $params, $offset = 0, $limit = NULL)
+	public function	SearchUsers($params, $offset = 0, $limit = NULL)
 	{
 		$sql = "SELECT `u`.`uid`
 				FROM `{users}` AS `u`
