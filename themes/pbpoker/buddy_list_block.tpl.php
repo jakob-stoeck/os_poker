@@ -36,27 +36,29 @@
 		<?php if (!$hide_links) { ?>
 		<div class="buddy_list_links">
 			<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_challenge_user', challengetarget: <?php print $buddy->uid; ?>});"><?php print t("Challenge"); ?>&nbsp;&gt;&gt;</a><br/>
-			<?php 
-					if ($buddy->Online())
-					{
-					?>
-						<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_invite_user', target: <?php print $buddy->uid; ?>, table: true});"><?php print t("Join Table"); ?>&nbsp;&gt;&gt;</a><br/>
-					<?php
-					}
-					else
-					{
-					?>
-						<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_invite_user', target: <?php print $buddy->uid; ?>});"><?php print t("Invite now"); ?>&nbsp;&gt;&gt;</a><br/>
-					<?php
-					}
-					if ($buddy->profile_accept_gifts == 0)
-					{
-						print l(t("Send Gifts") . "&nbsp;&gt;&gt;", "poker/shop/shop/1/buddy/" . $buddy->uid, array("query" => array("height" => 442,
-																																	 "width" => 603,
-																																	 "TB_iframe" => "true"),
-																													"attributes" => array("class" => "thickbox"),					
-																													"html" => TRUE));
-					}
+			<?php
+			
+				if ($buddy->Online())
+				{
+					$text = t("Join table");
+					$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . ", online: true})";
+				}
+				else
+				{
+					$text = t("Invite now");
+					$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "})";
+				}
+			?>
+			<a href="javascript:void(0);" onclick="javascript:<?php print $url; ?>;"><?php print $text; ?>&nbsp;&gt;&gt;</a><br/>
+			<?php
+				if ($buddy->profile_accept_gifts == 0)
+				{
+					print l(t("Send Gifts") . "&nbsp;&gt;&gt;", "poker/shop/shop/1/buddy/" . $buddy->uid, array("query" => array("height" => 442,
+																																 "width" => 603,
+																																 "TB_iframe" => "true"),
+																												"attributes" => array("class" => "thickbox"),					
+																												"html" => TRUE));
+				}
 			?>
 		</div>
 		<?php } ?>

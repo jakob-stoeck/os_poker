@@ -219,7 +219,50 @@ div.poker_error_message .msg a
 
 #main #messages div.messages
 {
+    display: none;
+}
 
+#messages
+{
+    display: none;
+}
+
+#messages_popup 
+{
+    width: 501px;
+    height: 256px;
+    background: transparent url("images/bg_confirm_black.png") top left no-repeat;
+}
+
+#messages_popup a.LayerClose
+{
+	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+	display:block;
+	height:20px;
+	position:absolute;
+	right:11px;
+	top:8px;
+	width:20px;	
+	z-index:777;
+	text-decoration:none;
+}
+
+#messages_popup  div.error
+{
+    border: none;
+}
+
+#messages_popup  div.messages
+{
+    background: none;
+    color: white;
+    text-align: left;
+    position: absolute;
+    left: 260px;
+    top: 160px;
+    width: 220px;
+    height: 80px;
+    overflow: hidden;
 }
 
 
@@ -1069,6 +1112,11 @@ div#buddylist .buddy_list_placeholder .body a
 div#buddylist  #today_gift
 {
 	float: left;
+}
+div#buddylist  #today_gift_invite
+{
+	float: left;
+	display: none;
 }
 
 div#buddylist .next, div#buddylist .next:hover

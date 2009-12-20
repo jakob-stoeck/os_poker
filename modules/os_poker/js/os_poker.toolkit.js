@@ -1,5 +1,4 @@
 
-
 function	os_poker_submit(link, form_id)
 {
 	var jlink = $(link);
@@ -145,6 +144,17 @@ function	os_poker_filter_online(elem, status)
 **
 */
 
+function	os_poker_start_challenge(player1, player2)
+{
+	$.get(os_poker_site_root(), {view: "table", challenge: player1 +","+player2}, function() {
+		document.location.href = os_poker_site_root() + "?&view=table&challenge=join";
+	});
+	
+}
+
+/*
+**
+*/
 
 function	os_poker_activate_item(elem)
 {
@@ -172,3 +182,14 @@ function os_poker_play_now_clicked()
 {
 
 }
+
+/*
+**
+*/
+
+function os_poker_switch_today_gift_blocks()
+{
+	  $('#today_gift').hide();
+	  $('#today_gift_invite').show();
+}
+

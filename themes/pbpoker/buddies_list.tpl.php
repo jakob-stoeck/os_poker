@@ -59,21 +59,20 @@ for ($i = 0; $i < $items_per_page; $i++)
 				</div>
 				
 				<?php
-				
+
 					if ($buddies_entry->Online())
 					{
-						$tables = $buddies_entry->Tables();
 						$text = t("Join table");
-						$url = url("<front>", array("query" => array("view" => "table", "game_id" => $tables[0])));
+						$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddies_entry->uid . ", online: true})";
 					}
 					else
 					{
 						$text = t("Invite now");
-						$url = "";
+						$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddies_entry->uid . "})";
 					}
-				
+					
 				?>
-				<div class="link_invite poker_submit silver" onclick="javascript: document.location.href ='<?php print $url; ?>';">
+				<div class="link_invite poker_submit silver" onclick="javascript:<?php print $url; ?>;">
 					<div class="pre"> </div>
 					<div class="label" style="width: 50px; text-align: center;">
 						<?php

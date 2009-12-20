@@ -535,10 +535,7 @@ class CUser
 		
 		while ($relationship = db_fetch_object($results))
 		{
-			$this_user_str  = (($this->_user->uid == $relationship->requestee_id) ? 'requester_id' : 'requestee_id');
-			$this_user      = $relationship->{$this_user_str};
-			
-			if ($this_user == $uid)
+			if ($relationship->requestee_id == $uid || $relationship->requester_id == $uid)
 			{
 				return TRUE;
 			}

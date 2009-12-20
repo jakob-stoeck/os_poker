@@ -217,22 +217,34 @@ class CScheduler
 			
 			foreach ($this->_tasks[$name] as $key => $value)
 			{
+				$keep_task = FALSE;
+				
 				try
 				{
 					$task = new $value->type();
 					
-					if ($task instanceof ITask && $value->active)
+					if ($task instanceof ITask)
 					{
-						$task->Run($this->_user, json_decode($value->arguments, TRUE));
-						$toDetroy [] = $value->id_task;
-						++$runTasks;
+						if ($value->active)
+						{
+							$task->Run($this->_user, json_decode($value->arguments, TRUE));
+							$toDetroy [] = $value->id_task;
+							++$runTasks;
+						}
+						else
+						{
+							$keep_task = TRUE;
+						}
 					}
 				}
 				catch (Exception $e) { }
 				
-				foreach ($value->trigger as $t)
+				if ($keep_task == FALSE)
 				{
-					unset($this->_tasks[$t][$key]);
+					foreach ($value->trigger as $t)
+					{
+						unset($this->_tasks[$t][$key]);
+					}
 				}
 			}
 
@@ -500,19 +512,29 @@ class CScheduler
 			
 			foreach ($tasks[$name] as $key => $value)
 			{
-
+				$keep_task = FALSE;
 				$task = new $value->type();
 				
-				if ($task instanceof ITask && $value->active)
+				if ($task instanceof ITask)
 				{
-					$task->Run($user, json_decode($value->arguments, TRUE));
-					$toDetroy [] = $value->id_task;
-					++$runTasks;
+					if ($value->active)
+					{
+						$task->Run($user, json_decode($value->arguments, TRUE));
+						$toDetroy [] = $value->id_task;
+						++$runTasks;
+					}
+					else
+					{
+						$keep_task = TRUE;
+					}
 				}
 				
-				foreach ($value->trigger as $t)
+				if ($keep_task == FALSE)
 				{
-					unset($tasks[$t][$key]);
+					foreach ($value->trigger as $t)
+					{
+						unset($tasks[$t][$key]);
+					}
 				}
 			}
 

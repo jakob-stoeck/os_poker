@@ -139,8 +139,14 @@
 				<?php endif; ?>
 				
 				<?php if (($logged_in || !$is_front) && $messages) : ?>
-				<div id="messages">
+				    <div id="messages">
+				<div id="messages_popup">
+				       	<a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
 					<?php print $messages; ?>
+				</div>
+				   </div>
+				<div style="display: none;">
+				<a id="tb_messages" class="thickbox" href="#TB_inline?height=256&width=501&inlineId=messages" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&inlineId=messages'"></a>
 				</div>
 				<?php endif; ?>
 

@@ -18,13 +18,13 @@ test("with users", function() {
 	equals($('.userlist .picture img').eq(0).attr('src'), 'sites/default/files/pictures/picture-1.png', "first user picture src should be picture-1.png");
 	equals($('.userlist .name a').eq(0).text(), 'foo', 'first user name should be foo');
 	equals($('.userlist .name a').eq(0).attr('href'), '?q=user/1', 'first user name should link to user/1');
-	equals($('.userlist .money a').eq(0).text(), '$ 1', "foo's money should be $1");
+	equals($('.userlist .money a').eq(0).text(), '$ 1', "foo's money should be $ 1");
 
 	equals($('.userlist .picture a').eq(1).attr('href'), '?q=user/2', "first user picture should link to user/2");
 	equals($('.userlist .picture img').eq(1).attr('src'), 'sites/default/files/pictures/picture-2.png', "first user picture src should be picture-1.png");
 	equals($('.userlist .name a').eq(1).text(), 'bar', 'first user name should be bar');
 	equals($('.userlist .name a').eq(1).attr('href'), '?q=user/2', 'first user name should link to user/1');
-	equals($('.userlist .money a').eq(1).text(), '$ 20.000', "foo's money should be $ 20.000");
+	equals($('.userlist .money a').eq(1).text(), '$ 20,000', "foo's money should be $ 20,000");
 });
 
 test("without users", function() {

@@ -121,6 +121,9 @@ Big Spender Player buys a gift for every player at the table, aggregate value mo
 	  $reward_key = "reward40"; // The Millionaires Club
 	  $reward_uid = db_result(os_poker_db_query("SELECT `user_id` FROM {application_settings} where `user_id`=%d AND `name`='%s'", $this->skel_user->uid, $reward_key));
 	  $this->assertEqual($this->skel_user->uid, $reward_uid, "GETTING MORE THAN 1M Chips => REWARDED : The Millionaires Club");
+
+/*TODO : Strike and Big Spender*/
+
   }
 
 

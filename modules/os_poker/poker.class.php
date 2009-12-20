@@ -46,13 +46,13 @@ class CPoker
 	
 		db_set_active(POKER_DB);
 		
-		$sql = "SELECT `table_serial` FROM `user2table` WHERE `user_serial` = %d";
+		$sql = "SELECT `t`.`serial`, `t`.`name` FROM `pokertables` AS `t` JOIN `user2table` AS `u` ON (`u`.`table_serial` = `t`.`serial`) WHERE `u`.`user_serial` = %d";
 		
 		$res = db_query($sql, $user_id);
 		
 		if ($res)
 		{
-			while (($t = db_result($res)))
+			while (($t = db_fetch_object($res)))
 			{
 				$tables []= $t;
 			}

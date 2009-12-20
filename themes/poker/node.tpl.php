@@ -47,6 +47,7 @@
  * @see template_preprocess()
  * @see template_preprocess_node()
  */
+
 ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?>"><div class="node-inner">
 

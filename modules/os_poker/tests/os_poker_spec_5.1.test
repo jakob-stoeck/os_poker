@@ -236,7 +236,7 @@ repeat until all daily chips amount's checks completes (> 50 buddies, max 5000 d
 
 		CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
 		
-		//Create an imediate daily chips task
+		//Create an immediate daily chips task
 		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
 		
 		//Login to the site

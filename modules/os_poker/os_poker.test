@@ -170,9 +170,9 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		$money = $user->money[1];
 		$this->assertEqual(5000050, $money, "user money is: $money should be 5000050");
 		$chips = $user->Chips();
-		$this->assertEqual(50000.5, $chips, "user chips is: $chips should be 50000.5");
+		$this->assertEqual(50000, $chips, "user chips is: $chips should be 50000");
 		$chips = $user->Chips(TRUE);
-		$this->assertEqual("$ 50,001", $user->Chips(TRUE), "user chips is: $chips should be equals to $ 50,001");
+		$this->assertEqual("$ 50,000", $user->Chips(TRUE), "user chips is: $chips should be equals to $ 50,000");
 	}
 	
 	function	testUserClassInvalid()
@@ -203,7 +203,7 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		$user2 = $userManager->User($duser2->uid);
 		$this->assertNotNull($user2);
 		$user2->chips = 500.5;
-		$this->assertEqual(500.5, $user2->Chips(), "user chips is: " . $user2->Chips() . " should be equals to 500.5");
+		$this->assertEqual(500, $user2->Chips(), "user chips is: " . $user2->Chips() . " should be equals to 500");
 	}
 
 //  	function	testUserClassSave()

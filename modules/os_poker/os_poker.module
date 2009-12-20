@@ -345,6 +345,10 @@ function 	os_poker_theme()
 												'arguments' => array("sorted_users" => NULL),
 												'template' => 'ranking_list',
 											),
+				'os_poker_messages_popup' => array(
+												'arguments' => array(),
+												'template' => 'messages_popup',
+											),
 				'os_poker_messagebox' => array(
 												'arguments' => array('messages' => NULL),
 												'template' => 'messagebox',
@@ -388,20 +392,24 @@ function 	os_poker_theme()
 
 function	os_poker_user_relationships($type, $relationship, $category = NULL)
 {
-	if ($type == "presave")
-	{
-		CPoker::CheckRewards("buddy", $relationship->requester_id, array());
-		CPoker::CheckRewards("invite", $relationship->requestee_id, array());
-	}
-	else if ($type == "request")
+	$cuser = CUserManager::instance()->CurrentUser();
+
+	CPoker::CheckRewards("buddy", $cuser->uid, array());
+	CPoker::CheckRewards("invite", $cuser->uid, array());
+	
+	if ($type == "request")
 	{
 		require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 		
 		$player = CUserManager::instance()->User($relationship->requester_id);
 		
 		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_buddy_request.jpg";
-		$args["text"] = t("!user want to be your buddy", array("!user", $player->profile_nickname));
-		$args["links"] = l(t("Accept"), "") . " / " . l(t("Refuse"), "");
+		$args["tags"] = array("type" => "buddy", "sender" => $player->uid);
+		$args["text"] = t("!user wants to be your buddy", array("!user", $player->profile_nickname));
+		$args["links"] = l(t("Accept"), "user/" . $relationship->requestee_id . "/relationships/requested/" . $relationship->rid . "/approve", 
+							array("attributes" => array("class" => "user_relationships_popup_link"), "query" => array("destination" => "poker/messagebox"))) . " / " .
+						l(t("Refuse"), "user/" . $relationship->requestee_id . "/relationships/requested/" . $relationship->rid . "/disapprove", 
+							array("attributes" => array("class" => "user_relationships_popup_link"), "query" => array("destination" => "poker/messagebox")));
 	
 		CMessageSpool::instance()->SendMessage($relationship->requestee_id, $args);
 	}
@@ -446,6 +454,7 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		
 		case 'logout' :
 			CScheduler::instance()->Trigger('logout');
+			session_destroy();
 		break;
 		
 		case 'insert':
@@ -550,6 +559,13 @@ function os_poker_menu()
 												'type'             => MENU_CALLBACK,
 												'access callback'  => MENU_FOUND,
 										),	
+										
+					'poker/messages_popup' => array(
+												'page callback'    => 'os_poker_messages_popup_page',
+												'file' 			   => 'os_poker_pages.php',
+												'type'             => MENU_CALLBACK,
+												'access callback'  => MENU_FOUND,
+										),
 										
 					'poker/messagebox' => array(
 												'page callback'    => 'os_poker_messagebox_page',

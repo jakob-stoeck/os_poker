@@ -1,0 +1,197 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Poker 5.8: 
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.8: Player Challenges and Table Invitations test case
+ *
+ * Verifies whatever workflow is working according to specifications.
+ * Validates this and that.
+ *
+ * @assert: this little step.
+ * @assert: other little step.
+ *
+ */
+class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+  protected $skel_user;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => '5.8 Player Challenge / Table Invitations',
+      'description' => 'Status/Level Evaluation tests',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->skel_user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+
+  /**
+   * Verify this
+   *
+   * The verification is done through these steps:
+
+ref test message : 5.7
+=> set GET type and target
+$message_type = (isset($_GET["type"]) ? $_GET["type"] : "noop");
+case "os_poker_invite_user":
+if (isset($_GET["target"]))
+
+call function	os_poker_process_message()
+
+idem pour challenge user
+
+=> verifier liens message
+
+   *
+   */
+  function testInviteUser()
+  {
+	CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
+
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+	
+	/**
+     * Go to message box and check there is no message
+     */
+	$this->drupalGet('poker/messagebox');
+	
+	$this->assertText(
+       t("You don't have any message."),
+       t('New users doesn\'t have message')
+    );
+
+	$user = $this->drupalCreateUser();
+	
+    /**
+     * send a message to a user
+     */
+
+
+     $_GET["type"] = "os_poker_invite_user";
+     $_GET["target"] = $user->uid;
+
+     os_poker_process_message();
+
+     unset($_GET["type"]);
+     unset($_GET["target"]);
+	
+	
+	$this->OsPokerLogin($user);
+
+	/**
+     * Go to message box and check there is a message
+     */
+	$this->drupalGet('poker/messagebox');
+	$this->assertTrue(TRUE, $this->drupalGetContent());
+	$this->assertTrue(
+       TRUE,
+       t('A message has been received')
+    );
+	
+	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
+
+
+	CUserManager::instance()->DebugRestoreCurrentUser();
+
+  }
+
+
+
+
+  function testChallengeUser()
+  {
+	CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
+
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+	
+	/**
+     * Go to message box and check there is no message
+     */
+	$this->drupalGet('poker/messagebox');
+	
+	$this->assertText(
+       t("You don't have any message."),
+       t('New users doesn\'t have message')
+    );
+
+	$user = $this->drupalCreateUser();
+	
+    /**
+     * send a message to a user
+     */
+
+
+     $_GET["type"] = "os_poker_challenge_user";
+     $_GET["challengetarget"] = $user->uid;
+
+     os_poker_process_message();
+
+     unset($_GET["type"]);
+     unset($_GET["target"]);
+	
+	
+	$this->OsPokerLogin($user);
+
+	/**
+     * Go to message box and check there is a message
+     */
+	$this->drupalGet('poker/messagebox');
+	$this->assertTrue(TRUE, $this->drupalGetContent());
+	$this->assertTrue(
+       TRUE,
+       t('A message has been received')
+    );
+	
+	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
+
+
+	CUserManager::instance()->DebugRestoreCurrentUser();
+
+  }
+
+
+
+
+}

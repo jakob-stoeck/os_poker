@@ -191,7 +191,7 @@ class CShop
 {
 	public static function ListCategories()
 	{
-		$sql = "SELECT * FROM {`poker_category`}";
+		$sql = "SELECT * FROM `{poker_category}`";
 		$res = db_query($sql, $params);
 		$categories = array();
 		
@@ -320,12 +320,13 @@ class CShop
 			** Expiry
 			*/
 			
-			$operation_id = db_last_insert_id("poker_operation", "id_operation");
+			$operation_id = db_last_insert_id("{poker_operation}", "id_operation");
 			$ttl = $item->ttl;
 			
 			if ($operation_id && !empty($ttl))
 			{
-				$operation_id -= (count($targets) - 1);
+			  //$operation_id -= (count($targets) - 1);
+
 				foreach ($targets as $target)
 				{
 					if ($target->ActiveItem() <= 0)

@@ -37,7 +37,7 @@ function	os_poker_poll_messages()
 			if (CScheduler::instance()->IsNewTask())
 			{
 				CScheduler::instance()->ReloadTasks();
-				
+				CScheduler::instance()->Trigger("inbox");
 				$mbox = CScheduler::instance()->GetTasks("inbox");
 				$mboxsize = count($mbox);
 				$resp["messages"][] = array("type" => "os_poker_messagebox", "body" => array("inbox" => $mboxsize,
@@ -109,7 +109,7 @@ function	os_poker_process_message()
 			break;
 			
 			case "os_poker_load_messagebox":
-				//CScheduler::instance()->Trigger("inbox");
+				CScheduler::instance()->Trigger("inbox");
 				$mbox = CScheduler::instance()->GetTasks("inbox");
 				$mboxsize = count($mbox);
 				if ($_GET["msgcount"] != $mboxsize)
@@ -133,8 +133,8 @@ function	os_poker_process_message()
 					{
 						//Wait for symbol, text, link
 						$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
-						$args["text"] = t("You just receive a headsup challenge from !user", array("!user", $current_user->profile_nickname));
-						$args["links"] = "<a href='javascript:void(0);' >" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
+						$args["text"] = t("You just receive a headsup challenge from !user", array("!user" => $current_user->profile_nickname));
+						$args["links"] = "<a class='noreplace' href='javascript:void(0);' onclick='javascript:parent.os_poker_start_challenge(" . $current_user->uid . ", " . $target_user->uid. ");'>" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
 						
 						CMessageSpool::instance()->SendMessage($target_user->uid, $args);
 						CMessageSpool::instance()->SendInstantMessage(array("text" => t("You just challenged !user", array("!user" => $target_user->profile_nickname))));
@@ -147,6 +147,27 @@ function	os_poker_process_message()
 				{
 					$current_user->ActivateItem($_GET["id_item"]);
 				}
+			break;
+			
+			case "os_poker_invite_user":
+				if (isset($_GET["target"]))
+				{
+					$target_user = CUserManager::instance()->User($_GET["target"]);
+					if ($target_user && $target_user->uid != 0 && $current_user->uid != $target_user->uid)
+					{
+						$tables = $current_user->Tables();
+
+						if (count($tables) > 0)
+						{
+							$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+							$args["text"] = t("!user is playing at table !table come and join", array("!user" => $current_user->profile_nickname, "!table" => $tables[0]->name));
+							
+							//TODO : Check $_GET["online"] to send mail
+							CMessageSpool::instance()->SendMessage($target_user->uid, $args);
+							CMessageSpool::instance()->SendInstantMessage(array("text" => t("Invitation sent to !user", array("!user" => $target_user->profile_nickname))));
+						}
+					}
+				}				
 			break;
 			
 			case "HAND":

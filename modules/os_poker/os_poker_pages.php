@@ -241,6 +241,17 @@ function	os_poker_messagebox_page()
 	return theme('os_poker_messagebox', $mbox);
 }
 
+
+/*
+**
+*/
+
+function	os_poker_messages_popup_page()
+{
+  return theme('os_poker_messages_popup');
+}
+
+
 /*
 **
 */

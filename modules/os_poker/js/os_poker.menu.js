@@ -22,9 +22,7 @@ function	os_poker_init_menu()
 	logout.bind("click",  function(event) {
 		os_poker_message_shutdown();
 
-		$.get(os_poker_site_root(), {q:"logout"}, function() {
-			document.location.href = os_poker_site_root();
-		});
+		document.location.href = os_poker_site_root() +  "?q=logout";
 	});
 	
 	

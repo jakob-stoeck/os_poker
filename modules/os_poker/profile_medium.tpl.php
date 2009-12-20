@@ -19,7 +19,7 @@
 				<div class="label"><?php print t("Buy Gift"); ?></div>
 				<div class="user_login_clear"></div>
 			</div>
-			<?php if ($external == TRUE) { 
+			<?php if ($external == TRUE && !$target_user->profile_ignore_buddy) { 
 				
 				$buddies = $current_user->Buddies();
 				if (!in_array($target_user->uid, $buddies) && !$current_user->BuddyRequested($target_user->uid)) {

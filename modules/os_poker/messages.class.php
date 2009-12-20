@@ -131,10 +131,16 @@ class CMessageSpool
 		{
 			if (isset($args["text"]) && isset($args["symbol"]))
 			{
+				if (!isset($args["tags"]))
+					$args["tags"] = array();
+				if (!isset($args["links"]))
+					$args["links"] = NULL;
+			
 				$res = CScheduler::instance()->RegisterTask(new CStaticMessage(), $targetUid, 'inbox', "+2 week", 	array("type" => "os_poker_msg",
 																												"body" => array(
 																																"text" => $args["text"],
 																																"links" => $args["links"],
+																																"tags"  => $args["tags"],
 																																"sender" => $current_user->profile_nickname,
 																																"senderPix" => $current_user->picture,
 																																"symbol" => $args["symbol"],
@@ -157,7 +163,7 @@ class CMessageSpool
 				if ($targetUid == NULL)
 					$targetUid = $current_user->uid;
 			
-				CScheduler::instance()->RegisterTask(new CMessage(), $targetUid, 'live', "-1 day", 	array("type" => "os_poker_imsg",
+				CScheduler::instance()->RegisterTask(new CMessage(), $targetUid, array('live'), "-1 day", 	array("type" => "os_poker_imsg",
 																												"body" => array(
 																																"text" => $args["text"],
 																														),
