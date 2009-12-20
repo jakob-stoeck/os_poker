@@ -1,91 +1,45 @@
-<?php
-// $Id$
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
 
 /**
  * @file
- * Poker 4.1 specification test case: Signup workflow
- *
- * @Note: according to irc convo, user may logout before submitting the profile.
- * <ilo--> user can logout after skipping/submitting profile?
- * <dachary> and can logout after skipping or submitting
+ * Poker 4.1 Workflow sign up
  *
  */
 
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: 4.1: Workflow "Signup and profile" test case
- *
- * Verifies Signup workflow is working according to specifications.
- * Validates emails can only be registered once, nicknames are unique, user is
- * granted with +2k chips when completes its profile, or 1k if profile is not
- * completed.
- *
- * @assert: entering valid email address and valid password user registers and
- *          logs in automatically.
- * @assert: After sign up users are redirected to profile page.
- * @assert: Profile page provides a way to Skip profile submission.
- * @assert: User may logout after skip/profile completion.
- * @assert: Chips are only granted after profile skip/completion.
- * @assert: an email address can only be used once.
- * @assert: email address has valid format.
- * @assert: password length is > 6 characters.
- * @assert: chips are granted to self-registered users.
- *
- * @assert: users gets 1k chips by registration and +2k after completing its
- *          profile during signup.
- * @assert: Registration emails are being sent.
- *
- * @assert: nicknames are validated and should be unique on profile submit.
- *
- * @assert: The active password policy enfore password of at least 6 characters.
- *
- * @TODO: Player image behaviour is not yet tested. Gender/male icon if sex is
- *        especified.
- * @TODO: rename class to OsPokerSpecificationsSignUp once proppy's code has
- *        been completely migrated.
- *
- */
 class OSPokerSignUp extends OsPokerWebTestCase {
 
-  /**
-   * Implementation of hook_info().
-   */
   public static function getInfo() {
     return array(
-      'name'        => '4.1 Workflow Signup',
+      'name'        => '4.1 Workflow Sign up',
       'description' => 'Signup and profile functionality tests',
       'group'       => 'OS Poker Specifications',
     );
   }
 
-  /**
-   * Implementation of setUp().
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
-    // @TODO: Currently, when a user does signup, he is unable to logout the
-    // system untill he completes the profile. This fix completes any possible
-    // profile and allow the test to logout.
-    $this->drupalGet('');
-    if ( strpos($this->getUrl(), 'poker/first_profile') ) {
-      $this->pass('INFO: FIX RESETING SIGNUP STATUS.');
-      $this->OsPokerProfileSubmit();
-    }
-
-    // Remove any pending status from signup operations.
-    $this->drupalLogout();
-
     parent::tearDown();
   }
 
@@ -144,7 +98,8 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     // Verify a message for the invalid address error is shown.
 		$this->assertRaw(
       t('The e-mail address %email is not valid.', array('%email' => $email)),
-      t('The address %email is validated as invalid email, a message is shown.', array('%email' => $email))
+      t('The address %email is validated as invalid email, a message is shown.', array('%email' => $email)),
+			t('SpecPoker')
     );
 
     // Make sure the request has not been redirected to profile page.

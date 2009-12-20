@@ -1,5 +1,21 @@
-<?php
-// $Id$
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
 
 /**
  * @file
@@ -134,17 +150,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       $policy->expiration = 0;
       $policy->warning = '';
       drupal_write_record('password_policy', $policy);
-     /* $policy = array(
-        'name' => $this->randomName(),
-        'description' => $this->randomName(),
-        'constraint_length' => 6,
-      );
-      $this->drupalPost('admin/settings/password_policy/add', $policy, t('Create'));
-      $this->assertRaw(
-        t('Policy %name has been created.', array('%name' => $policy['name'])),
-        t('Minimum length password policy created.')
-      );*/
-
 
       $this->drupalLogout($root);
 
@@ -160,8 +165,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $os_poker_db_query_override = "db_query";
     parent::tearDown();
   }
-
-
 
   /**
    * Completes the Sign up operation for an user.
@@ -210,6 +213,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
   /**
    * Skips the profile submission
+	 * TODO : move to 4.2 test, does not belong here
    */
   function OsPokerProfileSkip() {
 
@@ -317,7 +321,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         t('Invitation for %name is tracked.', array('%name' => $name))
       );
     }
-}
+  }
 
   function OsPokerCreateBuddyRelationShip($user1, $user2) {
     static $buddy_rtid;
