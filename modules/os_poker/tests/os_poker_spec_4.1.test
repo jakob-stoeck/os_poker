@@ -43,27 +43,12 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
-  /**
-   * Verify that invalid email addresses are not accepted.
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - submit several signup login forms with invalid email addresses.
-   * - verify that invalid email message is found and the request is not
-   *   redirected to profile page.
-   *
-   */
   function testInvalidEmailAddress(){
 
-    /**
-     * Go to front page.
-     */
+    // Go to front page.
     $this->drupalGet('');
 
-    /**
-     * Submit several invalid email addresses.
-     * Watch out: name@domain (withouth LTD is a valid domain name).
-     */
+		$this->pass('START: The input is checked for syntax errors of the email address', 'SpecPoker');
     $this->verifyInvalidEmail('@test.com');
     $this->verifyInvalidEmail('@test.com.');
     $this->verifyInvalidEmail('asdftest.com');
@@ -73,451 +58,207 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $this->verifyInvalidEmail('test @email .com');
     $this->verifyInvalidEmail('test @email.com');
     $this->verifyInvalidEmail('test<@email.com');
+		$this->pass('END: The input is checked for syntax errors of the email address', 'SpecPoker');
   }
 
-  /**
-   * Submits the Signup form with an invalid email address and expect to find
-   * error message
-   *
-   * @param string $email address to validate.
-   */
   function verifyInvalidEmail( $email = ''){
-    // options for the signup form.
     $options = array(
       'mail' => $email,
       'pass' => $this->randomName(),
     );
   	$this->drupalPost('', $options, t('Send'));
 
-    // Verify page is found and access is granted.
     $this->assertResponse(
       '200',
       t("The submission produces no errors.")
     );
 
-    // Verify a message for the invalid address error is shown.
 		$this->assertRaw(
       t('The e-mail address %email is not valid.', array('%email' => $email)),
-      t('The address %email is validated as invalid email, a message is shown.', array('%email' => $email)),
+      t('The address %email is invalid email, a message is shown.', array('%email' => $email)),
 			t('SpecPoker')
     );
 
-    // Make sure the request has not been redirected to profile page.
 		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/first_profile'),
+      strpos($this->getUrl(), 'poker/first_profile'),
       t('Request is not redirected. Registration should be denied if email address is invalid.')
     );
   }
 
-  /**
-   * Verify that the active password policy enfore password of at least 6
-   * characters.
-   *
-   * The verification is done through these steps:
-   *  - Load the active password policy (using the private password_policy
-   *    function)
-   *  - Check the policy for a length constraint with a value of 6.
-   */
   function testPasswordPolicy() {
     $policy = _password_policy_load_active_policy();
     $this->assertNotNull($policy, 'Active password policy loaded');
-    $this->assertEqual('6', $policy['policy']['length'], 'The active password policy enfore password of at least 6 characters.');
+    $this->assertEqual('6', $policy['policy']['length'], 'Minimum length of the password should be a least 6 characters. (1)', 'SpecPoker');
   }
 
-  /**
-   * Verify that minimum password length is validated
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - submit several signup login forms with invalid passwords.
-   * - verify that invalid password message is found and the request is not
-   *   redirected to profile page.
-   *
-   */
   function testInvalidPassword(){
-	//Useless
-	/*$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
-    $this->drupalLogin($root);
-	$this->drupalPost('poker/first_profile', array(), t('Send'));
-	$this->drupalGet('admin/settings/password_policy/list');
-	$this->drupalPost('admin/settings/password_policy/list', array('default' =>'1'), 'Set default policy');
-	$this->drupalLogout();*/
-
-
-    /**
-     * Go to front page.
-     */
     $this->drupalGet('');
-
-    /**
-     * Submit a signup form with invalid passwords
-     * @TODO: with password enforcement try other passwords complexity.
-     */
     $this->verifyInvalidPassword('');
-    $this->verifyInvalidPassword('1');
-    $this->verifyInvalidPassword('12');
-    $this->verifyInvalidPassword('123');
-    $this->verifyInvalidPassword('1234');
     $this->verifyInvalidPassword('12345');
   }
 
 
-  /**
-   * Submits the Signup form with an invalid password field and expect to find
-   * error message
-   *
-   * @param string $password to validate.
-   */
   function verifyInvalidPassword( $password = ''){
 
-    $this->pass(t('Testing with "%password" password', array('%password' => $password)));
-
-    // options for the signup form.
-	$mail = $this->randomName() . '@email.com';
+		$mail = $this->randomName() . '@email.com';
 
     $options = array(
-      'mail' => $mail,
-      'pass' => $password,
-    );
+										 'mail' => $mail,
+										 'pass' => $password,
+										 );
   	$this->drupalPost('', $options, t('Send'));
 
-    // Verify page is found and access is granted.
     $this->assertResponse(
-      '200',
-      t("The submission produces no errors.")
-    );
+													'200',
+													t("The submission produces no errors.")
+													);
 
-	// Kez : FIXME, Password policy seems to be not loaded
-	if (empty($password))
-	{
-		// Verify a message for the invalid address error is shown.
-			$this->assertText(
-		  t('New Password field is required'),
-		  t('4.1 Minimum length of the password should be a least 6 characters.')
-		);
-	}
-	else
-	{
-		// Verify a message for the invalid address error is shown.
-			$this->assertText(
-		  t('Password must be at least 6 characters in length'),
-		// Kez : FIXME, wording of error should be modified
-		//  t('The password must be at least 6 characters.'),
-		  t('4.1 Minimum length of the password should be a least 6 characters.')
-		);
-	}
+		if (empty($password))
+			{
+				$this->assertText(
+													t('New Password field is required'),
+													'Minimum length of the password should be a least 6 characters. (2)', 'SpecPoker');
+			}
+		else
+			{
+				$this->assertText(
+													t('Password must be at least 6 characters in length'),
+													'Minimum length of the password should be a least 6 characters. (3)', 'SpecPoker');
+			}
 
-    // Make sure the request has not been redirected to profile page.
-		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/first_profile'),
-      t('Request is not redirected. Registration should be denied for invalid password.')
-    );
+		$this->assertFalse(strpos($this->getUrl(), 'poker/first_profile'),
+											 t('Request is not redirected. Registration should be denied for invalid password.'));
   }
 
-  /**
-   * Verify email is already registered during the sign up process.
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - Sign up with a valid password and valid email address.
-   * - Complete its profile.
-   * - Log out that user.
-   * - Try to sign up again using the same password.
-   * - Verify the sign up process is interrumpted and a message is shown.
-   * - Verify the request is not redirected to first profile page.
-   *
-   */
   function testExistingEmailInSignUp(){
 
-    /**
-     * Go to front page.
-     */
     $this->drupalGet('');
 
-    /**
-     * Sign Up with valid email address and password.
-     */
     $options = array(
       'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
     );
     $this->OsPokerSignUpUser($options);
-
-    /**
-     * Completes its registration with dummy data.
-     */
     $this->OsPokerProfileSubmit();
-
-    /**
-     * Logout this user.
-     */
     $this->drupalLogout();
 
     /**
      * Try to Sign Up using the same email address.
      */
-    // Email is already defined in $options
     $options['pass'] = $this->randomName();
-    // Submit the sign up form
   	$this->drupalPost('', $options, t('Send'));
-
-    // Verify page is found and access is granted.
     $this->assertResponse(
       '200',
       t("The Sign Up submission produces no errors.")
     );
 
-    // Verify a message for the invalid address error is shown.
 		$this->assertRaw(
       t('The e-mail address %email is already registered.', array('%email' => $options['mail'])),
-      t('4.1 Email address is already registered successfully verified.')
-    );
-
-    // Make sure the request has NOT been redirected to first profile page.
-		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/first_profile'),
-      t('Request redirected to profile page, signup accepted.')
+      t('whether an user is already registered with this address'),
+			t('SpecPoker')
     );
   }
 
-  /**
-   * Verify user can logout before skipping / submitting the first profile
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - Sign up with a valid password and valid email address.
-   * - Log out that user.
-   * - go to any page.
-   * - verify the user is not redirected to first profile.
-   *
-   */
-  function testExistingSignupLogout(){
+  function testNicknameGeneration(){
+		$this->drupalGet('');
+		$mail = 'user@mail.com';
+		$this->OsPokerSignUpUser(array('mail' => $mail, 'pass' => 'password'));
+		$this->drupalPost($this->getUrl(), array(), t('Send'));
+		$found = CUserManager::SearchUsers(array('mail' => $mail));
+    $osp_user = CUserManager::instance(TRUE)->User($found[0]);
+		$this->assertEqual(strpos($osp_user->profile_nickname, 'player'), 0, 'without filling in the nick field an automated nick should be created', t('SpecPoker'));
+	}
 
-    /**
-     * Go to front page.
-     */
+  function testSkipFirstProfile(){
+
     $this->drupalGet('');
-
-    /**
-     * Sign Up with valid email address and password.
-     */
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-    );
-    $this->OsPokerSignUpUser($options);
-
-    /**
-     * Logout this user.
-     */
-    $this->drupalLogout();
-
-    /**
-     * Verify the user has logged out
-     */
-    $this->drupalGet('user');
-
-    /**
-     * Verify the user is not redirected to first profile.
-     */
-		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/first_profile'),
-      t('User cant logout the site during sign up.')
-    );
-
-  }
-
-
-
-  /**
-   * Verify the sign up process Skipping profile generation
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - Sign up with a valid password and valid email address.
-   * - Verify the form submission is redirected to profile page.
-   * - Verify user has no chips yet untill profile skip/completion.
-   * - Verify that Skip option is available on profile form.
-   * - Verify Clicking skip option and verify user is redirected to lobby.
-   *   Note: Clicking Skip is the same as submit the form with default options.
-   * - Verify user is granted with $1k chips due to profile skip.
-   *
-   */
-  function testSkipSignUp(){
-
-    /**
-     * Go to front page.
-     */
-    $this->drupalGet('');
-
-    /**
-     * Sign Up with valid user and password.
-     */
     $this->OsPokerSignUpUser();
-
-    /**
-     * Verify user has no chips.
-     */
 		$this->assertText(
-      t('You have $ 1,000 Chips'),
-      t('User has no chips untill profile skip/completion.')
+      t('1,000 Chips'),
+      t('if not it\'s only 1000 chips. (1)'),
+			t('SpecPoker')
     );
 
-    /**
-     * Verify the skip option is available.
-     */
+		$this->assertTrue(
+      strpos($this->getUrl(),
+      'poker/first_profile'),
+      t('If everything is filled in correctly, the profile will be created on the next page')
+    );
+
 		$this->assertText(
       t('Skip this step Here'),
-      t('Skip option for profile registration found.')
+      t('Skip option for profile registration found.'),
+			t('SpecPoker')
     );
 
-    /**
-     * Verify clicking Skip redirects to lobby.
-     * @TODO: mimic javascript, submit the form with default options.
-     */
-		// $this->clickLink('Here');
+		// same as what happens with JS function when clicking on skip or join
+		// the JS functions are doing nothing but submit the form (2009-12-20)
     $this->drupalPost($this->getUrl(), array(), t('Send'));
 
-    /**
-     * Verify the user is redirected to lobby (Home page).
-     */
-		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/first_profile'),
-      t('Profile skip redirects to lobby.')
+    $this->assertRaw(
+      'images/picture-default.png',
+      t('If no picture for the profile is uploaded, an anonymous pic is assigned.'),
+			t('SpecPoker')
     );
 
+		$this->assertTrue($this->getAbsoluteUrl(''), $this->getUrl(), 'On the home page. ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl() );
+
     /**
-     * Verify the user is granted with $1k chips.
+     * the user did not fill the form and therefore only has the minimum amount.
      */
+		$this->pass('All fields are optional.', t('SpecPoker'));
 		$this->assertText(
-      t('You have $ 1,000 Chips'),
-      t('User is granted with 1k chips when skips the profile page.')
+      t('1,000 Chips'),
+      t('if not it\'s only 1000 chips. (2)'),
+			t('SpecPoker')
     );
   }
 
-  /**
-   * Verify the sign up process completing profile generation
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - Sign up with a valid password and valid email address.
-   * - Verify the form submission is redirected to profile page.
-   * - Verify user has no chips yet untill profile skip/completion.
-   * - Submit profile page with a valid nickname.
-   * - Verify the user is redirected to lobby.
-   * - Verify user is granted with $3k chips due to profile completion.
-   * - Verify user image is not site's default image.
-   * - Go to use page and find the "Member for" string to verify registration
-   *   timestamp is being tracked.
-   *
-   */
+  function testGenderSpecificDefaultImage(){
+		$this->fail('If there is a value for sex it is specific to it, if not it is a neutral one.', t('SpecPoker'));
+	}
+
   function testCompleteProfileSignUp(){
-
-    /**
-     * Go to front page.
-     */
+    $emails = $this->drupalGetMails();
+		$this->assertEqual(count($emails), 0, 'no emails in the queue');
     $this->drupalGet('');
-
-	 $emails = $this->drupalGetMails();
-    /**
-     * Sign Up with valid user and password.
-     */
     $this->OsPokerSignUpUser();
-
-    /**
-     * Submit dummy profile
-     */
     $this->OsPokerProfileSubmit();
-
-    /**
-     * Verify the user is granted with $1k chips.
-     */
 		$this->assertText(
-      t('You have $ 3,000 Chips'),
-      t('User is granted with $3k chips when completes the profile page.')
+      t('3,000 Chips'),
+      t('If he filled in all profile data, he will receive a starting bonus of 3000 chips booked to his account'),
+			t('SpecPoker')
     );
 
-    /**
-     * Verify the default user image is not used.
-     */
     $this->assertNoRaw(
       'images/picture-default.png',
-      t('Default user image is not used when user submits its own image.')
+      t('Additionally you can upload a profile picture.'),
+			t('SpecPoker')
     );
 
-    /**
-     * Verify an email is sent.
-     */
     $emails = $this->drupalGetMails();
     $this->assertEqual(
       count($emails),
       1,
-      t('An email is sent for profile submission (skip/complete).')
+      t('Next a confirmation mail will be send'),
+			t('SpecPoker')
     );
-
-    /**
-     * Verify registration timestamp is tracked
-     */
-    /*$this->drupalGet('user');
-		$this->assertText(
-      t('0 sec'),
-      t('User registration timestamp is tracked.') 
-    );*/
-	
-	//Kez: no need to check this, the timestamp in drupal database (users.created) do the job.
+		$this->assertTrue($this->getAbsoluteUrl(''),
+											$this->getUrl(),
+											'the lobby page will be called ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl(),
+											t('SpecPoker'));
 
   }
 
-  /**
-   * Verify nickname is in use during profile completion process.
-   *
-   * The verification is done through these steps:
-   * - go to front page.
-   * - Sign up with a valid password and valid email address.
-   * - Complete its profile with a know nickname.
-   * - Log out that user.
-   * - Sign up with a valid password and valid email address.
-   * - Try to complete the profile again using the same nickname.
-   * - Verify the submitting an existing nickname interrumpts the profile sub.
-   * - Verify a message is shown to inform the nickname is already in use.
-   *
-   */
   function testExistingNicknameProfileSignUp(){
-
-    /**
-     * Go to front page.
-     */
     $this->drupalGet('');
-
-    /**
-     * Sign Up with random valid email address and password.
-     */
     $this->OsPokerSignUpUser();
-
-    /**
-     * Completes its registration with known nickname data.
-     */
     $profile = array(
       'profile_nickname' => 'simpletest',
     );
     $this->OsPokerProfileSubmit($profile);
-
-    /**
-     * Logout this user.
-     */
     $this->drupalLogout();
 
-    /**
-     * Sign Up other user with random valid email address and password.
-     */
     $this->OsPokerSignUpUser();
-
-    /**
-     * Try to submit the profile with an existing nickname.
-     */
     $profile = array(
       'profile_nickname' => 'simpletest',
       'profile_gender'   => t('Male'),
@@ -526,16 +267,10 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). 'avatar1.png',
     );
     $this->drupalPost('poker/first_profile', $profile, t('Send'));
-
-    /**
-     * Verify a message is shown informing the nickname is in use.
-     * @Note: have to limit the search to the end of the string, looks like php
-     * strpos() is giving errors with this text, have to dig more to understand
-     * what is wrong here.
-     */
     $this->assertRaw(
       t(' already exists.'),
-      t('An error message is shown if nickname already exists.')
+      t('The nick should be unique as well'),
+			t('SpecPoker')
     );
 
     /**
