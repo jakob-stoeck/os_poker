@@ -138,6 +138,9 @@ call usort on buddies list and verify the order
 		$previous_max_chips = $buddy->Chips();
 	}
 
+
+	drupalGet("poker/profile/ranking");
+	$this->assertTrue(TRUE, drupalGetContent());
   }
 
 
