@@ -78,7 +78,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'user_relationship_blocks',
         'user_relationship_mailer',
 		'simple_payments',
-        'os_poker',
+        'os_poker'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
 
