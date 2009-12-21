@@ -116,33 +116,40 @@ class OSPokerLogin extends OsPokerWebTestCase {
 
   function testLoginInviteFriends(){
 
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-    $this->OsPokerProfileSubmit();
+		$userA = $this->drupalCreateUser();
+	
+		$this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
+	
+		//Test an CDelayMessage has been created to redirect user on the next login
+	
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+	
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("login");
+		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
+	
+		//$this->assertTrue(TRUE, json_encode($mbox));
+	
+		$is_delay_msg = FALSE;
+		foreach ($mbox as $msg)
+			{
+				if ($msg->type == "CDelayMessage")
+					{
+						$is_delay_msg == TRUE;
+						break;
+					}
+			}
+
+		$this->assertTrue($is_delay_msg, "Message is of type CDelayMessage");
+	
+		CUserManager::instance()->DebugRestoreCurrentUser();
+	
     $this->drupalLogout();
+	
+    $this->drupalLogin($userA);
 
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-    );
-    $this->drupalPost('', $login, t('Log in'));
-
-		$this->assertTrue($this->getAbsoluteUrl(''),
-											$this->getUrl(),
-											'the lobby page will be called ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl(),
-											t('SpecPoker'));
-     $this->assertNoRaw(
-												 t('id="profile-tabs"'),
-												 t('There is no profile tab because the profile is complete')
-											 );
-     $this->assertRaw(
-												 t('id="invite-friends"'),
-												 t('If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends'),
-												 t('SpecPoker')
-											 );
+		$this->fail('If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends',
+								'SpecPoker');
   }
 
 }
