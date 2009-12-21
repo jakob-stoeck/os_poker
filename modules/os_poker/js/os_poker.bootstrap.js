@@ -14,5 +14,6 @@ $(document).ready(function () {
 	});
 
 	$("#tb_messages").click();
+	$("#tb_messages_popup").click();
 	
 });

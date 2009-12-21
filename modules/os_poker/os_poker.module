@@ -177,12 +177,20 @@ function os_poker_init()
 	
 	if ($inpoker == FALSE)
 	{
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme");
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
-		
 		drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
+
+		if (user_is_logged_in())
+		{
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme");
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
+		}
+		else
+		{
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.pager.js", "theme");
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.thickbox.bootstrap.js", "theme");
+		}
 	}
 	else
 	{
@@ -470,23 +478,7 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		
 		case 'logout' :
 			CScheduler::instance()->Trigger('logout');
-			session_regenerate_id(true); 
-			session_unset();
-			session_destroy();
-			setcookie("user", "", time()-3600, "/");
-			$_SESSION = array();
-			if (isset($_COOKIE[session_name()])) {
-				setcookie(session_name(), '', time()-42000, '/');
-				unset($_COOKIE[session_name()]);
-			  session_regenerate_id();
-			  session_destroy();
-			  cache_clear_all($_GET, 'cache_page');
-        header("Location: ".url("<front>", array("absolute" => TRUE)));
-        exit();
-			}
-			else {
-				print (l(t("Problem at logout, please click this link and close your browser to terminate the session"), "logout"));
-			}
+
 		break;
 		
 		case 'insert':

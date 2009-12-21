@@ -67,7 +67,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       array_unshift($args,
         'profile',
         'shindig_integrator',
-        'jquery_ui',
         'remember_me',
         'password_policy',
         'locale',
@@ -78,8 +77,8 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'user_relationship_invites',
         'user_relationship_blocks',
         'user_relationship_mailer',
+		'simple_payments'
         'os_poker',
-        'simple_payments'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
 
