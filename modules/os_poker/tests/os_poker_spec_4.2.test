@@ -17,49 +17,8 @@
 //
 
 
-/**
- * @file
- * Poker 4.2 specification test case: Login workflow
- *
- * @Note: During login operation (not sign up), if profile is not complete, user
- * is redirected to profile page according to irc convo:
- * <ilo--> what happens with already filled data in profile
- * <ilo--> nickname is generated automatically
- * <ilo--> or any other field the user may have introduced (even if the profile
- * is not yet complete)
- * <dachary> it could be the regular profile then
- * <dachary> you're correct : showing the "first profile" is going to be a pain
- * <dachary> showing http://dachary.org/specs/3-Profile/html/layer_3-profile-tab3-update.html
- * <dachary> makes more sense
- *
- * @Note: The poker/profile is submitted in this testcase.
- */
-
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: 4.2: Workflow "Login" test case
- *
- * Verifies the login workflow is working according to specifications.
- * Validates 'remember me' checkbox is present and remember session is saved
- *
- * @assert: Invalid loggin shows a message.
- * @assert: Remember me login submits a cookie.
- * @assert: Login with complete profile redirects to lobby.
- * @assert: Login with icomplete profile, altering the profile does not grant
- *          with +$5k chips.
- * @assert: Login with incomplete profile, completing it grants the user with
- *          +$5k chips.
- * @assert: Login with incomplete profile, completing it twice grants the user
- *          only with +$5k chips (for the first profile completion).
- * 
- *
- * @TODO: rename class to OSPokerSpecificationLogin once proppy's code gets
- *        completely migrated.
- */
 class OSPokerLogin extends OsPokerWebTestCase {
 
   /**
@@ -73,35 +32,17 @@ class OSPokerLogin extends OsPokerWebTestCase {
     );
   }
 
-  /**
-   * Implementation of setUp().
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
 
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
     parent::tearDown();
   }
 
-  /**
-   * Verify invalid login shows a message
-   *
-   * The verification is done through these steps:
-   * - Submit login form with random data.
-   * - Verify the invalid login message is shown.
-   *
-   */
   function testInvalidLogin(){
 
-    /**
-     * Submit random data in the login form.
-     */
     $options = array(
       'name' => $this->randomName() . '@' . $this->randomName() . ".com",
       'pass' => $this->randomName(),
@@ -113,49 +54,21 @@ class OSPokerLogin extends OsPokerWebTestCase {
      */
      $this->assertText(
        t('Sorry, unrecognized username or password.'),
-       t('Invalid login error message is shown')
+       t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
+			 t('SpecPoker')
      );
 
   }
 
-  /**
-   * Verify "Remember me" option
-   *
-   * The verification is done through these steps:
-   * - Sign up an account.
-   * - Submit complete profile.
-   * - Logout the user.
-   * - Go to home page.
-   * - Submit the login form with email and password, select the "Remember me"
-   *   option.
-   * - Verify the old cookie is deleted and expired, and new cookie has a new
-   *   expiration date.
-   *
-   */
   function testRememberMeLogin(){
-
-    /**
-     * Sign up a valid user.
-     */
     $options = array(
       'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
       'pass' => $this->randomName(),
     );
     $this->OsPokerSignUpUser($options);
-
-    /**
-     * Completes its registration with dummy data.
-     */
     $this->OsPokerProfileSubmit();
-
-    /**
-     * Logout the user
-     */
     $this->drupalLogout();
 
-    /**
-     * Submit the login form with the remember me option selected.
-     */
     $login = array(
       'name' => $options['mail'],
       'pass' => $options['pass'],
@@ -163,379 +76,73 @@ class OSPokerLogin extends OsPokerWebTestCase {
     );
     $this->drupalPost('', $login, t('Log in'));
 
-    /**
-     * Verify the remember me cookie is sent.
-     */
-    // Get the header from the form submission, it is a redirection.
     $headers = $this->drupalGetHeaders(TRUE);
-    
-    // Verify cookie was setn.
     $this->assertTrue(
-      (isset($headers[0]) && isset($headers[0]['set-cookie'])),
-      t('Set cookie was sent by server')
+											(isset($headers[0]) && isset($headers[0]['set-cookie'])),
+											t('')
+											);
+		$this->fail(
+      t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
+			t('SpecPoker')
     );
 
-    // split cookie parts
-    $parts = explode(';', $headers[0]['set-cookie']);
+//     $parts = explode(';', $headers[0]['set-cookie']);
 
-    // Verify old cookie is deleted.
-    // [0] => SESSe11637667ba44e2f94681017609e519a=deleted
-    $this->assertTrue(
-      strpos(
-        $parts[0],
-        '=deleted'
-      ),
-      t('Previous cookie has been deleted.')
-    );
+//     $this->assertTrue(
+//       strpos(
+//         $parts[0],
+//         '=deleted'
+//       ),
+//       t('Previous cookie has been deleted.')
+//     );
 
-    // Verify old cookie has expired.
-    // [1] =>  expires=Tue, 02-Dec-2008 00:11:22 GMT
-    $this->assertTrue(
-      strpos(
-        $parts[1],
-        'expires='
-      ),
-      t('Previous cookie has been expired.')
-    );
+//     $this->assertTrue(
+//       strpos(
+//         $parts[1],
+//         'expires='
+//       ),
+//       t('Previous cookie has been expired.')
+//     );
 
-    // Verify cookie has new expire time.
-    // [3] =>  expires=Fri, 25 Dec 2009 03:44:43 GMT
-    $this->assertTrue(
-      strpos(
-        $parts[3],
-        'expires='
-      ),
-      t('New cookie expiration time sent.')
-    );
+//     $this->assertTrue(
+//       strpos(
+//         $parts[3],
+//         'expires='
+//       ),
+//       t('New cookie expiration time sent.')
+//     );
 
   }
 
-  /**
-   * Verify second Login (first login is sign up)
-   *
-   * The verification is done through these steps:
-   * - Sign up an account.
-   * - Submit complete profile.
-   * - Logout the user.
-   * - Go to home page.
-   * - Submit the login form with email and password
-   * - Verify the user is NOT redirected to user profile
-   * - Verify the user has $3k chips
-   *
-   */
-  function testSecondLogin(){
+  function testLoginInviteFriends(){
 
-    /**
-     * Sign up a valid user.
-     */
     $options = array(
       'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
       'pass' => $this->randomName(),
     );
     $this->OsPokerSignUpUser($options);
-
-    /**
-     * Completes its registration with dummy data.
-     */
     $this->OsPokerProfileSubmit();
-
-    /**
-     * Logout the user
-     */
     $this->drupalLogout();
 
-    /**
-     * Submit the login form.
-     */
     $login = array(
       'name' => $options['mail'],
       'pass' => $options['pass'],
     );
     $this->drupalPost('', $login, t('Log in'));
 
-    /**
-     * Verify the user has not been redirected to user profile:
-     * profile is complete!
-     */
-		$this->assertFalse(
-      strpos($this->getUrl(),
-      'poker/profile'),
-      t('User is not redirected to profile after login if profile is complete.')
-    );
-
-    /**
-     * Verify the user has $3k chips
-     */
-     $this->assertText(
-       t('You have $ 3,000 Chips'),
-       t('User has $3k chips because of complete profile.')
-     );     
-
-  }
-
-
-  /**
-   * Verify second Login profile completion
-   *
-   * The verification is done through these steps:
-   * - Sign up an account.
-   * - Skip profile submission.
-   * - Logout the user.
-   * - Go to home page.
-   * - Submit the login form with email and password
-   * - Verify the user is redirected to user profile
-   * - Submit a complete profile
-   * - Verify user is granted with +2k chips because profile is complete.
-   *
-   */
-  function testSecondLoginCompleteProfile(){
-
-    /**
-     * Sign up a valid user.
-     */
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-
-    /**
-     * Skip profile.
-     */
-    $this->OsPokerProfileSkip();
-
-    /**
-     * Logout the user
-     */
-    $this->drupalLogout();
-
-    /**
-     * Submit the login form with the remember me option selected.
-     */
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-    );
-    $this->drupalPost('', $login, t('Log in'));
-	
-    /**
-     * Verify the user has been redirected to user profile:
-     * profile is incomplete!
-     */
-	 
-	//Kez : Disabled because the redirection is done by javascript, and cannot be performed in test context
-	/*	$this->assertTrue(
-      strpos($this->getUrl(),
-      'poker/profile'),
-      t('User is redirected to profile after login if profile is incomplete.')
-    );
-	*/
-	
-    /**
-     * Submit a complete profile
-     * Submitting user profile due to changes in spec
-     */
-    $profile = array(
-      'profile_nickname' => $this->randomName(),
-      'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
-      'profile_city'     => $this->randomName(),
-	  'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
-
-	$this->drupalGet('poker/profile/update');
-	
-	//$this->assertTrue(TRUE, $this->drupalGetContent());
-	
-    /**
-     * Verify the user has $3k chips
-     */
-    $this->assertText(
-      t('Chips: $ 3,000'),
-      t('User has $3k chips because of complete profile.')
-    );
-
-  }
-
-  /**
-   * Verify second Login profile completion grants chips only once
-   *
-   * The verification is done through these steps:
-   * - Sign up an account.
-   * - Skip profile submission.
-   * - Logout the user.
-   * - Go to home page.
-   * - Submit the login form with email and password
-   * - Verify the user is redirected to user profile
-   * - Submit a complete profile
-   * - Verify user is granted with +2k chips because profile is complete.
-   * - Submit a complete profile again.
-   * - Verify user is NOT granted with +2k chips again.
-   *
-   */
-  function testSecondLoginCompleteProfileTwice(){
-
-    /**
-     * Sign up a valid user.
-     */
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-
-    /**
-     * Skip profile.
-     */
-    $this->OsPokerProfileSkip();
-
-    /**
-     * Logout the user
-     */
-    $this->drupalLogout();
-
-    /**
-     * Submit the login form with the remember me option selected.
-     */
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-    );
-    $this->drupalPost('', $login, t('Log in'));
-
-	//Kez : Disabled because the redirection is done by javascript, and cannot be performed in test context
-	/*	$this->assertTrue(
-      strpos($this->getUrl(),
-      'poker/profile'),
-      t('User is redirected to profile after login if profile is incomplete.')
-    );
-	*/
-	
-    /**
-     * Submit a complete profile
-     * Submitting user profile due to changes in spec
-     */
-    $profile = array(
-      'profile_nickname' => $this->randomName(),
-      'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
-      'profile_city'     => $this->randomName(),
-		'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
-
-	$this->drupalGet('poker/profile/update');
-    /**
-     * Verify the user has $3k chips
-     */
-    $this->assertText(
-      t('Chips: $ 3,000'),
-      t('User has $3k chips because of complete profile.')
-    );
-
-    /**
-     * Submit a complete profile again
-     */
-     $this->drupalPost('poker/profile/update', $profile, t('Send'));
-	 $this->drupalGet('poker/profile/update');
-
-    /**
-     * Verify the user has $3k chips
-     */
-    $this->assertText(
-      t('Chips: $ 3,000'),
-      t('User has not been granted twice because of profile completion.')
-    );
-
-  }
-
-  /**
-   * Verify second Login profile alteration, altering a complete profile will
-   * not grant +$2k chips again.
-   *
-   * The verification is done through these steps:
-   * - Sign up an account.
-   * - Submit a complete profile.
-   * - Verify user has $3k chips in total.
-   * - Logout the user.
-   * - Go to home page.
-   * - Submit the login form with email and password
-   * - Verify the user is NOT redirected to user profile
-   * - Submit NEW fields of the profile
-   * - Verify user is not granted with +2k chips, and still has $3k chips.
-   *
-   */
-  function testSecondLoginAlterCompleteProfile(){
-
-    /**
-     * Sign up a valid user.
-     */
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-
-    /**
-     * Submit complete profile.
-     */
-    $this->OsPokerProfileSubmit();
-
-    /**
-     * Verify the user has $3k chips, profile is complete.
-     */
-    $this->assertText(
-      t('You have $ 3,000 Chips'),
-      t('User has $3k chips because of complete profile.')
-    );
-
-    /**
-     * Logout the user
-     */
-    $this->drupalLogout();
-
-    /**
-     * Submit the login form with the remember me option selected.
-     */
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-    );
-    $this->drupalPost('', $login, t('Log in'));
-
-   //Kez : Disabled because the redirection is done by javascript, and cannot be performed in test context
-	/*	$this->assertTrue(
-      strpos($this->getUrl(),
-      'poker/profile'),
-      t('User is redirected to profile after login if profile is incomplete.')
-    );
-	*/
-	
-    /**
-     * Submit a complete profile
-     * Submitting user profile due to changes in spec
-     */
-    $profile = array(
-      'profile_nickname' => $this->randomName(),
-      'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
-      'profile_city'     => $this->randomName(),
-		'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
-
-	$this->drupalGet('poker/profile/update');
-
-    /**
-     * Verify the user has $3k chips, altering a complete profile should not
-     * grant more chips.
-     */
-    $this->assertText(
-      t('Chips: $ 3,000'),
-      t('User has $3k chips, altering a complete profile should not grant chips.')
-    );
-
+		$this->assertTrue($this->getAbsoluteUrl(''),
+											$this->getUrl(),
+											'the lobby page will be called ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl(),
+											t('SpecPoker'));
+     $this->assertNoRaw(
+												 t('id="profile-tabs"'),
+												 t('There is no profile tab because the profile is complete')
+											 );
+     $this->assertRaw(
+												 t('id="invite-friends"'),
+												 t('If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends'),
+												 t('SpecPoker')
+											 );
   }
 
 }
