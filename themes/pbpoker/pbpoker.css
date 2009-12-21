@@ -51,13 +51,6 @@ tr.even a
 	color:#810E0B;
 }
 
-.dotted-red-border
-{
-	border-left: 1px dotted #810E0B;
-	border-right: 1px dotted #810E0B;
-	border-bottom: 1px dotted #810E0B;
-}
-
 .clear
 {
 	display:block;
@@ -295,7 +288,10 @@ body.iframe #main
 
 body.iframe a.LayerClose
 {
-	background:transparent url(images/button_layerclose.gif) repeat scroll 0 0;
+	background-color: transparent;
+	background-image: url(images/button_layerclose.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
 	display:block;
 	height:20px;
 	position:absolute;
@@ -1260,7 +1256,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #messagebox
 {
-	background:#FFFFFF url(images/bg_shop.gif) repeat scroll 0 0;
+	background:#FFFFFF url(images/bg_overlay.gif) repeat scroll 0 0;
 	color:#727272;
 	width:302px;
 	height:294px;
@@ -1281,14 +1277,13 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox  #message-list
 {
-	margin-top:1px;
-	border-top:1px solid #CCCCCA;
+	margin-top:2px;
 }
 
 #messagebox .message
 {
 	padding: 5px;
-	border-bottom: 1px dotted #810E0B;
+	border-bottom: 1px dotted #A8A8A8;
 }
 
 #messagebox .message img
@@ -1497,11 +1492,22 @@ body.iframe #messagebox a.LayerClose
 
 #profile-tabs
 {
-	background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
-	height:455px;
-	padding:5px;
-	width:622px;
-	color:#727272;
+  background:transparent url(images/bg_overlay.gif) repeat scroll 0 0;
+  color: #C7C5C5;
+  height: 442px;
+  padding: 5px;
+  width: 620px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #5A4220;
+}
+
+#profile-tabs .form-item label {
+  font-weight: normal;
+}
+
+#profile-tabs .form-radios .form-item {
+  padding: 0px;
 }
 
 #profile-tabs .block_title_bar
@@ -1608,7 +1614,6 @@ body.iframe #messagebox a.LayerClose
 #profile-tabs .bottom .inner-item-list
 {
 	height:120px;
-	border-bottom: 1px dotted #810E0B;
 	padding-left:12px;
 	overflow:hidden;
 }
@@ -1783,10 +1788,12 @@ body.iframe #messagebox a.LayerClose
 
 #profile-update .form-item
 {
-	margin:0;
-	padding-top:10px;
-	padding-right:10px;
-	height:22px;
+  margin:0;
+  padding-top:10px;
+  padding-right:10px;
+  min-height: 22px;
+  height: auto !important;
+  height:22px;
 }
 
 #profile-update .form-item label
@@ -1829,11 +1836,10 @@ body.iframe #messagebox a.LayerClose
 
 #profile-update .separator
 {
-	float:none;
-	clear:both;
-	height:50px;
-	border-bottom: 1px dotted #810E0B;
-	margin-bottom:10px;
+  float:none;
+  clear:both;
+  height:50px;
+  margin-bottom:10px;
 }
 
 #profile-update .poker_submit
@@ -1896,13 +1902,11 @@ body.iframe #messagebox a.LayerClose
 
 #rewards .inner-item-list
 {
-	height:320px;
-	border-bottom: 1px dotted #810E0B;
-	border-top: 1px dotted #810E0B;
-	overflow:hidden;
-	padding-top:15px;
-	margin-bottom:5px;
-	padding-left:25px;
+  height:320px;
+  overflow:hidden;
+  padding-top:15px;
+  margin-bottom:5px;
+  padding-left:25px;
 }
 
 #rewards .reward
@@ -1951,11 +1955,14 @@ body.iframe #messagebox a.LayerClose
 
 #profile-medium
 {
-	background:#FFFFFF url(images/bg_shop.gif) repeat scroll 0 0;
-	color:#727272;
-	width:302px;
-	height:294px;
-	padding:6px 9px;
+  background:#FFFFFF url(images/bg_overlay.gif) repeat scroll 0 0;
+  color:#727272;
+  width:300px;
+  height:292px;
+  padding: 6px 9px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #5A4220;
 }
 
 #profile-medium .picture  img
@@ -1971,15 +1978,15 @@ body.iframe #messagebox a.LayerClose
 
 #profile-medium .links
 {
-	height:127px;
-	padding-left:90px;
-	width:94px;
+  height: 127px;
+  padding-left: 88px;
+  width: 94px;
 }
 
 #profile-medium .info
 {
-	width:176px;
-	height:100px;
+  width:174px;
+  height:100px;
 }
 
 #profile-medium .items
@@ -2027,9 +2034,8 @@ body.iframe #profile-medium a.LayerClose
 
 #profile-medium  .panel
 {
-	margin-top:1px;
-	border-top:1px solid #CCCCCA;
-	padding-top:10px;
+  margin-top: 2px;
+  padding-top: 10px;
 }
 
 
@@ -2095,10 +2101,13 @@ body.iframe #profile-medium a.LayerClose
 
 #buddies-tabs
 {
-	background:transparent url(images/bg_buddies.gif) repeat-x;
-	height:455px;
-	padding:5px;
-	width:622px;
+	background: transparent url(images/bg_overlay.gif) repeat scroll 0 0;
+	height: 442px;
+	padding: 5px;
+	width: 620px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #5A4220;
 }
 
 
@@ -2145,14 +2154,17 @@ div#buddies-search .poker_submit .label
 
 #buddies-search #edit-online-only-wrapper
 {
- background:transparent url(images/bg_onlineonly.gif) repeat scroll 0 0;
- border:0 none;
- font-weight:bold;
- height:17px;
- margin:0;
- overflow:hidden;
- padding:8px;
- width: 480px;
+  border-width: 0;
+  border-style: dotted;
+  border-color: #A8A8A8;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  font-weight:bold;
+  margin:0;
+  overflow:hidden;
+	height: 15px;
+  padding:8px;
+  width: 480px;
 }
 
 #buddies-search .form-item
@@ -2305,10 +2317,11 @@ div#buddies-list .footer
 
 #shop-tabs
 {
-	background:transparent url(images/bg_shop.gif) repeat-x;
-	height:455px;
-	padding:5px;
-	width:622px;
+  background: transparent url(images/bg_overlay.gif) repeat;
+  height: 442px;
+  padding: 5px;
+  width: 620px;
+  border: 1px solid #5A4220;
 }
 
 #shop-tabs .content
@@ -2375,7 +2388,7 @@ div#buddies-list .footer
 
 #shop .footer .right
 {
-	width:420px;
+  width: 415px;
 }
 
 ul.categories
@@ -2420,11 +2433,11 @@ ul.categories li a span
 
 #shop #items
 {
-	border-left: #810E0B dotted 1px;
-	border-top: #810E0B dotted 1px;
-	border-bottom: #810E0B dotted 1px;
-	padding-top:5px;
-	height:320px;
+  border-color: #A8A8A8;
+  border-style: dotted;
+  border-width: 1px;
+  padding-top:5px;
+  height:320px;
 }
 
 #shop #items a
@@ -2569,7 +2582,7 @@ ul.pager a.active
 
 ul.pager .pager-current
 {
-	color:#C33318;
+  color: #A8904A;
 }
 
 .item-list .pager li
