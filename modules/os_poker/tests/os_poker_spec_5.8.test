@@ -140,9 +140,9 @@ idem pour challenge user
      */
 	$this->drupalGet('poker/messagebox');
 	$this->assertTrue(TRUE, $this->drupalGetContent());
-	$this->assertTrue(
-       TRUE,
-       t('A message has been received')
+	$this->assertText(
+       "is playing at table",
+       t('Found text in message : [Player] "is playing at table" [table] come and join')
     );
 	
 	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
@@ -195,11 +195,12 @@ idem pour challenge user
      */
 	$this->drupalGet('poker/messagebox');
 	$this->assertTrue(TRUE, $this->drupalGetContent());
-	$this->assertTrue(
-       TRUE,
-       t('A message has been received')
+	$this->assertText(
+       "You just receive a headsup challenge from",
+       t('Found text : "You just receive a headsup challenge from" [Player]')
     );
 	
+	/* TODO : add check for accapt/refuse link when actions will be implemented */
 	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
 
 

@@ -301,7 +301,7 @@ function	os_poker_forgot_password_form_validate($form, &$form_state)
 function	os_poker_forgot_password_form_submit($form, &$form_state)
 {
 	user_pass_submit($form, $form_state);
-	 $form_state['redirect'] = '<front>';
+	$form_state['redirect'] = '<front>';
 }
 
 function	os_poker_forgot_password_form($form_state)
@@ -322,7 +322,7 @@ function	os_poker_forgot_password_form($form_state)
 						
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
-								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\');" ' .
+								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\', true, true);" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Send") . "</div><div class='user_login_clear'></div></div>",
 							);

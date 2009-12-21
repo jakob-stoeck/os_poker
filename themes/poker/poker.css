@@ -227,6 +227,33 @@ div.poker_error_message .msg a
     display: none;
 }
 
+.front #main #messages div.messages
+{
+    display: block;
+}
+.front #messages
+{
+    display: block;
+}
+.logged-in #messages
+{
+    display: none;
+}
+
+
+.page-admin #TB_overlay
+{
+ display: none;
+}
+.page-admin #TB_window
+{
+ display: none;
+}
+.page-admin #TB_ajaxContent
+{
+ display: none;
+}
+
 #messages_popup 
 {
     width: 501px;
@@ -3328,4 +3355,37 @@ padding-left:5px;
  margin: 10px 0px;
  padding: 5px 0px;
  color: #313131;
+}
+
+.first_profile_message
+{
+ left:183px;
+ position:absolute;
+ top:35px;
+ width:380px;
+ z-index:42;
+}
+
+#profile-update p.Dollar {
+color:#810E0B;
+font-weight:bold;
+left:45px;
+margin:0;
+overflow:hidden;
+position:absolute;
+top:37px;
+width:28px;
+}
+
+#profile-update .user_stats{
+margin-top:5px;
+margin-bottom: 5px;
+}
+#profile-update .user_stats p {
+color:#810E0B;
+line-height:12px;
+margin: 2px;
+}
+#profile-update .user_stats strong {
+color:#65625D;
 }

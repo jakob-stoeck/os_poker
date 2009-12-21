@@ -8,7 +8,7 @@
 				}
 			?>
 		</div>
-		<div class="right fleft">
+		<div class="right fleft" style="display: none;">
 			<?php
 				if ($target_user)
 				{
@@ -25,8 +25,18 @@
 			<?php
 				if ($target_user)
 				{
-					print '<img src="' . $target_user->picture . '" alt="user"/>';
+					print '<img width="69px" height="69px" src="' . $target_user->picture . '" alt="user"/>';
 				}
+			?>
+			</div>
+			<div class="user_stats">
+<?php   print "<p><strong>".t("Status:")."</strong> ".$target_user->Status()."</p>"; ?>
+			<?php   print "<p><strong>".t("Profile:")."</strong> ".""."% filled!</p>"; ?>
+			 </div>
+			 <div class="image_promo">
+			 <?php
+				 print '<p class="Dollar">2.000</p>';
+				 print '<img src="' . drupal_get_path("theme", "poker") . "/images/bg_update_profile.gif" . '" alt="promo"/>';
 			?>
 			</div>
 		</div>

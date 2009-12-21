@@ -243,12 +243,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
    */
   function OsPokerProfileSubmit($profile = array()) {
 
-    // check if profile page is there..
-    $this->assertText(
-      t('Create your Profile'),
-      t('After first login the profile page is shown to the user.')
-    );
-
     $profile += array(
       'profile_nickname' => $this->randomName(),
       'profile_gender'   => t('Male'),
@@ -257,21 +251,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
     $this->drupalPost('poker/first_profile', $profile, t('Send'));
-
-    // Once submitted, the form should dissapear.
-    $this->assertNoField(
-      'profile_nickname',
-      t('User %name completed registration.', array('%name' => $user->name)),
-      t('User login')
-    );
-
-    // Check that we are redirected to home ( / ) after completing the profile.
-    global $base_url;
-    $this->assertEqual(
-      $this->getUrl(),
-      $base_url . '/',
-      t('User is redirected to home page after profile submission.')
-    );
   }
 
   function OsPokerCreateUserWithProfile($profile=array(), $permissions=array('access comments', 'access content', 'post comments', 'post comments without approval')) {

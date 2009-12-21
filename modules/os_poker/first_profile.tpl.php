@@ -24,3 +24,9 @@
         </div>
 
 </div>
+
+<script type="text/javascript">
+   $("#messages").show();
+   $(".messages").show();
+   $(".messages").addClass("first_profile_message");
+</script>
