@@ -270,5 +270,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 								'SpecPoker');
 		$this->fail('percentage of how much of the profile data is filled in',
 								'SpecPoker');
+		$this->fail('Nick must be unique, if it is not or the uploaded picture is to big or wrong format an error must show up',
+								'SpecPoker');
 	}
 }
