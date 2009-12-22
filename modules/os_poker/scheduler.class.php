@@ -95,6 +95,7 @@ class CDailyChips implements ITask
 							15 => 1500,
 							10 => 1000,
 							5 => 750,
+							0 => 500,
 						);
 	
 		foreach ($attribs as $iv => $cv)
@@ -185,6 +186,7 @@ class CScheduler
 	
 	private $_tasks = array();
 	private $_user = NULL;
+	private $_ignore = array();
 	
 	/*
 	**
@@ -244,6 +246,7 @@ class CScheduler
 					{
 						if ($value->active)
 						{
+							$this->_ignore[] = $value->id_task;
 							$task->Run($this->_user, json_decode($value->arguments, TRUE));
 							$toDetroy [] = $value->id_task;
 							++$runTasks;
@@ -266,6 +269,7 @@ class CScheduler
 			}
 
 			$this->DestroyTask($toDetroy);
+			$this->_ignore = array();
 		}
 		
 		return ($runTasks);
@@ -281,7 +285,12 @@ class CScheduler
 		{
 			$sql = "SELECT COUNT(*) AS instances FROM `{poker_scheduler}` WHERE `uid` = %d AND `type` = '%s'";
 			
-			$res = db_query($sql, $uid, $task->Type());
+			if (count($this->_ignore) > 0)
+			{
+				$sql .= " AND `id_task` NOT IN(%s) ";
+			}
+			
+			$res = db_query($sql, $uid, $task->Type(), implode(',', $this->_ignore));
 			
 			if ($res)
 			{
@@ -536,6 +545,7 @@ class CScheduler
 				{
 					if ($value->active)
 					{
+						CScheduler::instance()->_ignore[] = $value->id_task;
 						$task->Run($user, json_decode($value->arguments, TRUE));
 						$toDetroy [] = $value->id_task;
 						++$runTasks;
@@ -554,7 +564,7 @@ class CScheduler
 					}
 				}
 			}
-
+			CScheduler::instance()->_ignore = array();
 			CScheduler::instance()->DestroyTask($toDetroy);
 		}
 		

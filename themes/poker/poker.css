@@ -353,6 +353,11 @@ z-index:1000;
  width: 100%;
  left: 0px;
  top: 0px;
+/* allow simple display for standard messages */
+ height: 225px;
+ width: 250px;
+ margin-left: 210px;
+ margin-top: 20px;
 }
 
 #messages_popup_ajax div.messages
@@ -362,6 +367,11 @@ z-index:1000;
  width: 100%;
  left: 0px;
  top: 0px;
+/* allow simple display for standard messages */
+ height: 225px;
+ width: 250px;
+ margin-left: 210px;
+ margin-top: 20px;
 }
 
 .messages a.ButtonConfirmYes, a.ButtonConfirmNo {
@@ -375,13 +385,15 @@ padding:13px 0 0;
 /*position:absolute;*/
 /*left:270px;*/
 /*top:130px;*/
-margin-left:270px;
+/*margin-left:270px;*/
+margin-left:60px;
 text-align:center;
 width:87px;
 }
 
 .messages .DialogPos {
-margin:70px 8px 0 232px;
+/*margin:70px 8px 0 232px;*/
+margin:50px 8px 0 22px;
 text-align:center;
 }
 
@@ -399,7 +411,8 @@ padding:0 53px 30px 0;
 color:#DCD8B5;
 font-size:16px;
 font-weight:bold;
-padding:102px 0 0 256px;
+/*padding:102px 0 0 256px;*/
+padding:82px 0 0 46px;
 }
 .messages .ErrorText h2 {
 font-size:23px;
@@ -411,7 +424,8 @@ padding:0 0 2px;
 color:#FFFFFF;
 font-size:12px;
 font-weight:bold;
-padding:10px 0 0 256px;
+/*padding:10px 0 0 256px;*/
+padding:10px 0 0 46px;
 }
 
 /*
@@ -3501,7 +3515,7 @@ padding-left:5px;
  position:absolute;
  top:35px;
  width:380px;
- z-index:42;
+ z-index:4242;
 }
 .status .first_profile_message
 {

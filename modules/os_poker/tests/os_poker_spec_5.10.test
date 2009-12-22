@@ -177,7 +177,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		//FIXME : The block returned is as seen by current logged user (root)
 		$block = os_poker_block('view', 2);
 		$this->assertTrue(preg_match("/" . t('Invite Friends') . "/", $block["content"]) > 0, t("'Invite friend' Replace empty buddies"));
-		
+
 		// The block is returned for the admin account 
 		$this->assertTrue(preg_match("/banner_free_gifts|banner_invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' is present on buddy list"));
 		
@@ -188,6 +188,8 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		
 		$this->assertRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' is present on buddies page"));
 		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on buddies page"));	
+
+		$this->assertPattern('/<a.+?href="\?q=poker\/buddies\/invite".+?>/siU', t("Link Invite friend on buddy page"));
 		
 		/**
 		 * Go to Search Result
@@ -198,6 +200,8 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$this->assertRaw('sites/all/themes/poker/images/banner_free_gifts.jpg' , t("'Gift of the Day' is present on search result"));
 		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on search result"));
 		
+		$this->assertPattern('/<a.+?href="\?q=poker\/buddies\/invite".+?>/siU', t("Link Invite friend on buddy search page"));
+
 		/**
 		 * Go to Invite
 		 */

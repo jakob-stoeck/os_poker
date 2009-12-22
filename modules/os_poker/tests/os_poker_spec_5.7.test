@@ -180,6 +180,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 
   function testMessageOnChallenge(){
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 
 		/**
 		 * Logout current user

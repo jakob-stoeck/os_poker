@@ -457,8 +457,9 @@ class OSPokerHookTestCase extends DrupalWebTestCase
 	{
 		os_poker_init();
 		$js = drupal_get_js();
-		$this->assertTrue(strstr($js, 'os_poker_goto_table'));
-		$this->assertTrue(strstr($js, 'os_poker_goto_lobby'));
+		//Kez: Moved in os_poker.toolkit.js
+		//$this->assertTrue(strstr($js, 'os_poker_goto_table'));
+		//$this->assertTrue(strstr($js, 'os_poker_goto_lobby'));
 	}
 
 	function	testTheme()

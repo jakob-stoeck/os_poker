@@ -496,26 +496,6 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 	}
 }
 
-/*
-**
-*/
-
-function _os_poker_no_profil()
-{
- 	if (user_is_logged_in())
-	{
-		$cuser = CUserManager::instance()->CurrentUser();
-		
-		$prof = $cuser->profile_nickname;
-	
-		if (empty($prof))
-		{
-			return TRUE;
-		}
-	}
-	return FALSE;
-}
-
 /**
 * Implementation of hook_menu().
 */
@@ -526,7 +506,7 @@ function os_poker_menu()
 	$menu = array(
 					'poker/first_profile' => array(
 													'title'            => '',
-													'access callback'  => '_os_poker_no_profil',
+													'access callback'  => 'user_is_logged_in',
 													'page callback'    => 'os_poker_first_profile_page',
 													'file' 			   => 'os_poker_pages.php',
 													'type'             => MENU_CALLBACK,
