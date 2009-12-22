@@ -17,37 +17,12 @@
 //
 
 
-/**
- * @file
- * Poker x.x specification test case: whatever workflow
- *
- */
-
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: x.x: Workflow "xxxx" test case
- *
- * Verifies whatever workflow is working according to specifications.
- * Validates this and that.
- *
- * @assert: this little step.
- * @assert: other little step.
- *
- */
 class OSPokerSkeleton extends OsPokerWebTestCase {
 
-  /**
-   * @var user object created and logged in during setUp process.
-   */
   protected $skel_user;
 
-  /**
-   * Implementation of hook_info().
-   */
   public static function getInfo() {
     return array(
       'name'        => 'Sample testcase',
@@ -56,73 +31,20 @@ class OSPokerSkeleton extends OsPokerWebTestCase {
     );
   }
 
-  /**
-   * Implementation of setUp().
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
-
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
     $this->skel_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
     $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
 
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
     parent::tearDown();
   }
 
-  /**
-   * Verify this
-   *
-   * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
-   */
   function testThis(){
-
-    /**
-     * Go to here.
-     */
     $this->drupalGet('');
-
-    /**
-     * Do this.
-     */
     $this->ClickLink('Home');
-
-  }
-
-
-  /**
-   * Verify this
-   *
-   * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
-   */
-  function testThat(){
-
-    /**
-     * Go to here.
-     */
-    $this->drupalGet('');
-
-    /**
-     * Do that.
-     */
-    $this->ClickLink('Home');
-
   }
 
 }
