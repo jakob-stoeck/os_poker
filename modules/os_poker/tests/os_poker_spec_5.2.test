@@ -17,65 +17,26 @@
 //
 
 
-/**
- * @file
- * Poker 5.2: Ranking System
- *
- */
-
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: 5.2: Ranking System test case
- *
- * Verifies whatever workflow is working according to specifications.
- * Validates this and that.
- *
- * @assert: this little step.
- * @assert: other little step.
- *
- */
 class OSPokerRankingSystem extends OsPokerWebTestCase {
 
-  /**
-   * @var user object created and logged in during setUp process.
-   */
   protected $skel_user;
 
-  /**
-   * Implementation of hook_info().
-   */
   public static function getInfo() {
     return array(
-      'name'        => '5.2 Ranking System',
-      'description' => 'Ranking system tests',
-      'group'       => 'OS Poker Specifications',
-    );
+				 'name'        => '5.2 Ranking System',
+				 'description' => 'Ranking system tests',
+				 'group'       => 'OS Poker Specifications',
+				 );
   }
 
-  /**
-   * Implementation of setUp().
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
-
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
     $this->skel_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
     $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
-
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
     parent::tearDown();
   }
@@ -84,63 +45,63 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
    * Verify this
    *
    * The verification is done through these steps:
-login skel_user
-create a buddy with invitation process
-do it n times (let's say 5)
-iterate through skel_user buddies and add them a random amount of Chips
-call usort on buddies list and verify the order
+   login skel_user
+   create a buddy with invitation process
+   do it n times (let's say 5)
+   iterate through skel_user buddies and add them a random amount of Chips
+   call usort on buddies list and verify the order
    *
    */
   function testRankingSystem()
   {
 
     for ($i = 0; $i < 5; $i++)
-    {
-     $this->drupalLogin($this->skel_user);
+	  {
+		$this->drupalLogin($this->skel_user);
 
 		$name = $this->randomName();
 		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
 		$this->OsPokerSendInvites(array($name => $email));
-     $this->drupalLogout();
+		$this->drupalLogout();
 
 		$mail_queue = end($this->drupalGetMails());
 		$code = $mail_queue['params']['invite']->code;
 		$this->drupalGet('invite/accept/'. $code);
 		$password = $this->randomName();
 		$options = array(
-		  'name'        => $name,
-		  'pass[pass1]' => $password,
-		  'pass[pass2]' => $password,
-		);
+						 'name'        => $name,
+						 'pass[pass1]' => $password,
+						 'pass[pass2]' => $password,
+						 );
 		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
-     $this->drupalLogout();
+		$this->drupalLogout();
 
-    }
+	  }
 
 	$test_user = CUserManager::instance()->User($this->skel_user->uid);
 	$test_buddies = $test_user->Buddies(TRUE);
 
 	$previous_max_chips = 0;
 	foreach ($test_buddies as $buddy)
-	{
+	  {
 		$buddy->chips += rand(1000, 5000);
 		$buddy->Save();
 		if ($buddy->Chips() > $previous_max_chips)
-		   $previous_max_chips = $buddy->Chips();
-	}
+		  $previous_max_chips = $buddy->Chips();
+	  }
 
 	$test_buddies = $test_user->Buddies(TRUE, TRUE);
 	
 	foreach ($test_buddies as $buddy)
-	{
+	  {
 		$this->assertTrue($buddy->Chips() <= $previous_max_chips, "Sort OK : ".$buddy->Chips());
 		$previous_max_chips = $buddy->Chips();
-	}
+	  }
 
 	$test_buddies = $test_user->Buddies(TRUE, TRUE);
 
-     $this->drupalLogin($this->skel_user);
+	$this->drupalLogin($this->skel_user);
 
 	$ranking_content = $this->drupalGet("poker/profile/ranking");
 	$this->assertTrue(TRUE, $this->drupalGetContent());
@@ -149,16 +110,16 @@ call usort on buddies list and verify the order
 	$regexp = "";
 	$i = 1; // first index appearing in top 10 listing
 	foreach ($test_buddies as $buddy)
-	{
+	  {
 		$regexp = $regexp.".+?<div class=\"buddy_list_number.+?\">\s+?".$i."\s+?<\/div>.+?<div class=\"buddy_list_chips\">\s+?\\".$buddy->Chips(TRUE);
-	$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "intermediate ranking magic regexp checking for ".$i." / ".$buddy->Chips(TRUE));
+		$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "intermediate ranking magic regexp checking for ".$i." / ".$buddy->Chips(TRUE));
 		$i++;
-  }
+	  }
 	$regexp = $regexp.".+?";
 
 
 	$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "complete ranking magic regexp checking for all above to appears in the order defined");
 
-	}
+  }
 
 }
