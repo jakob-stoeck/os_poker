@@ -136,7 +136,7 @@ body.front #middle-content-right
 /**
  * Front page banners
  */
-#content-bottom .block-os-poker-signup-banners
+#page-front-banners
 {
   padding: 0;
   height: 175px;
@@ -148,7 +148,7 @@ body.front #middle-content-right
 }
 
 
-#content-bottom .block-os-poker-signup-banners a
+#page-front-banners a.banner
 {
   display: inline-block;
   height: 165px;
@@ -159,22 +159,23 @@ body.front #middle-content-right
   background-color: transparent;
   background-position: center center;
   background-repeat: none;
+	vertical-align: middle;
 }
 
-#content-bottom .block-os-poker-signup-banners a.bonusreg
+#page-front-banners #bonusreg
 {
-  background-image: ur('images/signup_banner_bonusreg.gif');
+  background-image: ur('images/front_banner_bonusreg.gif');
   width: 200px;
 }
 
-#content-bottom .block-os-poker-signup-banners a.onemiochips
+#page-front-banners #onemiochips
 {
-  background-image: ur('images/signup_banner_onemiochips.gif');
+  background-image: ur('images/front_banner_onemiochips.gif');
   width: 200px;
 }
 
-#content-bottom .block-os-poker-signup-banners a.sexiestpoker
+#page-front-banners #sexiestpoker
 {
-  background-image: ur('images/signup_banner_a.sexiestpoker.gif');
+  background-image: ur('images/front_banner_a.sexiestpoker.gif');
   width: 300px;
 }

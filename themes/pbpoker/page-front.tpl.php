@@ -197,16 +197,10 @@
 				</div>
 				<?php endif; ?>
 
-				<?php if ($bottom_content || !$logged_in): ?>
+				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
 				<?php print $bottom_content; ?>
-				<?php if(!$logged_in):?>
-				  <div class="block-os-poker-signup-banners os-poker-block block">
-				    <a class="bonusreg" title=""href="#"></a>
-				    <a class="onemiochips" title="" href="#"></a>
-				    <a class="sexiestpoker" title="" href="#"></a>
-          </div>
-				<?php endif;?>
+
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>
 
