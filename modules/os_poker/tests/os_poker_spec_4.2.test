@@ -268,5 +268,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 	function testFail() {
 		$this->fail('Once the user fills in the missing data and saves it, he will be granted 2000 Chips',
 								'SpecPoker');
+		$this->fail('percentage of how much of the profile data is filled in',
+								'SpecPoker');
 	}
 }
