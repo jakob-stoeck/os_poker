@@ -17,38 +17,8 @@
 //
 
 
-/**
- * @file
- * Poker 5.3 Buddylist and "who is online" functionality
- *
- */
-
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: 5.3: Buddylist and "who is online" test case
- *
- * Verifies whatever workflow is working according to specifications.
- * Validates this and that.
- *
- * @assert: The buddy list is shown on all pages.
- * @assert: Users who have an established relationship with current user are
- *          shown in the buddy list.
- * @assert: There is a possibility to filter the list by online/offline[S].
- *          This status is shown for every user in the list.
- * @assert: Buddies in the list are shown by the ranking criterion (default is
- *          most chips in descending order).
- * @assert: If the user has not enough buddies to fill the list, the
- *          “Invite friend” placeholder is shown instead.
- *
- *@TODO: Add more known pages in testBudyListOnAllPages
- *@TODO: testBuddyListSortedByRanking is not implemented yet
- *@TODO: testBuddyPlaceHolders
- *
- */
 class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
   /*
@@ -56,65 +26,37 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    */
   const PAGE_SIZE = 7;
 
-  /**
-   * Implementation of hook_info().
-   */
   public static function getInfo() {
     return array(
       'name'        => '5.3 Buddylist and "who is online"',
-      'description' => 'Buddylist and "who is online" functionality tests',
+      'description' => 'Buddylist and "who is online" functionality',
       'group'       => 'OS Poker Specifications',
     );
   }
 
-    /**
-   * Assert that the Buddy List is shown on a page.
-   *
-   * Expect the Buddy List to be in a html element with id="buddylist".
-   *
-   * @param $path The page to check the for the Buddy List.
-   */
   private function assertBuddyListOnPage($path) {
     $this->drupalGet($path);
     return $this->assertRaw('id="buddylist"', t('Buddy list found on page %path', array('%path' => $path)));
   }
 
-  /**
-   * Implementation of setUp().
-   *
-   * - Create a main user (in $this->main_user)
-   * - Create 10 users as buddies of the main user (in this->buddies)
-   * - Create a user with no buddy (in $this->lonely_user);
-   * - Log as the main user
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
 
-    //Create users
     $this->main_user = $this->drupalCreateUser();
     $this->OsPokerLogin($this->main_user, array('profile_nickname' => 'main_user'));
     $this->buddies = array();
     for ($i = 0; $i < 10; $i++) {
       $buddy = $this->buddies[] = $this->OsPokerCreateUserWithProfile();
-      //Create a buddy-reliationship with main user
       $this->OsPokerCreateBuddyRelationShip($this->main_user, $buddy);
     }
     $this->lonely_user =  $this->OsPokerCreateUserWithProfile();
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
     parent::tearDown();
   }
 
   /**
-   * Verify that users who have an established relationship with current user
-   * are shown in the buddy list.
-   *
-   * The verification is done through these steps:
    * - go to front page
    * - verify that the name of each buddy of the current user is shown in one of
    *   the page (paging is done
@@ -128,8 +70,8 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     }
     $this->assertTrue(
       $all_buddies_found,
-      t('Users who have an established relationship with current user are shown in the buddy list.'),
-      'Specs'
+      t('users who have an established buddy relationship to another user will be shown in the buddy list'),
+      'SpecPoker'
     );
   }
 
@@ -142,13 +84,11 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    * - verify the buddy list is on the page
    * - verify that the filtering checkbox (named online) is on the page
    *
-   * @note Filtering is done client-side in JavaScript. SimpleTest does not
-   *       support testing JS behavior.
-   *
    */
   function testBuddyListStatusfilter(){
     $this->assertBuddyListOnPage('<front>');
-    $this->assertFieldByName('online', '', 'There is a possibility to filter the list by online/offline.');
+    $this->assertFieldByName('online', '', 'the online field is present, it is a hint that the filter may be present.');
+		$this->pass('REFER TO JavaScript TESTS: There is a possibility to filter the list by online/offline', 'SpecPoker');
   }
 
 
@@ -162,56 +102,29 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
    *   - Go to the page
    *   - verifiy that the buddylist is on the page
    */
-/* 
-** cmirey : don't understand this useless test, if it has to be done on known page,
-** then the only known page that is complete is the <front> one...
-** Other pages are static content (Terms of services, Editorial,...) or core drupal (user...)
-**
-**  function testBudyListOnAllPages() {
-**    //
-**    $paths = array(
-**      '<front>',
-**      'user',
-**    );
-**    $all_pass = true;
-**    foreach($paths as $path) {
-**      $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
-**    }
-**    $this->assertTrue($all_pass, 'The buddy list is shown on all pages.', 'Specs.');
-**  }
-*/
+
+  function testBudyListOnAllPages() {
+    $paths = array(
+      '<front>'
+      // more static pages to this list
+    );
+		$this->fail('Add a list of known static pages above');
+    $all_pass = true;
+    foreach($paths as $path) {
+      $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
+    }
+    $this->assertTrue($all_pass, 'footer of every complete page when logged in', 'SpecPoker');
+	}
   
 
-  /*
-   * Verify that buddies in the list are shown by the ranking criterion (default
-   * is most chips in descending order).
-   *
-   *
-   * The verification is done through these steps:
-   * - set buddies stats to a known states
-   * - go on front page
-   * - verify the buddy list is on the page
-   * - verify that buddies are sorted by chips in descending order
-   * - clikc the 'change order' link/button
-   * - verify that buddies are sorted by chips in ascending order
-   * - for other each criteria
-   *   - click the 'sort by criteria'
-   *   - verify that buddies are sorted by the criteria in descending order
-   *   - clikc the 'change order' link/button
-   *   - verify that buddies are sorted by the criteria in ascending order
-   */
-/* cmirey : we'll see that later
-**  function testBuddyListSortedByRanking() {
-**    $this->assertBuddyListOnPage('<front>');
-**    $this->fail('TODO: Buddies in the list are shown by the ranking criterion', 'Specs.');
-**  }
-*/
+  function testBuddyListSortedByRanking() {
+		// this test is mostly written somewhere else for when the buddies show in another
+		// context: the test can be shared and here we only need to check that it actually
+		// shows sorted.
+		$this->fail('shown by the ranking criterion (default is most chips) in descending order', 'SpecPoker');
+  }
 
   /**
-   * Verify that if the user has not enough buddies to fill the list, the
-   * "Invite friend" placeholder is shown instead.
-   *
-   * The verification is done through these steps:
    * - login as the lonely user
    * - for $i = 0..self::PAGE_SIZE
    *  - go on front page
@@ -227,7 +140,6 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     while($i <= self::PAGE_SIZE) {
       $count = self::PAGE_SIZE - $i;
       $this->assertBuddyListOnPage('<front>');
-//      $this->assertTrue(TRUE, $this->drupalGetContent());
       $pattern = '/(Invite Friends[\s\S]+?){'.$count.'}/i';
       $this->pass($pattern);
       if($count) {
@@ -240,6 +152,13 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
       }
       $i++;
     }
-    $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the "Invite friends" placeholder is shown instead.', 'Specs.');
+    $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the Invite friend placeholder is shown instead', 'SpecPoker');
   }
+
+	function testFail() {
+		$this->fail('click invoke the challenge functionality. Opens a confirmation thickbox with Challenge sent to nick.', 'SpecPoker');
+		$this->fail('Not a link if user is offline.', 'SpecPoker'); // challenge
+		$this->fail('Join Table:  invokes the invite to table functionality', 'SpecPoker');
+		$this->fail('invokes the invite to table functionality. Invite if offline', 'SpecPoker');
+	}
 }
