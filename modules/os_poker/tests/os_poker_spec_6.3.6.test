@@ -1,0 +1,51 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+class OSPokerMessageBox extends OsPokerWebTestCase {
+
+  protected $skel_user;
+
+  public static function getInfo() {
+    return array(
+      'name'        => '6.3.6 Standard Confirmation and Error Pages',
+      'description' => 'Standard Confirmation and Error Pages',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    $this->skel_user = $this->drupalCreateUser();
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  function testThis(){
+    $this->fail('text for confirmation', 'SpecPoker');
+    $this->fail('ok (or whatever) closes the thickbox', 'SpecPoker');
+    // $this->fail('optional picture for the type of confirmation', 'SpecPoker'); later
+  }
+
+}
