@@ -198,20 +198,8 @@ function os_poker_init()
 		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.thickbox.bootstrap.js", "theme");
 	}
 	
-	$poker_url = url("<front>", array("query" => array("view" => "table"), "absolute" => TRUE));
-	$lobby_url = url("<front>", array("absolute" => TRUE));
 	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button.gif";
 	$inline_js = "
-	
-	function	os_poker_goto_table(game_id)
-	{
-		document.location = '{$poker_url}' + '&game_id=' + game_id;
-	}
-	
-	function	os_poker_goto_lobby()
-	{
-		document.location = '{$lobby_url}';
-	}
 	
 	function	os_poker_input_file_style()
 	{
@@ -221,11 +209,6 @@ function os_poker_init()
 		 imagewidth : 70,
 		 width : 160
 		 });
-	}
-	
-	function	os_poker_site_root()
-	{
-		return '{$lobby_url}';
 	}
 	
 	";
@@ -239,9 +222,10 @@ function os_poker_init()
 		
 		$prof = $cuser->profile_nickname;
 	
-		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
+		if (empty($prof) && (empty($_GET["q"]) || $_GET["q"] != "poker/first_profile"))
 		{
-		  drupal_goto("poker/first_profile");
+			$cuser->profile_nickname = _os_poker_rand_player();
+			$cuser->Save();
 		}
 	}
 	
@@ -472,13 +456,14 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		break;
 		
 		case 'login' :
+			CUserManager::instance()->CurrentUser(TRUE);
 			CScheduler::instance()->Trigger('login');
 
 		break;
 		
 		case 'logout' :
 			CScheduler::instance()->Trigger('logout');
-
+			CUserManager::instance()->CurrentUser(TRUE);
 		break;
 		
 		case 'insert':
@@ -644,61 +629,73 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 								'info'       => t('Poker : Open Social header user brief'),
 								'weight'	=> -2,
 								'region'	=> "header",
+								'cache'		=> BLOCK_CACHE_PER_USER,
 								);
 			$blocks[1] = array(
 								'info'       => t('Poker : Footer information'),
 								'weight'	=> -1,
 								'region'	=> "footer",
+								'cache'		=> BLOCK_CACHE_GLOBAL,
 								);
 			$blocks[2] = array(
 								'info'       => t('Poker : Buddylist'),
 								'weight'	=> -1,
 								'region'	=> "bottom content",
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[3] = array(
 								'info'       => t('Poker : Gadjet'),
 								'weight'	=> -2,
 								'region'	=> "middle content left",
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[4] = array(
 								'info'       => t('Poker : Who is at that Table'),
 								'weight'	=> -3,
 								'region'	=> "middle content right",
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[5] = array(
 								'info'       => t('Poker : Open Social user brief'),
 								'weight'	=> -3,
 								'region'	=> "middle content left",
+								'cache'		=> BLOCK_CACHE_PER_USER,
 								);
 			$blocks[6] = array(
 								'info'       => t('Poker : Play now !'),
 								'weight'	=> -4,
 								'region'	=> "middle content right",
+								'cache'		=> BLOCK_CACHE_PER_PAGE,
 								);
 			$blocks[7] = array(
 								'info'       => t('Poker : Home Teaser'),
 								'weight'	=> -1,
 								'region'	=> "middle content left",
+								'cache'		=> BLOCK_CACHE_PER_PAGE,
 								);
 			$blocks[8] = array(
 								'info'       => t('Poker : Home Signup'),
 								'weight'	=> -5,
 								'region'	=> "middle content right",
+								'cache'		=> BLOCK_CACHE_PER_PAGE,
 								);
 			$blocks[9] = array(
 								'info'       => t('Poker : News'),
 								'weight'	=> -2,
 								'region'	=> "middle content right",
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[10] = array(
 								'info'       => t('Poker : Home Promotions'),
 								'weight'	=> -1,
 								'region'	=> "middle content right",
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[11] = array(
 								'info'       => t('Poker : Language bar'),
 								'weight'	=> -3,
 								'region'	=> "header",
+								'cache'		=> BLOCK_CACHE_GLOBAL,
 								);
 			return $blocks;
 		

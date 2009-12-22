@@ -632,14 +632,17 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 	}
 
 	if (form_get_errors() == NULL)
-		drupal_set_message("<div class='DialogPos'><span class='DialogText'>".t("Thank you for updating your profile.")."</span></div><a class=\"ButtonConfirmYes\" onclick=\"javascript:$('#messages_ajax').hide();\" href=\"javascript:void(0);\">OK</a>");
+		{
+			$nick = $cuser->profile_nickname;
+			if (!empty($nick))
+				drupal_set_message("<div class='DialogPos'><span class='DialogText'>".t("Thank you for updating your profile.")."</span></div><a class=\"ButtonConfirmYes\" onclick=\"javascript:$('#messages_ajax').hide();\" href=\"javascript:void(0);\">OK</a>");
+		}
 	else
 		{
 			$msg_array = drupal_get_messages();
 			drupal_set_message("<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>", "error");
 			foreach ($msg_array["error"] as $msg)
 				{
-					drupal_set_message("<div class='ErrorList'>".$msg."</div>", "error");
 					drupal_set_message("<div class='ErrorList'>".$msg."</div>", "error");
 				}
 		}

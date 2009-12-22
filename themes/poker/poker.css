@@ -345,6 +345,16 @@ width:100%;
 z-index:1000;
 }
 
+
+#messages_popup div.messages
+{
+ border: none;
+ height: 100%;
+ width: 100%;
+ left: 0px;
+ top: 0px;
+}
+
 #messages_popup_ajax div.messages
 {
  border: none;
@@ -1491,6 +1501,20 @@ body.iframe #messagebox a.LayerClose
 ** First profile
 */
 
+#outter-poker-first-profile
+{
+	background-color:black;
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:1000;
+	filter: alpha(opacity=60);
+    -moz-opacity : 0.6;
+    opacity : 0.6;
+}
+
 #poker-first-profile
 {
 	background:transparent url(images/pre_body_bg.gif) repeat scroll top left;
@@ -1499,6 +1523,7 @@ body.iframe #messagebox a.LayerClose
 	padding:15px;
 	margin-left:auto;
 	margin-right:auto;
+	z-index:1042;
 }
 
 #poker-first-profile fieldset
@@ -3477,6 +3502,20 @@ padding-left:5px;
  top:35px;
  width:380px;
  z-index:42;
+}
+.status .first_profile_message
+{
+ display: none;
+}
+.first_profile_message .ErrorText
+{
+ display: none;
+}
+.first_profile_message .ErrorList {
+color:#000;
+font-size:1em;
+font-weight:normal;
+padding: 0px;
 }
 
 #profile-update p.Dollar {

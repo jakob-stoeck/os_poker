@@ -138,11 +138,27 @@ call usort on buddies list and verify the order
 		$previous_max_chips = $buddy->Chips();
 	}
 
+	$test_buddies = $test_user->Buddies(TRUE, TRUE);
 
-	drupalGet("poker/profile/ranking");
-	$this->assertTrue(TRUE, drupalGetContent());
+     $this->drupalLogin($this->skel_user);
+
+	$ranking_content = $this->drupalGet("poker/profile/ranking");
+	$this->assertTrue(TRUE, $this->drupalGetContent());
+
+	/* build a magical regexp to ensure buddies are displayed in right order (descendant by chips amount) in ranking view */
+	$regexp = "";
+	$i = 1; // first index appearing in top 10 listing
+	foreach ($test_buddies as $buddy)
+	{
+		$regexp = $regexp.".+?<div class=\"buddy_list_number.+?\">\s+?".$i."\s+?<\/div>.+?<div class=\"buddy_list_chips\">\s+?\\".$buddy->Chips(TRUE);
+	$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "intermediate ranking magic regexp checking for ".$i." / ".$buddy->Chips(TRUE));
+		$i++;
   }
+	$regexp = $regexp.".+?";
 
 
+	$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "complete ranking magic regexp checking for all above to appears in the order defined");
+
+	}
 
 }

@@ -1,4 +1,31 @@
 
+function	os_poker_site_root()
+{
+	if (Drupal.jsEnabled)
+	{
+		return Drupal.settings.basePath;
+	}
+	return "/";
+}
+
+/*
+**
+*/
+	
+function	os_poker_goto_table(game_id)
+{
+	document.location = os_poker_site_root() + '?view=table&game_id=' + game_id;
+}
+
+function	os_poker_goto_lobby()
+{
+	document.location = os_poker_site_root();
+}
+
+/*
+**
+*/
+
 function	os_poker_submit(link, form_id, ajax, closetb)
 {
 	var jlink = $(link);
