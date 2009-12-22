@@ -92,7 +92,9 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 	  }
 
 	$test_buddies = $test_user->Buddies(TRUE, TRUE);
-	
+
+	$this->pass('Number of Chips', 'SpecPoker');
+
 	foreach ($test_buddies as $buddy)
 	  {
 		$this->assertTrue($buddy->Chips() <= $previous_max_chips, "Sort OK : ".$buddy->Chips());
