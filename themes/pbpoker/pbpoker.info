@@ -8,6 +8,8 @@ version = "6.x-1.0"
 core = "6.x"
 project = "poker"
 
+scripts[] = pbpoker.js
+
 stylesheets[all][]   = pbpoker.css
 stylesheets[print][] = print.css
 

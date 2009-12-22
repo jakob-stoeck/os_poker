@@ -43,6 +43,22 @@ function pbpoker_theme() {
       'arguments' => array('text' => ""),
       'template' => 'os-poker-teaser',
     ),
+    'os_poker_user_brief' => array(
+      'arguments' => array('os_user' => null),
+      'template' => 'os-poker-user-brief',
+    ),
+    'os_poker_medium_profile' => array(
+      'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL),
+      'template' => 'os-poker-profile-medium',
+    ),
+    'os_poker_profile_settings' => array(
+      'arguments' => array('personal_form' => NULL, 'email_form' => NULL, 'password_form' => NULL),
+      'template' => 'os-poker-profile-settings',
+    ),
+    'os_poker_ranking_list' => array(
+      'arguments' => array("sorted_users" => NULL),
+      'template' => 'os-poker-ranking-list',
+    ),
     'page_front_banner' => array(
       'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
     ),
@@ -95,6 +111,13 @@ function phptemplate_username($object) {
   return $output;
 }
 
+function pbpoker_page_front_banner($id, $text, $href) {
+  return l(
+    '<span class="banner-inner">'.$text.'</span>',
+    $href,
+    array('html' => TRUE, 'attributes' => array('class' => 'banner', 'id' => $id))
+  );
+}
 
 function pbpoker_preprocess_page(&$variables) {
   $language = $variables['language'];
@@ -127,14 +150,6 @@ function pbpoker_preprocess_page_front_banners(&$variables)
   $variables['banners'][] = theme('page_front_banner', 'bonusreg', t(''), '');
   $variables['banners'][] = theme('page_front_banner', 'onemiochips',  t(''), '');
   $variables['banners'][] = theme('page_front_banner', 'sexiestpoker', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
-}
-
-function pbpoker_page_front_banner($id, $text, $href) {
-  return l(
-    '<span class="banner-inner">'.$text.'</span>',
-    $href,
-    array('html' => TRUE, 'attributes' => array('class' => 'banner', 'id' => $id))
-  );
 }
 
 function pbpoker_preprocess_block(&$variables) {
