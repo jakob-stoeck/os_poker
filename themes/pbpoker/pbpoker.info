@@ -1,4 +1,4 @@
-; $Id: poker.info,v 1.11 2009/11/04 15:00:00 kez Exp $
+; $Id:$
 
 name        = Playboy Poker
 description = Theme for playboypoker.de
@@ -7,7 +7,6 @@ engine = phptemplate
 version = "6.x-1.0"
 core = "6.x"
 project = "poker"
-datestamp = "1257345348"
 
 stylesheets[all][]   = pbpoker.css
 stylesheets[print][] = print.css

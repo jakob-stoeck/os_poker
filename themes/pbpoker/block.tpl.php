@@ -29,7 +29,7 @@
  * @see template_preprocess_block()
  */
 ?>
-<div id="block-<?php print $block->module . '-' . $block->delta; ?>" class="<?php print $classes; ?>"><div class="block-inner">
+<div id="<?php print $domid; ?>" class="<?php print $classes; ?>"><div class="block-inner">
 
   <?php if ($block->subject): ?>
     <!--<h2 class="title"><?php print $block->subject; ?></h2>-->
