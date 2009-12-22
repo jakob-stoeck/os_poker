@@ -2,7 +2,7 @@
  * Front page
  */
 
-body.front #main
+body.not-logged-in #main
 {
   width: 720px;
   padding-left: 20px;
@@ -10,17 +10,17 @@ body.front #main
   padding-top: 20px;
 }
 
-body.front #middle-content
+body.not-logged-in #middle-content
 {
   height: 432px;
 }
 
-body.front #middle-content-left
+body.not-logged-in #middle-content-left
 {
   margin: 0;
 }
 
-body.front #middle-content-right
+body.not-logged-in #middle-content-right
 {
   float: right;
 }
