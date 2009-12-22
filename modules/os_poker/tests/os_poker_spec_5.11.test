@@ -99,6 +99,9 @@ class OSPokerMultiLanguag extends OsPokerWebTestCase {
    */
 	function testMultiLanguage()
 	{
+
+		$this->fail('6.2.4 Language selection (reloads the page)', 'SpecPoker');
+		$this->fail('The System must support English', 'SpecPoker'); // and german
 /*
 ** Test context doesn't have translations registered... better to test that manually
 
