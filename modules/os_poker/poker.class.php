@@ -21,6 +21,7 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 		
 define ("POKER_DB", "pythonpokernetwork");
+
 		
 /*
 **
@@ -28,12 +29,21 @@ define ("POKER_DB", "pythonpokernetwork");
 		
 class CPoker
 {
+	private static $_pokerDB = POKER_DB;
+	
+	
+	public static function ChangePokerDB($name)
+	{
+		$old = self::$_pokerDB;
+		self::$_pokerDB = $name;
+		return $old;
+	}
 
 	public static function UsersAtTable($table_id, $returnObjects = FALSE)
 	{
 		$users = array();
 		
-		db_set_active(POKER_DB);
+		$lastDb = db_set_active(self::$_pokerDB);
 	
 		$sql = "SELECT `user_serial` FROM `user2table` WHERE `table_serial` = %d";
 		
@@ -47,7 +57,7 @@ class CPoker
 			}
 		}
 		
-		db_set_active();
+		db_set_active($lastDb);
 		
 		if ($returnObjects != FALSE)
 		{
@@ -61,7 +71,7 @@ class CPoker
 	{
 		$tables = array();
 	
-		db_set_active(POKER_DB);
+		$lastDb = db_set_active(self::$_pokerDB);
 		
 		$sql = "SELECT `t`.`serial`, `t`.`name` FROM `pokertables` AS `t` JOIN `user2table` AS `u` ON (`u`.`table_serial` = `t`.`serial`) WHERE `u`.`user_serial` = %d";
 		
@@ -75,7 +85,7 @@ class CPoker
 			}
 		}
 		
-		db_set_active();
+		db_set_active($lastDb);
 
 		return $tables;
 	}

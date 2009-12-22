@@ -265,11 +265,60 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
 	}
 
-	function testFail() {
+	function testProfilePercentageAndChipsAtCompletion()
+	{
+
+		$userA = $this->drupalCreateUser();
+		
+		$this->drupalLogin($userA);
+		$this->OsPokerProfileSkip();
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+
+		$test_user = CUserManager::instance()->User($userA->uid, TRUE);
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+		
+		$fields_total = 6;
+		$fields_count = 1; // it's always 1 as nickname is necessarily present
+
+		/* set date of birth */
+		$test_user->profile_dob = array("month" => 1, "day" => 1, "year" => 1970);
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_gender */
+		$test_user->profile_gender = "Male";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_city */
+		$test_user->profile_city = "City";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_country */
+		$test_user->profile_country = "Country";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_picture */
+		$test_user->picture = "picture.png";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+			
+
+		$this->assertTrue($test_user->GetProfileCompletePercent() == 100, 'after setting all fields, percentage of the profile is 100',
+								'SpecPoker');
+
+
 		$this->fail('Once the user fills in the missing data and saves it, he will be granted 2000 Chips',
 								'SpecPoker');
-		$this->fail('percentage of how much of the profile data is filled in',
-								'SpecPoker');
+
+	}
+
+	function testFail() {
 		$this->fail('Nick must be unique, if it is not or the uploaded picture is to big or wrong format an error must show up',
 								'SpecPoker');
 	}

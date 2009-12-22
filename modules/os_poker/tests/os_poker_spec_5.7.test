@@ -169,129 +169,147 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    *
    * The verification is done through these steps:
    * - Create a user, login and complete the profile.
-   * - go to invite page, invite the email address again.
-   * - Logout this user.
-   * - Using the code from the invitation email, register an 'invited' new user
-   * - Complete the profile page.
    * - simulate a challenge by sending direcly the action in 'case "os_poker_challenge_user":'
    * - verify that user 1 spooler contains 1 message
-   *
+   * - verify links are present
    */
 
   function testMessageOnChallenge(){
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
 
-		/**
-		 * Logout current user
-		 */
-
-		$this->drupalLogout();
-
-		/**
-		 * Register a new 'invitee' account and complete its profile.
-		 */
-		$user = $this->drupalCreateUser();
-		// Login the user, complete profile form
-		$this->OsPokerLogin($user);
-
-		// Create a random name - email pair and send invite
-		$name = $this->randomName();
-		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		//logout skel_user
+		$this->drupalLogout($this->skel_user);
+	
+		//Create a user to challenge
+		$target_user = $this->drupalCreateUser();
+		$this->OsPokerLogin($target_user, array('profile_nickname' => 'target_user'));
 		
-		// Submit the invitation
-		$this->OsPokerSendInvites(array($name => $email));
-
-		/**
-		 * Verify that invitation email was sent.
-		 */
-		$this->assertInviteMail(
-		  $email,
-		  t('Invitation email message sent for !name.', array('!name' => $name))
-		);
-
-		/**
-		 * Logout current user
-		 */
-
-		$this->drupalLogout();
-
-		/**
-		 * Using invitation code, register the 'invited' user.
-		 * This user has 'invited' for nickname
-		 */
-		// Get the invitation code from the last sent email.
-		$mail_queue = end($this->drupalGetMails());
-		$code = $mail_queue['params']['invite']->code;
-
-		// Use the invitation code to login the site.
-		$this->drupalGet('invite/accept/'. $code);
-
-		// The request has to redirect to user registration form with prepopulated
-		// information from the invite submission. Our email should have been
-		// filled in the form with invite information.
-		$this->assertFieldByName(
-		  'mail',
-		  $email,
-		  t('Invitation verified, invited email found in registration form.')
-		);
-
-		// Complete the fields and submit the registration form.
-		$password = $this->randomName();
-		$options = array(
-		  'name'        => $name,
-		  'pass[pass1]' => $password,
-		  'pass[pass2]' => $password,
-		);
-		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-		
-		/**
-		 * completes the 'invited' profile
-		 */
-		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
-
 
 		/*
-		** Our 'invited' user can now challenge first user
+		** challenge user
 		*/
+		
+		$_GET["type"] = "os_poker_challenge_user";
+		$_GET["challengetarget"] = $target_user->uid;
+	
+		CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
+		os_poker_process_message();
+		CUserManager::instance()->DebugRestoreCurrentUser();
 
-		$target_user = $user;
-
-				
-		//Wait for symbol, text, link
-		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
-		$args["text"] = t("You just receive a headsup challenge from somebody");
-		$args["links"] = "<a href='javascript:void(0);' >" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
-				
-		CMessageSpool::instance()->SendMessage($target_user->uid, $args);
-
-
-		/**
-		 * Logout current user
-		 */
-
-		$this->drupalLogout();
-
-		/**
-		 * Login first user
-		 */
-
-		$this->drupalLogin($user);
+		unset($_GET["type"]);
+		unset($_GET["challengetarget"]);
 
     /*
      * Go to message box and check there is a message
      */
-	$this->drupalGet('poker/messagebox');
+		$this->drupalGet('poker/messagebox');
 	
-	$this->assertText(
-       t("You just receive a headsup challenge from somebody"),
-       t('Challenge message received')
-    );
+		$this->assertText(
+				 t("You just receive a headsup challenge from skel_user"),
+				 t('Challenge message received')
+			);
 	
-	$this->assertRaw(
-       $args["links"],
+		$this->assertRaw(
+       'javascript:parent.os_poker_start_challenge',
        t('Challenge links to react present.')
+    );	
+		
+		$this->assertRaw(
+       'noreplace',
+       t('No override class for link is present.')
     );
+		
+		$this->drupalLogout($target_user);
+  }
+
+
+  /**
+   * Verify Message on table invitation
+   *
+   * The verification is done through these steps:
+   * - Create a user, login and complete the profile.
+   * - simulate a challenge by sending direcly the action in 'case "os_poker_invite_user":'
+   * - verify that user 1 spooler contains 1 message
+   * - verify name and table name are correct
+   */
+
+	  function createPokerDatabase() {
+    static $POKER_DB;
+    if(!isset($POKER_DB)) {
+      $POKER_DB = "pythonpokernetworktest";
+      require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+
+      shell_exec("mysqladmin -f -u root drop $POKER_DB");
+      shell_exec("mysqladmin -u root create $POKER_DB");
+      shell_exec("mysql -u root $POKER_DB < /usr/share/poker-network/schema.sql");
+      global $db_url;
+      if (is_string($db_url)) { $db_url = array('default' => $db_url); } // Thanks Bdragon
+      $db_url[$POKER_DB] = "mysql://root@localhost/$POKER_DB";
+    }
+    return $POKER_DB;
+  }
+	
+  function joinPokerTable($user, $game_id) {
+   $previous_db = db_set_active($this->createPokerDatabase());
+    $sql = "INSERT INTO `user2table` VALUES (%d, %d, 0, 0)";
+    db_query($sql, $user->uid, $game_id);
+    db_set_active($previous_db);
+  }	
+	
+  function createPokerTable($name) {
+   $previous_db = db_set_active($this->createPokerDatabase());
+    $sql = "INSERT INTO `pokertables` VALUES (NULL,0,10,0,0,0,0,0,0,60,5,1,'%s','holdem','2-4-limit','default',0)";
+    db_query($sql, $name);
+		$id = db_last_insert_id("pokertables", "serial");
+    db_set_active($previous_db);
+		return $id;
+  }
+	 
+  function testMessageOnInvite(){
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+
+		//logout skel_user
+		$this->drupalLogout($this->skel_user);
+	
+		//Create a user to challenge
+		$target_user = $this->drupalCreateUser();
+		$this->OsPokerLogin($target_user, array('profile_nickname' => 'target_user'));
+		
+		//setup and join a poker table
+		$oldDb = CPoker::ChangePokerDB($this->createPokerDatabase());
+		$tableid = $this->createPokerTable("TestTable");
+		$this->joinPokerTable($this->skel_user, $tableid);
+		
+		/*
+		** invite user
+		*/
+		
+		$_GET["type"] = "os_poker_invite_user";
+		$_GET["target"] = $target_user->uid;
+	
+		CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
+		os_poker_process_message();
+	
+		unset($_GET["type"]);
+		unset($_GET["target"]);
+		
+		CPoker::ChangePokerDB($oldDb);
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+    /*
+     * Go to message box and check there is a message
+     */
+		$this->drupalGet('poker/messagebox');
+	
+		$this->assertText(
+				 t("!user is playing at table !table come and join", array("!user" => "skel_user", "!table" => "TestTable")),
+				 t('Invitation message received')
+			);
+			
+		$this->drupalLogout($target_user);
   }
 
 
@@ -422,8 +440,6 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
        "You just receive a gift from ",
        t('Gift message received')
     );	
-	
-    $this->assertTrue(TRUE, $this->drupalGetContent());
 
 	$this->assertText(
        "Send a gift in return",
