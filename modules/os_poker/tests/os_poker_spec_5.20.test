@@ -17,35 +17,12 @@
 //
 
 
-/**
- * @file
- * Poker 5.20: Search Buddy
- *
- */
-
-/**
- * Includes the custom test case class with basic site configuration.
- */
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-/**
- * Spec: 5.20: User search test case
- *
- * Verifies search for players in the user base of the system.
- *
- * @assert: Search page provides fields to search by for nickname, sex (gender), city, country and  level
- * @assert:  
- */
 class OSPokerUserSearch extends OsPokerWebTestCase {
 
-  /**
-   * @var user object created and logged in during setUp process.
-   */
   protected $skel_user;
 
-  /**
-   * Implementation of hook_info().
-   */
   public static function getInfo() {
     return array(
       'name'        => '5.20 Search Buddy',
@@ -54,26 +31,14 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     );
   }
 
-  /**
-   * Implementation of setUp().
-   */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
 
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
     $this->main_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
     $this->OsPokerLogin($this->main_user, array('profile_nickname' => 'main_user'));
 
   }
 
-  /**
-   * Implementation of tearDown().
-   */
   function tearDown() {
     parent::tearDown();
   }
@@ -97,7 +62,6 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     
     //User search without param returns all
     $this->drupalPost('poker/buddies/search', array(), t("Send"));
-//    $this->assertTrue(TRUE, $this->drupalGetContent());
     foreach($users as $user) {
       $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
     }
