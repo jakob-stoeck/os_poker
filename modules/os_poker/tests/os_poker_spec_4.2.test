@@ -196,7 +196,9 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
 		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
 		
-		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE, "Redirect to buddies invite page");
+		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE,
+											"If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends",
+											'SpecPoker');
 		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
 	}
 
@@ -257,8 +259,14 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
 		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
 		
-		$this->assertTrue(strpos($args["body"]["url"], "poker/profile/update") !== FALSE, "Redirect to profile update page");
+		$this->assertTrue(strpos($args["body"]["url"], "poker/profile/update") !== FALSE,
+											"In case data is missing the lobby page is called and a thickbox with the update profile view is opened",
+											'SpecPoker');
 		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
 	}
 
+	function testFail() {
+		$this->fail('Once the user fills in the missing data and saves it, he will be granted 2000 Chips',
+								'SpecPoker');
+	}
 }
