@@ -222,10 +222,9 @@ function os_poker_init()
 		
 		$prof = $cuser->profile_nickname;
 	
-		if (empty($prof) && (empty($_GET["q"]) || $_GET["q"] != "poker/first_profile"))
+		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
 		{
-			$cuser->profile_nickname = _os_poker_rand_player();
-			$cuser->Save();
+		  drupal_goto("poker/first_profile");
 		}
 	}
 	
@@ -496,6 +495,27 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 	}
 }
 
+/*
+**
+*/
+
+function _os_poker_no_profil()
+{
+ 	if (user_is_logged_in())
+	{
+		$cuser = CUserManager::instance()->CurrentUser();
+		
+		$prof = $cuser->profile_nickname;
+	
+		if (empty($prof))
+		{
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
+
 /**
 * Implementation of hook_menu().
 */
@@ -506,7 +526,7 @@ function os_poker_menu()
 	$menu = array(
 					'poker/first_profile' => array(
 													'title'            => '',
-													'access callback'  => 'user_is_logged_in',
+													'access callback'  => '_os_poker_no_profil',
 													'page callback'    => 'os_poker_first_profile_page',
 													'file' 			   => 'os_poker_pages.php',
 													'type'             => MENU_CALLBACK,

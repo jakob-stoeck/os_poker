@@ -18,82 +18,94 @@
 
 
 /**
- * @file
- * Poker 5.1 specification test case: Booking Chips according to n. of invited friends
- *
- */
+* @file
+* Poker 5.1 specification test case: Booking Chips according to n. of invited friends
+*
+*/
 
 /**
- * Includes the custom test case class with basic site configuration.
- */
+* Includes the custom test case class with basic site configuration.
+*/
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
 /**
- * Spec: 5.1: Booking Chips test case
- *
- * Verifies booking chips on invites is working according to specifications.
- *
- * @assert: 
- *
- */
+* Spec: 5.1: Booking Chips test case
+*
+* Verifies booking chips on invites is working according to specifications.
+*
+* @assert:
+*
+*/
 class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 
-  /**
-   * @var user object created and logged in during setUp process.
-   */
-  protected $skel_user;
+	/**
+	* @var user object created and logged in during setUp process.
+	*/
+	protected $skel_user;
 
-  /**
-   * Implementation of hook_info().
-   */
-  public static function getInfo() {
-    return array(
-      'name'        => '5.1 Booking',
-      'description' => 'Booking chips functionality tests',
-      'group'       => 'OS Poker Specifications',
-    );
-  }
+	/**
+	* Implementation of hook_info().
+	*/
+	public static function getInfo() {
+		return array(
+		'name'        => '5.1 Booking',
+		'description' => 'Booking chips functionality tests',
+		'group'       => 'OS Poker Specifications',
+		);
+	}
 
-  /**
-   * Implementation of setUp().
-   */
-  function setUp() {
-    // Enable required modules and set default site configuration.
-    parent::setUp();
+	/**
+	* Implementation of setUp().
+	*/
+	function setUp() {
+		// Enable required modules and set default site configuration.
+		parent::setUp();
 
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
-    $this->skel_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
-    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+		/**
+		* Register an 'skel_user' account and complete its profile.
+		* This user has 'skel_user' for nickname.
+		*/
+		$this->skel_user = $this->drupalCreateUser();
+		// Login the user, complete profile form
+		$this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
 
-  }
+	}
 
-  /**
-   * Implementation of tearDown().
-   */
-  function tearDown() {
-    parent::tearDown();
-  }
+	/**
+	* Implementation of tearDown().
+	*/
+	function tearDown() {
+		parent::tearDown();
+	}
 
 	
 	function testBookingChips()
 	{
 		//Check task
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
-		$this->assertTrue(count($rawtask["login"]) == 1 && 
-						  count($rawtask["live"]) == 1,
-						  t("After profile submission a task is registered for login and live events"));
-						  
-		$t1 = array_pop($rawtask["live"]);
-		$t2 = array_pop($rawtask["login"]);
+		
+		// There must be also a CDelayMessage for redirection on login
+		$this->assertTrue(count($rawtask["login"]) > 0 &&
+		count($rawtask["live"]) == 1,
+		t("After profile submission a task is registered for login and live events"));
+		
+		$is_daily_chips = FALSE;
+		foreach ($rawtask["login"] as $msg)
+		{
+			if ($msg->type == "CDailyChips")
+			{
+				$is_daily_chips = TRUE;
+				$t1 = $msg;
+				break;
+			}
+		}
+
+		$t2 = array_pop($rawtask["live"]);
 		
 		$this->assertTrue($t1->id_task == $t2->id_task && $t1->type == 'CDailyChips',
-						  "Task's type is CDailyChips");
+		"Task's type is CDailyChips");
 		$tstamp = strtotime($t1->moment);
-		$this->assertTrue(($tstamp - time()) > 86399, "Task will run in ~ 24h");
+		$this->assertTrue(($tstamp - time()) > 86390, "Task will run in ~ 24h");
 		
 		//Run task
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
@@ -109,20 +121,21 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
 		
-		$this->assertTrue(count($rawtask["login"]) == 1 && 
-						  count($rawtask["live"]) == 1,
-						  t("After CDailyChips running a task is registered for login and live events"));
-						  
-		$t3 = array_pop($rawtask["live"]);
+		// There must be also a CMessage created by CDelayMessage
+		$this->assertTrue(count($rawtask["login"]) == 1 &&
+		count($rawtask["live"]) > 0,
+		t("After CDailyChips running a task is registered for login and live events"));
+		
+		$t3 = array_pop($rawtask["login"]);
 		$this->assertTrue($t1->id_task != $t3->id_task && $t3->type == 'CDailyChips',
-						  "Task's is a new CDailyChips");
-						  
+		"Task's is a new CDailyChips");
+		
 		$tstamp = strtotime($t3->moment);
 		$this->assertTrue(($tstamp - time()) > 86399, "Task will run in ~ 24h");
-	
+		
 		$this->pass(t('Once a day every registered player receives a pre-defined number of chips when logging in'), 'SpecPoker');
 	}
-  
+
 	/*
 	log in a user
 	send invite
@@ -140,313 +153,289 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 	repeat until all daily chips amount's checks completes (> 50 buddies, max 5000 daily chips)
 	*/
 
-  function testInvitations()
-  {
-	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-
-	if (function_exists('set_time_limit'))
+	function testInvitations()
 	{
-		//script execution time fixed to 10mn
-		@set_time_limit(600);
-	}
+		require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
 
-    $book_chips = false;
-	
-	//Create user and ensure that a daily chips task is created
-	$test_user = CUserManager::instance()->User($this->skel_user->uid);
-	
-	$previous_chips = $test_user->Chips();
-	//First allocation must be 3000 chips (complete profile)
-	
-  CUserManager::instance()->DebugForceCurrentUser($test_user->uid);
-
-
-	for ($i = 0; $i < 7/*58*/; $i++)
-    {
-
-
-
-		$this->assertTrue(TRUE, "<b style='color:blue;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
-		
-		//Login to the site
-		$this->drupalLogin($this->skel_user);
-
-
-
-		
-
-	switch ($i)
-	{
-
-	case 1: //500 < 5
+		if (function_exists('set_time_limit'))
 		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +500");
+			//script execution time fixed to 10mn
+			@set_time_limit(600);
+		}
+		
+		$this->skel_user = $this->drupalCreateUser();
+		// Login the user, complete profile form
+		$this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user2'));
+
+		$book_chips = false;
+		
+		//Create user and ensure that a daily chips task is created
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+		//First allocation must be 3000 chips (complete profile)
+		
+		CUserManager::instance()->DebugForceCurrentUser($test_user->uid);
+
+		for ($i = 0; $i < 58; $i++)
+		{
+
+			$previous_chips = $test_user->Chips();
+			$this->assertTrue(TRUE, "<b style='color:blue;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
 			
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">500</p>', "Currently get $500");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">750</p>', "Next step to $750");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-		
-	case 6:  //750 >= 5
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 750, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +750");
-			
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">750</p>', "Currently get $750");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">1000</p>', "Next step to $1000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
+			//Login to the site
+			$this->drupalLogin($this->skel_user);
 
-	case 11:  //1000 >= 10
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 1000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1000");
-					
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">1000</p>', "Currently get $1000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">1500</p>', "Next step to $1500");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 16:  //1500 >= 15
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 1500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1500");
-								
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">1500</p>', "Currently get $1500");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">2000</p>', "Next step to $2000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 21:  //2000 >= 20
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 2000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2000");
-											
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">2000</p>', "Currently get $2000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">2500</p>', "Next step to $2500");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 26:  //2500 >= 25
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 2500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2500");
-														
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">2500</p>', "Currently get $2500");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">3000</p>', "Next step to $3000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 31:  //3000 >= 30
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 3000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => 3000");
-																	
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">3000</p>', "Currently get $3000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">3500</p>', "Next step to $3500");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 36:  //3500 >= 35
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 3500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +3500");
-																				
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">3500</p>', "Currently get $3500");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">4000</p>', "Next step to $4000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 41:  //4000 >= 40
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 4000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4000");
-																						
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">4000</p>', "Currently get $4000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">4500</p>', "Next step to $4500");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 46:  //4500 >= 45
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 4500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4500");
-																									
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">4500</p>', "Currently get $4500");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">5000</p>', "Next step to $5000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">4</p>', "4 more to jump to next step");
-	break;
-		}
-
-	case 51:  //5000 >= 50
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
-																									
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">5000</p>', "Currently get $5000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">5000</p>', "Next step to $5000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">0</p>', "0 more to jump to next step");
-	break;
-		}
-
-	case 56:  //5000 (MAX) > 50
-		{
-			$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
-																									
-			//check the current and next step
-			$this->drupalGet('poker/buddies/invite');
-			//Check current chips
-			$this->assertRaw('<p class="Dollar2">5000</p>', "Currently get $5000");
-			//Check next step chips
-			$this->assertRaw('<p class="Dollar3">5000</p>', "Next step to $5000");
-			//Check next step chips
-			$this->assertRaw('<p class="Buddies">0</p>', "0 more to jump to next step");
-	break;
-		}
-
-	default:
-	break;
-
-	}
-		
-		/*
+			/*
 		**
 		*/
-		
-		//Send invitation
-		$name = $this->randomName();
-		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
-		$this->OsPokerSendInvites(array($name => $email));
-		
-		//Logout
-		$this->drupalLogout();
-
-		//Accept invitation
-		$mail_queue = end($this->drupalGetMails());
-		$code = $mail_queue['params']['invite']->code;
-		$this->drupalGet('invite/accept/'. $code);
-		$password = $this->randomName();
-		$options = array(
-		'name'        => $name,
-		'pass[pass1]' => $password,
-		'pass[pass2]' => $password,
-		);
-		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 			
+			//Send invitation
+			$name = $this->randomName();
+			$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+			$this->OsPokerSendInvites(array($name => $email));
+			
+			//Logout
+			$this->drupalLogout();
 
-		//Logout
-		$this->drupalLogout();
+			//Accept invitation
+			$mail_queue = end($this->drupalGetMails());
+			$code = $mail_queue['params']['invite']->code;
+			$this->drupalGet('invite/accept/'. $code);
+			$password = $this->randomName();
+			$options = array(
+			'name'        => $name,
+			'pass[pass1]' => $password,
+			'pass[pass2]' => $password,
+			);
+			$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+			$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
+
+			//Logout
+			$this->drupalLogout();
+			
+			//Trigger user tasks
+			$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
+			$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
+			
+			//Refresh user
+			$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+			CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
+			
+			//Create an immediate daily chips task
+			CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
 
 
-
-		//Trigger user tasks
-		$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
-		$this->assertTrue(TRUE, json_encode($tasks["live"]));
-		$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
-		
-		//Refresh user
-		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
-	
-
-		$this->drupalLogout();
-
-		CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
-		
-		//Create an immediate daily chips task
-		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
-		
-		//Login to the site
-		$this->drupalLogin($this->skel_user);
-		
-		//Trigger user tasks
-		$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
-		$this->assertTrue(TRUE, json_encode($tasks["live"]));
-		$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
-
-
-		/*
+			/*
 		**	Check chip allocations (take rewards bonus into account)
 		*/
-		
-		$this->assertTrue(TRUE, "<b style='color:red;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
-		
-			$previous_chips = $test_user->Chips();
+			
+			$this->assertTrue(TRUE, "<b style='color:red;'>User chips at iteration {$i} : " . $test_user->Chips() . "</b>");
+			
 
+			$this->drupalLogin($this->skel_user);
+			
 
-			$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
-			$this->assertTrue(TRUE, json_encode($tasks["live"]));
-			$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
-			$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+			switch ($i)
+			{
 
+			case 1: //500 < 5
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +500");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">500</p>', "Currently get $500");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">750</p>', "Next step to $750");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+				
+			case 6:  //750 >= 5
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 750, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +750");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">750</p>', "Currently get $750");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">1000</p>', "Next step to $1000");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
 
+			case 11:  //1000 >= 10
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 1000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">1000</p>', "Currently get $1000");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">1500</p>', "Next step to $1500");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
 
+			case 16:  //1500 >= 15
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 1500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +1500");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">1500</p>', "Currently get $1500");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">2000</p>', "Next step to $2000");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
 
-		
-    }
-/*
-     $this->drupalLogin($this->skel_user);
-     $this->drupalGet('poker/buddies');
-     $this->assertTrue(TRUE, $this->drupalGetContent());
-     $this->drupalGet('poker/profile/rewards');
-     $this->assertTrue(TRUE, $this->drupalGetContent());
+			case 21:  //2000 >= 20
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 2000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">2000</p>', "Currently get $2000");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">2500</p>', "Next step to $2500");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 26:  //2500 >= 25
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 2500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +2500");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">2500</p>', "Currently get $2500");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">3000</p>', "Next step to $3000");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 31:  //3000 >= 30
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 3000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => 3000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">3000</p>', "Currently get $3000");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">3500</p>', "Next step to $3500");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 36:  //3500 >= 35
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 3500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +3500");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">3500</p>', "Currently get $3500");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">4000</p>', "Next step to $4000");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 41:  //4000 >= 40
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 4000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">4000</p>', "Currently get $4000");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">4500</p>', "Next step to $4500");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 46:  //4500 >= 45
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 4500, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +4500");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">4500</p>', "Currently get $4500");
+					//Check next step chips
+					$this->assertRaw('<p class="Dollar3">5000</p>', "Next step to $5000");
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">3</p>', "3 more to jump to next step");
+					break;
+				}
+
+			case 51:  //5000 >= 50
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">5000</p>', "Currently get $5000");
+					//Check next step chips
+					//$this->assertRaw('<p class="Dollar3">0</p>', "Next step to $0 (Undefined case)");
+					$this->fail('Next step to $0 (Undefined case)', t('SpecPoker'));
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">0</p>', "0 more to jump to next step");
+					break;
+				}
+
+			case 56:  //5000 (MAX) > 50
+				{
+					$this->assertEqual($test_user->Chips(), $previous_chips + 5000, "AFTER $i INVITES => CHIPS amount ".$test_user->Chips()." (previous : $previous_chips) => +5000");
+					
+					//check the current and next step
+					$this->drupalGet('poker/buddies/invite');
+					//Check current chips
+					$this->assertRaw('<p class="Dollar2">5000</p>', "Currently get $5000");
+					//Check next step chips
+					//$this->assertRaw('<p class="Dollar3">0</p>', "Next step to $0 (Undefined case)");
+					$this->fail('Next step to $0 (Undefined case)', t('SpecPoker'));
+					//Check next step chips
+					$this->assertRaw('<p class="Buddies">0</p>', "0 more to jump to next step");
+					break;
+				}
+
+			default:
+				break;
+
+			}
+			
+			$this->drupalLogout();
+
+		}
+		/*
+		$this->drupalLogin($this->skel_user);
+		$this->drupalGet('poker/buddies');
+		$this->assertTrue(TRUE, $this->drupalGetContent());
+		$this->drupalGet('poker/profile/rewards');
+		$this->assertTrue(TRUE, $this->drupalGetContent());
 */
 
-  }
+	}
 
 
 
