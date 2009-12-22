@@ -21,128 +21,244 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
 class OSPokerLogin extends OsPokerWebTestCase {
 
-  /**
-   * Implementation of hook_info().
-   */
-  public static function getInfo() {
-    return array(
-      'name'        => '4.2 Workflow Login',
-      'description' => 'Login functionality tests',
-      'group'       => 'OS Poker Specifications',
-    );
-  }
+	/**
+	* Implementation of hook_info().
+	*/
+	public static function getInfo() {
+		return array(
+		'name'        => '4.2 Workflow Login',
+		'description' => 'Login functionality tests',
+		'group'       => 'OS Poker Specifications',
+		);
+	}
 
-  function setUp() {
-    parent::setUp();
+	function setUp() {
+		parent::setUp();
 
-  }
+	}
 
-  function tearDown() {
-    parent::tearDown();
-  }
+	function tearDown() {
+		parent::tearDown();
+	}
 
-  function testInvalidLogin(){
+	function testInvalidLogin(){
 
-    $options = array(
-      'name' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->drupalPost('', $options, t('Log in'));
+		$options = array(
+		'name' => $this->randomName() . '@' . $this->randomName() . ".com",
+		'pass' => $this->randomName(),
+		);
+		$this->drupalPost('', $options, t('Log in'));
 
-    /**
-     * Verify error message is present.
-     */
-     $this->assertText(
-       t('Sorry, unrecognized username or password.'),
-       t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
-			 t('SpecPoker')
-     );
+		/**
+		* Verify error message is present.
+		*/
+		$this->assertText(
+		t('Sorry, unrecognized username or password.'),
+		t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
+		t('SpecPoker')
+		);
 
-  }
+	}
 
-  function testRememberMeLogin(){
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-    $this->OsPokerProfileSubmit();
-    $this->drupalLogout();
+	function testRememberMeLogin(){
 
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-      'remember_me' => 1,
-    );
-    $this->drupalPost('', $login, t('Log in'));
+		$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+		$this->drupalLogin($root);
+		$this->drupalPost('poker/first_profile', array(), t('Send'));
+		
+		$params = array(
+		"remember_me_checkbox"	=> 1,
+		"remember_me_lifetime"	=> 2419200,
+		"remember_me_managed"	=> 1,
+		"remember_me_phantom_session"	=> 1,
+		);
+		
+		$this->drupalPost('admin/settings/remember_me', $params, t('Save configuration'));
+		$this->drupalGet('admin/settings/remember_me');
+		$this->drupalLogout($root);
 
-    $headers = $this->drupalGetHeaders(TRUE);
-    $this->assertTrue(
-											(isset($headers[0]) && isset($headers[0]['set-cookie'])),
-											t('')
-											);
+		$options = array(
+		'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
+		'pass' => $this->randomName(),
+		);
+		$this->OsPokerSignUpUser($options);
+		$this->OsPokerProfileSubmit();
+		$this->drupalLogout();
+		
+
+		$login = array(
+		'name' => $options['mail'],
+		'pass' => $options['pass'],
+		'remember_me' => 1,
+		);
+		$this->drupalPost('', $login, t('Log in'));
+
+		$headers = $this->drupalGetHeaders(TRUE);
+		
+		$this->assertTrue(
+		(isset($headers[0]) && isset($headers[0]['set-cookie'])),
+		t('Server send cookie information')
+		);
+		
+		$parts = explode(';', $headers[0]['set-cookie']);
+		
+		$this->assertTrue(TRUE, $parts[0]);
+
+		$this->assertTrue(
+		strpos(
+		$parts[0],
+		'=deleted'
+		),
+		t('Previous cookie has been deleted.')
+		);
+
+		$this->assertTrue(TRUE, $parts[1]);
+		
+		$this->assertTrue(
+		strpos(
+		$parts[1],
+		'expires='
+		),
+		t('Previous cookie has been expired.')
+		);
+
+		$this->assertTrue(TRUE, $parts[3]);
+		$this->assertTrue(TRUE, "Wainting : " . date("r", strtotime("+4 Weeks")));
+		
+		$this->assertTrue(
+		strpos(
+		$parts[3],
+		'expires='
+		),
+		t('New cookie expiration time sent.')
+		);
+		
+		
+		
 		$this->fail(
-      t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
-			t('SpecPoker')
-    );
+		t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
+		t('SpecPoker')
+		);
 
-//     $parts = explode(';', $headers[0]['set-cookie']);
+	}
 
-//     $this->assertTrue(
-//       strpos(
-//         $parts[0],
-//         '=deleted'
-//       ),
-//       t('Previous cookie has been deleted.')
-//     );
+	function testRedirectAfterSecondLoginProfileComplete() {
 
-//     $this->assertTrue(
-//       strpos(
-//         $parts[1],
-//         'expires='
-//       ),
-//       t('Previous cookie has been expired.')
-//     );
+		$userA = $this->drupalCreateUser();
+		
+		$this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("login");
+		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$is_delay_msg = FALSE;
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CDelayMessage")
+			{
+				$is_delay_msg = TRUE;
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_delay_msg, "Message is of type CDelayMessage");
+		
+		$this->drupalLogout();
+		
+		//Should call trigger "login"
+		$this->drupalLogin($userA);
 
-//     $this->assertTrue(
-//       strpos(
-//         $parts[3],
-//         'expires='
-//       ),
-//       t('New cookie expiration time sent.')
-//     );
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("live");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$this->assertTrue(count($mbox) > 0, "There is a task for live event");
+		
+		$is_message = FALSE;
+		$args = array();
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CMessage")
+			{
+				$is_message = TRUE;
+				$args = json_decode($msg->arguments, TRUE);
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
+		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
+		
+		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE, "Redirect to buddies invite page");
+		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
+	}
 
-  }
 
-  function testLoginInviteFriends(){
 
-    $options = array(
-      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-      'pass' => $this->randomName(),
-    );
-    $this->OsPokerSignUpUser($options);
-    $this->OsPokerProfileSubmit();
-    $this->drupalLogout();
+	function testRedirectAfterSecondLoginProfileIncomplete() {
 
-    $login = array(
-      'name' => $options['mail'],
-      'pass' => $options['pass'],
-    );
-    $this->drupalPost('', $login, t('Log in'));
+		$userA = $this->drupalCreateUser();
+		
+		$this->drupalLogin($userA);
+		$this->OsPokerProfileSkip();
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("login");
+		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$is_delay_msg = FALSE;
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CDelayMessage")
+			{
+				$is_delay_msg = TRUE;
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_delay_msg, "Message is of type CDelayMessage");
+		
+		$this->drupalLogout();
+		
+		//Should call trigger "login"
+		$this->drupalLogin($userA);
 
-		$this->assertTrue($this->getAbsoluteUrl(''),
-											$this->getUrl(),
-											'the lobby page will be called ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl(),
-											t('SpecPoker'));
-     $this->assertNoRaw(
-												 t('id="profile-tabs"'),
-												 t('There is no profile tab because the profile is complete')
-											 );
-     $this->assertRaw(
-												 t('id="invite-friends"'),
-												 t('If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends'),
-												 t('SpecPoker')
-											 );
-  }
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("live");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$this->assertTrue(count($mbox) > 0, "There is a task for live event");
+		
+		$is_message = FALSE;
+		$args = array();
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CMessage")
+			{
+				$is_message = TRUE;
+				$args = json_decode($msg->arguments, TRUE);
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
+		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
+		
+		$this->assertTrue(strpos($args["body"]["url"], "poker/profile/update") !== FALSE, "Redirect to profile update page");
+		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
+	}
 
 }

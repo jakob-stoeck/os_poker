@@ -1,11 +1,58 @@
 
-function	os_poker_submit(link, form_id)
+function	os_poker_site_root()
+{
+	if (Drupal.jsEnabled)
+	{
+		return Drupal.settings.basePath;
+	}
+	return "/";
+}
+
+/*
+**
+*/
+	
+function	os_poker_goto_table(game_id)
+{
+	document.location = os_poker_site_root() + '?view=table&game_id=' + game_id;
+}
+
+function	os_poker_goto_lobby()
+{
+	document.location = os_poker_site_root();
+}
+
+/*
+**
+*/
+
+function	os_poker_submit(link, form_id, ajax, closetb)
 {
 	var jlink = $(link);
 	
 	if (jlink.length == 1)
 	{
-		$('form#' + form_id).submit();
+		var tform = $('form#' + form_id);
+		
+		if (tform.length == 1)
+		{
+			if (typeof(ajax) != "undefined" && ajax)
+			{
+				var params = tform.serializeArray();
+				var url = tform.attr("action");
+				
+				$.post(url, params, function() {
+					if (typeof(closetb) != "undefined" && closetb)
+					{
+						parent.tb_remove();
+					}
+				});
+			}
+			else
+			{
+				tform.submit();
+			}
+		}
 	}
 }
 

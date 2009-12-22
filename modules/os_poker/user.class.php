@@ -404,6 +404,28 @@ class CUser
 		
 		return db_query($sql, $this->_user->uid);
 	}
+
+	public function GetProfileCompletePercent()
+	{
+		$fields_total = 6;
+		$fields_count = 1; // nickname necessarily exists
+		if (!empty($this->_user->profile_dob["month"]) && // after very first profile, dob is empty, after first profile update submit, it is set by default to user created date so we don't take this into account
+				($this->_user->profile_dob["month"] != date("n", $this->_user->created) ||
+				$this->_user->profile_dob["day"] != date("j", $this->_user->created) ||
+				 $this->_user->profile_dob["year"] != date("Y", $this->_user->created)))
+			$fields_count++;
+	  if (!empty($this->_user->profile_gender))
+			$fields_count++;
+	  if (!empty($this->_user->profile_city))
+			$fields_count++;
+	  if (!empty($this->_user->profile_country))
+			$fields_count++;
+	  if (!empty($this->_user->picture))
+			$fields_count++;
+		$percent = round($fields_count * 100 / $fields_total);
+
+		return ($percent);
+	}
 	
 	public function	Rewards($forceReload = FALSE)
 	{

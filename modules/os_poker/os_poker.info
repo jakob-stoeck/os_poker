@@ -1,7 +1,7 @@
 ; $Id$
 name = Open Social Poker
 description = Pokermania World Open Social plugin
-dependencies[] = remember_me
+;dependencies[] = remember_me
 dependencies[] = shindig_integrator
 dependencies[] = invite
 dependencies[] = password_policy

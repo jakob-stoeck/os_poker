@@ -18,6 +18,7 @@
 		
 			print "<div class=\"profile_user" . (($target_user->Online()) ? (" online") : ("")) . "\">" . $target_user->profile_nickname . " ({$nUserRewards} / {$nRewards})</div>";
 		}
+		print ("<div class=\"rewards_help_div\"><span class=\"rewards_help_link\"><a href=\"#\" alt=\"What are rewards?\">What are rewards?</a></span></div>");
 	?>
 	</div>
 	<div id="profile-rewards">

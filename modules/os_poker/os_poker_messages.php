@@ -41,7 +41,7 @@ function	os_poker_poll_messages()
 					"messages" => array(),
 				);
 	
-	header('Cache-Control: no-cache, must-revalidate');
+	header('Cache-Control: no-store, no-cache, must-revalidate');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-type: application/json');
 	
@@ -198,7 +198,7 @@ function	os_poker_process_message()
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
 
-	header('Cache-Control: no-cache, must-revalidate');
+	header('Cache-Control: no-store, no-cache, must-revalidate');
 	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
 	header('Content-type: application/json');
 	

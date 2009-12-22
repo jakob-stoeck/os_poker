@@ -1,6 +1,36 @@
 
 var tb_pathToImage = "sites/all/modules/os_poker/images/loadingAnimation.gif";
 
+/*
+**
+*/
+
+function	os_poker_brutal_logout()
+{
+	var logoutUrl = os_poker_site_root() +  "?q=logout";
+
+	$.ajax({
+            type: "GET",
+            url: logoutUrl,
+            async: false,
+            cache: false,
+
+            success: function(responseObject)
+			{
+				setTimeout('os_poker_brutal_logout()', 10);
+			},
+			
+            error: function(XMLHttpRequest, textStatus, errorThrown)
+			{
+				document.location.href = os_poker_site_root();
+            },
+	});
+}
+
+/*
+**
+*/
+
 function	os_poker_init_menu()
 {
 	//Prepare menu for Thickbox
@@ -21,8 +51,7 @@ function	os_poker_init_menu()
 	logout.attr("href", "javascript:void(0);");
 	logout.bind("click",  function(event) {
 		os_poker_message_shutdown();
-
-		document.location.href = os_poker_site_root() +  "?q=logout";
+		os_poker_brutal_logout();
 	});
 	
 	

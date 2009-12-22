@@ -227,6 +227,33 @@ div.poker_error_message .msg a
     display: none;
 }
 
+.front #main #messages div.messages
+{
+    display: block;
+}
+.front #messages
+{
+    display: block;
+}
+.logged-in #messages
+{
+    display: none;
+}
+
+
+.page-admin #TB_overlay
+{
+ display: none;
+}
+.page-admin #TB_window
+{
+ display: none;
+}
+.page-admin #TB_ajaxContent
+{
+ display: none;
+}
+
 #messages_popup 
 {
     width: 501px;
@@ -265,6 +292,141 @@ div.poker_error_message .msg a
     overflow: hidden;
 }
 
+
+
+#messages_popup_ajax
+{
+    width: 501px;
+    height: 256px;
+    background: transparent url("images/bg_confirm_black.png") top left no-repeat;
+    position: absolute;
+    z-index: 4242;
+    top:100px;
+    left:70px;
+}
+
+#messages_popup_ajax a.LayerClose
+{
+	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+	display:block;
+	height:20px;
+	position:absolute;
+	right:11px;
+	top:8px;
+	width:20px;	
+	z-index:1777;
+	text-decoration:none;
+}
+
+#messages_popup_ajax  div.error
+{
+    border: none;
+}
+
+#messages_popup_ajax  div.messages
+{
+    background: none;
+    color: white;
+    text-align: left;
+    position: absolute;
+    left: 260px;
+    top: 160px;
+    width: 220px;
+    height: 80px;
+    overflow: hidden;
+}
+
+#messages_ajax #TB_overlay {
+height:100%;
+left:0;
+position:fixed;
+top:0;
+width:100%;
+z-index:1000;
+}
+
+
+#messages_popup div.messages
+{
+ border: none;
+ height: 100%;
+ width: 100%;
+ left: 0px;
+ top: 0px;
+/* allow simple display for standard messages */
+ height: 225px;
+ width: 250px;
+ margin-left: 210px;
+ margin-top: 20px;
+}
+
+#messages_popup_ajax div.messages
+{
+ border: none;
+ height: 100%;
+ width: 100%;
+ left: 0px;
+ top: 0px;
+/* allow simple display for standard messages */
+ height: 225px;
+ width: 250px;
+ margin-left: 210px;
+ margin-top: 20px;
+}
+
+.messages a.ButtonConfirmYes, a.ButtonConfirmNo {
+background:transparent url(images/button_confirm_yesno.gif) no-repeat scroll left top;
+color:#71480A;
+display:block;
+font-size:18px;
+font-weight:bold;
+height:49px;
+padding:13px 0 0;
+/*position:absolute;*/
+/*left:270px;*/
+/*top:130px;*/
+/*margin-left:270px;*/
+margin-left:60px;
+text-align:center;
+width:87px;
+}
+
+.messages .DialogPos {
+/*margin:70px 8px 0 232px;*/
+margin:50px 8px 0 22px;
+text-align:center;
+}
+
+.messages .DialogText {
+background:transparent url(images/dummy_gift_confirm_black.gif) no-repeat scroll right top;
+color:#DCD8B5;
+display:inline-block;
+font-size:16px;
+font-weight:bold;
+line-height:20px;
+padding:0 53px 30px 0;
+}
+
+.messages .ErrorText {
+color:#DCD8B5;
+font-size:16px;
+font-weight:bold;
+/*padding:102px 0 0 256px;*/
+padding:82px 0 0 46px;
+}
+.messages .ErrorText h2 {
+font-size:23px;
+line-height:26px;
+margin:0;
+padding:0 0 2px;
+}
+.messages .ErrorList {
+color:#FFFFFF;
+font-size:12px;
+font-weight:bold;
+/*padding:10px 0 0 256px;*/
+padding:10px 0 0 46px;
+}
 
 /*
 **
@@ -995,7 +1157,9 @@ div#buddylist .list
 	margin-top:-5px;
 	overflow:hidden;
 	padding-left:1px;
-	width:559px;
+/*	width:559px;*/
+/* cmirey : fix */
+	width:560px;
 }
 
 div#buddylist .cursor
@@ -1351,6 +1515,20 @@ body.iframe #messagebox a.LayerClose
 ** First profile
 */
 
+#outter-poker-first-profile
+{
+	background-color:black;
+	height:100%;
+	left:0;
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:1000;
+	filter: alpha(opacity=60);
+    -moz-opacity : 0.6;
+    opacity : 0.6;
+}
+
 #poker-first-profile
 {
 	background:transparent url(images/pre_body_bg.gif) repeat scroll top left;
@@ -1359,6 +1537,7 @@ body.iframe #messagebox a.LayerClose
 	padding:15px;
 	margin-left:auto;
 	margin-right:auto;
+	z-index:1042;
 }
 
 #poker-first-profile fieldset
@@ -3328,4 +3507,82 @@ padding-left:5px;
  margin: 10px 0px;
  padding: 5px 0px;
  color: #313131;
+}
+
+.first_profile_message
+{
+ left:183px;
+ position:absolute;
+ top:35px;
+ width:380px;
+ z-index:4242;
+}
+.status .first_profile_message
+{
+ display: none;
+}
+.first_profile_message .ErrorText
+{
+ display: none;
+}
+.first_profile_message .ErrorList {
+color:#000;
+font-size:1em;
+font-weight:normal;
+padding: 0px;
+}
+
+#profile-update p.Dollar {
+color:#810E0B;
+font-weight:bold;
+left:45px;
+margin:0;
+overflow:hidden;
+position:absolute;
+top:37px;
+width:28px;
+}
+
+#profile-update .user_stats{
+margin-top:5px;
+margin-bottom: 5px;
+}
+#profile-update .user_stats p {
+color:#810E0B;
+line-height:12px;
+margin: 2px;
+}
+#profile-update .user_stats strong {
+color:#65625D;
+}
+
+
+.rewards_help_div
+{
+ float: right;
+ height: 25px;
+ background: transparent url(images/bg_question.gif) top left no-repeat;
+ padding-top: 3px;
+}
+
+.rewards_help_link
+{
+ padding-left: 25px;
+}
+.rewards_help_link a
+{
+ color: #777777;
+ font-size: 12px;
+ font-weight: bold;
+ text-decoration: underline;
+}
+
+#rewards .profile_user
+{
+ float: left;
+}
+
+#rewards .inner-item-list
+{
+ clear: both;
 }

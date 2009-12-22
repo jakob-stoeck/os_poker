@@ -301,7 +301,7 @@ function	os_poker_forgot_password_form_validate($form, &$form_state)
 function	os_poker_forgot_password_form_submit($form, &$form_state)
 {
 	user_pass_submit($form, $form_state);
-	 $form_state['redirect'] = '<front>';
+	$form_state['redirect'] = '<front>';
 }
 
 function	os_poker_forgot_password_form($form_state)
@@ -322,7 +322,7 @@ function	os_poker_forgot_password_form($form_state)
 						
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
-								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\');" ' .
+								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\', true, true);" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Send") . "</div><div class='user_login_clear'></div></div>",
 							);
@@ -630,6 +630,22 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 	{
 		form_set_error('profile_nickname', t('Nickname') . " " . $edit["profile_nickname"] . " " . t(" already exists."));
 	}
+
+	if (form_get_errors() == NULL)
+		{
+			$nick = $cuser->profile_nickname;
+			if (!empty($nick))
+				drupal_set_message("<div class='DialogPos'><span class='DialogText'>".t("Thank you for updating your profile.")."</span></div><a class=\"ButtonConfirmYes\" onclick=\"javascript:$('#messages_ajax').hide();\" href=\"javascript:void(0);\">OK</a>");
+		}
+	else
+		{
+			$msg_array = drupal_get_messages();
+			drupal_set_message("<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>", "error");
+			foreach ($msg_array["error"] as $msg)
+				{
+					drupal_set_message("<div class='ErrorList'>".$msg."</div>", "error");
+				}
+		}
 }
 
 /*
