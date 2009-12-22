@@ -1,0 +1,54 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+class OSPokerSkeleton extends OsPokerWebTestCase {
+
+  protected $skel_user;
+
+  public static function getInfo() {
+    return array(
+      'name'        => '6.2.4 Footer',
+      'description' => 'Footer',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    $this->skel_user = $this->drupalCreateUser();
+    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+
+  }
+
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  function testThis(){
+		// 6.2.4 Language selection (reloads the page) is tested in os_poker_spec_5.11.test
+
+		// the inner bloc with the content of these pages is not yet defined and need not be displayed.
+		$this->fail('opens terms of Service in a full page (if logged in with buddy list if not without)', 'SpecPoker');
+		$this->fail('opens help in a thickbox', 'SpecPoker');
+		$this->fail('opens editorial in a full page (if logged in with buddy list if not without)', 'SpecPoker');
+  }
+
+}
