@@ -112,33 +112,55 @@ test("os_poker_init_messagebox", function() {
 	equals(count.text(), " 42 ", "Message count set");
 });
 
-module('Status message in Thickbox', {
+module('Message in Thickbox', {
   setup: function(){
+    this.tb_remove = this.tb_show = 0;
     var testContext = this;
+    //create mockup functions 
     window.tb_show = function(){
-      testContext.tb_show = testContext.tb_show ? testContext.tb_show++ : 0;
+      testContext.tb_show += 1;
     };
+    window.tb_remove = function() {
+      testContext.tb_remove += 1;
+    }
+    window.os_poker_input_file_style = window.tb_init = function(){};
+    //create Drupal-like HTML message markup
+    $('#main').append('<div class="messages status"><ul><li>First status message</li><li>Second status message</il></ul></div>');
+    $('#main').append('<div class="messages error"><ul><li>First error message</li><li>Second error message</il></ul></div>');
+    $('#main').append('<div class="messages warning"><ul><li>First warning message</li><li>Second warning message</il></ul></div>');
   },
   teardown: function(){
-    
+    //delete mockup functions
+    delete tb_show;
+    delete os_poker_input_file_style;
+    delete tb_init;
+    delete tb_remove;
   }
 });
-test('status messages are shown in a thickbox', 1, function(){
-  $('#main').append('<div class="messages status"><ul><li>First message</li><li>Second message</il></ul></div>');
-  Drupal.behavior.os_poker(document);
-  Drupal.behavior.os_poker(document);
-  equals(this.tb_show, 1, 'tb_show has been called once.');
+asyncTest('status messages are shown in a thickbox', 6, function(){
+  Drupal.behaviors.os_poker(document);
+  Drupal.behaviors.os_poker(document); //This second call is intentional to check the behavior does not process the same element twice
+  equals(1, $('.messages-popup').length, 'a unique message popup container should be created');
+  ok($('.messages-popup .messages.status').length, 'the popup container should contain the status messages');
+  ok(!$('.messages-popup .messages.warning').length, 'the popup container should not contain the error messages');
+  ok(!$('.messages-popup .messages.error').length, 'the popup container should not contain the warning messages');
+  var testContext = this;
+  setTimeout(function(){
+    equals(testContext.tb_show, 1, 'tb_show has been called once.');
+    $('.messages-popup .close').click();
+    ok(this.tb_remove, 'a click on the .close link in popup container should call tb_remove');
+    start();
+  }, 0);
+  
 });
-test('error and warning messages are not shown in a thickbox', 1, function(){
-  $('#main').append('<div class="messages error"><ul><li>First message</li><li>Second message</il></ul></div>');
-  $('#main').append('<div class="messages warning"><ul><li>First message</li><li>Second message</il></ul></div>');
-  Drupal.behavior.os_poker(document);
-  equals(this.tb_show, 0, 'tb_show has not been called.');
-});
-test('status messages are not shown in a thickbox on administration page', 1, function(){
-  $('#main').append('<div class="messages status"><ul><li>First message</li><li>Second message</il></ul></div>');
+asyncTest('status messages are not shown in a thickbox on administration page', 2, function(){
   $(document.body).addClass('page-admin');
-  Drupal.behavior.os_poker(document);
-  equals(this.tb_show, 0, 'tb_show has not been called.');
+  Drupal.behaviors.os_poker(document);
   $(document.body).removeClass('page-admin');
+  ok(!$('.messages-popup').length, 'no message popup container should be created');
+  var testContext = this;
+  setTimeout(function(){
+    equals(testContext.tb_show, 0, 'tb_show should not be called');
+    start();
+  }, 0);
 });
