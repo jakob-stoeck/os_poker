@@ -235,33 +235,24 @@ div.poker_error_message .msg a
 {
     display: block;
 }
-.logged-in #messages
-{
-    display: none;
-}
 
-
-.page-admin #TB_overlay
+.messages-popup
 {
- display: none;
-}
-.page-admin #TB_window
-{
- display: none;
-}
-.page-admin #TB_ajaxContent
-{
- display: none;
-}
-
-#messages_popup 
-{
-    width: 501px;
-    height: 256px;
+    width: 278px !important;
+    height: 256px !important;
+		padding-top: 30px !important;
+		padding-bottom: 10px !important;
+		padding-right: 10px !important;
+		padding-left: 208px !important;
     background: transparent url("images/bg_confirm_black.png") top left no-repeat;
 }
 
-#messages_popup a.LayerClose
+.messages-popup .content {
+	height: 206px;
+	overflow: auto;
+}
+
+.messages-popup .close
 {
 	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
 	display:block;
@@ -272,27 +263,16 @@ div.poker_error_message .msg a
 	width:20px;	
 	z-index:777;
 	text-decoration:none;
+	text-indent: -10000px;
 }
 
-#messages_popup  div.error
-{
-    border: none;
-}
-
-#messages_popup  div.messages
+.messages-popup  div.messages
 {
     background: none;
+		border: 0;
     color: white;
     text-align: left;
-    position: absolute;
-    left: 260px;
-    top: 160px;
-    width: 220px;
-    height: 80px;
-    overflow: hidden;
 }
-
-
 
 #messages_popup_ajax
 {

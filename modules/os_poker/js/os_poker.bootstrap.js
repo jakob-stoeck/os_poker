@@ -31,7 +31,7 @@ Drupal.behaviors.os_poker = function(context) {
       $popup.find('.close').click(tb_remove).end();
       //Reveal the popup (delayed with setTimeout so that any pending javascript is executed before)
       setTimeout(function(){
-        tb_show('', '#TB_inline?height=' + $popup.height() + '&width=' + $popup.width() + '&inlineId=' + id + '&modal=true', false);
+        tb_show('', '#TB_inline?height=' + $popup.outerHeight() + '&width=' + $popup.outerWidth() + '&inlineId=' + id + '&modal=true', false);
         //Copy the classes from the container to the TB_ajaxContent wrapper
         $("#TB_ajaxContent").addClass($popup.attr('class'));
       }, 0);
