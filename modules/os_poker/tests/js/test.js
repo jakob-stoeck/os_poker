@@ -1,3 +1,11 @@
+QUnit.log = function(result, message)  
+{  
+  if (window.console && window.console.log)  
+  {  
+    window.console.log(result +' :: '+ message);  
+  }  
+}  
+
 module("os_poker_update_lobby", {
 	setup: function() {
 	    var table_users = $('<div id="table_users">').appendTo('#main');
@@ -104,4 +112,33 @@ test("os_poker_init_messagebox", function() {
 	equals(count.text(), " 42 ", "Message count set");
 });
 
-
+module('Status message in Thickbox', {
+  setup: function(){
+    var testContext = this;
+    window.tb_show = function(){
+      testContext.tb_show = testContext.tb_show ? testContext.tb_show++ : 0;
+    };
+  },
+  teardown: function(){
+    
+  }
+});
+test('status messages are shown in a thickbox', 1, function(){
+  $('#main').append('<div class="messages status"><ul><li>First message</li><li>Second message</il></ul></div>');
+  Drupal.behavior.os_poker(document);
+  Drupal.behavior.os_poker(document);
+  equals(this.tb_show, 1, 'tb_show has been called once.');
+});
+test('error and warning messages are not shown in a thickbox', 1, function(){
+  $('#main').append('<div class="messages error"><ul><li>First message</li><li>Second message</il></ul></div>');
+  $('#main').append('<div class="messages warning"><ul><li>First message</li><li>Second message</il></ul></div>');
+  Drupal.behavior.os_poker(document);
+  equals(this.tb_show, 0, 'tb_show has not been called.');
+});
+test('status messages are not shown in a thickbox on administration page', 1, function(){
+  $('#main').append('<div class="messages status"><ul><li>First message</li><li>Second message</il></ul></div>');
+  $(document.body).addClass('page-admin');
+  Drupal.behavior.os_poker(document);
+  equals(this.tb_show, 0, 'tb_show has not been called.');
+  $(document.body).removeClass('page-admin');
+});
