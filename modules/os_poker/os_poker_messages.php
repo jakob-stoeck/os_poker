@@ -26,6 +26,9 @@ require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 
 function	os_poker_poll_messages()
 {
+  //Disable session writing,
+  //see http://drupal-dev.pokersource.info/trac/ticket/37
+  session_save_session(FALSE);
 	$GLOBALS['conf']['cache'] = CACHE_DISABLED;
 
 	if (function_exists('set_time_limit'))
