@@ -5,12 +5,12 @@ $(document).ready(function () {
 	os_poker_init_events();
 	os_poker_init_menu();
 	
-	os_poker_register_slider($('#buddy_panel'), 80);
+	os_poker_register_slider($('#buddy_panel'));
 	
 	$("#buddylist #edit-online").click(function () {
 	
 		os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
-		os_poker_slider_reset($('#buddy_panel .cursor'), 80);
+		os_poker_slider_reset($('#buddy_panel .cursor'));
 	});
 
 	$("#tb_messages").click();

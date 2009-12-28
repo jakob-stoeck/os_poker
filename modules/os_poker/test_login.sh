@@ -1,0 +1,1 @@
+curl -vvv --cookie /tmp/cookies --cookie-jar /tmp/cookies -d "name=test86@test.com&pass=test86&form-id=user_login_block&form-build-id=form-e9437a6fc1f997c276d1eaf13130c997" http://drupal-dev.pokersource.info/drupal6/?q=node&destination=node

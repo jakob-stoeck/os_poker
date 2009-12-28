@@ -60,29 +60,57 @@ function	os_poker_send_message(args)
             url: _os_poker_message_url + "/send",
             async: true,
             cache: false,
+            timeout: _os_poker_timeout,
 			dataType: "json",
 			data: args,
 
-            success: function(responseObject)
+      success: function(responseObject)
 			{
 				os_poker_process_message(responseObject);
 				_os_poker_send_handler = null;
 			},
 			
-            error: function(XMLHttpRequest, textStatus, errorThrown)
+      error: function(XMLHttpRequest, textStatus, errorThrown)
 			{
 				if (_os_poker_debug)
 				{
 					console.warn("Failed to send message");
 				}
 				_os_poker_send_handler = null;
-            },
+      },
 	});
 }
 
 /*
 **
 */
+
+function	os_poker_message_debug()
+{
+	$.ajax({
+            type: "GET",
+            url: _os_poker_message_url + "/receive&debug=1",
+            async: true,
+            cache: false,
+            timeout: _os_poker_timeout + 20000,
+			dataType: "json",
+			data: {ajax: 1},
+
+      success: function(responseObject)
+			{
+				setTimeout('os_poker_message_debug()', 6000);
+			},
+			
+      error: function(XMLHttpRequest, textStatus, errorThrown)
+			{
+				if (_os_poker_debug)
+				{
+					console.warn("Error in message receive, restarting ....");
+				}
+			},
+	});
+}
+
 
 function	os_poker_message_listen()
 {
@@ -93,17 +121,17 @@ function	os_poker_message_listen()
             cache: false,
             timeout: _os_poker_timeout,
 			dataType: "json",
-			data: {ajax: 1},
+	    data: {ajax: 1},
 
-            success: function(responseObject)
+      success: function(responseObject)
 			{
 				os_poker_process_message(responseObject);
 				
-				_os_poker_timer_handler = setTimeout('os_poker_message_listen()', 3000);
+				_os_poker_timer_handler = setTimeout('os_poker_message_listen()', 6000);
 				_os_poker_listen_handler = null;
 			},
 			
-            error: function(XMLHttpRequest, textStatus, errorThrown)
+      error: function(XMLHttpRequest, textStatus, errorThrown)
 			{
 				if (_os_poker_debug)
 				{
@@ -111,9 +139,8 @@ function	os_poker_message_listen()
 				}
 
 				_os_poker_listen_handler = null;
-				
 				//_os_poker_timer_handler = setTimeout('os_poker_message_listen()', 6000);
-            },
+			},
 	});
 }
 
@@ -123,23 +150,47 @@ function	os_poker_message_listen()
 
 function	os_poker_message_shutdown()
 {
-	if (_os_poker_timer_handler)
+	if (_os_poker_debug)
 	{
-		clearTimeout(_os_poker_timer_handler);
+		console.info("Message API Shutdown");
 	}
-	
+
 	if (_os_poker_listen_handler)
 	{
+		if (_os_poker_debug)
+			console.info("> Message Poller Stop ...");
 		_os_poker_listen_handler.abort();
 		_os_poker_listen_handler = null;
+	}
+	else if (_os_poker_debug)
+	{
+		console.warn("> No running message poller.");
 	}
 	
 	if (_os_poker_send_handler)
 	{
+		if (_os_poker_debug)
+			console.info("> Message Send Stop ...");
 		_os_poker_send_handler.abort();
 		_os_poker_send_handler = null;
 	}
-
+	else if (_os_poker_debug)
+	{
+		console.warn("> No message in send.");
+	}
+	
+	if (_os_poker_timer_handler)
+	{
+		if (_os_poker_debug)
+			console.info("> Timer Stop ...");
+		clearTimeout(_os_poker_timer_handler);
+		_os_poker_timer_handler = null;
+	}
+	else if (_os_poker_debug)
+	{
+		console.warn("> No timer to stop.");
+	}
+	
 }
 
 function	os_poker_message_start(listen)
@@ -150,20 +201,23 @@ function	os_poker_message_start(listen)
 		{
 			console.info("Message API Initialisation");
 		}
-    } 
+	} 
 	catch (e)
 	{
 		_os_poker_debug = false;
 	}
 	
-	
-
-	_os_poker_message_url = os_poker_site_root()
+	_os_poker_message_url = os_poker_site_root();
 	
 	if (_os_poker_message_url.match(/\?/)) _os_poker_message_url += "/poker/messages";
 	else _os_poker_message_url += "?q=poker/messages";
 	
+	os_poker_bind_message("os_poker_stop_poll", null, function(event, arg) { os_poker_message_shutdown(); });
+	
 	if (typeof(listen) != "boolean" && listen != false)
+	    {
 		os_poker_message_listen();
+		//		os_poker_message_debug();
+	    }
 }
 

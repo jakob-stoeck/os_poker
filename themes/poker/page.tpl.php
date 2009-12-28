@@ -202,14 +202,15 @@
 					<?php endif; ?>
 				</div>
 				<?php endif; ?>
-				
+			       
+			<?php endif; ?>
+
 				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
 				<?php print $bottom_content; ?>
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>
-				
-			<?php endif; ?>
+
 
 			</div></div> <!-- /#content-inner, /#content -->
 		</div>

@@ -112,17 +112,17 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
    */
   function testBuddyRequestButton() {
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
-    $this->assertText(self::REQUEST_LINK, 'From medium profile a buddy request can be started', 'Specs');
+    $this->assertText(self::REQUEST_LINK, t('From medium profile a buddy request can be started'), t('SpecPoker'));
     $this->OsPokerCreateBuddyRelationShip($this->users[0], $this->users[1]);
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
-    $this->assertNoText(self::REQUEST_LINK, 'The request button is only shown on profiles of players who are not buddies yet', 'Specs');
+    $this->assertNoText(self::REQUEST_LINK, t('the button is only shown on profiles of players who are not buddies yet'), t('SpecPoker'));
     $this->users[2] = $this->drupalCreateUser();
     $this->OsPokerLogin($this->users[2], array('profile_nickname' => $this->users[2]->name));
     $this->drupalPost('poker/profile/settings', array('profile_options[profile_ignore_buddy]' => '1'), t("Send"));
 	$this->drupalLogout();
     $this->drupalLogin($this->users[0]);
     $this->drupalGet('poker/profile/medium/'.$this->users[2]->uid);
-    $this->assertNoText(self::REQUEST_LINK, 'The request button is only shown on profiles of players who allow buddy requests in their settings', 'Specs');
+    $this->assertNoText(self::REQUEST_LINK, t("and who didn't forbid buddy requests in their settings"), t('SpecPoker'));
   }
   
   /**
@@ -151,14 +151,14 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
     
     $this->drupalGet('poker/messagebox');
     $message_title = t(self::MESSAGE_TITLE, array('!name' => $this->users[0]->name));
-    $this->assertText($message_title, 'A request is started by sending a notification to the other player', 'Specs');
+    $this->assertText($message_title, t('a request is started by sending a notification to the other player'), t('SpecPoker'));
     
-    $this->assertText(self::ACCEPT_LINK, 'The requestee can accept the request using button in the ingame notification or message', 'Specs');
+    $this->assertText(self::ACCEPT_LINK, t('If this player  accepts by clicking the accept button of the ingame notification or message'), t('SpecPoker'));
     $this->clickLink(self::ACCEPT_LINK);
 	$this->drupalPost($this->getUrl(), array(), t("Yes"));
     
     $this->drupalGet('poker/buddies');
-    $this->assertText($this->users[0]->name, 'If the requestee accepts the request, a buddy relation is ceated');
+    $this->assertText($this->users[0]->name, t('the buddy relation will be established'), t('SpecPoker'));
   }
   
 /**
@@ -187,14 +187,14 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
     
     $this->drupalGet('poker/messagebox');
     $message_title = t(self::MESSAGE_TITLE, array('!name' => $this->users[0]->name));
-    $this->assertText($message_title, 'A request is started by sending a notification to the other player', 'Specs');
+    $this->assertText($message_title, t('a request is started by sending a notification to the other player'), t('SpecPoker'));
     
-    $this->assertText(self::DECLINE_LINK, 'The requestee can refuse the request using button in the ingame notification or message', 'Specs');
+    $this->assertText(self::DECLINE_LINK, t("CASE REFUSE : If this player doesn't accepts by clicking the accept button of the ingame notification or message"), t('SpecPoker'));
     $this->clickLink(self::DECLINE_LINK);
     $this->drupalPost($this->getUrl(), array(), t("Yes"));
 	
     $this->drupalGet('poker/buddies');
-    $this->assertNoText($this->users[0]->name, 'If the requestee decline the request, no buddy relation is ceated');
+    $this->assertNoText($this->users[0]->name, t('CASE REFUSE : the buddy relation will not be established'), t('SpecPoker'));
   }
 
 

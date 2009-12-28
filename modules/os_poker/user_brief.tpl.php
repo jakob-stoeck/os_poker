@@ -19,11 +19,16 @@
 		</div>
 
 		<?php 
-			if (($num_rewards = $os_user->GetNumRewards())) 
+													 //			if (($num_rewards = $os_user->GetNumRewards())) 
+			 if (1)
 			{
-				$rewards = $os_user->Rewards();
-				$reward_key = $os_user->GetLastReward();
-				$reward_last = $rewards[$reward_key];
+			  $num_rewards = $os_user->GetNumRewards();
+			  $rewards = $os_user->Rewards();
+			  $reward_key = $os_user->GetLastReward();
+			  $reward_last = $rewards[$reward_key];
+			  $imagePath = file_directory_path() . "/poker_rewards/";
+			  $defaultPicture = $imagePath ."reward_default.jpg";
+
 		?>
 	
 			<div class="fleft reward_separator">
@@ -34,7 +39,11 @@
 					<?php print t("Your rewards") . ":"; ?>
 			    </strong></p>
 			    <div class="reward_icon">
+			     <?php if (!empty($reward_last['picture'])) { ?>
 			      <?php print("<img class='reward_picture' src=".$reward_last['picture']." alt='reward' />"); ?>
+			     <?php } else {?>
+			      <?php print("<img class='reward_picture' src=".$defaultPicture." alt='reward' />"); ?>
+			     <?php } ?>
 			    </div>
 			    <div class="reward_status"><p><strong>
 			      <?php print($reward_last['name']); ?>

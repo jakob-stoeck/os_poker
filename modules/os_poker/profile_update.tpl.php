@@ -30,7 +30,7 @@
 			?>
 			</div>
 			<div class="user_stats">
-   <?php   print "<p><strong>".t("Status:")."</strong> ".$target_user->Status()." <img src='".drupal_get_path("theme", "poker")."/images/level_icon_".strtolower($target_user->Status()).".gif' alt='level_icon_".strtolower($target_user->Status()).".gif'/></p>"; ?>
+   <?php   print "<p><strong>".t("Status:")."</strong> ".$target_user->Status()."</p>"; ?>
 			<?php   print "<p><strong>".t("Profile:")."</strong> ".$target_user->GetProfileCompletePercent()."% filled!</p>"; ?>
 			 </div>
 			 <div class="image_promo">

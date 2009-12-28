@@ -75,7 +75,7 @@
 		</div>
 		<div class="activate fleft">
 			<?php if ($external == FALSE) { ?>
-			<div onclick='javascript:os_poker_activate_item(os_poker_slider_get_page($("#item_panel"), 50));' class="poker_submit">
+			<div onclick='javascript:os_poker_activate_item(os_poker_slider_get_page($("#item_panel")));' class="poker_submit">
 				<div class="pre">&nbsp;</div>
 				<div class="label"><?php print t("Activate"); ?></div>
 				<div class="user_login_clear"></div>

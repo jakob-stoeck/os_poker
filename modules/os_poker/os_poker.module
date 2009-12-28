@@ -179,8 +179,7 @@ function os_poker_init()
 	{
 		drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
 		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
-
-		if (user_is_logged_in())
+		if (user_is_logged_in() > 0)
 		{
 			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
 			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme");
@@ -237,7 +236,7 @@ function os_poker_init()
 function 	os_poker_cron()
 {
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-	
+
 	CScheduler::instance()->Trigger('cron');
 	
 	//Uncomment to check all players rewards
@@ -461,8 +460,7 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		break;
 		
 		case 'logout' :
-			CScheduler::instance()->Trigger('logout');
-			CUserManager::instance()->CurrentUser(TRUE);
+		
 		break;
 		
 		case 'insert':
@@ -494,6 +492,50 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		break;
 	}
 }
+
+/*
+**
+*/
+
+function os_poker_logout()
+{
+		global $user;
+
+	watchdog("os_poker_logout", "Trigger");
+		CScheduler::instance()->Trigger('logout');
+		CUserManager::instance(TRUE);
+		
+		// Destroy the current session:
+		$uid = $user->uid;
+		$sess = session_id();
+
+		watchdog('os_poker_logout', t('Session logout askedfor %name.', array('%name' => $user->name)));
+		$sql = "SELECT * from {sessions} where sid='%s'";
+		$res = db_query($sql, $sess);
+		$row = db_fetch_object($res);
+		watchdog("os_poker_logout", "%uid : %sess", array("%uid" => $row->uid, "%sess" => $sess));
+
+
+
+		setcookie(session_name(), '', time()-42000, '/');
+		session_destroy();
+		session_unset();
+		module_invoke_all('user', 'logout', NULL, $user);
+		
+		// Load the anonymous user
+		$user = drupal_anonymous_user();
+		
+		db_lock_table("{sessions}");
+		db_query("DELETE FROM `{sessions}` where `sid`='%s'", $sess);
+		db_unlock_tables();
+		
+
+		watchdog('os_poker_logout', t('DEL %sess from table sessions', array('%sess' => $sess)));
+
+
+		drupal_goto();
+}
+
 
 /*
 **
@@ -531,6 +573,12 @@ function os_poker_menu()
 													'file' 			   => 'os_poker_pages.php',
 													'type'             => MENU_CALLBACK,
 													),
+					'poker/logout' => array(
+													'title'            => '',
+													'access callback'  => 'user_is_logged_in',
+													'page callback'    => 'os_poker_logout',
+													'type'             => MENU_CALLBACK,
+													),
 					'poker/buddies' => array(
 												'title'            => '',
 												'access callback'  => 'user_is_logged_in',
@@ -558,15 +606,15 @@ function os_poker_menu()
 					'poker/messages/send' => array(
 												'page callback'    => 'os_poker_process_message',
 												'file' 			   => 'os_poker_messages.php',
+												'access callback'  => 'user_is_logged_in',
 												'type'             => MENU_CALLBACK,
-												'access callback'  => MENU_FOUND,
 										),
 										
 					'poker/messages/receive' => array(
 												'page callback'    => 'os_poker_poll_messages',
 												'file' 			   => 'os_poker_messages.php',
-												'type'             => MENU_CALLBACK,
 												'access callback'  => MENU_FOUND,
+												'type'             => MENU_CALLBACK,
 										),	
 										
 					'poker/messages_popup' => array(

@@ -1273,6 +1273,12 @@ div#buddylist .buddy_list_placeholder .body a
 	font-weight:bold;
 }
 
+.buddy_list_links .nolink
+{
+    color: #FFFFFF;
+    font-weight:bold;
+}
+
 div#buddylist  #today_gift
 {
 	float: left;

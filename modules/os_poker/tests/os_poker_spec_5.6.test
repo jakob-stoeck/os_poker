@@ -139,7 +139,7 @@ Big Spender Player buys a gift for every player at the table, aggregate value mo
 	  $this->assertEqual($this->skel_user->uid, $reward_uid, "GETTING MORE THAN 1M Chips => REWARDED : The Millionaires Club");
 
 /*TODO : Strike and Big Spender*/
-
+		$this->fail("TODO : Strike and Big Spender");
   }
 
 

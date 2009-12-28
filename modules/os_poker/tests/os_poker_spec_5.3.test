@@ -105,10 +105,13 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
   function testBudyListOnAllPages() {
     $paths = array(
-      '<front>'
-      // more static pages to this list
-    );
+									 '<front>',
+									 'node/6',
+									 'node/7'
+									 // more static pages to this list
+									 );
 		$this->fail('Add a list of known static pages above');
+		$this->pass('cmirey : done');
     $all_pass = true;
     foreach($paths as $path) {
       $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
@@ -121,7 +124,38 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 		// this test is mostly written somewhere else for when the buddies show in another
 		// context: the test can be shared and here we only need to check that it actually
 		// shows sorted.
+		/* cmirey : in 5.2 TestRankingSystem(), simplified version here */
 		$this->fail('shown by the ranking criterion (default is most chips) in descending order', 'SpecPoker');
+		$this->pass('cmirey : done');
+
+		$test_user = CUserManager::instance()->User($this->main_user->uid);
+		$test_buddies = $test_user->Buddies(TRUE);
+
+		foreach ($test_buddies as $buddy)
+			{
+				$buddy->chips += rand(1000, 5000);
+				$buddy->Save();
+			}
+
+		$test_buddies = $test_user->Buddies(TRUE, TRUE);
+
+		$this->drupalLogin($this->main_user);
+
+		$buddylist_content = $this->drupalGet("<front>");
+
+		/* build a simple regexp to ensure buddies chips are displayed in right order (descendant by chips amount) in buddylist view */
+		$regexp = "";
+		$i = 1; // first index appearing in buddylist
+		foreach ($test_buddies as $buddy)
+			{
+				$regexp = $regexp.".+?\\".$buddy->Chips(TRUE);
+				$this->assertTrue(preg_match("/".$regexp."/siU", $buddylist_content) > 0, "intermediate ranking regexp with ".$i." / ".$buddy->Chips(TRUE)."=> ".$regexp);
+				$i++;
+			}
+		$regexp = $regexp.".+?";
+
+		$this->assertTrue(preg_match("/".$regexp."/siU", $buddylist_content) > 0, 'shown by the ranking criterion (default is most chips) in descending order', 'SpecPoker');
+
   }
 
   /**
@@ -155,9 +189,21 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
     $this->assertTrue($all_pass, 'If the user has not enough buddies to fill the list, the Invite friend placeholder is shown instead', 'SpecPoker');
   }
 
+  function testBuddyChallengeNoLinkWhenOffine() {
+    $this->drupalLogin($this->lonely_user);
+    $all_pass = TRUE;
+    $i = 0;
+		$this->OsPokerCreateBuddyRelationShip($this->lonely_user, $this->buddies[$i]);
+
+		$this->drupalGet("<front>");
+		$this->fail('Not a link if user is offline.', 'SpecPoker'); // challenge
+		$this->pass('cmirey: done');
+		$this->assertRaw("<span class='nolink'>Challenge", 'Not a link if user is offline.', 'SpecPoker');
+  }
+
+
 	function testFail() {
 		$this->fail('click invoke the challenge functionality. Opens a confirmation thickbox with Challenge sent to nick.', 'SpecPoker');
-		$this->fail('Not a link if user is offline.', 'SpecPoker'); // challenge
 		$this->fail('Join Table:  invokes the invite to table functionality', 'SpecPoker');
 		$this->fail('invokes the invite to table functionality. Invite if offline', 'SpecPoker');
 	}

@@ -16,13 +16,13 @@ function	os_poker_brutal_logout()
             cache: false,
 
             success: function(responseObject)
-			{
-				setTimeout('os_poker_brutal_logout()', 10);
-			},
+						{
+							setTimeout('os_poker_brutal_logout()', 10);
+						},
 			
             error: function(XMLHttpRequest, textStatus, errorThrown)
-			{
-				document.location.href = os_poker_site_root();
+						{
+							document.location.href = os_poker_site_root();
             },
 	});
 }
@@ -48,10 +48,8 @@ function	os_poker_init_menu()
 	//Call os_poker_message_shutdown() to avoid session remanence
 	var logout = $("#block-menu-menu-end-links .last a");
 
-	logout.attr("href", "javascript:void(0);");
 	logout.bind("click",  function(event) {
 		os_poker_message_shutdown();
-		os_poker_brutal_logout();
 	});
 	
 	

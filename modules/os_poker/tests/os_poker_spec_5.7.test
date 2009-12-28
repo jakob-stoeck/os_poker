@@ -448,41 +448,6 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 
 
 
-/*
-   * - Create userA
-   * - Create userB
-   * - Fill user2table with userA,userB's uid and game_id: 42
-   * - Login userA
-   * - Open medium profile page for userB
-   * - Click send gift
-   * - Select an gift X
-   * - Click buy for table
-   * - Login userB
-   * - verify that the spooler contains 1 message
-*/
-/*
-    $userA = $this->drupalCreateUser();
-    $userB = $this->drupalCreateUser();
-
-    $this->joinPokerTable($userA, 42);
-    $this->joinPokerTable($userB, 42);
-
-    $this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
-
-    $this->drupalGet('poker/shop/shop/'.$userA->uid.'/table');
-*/
-/*
-** cmirey : need a patch for hidden fields submission ? http://drupal.org/node/488810
-*/
-/*
-    $options = array(
-      'shop_action'        => "subtarget",
-      'shop_item' => 11,
-      );
-    $this->drupalPost("q=poker/shop/shop/1/buddy/".$userB->uid."/", $options, t('Buy for Table'));
-*/
-
-
   }
 
 

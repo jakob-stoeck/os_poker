@@ -101,9 +101,38 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 											'SpecPoker');
 	}
 
-	function testFail() {
+	function testBookingDailyChipsOnlyOnceADay() {
 		// login once => more chips, logout, login again => same chips
 		$this->fail('It must be ensured that bonus chips are credited only once a day', 'SpecPoker');
+		$this->pass('cmirey : done');
+
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+		$chips_amount = $test_user->Chips();
+
+		//Trigger user tasks
+		$tasks = CScheduler::GetRawUserTasks($this->skel_user->uid);
+		$runtasks = CScheduler::TriggerHelper("live", $test_user, $tasks);
+		
+		//Refresh user
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+
+		//Create an immediate daily chips task
+		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+
+		$this->assertTrue($test_user->Chips() == $chips_amount + 500, $chips_amount." + 500 == ".$test_user->Chips()."User gets his daily chips allocation at first login");
+		$chips_amount = $test_user->Chips();
+
+		// flush task, logout then login same user and verify chips amount is unchanged
+		CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
+		$this->drupalLogout();
+		$this->drupalLogin($this->skel_user);
+
+		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+
+		$this->assertTrue($test_user->Chips() == $chips_amount, 'It must be ensured that bonus chips are credited only once a day', 'SpecPoker');
+
+
 	}
 
 	/*

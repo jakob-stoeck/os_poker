@@ -91,7 +91,9 @@ class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
   function testWhoIsAtThatTable()
   {
 
-
+		/* cmirey : TODO */
+		/* Profile picture, nick, status of players is shown. Empty places are indicated by a blue avatar. When a table is without any players ten blue avatars are in the list. See 6.4.2 => 6.4.1 */
+		$this->fail(t("shows a list of the players in the upper right box of the lobby page."), t("SpecPoker"));
 
   }
 

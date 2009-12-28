@@ -4,7 +4,7 @@ $(document).ready(function () {
 	os_poker_init_events();
 	os_poker_init_pager();
 	
-	os_poker_register_slider($("#item_panel"), 50);
+	os_poker_register_slider($("#item_panel"));
 	
 	$("#message-list .inner-item-list a").each(function() {
 	

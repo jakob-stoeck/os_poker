@@ -115,13 +115,16 @@ function poker_preprocess_user_login_block(&$variables)
 	
 	$variables['f_name'] = drupal_render($variables['form']['name']);
 	$variables['f_pass'] = drupal_render($variables['form']['pass']);
-	$variables['f_links'] = l(t("Forgot your Password") . "?", "poker/forgot-password", array(	"attributes" => array(
+	$variables['f_links'] = l(t("Forgot your Password ?"), "poker/forgot-password", array(	"attributes" => array(
 																													"title" => t("Request new password via e-mail") . ".",
 																													"id" => "forgot_password",
+																													"class" => "thickbox",
 																												),
 																								"query" => array(
 																												"height" => "187",
-																												"width" => "380",
+																												"width" => "382",
+																												"keepThis" => "true",
+																												"TB_iframe" => "true",
 																										),
 																						));
 	

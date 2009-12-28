@@ -628,7 +628,7 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 	
 	if (!empty($edit["profile_nickname"]) && _os_poker_nickname_exists($edit["profile_nickname"], $cuser->uid) == TRUE)
 	{
-		form_set_error('profile_nickname', t('Nickname') . " " . $edit["profile_nickname"] . " " . t(" already exists."));
+		form_set_error('profile_nickname', t('Nickname') . " " . $edit["profile_nickname"] . " " . t("already exists."));
 	}
 
 	if (form_get_errors() == NULL)

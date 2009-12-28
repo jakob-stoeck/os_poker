@@ -284,6 +284,16 @@ function	os_poker_forgot_password_page()
 **
 */
 
+function	os_poker_help_page()
+{
+
+	return theme('os_poker_help');
+}
+
+/*
+**
+*/
+
 function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target_id = NULL, $subtarget_id = NULL)
 {
 	$content = "";
@@ -414,6 +424,7 @@ function chips_paypal_form($form_state)
 		'return' => url('poker/shop/get_chips', array('absolute' => TRUE)),
 		'currency_code' => "EUR",
 		'undefined_quantity' => 1,
+		/*		'quantity' => 1,*/
 		);
  
   $form = simple_payments_paypal_payment_form($vars);
@@ -436,6 +447,10 @@ function chips_paypal_form($form_state)
 			  '#type' => 'hidden',
 			  '#value' => "Chips",
 			  );
+
+  $form['#attributes'] = array(
+				'target' => "_blank",
+				);
 
   // cmirey : get selected label info
   /*  $form['button'] = array(

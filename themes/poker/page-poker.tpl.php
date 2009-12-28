@@ -159,7 +159,7 @@
 						<?php print $middle_content_right; ?>
 						<?php if (!$logged_in) : ?>
 							<?php if ($messages || $signup_terms) : ?>
-								<div id="messages">
+								<div id="messages_ajax">
 									<?php if ($messages) : ?>
 										<?php print $messages; ?>
 									<?php elseif ($signup_terms) : ?>

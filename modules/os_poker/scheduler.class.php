@@ -231,6 +231,14 @@ class CScheduler
 	{
 		$runTasks = 0;
 		
+	if (0)
+		{	
+			$sql = "SELECT * from {sessions} where sid='%s'";
+			$res = db_query($sql, session_id());
+			$row = db_fetch_object($res);
+			watchdog("CScheduler::Trigger", "%uid : %sess", array("%uid" => $row->uid, "%sess" => session_id()));
+		}
+
 		if (isset($this->_tasks[$name]))
 		{
 			$toDetroy = array();
@@ -258,7 +266,9 @@ class CScheduler
 						}
 					}
 				}
-				catch (Exception $e) { }
+				catch (Exception $e) { 
+
+}
 				
 				if ($keep_task == FALSE)
 				{

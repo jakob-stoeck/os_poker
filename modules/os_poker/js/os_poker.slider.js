@@ -1,10 +1,12 @@
 
-function	os_poker_slider_reset(elem, step)
+function	os_poker_slider_reset(elem)
 {
 	elem.css("position", "absolute");
 	elem.css("left", "0px");
 	
 	var children = elem.children(":visible");
+	var fc = children.get(0);
+	var step = $(fc).innerWidth( );
 	var vis = children.length * step;
 	elem.css("width", vis + "px");
 }
@@ -13,13 +15,15 @@ function	os_poker_slider_reset(elem, step)
 **
 */
 
-function	os_poker_slider_get_page(elem, step)
+function	os_poker_slider_get_page(elem)
 {
 	var cursor = elem.find(".cursor");
-	var pos = parseInt(cursor.css("left"));
-	var index = -pos / step;
-	var children = cursor.children();
 	
+	var pos = parseInt(cursor.css("left"));
+	var children = cursor.children();
+	var fc = children.get(0);
+	var step = $(fc).innerWidth( );
+	var index = -pos / step;
 	return children.get(index);
 }
 
@@ -27,7 +31,7 @@ function	os_poker_slider_get_page(elem, step)
 **
 */
 
-function	os_poker_register_slider(elem, step)
+function	os_poker_register_slider(elem)
 {
 	var next = elem.find(".next");
 	var previous = elem.find(".previous");
@@ -38,6 +42,8 @@ function	os_poker_register_slider(elem, step)
 	next.bind("click", cursor, function(event) {
 		var pos = parseInt(event.data.css("left"));
 		var children = event.data.children(":visible");
+		var fc = children.get(0);
+		var step = $(fc).innerWidth( );
 		var vis = children.length * step;
 		var nextpos = pos - step;
 		var max = event.data.parent().width();
@@ -53,6 +59,9 @@ function	os_poker_register_slider(elem, step)
 	
 	previous.bind("click", cursor, function(event) {
 		var pos = parseInt(event.data.css("left"));
+		var children = event.data.children(":visible");
+		var fc = children.get(0);
+		var step = $(fc).innerWidth( );
 		var nextpos = pos + step;
 		
 		if (nextpos <= 0)

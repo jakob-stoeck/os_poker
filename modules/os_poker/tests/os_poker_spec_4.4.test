@@ -254,7 +254,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
     // Complete the fields and submit the registration form.
     $password = $this->randomName();
     $options = array(
-      'name'        => $name,
+ 		  'name'        => $name,
       'pass[pass1]' => $password,
       'pass[pass2]' => $password,
     );
@@ -263,14 +263,16 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
     /**
      * completes the 'invited' profile
      */
-    $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+		$this->fail("cmirey: something totally odd here ! instead of getting a user with nickname 'invited', it is set with 'test86' which is the last user I've created in normal environment... How can this happen ? => ");
+
 
     /**
      * Verify invited chip reward.
      */
      $this->assertText(
        t('You have $ 8,000 Chips'),
-       t('Invited user has been granted with +$5.000 chips due to invite sign up.')
+       t('he should be granted 5000 chips for signing up following an invitation (higher than for normal sign up)'), t('SpecPoker')
      );
 
     /**
@@ -426,8 +428,9 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      */
      $this->assertText(
        t('You have $ 8,000 Chips'),
-       t('Invited user has been granted with +$5.000 chips due to invite sign up.')
+       t('he should be granted 5000 chips for signing up following an invitation (higher than for normal sign up)'), t('SpecPoker')
      );
+
 
     /**
      * Verify that 'invitee' is NOT a buddy of 'invited' user
@@ -564,6 +567,8 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
      * completes the 'invited' profile
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
+
+
 
     /**
      * Verify invited chip reward.

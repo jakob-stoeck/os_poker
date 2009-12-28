@@ -170,7 +170,8 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 		
 		//TODO : Medium profile page
-		
+		$this->fail(t("TEST THIS FOR 5.19 => today's-gift (module 5.10.1)"), t("SpecPoker"));
+
 		/**
 		 * Go to Buddy-List
 		 */
@@ -231,15 +232,21 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$this->drupalGet('');
 		$this->assertText(
 					   t('You have $ 8,100 Chips'),
-					   t('100 chips allocated by daily gift')
+					   t('The process triggered by clicking the banner will send a certain amount of chips (e.g. 100 chips as found in a database record ) to all buddies of the acting player'),
+						 t('SpecPoker')
 					);			
-					
+
 		//Assert user cannot use daily gift anymore
 		$this->assertFalse($first_user->CanDailyGift(), t('User cannot use daily gift anymore'));
 		
 		//Assert that user giving daily give has a chip count that does not change
 		$this->assertTrue($nchips == $first_user->Chips(), t("User giving daily give has a chip count that does not change"));
 		
+
+		/* cmirey : TODO */
+		$this->fail(t("to all buddies of the acting player."), t("SpecPoker"));
+		$this->fail(t("This can only be used once per day by the user."), t("SpecPoker"));
+
 		/**
 		 * Assert image in page changes after daily gift
 		 */
