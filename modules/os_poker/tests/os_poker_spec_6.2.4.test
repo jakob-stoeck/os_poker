@@ -19,7 +19,7 @@
 
 require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
 
-class OSPokerSkeleton extends OsPokerWebTestCase {
+class OSPokerFooterTestCase extends OsPokerWebTestCase {
 
   protected $skel_user;
 

@@ -38,7 +38,7 @@ class CUser
 	private $_Tables = NULL;
 	private $_Rewards = NULL;
 	private $_activeItem = NULL;
-	
+
 	private static $_defaults;
 
 	/*
@@ -49,15 +49,15 @@ class CUser
 	{
 		if (user_is_logged_in() == FALSE)
 			throw new Exception('Forbidden (User must be logged in)');
-	
+
 		if ($this->Load($uid) == FALSE)
 			throw new Exception('Invalid UID');
 	}
-	
+
 	/*
 	**
 	*/
-	
+
 	public static function DefaultValue($key, $default = NULL)
 	{
 		if (isset(self::$_defaults[$key]))
@@ -66,27 +66,27 @@ class CUser
 		}
 		return $default;
 	}
-	
+
 	public static function SetDefaultValue($key, $value)
 	{
 		$trace = debug_backtrace();
-	
+
 		if (isset($trace[1]['class']) && $trace[1]['class'] == "CUserManager")
-		{ 
+		{
 			self::$_defaults[$key] = $value;
 		}
 	}
-	
+
 	/*
 	**
 	*/
-	
+
 	private function	SetUpProfile()
 	{
 		require_once(drupal_get_path('module', 'profile') . "/profile.module");
-		
+
 		$result = _profile_get_fields(PROFILE_CATEGORY);
-		
+
 		while ($field = db_fetch_object($result))
 		{
 			if (empty($this->_user->{$field->name}))
@@ -95,7 +95,7 @@ class CUser
 			}
 		}
 	}
-	
+
 	private function 	Load( $uid )
 	{
 		$this->_user = user_load(array('uid' => $uid));
@@ -108,37 +108,37 @@ class CUser
 			$sql = "SELECT `name`, `value` FROM `{application_settings}` WHERE `application_id`=%d AND `user_id`=%d";
 
 			$res = db_query($sql, os_poker_get_poker_app_id(), $uid);
-			
+
 			if ($res != FALSE)
 			{
 				$this->_isOS = TRUE;
-				
+
 				while (($row = db_fetch_object($res)) != FALSE)
 				{
 					$this->_vars[$row->name] = json_decode($row->value, TRUE);
 				}
-			}			
+			}
 			return TRUE;
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	public function		Save( )
 	{
 		$save = FALSE;
-	
+
 		if (count($this->_DUDirty) > 0)
-		{	
+		{
 			$toUpdate = array();
-			
+
 			foreach ($this->_DUDirty as $entry)
 			{
 				$toUpdate[$entry] = $this->_user->{$entry};
 			}
-		
+
 			user_save($this->_user, $toUpdate);
-			
+
 			$profile = array();
 			$profile["profile_fname"] = $this->_user->profile_fname;
 			$profile["profile_lname"] = $this->_user->profile_lname;
@@ -154,39 +154,39 @@ class CUser
 			$profile["profile_newsletter"] = $this->_user->profile_newsletter;
 			$profile["profile_html_email"] = $this->_user->profile_html_email;
 
-			
+
 			profile_save_profile($profile, $this->_user, PROFILE_CATEGORY, FALSE);
-			
+
 			$save = TRUE;
 			$this->_DUDirty = array();
 		}
-		
+
 		if (count($this->_OSDirty) > 0)
 		{
 			$app_id = os_poker_get_poker_app_id();
-		
+
 			foreach ($this->_OSDirty as $key)
 			{
 				$sql = "REPLACE INTO `{application_settings}` (`application_id`, `user_id`, `name`, `value`)
 						VALUES (%d, %d, '%s', '%s')";
-						
+
 				db_query($sql, $app_id, $this->_user->uid, $key, json_encode($this->_vars[$key]));
 			}
-			
+
 			$save = TRUE;
 			$this->_OSDirty = array();
 		}
-		
+
 		return $save;
 	}
-	
+
 	/*
 	**
 	*/
-	
+
 	public function	IsOSUser( ) { return $this->_isOS; }
 	public function	& DrupalUser( ) { return $this->_user; }
-	
+
 	public function	Online()
 	{
 		//Old version where online == logged on Drupal
@@ -196,18 +196,18 @@ class CUser
 						INNER JOIN `{sessions}` AS `s` USING (`uid`)
 						WHERE `u`.`uid` = %d AND s.timestamp >= %d
 						LIMIT 1', $this->uid, $interval);
-		
+
 		if ($res)
 		{
 			return (bool)db_result($res);
 		}
-		
+
 		return FALSE;
-		
+
 		//New version where online == sat on a poker table
 		//return (bool)count($this->Tables());
 	}
-	
+
 	public function	Chips($formated = FALSE, $locale = 'en_US')
 	{
 		if (isset($this->_vars["money"]) && isset($this->_vars["money"]["1"]))
@@ -219,15 +219,15 @@ class CUser
 		{
 			$chips = self::DefaultValue("chips");
 		}
-		
+
 		if ($formated == TRUE)
 		{
 			$chips = _os_poker_format_chips($chips);
 		}
-		
+
 		return $chips;
 	}
-	
+
 	private function	SetChips($value)
 	{
 		if (is_numeric($value))
@@ -238,7 +238,7 @@ class CUser
 
 		}
 	}
-	
+
 	public function Invites($forceReload = FALSE)
 	{
 		if ($this->_invites == NULL || $forceReload == TRUE)
@@ -249,11 +249,11 @@ class CUser
 										"canceled" => array(),
 										"pending" => array(),
 								);
-								
+
 			$sql = "SELECT  `email`, `uid`, `invitee`, `created`, `expiry`, `joined`, `canceled`, `resent` FROM `{invite}` WHERE `uid` = %d";
-	
+
 			$res = db_query($sql, $this->_user->uid);
-			
+
 			if ($res)
 			{
 				while (($obj = db_fetch_object($res)))
@@ -269,37 +269,37 @@ class CUser
 					else
 					{
 						$this->_invites["accepted"][] = $obj;
-					}		
-					
+					}
+
 					$this->_invites["total"] = $this->_invites["total"] + 1;
 				}
-			}					
+			}
 		}
-	
+
 		return $this->_invites;
 	}
-	
+
 	public function Items()
 	{
 		require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
-		
+
 		$activated = -1;
-		
+
 		$sql = "SELECT * FROM `{poker_operation}` WHERE `uid` = %d";
-		
+
 		$inventory = array();
-		
+
 		$sql = "SELECT `po`.*, IF(ISNULL(`pue`.`id_operation`), 0, 1) AS active
 				FROM `{poker_operation}` AS `po`
 				LEFT JOIN `{poker_user_ext}` AS `pue` ON (`po`.`uid` = `pue`.`uid` AND `po`.`id_operation` = `pue`.`id_operation`)
 				WHERE `po`.`uid` = %d";
-		
+
 		$res = db_query($sql, $this->_user->uid);
-		
+
 		if ($res)
 		{
 			$this->_activeItem = -1;
-			
+
 			while (($obj = db_fetch_object($res)))
 			{
 				if ($obj->active == 1)
@@ -310,22 +310,22 @@ class CUser
 				$inventory[] = $obj;
 			}
 		}
-		
+
 		return $inventory;
 	}
-	
+
 	public function ActiveItem()
 	{
 		if ($this->_activeItem == NULL)
 		{
 			$sql = "SELECT `id_operation` FROM `{poker_user_ext}` WHERE `uid` = %d LIMIT 1";
-			
+
 			$res = db_query($sql, $this->_user->uid);
-			
+
 			if ($res)
 			{
 				$this->_activeItem = db_result($res);
-				
+
 				if (!$this->_activeItem)
 				{
 					$this->_activeItem = -1;
@@ -334,25 +334,25 @@ class CUser
 		}
 		return $this->_activeItem;
 	}
-	
+
 	public function ActivateItem($id_operation)
 	{
 		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `id_operation`) VALUES (%d, %d)
 				ON DUPLICATE KEY UPDATE `id_operation`= %d";
-		
+
 		$res = db_query($sql, $this->_user->uid, $id_operation, $id_operation);
 		$this->_activeItem = $id_operation;
 	}
-	
+
 	public function LastDailyGift()
 	{
 		$sql = "SELECT `last_gift` FROM `{poker_user_ext}` WHERE `uid` = %d LIMIT 1";
 		$res = db_query($sql, $this->_user->uid);
-		
+
 		if ($res)
 		{
 			$d = db_result($res);
-			
+
 			if ($d)
 			{
 				return strtotime($d);
@@ -360,48 +360,48 @@ class CUser
 		}
 		return FALSE;
 	}
-	
+
 	public function CanDailyGift()
 	{
 		$lg = $this->LastDailyGift();
-				
+
 		return (!$lg || $lg + 86400 <= time());
 	}
-	
+
 	public function DailyGift()
 	{
 		$buddies = $this->Buddies(TRUE);
-		
+
 		foreach($buddies as $buddy)
 		{
 			$bchips = $buddy->Chips();
 			$buddy->chips = $bchips + 100;
 			$buddy->Save();
-			
-			$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+
+			$args["symbol"] = 'chips';
 			$args["text"] = t("You just receive a daily gift from !user", array("!user", $this->profile_nickname));
-					
+
 			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
 		}
-	
+
 		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
 				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
-		
+
 		return db_query($sql, $this->_user->uid);
 	}
-	
+
 	public function CompleteProfile()
 	{
 		$sql = "SELECT `complete_profile` FROM `{poker_user_ext}` WHERE `uid` = %d LIMIT 1";
 		$res = db_query($sql, $this->_user->uid);
 		return (bool)db_result($res);
 	}
-	
+
 	public function SetProfileComplete()
 	{
 		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `complete_profile`) VALUES (%d, 1)
 				ON DUPLICATE KEY UPDATE `complete_profile`= 1";
-		
+
 		return db_query($sql, $this->_user->uid);
 	}
 
@@ -426,15 +426,15 @@ class CUser
 
 		return ($percent);
 	}
-	
+
 	public function	Rewards($forceReload = FALSE)
 	{
 		if ($this->_Rewards == NULL || $forceReload == TRUE)
 		{
 			require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-			
+
 			$this->_Rewards = CPoker::GetRewards();
-			
+
 			foreach ($this->_Rewards as $key => $value)
 			{
 				if (isset($this->_vars[$key]))
@@ -443,10 +443,10 @@ class CUser
 				}
 			}
 		}
-		
+
 		return $this->_Rewards;
 	}
-	
+
 	public function GetLastReward()
 	{
 	  $sql = "SELECT `name` FROM `{application_settings}` WHERE `name` LIKE 'reward%' AND `user_id` = %d ORDER BY `value` DESC";
@@ -491,12 +491,12 @@ class CUser
 								"Chippy" => 10000,
 								"Fish" => 0,
 						);
-						
+
 		$s = "Fish";
 
 		$maxlevel = count($statusList);
 		$level = $maxlevel;
-		
+
 		$chips = $this->Chips();
 		foreach ($statusList as $name => $value)
 		{
@@ -507,7 +507,7 @@ class CUser
 			}
 			--$level;
 		}
-		
+
 		return t($s);
 	}
 
@@ -516,13 +516,13 @@ class CUser
 		if ($this->_Tables == NULL || $forceReload == TRUE)
 		{
 			require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-			
+
 			$this->_Tables = CPoker::FindUserTable($this->_user->uid);
 		}
 
 		return $this->_Tables;
 	}
-	
+
 	public function	Buddies( $returnObject = FALSE, $forceReload = FALSE )
 	{
 		if ($this->_buddiesId == NULL || $forceReload == TRUE)
@@ -533,15 +533,15 @@ class CUser
 			$relationship_type = user_relationships_type_load(array("name" => "buddy"));
 			$query = _user_relationships_generate_query($args, array('include_user_info' => FALSE));
 			$results = db_query($query['query'], $query['arguments']);
-			
+
 			$this->_buddiesObj = NULL;
 			$this->_buddiesId = array();
-			
+
 			while ($relationship = db_fetch_object($results))
 			{
 				$this_user_str  = (($this->_user->uid == $relationship->requestee_id) ? 'requester_id' : 'requestee_id');
 				$this_user      = $relationship->{$this_user_str};
-				
+
 				$this->_buddiesId[] = $this_user;
 			}
 		}
@@ -550,28 +550,28 @@ class CUser
 		{
 			return $this->_buddiesId;
 		}
-	
+
 		if ($this->_buddiesObj == NULL)
 		{
 			$this->_buddiesObj = CUserManager::instance()->UserList($this->_buddiesId, $forceReload);
 		}
-		
-		
+
+
 		usort($this->_buddiesObj, "_os_poker_sort_buddies");
-		
+
 		return $this->_buddiesObj;
 	}
-	
-	
+
+
 	public function BuddyRequested($uid)
 	{
 		require_once(drupal_get_path('module', 'user_relationships_api') . "/user_relationships_api.module");
-		
+
 		$args = array('user' => $this->_user->uid, 'approved' => FALSE);
 		$relationship_type = user_relationships_type_load(array("name" => "buddy"));
 		$query = _user_relationships_generate_query($args, array('include_user_info' => FALSE));
 		$results = db_query($query['query'], $query['arguments']);
-		
+
 		while ($relationship = db_fetch_object($results))
 		{
 			if ($relationship->requestee_id == $uid || $relationship->requester_id == $uid)
@@ -579,10 +579,10 @@ class CUser
 				return TRUE;
 			}
 		}
-		
+
 		return FALSE;
 	}
-	
+
 	public function __get( $key )
 	{
 		if (isset($this->_user->{$key}) && !empty($this->_user->{$key}))
@@ -591,7 +591,7 @@ class CUser
 			return $this->_vars[$key];
 		return self::DefaultValue($key);
 	}
-	
+
 	public function __set( $key, $value )
 	{
 		switch ($key)
@@ -599,7 +599,7 @@ class CUser
 			case "chips":
 				$this->SetChips($value);
 			break;
-			
+
 			default:
 				if (isset($this->_vars[$key]) || (strlen($key) > 6 && !substr_compare($key, "reward", 0, 6))) //exception for rewards
 				{
@@ -612,9 +612,9 @@ class CUser
 					$this->_user->{$key} = $value;
 				}
 			break;
-		}	
+		}
 	}
-	
+
 }
 
 /*
@@ -624,14 +624,14 @@ class CUser
 class CUserManager
 {
 	private static $_instance;
-	
+
 	private $_users = array();
 	private $_forcedUser = NULL;
-	
+
 	/*
 	**
 	*/
-	
+
 	protected function __construct()
 	{
 		CUser::SetDefaultValue("picture", drupal_get_path("theme", "poker") . "/images/picture-default.png");
@@ -640,39 +640,39 @@ class CUserManager
 		CUser::SetDefaultValue("HandsPlayed", t("N/A"));
 		CUser::SetDefaultValue("HandsWon", t("N/A"));
 	}
-	
+
 	public static function instance($forceReload = FALSE)
 	{
 	    if (!self::$_instance instanceof self || $forceReload == TRUE)
-	    { 
+	    {
 			self::$_instance = new self;
 	    }
 	    return self::$_instance;
 	}
-	
+
 	/*
 	**
 	*/
-	
+
 	public function	SearchUsers($params, $offset = 0, $limit = NULL)
 	{
 		$sql = "SELECT `u`.`uid`
 				FROM `{users}` AS `u`
 				JOIN `{profile_values}` AS `pv` USING(`uid`)
 				JOIN `{profile_fields}` AS `pf` USING (`fid`) ";
-		   
-	
+
+
 		$where = array();
 		$pfields = array('profile_gender', 'profile_city', 'profile_country');
 		$ufields = array("mail");
-		
+
 		$val = array();
 		$userfields = 0;
-		
+
 		foreach ($params as $field_n => $field_v)
 		{
 			$field_v = trim($field_v);
-		
+
 			if ($field_n == "profile_nickname" && !empty($field_v))
 			{
 				$where[] = "((`pf`.`name` LIKE '{$field_n}') AND (LOWER(`pv`.`value`) LIKE LOWER('%%%s%%')))";
@@ -690,46 +690,46 @@ class CUserManager
 				++$userfields;
 			}
 		}
-		
+
 		$nwhere = count($where);
-		
+
 		$sql .= " WHERE `u`.`uid` != 0";
-		
+
 		if ($nwhere > 0)
 		{
 			$sql .= " AND (" . implode(" OR ", $where) . ")";
 			$val[] = $nwhere;
 		}
-			
+
 		$sql .= " GROUP BY `u`.`uid`";
-		
+
 		if ($nwhere > 0 && ($nwhere != $userfields))
 		{
 		        $nwhere -= $userfields;
 			$sql .= " HAVING COUNT(*) >= %d";
 		}
-		
+
 		$sql .= " ORDER BY `u`.`uid`";
-			
+
 		if ($limit != NULL)
 		{
 			$sql .= " LIMIT {$offset}, {$limit}";
 		}
-			
+
 		$res = db_query($sql, $val);
-		
+
 		if ($res)
 		{
 			$found = array();
-		
+
 			while (($obj = db_fetch_object($res)))
 			{
-				
+
 				if (isset($params["online_only"]))
 				{
 					//FIXME : GORE ! it will be better to do a cross db request instead
 					$usr = CUserManager::instance()->User($obj->uid);
-					
+
 					if ($usr->Online())
 					{
 						$found[] = $obj->uid;
@@ -740,25 +740,25 @@ class CUserManager
 					$found[] = $obj->uid;
 				}
 			}
-			
-			
+
+
 			return $found;
 		}
 
 		return NULL;
 	}
-	
-	
+
+
 	public function UserList($uidArray, $forceReload = FALSE)
 	{
 		$ulist = array();
-	
+
 		foreach ($uidArray as $uid)
 		{
 			if (is_numeric($uid))
 			{
 				$user = $this->User($uid, $forceReload);
-			
+
 				if ($user != NULL)
 				{
 					$ulist[] = $user;
@@ -771,7 +771,7 @@ class CUserManager
 			else if (is_object($uid) && isset($uid->uid) && is_numeric($uid->uid))
 			{
 				$user = $this->User($uid->uid, $forceReload);
-			
+
 				if ($user != NULL)
 				{
 					$ulist[] = $user;
@@ -782,16 +782,16 @@ class CUserManager
 				throw new Exception(t('Requested user is not a uid or a CUser'));
 			}
 		}
-		
+
 		return $ulist;
 	}
-	
+
 	public function	CurrentUser($forceReload = FALSE)
 	{
 		if ($this->_forcedUser == NULL)
 		{
 			global $user;
-			
+
 			return $this->User($user->uid, $forceReload);
 		}
 		else
@@ -799,29 +799,29 @@ class CUserManager
 			return $this->User($this->_forcedUser, $forceReload);
 		}
 	}
-	
+
 	/*
 	** Debug helpers, only if you know what you are doing
 	*/
-	
+
 	public function	DebugForceCurrentUser($uid)
 	{
 		$this->_forcedUser = $uid;
 	}
-		
+
 	public function	DebugRestoreCurrentUser()
 	{
 		$this->_forcedUser = NULL;
 	}
-	
+
 	/*
 	**
 	*/
-	
+
 	public function	User($uid, $forceReload = FALSE)
 	{
 		$user = NULL;
-	
+
 		if ($forceReload == FALSE && isset($this->_users[$uid]))
 		{
 			$user = $this->_users[$uid];
@@ -833,12 +833,12 @@ class CUserManager
 				$user = new CUser($uid);
 				$this->_users[$user->uid] = $user;
 			}
-			catch (Exception $e) 
+			catch (Exception $e)
 			{
 				$user = NULL;
 			} //TODO: Debug output ?
 		}
-		
+
 		return $user;
 	}
 }
