@@ -666,8 +666,24 @@ function os_poker_menu()
 												'type'             => MENU_CALLBACK,
 												'access callback'  => 'user_is_anonymous',
 										),
-				);
 
+    'poker/report_abuse/%user' => array(
+      'title' => 'Report abuse',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('os_poker_report_abuse_form', 2),
+      'type' => MENU_CALLBACK, //Don't display this entry in menu
+      'file' => 'os_poker.abuse.php',
+      'access callback' => 'user_is_logged_in',
+    ),
+    'admin/settings/ospoker' => array(
+      'title' => 'Os Poker',
+      'description' => 'Configure OS Poker features',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('os_poker_admin_form'),
+      'file' => 'os_poker.admin.php',
+      'access arguments' => array('administer os poker'),
+    ),
+  );
 	return $menu;
 }
 
@@ -681,6 +697,12 @@ function os_poker_menu_alter(&$items)
   $items['user/reset/%/%/%']['page arguments'] = array('os_poker_pass_reset', 2, 3, 4);
 }
 
+/**
+ * Implementation of hook_perm().
+ */
+function os_poker_perm() {
+  return array('administer os poker');
+}
 
 /**
 * Implementation of hook_block().
@@ -1007,5 +1029,33 @@ function os_poker_preprocess_os_poker_message($variables) {
       }
     }
     $variables['picture'] = theme('image', $message["senderPix"]);
+  }
+}
+
+/**
+ * Implementation of hook_mail().
+ */
+function os_poker_mail($key, &$message, $params) {
+  //!\ Don't use HTML markup in mail subject and body. Unless Mime Mail module in installed
+  $language = is_object($message['language']) ? $message['language']->language : $message['language'];
+  switch($key) {
+    case 'abuse':
+      $reporter = $message['params']['reporter'];
+      $reported = $message['params']['reported'];
+      //TODO: Does the subject and body have to be configurable ?
+      //If yes, see how it's done in the user module
+      $message['subject'] = t('[!site_name] Abuse by !reported', array('!site_name' => variable_get('site_name', 'Drupal'), '!reported' => check_plain($reported->profile_nickname)), $language);
+      $message['body'][] = t('Hi,');
+      $message['body'][] = t('!reporter reported abuse by !reported on !site_name.', array(
+        '!reporter' => check_plain($reporter->profile_nickname),
+        '!reported' => check_plain($reported->profile_nickname),
+        '!site_name' => variable_get('site_name', 'Drupal'),
+      ), $language);
+      $message['body'][] = t('He/she gave the following reason: !reason', array('!reason' => $message['params']['reason']), $language);
+      if($message['params']['details']) {
+        $message['body'][] = t('He/she also provided the following details:', array(),$language);
+        $message['body'][] = check_plain($message['params']['details']);
+      }
+      break;
   }
 }
