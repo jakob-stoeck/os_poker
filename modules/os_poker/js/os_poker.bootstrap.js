@@ -2,7 +2,7 @@ Drupal.behaviors.os_poker = function(context) {
   //A counter incremented for each call of this function
   var call_counter= arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
   
-  if(call_counter == 0) {
+  if(call_counter == 0 && !$(document.body).hasClass('page-poker')) {
     os_poker_input_file_style();
     os_poker_message_start();
     os_poker_init_events();
@@ -20,11 +20,11 @@ Drupal.behaviors.os_poker = function(context) {
   
   //Show status message in a thickbox when not on admin pages
   if (!$(document.body).hasClass('page-admin')) {
-    var $messages = $('.messages.status:not(.os-poker-processed)').addClass('os-poker-processed');
+    var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
       var id = 'messages-popup-' + call_counter;
       //create an hidden container for the thickbox
-      var $popup = $messages.after(Drupal.theme('os_poker_popup', id)).next().hide();
+      var $popup = $messages.eq(0).after(Drupal.theme('os_poker_popup', id)).next().hide();
       //move the message into its .content
       $popup.find('.content').append($messages).end()
       //register tb_remove as handler for its .close link

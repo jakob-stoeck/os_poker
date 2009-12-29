@@ -140,10 +140,10 @@ module('Message in Thickbox', {
 asyncTest('status messages are shown in a thickbox', 6, function(){
   Drupal.behaviors.os_poker(document);
   Drupal.behaviors.os_poker(document); //This second call is intentional to check the behavior does not process the same element twice
-  equals(1, $('.messages-popup').length, 'a unique message popup container should be created');
+  equals($('.messages-popup').length, 1, 'a unique message popup container should be created');
   ok($('.messages-popup .messages.status').length, 'the popup container should contain the status messages');
-  ok(!$('.messages-popup .messages.warning').length, 'the popup container should not contain the error messages');
-  ok(!$('.messages-popup .messages.error').length, 'the popup container should not contain the warning messages');
+  ok($('.messages-popup .messages.warning').length, 'the popup container should contain the error messages');
+  ok($('.messages-popup .messages.error').length, 'the popup container should contain the warning messages');
   var testContext = this;
   setTimeout(function(){
     equals(testContext.tb_show, 1, 'tb_show has been called once.');

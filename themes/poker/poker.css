@@ -217,25 +217,6 @@ div.poker_error_message .msg a
 	position:absolute;
 }
 
-#main #messages div.messages
-{
-    display: none;
-}
-
-#messages
-{
-    display: none;
-}
-
-.front #main #messages div.messages
-{
-    display: block;
-}
-.front #messages
-{
-    display: block;
-}
-
 .messages-popup
 {
     width: 278px !important;
