@@ -60,19 +60,7 @@
 					{
 						if ($items)
 						{
-							$first = FALSE;
-							
-							foreach ($items as $item)
-							{
-								if ($item->available != FALSE)
-								{
-									print theme("os_poker_item", $item, $first);
-									
-									if ($first)
-										$fitem = $item;
-								}
-								$first = FALSE;
-							}
+							print theme('os_poker_item_list', $items);
 						}
 					}
 

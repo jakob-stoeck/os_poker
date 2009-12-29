@@ -66,7 +66,7 @@ function	os_poker_number_format(x)
 	{
 		var str = x.toString(), n = str.length;
 
-		if (n > 4)
+		if (n > 3)
 		{
 			x = ((n % 3) ? str.substr(0, n % 3) + ',' : '') + str.substr(n % 3).match(new RegExp('[0-9]{3}', 'g')).join(',');
 		}
@@ -214,9 +214,16 @@ function	os_poker_activate_item(elem)
 **
 */
 
-function	os_poker_show_medium_profile(user_id)
+function	os_poker_show_medium_profile(user_id, game_id)
 {
-	var tUrl = os_poker_site_root() + "?q=poker/profile/medium/" + user_id + "/&height=294&width=291";
+	var tUrl = os_poker_site_root() + "?q=poker/profile/medium/" + user_id;
+	
+	if (typeof(game_id) != "undefined")
+	{
+		tUrl += "/" + game_id;
+	}
+	
+	tUrl += "/&height=294&width=291";
 
 	os_poker_trigger("os_poker_jump", {url: tUrl, lightbox:true});
 }

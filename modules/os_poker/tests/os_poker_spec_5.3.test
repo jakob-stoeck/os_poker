@@ -110,8 +110,6 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 									 'node/7'
 									 // more static pages to this list
 									 );
-		$this->fail('Add a list of known static pages above');
-		$this->pass('cmirey : done');
     $all_pass = true;
     foreach($paths as $path) {
       $all_pass = $all_pass & $this->assertBuddyListOnPage($path);
@@ -125,8 +123,6 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 		// context: the test can be shared and here we only need to check that it actually
 		// shows sorted.
 		/* cmirey : in 5.2 TestRankingSystem(), simplified version here */
-		$this->fail('shown by the ranking criterion (default is most chips) in descending order', 'SpecPoker');
-		$this->pass('cmirey : done');
 
 		$test_user = CUserManager::instance()->User($this->main_user->uid);
 		$test_buddies = $test_user->Buddies(TRUE);
@@ -196,8 +192,6 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 		$this->OsPokerCreateBuddyRelationShip($this->lonely_user, $this->buddies[$i]);
 
 		$this->drupalGet("<front>");
-		$this->fail('Not a link if user is offline.', 'SpecPoker'); // challenge
-		$this->pass('cmirey: done');
 		$this->assertRaw("<span class='nolink'>Challenge", 'Not a link if user is offline.', 'SpecPoker');
   }
 

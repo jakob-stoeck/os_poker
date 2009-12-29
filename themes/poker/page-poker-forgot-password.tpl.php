@@ -85,107 +85,16 @@
   <?php print $head; ?>
   <?php print $styles; ?>
   <?php print $scripts; ?>
-
 </head>
 
-<body class="iframe <?php print $body_classes; ?>">
-  <div id="page">
-	<div id="page-inner">
-
-    <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >
-		<div id="main-inner" class="clear-block<?php if ($navbar) { print ' with-navbar'; } ?>">
-			<div id="content">
-				<div id="content-inner">
-
-				<?php if ($mission): ?>
-					<div id="mission"><?php print $mission; ?></div>
-				<?php endif; ?>
-
-				<?php if ($top_content): ?>
-					<div id="top-content" class="region region-top-content">
-					<?php print $top_content; ?>
-					</div> <!-- /#content-top -->
-				<?php endif; ?>
-				
-
-				<?php if (($logged_in || !$is_front) && $messages) : ?>
-				    <div id="messages_ajax">
-				  <div id="TB_overlay" class="TB_overlayBG" onclick="javascript:$('#messages_ajax').hide();"></div>
-				<div id="messages_popup_ajax">
-				       	<a class="LayerClose" onclick="javascript:$('#messages_ajax').hide();" href="javascript:void(0);">&nbsp;</a>
+<body class="<?php print $body_classes; ?>">
+				<div id="messages">
 					<?php print $messages; ?>
 				</div>
-				   </div>
-				<div style="display: none;">
-				<a id="tb_messages_ajax" class="thickbox" href="#TB_inline?height=256&width=501&position=absolute&inlineId=messages_ajax" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&position=absolute&inlineId=messages_ajax'"></a>
-				</div>
-				<?php endif; ?>
-
-			<?php if (!$is_front) : ?>
-			
-				<?php if ($title || $tabs || $help): ?>
-					<div id="content-header">
-						<?php if ($title): ?>
-							<h1 class="title"><?php print $title; ?></h1>
-						<?php endif; ?>
-						<?php if ($tabs): ?>
-							<div class="tabs">
-								<?php print $tabs; ?>
-							</div>
-						<?php endif; ?>
-						<?php print $help; ?>
-					</div> <!-- /#content-header -->
-				<?php endif; ?>
 
 				<div id="content-area">
 					<?php print $content; ?>
 				</div>
-
-				<?php if ($feed_icons): ?>
-				<div class="feed-icons"><?php print $feed_icons; ?></div>
-				<?php endif; ?>
-				
-			<?php else : ?>
-			
-				<?php if ($middle_content_left || $middle_content_right || (!$logged_in && $messages)) : ?>
-				<div id="middle-content">
-					<?php if ($middle_content_left) : ?>
-					<div id="middle-content-left<?php if (!empty($pokerview)) print "-{$pokerview}"; ?>">
-						<?php print $middle_content_left; ?>
-					</div>
-					<?php endif; ?>
-					<?php if ($pokerview != "table" && ($middle_content_right || (!$logged_in && $messages))) : ?>
-					<div id="middle-content-right">
-						<?php print $middle_content_right; ?>
-						<?php if (!$logged_in) : ?>
-							<?php if ($messages || $signup_terms) : ?>
-								<div id="messages_ajax">
-									<?php if ($messages) : ?>
-										<?php print $messages; ?>
-									<?php elseif ($signup_terms) : ?>
-										<?php print $signup_terms; ?>
-									<?php endif; ?>
-								</div>
-							<?php endif; ?>
-						<?php endif; ?>
-					</div>
-					<div class="clear"></div>
-					<?php endif; ?>
-				</div>
-				<?php endif; ?>
-				
-				<?php if ($bottom_content): ?>
-				<div id="content-bottom" class="region region-content_bottom">
-				<?php print $bottom_content; ?>
-				</div> <!-- /#content-bottom -->
-				<?php endif; ?>
-				
-			<?php endif; ?>
-
-			</div></div> <!-- /#content-inner, /#content -->
-		</div>
-	</div> <!-- /#main-inner, /#main -->
-
 
 </body>
 </html>

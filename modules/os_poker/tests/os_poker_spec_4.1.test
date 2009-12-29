@@ -194,11 +194,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 		// the JS functions are doing nothing but submit the form (2009-12-20)
     $this->drupalPost($this->getUrl(), array(), t('Send'));
 
-    $this->assertRaw(
-      'images/picture-default.png',
-      t('If no picture for the profile is uploaded, an anonymous pic is assigned.'),
-			t('SpecPoker')
-    );
 
 		$this->assertTrue($this->getAbsoluteUrl(''), $this->getUrl(), 'On the home page. ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl() );
 
@@ -211,10 +206,31 @@ class OSPokerSignUp extends OsPokerWebTestCase {
       t('if not it\'s only 1000 chips. (2)'),
 			t('SpecPoker')
     );
+
+
+		$this->drupalGet("poker/profile");
+    $this->assertRaw(
+      'images/picture-default.png',
+      t('If no picture for the profile is uploaded, an anonymous pic is assigned.'),
+			t('SpecPoker')
+    );
+
   }
 
   function testGenderSpecificDefaultImage(){
-		$this->fail('If there is a value for sex it is specific to it, if not it is a neutral one.', t('SpecPoker'));
+		/* save new user profile defining sex without setting picture field */
+    $this->OsPokerSignUpUser();
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => t('Female'),
+    );
+    $this->drupalPost('poker/first_profile', $profile, t('Send'));
+		$this->drupalGet("poker/profile");
+    $this->assertRaw(
+      t('picture_default_female'),
+      t('If there is a value for sex it is specific to it, if not it is a neutral one.'),
+			t('SpecPoker')
+    );
 	}
 
   function testCompleteProfileSignUp(){

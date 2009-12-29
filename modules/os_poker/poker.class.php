@@ -177,6 +177,13 @@ class CPoker
 
 				default: break;
 			}
+
+			/* global check at each CheckRewards for Strike! */
+			$all_rewards = CPoker::GetRewards();
+			if ($player->GetNumRewards() == count($all_rewards) - 1)
+				{
+					CPoker::GiveReward("reward57", $player, $rew);
+				}
 		}
 	}
 	

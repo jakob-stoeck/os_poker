@@ -301,7 +301,7 @@ function	os_poker_forgot_password_form_validate($form, &$form_state)
 function	os_poker_forgot_password_form_submit($form, &$form_state)
 {
 	user_pass_submit($form, $form_state);
-	$form_state['redirect'] = '<front>';
+	$form_state['redirect'] = 'poker/forgot-password';
 }
 
 function	os_poker_forgot_password_form($form_state)
@@ -322,7 +322,7 @@ function	os_poker_forgot_password_form($form_state)
 						
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
-								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\', true, true);" ' .
+								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\', null, true);" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Send") . "</div><div class='user_login_clear'></div></div>",
 							);
@@ -373,7 +373,8 @@ function os_poker_pass_reset(&$form_state, $uid, $timestamp, $hashed_pass, $acti
           // user, which invalidates further use of the one-time login link.
           user_authenticate_finalize($form_state['values']);
           drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
-          drupal_goto('poker/profile/settings/'. $user->uid);
+					//          drupal_goto('poker/profile/settings/'. $user->uid);
+          drupal_goto('<front>');
         }
         else {
           $form['message'] = array('#value' => t('<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to login to the site and change your password.</p>', array('%user_name' => $account->name, '%expiration_date' => format_date($timestamp + $timeout))));
@@ -635,16 +636,7 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 		{
 			$nick = $cuser->profile_nickname;
 			if (!empty($nick))
-				drupal_set_message("<div class='DialogPos'><span class='DialogText'>".t("Thank you for updating your profile.")."</span></div><a class=\"ButtonConfirmYes\" onclick=\"javascript:$('#messages_ajax').hide();\" href=\"javascript:void(0);\">OK</a>");
-		}
-	else
-		{
-			$msg_array = drupal_get_messages();
-			drupal_set_message("<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>", "error");
-			foreach ($msg_array["error"] as $msg)
-				{
-					drupal_set_message("<div class='ErrorList'>".$msg."</div>", "error");
-				}
+				drupal_set_message(t("Thank you for updating your profile."));
 		}
 }
 
@@ -675,7 +667,16 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	if (!empty($edit["profile_city"])) { $cuser->profile_city = $edit["profile_city"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_country"])) { $cuser->profile_country = $edit["profile_country"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["picture"])) { $cuser->picture = $edit["picture"]; } else { $profileComplete &= FALSE; }
-	
+
+	/* if picture is always default but gender has been defined, set a sex specific avatar */
+	if (empty($edit["picture"]) && ($cuser->picture == $cuser->DefaultValue("picture") || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_male.jpg" || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_female.jpg"))
+		{
+			if ($cuser->profile_gender == "Male")
+				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_male.jpg";
+			else if ($cuser->profile_gender == "Female")
+				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_female.jpg";
+		}
+
 	//Check Profile complete
 	if ($profileComplete && $cuser->CompleteProfile() == FALSE)
 	{

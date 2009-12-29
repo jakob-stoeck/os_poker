@@ -123,6 +123,7 @@
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
 
+
     <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >
 		<div id="main-inner" class="clear-block<?php if ($navbar) { print ' with-navbar'; } ?>">
 			<div id="content">
@@ -146,7 +147,7 @@
 				</div>
 				   </div>
 				<div style="display: none;">
-				<a id="tb_messages" class="thickbox" href="#TB_inline?height=256&width=501&inlineId=messages" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&inlineId=messages'"></a>
+				<a id="tb_messages" class="thickbox" href="#TB_inline?height=256&width=501&position=absolute&inlineId=messages" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&position=absolute&inlineId=messages'"></a>
 				</div>
 				<?php endif; ?>
 

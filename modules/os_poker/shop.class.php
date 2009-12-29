@@ -73,12 +73,13 @@ class CItem
 				
 				if ($res)
 				{
-					$item = db_fetch_array($res);	
+					$i = db_fetch_array($res);	
 					
-					if ($item == FALSE)
+					if ($i == FALSE)
 					{
 						throw new Exception(t('No item with id : !id',  array("!id" => $item)));
 					}
+					$item = $i;
 				}
 				else
 				{

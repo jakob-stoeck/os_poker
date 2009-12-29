@@ -14,11 +14,20 @@
 				<div class="label"><?php print t("Profile"); ?></div>
 				<div class="user_login_clear"></div>
 			</div>
-			<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/shop/shop/1/buddy/" . $target_user->uid, array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
+			<?php if ($external == FALSE) { ?>
+			<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/shop/", array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
 				<div class="pre">&nbsp;</div>
 				<div class="label"><?php print t("Buy Gift"); ?></div>
 				<div class="user_login_clear"></div>
 			</div>
+			<?php } else if (!$target_user->profile_accept_gifts) { ?>
+					<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/shop/shop/1/table/" . $game_id . "/" . $target_user->uid, array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
+					<div class="pre">&nbsp;</div>
+					<div class="label"><?php print t("Buy Gift"); ?></div>
+					<div class="user_login_clear"></div>
+				</div>
+			<?php } ?>
+	
 			<?php if ($external == TRUE && !$target_user->profile_ignore_buddy) { 
 				
 				$buddies = $current_user->Buddies();
@@ -45,6 +54,7 @@
 			
 		</div>
 		<div class="items fleft">
+		<?php if ($external == FALSE) { ?>
 			<div class="block_title_bar block_title_text"><?php print (($external == TRUE) ? t("Today's Gift") : t("Activate Item")); ?></div>
 			<div id="item_panel" class="dotted-red-border">
 				<a href="javascript:void(0);" class="previous">&nbsp;</a>
@@ -63,6 +73,7 @@
 				<a href="javascript:void(0);" class="next">&nbsp;</a>
 				<div class="clear"></div>
 			</div>
+			<?php } ?>
 		</div>
 		<div class="abuse fleft">
 			<?php if ($external == TRUE) { ?>

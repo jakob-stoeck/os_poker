@@ -183,5 +183,31 @@ function	_os_poker_user_accepts_gifts($u)
 
 	return empty($pag);
 }
+
+/*
+**
+*/
+
+function _os_poker_exec_sql($file)
+{
+	$results = array();
+
+	if (is_file($file))
+	{
+		$sql = file_get_contents($file);
+		$queries = preg_split("/;\s+/", $sql);
+
+		foreach ($queries as $query)
+		{
+			if (!empty($query))
+			{
+				$query = db_prefix_tables($query);
+				$results[] = db_query($query);
+			}
+		}
+	}
+
+	return $results;
+}
 	
 ?>

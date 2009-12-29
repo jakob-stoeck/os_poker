@@ -1,0 +1,364 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+class OSPokerLogin extends OsPokerWebTestCase {
+
+	/**
+	* Implementation of hook_info().
+	*/
+	public static function getInfo() {
+		return array(
+		'name'        => '4.2 Workflow Login',
+		'description' => 'Login functionality tests',
+		'group'       => 'OS Poker Specifications',
+		);
+	}
+
+	function setUp() {
+		parent::setUp();
+
+	}
+
+	function tearDown() {
+		parent::tearDown();
+	}
+
+	function _testInvalidLogin(){
+
+		$options = array(
+		'name' => $this->randomName() . '@' . $this->randomName() . ".com",
+		'pass' => $this->randomName(),
+		);
+		$this->drupalPost('', $options, t('Log in'));
+
+		/**
+		* Verify error message is present.
+		*/
+		$this->assertText(
+		t('Sorry, unrecognized username or password.'),
+		t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
+		t('SpecPoker')
+		);
+
+	}
+
+	function testRememberMeLogin(){
+
+		$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+		$this->drupalLogin($root);
+		$this->drupalPost('poker/first_profile', array(), t('Send'));
+			
+		$params = array(
+		"remember_me_checkbox"	=> 1,
+		"remember_me_lifetime"	=> 2000000, // should be 2419200 but clamped to 2000000
+		"remember_me_managed"	=> 1,
+		"remember_me_phantom_session"	=> 1,
+		);
+		$this->drupalPost('admin/settings/remember_me', $params, t('Save configuration'));
+		$this->drupalGet('admin/settings/remember_me');
+		$this->drupalLogout($root);
+
+		$options = array(
+		'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
+		'pass' => $this->randomName(),
+		);
+		$this->OsPokerSignUpUser($options);
+		$this->OsPokerProfileSubmit();
+		$this->drupalLogout();
+		
+
+		$login = array(
+		'name' => $options['mail'],
+		'pass' => $options['pass'],
+		//		'remember_me' => 0,
+		);
+		$this->drupalPost('', $login, t('Log in'));
+ 
+
+		$headers = $this->drupalGetHeaders(TRUE);
+		
+		$this->assertTrue(
+		(isset($headers[0]) && isset($headers[0]['set-cookie'])),
+		t('Server send cookie information')
+		);
+		
+		$parts = explode(';', $headers[0]['set-cookie']);
+		
+		$this->assertTrue(TRUE, $parts[0]);
+
+		$this->assertTrue(
+		strpos(
+		$parts[0],
+		'=deleted'
+		),
+		t('Previous cookie has been deleted.')
+		);
+
+		$this->assertTrue(TRUE, $parts[1]);
+		
+		$this->assertTrue(
+		strpos(
+		$parts[1],
+		'expires='
+		),
+		t('Previous cookie has been expired.')
+		);
+
+		$this->assertTrue(TRUE, $parts[3]." => ".substr($parts[3], 9));
+		$restore_tz = date_default_timezone_get();
+		date_default_timezone_set("GMT");
+		$this->assertTrue(TRUE, strtotime(substr($parts[3], 9)) - time()." / Wainting : " . date("r", time() + 2000000));//strtotime("+4 Weeks")));
+		date_default_timezone_set($restore_tz);
+		
+		$this->assertTrue(
+		strpos(
+		$parts[3],
+		'expires='
+		),
+		t('New cookie expiration time sent.')
+		);
+		
+		
+		
+		$this->fail(
+		t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
+		t('SpecPoker')
+		);
+
+	}
+
+	function _testRedirectAfterSecondLoginProfileComplete() {
+
+		$userA = $this->drupalCreateUser();
+		
+		$this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("login");
+		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$is_delay_msg = FALSE;
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CDelayMessage")
+			{
+				$is_delay_msg = TRUE;
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_delay_msg, "Message is of type CDelayMessage");
+		
+		$this->drupalLogout();
+		
+		//Should call trigger "login"
+		$this->drupalLogin($userA);
+
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("live");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$this->assertTrue(count($mbox) > 0, "There is a task for live event");
+		
+		$is_message = FALSE;
+		$args = array();
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CMessage")
+			{
+				$is_message = TRUE;
+				$args = json_decode($msg->arguments, TRUE);
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
+		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
+		
+		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE,
+											"If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends",
+											'SpecPoker');
+		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
+	}
+
+
+
+	function _testRedirectAfterSecondLoginProfileIncomplete() {
+
+		$userA = $this->drupalCreateUser();
+		
+		$this->drupalLogin($userA);
+		$this->OsPokerProfileSkip();
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("login");
+		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$is_delay_msg = FALSE;
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CDelayMessage")
+			{
+				$is_delay_msg = TRUE;
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_delay_msg, "Message is of type CDelayMessage");
+		
+		$this->drupalLogout();
+		
+		//Should call trigger "login"
+		$this->drupalLogin($userA);
+
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+		CScheduler::instance()->ReloadTasks();
+		$mbox = CScheduler::instance()->GetTasks("live");
+		CUserManager::instance()->DebugRestoreCurrentUser();
+		
+		$this->assertTrue(count($mbox) > 0, "There is a task for live event");
+		
+		$is_message = FALSE;
+		$args = array();
+		foreach ($mbox as $msg)
+		{
+			if ($msg->type == "CMessage")
+			{
+				$is_message = TRUE;
+				$args = json_decode($msg->arguments, TRUE);
+				break;
+			}
+		}
+		
+		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
+		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
+		
+		$this->assertTrue(strpos($args["body"]["url"], "poker/profile/update") !== FALSE,
+											"In case data is missing the lobby page is called and a thickbox with the update profile view is opened",
+											'SpecPoker');
+		$this->assertTrue($args["body"]["lightbox"], "Page must open in a thickbox");
+	}
+
+	function _testProfilePercentageAndChipsAtCompletion()
+	{
+
+		$userA = $this->drupalCreateUser();
+		
+		$this->drupalLogin($userA);
+		$this->OsPokerProfileSkip();
+		
+		//Test an CDelayMessage has been created to redirect user on the next login
+		
+		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+
+		$test_user = CUserManager::instance()->User($userA->uid, TRUE);
+		
+		$chips_count = $test_user->Chips();
+
+		$fields_total = 6;
+		$fields_count = 1; // it's always 1 as nickname is necessarily present
+
+		/* first set directly some fields to verify percentage complete count */
+		/* set profile_gender */
+		$test_user->profile_gender = "Male";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_city */
+		$test_user->profile_city = "City";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_country */
+		$test_user->profile_country = "Country";
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* set profile_picture */
+		$test_user->picture = drupal_get_path('module', 'os_poker').'/avatar1.png';
+		$fields_count++; /* increment fields_count */
+		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
+
+		/* then post a complete form*/
+		$edit = array();
+		$edit['profile_nickname'] = "TESTNick";
+    $edit['profile_gender'] = "Male";
+    $edit['profile_city'] = "TESTCity";
+		$edit['profile_country'] = "France";
+		$edit['files[picture_upload]'] = drupal_get_path('module', 'os_poker').'/avatar1.png';
+		$edit['profile_dob[month]'] = 1;
+    $edit['profile_dob[day]'] = 1;
+    $edit['profile_dob[year]'] = 1970;
+		$this->drupalPost('poker/profile/update', $edit, t('Send'));
+		$this->drupalGet('poker/profile/update');
+
+		/* create and set a nickname variable for further uniqueness check */
+		$nickcheck = "UNIQUENick";
+		$test_user->profile_nickname = $nickcheck;
+		$test_user->Save();
+		$test_user = CUserManager::instance()->User($userA->uid, TRUE);
+
+		$this->assertTrue($test_user->GetProfileCompletePercent() == 100, 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% =>after setting all fields, percentage of the profile is 100',
+								'SpecPoker');
+
+		$this->assertTrue($chips_count + 2000 == $test_user->Chips(), $chips_count.' + 2000 == '.$test_user->Chips().'Once the user fills in the missing data and saves it, he will be granted 2000 Chips',
+								'SpecPoker');
+
+		CUserManager::instance()->DebugRestoreCurrentUser();
+
+		$this->drupalLogout();
+
+	/* Create new user and update his profile using same nickname as previous userA */
+		$userB = $this->drupalCreateUser();
+		
+		$this->drupalLogin($userB);
+		$this->OsPokerProfileSkip();
+
+		CUserManager::instance()->DebugForceCurrentUser($userB->uid);
+
+		/* try to update with an existing nickname and an image file with wrong extension */
+		$edit = array();
+		$edit['profile_nickname'] = $nickcheck;
+		$edit['files[picture_upload]'] = drupal_get_path('module', 'os_poker').'/avatar1.txt';
+		$this->drupalPost('poker/profile/update', $edit, t('Send'));
+
+		/* match the error string */
+		$this->assertText('Nickname '.$edit['profile_nickname'].' already exists.', 'Nick must be unique, if it is not or the uploaded picture is to big or wrong format an error must show up',
+								'SpecPoker');
+
+		CUserManager::instance()->DebugRestoreCurrentUser();
+	}
+
+
+	function testFail() {
+	}
+}

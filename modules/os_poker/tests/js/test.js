@@ -34,6 +34,10 @@ test("without users", function() {
 	equals($('.userlist .user').length, 0, '.userlist container should contain no users');
 });
 
+/*
+**
+*/
+
 module("os_poker_messages", {
 	setup: function() {
 	    var ajax = function(options) {
@@ -48,6 +52,8 @@ module("os_poker_messages", {
 			equals(event.type, 'bar', 'bar event triggered');
 			equals(arg, 'zzz');
 	    });
+			
+		os_poker_message_start(false);
 	},
 	teardown: function() {
 	    $.ajax = $.ajax.jquery_ajax;
@@ -69,6 +75,9 @@ test("os_poker_message_listen", function() {
 	os_poker_message_shutdown();
 });
 
+/*
+**
+*/
 
 module("os_poker.messagebox", {
 	setup: function() {
@@ -104,4 +113,49 @@ test("os_poker_init_messagebox", function() {
 	equals(count.text(), " 42 ", "Message count set");
 });
 
+/*
+**
+*/
 
+var Drupal = {jsEnabled:true, settings: {basePath: "/test/"}};
+
+module("os_poker.toolkit", {
+	setup: function() {
+	
+	},
+	teardown: function() {
+
+	}
+});
+
+
+test("os_poker_site_root", function() {
+	expect(2);
+	
+	equals(os_poker_site_root(), "/test/", "Root path");
+	Drupal.jsEnabled = false;
+	equals(os_poker_site_root(), "/", "Default root path");
+
+});
+
+/*
+**
+*/
+
+module("os_poker.events", {
+	setup: function() {
+		$("#main").append('<div>Chips : <b class="chips">$ 42</b></div>');
+	
+		os_poker_init_events();
+	},
+	teardown: function() {
+
+	}
+});
+
+
+test("event os_poker_update_chips", function() {
+	os_poker_trigger("os_poker_update_chips", {amount: os_poker_number_format(1000)});
+	
+	equals($("b.chips").text(), "$ 1,000", "Event received, number formated and updated");
+});

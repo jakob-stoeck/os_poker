@@ -1,0 +1,11 @@
+***************
+*** 5,8 ****
+  .buildpath
+  .project
+  .settings
+- 
+--- 5,8 ----
+  .buildpath
+  .project
+  .settings
++ nbproject

@@ -153,7 +153,7 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 **
 */
 
-function	os_poker_profile_page($tab, $user_id = NULL)
+function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 {
 	require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 	$current_user =  CUserManager::instance()->CurrentUser();
@@ -214,7 +214,7 @@ function	os_poker_profile_page($tab, $user_id = NULL)
 		break;
 		
 		case "medium":
-			$content = theme('os_poker_medium_profile', $target_user, $external, $current_user);
+			$content = theme('os_poker_medium_profile', $target_user, $external, $current_user, $game_id);
 			
 			return $content;
 		break;
@@ -322,6 +322,12 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 		}
 		
 		$prods =  CShop::ListItems($category);
+		
+		if (isset($_GET["list"]) && $_GET["list"] == "items" && !empty($_GET["ajax"]))
+		{
+			return 	print theme('os_poker_item_list', $prods);
+		}
+		
 		$current_user =  CUserManager::instance()->CurrentUser();
 		$buddies = array_filter($current_user->Buddies(TRUE), "_os_poker_user_accepts_gifts");
 		

@@ -16,5 +16,5 @@ $(document).ready(function () {
 			$(this).click(function() { parent.os_poker_trigger("os_poker_jump", {url:tg + "&height=442&width=603", lightbox:true}); });
 		}
 	});
-	
+
 });

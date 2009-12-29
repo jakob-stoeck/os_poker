@@ -94,15 +94,11 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 	* Verify Todays Gift
 	*
 	* - Create a user, login and complete the profile.
-	* - go to invite page, invite the email address again.
-	* - Logout this user.
-	* - Using the code from the invitation email, register a 'invited' new user
-	* - Complete the profile page.
-	* - On the home page click on the picture "Today's gift, send all" on the bottom of the home page
-	* - Logout this user.
-	* - Login with the first user
-	* - Verify a message saying : You just the daily gift from ... have been received
-	* - Verify 100 chips have been won
+	* - create 2 buddies
+	* - store their chips amount
+	* - trigger daily gift
+	* - reload 2 buddies
+	* - verify their chips amount have been increased with 100 chips
 	*
 	*/
 	function testInternalPromotions(){
@@ -111,67 +107,19 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		 * Register a new 'invitee' account and complete its profile.
 		 */
 		$user = $this->drupalCreateUser();
-		// Login the user, complete profile form
 		$this->OsPokerLogin($user);
 
-		// Create a random name - email pair and send invite
-		$name = $this->randomName();
-		$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+		/* create 2 buddies and buddify them with user */
+    $this->buddies = array($this->drupalCreateUser(), $this->drupalCreateUser());
+    foreach(array_reverse($this->buddies) as $buddy) {
+      $this->OsPokerLogin($buddy, array('profile_nickname' => $buddy->name));
+			$this->OsPokerCreateBuddyRelationShip($user, $buddy);
+    }
+		$buddy1 = $this->buddies[0];
+		$buddy2 = $this->buddies[1];
+
+
 		
-		// Submit the invitation
-		$this->OsPokerSendInvites(array($name => $email));
-
-		/**
-		 * Verify that invitation email was sent.
-		 */
-		$this->assertInviteMail(
-		  $email,
-		  t('Invitation email message sent for !name.', array('!name' => $name))
-		);
-
-		/**
-		 * Logout current user
-		 */
-
-		$this->drupalLogout();
-
-		/**
-		 * Using invitation code, register the 'invited' user.
-		 * This user has 'invited' for nickname
-		 */
-		// Get the invitation code from the last sent email.
-		$mail_queue = end($this->drupalGetMails());
-		$code = $mail_queue['params']['invite']->code;
-
-		// Use the invitation code to login the site.
-		$this->drupalGet('invite/accept/'. $code);
-
-		// The request has to redirect to user registration form with prepopulated
-		// information from the invite submission. Our email should have been
-		// filled in the form with invite information.
-		$this->assertFieldByName(
-		  'mail',
-		  $email,
-		  t('Invitation verified, invited email found in registration form.')
-		);
-
-		// Complete the fields and submit the registration form.
-		$password = $this->randomName();
-		$options = array(
-		  'name'        => $name,
-		  'pass[pass1]' => $password,
-		  'pass[pass2]' => $password,
-		);
-		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-		
-		/**
-		 * completes the 'invited' profile
-		 */
-		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
-		
-		//TODO : Medium profile page
-		$this->fail(t("TEST THIS FOR 5.19 => today's-gift (module 5.10.1)"), t("SpecPoker"));
-
 		/**
 		 * Go to Buddy-List
 		 */
@@ -210,6 +158,11 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		
 		$this->assertRaw('sites/all/themes/poker/images/banner_invite_more_friends.jpg' , t("'Invite friend' is present on search result"));
 		
+
+		$first_buddy = CUserManager::instance()->User($buddy1->uid);		
+		$first_chips = $first_buddy->Chips();
+		$second_buddy = CUserManager::instance()->User($buddy2->uid);		
+		$second_chips = $second_buddy->Chips();
 		/**
 		 * Check daily gift
 		 */
@@ -220,40 +173,34 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		//Assert basic amount of chips
 		$this->drupalGet('');
 		$this->assertText(
-					   t('You have $ 8,000 Chips'),
-					   t('User have 8000 Chips.')
+					   t('You have $ 3,000 Chips'),
+					   t('User have 3000 Chips.')
 					);
 					
 		//Perform daily gift
 		$this->assertTrue($first_user->CanDailyGift(), t('User can use daily gift'));
 		$first_user->DailyGift();
 		
-		//Assert 100 chips are allocated to buddy
-		$this->drupalGet('');
-		$this->assertText(
-					   t('You have $ 8,100 Chips'),
-					   t('The process triggered by clicking the banner will send a certain amount of chips (e.g. 100 chips as found in a database record ) to all buddies of the acting player'),
-						 t('SpecPoker')
-					);			
-
 		//Assert user cannot use daily gift anymore
-		$this->assertFalse($first_user->CanDailyGift(), t('User cannot use daily gift anymore'));
+		$this->assertFalse($first_user->CanDailyGift(), t('This can only be used once per day by the user.'), t("SpecPoker"));
 		
 		//Assert that user giving daily give has a chip count that does not change
 		$this->assertTrue($nchips == $first_user->Chips(), t("User giving daily give has a chip count that does not change"));
 		
 
-		/* cmirey : TODO */
-		$this->fail(t("to all buddies of the acting player."), t("SpecPoker"));
-		$this->fail(t("This can only be used once per day by the user."), t("SpecPoker"));
+		/* reload first buddy and check its chips amount */
+		$first_buddy = CUserManager::instance()->User($buddy1->uid, TRUE);
+		$this->AssertTrue($first_chips + 100 == $first_buddy->Chips(), $first_buddy->Chips()." == ".$first_chips." + 100 => ".t('The process triggered by clicking the banner will send a certain amount of chips (e.g. 100 chips as found in a database record ) to all buddies of the acting player'), t('SpecPoker'));
+
+		/* reload second buddy and check its chips amount */
+		$second_buddy = CUserManager::instance()->User($buddy2->uid, TRUE);
+		$this->AssertTrue($second_chips + 100 == $second_buddy->Chips(), $second_buddy->Chips()." == ".$second_chips." + 100 => ".t("to all buddies of the acting player."), t("SpecPoker"));
 
 		/**
 		 * Assert image in page changes after daily gift
 		 */
-		 
-		$this->drupalLogout();
+		$first_user = CUserManager::instance()->User($user->uid, TRUE);
 		$this->drupalLogin($user);
-
 		/**
 		 * Go to Buddy-List
 		 */

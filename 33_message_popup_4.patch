@@ -1,0 +1,307 @@
+diff -r 9bbcf06a382c modules/os_poker/js/os_poker.bootstrap.js
+--- a/modules/os_poker/js/os_poker.bootstrap.js	Tue Dec 22 20:35:07 2009 +0100
++++ b/modules/os_poker/js/os_poker.bootstrap.js	Wed Dec 23 16:49:34 2009 +0100
+@@ -1,19 +1,47 @@
+-$(document).ready(function () {
++Drupal.behaviors.os_poker = function(context) {
++  //A counter incremented for each call of this function
++  var call_counter= arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
++  
++  if(call_counter == 0) {
++    os_poker_input_file_style();
++    os_poker_message_start();
++    os_poker_init_events();
++    os_poker_init_menu();
++  }
++  
++  //Register slider handler for the Buddy List's panel
++  os_poker_register_slider($('#buddy_panel:not(.os-poker-processed)').addClass('os-poker-processed'), 80);
++  
++  //Register handler for Buddy List's online filter 
++  $("#buddylist #edit-online:not(.os-poker-processed)").addClass('os-poker-processed').click(function () {
++    os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
++    os_poker_slider_reset($('#buddy_panel .cursor'), 80);
++  });
++  
++  //Show status message in a thickbox when not on admin pages
++  if (!$(document.body).hasClass('page-admin')) {
++    var $messages = $('.messages.status:not(.os-poker-processed)').addClass('os-poker-processed');
++    if ($messages.length) {
++      var id = 'messages-popup-' + call_counter;
++      //create an hidden container for the thickbox
++      var $popup = $messages.after(Drupal.theme('os_poker_popup', id)).next().hide();
++      //move the message into its .content
++      $popup.find('.content').append($messages).end()
++      //register tb_remove as handler for its .close link
++      $popup.find('.close').click(tb_remove).end();
++      //Reveal the popup (delayed with setTimeout so that any pending javascript is executed before)
++      setTimeout(function(){
++        tb_show('', '#TB_inline?height=' + $popup.outerHeight() + '&width=' + $popup.outerWidth() + '&inlineId=' + id + '&modal=true', false);
++        //Copy the classes from the container to the TB_ajaxContent wrapper
++        $("#TB_ajaxContent").addClass($popup.attr('class'));
++      }, 0);
++    }
++  }
++}
+ 
+-	os_poker_input_file_style();
+-	os_poker_message_start();
+-	os_poker_init_events();
+-	os_poker_init_menu();
+-	
+-	os_poker_register_slider($('#buddy_panel'), 80);
+-	
+-	$("#buddylist #edit-online").click(function () {
+-	
+-		os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
+-		os_poker_slider_reset($('#buddy_panel .cursor'), 80);
+-	});
+-
+-	$("#tb_messages").click();
+-	$("#tb_messages_popup").click();
+-	
+-});
+\ No newline at end of file
++/**
++ * Provides markup for the holding the content of the thickbox content for popup message. 
++ */
++Drupal.theme.os_poker_popup = function(id) {
++  return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div></div>';
++}
+\ No newline at end of file
+diff -r 9bbcf06a382c modules/os_poker/tests/js/drupal.js
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/modules/os_poker/tests/js/drupal.js	Wed Dec 23 16:49:34 2009 +0100
+@@ -0,0 +1,13 @@
++/*
++ * Provides a fake Drupal object to allow scripts relaying on it to be loaded
++ */
++Drupal = {
++  behaviors: {},
++  theme: function(func) {
++    for (var i = 1, args = []; i < arguments.length; i++) {
++      args.push(arguments[i]);
++    }
++
++    return (Drupal.theme[func] || Drupal.theme.prototype[func]).apply(this, args);
++  }
++};
+\ No newline at end of file
+diff -r 9bbcf06a382c modules/os_poker/tests/js/test.html
+--- a/modules/os_poker/tests/js/test.html	Tue Dec 22 20:35:07 2009 +0100
++++ b/modules/os_poker/tests/js/test.html	Wed Dec 23 16:49:34 2009 +0100
+@@ -5,6 +5,7 @@
+ 	<link rel="stylesheet" href="qunit/qunit/qunit.css" type="text/css" media="screen">
+ 	<script type="text/javascript" src="qunit/qunit/qunit.js"></script>
+ 	<script type="text/javascript" src="/drupal6/misc/jquery.js"></script>
++	<script type="text/javascript" src="drupal.js"></script>
+ 	<script type="text/javascript" src="../../js/jquery.filestyle.mini.js"></script>
+ 	<script type="text/javascript" src="../../js/os_poker.toolkit.js"></script>
+ 	<script type="text/javascript" src="../../js/os_poker.events.js"></script>
+@@ -13,7 +14,7 @@
+ 	<script type="text/javascript" src="../../js/os_poker.messages.js"></script>
+ 	<script type="text/javascript" src="../../js/os_poker.pager.js"></script>
+ 	<script type="text/javascript" src="../../js/os_poker.slider.js"></script>
+-	<script type="text/javascript" src="../../js/os_poker.toolkit.js"></script>
++	<script type="text/javascript" src="../../js/os_poker.bootstrap.js"></script>
+ 	<script type="text/javascript" src="test.js"></script>
+ </head>
+ <body>
+diff -r 9bbcf06a382c modules/os_poker/tests/js/test.js
+--- a/modules/os_poker/tests/js/test.js	Tue Dec 22 20:35:07 2009 +0100
++++ b/modules/os_poker/tests/js/test.js	Wed Dec 23 16:49:34 2009 +0100
+@@ -1,3 +1,11 @@
++QUnit.log = function(result, message)  
++{  
++  if (window.console && window.console.log)  
++  {  
++    window.console.log(result +' :: '+ message);  
++  }  
++}  
++
+ module("os_poker_update_lobby", {
+ 	setup: function() {
+ 	    var table_users = $('<div id="table_users">').appendTo('#main');
+@@ -104,4 +112,55 @@ test("os_poker_init_messagebox", functio
+ 	equals(count.text(), " 42 ", "Message count set");
+ });
+ 
+-
++module('Message in Thickbox', {
++  setup: function(){
++    this.tb_remove = this.tb_show = 0;
++    var testContext = this;
++    //create mockup functions 
++    window.tb_show = function(){
++      testContext.tb_show += 1;
++    };
++    window.tb_remove = function() {
++      testContext.tb_remove += 1;
++    }
++    window.os_poker_input_file_style = window.tb_init = function(){};
++    //create Drupal-like HTML message markup
++    $('#main').append('<div class="messages status"><ul><li>First status message</li><li>Second status message</il></ul></div>');
++    $('#main').append('<div class="messages error"><ul><li>First error message</li><li>Second error message</il></ul></div>');
++    $('#main').append('<div class="messages warning"><ul><li>First warning message</li><li>Second warning message</il></ul></div>');
++  },
++  teardown: function(){
++    //delete mockup functions
++    delete tb_show;
++    delete os_poker_input_file_style;
++    delete tb_init;
++    delete tb_remove;
++  }
++});
++asyncTest('status messages are shown in a thickbox', 6, function(){
++  Drupal.behaviors.os_poker(document);
++  Drupal.behaviors.os_poker(document); //This second call is intentional to check the behavior does not process the same element twice
++  equals(1, $('.messages-popup').length, 'a unique message popup container should be created');
++  ok($('.messages-popup .messages.status').length, 'the popup container should contain the status messages');
++  ok(!$('.messages-popup .messages.warning').length, 'the popup container should not contain the error messages');
++  ok(!$('.messages-popup .messages.error').length, 'the popup container should not contain the warning messages');
++  var testContext = this;
++  setTimeout(function(){
++    equals(testContext.tb_show, 1, 'tb_show has been called once.');
++    $('.messages-popup .close').click();
++    ok(this.tb_remove, 'a click on the .close link in popup container should call tb_remove');
++    start();
++  }, 0);
++  
++});
++asyncTest('status messages are not shown in a thickbox on administration page', 2, function(){
++  $(document.body).addClass('page-admin');
++  Drupal.behaviors.os_poker(document);
++  $(document.body).removeClass('page-admin');
++  ok(!$('.messages-popup').length, 'no message popup container should be created');
++  var testContext = this;
++  setTimeout(function(){
++    equals(testContext.tb_show, 0, 'tb_show should not be called');
++    start();
++  }, 0);
++});
+diff -r 9bbcf06a382c themes/poker/page-poker.tpl.php
+--- a/themes/poker/page-poker.tpl.php	Tue Dec 22 20:35:07 2009 +0100
++++ b/themes/poker/page-poker.tpl.php	Wed Dec 23 16:49:34 2009 +0100
+@@ -107,18 +107,10 @@
+ 					</div> <!-- /#content-top -->
+ 				<?php endif; ?>
+ 				
+-
+ 				<?php if (($logged_in || !$is_front) && $messages) : ?>
+-				    <div id="messages_ajax">
+-				  <div id="TB_overlay" class="TB_overlayBG" onclick="javascript:$('#messages_ajax').hide();"></div>
+-				<div id="messages_popup_ajax">
+-				       	<a class="LayerClose" onclick="javascript:$('#messages_ajax').hide();" href="javascript:void(0);">&nbsp;</a>
++				<div id="messages">
+ 					<?php print $messages; ?>
+ 				</div>
+-				   </div>
+-				<div style="display: none;">
+-				<a id="tb_messages_ajax" class="thickbox" href="#TB_inline?height=256&width=501&inlineId=messages_ajax" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&inlineId=messages_ajax'"></a>
+-				</div>
+ 				<?php endif; ?>
+ 
+ 			<?php if (!$is_front) : ?>
+diff -r 9bbcf06a382c themes/poker/page.tpl.php
+--- a/themes/poker/page.tpl.php	Tue Dec 22 20:35:07 2009 +0100
++++ b/themes/poker/page.tpl.php	Wed Dec 23 16:49:34 2009 +0100
+@@ -139,15 +139,9 @@
+ 				<?php endif; ?>
+ 				
+ 				<?php if (($logged_in || !$is_front) && $messages) : ?>
+-				    <div id="messages">
+-				<div id="messages_popup">
+-				       	<a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
++				<div id="messages">
+ 					<?php print $messages; ?>
+ 				</div>
+-				   </div>
+-				<div style="display: none;">
+-				<a id="tb_messages" class="thickbox" href="#TB_inline?height=256&width=501&inlineId=messages" onclick="javascript: document.location.href='#TB_inline?height=256&width=501&inlineId=messages'"></a>
+-				</div>
+ 				<?php endif; ?>
+ 
+ 			<?php if (!$is_front) : ?>
+diff -r 9bbcf06a382c themes/poker/poker.css
+--- a/themes/poker/poker.css	Tue Dec 22 20:35:07 2009 +0100
++++ b/themes/poker/poker.css	Wed Dec 23 16:49:34 2009 +0100
+@@ -235,33 +235,24 @@ div.poker_error_message .msg a
+ {
+     display: block;
+ }
+-.logged-in #messages
++
++.messages-popup
+ {
+-    display: none;
+-}
+-
+-
+-.page-admin #TB_overlay
+-{
+- display: none;
+-}
+-.page-admin #TB_window
+-{
+- display: none;
+-}
+-.page-admin #TB_ajaxContent
+-{
+- display: none;
+-}
+-
+-#messages_popup 
+-{
+-    width: 501px;
+-    height: 256px;
++    width: 278px !important;
++    height: 256px !important;
++		padding-top: 30px !important;
++		padding-bottom: 10px !important;
++		padding-right: 10px !important;
++		padding-left: 208px !important;
+     background: transparent url("images/bg_confirm_black.png") top left no-repeat;
+ }
+ 
+-#messages_popup a.LayerClose
++.messages-popup .content {
++	height: 206px;
++	overflow: auto;
++}
++
++.messages-popup .close
+ {
+ 	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+ 	display:block;
+@@ -272,28 +263,17 @@ div.poker_error_message .msg a
+ 	width:20px;	
+ 	z-index:777;
+ 	text-decoration:none;
++	text-indent: -10000px;
+ }
+ 
+-#messages_popup  div.error
+-{
+-    border: none;
+-}
+-
+-#messages_popup  div.messages
++.messages-popup  div.messages
+ {
+     background: none;
++		border: 0;
+     color: white;
+     text-align: left;
+-    position: absolute;
+-    left: 260px;
+-    top: 160px;
+-    width: 220px;
+-    height: 80px;
+-    overflow: hidden;
+ }
+ 
+-
+-
+ #messages_popup_ajax
+ {
+     width: 501px;

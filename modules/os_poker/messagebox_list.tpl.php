@@ -14,6 +14,7 @@
 				if ($nmsg >= $begin && $nmsg < $end)
 				{
 					$mbody = json_decode($m->arguments, TRUE);
+					$mbody["body"]["timestamp"] = $m->timestamp;
 					print theme('os_poker_message', $mbody["body"]);
 				}
 				++$nmsg;

@@ -103,9 +103,6 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 
 	function testBookingDailyChipsOnlyOnceADay() {
 		// login once => more chips, logout, login again => same chips
-		$this->fail('It must be ensured that bonus chips are credited only once a day', 'SpecPoker');
-		$this->pass('cmirey : done');
-
 		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
 		$chips_amount = $test_user->Chips();
 

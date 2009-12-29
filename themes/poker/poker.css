@@ -395,6 +395,9 @@ width:87px;
 /*margin:70px 8px 0 232px;*/
 margin:50px 8px 0 22px;
 text-align:center;
+height: 80px;
+margin-bottom: 10px;
+overflow-y: auto;
 }
 
 .messages .DialogText {
@@ -480,9 +483,13 @@ body.iframe #main
 }
 
 #TB_iframeContent {
+ position: absolute;
+ top: 0px;
+ left: 0px;
 	margin:0 0 -3px;
 	padding:0;
 	overflow:hidden;
+	z-index: 777;
 }
 
 #TB_window {
@@ -497,6 +504,12 @@ body.iframe #main
     opacity : 0.5;
 }
 
+#TB_ajaxContent
+{
+ position: absolute;
+ top: 100px;
+ left: 50px;
+}
 
 body.iframe a.LayerClose
 {
@@ -1962,6 +1975,11 @@ body.iframe #messagebox a.LayerClose
 	width:auto;
 }
 
+#profile-settings .password-description
+{
+    clear: both;
+}
+
 #os-poker-profile-personal-settings-form .poker_submit
 {
 	clear:both;
@@ -2188,6 +2206,14 @@ body.iframe #messagebox a.LayerClose
 {
 	width:125px;
 	height:114px;
+}
+
+#profile-medium img
+{
+	width:50px;
+	height:50px;
+	display:block;
+	float:left;
 }
 
 #profile-medium .abuse
@@ -2572,7 +2598,7 @@ div#buddies-list .footer
 #shop .footer
 {
 	clear:both;
-	padding-top:10px;
+	padding-top:5px;
 }
 
 #shop .footer .right
@@ -2622,14 +2648,30 @@ ul.categories li a span
 
 #shop #items
 {
+	padding-top:1px;
+}
+
+#shop #items .item-list ul
+{
+	margin:0;
+}
+
+#shop #items .inner-item-list
+{
 	border-left: #810E0B dotted 1px;
 	border-top: #810E0B dotted 1px;
 	border-bottom: #810E0B dotted 1px;
-	padding-top:5px;
-	height:320px;
+	height:308px;
+	margin-top:4px;
+	padding-top:3px;
 }
 
-#shop #items a
+#shop #items .ajax-pager
+{
+	height:14px;
+}
+
+#shop #items .inner-item-list a
 {
 	background:transparent url(images/bg_shop_item.gif) no-repeat scroll left top;
 	height:95px;
@@ -2641,12 +2683,12 @@ ul.categories li a span
 	padding-top:2px;
 }
 
-#shop #items a:hover, #shop #items a.selected
+#shop #items .inner-item-list a:hover, #shop #items .inner-item-list a.selected
 {
 	background:transparent url(images/bg_shop_item_hover.gif) no-repeat scroll left top;
 }
 
-#shop #items a span
+#shop #items .inner-item-list a span
 {
 	cursor:pointer;
 	display:block;
@@ -2656,7 +2698,7 @@ ul.categories li a span
 	width:50px;
 }
 
-#shop #items a span.Text {
+#shop #items .inner-item-list a span.Text {
 	cursor:pointer;
 	display:block;
 	font-weight:bold;
@@ -3538,6 +3580,30 @@ font-weight:normal;
 padding: 0px;
 }
 
+.forgot_password_message
+{
+ left:15px;
+ position:absolute;
+ top:35px;
+ width:378px;
+ z-index:4242;
+ height: 42px;
+}
+.status .forgot_password_message
+{
+ display: none;
+}
+.forgot_password_message .ErrorText
+{
+ display: none;
+}
+.forgot_password_message .ErrorList {
+color:#000;
+font-size:1em;
+font-weight:normal;
+padding: 0px;
+}
+
 #profile-update p.Dollar {
 color:#810E0B;
 font-weight:bold;
@@ -3592,3 +3658,7 @@ color:#65625D;
 {
  clear: both;
 }
+
+
+/**/
+
