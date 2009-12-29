@@ -383,9 +383,35 @@ function 	os_poker_theme()
 												'arguments' => array(),
 												'template' => 'footer',
 											),
-				);
-
-
+    'buddy_block' => array(
+      'arguments' => array('buddy' => NULL, 'buddyNumber' => NULL, 'hide_links' => FALSE),
+      'template'  => 'buddy-block',
+    ),
+    'buddies_tabs' => array(
+      'arguments' => array('action' => NULL),
+      'template'  => 'buddies-tabs',
+    ),
+    'buddies_list' => array(
+      'arguments' => array('buddies' => NULL, 'current_user' => NULL, 'action' => NULL, 'page' => NULL),
+      'template'  => 'buddies-list',
+    ),
+    'buddies_invite' => array(
+      'arguments' => array('form' => NULL, 'current_user' => NULL),
+      'template'  => 'buddies-invite',
+    ),
+    'buddies_invitedlist' => array(
+      'arguments' => array('current_user' => NULL),
+      'template'  => 'buddies-invitedlist',
+    ),
+    'buddies_search' => array(
+      'arguments' => array('form' => NULL, 'current_user' => NULL),
+      'template'  => 'buddies-search',
+    ),
+    'poker_error_message' => array(
+      'arguments' => array('text' => NULL),
+      'template'  => 'poker-error-message',
+    ),
+  );
 }
 
 /**

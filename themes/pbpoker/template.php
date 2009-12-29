@@ -11,34 +11,6 @@ function pbpoker_theme() {
       'arguments' => array('account' => NULL, 'rtid' => NULL),
       'template'  => 'user_relationships',
     ),
-    'buddy_block' => array(
-      'arguments' => array('buddy' => NULL, 'buddyNumber' => NULL, 'hide_links' => FALSE),
-      'template'  => 'buddy_list_block',
-    ),
-    'buddies_tabs' => array(
-      'arguments' => array('action' => NULL),
-      'template'  => 'buddies_tabs',
-    ),
-    'buddies_list' => array(
-      'arguments' => array('buddies' => NULL, 'current_user' => NULL, 'action' => NULL, 'page' => NULL),
-      'template'  => 'buddies_list',
-    ),
-    'buddies_invite' => array(
-      'arguments' => array('form' => NULL, 'current_user' => NULL),
-      'template'  => 'buddies_invite',
-    ),
-    'buddies_invitedlist' => array(
-      'arguments' => array('current_user' => NULL),
-      'template'  => 'buddies_invitedlist',
-    ),
-    'buddies_search' => array(
-      'arguments' => array('form' => NULL, 'current_user' => NULL),
-      'template'  => 'buddies_search',
-    ),
-    'poker_error_message' => array(
-      'arguments' => array('text' => NULL),
-      'template'  => 'error_message',
-    ),
     'os_poker_teaser' => array(
       'arguments' => array('text' => ""),
       'template' => 'os-poker-teaser',
@@ -115,7 +87,7 @@ function pbpoker_page_front_banner($id, $text, $href) {
   return l(
     '<span class="banner-inner">'.$text.'</span>',
     $href,
-    array('html' => TRUE, 'attributes' => array('class' => 'banner', 'id' => $id))
+    array('html' => TRUE, 'attributes' => array('class' => 'banner', 'id' => $id, 'title' => $text))
   );
 }
 
@@ -147,9 +119,9 @@ function pbpoker_preprocess_page(&$variables) {
 
 function pbpoker_preprocess_page_front_banners(&$variables)
 {
-  $variables['banners'][] = theme('page_front_banner', 'bonusreg', t(''), '');
-  $variables['banners'][] = theme('page_front_banner', 'onemiochips',  t(''), '');
-  $variables['banners'][] = theme('page_front_banner', 'sexiestpoker', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
+  $variables['banners'][] = theme('page_front_banner', 'banner-signup', t('Sign up now and get a bonus! <strong>$1000 Chips</strong>'), '');
+  $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), '');
+  $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
 }
 
 function pbpoker_preprocess_block(&$variables) {
@@ -171,7 +143,7 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   $theme_path = drupal_get_path('theme', 'pbpoker');
   $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
   $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');
-  $variables['table'] = theme('image', $theme_path.'/images/teaser-table.gif', t('Poker Table'), '', array('id' => 'poker-teaser-table'));
+  $variables['table'] = theme('image', $theme_path.'/images/teaser-table.jpg', t('Poker Table'), '', array('id' => 'poker-teaser-table'));
   $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
 }
 

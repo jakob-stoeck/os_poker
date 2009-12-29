@@ -187,11 +187,6 @@ div.messages li
 	position:absolute;
 }
 
-#main #messages div.messages
-{
-
-}
-
 div.poker_error_message
 {
   background:transparent url(images/bg_no_result.gif) no-repeat scroll top left;

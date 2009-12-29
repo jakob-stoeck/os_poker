@@ -37,8 +37,14 @@ body.not-logged-in #middle-content-right
 
 #poker-teaser-table
 {
-  margin-top: 20px;
-  margin-left: 7px;
+  background-color:transparent;
+  background-image:url(images/teaser-table-shadow.gif);
+  background-position:right bottom;
+  background-repeat:no-repeat;
+  margin-left:7px;
+  margin-top:20px;
+  padding-bottom:8px;
+  padding-right:6px;
 }
 
 #poker-teaser-text
@@ -48,15 +54,15 @@ body.not-logged-in #middle-content-right
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 137px;
-  height: 71px;
-  padding-bottom:8px;
-  padding-left:8px;
-  padding-right:23px;
-  padding-top:8px;
+  width: 142px;
+  height: 75px;
+  padding-bottom:6px;
+  padding-left:6px;
+  padding-right:20px;
+  padding-top:6px;
   position: absolute;
-  right: -180px;
-  bottom: 125px;
+  right: -185px;
+  bottom: 120px;
   color: white;
   font-weight: bold;
   z-index: 1;
@@ -76,7 +82,7 @@ body.not-logged-in #middle-content-right
 #poker-teaser-girl
 {
   position: absolute;
-  right: -305px;
+  right: -320px;
   bottom: 0;
 }
 
@@ -153,29 +159,33 @@ body.not-logged-in #middle-content-right
   display: inline-block;
   height: 165px;
   width: 0px;
-  margin-top: 10px;
+  margin-top: 7px;
   margin-left: 5px;
   margin-right: 5px;
   background-color: transparent;
   background-position: center center;
-  background-repeat: none;
+  background-repeat: no-repeat;
 	vertical-align: middle;
+  text-indent: -10000px;
 }
 
-#page-front-banners #bonusreg
+#page-front-banners #banner-signup
 {
-  background-image: ur('images/front_banner_bonusreg.gif');
-  width: 200px;
+  background-image: url('images/front-banner-signup.gif');
+  width: 198px;
+  height: 162px;
 }
 
-#page-front-banners #onemiochips
+#page-front-banners #banner-tournament
 {
-  background-image: ur('images/front_banner_onemiochips.gif');
-  width: 200px;
+  background-image: url('images/front-banner-tournament.gif');
+  width: 198px;
+  height: 162px;
 }
 
-#page-front-banners #sexiestpoker
+#page-front-banners #banner-join
 {
-  background-image: ur('images/front_banner_a.sexiestpoker.gif');
-  width: 300px;
+  background-image: url('images/front-banner-join.gif');
+  width: 321px;
+  height: 162px;
 }
