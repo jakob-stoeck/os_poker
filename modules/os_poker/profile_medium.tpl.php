@@ -96,8 +96,6 @@
 			</div>
 			<?php } ?>
 		</div>
-		
-		<?php } ?>
 		<div class="clear"></div>
 	</div>
 </div>
