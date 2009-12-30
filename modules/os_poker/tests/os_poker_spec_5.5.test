@@ -298,6 +298,8 @@ check active status is always on same item
 			$this->fail(t("If a player receives an item . a notification process (message, ingame notification) is triggered."), t('SpecPoker'));
 			$this->fail(t("He will be granted the option to .send a gift. in return."), t('SpecPoker'));
 
+			//Bug
+			$this->fail(t("A user can't buy an item if he doesn't have enough chips"), t('SpecPoker'));
 
 
 			//			$this->fail(t(""), t('SpecPoker'));
