@@ -2449,7 +2449,7 @@ ul.categories li a span
 
 #table_users .next
 {
-	background:transparent url(images/user_table_next.png) no-repeat bottom right;
+	background:transparent url(images/user-table-next.gif) no-repeat bottom right;
 	width:15px;
 	height:215px;
 	float:left;
@@ -2457,7 +2457,7 @@ ul.categories li a span
 
 #table_users .previous
 {
-	background:transparent url(images/user_table_prev.png) no-repeat bottom left;
+	background:transparent url(images/user-table-prev.gif) no-repeat bottom left;
 	width:13px;
 	height:215px;
 	float:left;
@@ -2929,39 +2929,7 @@ width:87px;
 }
 
 /*
-** Home Promotion
-*/
-
-#home_promotion
-{
-	margin-top:15px;
-}
-
-#home_promotion .next
-{
-	background:transparent url(images/news_next.png) no-repeat right center;
-	width:15px;
-	height:100px;
-}
-
-#home_promotion .previous
-{
-	background:transparent url(images/news_prev.png) no-repeat left center;
-	width:13px;
-	height:100px;
-}
-
-#home_promotion .middle
-{
-	height:100px;
-	width:300px;
-	background-color:gray;
-}
-
-
-
-/*
-** Home Promotion 1
+** Home Promotions
 */
 
 #home_promotion_1
@@ -2969,61 +2937,43 @@ width:87px;
  margin-top: 10px;
 }
 
-#home_promotion_1 .list
-{
-	height:100px;
-	width:300px;
-	background:transparent url(images/home_promotion_1.jpg) repeat-x;
-	float:left;
-	overflow:hidden;
-}
-
-#home_promotion_1 .next
-{
-	background:transparent url(images/home_promotion_1_arrow_right.png) no-repeat bottom right;
-	width:15px;
-	height:80px;
-	float:left;
-}
-
-#home_promotion_1 .previous
-{
-	background:transparent url(images/home_promotion_1_arrow_left.png) no-repeat bottom left;
-	width:13px;
-	height:80px;
-	float:left;
-}
-
-
-/*
-** Home Promotion 2
-*/
-
 #home_promotion_2
 {
  margin-top: 15px;
 }
 
-#home_promotion_2 .list
+#home_promotion_1 .list, #home_promotion_2 .list
 {
-	height:100px;
+  height:100px;
 	width:300px;
-	background:transparent url(images/home_promotion_2.jpg) repeat-x;
+  background-color: transparent;
+  background-repeat: repeat-x;
+
 	float:left;
 	overflow:hidden;
 }
 
-#home_promotion_2 .next
+#home_promotion_1 .list
 {
-	background:transparent url(images/home_promotion_2_arrow_right.png) no-repeat bottom right;
+	background-image: url(images/home_promotion_1.jpg);
+}
+
+#home_promotion_2 .list
+{
+	background-image: url(images/home_promotion_2.jpg);
+}
+
+#home_promotion_1 .next, #home_promotion_2 .next
+{
+	background:transparent url(images/home_promotion_arrow_right.gif) no-repeat bottom right;
 	width:15px;
 	height:80px;
 	float:left;
 }
 
-#home_promotion_2 .previous
+#home_promotion_1 .previous, #home_promotion_2 .previous
 {
-	background:transparent url(images/home_promotion_2_arrow_left.png) no-repeat bottom left;
+	background:transparent url(images/home_promotion_arrow_left.gif) no-repeat bottom left;
 	width:13px;
 	height:80px;
 	float:left;
