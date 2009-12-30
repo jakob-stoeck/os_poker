@@ -19,6 +19,11 @@
 				<div class="label"><?php print t("Buy Gift"); ?></div>
 				<div class="user_login_clear"></div>
 			</div>
+      <div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/report_abuse/" . array('query' => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
+        <div class="pre">&nbsp;</div>
+        <div class="label"><?php print t("Report abuse"); ?></div>
+        <div class="user_login_clear"></div>
+      </div>
 			<?php if ($external == TRUE && !$target_user->profile_ignore_buddy) { 
 				
 				$buddies = $current_user->Buddies();

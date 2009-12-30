@@ -26,6 +26,13 @@ function os_poker_report_abuse_form($form_state, $reported) {
       '#type' => 'submit',
       '#value' => t('Report abuse'),
     ),
+    'cancel' => array(
+      '#type' => 'submit',
+      '#value' => t('Cancel'),
+      '#attributes' => array(
+        'class' => 'tb_remove',
+      ),
+    ),
     '#reporter' => $user,
     '#reported' => $reported,
   );
@@ -37,19 +44,22 @@ function os_poker_report_abuse_form_validate($form, &$form_state) {
 }
 
 function os_poker_report_abuse_form_submit($form, &$form_state) {
-  $to = variable_get('os_poker_abuse_mail_to', 1);
-  if(is_numeric($to)) {
-    $to = user_load($to)->mail;
+  $op = isset($form_state['values']['op']) ? $form_state['values']['op'] : '';
+  if($op == t('Report abuse')) {
+    $to = variable_get('os_poker_abuse_mail_to', 1);
+    if(is_numeric($to)) {
+      $to = user_load($to)->mail;
+    }
+    $account = $form['#reporter'];
+    $from = ($account->profile_nickname ? $account->profile_nickname : $account->name) . '<'. $account->mail .'>';
+    $params = array(
+      'reason' => $form['reason']['#options'][reset(array_filter($form_state['values']['reason']))],
+      'details' => $form_state['values']['details'],
+      'reporter' => $form['#reporter'],
+      'reported' => $form['#reported'],
+    );
+    drupal_mail('os_poker', 'abuse', $to, user_preferred_language($account), $params, $from);
+    drupal_set_message(t('Your message has been sent.'));
   }
-  $account = $form['#reporter'];
-  $from = ($account->profile_nickname ? $account->profile_nickname : $account->name) . '<'. $account->mail .'>';
-  $params = array(
-    'reason' => $form['reason']['#options'][reset(array_filter($form_state['values']['reason']))],
-    'details' => $form_state['values']['details'],
-    'reporter' => $form['#reporter'],
-    'reported' => $form['#reported'],
-  );
-  drupal_mail('os_poker', 'abuse', $to, user_preferred_language($account), $params, $from);
-  drupal_set_message('Abuse report sent.');
 }
 ?>
