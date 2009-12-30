@@ -5,4 +5,6 @@ syntax: glob
 .buildpath
 .project
 .settings
+nbproject
+modules/devel
 #*#

@@ -133,6 +133,23 @@ print theme('pager', NULL, $items_per_page);
 		
 		print theme('poker_error_message', $error_message);
 	?>
+
+<div class="BannerTop">
+  <?php if ($current_user->CanDailyGift()) { ?>
+								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
+		     <?php } else { ?>
+			       <img src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
+		     <?php } ?>
+
+</div>
+<div class="BannerBottom">
+ <a title="" href="?q=poker/buddies/invite">
+  <img alt="" src="sites/all/themes/poker/images/banner_invite_more_friends.jpg"/>
+ </a>
+</div>
+
+<div class="clear"></div>
+
 <?php endif; ?> 
 
 </div>

@@ -217,51 +217,23 @@ div.poker_error_message .msg a
 	position:absolute;
 }
 
-#main #messages div.messages
+.messages-popup
 {
-    display: none;
-}
-
-#messages
-{
-    display: none;
-}
-
-.front #main #messages div.messages
-{
-    display: block;
-}
-.front #messages
-{
-    display: block;
-}
-.logged-in #messages
-{
-    display: none;
-}
-
-
-.page-admin #TB_overlay
-{
- display: none;
-}
-.page-admin #TB_window
-{
- display: none;
-}
-.page-admin #TB_ajaxContent
-{
- display: none;
-}
-
-#messages_popup 
-{
-    width: 501px;
-    height: 256px;
+    width: 278px !important;
+    height: 256px !important;
+		padding-top: 30px !important;
+		padding-bottom: 10px !important;
+		padding-right: 10px !important;
+		padding-left: 208px !important;
     background: transparent url("images/bg_confirm_black.png") top left no-repeat;
 }
 
-#messages_popup a.LayerClose
+.messages-popup .content {
+	height: 206px;
+	overflow: auto;
+}
+
+.messages-popup .close
 {
 	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
 	display:block;
@@ -272,27 +244,16 @@ div.poker_error_message .msg a
 	width:20px;	
 	z-index:777;
 	text-decoration:none;
+	text-indent: -10000px;
 }
 
-#messages_popup  div.error
-{
-    border: none;
-}
-
-#messages_popup  div.messages
+.messages-popup  div.messages
 {
     background: none;
+		border: 0;
     color: white;
     text-align: left;
-    position: absolute;
-    left: 260px;
-    top: 160px;
-    width: 220px;
-    height: 80px;
-    overflow: hidden;
 }
-
-
 
 #messages_popup_ajax
 {
@@ -1291,6 +1252,7 @@ div#buddylist .buddy_list_placeholder .body a
     color: #FFFFFF;
     font-weight:bold;
 }
+
 
 div#buddylist  #today_gift
 {
@@ -2662,7 +2624,7 @@ ul.categories li a span
 	border-top: #810E0B dotted 1px;
 	border-bottom: #810E0B dotted 1px;
 	height:308px;
-	margin-top:4px;
+	margin-top: 4epx;
 	padding-top:3px;
 }
 
@@ -3659,6 +3621,60 @@ color:#65625D;
  clear: both;
 }
 
+/**
+ * Global rules for all poker pages.
+ * TODO: Clean poker pages markup to use these rules instead of page specific
+         ones. See for instance the rules to style the poker/messagebox with
+         the #messagebox selector.
+ */
+.page-poker
+{
+  background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
+}
 
-/**/
+.page-poker #content-header .title-wrapper
+{
+	background-color: transparent;
+  background-image: url(images/bg_titlebar.gif);
+  background-repeat: repeat-x;
+  background-position: top left;
+	height:20px;
+	padding-top:3px;
+  padding-left:5px;
+}
 
+
+.page-poker #content-header .title-wrapper h1
+{
+  color: white;
+	font-size:11px;
+	font-weight:bold;
+}
+
+body.page-poker #content-header .title-wrapper a.LayerClose
+{
+  background-image: url(images/button_layerclose2.gif);
+  top: 1px;
+  right: 1px;
+}
+
+/*
+ * Padding on ALL poker pages should done with rules using a generic selector.
+ * Until then, we can rely on adding margin to know element to avoid messing
+ * with page using specific rules.
+ */
+
+.page-poker #content-header .title-wrapper
+{
+  /*Pages using specific markup don't use the .poker-title-wrapper element*/
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#os-poker-report-abuse-form
+{
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

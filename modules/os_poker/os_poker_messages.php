@@ -152,9 +152,7 @@ function	os_poker_process_message()
 					if ($target_user && $target_user->uid != 0 && $current_user->uid != $target_user->uid)
 					{
 						//Wait for symbol, text, link
-						/*						$args["symbol"] = 'chips';*/
-						/* cmirey: temporarily replaced, guess symbol system was going to be modified ? */
-						$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+						$args["symbol"] = 'chips';
 						$args["text"] = t("You just receive a headsup challenge from !user", array("!user" => $current_user->profile_nickname));
 						$args["links"] = "<a class='noreplace' href='javascript:void(0);' onclick='javascript:parent.os_poker_start_challenge(" . $current_user->uid . ", " . $target_user->uid. ");'>" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
 
@@ -181,9 +179,7 @@ function	os_poker_process_message()
 
 						if (count($tables) > 0)
 						{
-							/*						$args["symbol"] = 'chips';*/
-							/* cmirey: temporarily replaced, guess symbol system was going to be modified ? */
-							$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_chips.gif";
+							$args["symbol"] ='chips';
 							$args["text"] = t("!user is playing at table !table come and join", array("!user" => $current_user->profile_nickname, "!table" => $tables[0]->name));
 
 							//TODO : Check $_GET["online"] to send mail

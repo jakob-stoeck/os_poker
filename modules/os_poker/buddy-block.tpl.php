@@ -35,7 +35,19 @@
 		</div>
 		<?php if (!$hide_links) { ?>
 		<div class="buddy_list_links">
+		      <?php
+		      if ($buddy->Online())
+			{
+		      ?>
 			<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_challenge_user', challengetarget: <?php print $buddy->uid; ?>});"><?php print t("Challenge"); ?>&nbsp;&gt;&gt;</a><br/>
+		      <?php
+			}
+		      else
+			{
+			  print "<span class='nolink'>".t("Challenge")."&nbsp;&gt;&gt;</span><br/>";
+			}
+		      ?>
+
 			<?php
 			
 				if ($buddy->Online())

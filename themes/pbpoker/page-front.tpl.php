@@ -85,12 +85,43 @@
   <?php print $head; ?>
   <?php print $styles; ?>
   <?php print $scripts; ?>
-
 </head>
 
-<body class="iframe <?php print $body_classes; ?>">
+<body class="<?php print $body_classes; ?>">
   <div id="page">
 	<div id="page-inner">
+
+    <div id="header">
+		<div id="header-inner" class="clear-block">
+			<?php if ($logo): ?>
+				<div id="logo">
+					<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
+						<img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" id="logo-image" />
+					</a>
+				</div>
+			<?php endif; ?>
+
+			<?php if ($header): ?>
+				<div id="header-blocks" class="region region-header">
+				  <?php print $header; ?>
+				</div> <!-- /#header-blocks -->
+			<?php endif; ?>
+			<div class="clear"></div>
+		</div>
+	</div> <!-- /#header-inner, /#header -->
+
+	<?php if ($navbar): ?>
+	<div id="navbar">
+		<div id="navbar-inner" class="clear-block region region-navbar">
+			<a name="navigation" id="navigation"></a>
+
+			<?php if ($navbar): ?>
+				  <?php print $navbar; ?>
+			<?php endif; ?>
+
+		</div>
+	</div> <!-- /#navbar-inner, /#navbar -->
+	<?php endif; ?>
 
     <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >
 		<div id="main-inner" class="clear-block<?php if ($navbar) { print ' with-navbar'; } ?>">
@@ -106,7 +137,7 @@
 					<?php print $top_content; ?>
 					</div> <!-- /#content-top -->
 				<?php endif; ?>
-				
+
 				<?php if (($logged_in || !$is_front) && $messages) : ?>
 				<div id="messages">
 					<?php print $messages; ?>
@@ -114,14 +145,11 @@
 				<?php endif; ?>
 
 			<?php if (!$is_front) : ?>
-			
+
 				<?php if ($title || $tabs || $help): ?>
 					<div id="content-header">
 						<?php if ($title): ?>
-            <div class="title-wrapper">
 							<h1 class="title"><?php print $title; ?></h1>
-              <a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
-            </div>
 						<?php endif; ?>
 						<?php if ($tabs): ?>
 							<div class="tabs">
@@ -139,9 +167,9 @@
 				<?php if ($feed_icons): ?>
 				<div class="feed-icons"><?php print $feed_icons; ?></div>
 				<?php endif; ?>
-				
+
 			<?php else : ?>
-			
+
 				<?php if ($middle_content_left || $middle_content_right || (!$logged_in && $messages)) : ?>
 				<div id="middle-content">
 					<?php if ($middle_content_left) : ?>
@@ -168,19 +196,51 @@
 					<?php endif; ?>
 				</div>
 				<?php endif; ?>
-				
+
 				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
 				<?php print $bottom_content; ?>
+
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>
-				
+
 			<?php endif; ?>
 
 			</div></div> <!-- /#content-inner, /#content -->
 		</div>
 	</div> <!-- /#main-inner, /#main -->
 
+    <?php if ($footer || $footer_message): ?>
+      <div id="footer"><div id="footer-inner" class="region region-footer">
+
+        <?php if ($footer_message): ?>
+          <div id="footer-message"><?php print $footer_message; ?></div>
+        <?php endif; ?>
+
+        <?php print $footer; ?>
+
+      </div></div> <!-- /#footer-inner, /#footer -->
+    <?php endif; ?>
+
+	<?php if ($left): ?>
+		<div id="sidebar-left"><div id="sidebar-left-inner" class="region region-left">
+			<?php print $left; ?>
+		</div></div> <!-- /#sidebar-left-inner, /#sidebar-left -->
+	<?php endif; ?>
+
+	<?php if ($right): ?>
+		<div id="sidebar-right"><div id="sidebar-right-inner" class="region region-right">
+			<?php print $right; ?>
+		</div></div> <!-- /#sidebar-right-inner, /#sidebar-right -->
+	<?php endif; ?>
+
+  </div></div> <!-- /#page-inner, /#page -->
+
+  <?php if ($closure_region): ?>
+    <div id="closure-blocks" class="region region-closure"><?php print $closure_region; ?></div>
+  <?php endif; ?>
+
+  <?php print $closure; ?>
 
 </body>
 </html>
