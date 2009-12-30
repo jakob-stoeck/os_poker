@@ -1,3 +1,24 @@
+/**
+ * Drop call of tb_init('a.thickbox, area.thickbox, input.thickbox') on page load
+ * in any nested (i)frame. Yes this is an ugly hack. But its needed since
+ * thickbox is so unflexible.
+ */
+if(window != window.top) {
+  //Everything is wrapped in an anynmous function to avoid pollution of the
+  //global namespace.
+  (function($){
+    //put the original tb_init function in a variable
+    var original = window.tb_init;
+    //replace it with a wrapper function
+    window.tb_init = function(domChunck) {
+      if(domChunck != 'a.thickbox, area.thickbox, input.thickbox') {
+        //this is not the document.ready call: execute the original tb_init
+        original.apply(this, arguments);
+      }
+    }
+  })(jQuery);
+}
+
 Drupal.behaviors.os_poker = function(context) {
   //A counter incremented for each call of this function
   var call_counter= arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
