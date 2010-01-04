@@ -50,7 +50,7 @@ module("os_poker_messages", {
 	    ajax.jquery_ajax = $.ajax;
 	    $.ajax = ajax;
 		
-		var  os_poker_site_root = function() { return 'http://drupal-dev.pokersource.info/drupal6/'; };
+		var  os_poker_site_root = function() {return 'http://drupal-dev.pokersource.info/drupal6/';};
 		
 		os_poker_bind_message('bar', undefined, function(event, arg) {
 			equals(event.type, 'bar', 'bar event triggered');
@@ -155,18 +155,35 @@ test("event os_poker_update_chips", function() {
 	equals($("b.chips").text(), "$ 1,000", "Event received, number formated and updated");
 });
 
-module('Message in Thickbox', {
+module('Drupal.behaviors.os_poker', {
+  setup: function(){
+    //mockup function for Thickbox
+    window.tb_show = window.tb_remove = window.tb_init = function(){};
+  },
+  teardown: function(){}
+});
+
+test('should not thrown an uncaught exception when an expected element is missing', 1, function(){
+  try {
+    Drupal.behaviors.os_poker($('<div></div>')[0]);
+    ok(true, 'no uncaught exception thrown');
+  } catch (exception) {
+    ok(false, 'uncaught exception thrown');
+  }
+})
+
+module('Drupal.behaviors.os_poker', {
   setup: function(){
     this.tb_remove = this.tb_show = 0;
     var testContext = this;
-    //create mockup functions 
+    //create mockup functions for thickbox
     window.tb_show = function(){
       testContext.tb_show += 1;
     };
     window.tb_remove = function() {
       testContext.tb_remove += 1;
     }
-    window.os_poker_input_file_style = window.tb_init = function(){};
+    window.tb_init = function(){};
     //create Drupal-like HTML message markup
     $('#main').append('<div class="messages status"><ul><li>First status message</li><li>Second status message</il></ul></div>');
     $('#main').append('<div class="messages error"><ul><li>First error message</li><li>Second error message</il></ul></div>');
@@ -181,8 +198,8 @@ module('Message in Thickbox', {
   }
 });
 asyncTest('status messages are shown in a thickbox', 6, function(){
-  Drupal.behaviors.os_poker(document);
-  Drupal.behaviors.os_poker(document); //This second call is intentional to check the behavior does not process the same element twice
+  Drupal.behaviors.os_poker($('#main')[0]);
+  Drupal.behaviors.os_poker($('#main')[0]); //This second call is intentional to check the behavior does not process the same element twice
   equals($('.messages-popup').length, 1, 'a unique message popup container should be created');
   ok($('.messages-popup .messages.status').length, 'the popup container should contain the status messages');
   ok($('.messages-popup .messages.warning').length, 'the popup container should contain the error messages');
@@ -198,7 +215,7 @@ asyncTest('status messages are shown in a thickbox', 6, function(){
 });
 asyncTest('status messages are not shown in a thickbox on administration page', 2, function(){
   $(document.body).addClass('page-admin');
-  Drupal.behaviors.os_poker(document);
+  Drupal.behaviors.os_poker($('#main')[0]);
   $(document.body).removeClass('page-admin');
   ok(!$('.messages-popup').length, 'no message popup container should be created');
   var testContext = this;

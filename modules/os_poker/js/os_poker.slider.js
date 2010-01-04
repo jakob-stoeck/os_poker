@@ -6,9 +6,11 @@ function	os_poker_slider_reset(elem)
 	
 	var children = elem.children(":visible");
 	var fc = children.get(0);
-	var step = $(fc).innerWidth( );
-	var vis = children.length * step;
-	elem.css("width", vis + "px");
+  if(fc) {
+    var step = $(fc).innerWidth( );
+    var vis = children.length * step;
+    elem.css("width", vis + "px");
+  }
 }
 
 /*
