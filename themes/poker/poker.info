@@ -12,6 +12,8 @@ datestamp = "1257345348"
 stylesheets[all][]   = poker.css
 stylesheets[print][] = print.css
 
+scripts[] = poker.js
+
 regions[header]         		= header
 regions[navbar]         		= navigation bar
 regions[left]           		= left sidebar

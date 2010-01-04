@@ -114,34 +114,26 @@ function poker_preprocess_user_login_block(&$variables)
 
 
 function poker_status_messages($display = NULL) {
+  $thickbox = arg(0) !== 'admin';
   $output = '';
   foreach (drupal_get_messages($display) as $type => $messages) {
     $output .= "<div class=\"messages $type\">\n";
-    if ($type == "error") {
-      $output .= "<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>";
-      foreach ($messages as $message) {
-        $output .= '<div class="ErrorList">'. $message ."</div>\n";
-      }
+    if($thickbox && $type == "error") {
+      $output .= '<span class="header"><strong>'.t('Sorry!').'</strong> '.format_plural(count($messages), 'An error occured', 'Errors occured').":</span>";
     }
-    else if ($type == "status") {
-      $output .= "<div class='DialogPos'><span class='DialogText'>";
+    if (($count = count($messages)) > 1) {
+      $output .= " <ul>\n";
+      $idx = 0;
       foreach ($messages as $message) {
-        $output .= $message ."<br/>\n";
+        $output .= '  <li>'. $message ."</li>\n";
+        $idx++;
       }
-      $output .= "</span></div><a class=\"ButtonConfirmYes close\">OK</a>";
+      $output .= " </ul>\n";
     }
     else {
-      if (count($messages) > 1) {
-        $output .= " <ul>\n";
-        foreach ($messages as $message) {
-          $output .= '  <li>'. $message ."</li>\n";
-        }
-      $output .= " </ul>\n";
-      }
-      else {
-        $output .= $messages[0];
-      }
+      $output .= $messages[0];
     }
+    
     $output .= "</div>\n";
   }
   return $output;
