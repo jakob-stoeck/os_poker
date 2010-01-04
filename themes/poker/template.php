@@ -117,34 +117,31 @@ function poker_status_messages($display = NULL) {
   $output = '';
   foreach (drupal_get_messages($display) as $type => $messages) {
     $output .= "<div class=\"messages $type\">\n";
-    if ($type == "error")
-      {
-	$output .= "<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>";
-	foreach ($messages as $message) {
-	  $output .= '<div class="ErrorList">'. $message ."</div>\n";
-	}
+    if ($type == "error") {
+      $output .= "<div class='ErrorText'><h2>Sorry!</h2>An Error occured:<br/></div>";
+      foreach ($messages as $message) {
+        $output .= '<div class="ErrorList">'. $message ."</div>\n";
       }
-    else if ($type == "status")
-      {
-	$output .= "<div class='DialogPos'><span class='DialogText'>";
-	foreach ($messages as $message) {
-	  $output .= $message ."<br/>\n";
-	}
-	$output .= "</span></div><a class=\"ButtonConfirmYes\" onclick=\"javascript:$('.LayerClose').click();\" href=\"javascript:void(0);\">OK</a>";
+    }
+    else if ($type == "status") {
+      $output .= "<div class='DialogPos'><span class='DialogText'>";
+      foreach ($messages as $message) {
+        $output .= $message ."<br/>\n";
       }
-    else
-      {
-	if (count($messages) > 1) {
-	  $output .= " <ul>\n";
-	  foreach ($messages as $message) {
-	    $output .= '  <li>'. $message ."</li>\n";
-	  }
-	  $output .= " </ul>\n";
-	}
-	else {
-	  $output .= $messages[0];
-	}
+      $output .= "</span></div><a class=\"ButtonConfirmYes close\">OK</a>";
+    }
+    else {
+      if (count($messages) > 1) {
+        $output .= " <ul>\n";
+        foreach ($messages as $message) {
+          $output .= '  <li>'. $message ."</li>\n";
+        }
+      $output .= " </ul>\n";
       }
+      else {
+        $output .= $messages[0];
+      }
+    }
     $output .= "</div>\n";
   }
   return $output;
