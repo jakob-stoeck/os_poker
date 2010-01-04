@@ -301,7 +301,6 @@ check active status is always on same item
 			//Bug
 			$this->fail(t("A user can't buy an item if he doesn't have enough chips"), t('SpecPoker'));
 
-
 			//			$this->fail(t(""), t('SpecPoker'));
 
 		}
