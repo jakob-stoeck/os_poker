@@ -25,7 +25,7 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
-	$form_state['values']["name"] = $form_state['values']["mail"];
+	$form_state['values']["username"] = $form_state['values']["mail"];
 	
 	password_policy_password_validate($form, $form_state);
 	user_register_validate($form, $form_state);
