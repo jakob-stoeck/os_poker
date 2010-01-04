@@ -24,10 +24,10 @@ Drupal.behaviors.os_poker = function(context) {
   var call_counter= arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
   
   if(call_counter == 0 && !$(document.body).hasClass('page-poker')) {
-    os_poker_input_file_style();
-    os_poker_message_start();
-    os_poker_init_events();
-    os_poker_init_menu();
+    if(typeof os_poker_input_file_style === 'function') os_poker_input_file_style();
+    if(typeof os_poker_message_start === 'function') os_poker_message_start();
+    if(typeof os_poker_init_events === 'function') os_poker_init_events();
+    if(typeof os_poker_init_menu === 'function') os_poker_init_menu();
   }
   
   //Register slider handler for the Buddy List's panel
