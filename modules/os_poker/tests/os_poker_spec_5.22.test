@@ -100,6 +100,8 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
    * * The verification is done through these steps:
    *  - go to second user profile
    *  - verify that there is a request buddy relationship button
+   *  - click the buddy relationship button
+   *  - verify that a buddy request was sent
    *  - create a buddy relationship between first and second users
    *  - go to the second user profile
    *  - verify that there is no request buddy relationship button
@@ -112,17 +114,19 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
    */
   function testBuddyRequestButton() {
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
-    $this->assertText(self::REQUEST_LINK, t('From medium profile a buddy request can be started'), t('SpecPoker'));
+    $this->assertRaw(self::REQUEST_LINK, t('From medium profile a buddy request can be started'), t('SpecPoker'));
+    $this->drupalPost(NULL, array(), 'Add Buddy');
+    $this->assertText(t('Your buddy request has been sent to !requestee.', array('%relationship_name' => 'buddy', '!requestee' => $this->users[1]->name)));
     $this->OsPokerCreateBuddyRelationShip($this->users[0], $this->users[1]);
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
-    $this->assertNoText(self::REQUEST_LINK, t('the button is only shown on profiles of players who are not buddies yet'), t('SpecPoker'));
+    $this->assertNoRaw(self::REQUEST_LINK, t('the button is only shown on profiles of players who are not buddies yet'), t('SpecPoker'));
     $this->users[2] = $this->drupalCreateUser();
     $this->OsPokerLogin($this->users[2], array('profile_nickname' => $this->users[2]->name));
     $this->drupalPost('poker/profile/settings', array('profile_options[profile_ignore_buddy]' => '1'), t("Send"));
-	$this->drupalLogout();
+	  $this->drupalLogout();
     $this->drupalLogin($this->users[0]);
     $this->drupalGet('poker/profile/medium/'.$this->users[2]->uid);
-    $this->assertNoText(self::REQUEST_LINK, t("and who didn't forbid buddy requests in their settings"), t('SpecPoker'));
+    $this->assertNoRaw(self::REQUEST_LINK, t("and who didn't forbid buddy requests in their settings"), t('SpecPoker'));
   }
   
   /**

@@ -303,13 +303,17 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
   function OsPokerCreateBuddyRelationShip($user1, $user2) {
     static $buddy_rtid;
-    if(!isset($relationship_type)) {
+    if(!isset($buddy_rtid)) {
       $buddy_rtid = user_relationships_type_load(array("name" => "buddy"))->rtid;
     }
-    $relationship = new stdClass();
-    $relationship->requester_id = $user1->uid;
-    $relationship->requestee_id = $user2->uid;
-    $relationship->rtid =  $buddy_rtid;
+    if(count($relationships = user_relationships_load(array("between" => array($user1->uid, $user2->uid), 'rtid' => $rtid))) == 0) {
+      $relationship = new stdClass();
+      $relationship->requester_id = $user1->uid;
+      $relationship->requestee_id = $user2->uid;
+      $relationship->rtid =  $buddy_rtid;
+    } else {
+      $relationship = reset($relationships);
+    }
     $this->assertTrue(user_relationships_save_relationship($relationship, 'approve'), t('Buddy relationship created between %user1 and %user2', array(
       '%user1' => $user1->name,
       '%user2' => $user2->name,
