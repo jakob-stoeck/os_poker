@@ -40,7 +40,7 @@ Drupal.behaviors.os_poker = function(context) {
   });
   
   //Show status message in a thickbox when not on admin pages
-  if (!$(document.body).hasClass('page-admin')) {
+  if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
       var id = 'messages-popup-' + call_counter;

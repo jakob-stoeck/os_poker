@@ -213,8 +213,8 @@ asyncTest('status messages are shown in a thickbox', 6, function(){
   }, 0);
   
 });
-asyncTest('status messages are not shown in a thickbox on administration page', 2, function(){
-  $(document.body).addClass('page-admin');
+asyncTest('status messages are not shown if Drupal.settings.os_poker.inline_messages is set to TRUE', 2, function(){
+  Drupal.settings.os_poker = {inline_messages: true};
   Drupal.behaviors.os_poker($('#main')[0]);
   $(document.body).removeClass('page-admin');
   ok(!$('.messages-popup').length, 'no message popup container should be created');
