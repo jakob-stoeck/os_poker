@@ -1079,11 +1079,15 @@ function os_poker_add_buddy_button(&$form_state, $requestee_uid) {
   if(!isset($form_state['rtid'])) {
     $form_state['rtid'] = user_relationships_type_load(array("name" => "buddy"))->rtid;
   }
+  //Save the original page title (as it will be overriden by user_relationships_ui_request)
+  $title = drupal_get_title();
   //Get the relationship request form
   $form = user_relationships_ui_request($form_state, $requestee);
   if(isset($form['error'])) {
     return array();
   }
+  //Restore page tile
+  drupal_set_title($title);
   //Set 'confirmation' button label
   $form['actions']['submit']['#value'] = t('Add Buddy');
   //Remove cancel button
