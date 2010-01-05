@@ -31,17 +31,7 @@
 				$buddies = $current_user->Buddies();
 				if (!in_array($target_user->uid, $buddies) && !$current_user->BuddyRequested($target_user->uid)) {
 			?>
-			<div id="user_relationships_popup_form" class="user_relationships_ui_popup_form" style="width:282px;"></div>
-			<div class="poker_submit">
-				<div class="pre">&nbsp;</div>
-				<div class="label">
-				<a class="user_relationships_popup_link" href="<?php print url("relationship/" . $target_user->uid . "/request/" . $current_user->uid, array("query" => array("destination" => "poker/profile/medium/" . $target_user->uid))); ?>">
-					<?php print t("Add Buddy"); ?>
-				</a>				
-				</div>
-				<div class="user_login_clear"></div>
-			</div>
-
+      <?php print drupal_get_form('os_poker_add_buddy_button', $target_user->uid); ?>
 			<?php } } ?>
 		</div>
 		<div class="info fleft">

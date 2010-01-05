@@ -1064,3 +1064,34 @@ function os_poker_mail($key, &$message, $params) {
       break;
   }
 }
+
+/**
+ * A single button form to request a buddy relationship without any intermediate
+ * confirmation dialog.
+ *
+ * Internaly, it use the relationship request (confirmation) form provided by
+ * the User relationships UI.
+ */
+function os_poker_add_buddy_button(&$form_state, $requestee_uid) {
+  module_load_include('inc', 'user_relationships_ui', 'user_relationships_ui.forms');
+  $requestee = user_load($requestee_uid);
+  //Set the relation type for the relationship request form
+  if(!isset($form_state['rtid'])) {
+    $form_state['rtid'] = user_relationships_type_load(array("name" => "buddy"))->rtid;
+  }
+  //Get the relationship request form
+  $form = user_relationships_ui_request($form_state, $requestee);
+  if(isset($form['error'])) {
+    return array();
+  }
+  //Set 'confirmation' button label
+  $form['actions']['submit']['#value'] = t('Add Buddy');
+  //Remove cancel button
+  unset($form['actions']['cancel']);
+  //Remove description text
+  unset($form['description']);
+  //Set validation and submit hanlders
+  $form['#validate'] = array('user_relationships_ui_request_validate');
+  $form['#submit'] = array('user_relationships_ui_request_submit');
+  return $form;
+}
