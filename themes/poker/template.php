@@ -138,3 +138,25 @@ function poker_status_messages($display = NULL) {
   }
   return $output;
 }
+/**
+ * Override theme_button()
+ */
+function poker_button($element) {
+  if (isset($element['#attributes']['class'])) {
+    $element['#attributes']['class'] = 'poker_submit form-submit form-'. $element['#button_type'] .' '. $element['#attributes']['class'];
+  }
+  else {
+    $element['#attributes']['class'] = 'poker_submit form-submit form-'. $element['#button_type'];
+  }
+  $output[] = $element['#prefix'];
+  $output[] = '<div id="'. $element['#id'] . '" ' . drupal_attributes($element['#attributes']).'">';
+  $output[] = '<div class="pre">&nbsp;</div>';
+	$output[] = '<div class="label">';
+	$output[] = '<input type="submit" '. (empty($element['#name']) ? '' : 'name="'. $element['#name'] .'" ') .'" value="'. check_plain($element['#value']) .'"/>';
+	$output[] = '</div>';
+	$output[] = '<div class="user_login_clear"></div>';
+	$output[] = '</div>';
+  $output[] = $element['#suffix'];
+
+  return implode("\n", $output);
+}
