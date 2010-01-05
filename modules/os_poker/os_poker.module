@@ -691,8 +691,44 @@ function os_poker_menu()
       'file' => 'os_poker.admin.php',
       'access arguments' => array('administer os poker'),
     ),
+    'poker/closebox' => array(
+      'title' => '',
+      'type' => MENU_CALLBACK,
+      'access callback'  => MENU_FOUND,
+      'page callback' => 'os_poker_closebox_page',
+    )
   );
 	return $menu;
+}
+
+/**
+ * Special page to close the thickbox opening it. Drupal's messages are
+ * retrieved and pushed to the #messages container in window.top.
+ *
+ * As fallback, the page also redirect to <front> page. But Drupal's messages
+ * are lost.
+ */
+function os_poker_closebox_page() {
+  $front = url('<front>');
+  drupal_set_message('test');
+  $messages = json_encode(theme('status_messages'));
+  print <<<EOT
+  <html><head><script type="text/javascript">
+  <!--//--><![CDATA[//><!--
+    $ = window.top.jQuery;
+    var m = $('#messages');
+    if(m.length == 1) {
+      m.html($messages);
+    }
+    if(typeof window.top.tb_remove === 'function') {
+      window.top.tb_remove();
+    }
+    else {
+      window.top.location = $front;
+    }
+    //--><!]]>
+  </script></head></html>
+EOT;
 }
 
 /**
