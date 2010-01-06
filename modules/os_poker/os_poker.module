@@ -220,10 +220,15 @@ function os_poker_init()
 		}
 	}
 
-  //TODO: Use configurable path (like block visibility)
-  if(arg(0) == 'admin' || (arg(0) == 'poker' && arg(1) == 'forgot-password')) {
+  if(os_poker_inline_messages()) {
     drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
   }
+}
+
+function os_poker_inline_messages(){
+  return arg(0) == 'admin'
+  || (arg(0) == 'poker' && arg(1) == 'forgot-password')
+  || (!user_is_logged_in() && drupal_is_front_page());
 }
 
 /**
