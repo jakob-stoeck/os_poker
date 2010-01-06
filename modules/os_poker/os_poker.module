@@ -764,7 +764,7 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 								'info'       => t('Poker : Open Social header user brief'),
 								'weight'	=> -2,
 								'region'	=> "header",
-								'cache'		=> BLOCK_CACHE_PER_USER,
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[1] = array(
 								'info'       => t('Poker : Footer information'),
@@ -794,25 +794,25 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 								'info'       => t('Poker : Open Social user brief'),
 								'weight'	=> -3,
 								'region'	=> "middle content left",
-								'cache'		=> BLOCK_CACHE_PER_USER,
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[6] = array(
 								'info'       => t('Poker : Play now !'),
 								'weight'	=> -4,
 								'region'	=> "middle content right",
-								'cache'		=> BLOCK_CACHE_PER_PAGE,
+								'cache'		=> BLOCK_NO_CACHE,
 								);
 			$blocks[7] = array(
 								'info'       => t('Poker : Home Teaser'),
 								'weight'	=> -1,
 								'region'	=> "middle content left",
-								'cache'		=> BLOCK_CACHE_PER_PAGE,
+								'cache'		=> BLOCK_CACHE_GLOBAL,
 								);
 			$blocks[8] = array(
 								'info'       => t('Poker : Home Signup'),
 								'weight'	=> -5,
 								'region'	=> "middle content right",
-								'cache'		=> BLOCK_CACHE_PER_PAGE,
+								'cache'		=> BLOCK_CACHE_GLOBAL,
 								);
 			$blocks[9] = array(
 								'info'       => t('Poker : News'),
