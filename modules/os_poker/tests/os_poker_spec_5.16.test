@@ -1,0 +1,118 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+
+/**
+ * Spec: 5.16: Report Abuse
+ *
+ * Verify the Report Abuse feature.
+ *
+ * @assert: The medium profile page of a user provides a report abuse button.
+ * @assert: The full profile page of a user provides a report abuse button.
+ * @assert: Clicking the report abuse button opens a thickbox with a form.
+ * @assert: The form offers a list of predefined reason for reporting
+ * @assert: The form offers optional free text space
+ * @assert: The report will be sent by mail to defined address
+ * @assert: The report will be recorded in a data base
+ * @assert: Username and/or id of the reporting user should be added
+ *          automatically
+ *          .
+ */
+class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
+
+  protected $skel_user;
+
+  public static function getInfo() {
+    return array(
+      'name'        => 'OS Poker Report Abuse',
+      'description' => 'Report azbuse test',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    $this->users[0] = $this->OsPokerCreateUserWithProfile();
+    $this->users[1] = $this->OsPokerCreateUserWithProfile();
+    $this->drupalLogin($this->users[0]);
+  }
+
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  /**
+   * Check that:
+   *  - The full profile page of a user provides a report abuse button.
+   *  - Clicking the report abuse button opens a thickbox with a form.
+   *
+   * With the following  steps:
+   *  - Create two users and login as first user (in setUp)
+   *  - Go to the second user full profile page
+   *  - Check for the button
+   */
+  function testButtonOnFullProfile() {
+    $this->drupalGet('poker/profile/full/'.$this->users[1]->uid);
+    $this->assertRaw(t('Report Abuse'), t('The full profile page of a user provides a report abuse button'));
+    //TODO How to cleanly check the (thickboxed) link ?
+  }
+
+  /**
+   * Check that:
+   *  - The medium profile page of a user provides a report abuse button.
+   *  - Clicking the report abuse button opens a thickbox with a form.
+   *
+   * With the following  steps:
+   *  - Create two users and login as first user (in setUp)
+   *  - Go to the second user full profile page
+   *  - Check for the button
+   */
+  function testButtonOnMediumProfile() {
+    $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
+    $this->assertRaw(t('Report Abuse'), t('The full profile page of a user provides a report abuse button'));
+    //TODO How to cleanly check the (thickboxed) link ?
+  }
+
+  /**
+   * Check that:
+   *  - The form offers a list of predefined reason for reporting
+   *  - The form offers optional free text space
+   *  - The report will be sent by mail to defined address
+   *  - The report will be recorded in a data base
+   *  - Username and/or id of the reporting user should be added automatically .
+   *
+   * With the following  steps:
+   *  - Create two users and login as first user (in setUp)
+   *  - Submit the abuse form without selecting any reason
+   *  - Check for error message
+   *  - Submit the abuse report page for the second user
+   *    - Randomly choose a reason from the list
+   *    - Fill the free text with a random string
+   *  - Submit the abuse report page for the second user
+   *    - Randomly choose a reason from the list
+   *    - Dont fill the free text with a random string
+   *  - Check for sent mails for abuse report
+   *  - Check DB for abuse report
+   */
+  function testSubmit() {
+    //TODO
+  }
+}
