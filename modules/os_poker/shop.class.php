@@ -371,6 +371,7 @@ class CShop
                 'type' => 'os_poker_gift',
                 'body' => array(
                   'gift' => $item->name,
+                  'cls' => os_poker_clean_css_identifier($item->name),
                   'to_uid' => $target->uid,
                   'from_uid' => $user->uid,
                 )

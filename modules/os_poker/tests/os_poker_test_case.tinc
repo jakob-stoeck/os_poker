@@ -446,4 +446,61 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     }
   }
 
+  /**
+   * Create a test <em>poker</em> database, loading schema from
+   * usr/share/poker-network/schema.sql. And set the CPoker class to use this
+   * test database.
+   * @return <string> The name of the test poker database.
+   *
+   */
+  function createPokerDatabase() {
+    static $POKER_DB;
+    if(!isset($POKER_DB)) {
+      $POKER_DB = "pythonpokernetworktest";
+      require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+      shell_exec("mysqladmin -f -u root drop $POKER_DB");
+      shell_exec("mysqladmin -u root create $POKER_DB");
+      shell_exec("mysql -u root $POKER_DB < /usr/share/poker-network/schema.sql");
+      global $db_url;
+      if (is_string($db_url)) { $db_url = array('default' => $db_url); } // Thanks Bdragon
+      $db_url[$POKER_DB] = "mysql://root@localhost/$POKER_DB";
+      CPoker::ChangePokerDB($POKER_DB);
+    }
+    return $POKER_DB;
+  }
+
+  /**
+   *
+   * @param <string> $name The name of the table
+   * @return <string> The technical id of the table.
+   */
+  function createPokerTable($name) {
+    $previous_db = db_set_active($this->createPokerDatabase());
+    $sql = "INSERT INTO `pokertables` VALUES (NULL,0,10,0,0,0,0,0,0,60,5,1,'%s','holdem','2-4-limit','default',0)";
+    db_query($sql, $name);
+		$id = db_last_insert_id("pokertables", "serial");
+    db_set_active($previous_db);
+		return $id;
+  }
+
+  /**
+   * Sit a user (player) at the given table.
+   *
+   * @param <object> $user The use to sit a the table
+   * @param <string> $game_id The technical id of the table.
+   */
+  function joinPokerTable($user, $game_id) {
+    $previous_db = db_set_active($this->createPokerDatabase());
+    $sql = "INSERT INTO user2table VALUES (%d, %d, 0, 0)";
+    db_query($sql, $user->uid, $game_id);
+    db_set_active($previous_db);
+
+    $tables  = CUserManager::instance()->User($user->uid)->Tables();
+    foreach($tables as $k => $table) {
+      $tables[$k] = $table->serial;
+    }
+    $this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
+    $users_at_table = CPoker::UsersAtTable($game_id);
+    $this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+ }
 }

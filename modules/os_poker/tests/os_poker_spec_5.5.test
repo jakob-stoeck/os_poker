@@ -72,18 +72,24 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
   function tearDown() {
     parent::tearDown();
   }
-
-
-
+  
+  function insertShopItemsAndCategories() {
+    $this->assertTrue(db_query("INSERT INTO {poker_item} VALUES (102,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',105674,1,'next monday'),
+							(111,1,'sites/default/files/poker_items/item-1.jpg','TestItem',42,1,'+3 minutes'),
+							(101,1,'sites/default/files/poker_items/item-1.jpg','Beerr',5,1,'+1 minute'),
+							(114,3,'sites/default/files/poker_items/item-2.jpg','Test1',10,1,'+5 minutes'),
+							(115,3,'sites/default/files/poker_items/item-2.jpg','Test2',20,1, '+2 secondes'),
+							(116,4,'sites/default/files/poker_items/item-2.jpg','Sun glasses',100,1,'+2 hour')"), t('Items and categories inserted in database.'));
+  }
+  
   /**
-
    * Verify that virtual goods can be purchased for all users playing
    * at the same table.
    *
    * The verification is done through these steps:
-   * - Create userA
-   * - Create userB
-   * - Create userC
+   * - Get userA (created in setUp)
+   * - Get userB (created in setUp)
+   * - Get userC (created in setUp)
    * - Fill user2table with userA,userB,userC's uid and game_id: 42
    * - Login userA
    * - Open medium profile page for userB
@@ -96,75 +102,61 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
    * - You should see gift X
    *
    */
-
-  function createPokerDatabase() {
-    static $POKER_DB;
-    if(!isset($POKER_DB)) {
-      $POKER_DB = "pythonpokernetworktest";
-      require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-
-      shell_exec("mysqladmin -f -u root drop $POKER_DB");
-      shell_exec("mysqladmin -u root create $POKER_DB");
-      shell_exec("mysql -u root $POKER_DB < /usr/share/poker-network/schema.sql");
-      global $db_url;
-      if (is_string($db_url)) { $db_url = array('default' => $db_url); } // Thanks Bdragon
-      $db_url[$POKER_DB] = "mysql://root@localhost/$POKER_DB";
-    }
-    return $POKER_DB;
-  }
-  
-  function insertShopItemsAndCategories() {
-    db_query("INSERT INTO {poker_item} VALUES (102,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',105674,1,'next monday'),
-							(111,1,'sites/default/files/poker_items/item-1.jpg','TestItem',42,1,'+3 minutes'),
-							(101,1,'sites/default/files/poker_items/item-1.jpg','Beerr',5,1,'+1 minute'),
-							(114,3,'sites/default/files/poker_items/item-2.jpg','Test1',10,1,'+5 minutes'),
-							(115,3,'sites/default/files/poker_items/item-2.jpg','Test2',20,1, '+2 secondes'),
-							(116,4,'sites/default/files/poker_items/item-2.jpg','Sun glasses',100,1,'+2 hour')");
-  }
-
-  function joinPokerTable($user, $game_id) {
-   $previous_db = db_set_active($this->createPokerDatabase());
-    $sql = "INSERT INTO user2table VALUES (%d, %d, 0, 0)";
-    db_query($sql, $user->uid, $game_id);
-    db_set_active($previous_db);
-  }
-  
   function testBuyForTable() {
 	require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
 
-    $userA = $this->drupalCreateUser();
-    $userB = $this->drupalCreateUser();
-    $userC = $this->drupalCreateUser();
+    $userA = $this->users[0];
+    $userB = $this->users[1];
+    $userC = $this->users[2];
 
-    $this->joinPokerTable($userA, 42);
-    $this->joinPokerTable($userB, 42);
-    $this->joinPokerTable($userC, 42);
+    $table_id = $this->createPokerTable('foo');
+    $this->joinPokerTable($userA, $table_id);
+    $this->joinPokerTable($userB, $table_id);
+    $this->joinPokerTable($userC, $table_id);
 
-    $this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
+    $this->drupalLogin($userA);
 
     $this->drupalGet('poker/shop/shop/1/table');
-    $this->assertTrue(TRUE, $this->drupalGetContent());
 
-/* cmirey : completing the process by calling directly GiveItem. */
+    /* cmirey : completing the process by calling directly GiveItem. */
+    CUserManager::instance()->DebugForceCurrentUser($userA->uid);
+    CShop::GiveItem(116, array($userB->uid, $userC->uid), TRUE);
+    CUserManager::instance()->DebugRestoreCurrentUser();
+    CScheduler::instance()->ReloadTasks();
+    CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
+		$messages = CMessageSpool::instance()->Get();
+    $this->assertTrue(in_array(
+      array('type' => 'os_poker_gift', 'body' => array(
+        'gift' => 'Sun glasses',
+        'cls' => 'Sun-glasses',
+        'to_uid' => $userB->uid,
+        'from_uid' => $userA->uid))
+      ,$messages),
+      t('Live message to notify gift to %to from %from found', array('%from' => $userA->uid, '%to' => $userB->uid))
+    );
+    $this->assertTrue(in_array(
+      array('type' => 'os_poker_gift', 'body' => array(
+        'gift' => 'Sun glasses',
+        'cls' => 'Sun-glasses',
+        'to_uid' => $userC->uid,
+        'from_uid' => $userA->uid))
+      ,$messages),
+      t('Live message to notify gift to %to from %from found', array('%from' => $userA->uid, '%to' => $userC->uid))
+    );
+    
+    $test_user = CUserManager::instance()->User($userB->uid);
+    $this->assertTrue($test_user->ActiveItem() >= 0, "One item in userB recent gifts");
 
-		
-	CUserManager::instance()->DebugForceCurrentUser($userA->uid);
-    CShop::GiveItem(111, array($userB->uid, $userC->uid), TRUE);
-	CUserManager::instance()->DebugRestoreCurrentUser();
-
-    $test_user = CUserManager::instance()->User($this->skel_user->uid);
-    $this->assertTrue($test_user->ActiveItem >= 0, "One item in userB recent gifts");
-
-    $this->OsPokerLogin($userB, array('profile_nickname' => 'userB'));
+    $this->drupalLogin($userB);
 
 
     $this->drupalGet('poker/profile');
     $this->assertPattern('/<div class="inner-item-list">.+?<img.+?/siU', 'One recent gift in userB profile page');
 
-    $user = CUserManager::instance()->User($this->skel_user->uid);
-    $this->assertTrue($test_user->ActiveItem >= 0, "One item in userC recent gifts");
+    $user = CUserManager::instance()->User($userC->uid);
+    $this->assertTrue($test_user->ActiveItem() >= 0, "One item in userC recent gifts");
 
-    $this->OsPokerLogin($userC, array('profile_nickname' => 'userC'));
+    $this->drupalLogin($userC);
 
     $this->drupalGet('poker/profile/');
     $this->assertPattern('/<div class="inner-item-list">.+?<img.+?/siU', 'One recent gift in userC profile page');
@@ -182,8 +174,6 @@ check active status is always on same item
    
 //   $pattern = "<img\s[^>]*class=\"active\"\s[^>]*id=\"([0-9])\"";
    $pattern = "<img\s[^>]*id=\"([0-9])\"\s[^>]*class=[\",']active[\",']";
-
-   $this->assertTrue(TRUE, $this->drupalGetContent());
 
    if (preg_match_all("/$pattern/siU", $this->drupalGetContent(), $matches, PREG_SET_ORDER))
    {
@@ -204,8 +194,6 @@ check active status is always on same item
 
    $this->drupalGet('poker/profile/medium/'.$userC->uid);
    
-   $this->assertTrue(TRUE, $this->drupalGetContent());
-
    if (preg_match_all("/$pattern/siU", $this->drupalGetContent(), $matches, PREG_SET_ORDER))
    {
      foreach($matches as $match)
@@ -237,7 +225,7 @@ check active status is always on same item
 	
 	$usr = CUserManager::instance()->CurrentUser(TRUE);
 	
-	$this->assertTrue(TRUE, json_encode($usr->profile_nickname));
+	$this->pass(json_encode($usr->profile_nickname));
 	
     /* give items to first user*/
 	// CShop::GiveItem call CUserManager::instance()->CurrentUser() to determine the source

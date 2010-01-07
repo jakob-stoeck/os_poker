@@ -362,11 +362,11 @@ class CScheduler
 					}
 					
 					if (strlen($arguments) > 1024)
-						throw new Exception(t('Warning !field parameter is too long (max 1024 chars)',  array("!field" => "arguments")));					
+						throw new Exception(t('Warning !field parameter is too long (max !max_length chars)',  array("!field" => "arguments", '!max_length' => '1024')));
 					if (strlen($triggers) > 256)
-						throw new Exception(t('Warning !field parameter is too long (max 256 chars)',  array("!field" => "trigger")));					
+						throw new Exception(t('Warning !field parameter is too long (max !max_length chars)',  array("!field" => "trigger", '!max_length' => '256')));
 					if ($task->Type() > 32)
-						throw new Exception(t('Warning !field parameter is too long (max 32 chars)',  array("!field" => "type")));
+						throw new Exception(t('Warning !field parameter is too long (max !max_length chars)',  array("!field" => "type", '!max_length' => '32')));
 					
 				
 					$res = db_query($sql, $uid, $task->Type(), $triggers, $t, $task->AlwaysVisible(), $arguments);

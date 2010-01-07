@@ -77,7 +77,7 @@ function	os_poker_send_message(args)
 					console.warn("Failed to send message");
 				}
 				_os_poker_send_handler = null;
-      },
+      }
 	});
 }
 
@@ -107,7 +107,7 @@ function	os_poker_message_debug()
 				{
 					console.warn("Error in message receive, restarting ....");
 				}
-			},
+			}
 	});
 }
 
@@ -140,7 +140,7 @@ function	os_poker_message_listen()
 
 				_os_poker_listen_handler = null;
 				//_os_poker_timer_handler = setTimeout('os_poker_message_listen()', 6000);
-			},
+			}
 	});
 }
 

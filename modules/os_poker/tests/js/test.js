@@ -44,11 +44,11 @@ test("without users", function() {
 
 module("os_poker_messages", {
 	setup: function() {
-	    var ajax = function(options) {
-		$.ajax.options = options;
-	    };
-	    ajax.jquery_ajax = $.ajax;
-	    $.ajax = ajax;
+    var ajax = function(options) {
+      $.ajax.options = options;
+    };
+    ajax.jquery_ajax = $.ajax;
+    $.ajax = ajax;
 		
 		var  os_poker_site_root = function() {return 'http://drupal-dev.pokersource.info/drupal6/';};
 		
@@ -60,8 +60,7 @@ module("os_poker_messages", {
 		os_poker_message_start(false);
 	},
 	teardown: function() {
-	    $.ajax = $.ajax.jquery_ajax;
-		
+    $.ajax = $.ajax.jquery_ajax;
 		$(document).unbind('bar');
 	}
 });
