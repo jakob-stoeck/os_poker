@@ -10,6 +10,7 @@ project = "poker"
 datestamp = "1257345348"
 
 stylesheets[all][]   = poker.css
+stylesheets[all][]   = main.css
 stylesheets[print][] = print.css
 
 scripts[] = poker.js

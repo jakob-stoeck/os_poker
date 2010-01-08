@@ -3,6 +3,10 @@ Drupal.theme.os_poker_popup = function(id) {
 }
 
 Drupal.behaviors.poker = function(){
+  if(window.parent != window) {
+    $('html').addClass('framed');
+  }
+
   //Forward click on button wrapper to the wrapped button itslef
   $('.poker_submit.form-submit:not(.poker-processed)')
     .addClass('poker-processed')
