@@ -7,9 +7,12 @@ engine = phptemplate
 version = "6.x-1.0"
 core = "6.x"
 project = "poker"
+base theme = poker
 
 scripts[] = pbpoker.js
 
+;The next line will prevent the base theme's poker.css from being loaded
+stylesheets[all][]   = poker.css
 stylesheets[all][]   = pbpoker.css
 stylesheets[print][] = print.css
 

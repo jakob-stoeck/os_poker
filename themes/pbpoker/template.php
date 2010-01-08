@@ -41,7 +41,7 @@ function pbpoker_theme() {
   );
 }
 
-function phptemplate_username($object) {
+/*function phptemplate_username($object) {
 
   if ($object->uid && $object->name) {
     // Shorten the name when it is too long or it will break many tables.
@@ -81,7 +81,7 @@ function phptemplate_username($object) {
   }
 
   return $output;
-}
+}*/
 
 function pbpoker_page_front_banner($id, $text, $href) {
   return l(
@@ -147,7 +147,7 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
 }
 
-function pbpoker_preprocess_user_login_block(&$variables)
+function xpbpoker_preprocess_user_login_block(&$variables)
 {
 	$class = "";
 	$attr = & $variables['form']['pass']['#attributes'];

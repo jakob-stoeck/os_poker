@@ -584,6 +584,12 @@ div.poker_submit {
 	margin-top:2px;
 }
 
+.container-inline div.poker_submit {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+
 div.poker_submit div.pre {
     background: transparent url(images/button_left.gif) no-repeat;
     display: block;
@@ -598,6 +604,17 @@ div.poker_submit div.label {
 	float:left;
     height: 16px;
 	text-align:center;
+}
+
+div.poker_submit div.label input {
+  border: 0;
+  background-color: transparent;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  text-decoration: inherit !important;
+  cursor: inherit !important;
 }
 
 #home_signup_form div.poker_submit div.label {
