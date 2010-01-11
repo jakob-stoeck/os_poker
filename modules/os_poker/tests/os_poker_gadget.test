@@ -60,8 +60,14 @@ class OSPokerGadgetTestCase extends OsPokerWebTestCase {
       'os_poker_skin' => url('poker/skin.css', array('absolute' => true)),
     );
     foreach($defaults as $name => $value) {
-      $this->assertEqual($settings[$name], $value, t('Default value for application setting %name found.', array('%name' => $name)));
+      $this->assertEqual($settings[$name]->default, $value, t('Default value for application setting %name found.', array('%name' => $name)));
     }
+    $gadget_code = os_poker_gadget();
+    foreach($defaults as $name => $value) {
+      $needle = 'up_'. urlencode(check_plain($name)) .'='. urlencode(check_plain($value));
+      $this->assertFalse(strpos($gadget_code, $needle) === FALSE, t('Default value for application setting %name found in iframe URL', array('%name' => $name)));
+    }
+
   }
 
   public function testGadgetCss() {

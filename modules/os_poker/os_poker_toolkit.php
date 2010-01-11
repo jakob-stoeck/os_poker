@@ -58,8 +58,11 @@ function os_poker_set_application_default_settings() {
       'os_poker_skin' => url('poker/skin.css', array('absolute' => true)),
     );
     foreach($defaults as $name => $value) {
-      if($settings[$name] != $value) {
-        $settings[$name] = $value;
+      if(!is_object($settings[$name])) {
+        $settings[$name] = new stdClass();
+      }
+      if($settings[$name]->default != $value) {
+        $settings[$name]->default = $value;
       }
       else {
         unset($defaults[$name]);
