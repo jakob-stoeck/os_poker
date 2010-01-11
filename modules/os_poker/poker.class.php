@@ -282,9 +282,9 @@ class CPoker
 					
 		foreach ($rewards as $name => $value)
 		{
-			if (file_exists($imagePath . $name . ".jpg"))
+			if (file_exists($imagePath . $name . ".gif"))
 			{
-				$rewards[$name]["picture"] = $imagePath . $name . ".jpg";
+				$rewards[$name]["picture"] = $imagePath . $name . ".gif";
 			}
 		}
 					
