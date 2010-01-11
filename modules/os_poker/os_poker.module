@@ -1196,12 +1196,8 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  * Callback for the poker/skin.css path.
  */
 function os_poker_skin_css() {
-  //$url = theme('poker_skin_css_url');
-  //drupal_goto($url);
-  module_load_include('php', 'os_poker', 'shop.class');
-  foreach(CShop::ListItems() as $item) {
-    print(t(".!class {background-image: url(!url)}\n", array('!class' => os_poker_clean_css_identifier($item->name), '!url' => file_create_url($item->picture))));
-  }
+  $url = theme('poker_skin_css_url');
+  drupal_goto($url);
 }
 
 /**
