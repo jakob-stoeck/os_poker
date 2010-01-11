@@ -1,0 +1,77 @@
+<?php
+// -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+/**
+ * @file
+ * Poker Gadget test case
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ *
+ */
+class OSPokerGadgetTestCase extends OsPokerWebTestCase {
+  public function getInfo() {
+    return array(
+      'name' => 'OS Poker Gadget',
+      'description' => 'Test gadget related features',
+      'group' => 'OS Poker',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp();
+    $this->user = $this->drupalCreateUser(array('create application'));
+    $this->OsPokerLogin($this->user, array('profile_nickname' => $this->randomName()));
+    //Install the gadget
+    $gadget_url = 'http://'.$_SERVER['HTTP_HOST'].'/planc/jpoker-opensocial.xml';
+    $this->drupalPost('create_app', array('gadget_url' => $gadget_url), 'Add application');
+  }
+
+  /**
+   * Test the default settings for the jpoker application.
+   */
+  public function testDefaultSettings() {
+    $application = os_poker_get_poker_application();
+    $settings = ! empty($application->settings) ? unserialize($application->settings) : array();
+    $defaults = array(
+      'os_poker_skin' => url('poker/skin.css', array('absolute' => true)),
+    );
+    foreach($defaults as $name => $value) {
+      $this->assertEqual($settings[$name], $value, t('Default value for application setting %name found.', array('%name' => $name)));
+    }
+  }
+
+  public function testGadgetCss() {
+    $this->drupalGet('poker/skin.css');
+    /**
+     * We can't test the poker/skin.css behaviors. It should serve the module
+     * css/jpoker.css, jpoker.css from the theme, or any other URL returned
+     * by a theme function overriding theme_poker_skin_css_url. SimpleTest
+     * doesn't provide a way to provides mockup theme.
+     */
+    $this->pass('There is some untested feature here. We can\'t test the behavior of poker/skins.css since SimpleTest doesn\'t support mockup themes.');
+  }
+}

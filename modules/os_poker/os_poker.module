@@ -98,7 +98,7 @@ function  os_poker_form_create_app_form_alter(&$form, $form_state) {
 
 function os_poker_create_app_form_submit($form, &$form_state) {
   module_load_include('php', 'os_poker', 'os_poker_toolkit');
-  if(os_poker_get_poker_app_id() === db_last_insert_id('application', 'id')) {
+  if(os_poker_get_poker_app_id(true)) {
     os_poker_set_application_default_settings();
   }
 }

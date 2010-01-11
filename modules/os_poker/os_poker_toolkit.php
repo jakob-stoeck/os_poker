@@ -37,8 +37,8 @@ function	os_poker_get_poker_app_id($forceReload = FALSE)
  *         the application is not registrered in the database.
  */
 function os_poker_get_poker_application($refresh = FALSE) {
-  static $application;
-  if(!isset($application) || $refresh) {
+  static $application = FALSE;
+  if(!$application || $refresh) {
     $rs = db_query('SELECT * FROM {applications} WHERE title = \'jpoker\' LIMIT 1');
     if($rs) {
       $application = db_fetch_object($rs);
@@ -53,9 +53,9 @@ function os_poker_get_poker_application($refresh = FALSE) {
 function os_poker_set_application_default_settings() {
   $application =& os_poker_get_poker_application();
   if($application) {
-      $settings = ! empty($application->settings) ? unserialize($application->settings) : array();
+    $settings = ! empty($application->settings) ? unserialize($application->settings) : array();
     $defaults = array(
-      'os_poker_skin' => url('poker/skin.css'),
+      'os_poker_skin' => url('poker/skin.css', array('absolute' => true)),
     );
     foreach($defaults as $name => $value) {
       if($settings[$name] != $value) {
