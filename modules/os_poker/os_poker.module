@@ -394,26 +394,26 @@ function 	os_poker_theme()
     'os_poker_message_symbol' => array(
       'arguments' => array('symbol' => NULL),
     ),
-				'os_poker_home_news' => array(
-												'arguments' => array('news' => NULL),
-												'template' => 'news',
-											),
-				'os_poker_home_promotion' => array(
-												//'arguments' => array('message' => NULL),
-												'template' => 'home_promotion',
-											),
-				'os_poker_forgot_password' => array(
-												'arguments' => array('form' => NULL),
-												'template' => 'forgot_password',
-											),
-				'os_poker_languages' => array(
-												'arguments' => array('icons' => FALSE),
-												'template' => 'language_bar',
-											),
-				'os_poker_footer' => array(
-												'arguments' => array(),
-												'template' => 'footer',
-											),
+    'os_poker_home_news' => array(
+      'arguments' => array('news' => NULL),
+      'template' => 'news',
+    ),
+    'os_poker_home_promotion' => array(
+      //'arguments' => array('message' => NULL),
+      'template' => 'home_promotion',
+    ),
+    'os_poker_forgot_password' => array(
+      'arguments' => array('form' => NULL),
+      'template' => 'forgot_password',
+    ),
+    'os_poker_languages' => array(
+      'arguments' => array('icons' => FALSE),
+      'template' => 'language_bar',
+    ),
+    'os_poker_footer' => array(
+      'arguments' => array(),
+      'template' => 'footer',
+    ),
     'buddy_block' => array(
       'arguments' => array('buddy' => NULL, 'buddyNumber' => NULL, 'hide_links' => FALSE),
       'template'  => 'buddy-block',
@@ -1206,9 +1206,10 @@ function os_poker_skin_css() {
  * inside the os_poker css subdirectory if it can't be found in the theme.
  */
 function theme_poker_skin_css_url() {
-  global $theme_path, $base_url;;
+  global $base_url, $user;
   $filename = 'jpoker.css';
-  $theme_css = $theme_path . '/' . $filename;;
+  $theme = !empty($user->theme) && !empty($themes[$user->theme]->status) ? $user->theme : variable_get('theme_default', 'garland');
+  $theme_css = drupal_get_path('theme', $theme) . '/' . $filename;
   if(file_exists($theme_css)) {
     $url = $base_url . '/' . $theme_css;
   }
