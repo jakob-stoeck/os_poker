@@ -253,3 +253,19 @@ function os_poker_uninstall()
 	$result = drupal_uninstall_schema('os_poker');
 	return $result;
 }
+
+function os_poker_enable() {
+  module_load_include('php', 'os_poker', 'os_poker_toolkit');
+  if(os_poker_get_poker_app_id()) {
+    os_poker_set_application_default_settings();
+  }
+}
+
+function os_poker_update_1() {
+  module_load_include('php', 'os_poker', 'os_poker_toolkit');
+  $id = os_poker_get_poker_app_id();
+  if($id) {
+    os_poker_set_application_default_settings();
+  }
+  return array();
+}

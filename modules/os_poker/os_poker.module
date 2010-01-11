@@ -85,6 +85,24 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
 }
 
+/**
+* Implementation of hook_form_FORM_ID_alter().
+*/
+
+function  os_poker_form_create_app_form_alter(&$form, $form_state) {
+  if(!is_array($form['#submit'])) {
+    $form['#submit'] = isset($form['#submit']) ? array($form['#submit']) : array();
+  }
+  $form['#submit'][] = 'os_poker_create_app_form_submit';
+}
+
+function os_poker_create_app_form_submit($form, &$form_state) {
+  module_load_include('php', 'os_poker', 'os_poker_toolkit');
+  if(os_poker_get_poker_app_id() === db_last_insert_id('application', 'id')) {
+    os_poker_set_application_default_settings();
+  }
+}
+
 /*
 **
 */
@@ -424,6 +442,9 @@ function 	os_poker_theme()
       'arguments' => array('text' => NULL),
       'template'  => 'poker-error-message',
     ),
+    'poker_skin_css_url' => array(
+      'arguments' => array(),
+    )
   );
 }
 
@@ -701,6 +722,12 @@ function os_poker_menu()
       'type' => MENU_CALLBACK,
       'access callback'  => MENU_FOUND,
       'page callback' => 'os_poker_closebox_page',
+    ),
+    'poker/skin.css' => array(
+      'title' => '',
+      'type' => MENU_CALLBACK,
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_skin_css',
     )
   );
 	return $menu;
@@ -1163,4 +1190,30 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
   $identifier = preg_replace('/[^\x{002D}\x{0030}-\x{0039}\x{0041}-\x{005A}\x{005F}\x{0061}-\x{007A}\x{00A1}-\x{FFFF}]/u', '', $identifier);
 
   return $identifier;
+}
+
+/**
+ * Callback for the poker/skin.css path.
+ */
+function os_poker_skin_css() {
+  $url = theme('poker_skin_css_url');
+  drupal_goto($url);
+}
+
+/**
+ * Default theme implementation for poker_skin_css_url.
+ * Return the full URL to a jpoker.css file inside the theme directory. Or
+ * inside the os_poker css subdirectory if it can't be found in the theme.
+ */
+function theme_poker_skin_css_url() {
+  global $theme_path, $base_url;;
+  $filename = 'jpoker.css';
+  $theme_css = $theme_path . '/' . $filename;;
+  if(file_exists($theme_css)) {
+    $url = $base_url . '/' . $theme_css;
+  }
+  else {
+    $url = $base_url . '/' . drupal_get_path('module', 'os_poker') . '/css/' . $filename;
+  }
+  return $url;
 }

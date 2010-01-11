@@ -17,27 +17,67 @@
 //
 
 
+/**
+ * Fetch the jpoker application (gadget) ID from the Shindig-Integrator table.
+ *
+ * @return The record from the {applications} table as an object. Or FALSE if
+ *         the application is not registrered in the database.
+ */
 function	os_poker_get_poker_app_id($forceReload = FALSE)
 {
-	static	$app_id = FALSE;
-	
-	if ($forceReload == TRUE)
-        {
-		$app_id = FALSE;
-	}
+  $application = os_poker_get_poker_application($forceReload);
+	return $application ? $application->id : FALSE;
+}
 
-	if ($app_id == FALSE)
-	{
-		$sql = "SELECT `id` FROM `{applications}` WHERE `title` = 'jpoker' LIMIT 1";
-		$res = db_query($sql);
-		
-		if ($res != FALSE)
-		{
-			$app_id = db_result($res);
-		}
-	}
-	
-	return $app_id;}
+
+/**
+ * Fetch the jpoker application (gadget) from the Shindig-Integrator table.
+ *
+ * @return The record from the {applications} table as an object. Or FALSE if
+ *         the application is not registrered in the database.
+ */
+function os_poker_get_poker_application($refresh = FALSE) {
+  static $application;
+  if(!isset($application) || $refresh) {
+    $rs = db_query('SELECT * FROM {applications} WHERE title = \'jpoker\' LIMIT 1');
+    if($rs) {
+      $application = db_fetch_object($rs);
+    }
+    else {
+      $application = FALSE;
+    }
+  }
+  return $application;
+}
+
+function os_poker_set_application_default_settings() {
+  $application =& os_poker_get_poker_application();
+  if($application) {
+      $settings = ! empty($application->settings) ? unserialize($application->settings) : array();
+    $defaults = array(
+      'os_poker_skin' => url('poker/skin.css'),
+    );
+    foreach($defaults as $name => $value) {
+      if($settings[$name] != $value) {
+        $settings[$name] = $value;
+      }
+      else {
+        unset($defaults[$name]);
+      }
+    }
+    if(count($defaults) > 0) {
+      $application->settings = serialize($settings);
+      if(drupal_write_record('applications', $application, 'id') == SAVED_UPDATED) {
+        foreach($defaults as $name => $value) {
+          drupal_set_message(t('Application preference %name set to default value %value.', array('%name' => $name, '%value' => $value)));
+        }
+      }
+    }
+  }
+  else {
+    drupal_set_message('Cannot set default settings for %name application, it doesn\'t exist in the database', array('%name' => 'jpoker'));
+  }
+}
 
 /*
 **
