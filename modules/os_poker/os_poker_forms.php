@@ -711,16 +711,21 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 **
 */
 
-function	os_poker_buddies_invite_form_validate($form, &$form_state)
+function	os_poker_buddies_invite_form_validate(&$form, &$form_state)
 {
   // by ilo: make this invitation submit testable, avoid using javascript to set 'emails'
   // build $form_state['values']['email'] based on the form fields instead of javascript.
   $emails = array();
   for ($cntr = 1; $cntr <=  5; $cntr++) {
-    if (!empty($form_state['values']['mail_'. $cntr])) {
-      $emails[] = $form_state['values']['name_'. $cntr] ." <". $form_state['values']['mail_'. $cntr] .">";
+    if(!empty($form_state['values']['mail_'. $cntr])) {
+      if (valid_email_address($form_state['values']['mail_'. $cntr])) {
+        $emails[] = $form_state['values']['name_'. $cntr] ." <". $form_state['values']['mail_'. $cntr] .">";
+      } else {
+        form_error($form['mail_'. $cntr], t('The entered e-mail address is invalid. Please correct it.'));
+      }
     }
   }
+
   $form_state['values']['email'] = implode(',', $emails);
 
 
