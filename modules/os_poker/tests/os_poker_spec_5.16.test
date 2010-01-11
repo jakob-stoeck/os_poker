@@ -42,7 +42,7 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
 
   public static function getInfo() {
     return array(
-      'name'        => 'OS Poker Report Abuse',
+      'name'        => '5.16 Report Abuse',
       'description' => 'Report azbuse test',
       'group'       => 'OS Poker Specifications',
     );
@@ -59,6 +59,21 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
+  function assertThickboxedLink($url, $msg) {
+    if(strrchr($url, '?') == FALSE) {
+      //$url doesn't contains any query string
+      $url = preg_quote($url) . '(?:\?\w+\=\w*)'.'(?:\&\w+\=\w*)';
+    }
+    else {
+      //$url contains a query string
+      $url = preg_quote($url) . '(?:\&\w+\=\w*)';
+    }
+    //TODO Add support for normal <a> link using the thickbox class
+    $js = 'onclick\=javascript\:(?:parent\.)?os_poker_trigger\((["\'])os_poker_jump\1,\{url:(["\'])'.$url.'\2, lightbox\:true\}\)';
+    $this->pass('<pre>'.$js.'</pre>');
+    $this->assertPattern('/'.$js.'/', $msg);
+  }
+
   /**
    * Check that:
    *  - The full profile page of a user provides a report abuse button.
@@ -72,6 +87,7 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
   function testButtonOnFullProfile() {
     $this->drupalGet('poker/profile/full/'.$this->users[1]->uid);
     $this->assertRaw(t('Report Abuse'), t('The full profile page of a user provides a report abuse button'));
+    $this->assertThickboxedLink('poker/report_abuse/'.$this->users[1]->uid, 'Clicking the report abuse button opens a thickbox with a form');
     //TODO How to cleanly check the (thickboxed) link ?
   }
 
@@ -88,6 +104,7 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
   function testButtonOnMediumProfile() {
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
     $this->assertRaw(t('Report Abuse'), t('The full profile page of a user provides a report abuse button'));
+    $this->assertThickboxedLink('poker/report_abuse/'.$this->users[1]->uid, 'Clicking the report abuse button opens a thickbox with a form');
     //TODO How to cleanly check the (thickboxed) link ?
   }
 

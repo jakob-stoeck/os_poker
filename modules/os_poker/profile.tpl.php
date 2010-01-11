@@ -128,7 +128,7 @@
 				</div>
         <div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/report_abuse/" . $target_user->uid,  array('query' => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit fleft" style="margin-left:5px;">
 					<div class="pre">&nbsp;</div>
-					<div class="label"><?php print t("Report abuse"); ?></div>
+					<div class="label"><?php print t("Report Abuse"); ?></div>
 					<div class="user_login_clear"></div>
 				</div>
 				<div class="clear"></div>
