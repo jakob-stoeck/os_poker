@@ -1049,7 +1049,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 {
 	height: 489px;
 	padding:0 !important;
-	width: 401px;
+	width: 405px;
 	overflow: hidden;
 }
 
@@ -1088,7 +1088,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 	color: #635E58;
 	font-weight:bold;
 	height:72px;
-	width:391px;
+	width:395px;
 	padding: 5px;
 	margin-bottom:4px;
 }
