@@ -511,7 +511,9 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		case 'login' :
 			CUserManager::instance()->CurrentUser(TRUE);
 			CScheduler::instance()->Trigger('login');
-
+      if (user_access('maintain own relationships')) {
+        _user_relationships_ui_unset_notifications($account);
+      }
 		break;
 
 		case 'logout' :
@@ -1207,4 +1209,33 @@ function theme_poker_skin_css_url() {
     $url = $base_url . '/' . drupal_get_path('module', 'os_poker') . '/css/' . $filename;
   }
   return $url;
+}
+
+function _user_relationships_ui_unset_notifications(&$account) {
+  global $user;
+
+  //only do this for the active user
+  if ($account->uid != $user->uid) {
+    return;
+  }
+
+  //Collect user_relationships_ui's messages
+  $relationships = user_relationships_load(array('requestee_id' => $account->uid, 'approved' => FALSE));
+  $messages = array();
+  foreach ($relationships as $relationship) {
+    $messages[] = user_relationships_ui_get_message('pending', $relationship, array(
+      '!pending_relationship_requests'  => l(t('pending relationship requests'), variable_get('user_relationships_requests_link', 'relationships/requests'))
+    ));
+  }
+
+  if($messages) {
+    //Ho crap, we have o do some cleanup...
+    $notifications = drupal_get_messages('status', TRUE);
+    $notifications = $notifications['status'] ? $notifications['status'] : array();
+    foreach($notifications as $notification) {
+      if(!in_array($notification, $messages)) {
+        drupal_set_messages($notification);
+      }
+    }
+  }
 }

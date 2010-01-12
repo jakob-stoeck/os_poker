@@ -214,6 +214,9 @@ function os_poker_schema()
 
 function os_poker_install()
 {
+  //This ensure that os_poker hooks run after thos from most of the other modules
+  db_query("UPDATE {system} SET weight = 11 WHERE name = 'os_poker'");
+
 	db_query("INSERT IGNORE INTO `{profile_fields}` 
 			VALUES (1,'First name','profile_fname','','Personal information','','textfield',-4,0,0,4,0,''),
 			(2,'Last name','profile_lname','','Personal information','','textfield',-3,0,0,4,0,''),
