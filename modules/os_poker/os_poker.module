@@ -1276,10 +1276,10 @@ function os_poker_get_overlay($clear = true) {
 }
 
 function theme_os_poker_overlay() {
-  drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
-  drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module');
   $overlay = os_poker_get_overlay();
   if($overlay) {
+     drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
+    drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module');
     if($overlay['width']) {
       $overlay['attributes']['style'] .= ' width: ' . $overlay['width'] .';';
     }
