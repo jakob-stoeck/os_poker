@@ -223,3 +223,31 @@ asyncTest('status messages are not shown if Drupal.settings.os_poker.inline_mess
     start();
   }, 0);
 });
+
+module('os_poker.slider', {
+  setup: function(){
+    var c = $('<div class="cursor"></div>').appendTo('#main');
+    for (i = 0; i < 10; i++) {
+      $('<div />').attr('id', 'child' + i).css('float', 'left').appendTo(c);
+    }
+  },
+  teardown: function(){}
+});
+
+test('', 1, function(){
+  var expectedCursorInnerWidth = 0;
+  $('#main .cursor > :visible').each(function(){
+      var innerWidth = Math.ceil(Math.random() * 80);
+      var rightBorderWidth = Math.ceil(Math.random() * 4);
+      var leftBorderWidth = Math.ceil(Math.random() * 4);
+      expectedCursorInnerWidth +=  innerWidth + rightBorderWidth + leftBorderWidth;
+      $(this).css({
+        'height': '10px',
+        'width': innerWidth + 'px',
+        'border-right': 'solid ' + rightBorderWidth + 'px black',
+        'border-left': 'solid ' + leftBorderWidth + 'px black'
+      });
+  });
+  os_poker_slider_reset($('#main .cursor'));
+  ok(expectedCursorInnerWidth <= $('#main .cursor').innerWidth(), 'After calling os_poker_slider_reset, cursor with should be larger enough to display all its children on a single line.');
+});

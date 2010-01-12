@@ -3,14 +3,11 @@ function	os_poker_slider_reset(elem)
 {
 	elem.css("position", "absolute");
 	elem.css("left", "0px");
-	
-	var children = elem.children(":visible");
-	var fc = children.get(0);
-  if(fc) {
-    var step = $(fc).innerWidth( );
-    var vis = children.length * step;
-    elem.css("width", vis + "px");
-  }
+	var vis = 0;
+	var children = elem.children(":visible").each(function(){
+    vis += $(this).outerWidth();
+  });
+  elem.css("width", vis + "px");
 }
 
 /*
