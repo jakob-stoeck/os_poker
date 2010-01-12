@@ -1150,6 +1150,21 @@ div#buddylist .previous, div#buddylist .previous:hover
 }
 
 /*
+** First profile
+*/
+
+#poker-first-profile
+{
+	background-color: transparent;
+  background-image: url(images/pre_body_bg.gif);
+  background-repeat: repeat;
+  background-position: top left;
+  border-color: #5A4220;
+	border-style: solid;
+	border-width: 1px;
+}
+
+/*
 ** Ranking
 */
 
@@ -2370,8 +2385,13 @@ width:87px;
 
 #forgot-password
 {
-	background:#330C09 none repeat scroll 0 0;
-	border:1px solid #501713;
+	background-color: transparent;
+  background-image: url(images/pre_body_bg.gif);
+  background-repeat: repeat;
+  background-position: top left;
+	border-color: #5A4220;
+	border-style: solid;
+	border-width: 1px;
 	float:none;
 	margin:0;
 	overflow:hidden;

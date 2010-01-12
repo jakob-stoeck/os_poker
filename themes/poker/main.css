@@ -4,6 +4,8 @@
  */
 html.framed body {
   overflow: hidden;
+  background-image: none;
+  background-color: transparent;
 }
 
 /**
