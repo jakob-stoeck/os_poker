@@ -743,21 +743,11 @@ function os_poker_menu()
 function os_poker_closebox_page() {
   $front = url('<front>');
   drupal_set_message('test');
-  $messages = json_encode(theme('status_messages'));
+  //$messages = json_encode(theme('status_messages'));
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
-    $ = window.top.jQuery;
-    var m = $('#messages');
-    if(m.length == 1) {
-      m.html($messages);
-    }
-    if(typeof window.top.tb_remove === 'function') {
-      window.top.tb_remove();
-    }
-    else {
-      window.top.location = $front;
-    }
+    window.top.location = window == window.top ? $front : window.top.location;
     //--><!]]>
   </script></head></html>
 EOT;
