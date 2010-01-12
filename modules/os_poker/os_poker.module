@@ -128,6 +128,8 @@ function os_poker_preprocess_page(&$variables)
 	{
 		$variables['template_files'][] = 'page-ajax';
 	}
+
+  $variables['closure'] .= theme('os_poker_overlay');
 }
 
 /*
@@ -443,6 +445,9 @@ function 	os_poker_theme()
       'template'  => 'poker-error-message',
     ),
     'poker_skin_css_url' => array(
+      'arguments' => array(),
+    ),
+    'os_poker_overlay' => array(
       'arguments' => array(),
     )
   );
@@ -761,8 +766,10 @@ EOT;
 
 function os_poker_menu_alter(&$items)
 {
-  $items['user/reset/%/%/%']['file'] = "../../" . drupal_get_path('module', 'os_poker') . "/os_poker_forms.php";
-  $items['user/reset/%/%/%']['page arguments'] = array('os_poker_pass_reset', 2, 3, 4);
+  $items['user/reset/%/%/%']['file path'] = drupal_get_path('module', 'os_poker');
+  $items['user/reset/%/%/%']['file'] = '/os_poker_forms.php';
+  $items['user/reset/%/%/%']['page callback'] = 'os_poker_pass_reset_page';
+  $items['user/reset/%/%/%']['page arguments'] = array(2, 3, 4);
 }
 
 /**
@@ -1229,7 +1236,7 @@ function _user_relationships_ui_unset_notifications(&$account) {
   }
 
   if($messages) {
-    //Ho crap, we have o do some cleanup...
+    //Ho crap, we have to do some cleanup...
     $notifications = drupal_get_messages('status', TRUE);
     $notifications = $notifications['status'] ? $notifications['status'] : array();
     foreach($notifications as $notification) {
@@ -1237,5 +1244,57 @@ function _user_relationships_ui_unset_notifications(&$account) {
         drupal_set_messages($notification);
       }
     }
+  }
+}
+
+/**
+ * Set an overlay to display over the next rendered page.
+ * 
+ * Overlay are not interactive (thick)boxes, they will be displayed (centeter)
+ * over the content without the option to close.
+ *
+ * @param <type> $content The (HTML) content of the overlay.
+ * @param <type> $attributes The attributes of the DIV element that will contain $content
+ * @param <type> $width The desired CSS width of this DIV element (default to '')
+ * @param <type> $height The desired CSS height of this element (default to '');
+ */
+function os_poker_set_overlay($content, $attributes = array(), $width = '', $height = '') {
+  $_SESSION['os_poker_overlay'] = array(
+    'content' => $content,
+    'width' => $width,
+    'height' => $height,
+    'attributes' => $attributes,
+  );
+}
+
+function os_poker_get_overlay($clear = true) {
+  $overlay = $_SESSION['os_poker_overlay'];
+  if($clear) {
+    unset($_SESSION['os_poker_overlay']);
+  }
+  return $overlay;
+}
+
+function theme_os_poker_overlay() {
+  drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
+  drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module');
+  $overlay = os_poker_get_overlay();
+  if($overlay) {
+    if($overlay['width']) {
+      $overlay['attributes']['style'] .= ' width: ' . $overlay['width'] .';';
+    }
+    if($overlay['height']) {
+      $overlay['attributes']['style'] .= ' height: ' . $overlay['height'] . ';';
+    }
+    if($overlay['attributes']['class']) {
+      $overlay['attributes']['class'] .= 'content';
+    }
+    else {
+      $overlay['attributes']['class'] = 'content';
+    }
+    return '<div id="os-poker-overlay-mask"></div><div id="os-poker-overlay"><div class="floater"></div><div '.drupal_attributes($overlay['attributes']).'>'.$overlay['content'].'</div></div>';
+  }
+  else {
+    return '';
   }
 }

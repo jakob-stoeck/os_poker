@@ -1,0 +1,32 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#os-poker-overlay-mask,
+#os-poker-overlay {
+  z-index: 1000;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#os-poker-overlay-mask {
+  background-color: black;
+  opacity: 0.75;
+}
+
+#os-poker-overlay .floater {
+  float: left;
+  height: 50%;
+}
+
+#os-poker-overlay .content {
+  clear: both;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}

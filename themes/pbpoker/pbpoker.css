@@ -2609,3 +2609,17 @@ padding-left:5px;
 	border: 0 !important;
 	color: white;
 }
+
+/**
+ * Overlays
+ */
+#os-poker-overlay .content {
+  width: 409px;
+  height: 307px;
+  border: 1px solid #5b4321;
+  background-color: #251c0d;
+  background-image: url(images/bg_overlay.gif);
+  background-repeat: repeat;
+  background-position: top left;
+  padding: 15px;
+}

@@ -3087,3 +3087,17 @@ body.page-poker #content-header .title-wrapper a.LayerClose
   margin-left: 10px;
   margin-right: 10px;
 }
+
+/**
+ * Overlays
+ */
+#os-poker-overlay .content {
+  width: 409px;
+  height: 307px;
+  border: 1px solid #501713;
+  background-color: #330C09;
+  background-image: none;
+  background-repeat: repeat;
+  background-position: top left;
+  padding: 15px;
+}

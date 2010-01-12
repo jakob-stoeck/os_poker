@@ -652,3 +652,20 @@ body.iframe #profile-medium a.LayerClose
 	text-decoration:none;
 	outline: 0 none;
 }
+
+/**
+ * Overlays
+ */
+#os-poker-overlay h1 {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  margin: 0;
+  border-bottom:1px dotted #A8A8A8;
+  margin-bottom: 0.5em;
+}
+
+#os-poker-pass-reset p {
+  margin-bottom: 0.5em;
+}
