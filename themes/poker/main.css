@@ -669,3 +669,64 @@ body.iframe #profile-medium a.LayerClose
 #os-poker-pass-reset p {
   margin-bottom: 0.5em;
 }
+
+/*
+** Who is at the table
+*/
+
+#table_users .header
+{
+	margin-left:13px;
+	padding-left:8px;
+	padding-right:8px;
+	width:284px;
+  display: none;
+}
+
+#table_users .list
+{
+	height:240px;
+	width:300px;
+	background:transparent url(images/bg_user_table.gif) repeat-x;
+	float:left;
+	overflow:hidden;
+}
+
+#table_users .userlist
+{
+	height:240px;
+	float:none;
+}
+
+#table_users .userlist .user
+{
+	margin-left:8px;
+	margin-top:17px;
+	float:left;
+	width:50px;
+	height:87px;
+	font-size:9px;
+	color:#e9dfd1;
+	text-align:center;
+	overflow:hidden;
+}
+
+#table_users .userlist .picture img
+{
+	width:50px;
+	height:50px;
+}
+
+#table_users .next
+{
+	width:15px;
+	height:215px;
+	float:left;
+}
+
+#table_users .previous
+{
+	width:13px;
+	height:215px;
+	float:left;
+}

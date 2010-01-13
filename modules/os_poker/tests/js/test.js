@@ -9,6 +9,7 @@ QUnit.log = function(result, message)
 module("os_poker_update_lobby", {
 	setup: function() {
 	    var table_users = $('<div id="table_users">').appendTo('#main');
+      $('<div class="header"></div>').appendTo(table_users);
 	    var list = $('<div class="list splash">').appendTo(table_users);
 	    $('<div class="userlist">').appendTo(list);
 	},
@@ -17,7 +18,7 @@ module("os_poker_update_lobby", {
 });
 
 test("with users", function() {
-	expect(12);
+	expect(13);
 	os_poker_update_lobby([{serial: 1, name: 'foo', chips: 100}, {serial: 2, name: 'bar', chips: 2000000}]);
 	equals($('.list').hasClass('splash'), false, '.list container should not have splash class');
 	equals($('.userlist .user').length, 2, '.userlist container should contain 2 users');
@@ -33,13 +34,15 @@ test("with users", function() {
 	equals($('.userlist .name a').eq(1).text(), 'bar', 'first user name should be bar');
 	equals($('.userlist .name a').eq(1).attr('href'), '?q=user/2', 'first user name should link to user/1');
 	equals($('.userlist .money a').eq(1).text(), '$ 20,000', "foo's money should be $ 20,000");
+  ok(!!$('#table_users .header:visible').length, 'Header is visible.');
 });
 
 test("without users", function() {
-	expect(2);
+	expect(3);
 	os_poker_update_lobby([]);
 	equals($('.list').hasClass('splash'), true, '.list container should have splash class');
 	equals($('.userlist .user').length, 0, '.userlist container should contain no users');
+  ok(!$('#table_users .header:visible').length, 'Header is hidden.');
 });
 
 module("os_poker_messages", {
@@ -150,7 +153,8 @@ module("os_poker.events", {
 
 test("event os_poker_update_chips", function() {
 	os_poker_trigger("os_poker_update_chips", {amount: os_poker_number_format(1000)});
-	
+	equals($("b.chips").text(), "$ 1,000", "Event received, number formated and updated");
+  os_poker_trigger("os_poker_update_chips", {amount: 1000});
 	equals($("b.chips").text(), "$ 1,000", "Event received, number formated and updated");
 });
 

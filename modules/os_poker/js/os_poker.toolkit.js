@@ -123,12 +123,14 @@ function	os_poker_sit(players_at_table)
 function	os_poker_update_lobby(users)
 {
 	var user_list = "";
-	var container = $("#table_users .list");
-	var innerContainer = $("#table_users .userlist");
+  var lobby = $('#table_users');
+	var container = lobby.find('.list');
+	var innerContainer = lobby.find('.userlist');
 			
 	if (users && users.length > 0)
 	{
-		container.removeClass( "splash" );
+		container.removeClass('splash');
+    lobby.find('.header').show();
 		
 		for (place in users)
 		{
@@ -146,7 +148,8 @@ function	os_poker_update_lobby(users)
 	}
 	
 	innerContainer.html("");
-	container.addClass( "splash" );
+	container.addClass('splash');
+  lobby.find('.header').hide();
 }
 
 /*
