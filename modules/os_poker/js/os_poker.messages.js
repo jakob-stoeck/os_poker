@@ -5,7 +5,7 @@
 
 
 var 	_os_poker_timeout = 120000; /* Timeout = 2mn */
-var		_os_poker_debug = true;
+var		_os_poker_debug = false;
 var 	_os_poker_message_url;
 var 	_os_poker_send_handler = null;
 var 	_os_poker_listen_handler = null;
