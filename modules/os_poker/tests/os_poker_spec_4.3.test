@@ -79,10 +79,9 @@ class OSPokerPasswordRecovery extends OsPokerWebTestCase {
      * Register an 'invitee' account and complete its profile.
      * This user has 'skel_user' for nickname.
      */
-    $this->skel_user = $this->drupalCreateUser();
+    $this->user = $this->drupalCreateUser();
     // Login the user, complete profile form
-    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
-
+    $this->OsPokerLogin($this->user, array('profile_nickname' => $this->randomString()));
   }
 
   /**
@@ -94,10 +93,20 @@ class OSPokerPasswordRecovery extends OsPokerWebTestCase {
 
 
   /**
-   * Fires the test case, otherwise simpletest may fail.
+   * Test that the user/reset page redirects to the front page with its form
+   * overlayed t
    */
-  function testDummy() {
-
+  function testThatUserResetRedirectsToFrontWithOverflow() {
+    $this->drupalLogout();
+    $account = $this->user = user_load($this->user->uid);
+    $timestamp = $account->login + 1;
+    sleep(5);
+    $this->drupalGet("user/reset/$account->uid/$timestamp/". user_pass_rehash($account->pass, $timestamp, $account->login));
+    $this->assertEqual($this->getUrl(), url('<front>', array('absolute' => true)), 'user/reset redirects to front page.');
+    $this->assertRaw('id="os-poker-pass-reset"', t('Password reset form found on page.'));
+    //TODO: This doesn't work because SimpleTest submit the Sign Up form
+    //$this->drupalPost(NULL, array(), 'Log in');
+    //$this->assertText(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
   }
 
 }
