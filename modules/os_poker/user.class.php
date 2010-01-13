@@ -18,6 +18,7 @@
 
 
 require_once(drupal_get_path('module', 'os_poker') . "/os_poker_toolkit.php");
+require_once(drupal_get_path('module', 'os_poker') . "/messages.class.php");
 
 define ("PROFILE_CATEGORY", "Personal information");
 
@@ -235,7 +236,7 @@ class CUser
 		  $this->_vars["money"] = array("1" => (float)bcmul($value, 100));
 			$this->_OSDirty[] = "money";
 			CPoker::CheckRewards("chips", $this->_user->uid, array("chips" => $value));
-
+      CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $this->_user->uid, array('live'));
 		}
 	}
 
@@ -843,5 +844,21 @@ class CUserManager
 	}
 }
 
+class CUpdateUserChipsCount extends CMessage
+{
+	public function Run($context_user, $arguments)
+	{
+    $msg = array(
+      'type' => 'os_poker_update_chips',
+      'body' => array(
+        'amount' => $context_user->Chips(),
+      )
+    );
+    parent::Run($context_user, $msg);
+	}
+	public function MaxInstances() {
+    return 1;
+  }
+}
 
 ?>

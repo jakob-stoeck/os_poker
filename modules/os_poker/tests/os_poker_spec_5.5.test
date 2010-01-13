@@ -143,6 +143,14 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
       ,$messages),
       t('Live message to notify gift to %to from %from found', array('%from' => $userA->uid, '%to' => $userC->uid))
     );
+    $PokerUserA = new CUser($userA->uid);
+    $this->assertTrue(in_array(
+      array('type' => 'os_poker_update_chips', 'body' => array(
+        'amount' => $PokerUserA->Chips(),
+        ))
+      ,$messages),
+      t('Live message to notify change of the amount of chips owned by the user found')
+    );
     
     $test_user = CUserManager::instance()->User($userB->uid);
     $this->assertTrue($test_user->ActiveItem() >= 0, "One item in userB recent gifts");
