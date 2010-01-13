@@ -324,6 +324,36 @@ check active status is always on same item
     $this->assertNoRaw('Cocktail', t('Item name not found on %user medium profile', array('%user' => $this->users[2]->profile_name)));
   }
 
+  /**
+   * Test that the activation of an item send a gift notification from the user
+   * to him/herself.
+   * - Login as first user
+   * - Buy an item
+   * - Retrieve the iventory of the user
+   * - Activate the first item in the inventory
+   * - Check the 'live' message queue for the expected notification
+   */
+  function testActiveItemFrom() {
+    $this->drupalLogin($this->users[0]);
+    CShop::BuyItem(102);
+    $cuser = new CUser($this->users[0]->uid);
+    $inventory = $cuser->Items();
+    $item = reset($inventory);
+    $cuser->ActivateItem($item->operation_id);
+    CScheduler::instance()->ReloadTasks();
+    CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
+		$messages = CMessageSpool::instance()->Get();
+    $this->assertTrue(in_array(
+      array('type' => 'os_poker_gift', 'body' => array(
+        'gift' => $item->item->name,
+        'cls' => os_poker_clean_css_identifier($item->item->name),
+        'to_uid' => $cuser->uid,
+        'from_uid' => $cuser->uid))
+      ,$messages),
+      t('Live message to notify gift to %to from %from found', array('%from' => $cuser->uid, '%to' => $cuser->uid))
+    );
+  }
+
 	function removed_testFail()
 		{
 			/* Personal (self) View */

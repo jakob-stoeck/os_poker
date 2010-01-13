@@ -343,7 +343,7 @@ class CUser
 
 		$res = db_query($sql, $this->_user->uid, $id_operation, $id_operation);
 		$this->_activeItem = $id_operation;
-	}
+}
 
 	public function LastDailyGift()
 	{
@@ -844,10 +844,8 @@ class CUserManager
 	}
 }
 
-class CUpdateUserChipsCount extends CMessage
-{
-	public function Run($context_user, $arguments)
-	{
+class CUpdateUserChipsCount extends CMessage {
+	public function Run($context_user, $arguments) {
     $msg = array(
       'type' => 'os_poker_update_chips',
       'body' => array(
@@ -861,4 +859,30 @@ class CUpdateUserChipsCount extends CMessage
   }
 }
 
+class CGiftNotificationMessage extends CMessage {
+  public function Run($context_user, $arguments) {
+    if(isset($arguments['operation_id']) && !isset($arguments['item'])) {
+      $sql = <<<EOT
+SELECT pi.name
+FROM {poker_item} as pi
+LEFT JOIN {poker_operation} as po ON (pi.id_item = po.id_item)
+WHERE po.operation_id = %d
+EOT;
+      $rs = qb_query($sql, $arguments['operation_id']);
+      if($rs) {
+        $arguments['item'] = db_result($rs);
+      }
+    }
+    $msg = array(
+      'type' => 'os_poker_gift',
+      'body' => array(
+        'gift' => isset($arguments['item']) ? $arguments['item'] : t('Unknown'),
+        'cls' => os_poker_clean_css_identifier(isset($arguments['item']) ? $arguments['item'] : 'Unknown'),
+        'to_uid' => $arguments['receiver'],
+        'from_uid' =>$arguments['sender'],
+      )
+    );
+    parent::Run($context_user, $msg);
+	}
+}
 ?>

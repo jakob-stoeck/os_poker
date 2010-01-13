@@ -367,14 +367,10 @@ class CShop
           //Enqueue a 'live' gift event to all players sitting at the same table(s) as the receiver
           foreach($target->Tables() as $table) {
             foreach(CPoker::UsersAtTable($table->serial) as $notified_uid) {
-              CScheduler::instance()->RegisterTask(new CMessage(), $notified_uid, array('live'), "-1 day", array(
-                'type' => 'os_poker_gift',
-                'body' => array(
-                  'gift' => $item->name,
-                  'cls' => os_poker_clean_css_identifier($item->name),
-                  'to_uid' => $target->uid,
-                  'from_uid' => $user->uid,
-                )
+              CScheduler::instance()->RegisterTask(new CGiftNotificationMessage(), $notified_uid, array('live'), "-1 day", array(
+                'item' => $item->name,
+                'receiver' => $target->uid,
+                'sender' => $user->uid,
               ));
             }
           }
