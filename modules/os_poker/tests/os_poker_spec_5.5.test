@@ -265,7 +265,58 @@ check active status is always on same item
 	$this->assertEqual($inventory[0]->id_item, 114, "Remaining item is Test1");
   }
 
-	function testFail()
+  /**
+   * Test that a User can't buy an item he/she can not afford.
+   * 
+   * The verification is done through these steps:
+   * - Log as first user
+   * - Set first user chips to 0
+   * - Try to buy an item as first user
+   * - Assert that first user chips equals 0
+   * - Assert that first user has no active item
+   * - Reload
+   */
+  function testUserCanNotBuyUnaffordableItem() {
+    $this->drupalLogin($this->users[0]);
+    $cuser = new CUser($this->users[0]->uid);
+    $cuser->chips = 0;
+    $cuser->Save();
+    $this->drupalGet('');
+    $this->assertText('You have $ 0 Chips', 'User chips has been set to 0.');
+    CShop::BuyItem(102);
+    $this->drupalGet('');
+    $this->assertText('You have $ 0 Chips', 'After trying to buy an item, user have 0 chips.');
+    $this->drupalGet('poker/profile/medium');
+    $this->assertNoRaw('Cocktail', t('Item name not found on %user medium profile', array('%user' => $this->users[0]->profile_name)));
+  }
+
+  /**
+   * Test that a User can't a gift an item he/she can not afford.
+   *
+   * The verification is done through these steps:
+   * - Set first user chips to 0
+   * - Try to give an item to second and third user
+   * - Assert first user chips equals 0
+   * - Assert that second user has no active item
+   * - Assert that third user has no active item
+   */
+  function testUserCanNotBuyUnaffordableGift() {
+    $this->drupalLogin($this->users[0]);
+    $cuser = new CUser($this->users[0]->uid);
+    $cuser->chips = 0;
+    $cuser->Save();
+    $this->drupalGet('');
+    $this->assertText('You have $ 0 Chips', 'User chips has been set to 0.');
+    CShop::GiveItem(102, array($this->users[1]->uid, $this->users[2]->uid));
+    $this->drupalGet('');
+    $this->assertText('You have $ 0 Chips', 'After trying to buy an item, user have 0 chips.');
+    $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
+    $this->assertNoRaw('Cocktail', t('Item name not found on %user medium profile', array('%user' => $this->users[1]->profile_name)));
+    $this->drupalGet('poker/profile/medium/'.$this->users[2]->uid);
+    $this->assertNoRaw('Cocktail', t('Item name not found on %user medium profile', array('%user' => $this->users[2]->profile_name)));
+  }
+
+	function removed_testFail()
 		{
 			/* Personal (self) View */
 			$this->fail(t("to buy an item for himself"), t('SpecPoker'));

@@ -232,7 +232,9 @@ class CShop
 
 		try
 		{
-			/*
+      $item = new CItem($item_id); //check if the item really exists
+
+      /*
 			** User must pay !
 			*/
 
@@ -240,8 +242,6 @@ class CShop
 
 			if ($nchips < $item->price)
 				throw new Exception(t('User doesn\'t have enough money.'));
-
-			$item = new CItem($item_id); //check if the item really exists
 
 			$sql = "INSERT INTO `{poker_operation}`
 				   (`id_item`, `uid`, `source_uid`, `tstamp`)
