@@ -730,3 +730,13 @@ body.iframe #profile-medium a.LayerClose
 	height:215px;
 	float:left;
 }
+
+/*
+** INVITE
+*/
+
+#buddies-invite
+{
+ padding-top: 13px;
+ padding-left: 10px;
+}

@@ -2151,16 +2151,6 @@ ul.pager .pager-current
 ** INVITE
 */
 
-#buddies_invite
-{
- border:0 none;
- margin:0;
- overflow:hidden;
- padding:0;
- text-align:left;
- width:606px;
-}
-
 div.DailyBonusStep02
 {
  background:transparent url(images/bg_daily_bonus02.gif) no-repeat scroll 0 0;
