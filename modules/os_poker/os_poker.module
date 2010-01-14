@@ -1307,8 +1307,6 @@ function _user_relationships_ui_unset_notifications(&$account) {
     //Ho crap, we have to do some cleanup...
     $notifications = drupal_get_messages('status', TRUE);
     $notifications = $notifications['status'] ? $notifications['status'] : array();
-    dpm($notifications);
-    dpm($messages);
     foreach($notifications as $notification) {
       if(!in_array($notification, $messages)) {
         drupal_set_message($notification);
