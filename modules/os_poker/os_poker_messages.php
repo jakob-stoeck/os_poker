@@ -163,14 +163,8 @@ function	os_poker_process_message()
 			break;
 
 			case "os_poker_activate_item":
-				if (isset($_GET["id_item"]) && is_numeric($_GET["id_item"]))
-				{
+				if (isset($_GET["id_item"]) && is_numeric($_GET["id_item"])) {
 					$current_user->ActivateItem($_GET["id_item"]);
-          CScheduler::instance()->RegisterTask(new CGiftNotificationMessage(), $notified_uid, array('live'), "-1 day", array(
-            'operation_id' => $_GET["id_item"],
-            'receiver' => $current_user->uid,
-            'sender' => $current_user->uid,
-          ));
 				}
 			break;
 

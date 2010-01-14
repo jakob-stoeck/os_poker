@@ -336,13 +336,45 @@ class CUser
 		return $this->_activeItem;
 	}
 
-	public function ActivateItem($id_operation)
+  /**
+   * Set the active item for this user.
+   *
+   * @param <type> $id_operation
+   * @param <type> $gift If the activation is the result of a gift, the gift
+   * details as a structuted array: <code>
+   * $gift = array(
+   *       'item' => 'name of the item',
+   *       'sender' => uid of the user sending the gift,
+   *     );
+   * </code>
+   */
+	public function ActivateItem($id_operation, $gift = NULL)
 	{
 		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `id_operation`) VALUES (%d, %d)
 				ON DUPLICATE KEY UPDATE `id_operation`= %d";
 
 		$res = db_query($sql, $this->_user->uid, $id_operation, $id_operation);
 		$this->_activeItem = $id_operation;
+
+    if($gift == NULL) {
+      $sql = 'SELECT pi.name FROM {poker_item} as pi LEFT JOIN {poker_operation} as po ON (pi.id_item = po.id_item) WHERE po.id_operation = %d';
+      $rs = db_query($sql, $id_operation);
+      if($rs) {
+        $gift = array(
+          'item' => db_result($rs),
+          'sender' => $this->_user->uid,
+        );
+      }
+    }
+    if($gift) {
+      $gift['receiver'] = $this->_user->uid;
+      //Enqueue a 'live' gift event to all players sitting at the same table(s) as the receiver
+      foreach($this->Tables() as $table) {
+        foreach(CPoker::UsersAtTable($table->serial) as $notified_uid) {
+          CScheduler::instance()->RegisterTask(new CGiftNotificationMessage(), $notified_uid, array('live'), "-1 day", $gift);
+        }
+      }
+    }
 }
 
 	public function LastDailyGift()
@@ -861,18 +893,6 @@ class CUpdateUserChipsCount extends CMessage {
 
 class CGiftNotificationMessage extends CMessage {
   public function Run($context_user, $arguments) {
-    if(isset($arguments['operation_id']) && !isset($arguments['item'])) {
-      $sql = <<<EOT
-SELECT pi.name
-FROM {poker_item} as pi
-LEFT JOIN {poker_operation} as po ON (pi.id_item = po.id_item)
-WHERE po.operation_id = %d
-EOT;
-      $rs = qb_query($sql, $arguments['operation_id']);
-      if($rs) {
-        $arguments['item'] = db_result($rs);
-      }
-    }
     $msg = array(
       'type' => 'os_poker_gift',
       'body' => array(

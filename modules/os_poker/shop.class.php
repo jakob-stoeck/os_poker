@@ -349,7 +349,11 @@ class CShop
 				{
 					if ($target->ActiveItem() <= 0)
 					{
-						$target->ActivateItem($operation_id);
+						$target->ActivateItem($operation_id, array(
+              'item' => $item->name,
+              'receiver' => $target->uid,
+              'sender' => $user->uid,
+            ));
 					}
 
 					CScheduler::instance()->RegisterTask(new CItemExpiry(), $target->uid, 'live', $ttl, array("id_operation" => $operation_id));
@@ -364,16 +368,6 @@ class CShop
 					}
 
 					CMessageSpool::instance()->SendMessage($target->uid, $args);
-          //Enqueue a 'live' gift event to all players sitting at the same table(s) as the receiver
-          foreach($target->Tables() as $table) {
-            foreach(CPoker::UsersAtTable($table->serial) as $notified_uid) {
-              CScheduler::instance()->RegisterTask(new CGiftNotificationMessage(), $notified_uid, array('live'), "-1 day", array(
-                'item' => $item->name,
-                'receiver' => $target->uid,
-                'sender' => $user->uid,
-              ));
-            }
-          }
 				}
 			}
 
