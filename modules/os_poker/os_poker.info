@@ -4,6 +4,7 @@ description = Pokermania World Open Social plugin
 ;dependencies[] = remember_me
 dependencies[] = shindig_integrator
 dependencies[] = invite
+dependencies[] = jquery_update
 dependencies[] = password_policy
 dependencies[] = simple_payments
 dependencies[] = user_relationships_api

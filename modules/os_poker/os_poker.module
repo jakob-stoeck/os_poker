@@ -83,13 +83,81 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										$form['#id'] . '\');" ' .
 										drupal_attributes($aAttr) .
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
+  $form['name']['#title'] = t('E-Mail');
+  if(!is_array($form['#validate'])) {
+    $form['#validate'] = array($form['#validate'], 'os_poker_user_login_final_validate');
+  }
+  else {
+    $key = array_search('user_login_final_validate', $form['#validate']);
+    if($key === FALSE) {
+      $form['#validate'][] = 'os_poker_user_login_final_validate';
+    }
+    else {
+      $form['#validate'][$key] = 'os_poker_user_login_final_validate';
+    }
+  }
 }
+
+/**
+ * Replacement validator for user_login_final_validate. Display a custom message
+ * on top of an overlay form for failed login.
+ */
+function os_poker_user_login_final_validate($form, &$form_state) {
+  global $user;
+  if (!$user->uid) {
+    watchdog('user', 'Login attempt failed for %user.', array('%user' => $form_state['values']['name']));
+    if(!empty($form_state['values']['name']) || !empty($form_state['values']['pass'])) {
+      drupal_set_message(t('<strong>Incorrect Email/Password Combination</strong><br/>Our passwords are case sensitive. Please check your CAPS lock key.<br/>You may also try clearing your browser\'s cache.'), 'error');
+    }
+    $overlay .= '<div id="failed-login">';
+    $overlay .= '<h1>'.t('Login').'</h1>';
+    $overlay .= theme('status_messages');
+    $overlay .= drupal_get_form('os_poker_failed_login_form');
+    $overlay .= '</div>';
+    os_poker_set_overlay($overlay);
+  }
+}
+
+/**
+ * Builder function for the form displayed in the failed login overlay.
+ */
+function os_poker_failed_login_form(&$form_state) {
+  $form = user_login($form_state);
+  $form['#submit'][] = 'user_login_submit';
+  $form['name']['#title'] = t('E-Mail');
+  unset($form['name']['#description']);
+  unset($form['pass']['#description']);
+  $form['submit']['#suffix'] = t('or !signup', array('!signup' => l(t('Sign up') , '<front>', array('attributes' => array('class' => 'close')))));
+  $form['forgot'] = array(
+    '#type' => 'markup',
+    '#value' => l(t("Forgot your Password ?"), "poker/forgot-password", array(
+      "attributes" => array(
+        "title" => t("Request new password via e-mail") . ".",
+        "id" => "forgot_password",
+        "class" => "thickbox",
+      ),
+      "query" => array(
+                "height" => "187",
+                "width" => "382",
+                "keepThis" => "true",
+                "TB_iframe" => "true",
+      ),
+      '#weight' => 1,
+    )),    
+  );
+  return $form;
+}
+
+function os_poker_form_user_login_alter(&$form, $form_state) {
+  $form['name']['#title'] = t('E-Mail');
+}
+
 
 /**
 * Implementation of hook_form_FORM_ID_alter().
 */
 
-function  os_poker_form_create_app_form_alter(&$form, $form_state) {
+function os_poker_form_create_app_form_alter(&$form, $form_state) {
   if(!is_array($form['#submit'])) {
     $form['#submit'] = isset($form['#submit']) ? array($form['#submit']) : array();
   }
@@ -1278,7 +1346,7 @@ function os_poker_get_overlay($clear = true) {
 function theme_os_poker_overlay() {
   $overlay = os_poker_get_overlay();
   if($overlay) {
-     drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
+    drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
     drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module');
     if($overlay['width']) {
       $overlay['attributes']['style'] .= ' width: ' . $overlay['width'] .';';

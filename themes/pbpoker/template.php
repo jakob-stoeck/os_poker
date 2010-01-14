@@ -147,51 +147,6 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
 }
 
-function xpbpoker_preprocess_user_login_block(&$variables)
-{
-	$class = "";
-	$attr = & $variables['form']['pass']['#attributes'];
-
-	if (isset($attr) && isset($attr["class"]))
-		$class = $attr["class"];
-
-	$attr["class"] = $class . " custom_input";
-	$variables['form']['pass']['#title'] = '';
-
-	$class = "";
-	$attr = & $variables['form']['name']['#attributes'];
-
-	if (isset($attr) && isset($attr["class"]))
-		$class = $attr["class"];
-
-	$attr["class"] = $class . " custom_input";
-	$variables['form']['name']['#title'] = '';
-
-	$variables['f_name'] = drupal_render($variables['form']['name']);
-	$variables['f_pass'] = drupal_render($variables['form']['pass']);
-	$variables['f_links'] = l(t("Forgot your Password") . "?", "poker/forgot-password", array(	"attributes" => array(
-																													"title" => t("Request new password via e-mail") . ".",
-																													"id" => "forgot_password",
-																												),
-																								"query" => array(
-																												"height" => "187",
-																												"width" => "380",
-																										),
-																						));
-
-	if (isset($variables['form']['remember_me']))
-	{
-		$variables['f_remember_me'] = drupal_render($variables['form']['remember_me']);
-		unset($variables['form']['remember_me']);
-	}
-
-	unset($variables['form']['name']);
-	unset($variables['form']['links']);
-	unset($variables['form']['pass']);
-
-	$variables['rendered'] .= drupal_render($variables['form']);
-}
-
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }

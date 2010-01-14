@@ -148,7 +148,7 @@ function poker_button($element) {
   else {
     $element['#attributes']['class'] = 'poker_submit form-submit form-'. $element['#button_type'];
   }
-  $output[] = $element['#prefix'];
+  //$output[] = $element['#prefix'];
   $output[] = '<div id="'. $element['#id'] . '" ' . drupal_attributes($element['#attributes']).'">';
   $output[] = '<div class="pre">&nbsp;</div>';
 	$output[] = '<div class="label">';
@@ -156,7 +156,7 @@ function poker_button($element) {
 	$output[] = '</div>';
 	$output[] = '<div class="user_login_clear"></div>';
 	$output[] = '</div>';
-  $output[] = $element['#suffix'];
+  //$output[] = $element['#suffix'];
 
   return implode("\n", $output);
 }
