@@ -20,7 +20,7 @@ function pbpoker_theme() {
       'template' => 'os-poker-user-brief',
     ),
     'os_poker_medium_profile' => array(
-      'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL),
+      'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL, "game_id" => NULL),
       'template' => 'os-poker-profile-medium',
     ),
     'os_poker_profile_settings' => array(

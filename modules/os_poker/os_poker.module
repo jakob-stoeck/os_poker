@@ -762,7 +762,7 @@ function os_poker_menu()
 										),
 
 					'poker/profile' => array(
-												'page arguments'   => array(2, 3),
+												'page arguments'   => array(2, 3, 4),
 												'page callback'    => 'os_poker_profile_page',
 												'file' 			   => 'os_poker_pages.php',
 												'type'             => MENU_CALLBACK,

@@ -215,8 +215,8 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 		
 		case "medium":
 			$content = theme('os_poker_medium_profile', $target_user, $external, $current_user, $game_id);
-			
-			return $content;
+
+      return $content;
 		break;
 		
 		default:

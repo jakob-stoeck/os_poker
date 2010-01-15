@@ -62,7 +62,9 @@
 						{
 							print theme('os_poker_item_list', $items);
 						}
-					}
+					} else {
+            print $error;
+          }
 
 				?>
 			</div>

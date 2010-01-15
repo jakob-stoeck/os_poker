@@ -290,7 +290,7 @@ class CShop
 		try
 		{
 			if (!is_array($targets) || count($targets) == 0)
-				throw new Exception(t('Bad parameter'));
+				throw new Exception(t('Bad parameter: !cause', array('!cause' => (is_array($targets) ? t('$target is empty') : t('$targer is not an array')))));
 
 			$rawTargets = CUserManager::instance()->UserList($targets);
 			$targets = array_filter($rawTargets, "_os_poker_user_accepts_gifts");
@@ -347,14 +347,23 @@ class CShop
 
 				foreach ($targets as $target)
 				{
+          $gift = array(
+            'item' => $item->name,
+            'receiver' => $target->uid,
+            'sender' => $user->uid,
+          );
 					if ($target->ActiveItem() <= 0)
 					{
-						$target->ActivateItem($operation_id, array(
-              'item' => $item->name,
-              'receiver' => $target->uid,
-              'sender' => $user->uid,
-            ));
+						$target->ActivateItem($operation_id, $gift);
 					}
+          else {
+            //Send gift notification, even if the item is not activated
+            foreach($target->Tables() as $table) {
+              foreach(CPoker::UsersAtTable($table->serial) as $notified_uid) {
+                CScheduler::instance()->RegisterTask(new CGiftNotificationMessage(), $notified_uid, array('live'), "-1 day", $gift);
+              }
+            }
+          }
 
 					CScheduler::instance()->RegisterTask(new CItemExpiry(), $target->uid, 'live', $ttl, array("id_operation" => $operation_id));
 					++$operation_id;
