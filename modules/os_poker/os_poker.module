@@ -1264,7 +1264,13 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  */
 function os_poker_skin_css() {
   $url = theme('poker_skin_css_url');
-  drupal_goto($url);
+  print("@import url($url);\n");
+  module_load_include('php', 'os_poker', 'shop.class');
+  foreach(CShop::ListItems() as $item) {
+    $class = os_poker_clean_css_identifier($item->name);
+    $img_url = file_create_url($item->picture);
+    print(".poker_gift_$class {background-image: url($img_url);}\n");
+  }  
 }
 
 /**
