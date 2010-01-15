@@ -198,6 +198,8 @@ function os_poker_preprocess_page(&$variables)
 	}
 
   $variables['closure'] .= theme('os_poker_overlay');
+  $variables['styles'] = drupal_get_css();
+  $variables['scripts'] = drupal_get_js();
 }
 
 /*
