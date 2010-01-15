@@ -481,7 +481,7 @@ class OSPokerHookTestCase extends DrupalWebTestCase
 		$block = os_poker_block('view', 1);
 		$this->assertEqual(t('Footer information'), $block['subject']);
 		$block = os_poker_block('view', 2);
-		$this->assertEqual(t('Buddielist'), $block['subject']);
+		$this->assertEqual(t('Buddylist'), $block['subject']);
 		$block = os_poker_block('view', 3);
 		$this->assertEqual(t('Poker Gadjet'), $block['subject']);
 		$block = os_poker_block('view', 4);

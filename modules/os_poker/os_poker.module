@@ -1002,7 +1002,7 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 				break;
 
 				case 2:
-					$block['subject'] = t('Buddielist');
+					$block['subject'] = t('Buddylist');
 
 					$relation = user_relationships_type_load(array("name" => "buddy"));
 
