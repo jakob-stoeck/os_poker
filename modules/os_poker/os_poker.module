@@ -198,6 +198,8 @@ function os_poker_preprocess_page(&$variables)
 	}
 
   $variables['closure'] .= theme('os_poker_overlay');
+  $variables['styles'] = drupal_get_css();
+  $variables['scripts'] = drupal_get_js();
 }
 
 /*
@@ -1000,7 +1002,7 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 				break;
 
 				case 2:
-					$block['subject'] = t('Buddielist');
+					$block['subject'] = t('Buddylist');
 
 					$relation = user_relationships_type_load(array("name" => "buddy"));
 
@@ -1129,7 +1131,7 @@ function theme_os_poker_message_symbol($symbol) {
   }
 }
 
-function os_poker_preprocess_os_poker_message($variables) {
+function os_poker_preprocess_os_poker_message(&$variables) {
   $message =& $variables['message'];
   if($message) {
     $variables['symbol'] = theme('os_poker_message_symbol', $message['symbol']);
@@ -1173,6 +1175,20 @@ function os_poker_preprocess_os_poker_message($variables) {
       }
     }
     $variables['picture'] = theme('image', $message["senderPix"]);
+  }
+}
+
+function os_poker_preprocess_os_poker_first_profile(&$variables) {
+  $variables['title'] = t("Create your Profile");
+  $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
+  $variables['find_new_buddies'] = t("Find new Poker Buddies!");
+  $variables['footer'] = t("The text that shows at the bottom of the first profile page and that has yet to be defined.");
+  foreach($variables['userlist'] as $uid) {
+    $avatar = "sites/default/files/pictures/picture-".$uid.".png";
+    if (!file_exists($avatar)) {
+      $avatar = "sites/default/files/pictures/picture-default.png";
+    }
+    $variables['avatars'] .= theme('image', $avatar, NULL, NULL, array('class' => 'first_profile_userlist_avatar'));
   }
 }
 
@@ -1264,7 +1280,13 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  */
 function os_poker_skin_css() {
   $url = theme('poker_skin_css_url');
-  drupal_goto($url);
+  print("@import url($url);\n");
+  module_load_include('php', 'os_poker', 'shop.class');
+  foreach(CShop::ListItems() as $item) {
+    $class = os_poker_clean_css_identifier($item->name);
+    $img_url = file_create_url($item->picture);
+    print(".poker_gift_$class {background-image: url($img_url);}\n");
+  }  
 }
 
 /**
