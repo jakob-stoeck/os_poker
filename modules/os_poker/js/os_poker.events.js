@@ -21,11 +21,6 @@ function		os_poker_init_events()
 										}
 								});
 
-	os_poker_bind_message("os_poker_imsg", null,  function(event, arg) {
-										alert(arg.text);
-										$("iframe#remote_iframe_os_poker").find("*").triggerHandler("os_poker_imsg", arg);
-								});
-
 	os_poker_bind_message("os_poker_update_chips", $("b.chips"),  function(event, arg) {
 	
 										if (typeof(arg.amount) != "undefined")
