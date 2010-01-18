@@ -55,12 +55,12 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
 
   function  testSearching() {
     $profiles = array(
-      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
-      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
-      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
-      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
+      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
+      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
+      array('profile_country'=>'BE', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
+      array('profile_country'=>'BE', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
+      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
+      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
     );
     $users = array();
     foreach($profiles as $key => $profile) {
@@ -92,7 +92,7 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
 		//
 		$this->pass('Registered users can search others by nick (or part of it), sex, city, country,level or a combination of 2 or more of it (operator is and).', 'SpecPoker');
     $searches = array(
-      'profile_country' => 'France',
+      'profile_country' => 'FR',
       'profile_city' => 'Paris',
       'profile_gender' => 'Male',
     );

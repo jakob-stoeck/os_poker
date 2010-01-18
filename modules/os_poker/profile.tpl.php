@@ -54,7 +54,7 @@
 					</tr>
 					<tr class="BgGrey">
 						<td class="Column01"><?php print t("Country"); ?>:</td>
-						<td class="Column02"><?php print $target_user->profile_country; ?></td>
+						<td class="Column02"><?php print theme('country', $target_user->profile_country) ?></td>
 						<td class="Column03"><?php print t("Best Hand"); ?>:</td>
 						<td class="Column04">
 						<?php 

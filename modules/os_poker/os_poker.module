@@ -301,7 +301,6 @@ function os_poker_init()
 	if (user_is_logged_in())
 	{
 		$cuser = CUserManager::instance()->CurrentUser();
-
 		$prof = $cuser->profile_nickname;
 
 		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
@@ -519,6 +518,9 @@ function 	os_poker_theme()
     ),
     'os_poker_overlay' => array(
       'arguments' => array(),
+    ),
+    'country' => array(
+      'arguments' => array('code' => NULL),
     )
   );
 }
@@ -1386,5 +1388,15 @@ function theme_os_poker_overlay() {
   }
   else {
     return '';
+  }
+}
+
+function theme_country($code) {
+  $country = countries_api_get_country($code);
+  if($country) {
+    return t($country['printable_name']);
+  }
+  else {
+    return 'Unknown';
   }
 }

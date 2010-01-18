@@ -1,0 +1,1012 @@
+# $Id: nl.po,v 1.1.2.2 2009/05/18 21:32:22 mrfelton Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  countries_api.info,v 1.1 2007/12/13 12:33:11 horsconcept Exp $
+#  countries_api.module,v 1.1 2007/12/13 12:33:11 horsconcept Exp $
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: countries_api\n"
+"POT-Creation-Date: 2008-11-15 15:10+0100\n"
+"PO-Revision-Date: 2009-03-26 13:03+0100\n"
+"Last-Translator: Joep BÃ¤r <info@promes.nl>\n"
+"Language-Team: Joep BÃ¤r <info@promes.nl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Dutch\n"
+"X-Poedit-Country: NETHERLANDS\n"
+"X-Poedit-SourceCharset: iso-8859-1\n"
+
+#: countries_api.info:0
+msgid "This module provides an API for official ISO 3166 country codes and names."
+msgstr "Deze module is een API voorr de officiÃ«le ISO 3166 landcodes en -namen."
+
+#: countries_api.module:489
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: countries_api.module:489
+msgid "Ã…land Islands"
+msgstr "Ã…landseilanden"
+
+#: countries_api.module:489
+msgid "Albania"
+msgstr "AlbaniÃ«"
+
+#: countries_api.module:489
+msgid "Algeria"
+msgstr "Algerije"
+
+#: countries_api.module:489
+msgid "American Samoa"
+msgstr "Amerikaans-Samoa"
+
+#: countries_api.module:489
+msgid "Andorra"
+msgstr "Andorra"
+
+#: countries_api.module:489
+msgid "Angola"
+msgstr "Angola"
+
+#: countries_api.module:489
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: countries_api.module:489
+msgid "Antarctica"
+msgstr "Antarctica"
+
+#: countries_api.module:489
+msgid "Antigua and Barbuda"
+msgstr "Antigua en Barbuda"
+
+#: countries_api.module:489
+msgid "Argentina"
+msgstr "ArgentiniÃ«"
+
+#: countries_api.module:489
+msgid "Armenia"
+msgstr "ArmeniÃ«"
+
+#: countries_api.module:489
+msgid "Aruba"
+msgstr "Aruba"
+
+#: countries_api.module:489
+msgid "Australia"
+msgstr "AustraliÃ«"
+
+#: countries_api.module:489
+msgid "Austria"
+msgstr "Oostenrijk"
+
+#: countries_api.module:489
+msgid "Azerbaijan"
+msgstr "Azerbeidzjan"
+
+#: countries_api.module:489
+msgid "Bahamas"
+msgstr "Bahama's"
+
+#: countries_api.module:489
+msgid "Bahrain"
+msgstr "Bahrein"
+
+#: countries_api.module:489
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: countries_api.module:489
+msgid "Barbados"
+msgstr "Barbados"
+
+#: countries_api.module:489
+msgid "Belarus"
+msgstr "Wit-Rusland / Belarus"
+
+#: countries_api.module:489
+msgid "Belgium"
+msgstr "BelgiÃ«"
+
+#: countries_api.module:489
+msgid "Belize"
+msgstr "Belize"
+
+#: countries_api.module:489
+msgid "Benin"
+msgstr "Benin"
+
+#: countries_api.module:489
+msgid "Bermuda"
+msgstr "Bermuda"
+
+#: countries_api.module:489
+msgid "Bhutan"
+msgstr "Bhutan"
+
+#: countries_api.module:489
+msgid "Bolivia"
+msgstr "Bolivia"
+
+#: countries_api.module:489
+msgid "Bosnia and Herzegovina"
+msgstr "BosniÃ« en Herzegovina"
+
+#: countries_api.module:489
+msgid "Botswana"
+msgstr "Botswana"
+
+#: countries_api.module:489
+msgid "Bouvet Island"
+msgstr "Bouvet"
+
+#: countries_api.module:489
+msgid "Brazil"
+msgstr "BraziliÃ«"
+
+#: countries_api.module:489
+msgid "British Indian Ocean Territory"
+msgstr "Brits Territorium in de Indische Oceaan"
+
+#: countries_api.module:489
+msgid "Brunei Darussalam"
+msgstr "Brunei"
+
+#: countries_api.module:489
+msgid "Bulgaria"
+msgstr "Bulgarije"
+
+#: countries_api.module:489
+msgid "Burkina Faso"
+msgstr "Burkina Faso"
+
+#: countries_api.module:489
+msgid "Burundi"
+msgstr "Burundi"
+
+#: countries_api.module:489
+msgid "Cambodia"
+msgstr "Cambodja"
+
+#: countries_api.module:489
+msgid "Cameroon"
+msgstr "Kameroen"
+
+#: countries_api.module:489
+msgid "Canada"
+msgstr "Canada"
+
+#: countries_api.module:489
+msgid "Cape Verde"
+msgstr "Kaap Verde"
+
+#: countries_api.module:489
+msgid "Cayman Islands"
+msgstr "Kaaimaneilanden"
+
+#: countries_api.module:489
+msgid "Central African Republic"
+msgstr "Centraal-Afrikaanse Republiek"
+
+#: countries_api.module:489
+msgid "Chad"
+msgstr "Tsjaad"
+
+#: countries_api.module:489
+msgid "Chile"
+msgstr "Chili"
+
+#: countries_api.module:489
+msgid "China"
+msgstr "China"
+
+#: countries_api.module:489
+msgid "Christmas Island"
+msgstr "Christmaseiland"
+
+#: countries_api.module:489
+msgid "Cocos (Keeling) Islands"
+msgstr "Cocoseilanden"
+
+#: countries_api.module:489
+msgid "Colombia"
+msgstr "Colombia"
+
+#: countries_api.module:489
+msgid "Comoros"
+msgstr "Comoren"
+
+#: countries_api.module:489
+msgid "Congo"
+msgstr "Congo-Brazzaville"
+
+#: countries_api.module:489
+msgid "Congo, The Democratic Republic of the"
+msgstr "Congo-Kinshasa"
+
+#: countries_api.module:489
+msgid "Cook Islands"
+msgstr "Cookeilanden"
+
+#: countries_api.module:489
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: countries_api.module:489
+msgid "CÃ´te d\'Ivoire"
+msgstr "Ivoorkust"
+
+#: countries_api.module:489
+msgid "Croatia"
+msgstr "KroatiÃ«"
+
+#: countries_api.module:489
+msgid "Cuba"
+msgstr "vCuba"
+
+#: countries_api.module:489
+msgid "Cyprus"
+msgstr "Cyprus"
+
+#: countries_api.module:489
+msgid "Czech Republic"
+msgstr "TsjechiÃ«"
+
+#: countries_api.module:489
+msgid "Denmark"
+msgstr "Denemarken"
+
+#: countries_api.module:489
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: countries_api.module:489
+msgid "Dominica"
+msgstr "Dominica"
+
+#: countries_api.module:489
+msgid "Dominican Republic"
+msgstr "Dominicaanse Republiek"
+
+#: countries_api.module:489
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: countries_api.module:489
+msgid "Egypt"
+msgstr "Egypte"
+
+#: countries_api.module:489
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: countries_api.module:489
+msgid "Equatorial Guinea"
+msgstr "Equatoriaal-Guinea"
+
+#: countries_api.module:489
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: countries_api.module:489
+msgid "Estonia"
+msgstr "Estland"
+
+#: countries_api.module:489
+msgid "Ethiopia"
+msgstr "EthiopiÃ«"
+
+#: countries_api.module:489
+msgid "Falkland Islands (Malvinas)"
+msgstr "Falklandeilanden"
+
+#: countries_api.module:489
+msgid "Faroe Islands"
+msgstr "FaerÃ¶er"
+
+#: countries_api.module:489
+msgid "Fiji"
+msgstr "Fiji"
+
+#: countries_api.module:489
+msgid "Finland"
+msgstr "Finland"
+
+#: countries_api.module:489
+msgid "France"
+msgstr "Frankrijk"
+
+#: countries_api.module:489
+msgid "French Guiana"
+msgstr "Frans-Guyana"
+
+#: countries_api.module:489
+msgid "French Polynesia"
+msgstr "Frans-PolynesiÃ«"
+
+#: countries_api.module:489
+msgid "French Southern Territories"
+msgstr "Franse Zuidelijke en Antarctische Gebieden"
+
+#: countries_api.module:489
+msgid "Gabon"
+msgstr "Gabon"
+
+#: countries_api.module:489
+msgid "Gambia"
+msgstr "Gambia"
+
+#: countries_api.module:489
+msgid "Georgia"
+msgstr "GeorgiÃ«"
+
+#: countries_api.module:489
+msgid "Germany"
+msgstr "Duitsland"
+
+#: countries_api.module:489
+msgid "Ghana"
+msgstr "Ghana"
+
+#: countries_api.module:489
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: countries_api.module:489
+msgid "Greece"
+msgstr "Griekenland"
+
+#: countries_api.module:489
+msgid "Greenland"
+msgstr "Groenland"
+
+#: countries_api.module:489
+msgid "Grenada"
+msgstr "Grenada"
+
+#: countries_api.module:489
+msgid "Guadeloupe"
+msgstr "Guadeloupe"
+
+#: countries_api.module:489
+msgid "Guam"
+msgstr "Guam"
+
+#: countries_api.module:489
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: countries_api.module:489
+msgid "Guernsey"
+msgstr "Guernsey"
+
+#: countries_api.module:489
+msgid "Guinea"
+msgstr "Guinee"
+
+#: countries_api.module:489
+msgid "Guinea-Bissau"
+msgstr "Guinee-Bissau"
+
+#: countries_api.module:489
+msgid "Guyana"
+msgstr "Guyana"
+
+#: countries_api.module:489
+msgid "Haiti"
+msgstr "HaÃ¯ti"
+
+#: countries_api.module:489
+msgid "Heard Island and McDonald Islands"
+msgstr "Heardeiland en McDonaldeilanden"
+
+#: countries_api.module:489
+msgid "Holy See (Vatican City State)"
+msgstr "Vaticaanstad"
+
+#: countries_api.module:489
+msgid "Honduras"
+msgstr "Honduras"
+
+#: countries_api.module:489
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: countries_api.module:489
+msgid "Hungary"
+msgstr "Hongarije"
+
+#: countries_api.module:489
+msgid "Iceland"
+msgstr "IJsland"
+
+#: countries_api.module:489
+msgid "India"
+msgstr "India"
+
+#: countries_api.module:489
+msgid "Indonesia"
+msgstr "IndonesiÃ«"
+
+#: countries_api.module:489
+msgid "Iran, Islamic Republic of"
+msgstr "Iran"
+
+#: countries_api.module:489
+msgid "Iraq"
+msgstr "Irak"
+
+#: countries_api.module:489
+msgid "Ireland"
+msgstr "Ierland"
+
+#: countries_api.module:489
+msgid "Isle of Man"
+msgstr "Man"
+
+#: countries_api.module:489
+msgid "Israel"
+msgstr "IsraÃ«l"
+
+#: countries_api.module:489
+msgid "Italy"
+msgstr "ItaliÃ«"
+
+#: countries_api.module:489
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: countries_api.module:489
+msgid "Japan"
+msgstr "Japan"
+
+#: countries_api.module:489
+msgid "Jersey"
+msgstr "Jersey"
+
+#: countries_api.module:489
+msgid "Jordan"
+msgstr "JordaniÃ«"
+
+#: countries_api.module:489
+msgid "Kazakhstan"
+msgstr "Kazachstan"
+
+#: countries_api.module:489
+msgid "Kenya"
+msgstr "Kenia"
+
+#: countries_api.module:489
+msgid "Kiribati"
+msgstr "KiribatiKiribati"
+
+#: countries_api.module:489
+msgid "Korea, Democratic People\'s Republic of"
+msgstr "Noord-Korea"
+
+#: countries_api.module:489
+msgid "Korea, Republic of"
+msgstr "Zuid-Korea"
+
+#: countries_api.module:489
+msgid "Kuwait"
+msgstr "Koeweit"
+
+#: countries_api.module:489
+msgid "Kyrgyzstan"
+msgstr "KirgiziÃ«"
+
+#: countries_api.module:489
+msgid "Lao People\'s Democratic Republic"
+msgstr "Laos"
+
+#: countries_api.module:489
+msgid "Latvia"
+msgstr "Letland"
+
+#: countries_api.module:489
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: countries_api.module:489
+msgid "Lesotho"
+msgstr "Lesotho"
+
+#: countries_api.module:489
+msgid "Liberia"
+msgstr "Liberia"
+
+#: countries_api.module:489
+msgid "Libyan Arab Jamahiriya"
+msgstr "LibiÃ«"
+
+#: countries_api.module:489
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: countries_api.module:489
+msgid "Lithuania"
+msgstr "Litouwen"
+
+#: countries_api.module:489
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: countries_api.module:489
+msgid "Macao"
+msgstr "Macau"
+
+#: countries_api.module:489
+msgid "Macedonia, The Former Yugoslav Republic of"
+msgstr "MacedoniÃ«"
+
+#: countries_api.module:489
+msgid "Madagascar"
+msgstr "Madagaskar"
+
+#: countries_api.module:489
+msgid "Malawi"
+msgstr "Malawi"
+
+#: countries_api.module:489
+msgid "Malaysia"
+msgstr "MaleisiÃ«"
+
+#: countries_api.module:489
+msgid "Maldives"
+msgstr "Maldiven"
+
+#: countries_api.module:489
+msgid "Mali"
+msgstr "Mali"
+
+#: countries_api.module:489
+msgid "Malta"
+msgstr "Malta"
+
+#: countries_api.module:489
+msgid "Marshall Islands"
+msgstr "Marshalleilanden"
+
+#: countries_api.module:489
+msgid "Martinique"
+msgstr "Martinique"
+
+#: countries_api.module:489
+msgid "Mauritania"
+msgstr "MauritaniÃ«"
+
+#: countries_api.module:489
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: countries_api.module:489
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: countries_api.module:489
+msgid "Mexico"
+msgstr "Mexico"
+
+#: countries_api.module:489
+msgid "Micronesia, Federated States of"
+msgstr "MicronesiÃ«"
+
+#: countries_api.module:489
+msgid "Moldova, Republic of"
+msgstr "MoldaviÃ«"
+
+#: countries_api.module:489
+msgid "Monaco"
+msgstr "Monaco"
+
+#: countries_api.module:489
+msgid "Mongolia"
+msgstr "MongoliÃ«"
+
+#: countries_api.module:489
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: countries_api.module:489
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: countries_api.module:489
+msgid "Morocco"
+msgstr "Marokko"
+
+#: countries_api.module:489
+msgid "Mozambique"
+msgstr "Mozambique"
+
+#: countries_api.module:489
+msgid "Myanmar"
+msgstr "Myanmar"
+
+#: countries_api.module:489
+msgid "Namibia"
+msgstr "NamibiÃ«"
+
+#: countries_api.module:489
+msgid "Nauru"
+msgstr "Nauru"
+
+#: countries_api.module:489
+msgid "Nepal"
+msgstr "Nepal"
+
+#: countries_api.module:489
+msgid "Netherlands"
+msgstr "Nederland"
+
+#: countries_api.module:489
+msgid "Netherlands Antilles"
+msgstr "Nederlanse Antillen"
+
+#: countries_api.module:489
+msgid "New Caledonia"
+msgstr "Nieuw-CaledoniÃ«"
+
+#: countries_api.module:489
+msgid "New Zealand"
+msgstr "Nieuw Zeeland"
+
+#: countries_api.module:489
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: countries_api.module:489
+msgid "Niger"
+msgstr "Niger"
+
+#: countries_api.module:489
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: countries_api.module:489
+msgid "Niue"
+msgstr "Niue"
+
+#: countries_api.module:489
+msgid "Norfolk Island"
+msgstr "Norfolk"
+
+#: countries_api.module:489
+msgid "Northern Mariana Islands"
+msgstr "Noordelijke Marianen"
+
+#: countries_api.module:489
+msgid "Norway"
+msgstr "Noorwegen"
+
+#: countries_api.module:489
+msgid "Oman"
+msgstr "Oman"
+
+#: countries_api.module:489
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: countries_api.module:489
+msgid "Palau"
+msgstr "Palau"
+
+#: countries_api.module:489
+msgid "Palestinian Territory, Occupied"
+msgstr "Palestijnse Gebieden"
+
+#: countries_api.module:489
+msgid "Panama"
+msgstr "Panama"
+
+#: countries_api.module:489
+msgid "Papua New Guinea"
+msgstr "Papoea-Nieuw-Guinea"
+
+#: countries_api.module:489
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: countries_api.module:489
+msgid "Peru"
+msgstr "Peru"
+
+#: countries_api.module:489
+msgid "Philippines"
+msgstr "Filipijnen"
+
+#: countries_api.module:489
+msgid "Pitcairn"
+msgstr "Pitcairneilanden"
+
+#: countries_api.module:489
+msgid "Poland"
+msgstr "Polen"
+
+#: countries_api.module:489
+msgid "Portugal"
+msgstr "Portugal"
+
+#: countries_api.module:489
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: countries_api.module:489
+msgid "Qatar"
+msgstr "Qatar"
+
+#: countries_api.module:489
+msgid "RÃ©union"
+msgstr "RÃ©union"
+
+#: countries_api.module:489
+msgid "Romania"
+msgstr "RoemeniÃ«"
+
+#: countries_api.module:489
+msgid "Russian Federation"
+msgstr "Rusland"
+
+#: countries_api.module:489
+msgid "Rwanda"
+msgstr "Rwanda"
+
+#: countries_api.module:489
+msgid "Saint BarthÃ©lemy"
+msgstr "Saint-BarthÃ©lemy"
+
+#: countries_api.module:489
+msgid "Saint Helena"
+msgstr "Sint-Helena"
+
+#: countries_api.module:489
+msgid "Saint Kitts and Nevis"
+msgstr "Saint Kitts en Nevis"
+
+#: countries_api.module:489
+msgid "Saint Lucia"
+msgstr "Saint Lucia"
+
+#: countries_api.module:489
+msgid "Saint Martin"
+msgstr "Saint-Martin"
+
+#: countries_api.module:489
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint-Pierre en Miquelon"
+
+#: countries_api.module:489
+msgid "Saint Vincent and the Grenadines"
+msgstr "Saint Vincent en de Grenadines"
+
+#: countries_api.module:489
+msgid "Samoa"
+msgstr "Samoa"
+
+#: countries_api.module:489
+msgid "San Marino"
+msgstr "San Marino"
+
+#: countries_api.module:489
+msgid "Sao Tome and Principe"
+msgstr "Sao TomÃ© en Principe"
+
+#: countries_api.module:489
+msgid "Saudi Arabia"
+msgstr "Saoedi-ArabiÃ«"
+
+#: countries_api.module:489
+msgid "Senegal"
+msgstr "Senegal"
+
+#: countries_api.module:489
+msgid "Serbia"
+msgstr "ServiÃ«"
+
+#: countries_api.module:489
+msgid "Seychelles"
+msgstr "Seychellen"
+
+#: countries_api.module:489
+msgid "Sierra Leone"
+msgstr "Sierra Leone"
+
+#: countries_api.module:489
+msgid "Singapore"
+msgstr "Singapore"
+
+#: countries_api.module:489
+msgid "Slovakia"
+msgstr "Slowakije"
+
+#: countries_api.module:489
+msgid "Slovenia"
+msgstr "SloveniÃ«"
+
+#: countries_api.module:489
+msgid "Solomon Islands"
+msgstr "Salomonseilanden"
+
+#: countries_api.module:489
+msgid "Somalia"
+msgstr "SomaliÃ«"
+
+#: countries_api.module:489
+msgid "South Africa"
+msgstr "Zuid Afrika"
+
+#: countries_api.module:489
+msgid "South Georgia and the South Sandwich Islands"
+msgstr "Zuid-GeorgiÃ« en de Zuidelijke Sandwicheilanden"
+
+#: countries_api.module:489
+msgid "Spain"
+msgstr "Spanje"
+
+#: countries_api.module:489
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: countries_api.module:489
+msgid "Sudan"
+msgstr "Soedan"
+
+#: countries_api.module:489
+msgid "Suriname"
+msgstr "Suriname"
+
+#: countries_api.module:489
+msgid "Svalbard and Jan Mayen"
+msgstr "Spitsbergen en Jan Mayen"
+
+#: countries_api.module:489
+msgid "Swaziland"
+msgstr "Swaziland"
+
+#: countries_api.module:489
+msgid "Sweden"
+msgstr "Zweden"
+
+#: countries_api.module:489
+msgid "Switzerland"
+msgstr "Zwitserland"
+
+#: countries_api.module:489
+msgid "Syrian Arab Republic"
+msgstr "SyriÃ«"
+
+#: countries_api.module:489
+msgid "Taiwan, Province of China"
+msgstr "Taiwan"
+
+#: countries_api.module:489
+msgid "Tajikistan"
+msgstr "Tadzjikistan"
+
+#: countries_api.module:489
+msgid "Tanzania, United Republic of"
+msgstr "Tanzania"
+
+#: countries_api.module:489
+msgid "Thailand"
+msgstr "Thailand"
+
+#: countries_api.module:489
+msgid "Timor-Leste"
+msgstr "Oost-Timor"
+
+#: countries_api.module:489
+msgid "Togo"
+msgstr "Togo"
+
+#: countries_api.module:489
+msgid "Tokelau"
+msgstr "Tokelau-eilanden"
+
+#: countries_api.module:489
+msgid "Tonga"
+msgstr "Tonga"
+
+#: countries_api.module:489
+msgid "Trinidad and Tobago"
+msgstr "Trinidad en Tobago"
+
+#: countries_api.module:489
+msgid "Tunisia"
+msgstr "TunesiÃ«"
+
+#: countries_api.module:489
+msgid "Turkey"
+msgstr "Turkije"
+
+#: countries_api.module:489
+msgid "Turkmenistan"
+msgstr "Turkmenistan"
+
+#: countries_api.module:489
+msgid "Turks and Caicos Islands"
+msgstr "Turks- en Caicoseilanden"
+
+#: countries_api.module:489
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: countries_api.module:489
+msgid "Uganda"
+msgstr "Oeganda"
+
+#: countries_api.module:489
+msgid "Ukraine"
+msgstr "OekraÃ¯ne"
+
+#: countries_api.module:489
+msgid "United Arab Emirates"
+msgstr "Verenigde Arabische Emiraten"
+
+#: countries_api.module:489
+msgid "United Kingdom"
+msgstr "Verenigd Koninkrijk"
+
+#: countries_api.module:489
+msgid "United States"
+msgstr "Verenigde Staten"
+
+#: countries_api.module:489
+msgid "United States Minor Outlying Islands"
+msgstr "Kleine afgelegen eilanden van de Verenigde Staten"
+
+#: countries_api.module:489
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: countries_api.module:489
+msgid "Uzbekistan"
+msgstr "Oezbekistan"
+
+#: countries_api.module:489
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: countries_api.module:489
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: countries_api.module:489
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: countries_api.module:489
+msgid "Virgin Islands, British"
+msgstr "Maagdeneilanden, Brits"
+
+#: countries_api.module:489
+msgid "Virgin Islands, U.S."
+msgstr "Maagdeneilanden, Amerikaans"
+
+#: countries_api.module:489
+msgid "Wallis and Futuna"
+msgstr "Wallis en Futuna"
+
+#: countries_api.module:489
+msgid "Western Sahara"
+msgstr "Westelijke Sahara"
+
+#: countries_api.module:489
+msgid "Yemen"
+msgstr "Jemen"
+
+#: countries_api.module:489
+msgid "Zambia"
+msgstr "Zambia"
+
+#: countries_api.module:489
+msgid "Zimbabwe"
+msgstr "Zimbabwe"
+
+

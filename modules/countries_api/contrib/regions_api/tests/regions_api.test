@@ -1,0 +1,33 @@
+<?php
+// $Id: regions_api.test,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+
+/**
+ * @file
+ * Tests for Regions API
+ */
+ 
+//Define working test case variables
+define('VALID_ISO2', 'US');
+
+class RegionsAPITestCase extends DrupalWebTestCase {
+
+  function getInfo() {
+    return array(
+      'name' => t('Regions API tests'),
+      'desc' => t('Tests Regions API functions'),
+      'group' => t('Regions API tests')
+    );
+  }
+
+  function setUp() {
+    parent::setUp('regions_api');
+  }
+
+  /**
+   * Test that the links are added to the page (no JS testing).
+   */
+  function test_regions_api_iso2_get_array() {
+    $regions = regions_api_iso2_get_array(VALID_ISO2);
+    $this->assertNotNull($regions, 'Checking regions api array results. %s');
+  }
+}

@@ -278,7 +278,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $profile = array(
       'profile_nickname' => 'simpletest',
       'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
+      'profile_country'  => 'FR',
       'profile_city'     => $this->randomName(),
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). 'avatar1.png',
     );

@@ -38,7 +38,7 @@
 			<?php print t("Status"); ?> : <span class='darkred'><?php print $target_user->Status(); ?></span><br/>
 			<?php print t("Chips"); ?> : <span class='darkred'><?php print $target_user->Chips(TRUE); ?></span><br/>
 			<span><?php print $target_user->profile_city; ?></span><br/>
-			<span><?php print $target_user->profile_country; ?></span><br/>
+			<span><?php print theme('country', $target_user->profile_country); ?></span><br/>
 			
 		</div>
 		<div class="items fleft">
