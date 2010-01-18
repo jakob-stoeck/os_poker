@@ -1,0 +1,96 @@
+<?php
+// $Id: countries_api.install,v 1.1.2.2 2009/06/27 19:22:13 mrfelton Exp $
+
+/**
+ * Implementation of hook_schema().
+ */
+function countries_api_schema() {
+  $schema['countries_api_countries'] = array(
+    'description' => t('TODO'),
+    'fields' => array(
+      'iso2' => array(
+        'description' => t('TODO'),
+        'type' => 'char',
+  		'length' => 2,
+        'not null' => TRUE,
+      ),
+      'iso3' => array(
+        'description' => t('TODO'),
+        'type' => 'char',
+        'length' => 3,
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => t('TODO'),
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => TRUE,
+      ),
+      'printable_name' => array(
+        'description' => t('TODO'),
+        'type' => 'varchar',
+        'length' => 80,
+        'not null' => TRUE,
+      ),
+      'numcode' => array(
+        'description' => t('TODO'),
+        'type' => 'int',
+        'size' => 'small',
+        'not null' => FALSE,
+      ),
+    ),
+    'primary key' => array('iso2'),
+  );
+
+  return $schema;
+}
+
+/**
+ * @file
+ * Install file for Countries API.
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function countries_api_install() {
+  // Create tables.
+  drupal_install_schema('countries_api');
+  //Include country module include for initial data import
+  require_once(dirname(__FILE__) .'/countries_api.module');
+  countries_api_csv_import_countries();
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function countries_api_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('countries_api');
+}
+
+/**
+ * Implementation of hook_update_N().
+ */
+function countries_api_update_6000() {
+  $ret = array();
+  db_change_field($ret, 'countries_api_countries', 'iso2', 'iso2', array(
+	'type' => 'char', 'length' => 2, 'not null' => TRUE, 'description' => t('TODO'),
+  ));
+  db_change_field($ret, 'countries_api_countries', 'iso3', 'iso3', array(
+	'type' => 'char', 'length' => 3, 'not null' => TRUE, 'description' => t('TODO'),
+  ));
+  return $ret;
+}
+
+/**
+ * Implementation of hook_update_N().
+ */
+function countries_api_update_6101() {
+  $ret = array();
+  //Include country module include for initial data import
+  require_once(dirname(__FILE__) .'/countries_api.module');
+  _countries_api_flush();
+  countries_api_csv_import_countries();
+  return $ret;
+}

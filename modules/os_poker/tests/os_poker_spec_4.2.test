@@ -299,7 +299,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
 
 		/* set profile_country */
-		$test_user->profile_country = "Country";
+		$test_user->profile_country = "FR";
 		$fields_count++; /* increment fields_count */
 		$this->assertTrue($test_user->GetProfileCompletePercent() == round($fields_count * 100 / $fields_total), 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% match filled in fields * 100 / total number of fields');
 
@@ -313,7 +313,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$edit['profile_nickname'] = "TESTNick";
     $edit['profile_gender'] = "Male";
     $edit['profile_city'] = "TESTCity";
-		$edit['profile_country'] = "France";
+		$edit['profile_country'] = "FR";
 		$edit['files[picture_upload]'] = drupal_get_path('module', 'os_poker').'/avatar1.png';
 		$edit['profile_dob[month]'] = 1;
     $edit['profile_dob[day]'] = 1;

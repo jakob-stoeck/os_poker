@@ -1,0 +1,67 @@
+<?php
+// $Id: regions_api_service.module,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+
+/**
+ * @file
+ * The module which exposes services related to regions_api
+ */
+ 
+define('REGIONS_API_SERVICE_PERM', 'load raw regions data');
+ 
+/**
+ * Implementation of hook_help().
+ */
+function regions_api_service_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#service_regions_api':
+      return '<p>'. t('Provides regions api methods to services applications. Requires services.module.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_perm()
+**/
+function regions_api_service_perm() {
+  return array(REGIONS_API_SERVICE_PERM);
+}
+
+/**
+ * Function to check user access
+**/
+function regions_api_service_access($account) {
+  return user_access(REGIONS_API_SERVICE_PERM, $account);
+}
+
+/**
+ * Implementation of hook_service()
+**/
+function regions_api_service_service() {
+  return array(
+    array(
+      '#method'   => 'regions_api.load',
+      '#callback' => 'regions_api_service_load',
+      '#key'      => FALSE,
+      '#args'     => array(
+        array(
+          '#name'         => 'iso2',
+          '#type'         => 'string',
+          '#description'  => t('An iso2 country code.')
+        ),
+      ),
+      '#return'   => 'array',
+      '#help'     => t('Returns an array of regions.'),
+    )
+  );
+}
+
+/**
+ * Returns an array of countries
+ */
+function regions_api_service_load($iso2) {
+  $regions = regions_api_iso2_get_options_array($iso2);
+  
+  if (!$regions) {
+    return services_error(t('No regions where found with the given argument.'));
+  }
+  return $regions;
+}

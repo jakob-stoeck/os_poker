@@ -1,0 +1,54 @@
+# $Id: regions_api.pot,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  regions_api.module,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#  regions_api.install,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#  regions_api.info,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-05-17 11:39+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: regions_api.module:16
+msgid "Help Section Coming Soon."
+msgstr ""
+
+#: regions_api.module:83
+msgid "regions_api"
+msgstr ""
+
+#: regions_api.module:83
+msgid "Pre-populated regions data."
+msgstr ""
+
+#: regions_api.install:14;22;28;34;74
+msgid "TODO"
+msgstr ""
+
+#: regions_api.install:19;71
+msgid "Primary Key: Unique region ID."
+msgstr ""
+
+#: regions_api.info:0
+msgid "Regions codes API"
+msgstr ""
+
+#: regions_api.info:0
+msgid "This module provides an API for accessing country region (province/state) data."
+msgstr ""
+
+#: regions_api.info:0
+msgid "Location"
+msgstr ""
+

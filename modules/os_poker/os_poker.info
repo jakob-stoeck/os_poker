@@ -10,6 +10,7 @@ dependencies[] = simple_payments
 dependencies[] = user_relationships_api
 dependencies[] = user_relationships_ui
 dependencies[] = user_relationship_invites
+dependencies[] = countries_api
 package = Other
 version = 0.1
 core = 6.x

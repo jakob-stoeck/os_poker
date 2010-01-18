@@ -223,7 +223,7 @@ function os_poker_install()
 			(9,'Nickname','profile_nickname','','Personal information','','textfield',-10,1,0,2,0,''),
 			(4,'Date of Birth','profile_dob','','Personal information','','date',-8,0,0,2,0,''),
 			(5,'City','profile_city','','Personal information','','textfield',-7,0,0,2,0,''),
-			(10,'Country','profile_country','','Personal information','','selection',-6,0,0,2,0,'France\r\nGermany'),
+			(10,'Country','profile_country','','Personal information','','textfield',-6,0,0,2,0,''),
 			(7,'Interested in','profile_interest','','Personal information','','textfield',-5,0,0,4,0,''),
 			(8,'Gender','profile_gender','','Personal information','','selection',-9,0,0,2,0,'Male\r\nFemale\r\nDon\'t Display\r\n'),
 			(11,'I don\'t accept gifts','profile_accept_gifts','','Personal information','','checkbox',0,0,0,1,0,''),
@@ -271,4 +271,19 @@ function os_poker_update_1() {
     os_poker_set_application_default_settings();
   }
   return array();
+}
+
+function os_poker_update_2() {
+  if(!module_exists('countries_api')) {
+    if(drupal_get_installed_schema_version($key) == SCHEMA_UNINSTALLED) {
+      drupal_install_modules(array('countries_api'));
+    }
+    else {
+      module_enable(array('countries_api'));
+    }
+  }
+  $r[] = update_sql("UPDATE {profile_fields} SET type = 'textfield' WHERE fid = 10");
+  $r[] = update_sql("UPDATE {profile_values} SET value = 'FR' WHERE fid = 10 AND value = 'France'", $sql);
+  $r[] = update_sql("UPDATE {profile_values} SET value = 'DE' WHERE fid = 10 AND value = 'Germany'", $sql);
+  return $r;
 }

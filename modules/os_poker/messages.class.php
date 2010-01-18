@@ -182,8 +182,10 @@ class CMessageSpool
 					$targetUid = $current_user->uid;
 			
 				CScheduler::instance()->RegisterTask(new CMessage(), $targetUid, array('live'), "-1 day", array(
-            "type" => "os_poker_imsg",
-            "body" => array("text" => $args["text"])
+            'type' => 'os_poker_imsg',
+            'body' => array(
+              'text' => $args['text']
+            )
         ));
 			}
 		}

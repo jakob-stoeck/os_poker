@@ -81,14 +81,14 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
   
   function  testSearching() {
     $profiles = array(
-      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
-      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
-      array('profile_country'=>'France', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
-      array('profile_country'=>'France', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Female'),
-      array('profile_country'=>'Belgium', 'profile_city'=>'Namur', 'profile_gender'=>'Female'),
+      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
+      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
+      array('profile_country'=>'BE', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
+      array('profile_country'=>'BE', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
+      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
+      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
+      array('profile_country'=>'BE', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Female'),
+      array('profile_country'=>'BE', 'profile_city'=>'Namur', 'profile_gender'=>'Female'),
     );
     $users = array();
     foreach($profile as $key => $profile) {
@@ -103,7 +103,7 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     }
     
     $searches = array(
-      'profile_country' => 'France',
+      'profile_country' => 'FR',
       'profile_city' => 'Paris',
       'profile_gender' => 'Male',
     );

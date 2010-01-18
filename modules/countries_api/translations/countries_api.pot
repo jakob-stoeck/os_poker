@@ -1,0 +1,46 @@
+# $Id: countries_api.pot,v 1.1.2.1 2009/05/17 10:43:15 mrfelton Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  countries_api.module,v 1.1.4.1 2009/02/28 20:44:59 mrfelton
+#  countries_api.install,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#  countries_api.info,v 1.1.4.1 2009/02/28 20:44:59 mrfelton
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-05-17 11:37+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: countries_api.module:270
+msgid "countries_api"
+msgstr ""
+
+#: countries_api.module:270
+msgid "Pre-populated countries api data."
+msgstr ""
+
+#: countries_api.install:9;12;18;24;30;36;78;81
+msgid "TODO"
+msgstr ""
+
+#: countries_api.info:0
+msgid "Country codes API"
+msgstr ""
+
+#: countries_api.info:0
+msgid "This module provides an API for official ISO 3166 country codes and names."
+msgstr ""
+
+#: countries_api.info:0
+msgid "Location"
+msgstr ""
+

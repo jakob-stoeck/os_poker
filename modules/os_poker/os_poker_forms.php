@@ -459,12 +459,12 @@ function	os_poker_buddy_search_form($form_state)
 														'#size' => 30,
 														'#maxlength' => 64,
 												);
-	
+  
 	$form['profile_country'] =	array(
-															'#type' => 'textfield',
+															'#type' => 'select',
 															'#title' => t('Country'),
-															'#size' => 30,
-															'#maxlength' => 64,
+                              '#multiple' => false,
+                              '#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
 													);
 						
 	$form['submit'] =	array(
@@ -520,7 +520,7 @@ function	os_poker_first_profile_form($form_state)
 	
 	$cuser = CUserManager::instance()->CurrentUser();
 	$nick = $cuser->profile_nickname;
-	
+
 	$form["profile_nickname"] = array(
 										'#type' => 'textfield',
 										'#title' => t('Nickname'),
@@ -568,7 +568,7 @@ function	os_poker_first_profile_form($form_state)
 	$form['profile_country'] =	array(
 										'#type' => 'select',
 										'#title' => t('Country'),
-										'#options' => array(NULL => t('Select...')) + $pfields['profile_country'],
+										'#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_country,
 								);
@@ -579,7 +579,7 @@ function	os_poker_first_profile_form($form_state)
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_city,
 								);
-								
+  
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),

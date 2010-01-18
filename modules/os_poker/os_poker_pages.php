@@ -164,7 +164,7 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 	
 	if ($user_id != NULL && $user_id != $current_user->uid)
 	{
-		$target_user =  CUserManager::instance()->User($user_id);
+		$target_user =  CUserManager::instance()->User($user_id);;
 		$external = TRUE;
 	}
 	

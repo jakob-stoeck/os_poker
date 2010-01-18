@@ -1,0 +1,53 @@
+# $Id: countries_api_service.pot,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  countries_api_service.module,v 1.1.2.2 2009/04/06 10:58:18 mrfelton
+#  countries_api_service.info,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-05-17 11:39+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: countries_api_service.module:17
+msgid "Provides countries api methods to services applications. Requires services.module."
+msgstr ""
+
+#: countries_api_service.module:48
+msgid "The value of the first element in the array (defaults to '')"
+msgstr ""
+
+#: countries_api_service.module:54
+msgid "The label of the first value in the array (defaults to 'Please Choose')"
+msgstr ""
+
+#: countries_api_service.module:59
+msgid "Returns an associative array in $country[\"iso2\"] => $country[\"printable_name\"] format."
+msgstr ""
+
+#: countries_api_service.module:71
+msgid "No countries where found."
+msgstr ""
+
+#: countries_api_service.info:0
+msgid "Countries API Service"
+msgstr ""
+
+#: countries_api_service.info:0
+msgid "Provides a countries api service."
+msgstr ""
+
+#: countries_api_service.info:0
+msgid "Services - services"
+msgstr ""
+

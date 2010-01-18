@@ -132,31 +132,17 @@ class CUser
 		if (count($this->_DUDirty) > 0)
 		{
 			$toUpdate = array();
-
+      $profile = array();
 			foreach ($this->_DUDirty as $entry)
 			{
-				$toUpdate[$entry] = $this->_user->{$entry};
+        if(strlen($entry) < 8 || substr_compare($entry, 'profile_', 0, 8)!=0) {
+          $toUpdate[$entry] = $this->_user->{$entry};
+        } else {
+          $profile[$entry] = $this->_user->{$entry};
+        }
 			}
-
 			user_save($this->_user, $toUpdate);
-
-			$profile = array();
-			$profile["profile_fname"] = $this->_user->profile_fname;
-			$profile["profile_lname"] = $this->_user->profile_lname;
-			$profile["profile_nickname"] = $this->_user->profile_nickname;
-			$profile["profile_city"] = $this->_user->profile_city;
-			$profile["profile_country"] = $this->_user->profile_country;
-			$profile["profile_interest"] = $this->_user->profile_interest;
-			$profile["profile_gender"] = $this->_user->profile_gender;
-			$profile["profile_dob"] = $this->_user->profile_dob;
-			$profile["profile_accept_gifts"] = $this->_user->profile_accept_gifts;
-			$profile["profile_ignore_buddy"] = $this->_user->profile_ignore_buddy;
-			$profile["profile_email_notify"] = $this->_user->profile_email_notify;
-			$profile["profile_newsletter"] = $this->_user->profile_newsletter;
-			$profile["profile_html_email"] = $this->_user->profile_html_email;
-
-
-			profile_save_profile($profile, $this->_user, PROFILE_CATEGORY, FALSE);
+      user_save($this->_user, $profile, PROFILE_CATEGORY);
 
 			$save = TRUE;
 			$this->_DUDirty = array();
@@ -618,10 +604,12 @@ class CUser
 
 	public function __get( $key )
 	{
-		if (isset($this->_user->{$key}) && !empty($this->_user->{$key}))
+		if (isset($this->_user->{$key}) && !empty($this->_user->{$key})) {
 			return $this->_user->{$key};
-		if (isset($this->_vars[$key]) && !empty($this->_vars[$key]))
-			return $this->_vars[$key];
+    }
+		if (isset($this->_vars[$key]) && !empty($this->_vars[$key])) {
+      return $this->_vars[$key];
+    }
 		return self::DefaultValue($key);
 	}
 
@@ -714,7 +702,7 @@ class CUserManager
 			if (in_array($field_n, $pfields) && !empty($field_v))
 			{
 				$where[] = "((`pf`.`name` LIKE '{$field_n}') AND (LOWER(`pv`.`value`) LIKE LOWER('%s')))";
-				$val[] = $field_v;
+        $val[] = $field_v;
 			}
 			else if (in_array($field_n, $ufields) && !empty($field_v))
 			{
