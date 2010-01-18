@@ -116,7 +116,7 @@ function	os_poker_process_message()
 		switch($message_type)
 		{
 			case "os_poker_sit_down":
-				CheckRewards("sit", $current_user->uid, json_decode($_GET["players"], TRUE));
+				CPoker::CheckRewards("sit", $current_user->uid, json_decode($_GET["players"], TRUE));
 				$resp["messages"][] = array("type" => "noop", "body" => NULL);
 			break;
 
