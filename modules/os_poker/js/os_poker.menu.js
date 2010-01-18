@@ -17,13 +17,13 @@ function	os_poker_brutal_logout()
 
             success: function(responseObject)
 						{
-							setTimeout('os_poker_brutal_logout()', 10);
+							setTimeout(function() {os_poker_brutal_logout();}, 10);
 						},
 			
             error: function(XMLHttpRequest, textStatus, errorThrown)
 						{
 							document.location.href = os_poker_site_root();
-            },
+            }
 	});
 }
 

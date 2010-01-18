@@ -18,7 +18,7 @@ function	os_poker_slider_get_page(elem)
 {
 	var cursor = elem.find(".cursor");
 	
-	var pos = parseInt(cursor.css("left"));
+	var pos = parseInt(cursor.css("left"), 10);
 	var children = cursor.children();
 	var fc = children.get(0);
 	var step = $(fc).outerWidth();
@@ -39,7 +39,7 @@ function	os_poker_register_slider(elem)
 	os_poker_slider_reset(cursor);
 	
 	next.bind("click", cursor, function(event) {
-		var pos = parseInt(event.data.css("left"));
+		var pos = parseInt(event.data.css("left"), 10);
 		var children = event.data.children(":visible");
 		var fc = children.get(0);
 		var step = $(fc).outerWidth( );
@@ -57,7 +57,7 @@ function	os_poker_register_slider(elem)
 	});	
 	
 	previous.bind("click", cursor, function(event) {
-		var pos = parseInt(event.data.css("left"));
+		var pos = parseInt(event.data.css("left"), 10);
 		var children = event.data.children(":visible");
 		var fc = children.get(0);
 		var step = $(fc).outerWidth( );

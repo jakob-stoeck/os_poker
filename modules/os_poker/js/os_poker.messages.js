@@ -98,7 +98,7 @@ function	os_poker_message_debug()
 
       success: function(responseObject)
 			{
-				setTimeout('os_poker_message_debug()', 6000);
+				setTimeout(function(){os_poker_message_debug();}, 6000);
 			},
 			
       error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -127,7 +127,7 @@ function	os_poker_message_listen()
 			{
 				os_poker_process_message(responseObject);
 				
-				_os_poker_timer_handler = setTimeout('os_poker_message_listen()', 6000);
+				_os_poker_timer_handler = setTimeout(function() {os_poker_message_listen();}, 6000);
 				_os_poker_listen_handler = null;
 			},
 			
@@ -157,8 +157,9 @@ function	os_poker_message_shutdown()
 
 	if (_os_poker_listen_handler)
 	{
-		if (_os_poker_debug)
+		if (_os_poker_debug) {
 			console.info("> Message Poller Stop ...");
+		}
 		_os_poker_listen_handler.abort();
 		_os_poker_listen_handler = null;
 	}
@@ -169,8 +170,9 @@ function	os_poker_message_shutdown()
 	
 	if (_os_poker_send_handler)
 	{
-		if (_os_poker_debug)
+		if (_os_poker_debug) {
 			console.info("> Message Send Stop ...");
+		}
 		_os_poker_send_handler.abort();
 		_os_poker_send_handler = null;
 	}
@@ -181,8 +183,9 @@ function	os_poker_message_shutdown()
 	
 	if (_os_poker_timer_handler)
 	{
-		if (_os_poker_debug)
+		if (_os_poker_debug) {
 			console.info("> Timer Stop ...");
+		}
 		clearTimeout(_os_poker_timer_handler);
 		_os_poker_timer_handler = null;
 	}
@@ -209,12 +212,15 @@ function	os_poker_message_start(listen)
 	
 	_os_poker_message_url = os_poker_site_root();
 	
-	if (_os_poker_message_url.match(/\?/)) _os_poker_message_url += "/poker/messages";
-	else _os_poker_message_url += "?q=poker/messages";
+	if (_os_poker_message_url.match(/\?/)) {
+	    _os_poker_message_url += "/poker/messages";
+	} else {
+	    _os_poker_message_url += "?q=poker/messages";
+	}
 	
 	os_poker_bind_message("os_poker_stop_poll", null, function(event, arg) { os_poker_message_shutdown(); });
 	
-	if (typeof(listen) != "boolean" && listen != false)
+	if (typeof(listen) != "boolean" && listen !== false)
 	    {
 		os_poker_message_listen();
 		//		os_poker_message_debug();

@@ -5,7 +5,7 @@ function		os_poker_init_events()
 
 										if (typeof(arg.url) != "undefined")
 										{
-											if (arg.lightbox == true)
+											if (arg.lightbox === true)
 											{	
 												if (!arg.url.match(/TB_iframe/))
 												{
@@ -25,10 +25,10 @@ function		os_poker_init_events()
 	
 										if (typeof(arg.amount) != "undefined")
 										{
-                      if(!isNaN(parseInt(arg.amount))) {
-                        arg.amount = os_poker_number_format(arg.amount);
-                      }
-											event.data.text(arg.amount);
+										    if(!isNaN(parseInt(arg.amount, 10))) {
+											arg.amount = os_poker_number_format(arg.amount);
+										    }
+										    event.data.text(arg.amount);
 										}
 								});
 								

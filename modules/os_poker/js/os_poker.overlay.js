@@ -16,4 +16,4 @@ Drupal.behaviors.os_poker_overlay = function(context) {
       return true;
     });
   }
-}
+};
