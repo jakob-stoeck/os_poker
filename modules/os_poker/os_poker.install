@@ -275,7 +275,7 @@ function os_poker_update_1() {
 
 function os_poker_update_2() {
   if(!module_exists('countries_api')) {
-    if(drupal_get_installed_schema_version($key) == SCHEMA_UNINSTALLED) {
+    if(drupal_get_installed_schema_version('countries_api') == SCHEMA_UNINSTALLED) {
       drupal_install_modules(array('countries_api'));
     }
     else {
