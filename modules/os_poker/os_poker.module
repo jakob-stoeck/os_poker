@@ -68,6 +68,29 @@ function os_poker_simple_payment_process(&$payment) {
 }
 
 
+function os_poker_form_alter(&$form, $form_state, $form_id) {
+  switch($form_id) {
+    case 'user_login_block':
+      if($_GET['os_poker_failed_login']) drupal_get_form('os_poker_failed_login_form');
+    case 'os_poker_failed_login_form':
+      if(!is_array($form['#validate'])) {
+          $form['#validate'] = array($form['#validate'], 'os_poker_user_login_final_validate');
+        }
+        else {
+          $key = array_search('user_login_final_validate', $form['#validate']);
+          if($key === FALSE) {
+            $form['#validate'][] = 'os_poker_user_login_final_validate';
+          }
+          else {
+            $form['#validate'][$key] = 'os_poker_user_login_final_validate';
+          }
+        }
+    case 'user_login':
+      $form['name']['#title'] = t('E-Mail');
+      break;
+  }
+}
+
 /**
 * Implementation of hook_form_FORM_ID_alter().
 */
@@ -83,19 +106,6 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										$form['#id'] . '\');" ' .
 										drupal_attributes($aAttr) .
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
-  $form['name']['#title'] = t('E-Mail');
-  if(!is_array($form['#validate'])) {
-    $form['#validate'] = array($form['#validate'], 'os_poker_user_login_final_validate');
-  }
-  else {
-    $key = array_search('user_login_final_validate', $form['#validate']);
-    if($key === FALSE) {
-      $form['#validate'][] = 'os_poker_user_login_final_validate';
-    }
-    else {
-      $form['#validate'][$key] = 'os_poker_user_login_final_validate';
-    }
-  }
 }
 
 /**
@@ -112,9 +122,9 @@ function os_poker_user_login_final_validate($form, &$form_state) {
     $overlay .= '<div id="failed-login">';
     $overlay .= '<h1>'.t('Login').'</h1>';
     $overlay .= theme('status_messages');
-    $overlay .= drupal_get_form('os_poker_failed_login_form');
+    $overlay .= ($form['#id'] == 'os-poker-failed-login-form') ? drupal_render_form('os_poker_failed_login_form', $form) : drupal_get_form('os_poker_failed_login_form');
     $overlay .= '</div>';
-    os_poker_set_overlay($overlay);
+    os_poker_set_overlay($overlay, array('style' => 'height: auto'));
   }
 }
 
@@ -123,13 +133,21 @@ function os_poker_user_login_final_validate($form, &$form_state) {
  */
 function os_poker_failed_login_form(&$form_state) {
   $form = user_login($form_state);
+  $form['#action'] = url($_GET['q'], array('query' => array('os_poker_failed_login' => true)));
+  module_load_include('inc', 'remember_me', 'includes/remember_me');
+  remember_me_insert_checkbox($form);
   $form['#submit'][] = 'user_login_submit';
   $form['name']['#title'] = t('E-Mail');
+  $form['name']['#size'] = $form['pass']['#size'] = 20;
+  $form['name']['#prefix'] = $form['pass']['#prefix'] = '<div class="container-inline">';
+  $form['name']['#suffix'] = $form['pass']['#suffix'] = '</div>';
   unset($form['name']['#description']);
   unset($form['pass']['#description']);
-  $form['submit']['#suffix'] = t('or !signup', array('!signup' => l(t('Sign up') , '<front>', array('attributes' => array('class' => 'close')))));
+  $form['submit']['#suffix'] = t(' or !signup', array('!signup' => l(t('Sign up') , '<front>', array('attributes' => array('class' => 'close'))))) . '</div>';
+  $form['submit']['#prefix'] = '<div class="container-inline">';
   $form['forgot'] = array(
     '#type' => 'markup',
+    '#weight' => 3,
     '#value' => l(t("Forgot your Password ?"), "poker/forgot-password", array(
       "attributes" => array(
         "title" => t("Request new password via e-mail") . ".",
@@ -142,16 +160,10 @@ function os_poker_failed_login_form(&$form_state) {
                 "keepThis" => "true",
                 "TB_iframe" => "true",
       ),
-      '#weight' => 1,
     )),    
   );
   return $form;
 }
-
-function os_poker_form_user_login_alter(&$form, $form_state) {
-  $form['name']['#title'] = t('E-Mail');
-}
-
 
 /**
 * Implementation of hook_form_FORM_ID_alter().
