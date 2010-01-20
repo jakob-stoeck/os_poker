@@ -3,10 +3,6 @@
 
 function pbpoker_theme() {
   return array(
-    'user_login_block' => array(
-      'template' => 'user_login',
-      'arguments' => array('form' => NULL),
-    ),
     'user_relationships' => array(
       'arguments' => array('account' => NULL, 'rtid' => NULL),
       'template'  => 'user_relationships',
@@ -14,22 +10,6 @@ function pbpoker_theme() {
     'os_poker_teaser' => array(
       'arguments' => array('text' => ""),
       'template' => 'os-poker-teaser',
-    ),
-    'os_poker_user_brief' => array(
-      'arguments' => array('os_user' => null),
-      'template' => 'os-poker-user-brief',
-    ),
-    'os_poker_medium_profile' => array(
-      'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL, "game_id" => NULL),
-      'template' => 'os-poker-profile-medium',
-    ),
-    'os_poker_profile_settings' => array(
-      'arguments' => array('personal_form' => NULL, 'email_form' => NULL, 'password_form' => NULL),
-      'template' => 'os-poker-profile-settings',
-    ),
-    'os_poker_ranking_list' => array(
-      'arguments' => array("sorted_users" => NULL),
-      'template' => 'os-poker-ranking-list',
     ),
     'page_front_banner' => array(
       'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
@@ -40,48 +20,6 @@ function pbpoker_theme() {
     ),
   );
 }
-
-/*function phptemplate_username($object) {
-
-  if ($object->uid && $object->name) {
-    // Shorten the name when it is too long or it will break many tables.
-    if (drupal_strlen($object->name) > 20) {
-      $name = drupal_substr($object->name, 0, 15) .'...';
-    }
-    else {
-      $name = $object->name;
-    }
-
-    if (user_access('access user profiles')) {
-      $output = l($name, 'poker/profile/profile/'. $object->uid, array('title' => t('View user profile.'), "query" => array("height" => 442,
-																															"width" => 603,
-																															"TB_iframe" => "true"),
-																											"attributes" => array("class" => "thickbox")));
-    }
-    else {
-      $output = check_plain($name);
-    }
-  }
-  else if ($object->name) {
-    // Sometimes modules display content composed by people who are
-    // not registered members of the site (e.g. mailing list or news
-    // aggregator modules). This clause enables modules to display
-    // the true author of the content.
-    if ($object->homepage) {
-      $output = l($object->name, $object->homepage);
-    }
-    else {
-      $output = check_plain($object->name);
-    }
-
-    $output .= ' ('. t('not verified') .')';
-  }
-  else {
-    $output = variable_get('anonymous', t('Anonymous'));
-  }
-
-  return $output;
-}*/
 
 function pbpoker_page_front_banner($id, $text, $href) {
   return l(
