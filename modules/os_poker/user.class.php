@@ -132,17 +132,25 @@ class CUser
 		if (count($this->_DUDirty) > 0)
 		{
 			$toUpdate = array();
-      $profile = array();
+      $dirtyProfile = false;
 			foreach ($this->_DUDirty as $entry)
 			{
         if(strlen($entry) < 8 || substr_compare($entry, 'profile_', 0, 8)!=0) {
           $toUpdate[$entry] = $this->_user->{$entry};
         } else {
-          $profile[$entry] = $this->_user->{$entry};
+          $dirtyProfile = true;
         }
 			}
 			user_save($this->_user, $toUpdate);
-      user_save($this->_user, $profile, PROFILE_CATEGORY);
+      
+      if($dirtyProfile) {
+        $profile = array();
+        $result = _profile_get_fields(PROFILE_CATEGORY, FALSE);
+        while ($field = db_fetch_object($result)) {
+          $profile[$field->name] =$this->_user->{$field->name};
+        }
+        user_save($this->_user, $profile, PROFILE_CATEGORY);
+      }
 
 			$save = TRUE;
 			$this->_DUDirty = array();
