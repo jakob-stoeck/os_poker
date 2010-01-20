@@ -384,8 +384,11 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				break;
 			}
 			
-			if ($success == FALSE)
+			if ($success == FALSE) {
 				$error = theme('poker_error_message', "<h1>" . t("Sorry !") . "</h1>" . t("You don't have enough Chips."));
+      } else if ($target_type == 'table') {
+        drupal_goto('poker/closebox');
+      }
 		}
 		
 		$params = 	array(

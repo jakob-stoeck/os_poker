@@ -833,12 +833,16 @@ function os_poker_menu()
  */
 function os_poker_closebox_page() {
   $front = url('<front>');
-  drupal_set_message('test');
-  //$messages = json_encode(theme('status_messages'));
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
-    window.top.location = window == window.top ? $front : window.top.location;
+    if(window == window.top) {
+       window.top.location = $front;
+    } else if(typeof window.top.tb_remove === 'function' ) {
+      window.top.tb_remove();
+    } else {
+      window.top.location = window.top.location;
+    }
     //--><!]]>
   </script></head></html>
 EOT;
