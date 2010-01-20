@@ -35,6 +35,9 @@ function	os_poker_trigger(eventName, args)
 
 function	os_poker_process_message(messages)
 {
+  if (messages.error && window.console && window.console.log)   {
+     window.console.log('Received error: ' + messages.errorMsg);
+  }
 	var msg = messages.messages;
 
 	for (i=0; i < msg.length; i++)
