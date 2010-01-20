@@ -198,9 +198,10 @@ function	_os_poker_process_message_unsafe()
 
 						CMessageSpool::instance()->SendMessage($target_user->uid, $args);
 						CMessageSpool::instance()->SendInstantMessage(array(
-              "text" => t("You just challenged !user", array(
+              'text' => t("You just challenged !user", array(
                 "!user" => $target_user->profile_nickname
-              ))
+              )),
+              'title' => t('Challenge'),
             ));
 					}
 				}
@@ -231,9 +232,10 @@ function	_os_poker_process_message_unsafe()
 							//TODO : Check $_GET["online"] to send mail
 							CMessageSpool::instance()->SendMessage($target_user->uid, $args);
 							CMessageSpool::instance()->SendInstantMessage(array(
-                "text" => t("Invitation sent to !user", array(
-                  "!user" => $target_user->profile_nickname
-                ))
+                'text' => t("Invitation sent to !user", array(
+                  "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
+                )),
+                'title' => t('Invitation'),
               ));
 						}
 					}
