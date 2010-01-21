@@ -162,6 +162,7 @@ function os_poker_failed_login_form(&$form_state) {
       ),
     )),    
   );
+  $form['#redirect'] = '<front>';
   return $form;
 }
 
