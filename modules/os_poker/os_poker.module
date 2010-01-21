@@ -1279,6 +1279,7 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  * Callback for the poker/skin.css path.
  */
 function os_poker_skin_css() {
+  header("Content-type: text/css");
   $url = theme('poker_skin_css_url');
   print("@import url($url);\n");
   module_load_include('php', 'os_poker', 'shop.class');
