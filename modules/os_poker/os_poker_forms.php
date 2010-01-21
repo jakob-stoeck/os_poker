@@ -19,24 +19,45 @@
 
 require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
-/*
-**
-*/
-
+/**
+ * Validator for the custom signup form. Sets expected values in $form_state.
+ */
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
 	$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
-	
-	password_policy_password_validate($form, $form_state);
-	user_register_validate($form, $form_state);
-
 }
 
-function	os_poker_sign_up_form_submit($form, &$form_state)
-{
-	password_policy_password_submit($form, $form_state);
-	user_register_submit($form, $form_state);
-
+/**
+ * Final validator for the custom signup form. Filters duplicated error since
+ * name is always equals to email (@see os_poker_sign_up_form_validate).
+ */
+function os_poker_sign_up_form_final_validate($form, &$form_state) {
+  $messages = drupal_get_messages('error', TRUE);
+  $errors = $messages['error'] ? $messages['error'] : array();
+  $replacements = array(
+    t('The name %name is already taken.', array('%name' => $form_state['values']["mail"])) => FALSE,
+    t('The e-mail address %email is already registered. <a href="@password">Have you forgotten your password?</a>', array('%email' => $form_state['values']['mail'], '@password' => url('user/password')))
+      => t('The e-mail address %email is already registered. !password', array('%email' => $form_state['values']['mail'], '!password' => l(
+        t('Have you forgotten your password?'),
+        "poker/forgot-password", array(
+          "attributes" => array(
+            "title" => t("Request new password via e-mail") . ".",
+            "class" => "thickbox",
+          ),
+          "query" => array(
+            "height" => "187",
+            "width" => "382",
+            "keepThis" => "true",
+            "TB_iframe" => "true",
+          ),
+    ))))
+  );
+  foreach($errors as $error) {
+    $replacement = $replacements[$error];
+    if($replacement !== FALSE) {
+      drupal_set_message($replacement ? $replacement : $error, 'error');
+    }
+  }
 }
 
 function	os_poker_sign_up_form($form_state)
@@ -94,6 +115,8 @@ function	os_poker_sign_up_form($form_state)
 		}
 	}
 
+  $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
+  $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
 	return $form;
 }
 
