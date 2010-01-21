@@ -25,7 +25,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 			<?php
 				if (variable_get('user_relationships_show_user_pictures', 0))
 				{
-					$alt = t("@user's picture", array('@user' => $buddies_entry->name ? $buddies_entry->name : variable_get('anonymous', t('Anonymous'))));
+					$alt = t("@user's picture", array('@user' => $buddies_entry->profile_nickname ? $buddies_entry->profile_nickname : variable_get('anonymous', t('Anonymous'))));
 			  
 					$picture = theme('image', $buddies_entry->picture, $alt, $alt, '', FALSE);
 					$attributes = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
