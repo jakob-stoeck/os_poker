@@ -284,7 +284,13 @@ body.iframe a.LayerClose
 
 #shop .footer .right
 {
-	width: 415px;
+	width: 510px;
+}
+
+#shop .footer .left
+{
+	width: 92px;
+  margin-top: -2em;
 }
 
 /*

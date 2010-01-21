@@ -366,7 +366,7 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				case "subtarget":
 					if ($subtarget->uid == $current_user->uid)
 					{
-						$success = CShop::BuyItem($_POST["shop_item"]);
+						$success = CShop::BuyItem($_POST["shop_item"], empty($_POST["shop_item_activate"]) ? FALSE : !!$_POST["shop_item_activate"]);
 					}
 					else
 					{

@@ -92,6 +92,15 @@
 					<div class="user_login_clear"></div>
 				</div>
 			</div>
+        <?php if ($subtarget->uid == $current_user->uid): ?>
+        <div class="bcontainer">
+          <div class="poker_submit big disabled activate-item" onclick="javascript:os_poker_setup_shop_buy('subtarget', $(this));">
+            <div class="pre"> </div>
+            <div class="label"><?php print t("Buy and activate") . "<br/>(<span mul='1' class='total'>" . $fitem->FormatedPrice() . "</span>)"; ?></div>
+            <div class="user_login_clear"></div>
+          </div>
+        </div>
+        <?php endif;?>
 			<?php else : ?>
 			<div class="bcontainer">
 				<div class="poker_submit big disabled" onclick="javascript:os_poker_setup_shop_buy('target', $(this));">
@@ -110,10 +119,11 @@
 				</div>
 			</div>
 			<?php endif; ?>
-			<div class="clear"></div>
-			<form id="buy_form" action="<?php print url("poker/shop/shop/{$current_category}/{$target_type}/{$target_id}/{$subtarget_id}"); ?>" method="post">
+      <div class="clear"></div>
+      <form id="buy_form" action="<?php print url("poker/shop/shop/{$current_category}/{$target_type}/{$target_id}/{$subtarget_id}"); ?>" method="post">
 				<input id="buy_form_action" type="hidden" name="shop_action" value="" />
 				<input id="buy_form_item" type="hidden" name="shop_item" value="<?php print $fitem->id_item; ?>" />
+        <input id="buy_form_activate" type="hidden" name="shop_item_activate" value="0" />
 				<input type="submit" style="display: none;" value="Send" name="op"/>
 			</form>
 		</div>
