@@ -258,13 +258,16 @@ function	os_poker_gadget()
 	return NULL;
 }
 
-
 /**
 * Implementation of hook_init().
 */
-
 function os_poker_init()
 {
+  if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/^(simpletest\d+);/", $_SERVER['HTTP_USER_AGENT'], $matches)) {
+    module_load_include('php', 'os_poker', 'poker.class');
+    CPoker::ChangePokerDB('pythonpokernetworktest');
+  }
+
 	$inpoker = FALSE;
 	if (isset($_GET["q"]))
 	{

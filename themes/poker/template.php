@@ -20,7 +20,6 @@ function poker_theme() {
 }
 
 function phptemplate_username($object) {
-
   if ($object->uid && $object->profile_nickname) {
     // Shorten the name when it is too long or it will break many tables.
     if (drupal_strlen($object->profile_nickname) > 20) {

@@ -33,7 +33,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 			<div class="buddy_result_list_infos">
 				<div class="buddy_result_list_name <?php if ($buddies_entry->Online()) { print "online"; } ?>">
 					<?php 
-						print theme('username', $oBuddy);
+						print theme('username', $buddies_entry);
 					?>
 				</div>
 				<div class="buddy_result_list_chips">

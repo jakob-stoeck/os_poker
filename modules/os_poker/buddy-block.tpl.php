@@ -11,7 +11,7 @@
 				$oBuddy->name = $buddy->profile_nickname;
 				$oBuddy->uid =  $buddy->uid;
 				
-				print theme('username', $oBuddy);
+				print theme('username', $buddy);
 			?>
 		</div>
 		<div class="buddy_list_picture">

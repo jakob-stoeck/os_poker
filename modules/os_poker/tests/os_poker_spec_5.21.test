@@ -60,17 +60,15 @@ class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
    * Implementation of setUp().
    */
   function setUp() {
-    // Enable required modules and set default site configuration.
     parent::setUp();
-
-    /**
-     * Register an 'skel_user' account and complete its profile.
-     * This user has 'skel_user' for nickname.
-     */
-    $this->skel_user = $this->drupalCreateUser();
-    // Login the user, complete profile form
-    $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
-
+    module_load_include('php', 'os_poker', 'user.class');
+    $this->userManager = CUserManager::instance();
+    $this->table = $this->createPokerTable('foo');
+    for ($i = 0; $i < 4; $i++) {
+      $user = $this->users[] = $this->OsPokerCreateUserWithProfile();
+    }
+    $this->user = $this->users[0];
+    $this->drupalLogin($this->user);
   }
 
   /**
@@ -80,22 +78,16 @@ class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
-  /**
-   * Verify this
-   *
-   * The verification is done through these steps:
-   * - go here.
-   * - do this.
-   *
-   */
-  function testWhoIsAtThatTable()
-  {
-
-		/* cmirey : TODO */
-		/* Profile picture, nick, status of players is shown. Empty places are indicated by a blue avatar. When a table is without any players ten blue avatars are in the list. See 6.4.2 => 6.4.1 */
-		$this->fail(t("shows a list of the players in the upper right box of the lobby page."), t("SpecPoker"));
-
+  function testWhoIsAtThatTable() {
+    for ($i = 1; $i < 4; $i++) {
+      $this->joinPokerTable($this->users[$i], $this->table);
+    }
+    $this->drupalGet('poker/table/'.$this->table.'/players');
+    for ($i = 1; $i < 4; $i++) {
+      $user = $this->userManager->User($this->users[$i]->uid, true);
+      $this->assertRaw(theme('username', $user), t('User #!no name found.', array('!no' => $i)));
+      $this->assertRaw(theme('user_picture', $user), t('User #!no picture found.', array('!no' => $i)));
+      $this->assertText($user->Chips(), t('User #!no chips count found.', array('!no' => $i)));
+    }
   }
-
-
 }
