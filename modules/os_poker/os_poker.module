@@ -1250,7 +1250,7 @@ function os_poker_preprocess_user_picture(&$variables) {
       $variables['picture'] = theme('image', $picture, $alt, $alt, '', FALSE);
       $account_uid = $account->uid;
       if (!empty($account_uid) && user_access('access user profiles')) {
-        if(arg(0) != 'poker') {
+        if(arg(0) != 'poker' || (arg(1) == 'table' && arg(3) == 'players')) {
           $options = array(
             'attributes' => array(
               'title' => t('View user profile.'),
