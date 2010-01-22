@@ -6,7 +6,7 @@
 			if ($target_user) {
 		?>
 		<div class="picture fleft">
-			<img src="<?php print $target_user->picture; ?>" alt="user"/>
+			<?php print theme('user_picture', $target_user); ?>
 		</div>
 		<div class="links fleft">
 			<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/profile/profile/" . $target_user->uid, array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">

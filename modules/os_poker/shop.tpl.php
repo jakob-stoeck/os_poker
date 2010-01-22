@@ -26,7 +26,7 @@
 			<?php
 				if ($subtarget)
 				{
-					print '<img src="' . $subtarget->picture . '" alt="user"/>';
+          print theme('user_picture', $subtarget);
 				}
 			?>
 			</div>

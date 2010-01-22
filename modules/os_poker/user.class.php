@@ -663,7 +663,7 @@ class CUserManager
 
 	protected function __construct()
 	{
-		CUser::SetDefaultValue("picture", drupal_get_path("theme", "poker") . "/images/picture-default.png");
+		//CUser::SetDefaultValue("picture", drupal_get_path("theme", "poker") . "/images/picture-default.png");
 		CUser::SetDefaultValue("BiggestPotWon", t("N/A"));
 		CUser::SetDefaultValue("BestHand", t("N/A"));
 		CUser::SetDefaultValue("HandsPlayed", t("N/A"));

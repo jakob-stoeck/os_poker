@@ -38,8 +38,8 @@ Drupal.behaviors.os_poker = function(context) {
     os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
     os_poker_slider_reset($('#buddy_panel .cursor'));
   });
-  
-  //Show status message in a thickbox when not on admin pages
+
+//Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
@@ -63,6 +63,22 @@ Drupal.behaviors.os_poker = function(context) {
 /**
  * Provides markup for the holding the content of the thickbox content for popup message. 
  */
+
+Drupal.theme.os_poker_link = function() {
+  return Drupal.settings.basePath + '?q=' + Array.prototype.join.apply(arguments, ['/']);
+}
+
 Drupal.theme.os_poker_popup = function(id) {
   return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div></div>';
 }
+
+Drupal.theme.lobby_player = function(player) {
+  var output = '<div class="user">';
+  output += '<div class="picture"><a class="thickbox" href="' + Drupal.theme('os_poker_link', 'poker/profile/profile', player.serial, '&height=442&width=603&keepThis=true&TB_iframe=true') + '"><img alt="" src="xsites/default/files/pictures/picture-' + player.serial + '.png"/></a></div>';
+  output += '<div class="name"><a class="thickbox" href="' + Drupal.theme('os_poker_link', 'poker/profile/profile', player.serial, '&height=442&width=603&keepThis=true&TB_iframe=true') + '">'+player.name+'</a></div>';
+  output += '<div class="money"><a href="#">' + os_poker_number_format(player.chips / 100) + '</a></div>';
+  output += '</div>';
+  return output;
+}
+
+Drupal.theme

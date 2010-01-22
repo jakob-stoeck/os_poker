@@ -25,7 +25,7 @@
 			<?php
 				if ($target_user)
 				{
-					print '<img src="' . $target_user->picture . '" alt="user"/>';
+					print theme('user_picture', $target_user);
 				}
 			?>
 			</div>

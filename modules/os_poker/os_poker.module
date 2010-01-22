@@ -325,6 +325,9 @@ function os_poker_init()
   if(os_poker_inline_messages()) {
     drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
   }
+  drupal_add_js(array('os_poker' => array(
+    'user_picture_default' => variable_get('user_picture_default', ''),
+  )), 'setting');
 }
 
 function os_poker_inline_messages(){
@@ -534,7 +537,10 @@ function 	os_poker_theme()
     ),
     'country' => array(
       'arguments' => array('code' => NULL),
-    )
+    ),
+    'players_at_table' => array(
+      'arguments' => array('players' => NULL)
+    ),
   );
 }
 
@@ -820,9 +826,22 @@ function os_poker_menu()
       'type' => MENU_CALLBACK,
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_skin_css',
-    )
+    ),
+    'poker/table/%/players' => array(
+      'title' => 'Players at table',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_table_players_page',
+      'page arguments' => array(2),
+    ),
   );
+  dpm('os_poker_menu');
 	return $menu;
+}
+
+function os_poker_table_players_page($table_id) {
+  module_load_include('php', 'os_poker', 'poker.class');
+  $players = CPoker::UsersAtTable($table_id, true);
+  print theme('players_at_table', $players);
 }
 
 /**
@@ -1211,6 +1230,48 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   }
 }
 
+function os_poker_preprocess_user_picture(&$variables) {
+  $variables['picture'] = '';
+  if (variable_get('user_pictures', 0)) {
+    $account = $variables['account'];
+    $account_picture = $account->picture;
+    if (!empty($account_picture) && file_exists($account_picture)) {
+      $picture = file_create_url($account->picture);
+    }
+    else if (variable_get('user_picture_default', '')) {
+      $picture = variable_get('user_picture_default', '');
+    }
+    else {
+      $picture = drupal_get_path("theme", "poker") . "/images/picture-default.png";
+    }
+
+    if (isset($picture)) {
+      $alt = t("@user's picture", array('@user' => $account->profile_nickname ? $account->profile_nickname : variable_get('anonymous', t('Anonymous'))));
+      $variables['picture'] = theme('image', $picture, $alt, $alt, '', FALSE);
+      $account_uid = $account->uid;
+      if (!empty($account_uid) && user_access('access user profiles')) {
+        if(arg(0) != 'poker') {
+          $options = array(
+            'attributes' => array(
+              'title' => t('View user profile.'),
+              'class' => 'thickbox'
+          ),
+          'query' => array(
+            'height' => 442,
+            'width' => 603,
+            'TB_iframe' => 'true'
+          ),
+          'html' => TRUE);
+        } else {
+           $options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
+        }
+
+        $variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+      }
+    }
+  }
+}
+
 /**
  * Implementation of hook_mail().
  */
@@ -1298,6 +1359,7 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  * Callback for the poker/skin.css path.
  */
 function os_poker_skin_css() {
+  header('Content-type: text/css');
   $url = theme('poker_skin_css_url');
   print("@import url($url);\n");
   module_load_include('php', 'os_poker', 'shop.class');
@@ -1416,4 +1478,17 @@ function theme_country($code) {
   else {
     return 'Unknown';
   }
+}
+
+function theme_players_at_table($players = array()) {
+  $output = '<div class="userlist">';
+  foreach($players as $player) {
+    $output .= "<div class='user'>";
+    $output .= theme('user_picture', $player);
+    $output .= '<div class="name">'.theme('username', $player).'</div>';
+    $output .= '<div class="money"> $'.$player->Chips() .'</div>';
+    $output .= "</div>";
+  }
+  $output .= '</div>';
+  return $output;
 }

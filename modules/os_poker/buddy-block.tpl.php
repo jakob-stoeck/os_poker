@@ -18,15 +18,7 @@
 			<?php
 			if (variable_get('user_relationships_show_user_pictures', 0))
 			{
-				$alt = t("@user's picture", array('@user' => $buddy->name ? $buddy->name : variable_get('anonymous', t('Anonymous'))));
-		  
-				$picture = theme('image', $buddy->picture, $alt, $alt, '', FALSE);
-				$attributes = array('attributes' => array('title' => t('View user profile.'), "class" => "thickbox"),
-									"query" => array("height" => 442,
-													"width" => 603,
-													"TB_iframe" => "true"),
-									'html' => TRUE);
-				print l($picture, "poker/profile/profile/$oBuddy->uid", $attributes);
+				print $picture = theme('user_picture', $buddy);
 			}
 			?>
 		</div>

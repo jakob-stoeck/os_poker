@@ -697,15 +697,6 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	if (!empty($edit["profile_country"])) { $cuser->profile_country = $edit["profile_country"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["picture"])) { $cuser->picture = $edit["picture"]; } else { $profileComplete &= FALSE; }
 
-	/* if picture is always default but gender has been defined, set a sex specific avatar */
-	if (empty($edit["picture"]) && ($cuser->picture == $cuser->DefaultValue("picture") || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_male.jpg" || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_female.jpg"))
-		{
-			if ($cuser->profile_gender == "Male")
-				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_male.jpg";
-			else if ($cuser->profile_gender == "Female")
-				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_female.jpg";
-		}
-
 	//Check Profile complete
 	if ($profileComplete && $cuser->CompleteProfile() == FALSE)
 	{
