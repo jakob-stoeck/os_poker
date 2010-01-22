@@ -2,8 +2,8 @@
 function		os_poker_init_events()
 {
   os_poker_bind_message('os_poker_table_selected', null, function(event, arg) {
-    if(typeof arg.table === 'string') {
-      $('#table_users .list').load('?q='+Drupal.encodeURIComponent('poker/table/'+arg.table+'/players'), {table: arg.table}, function(responseText, textStatus, XMLHttpRequest){
+    if(!isNaN(parseInt(arg.table))) {
+      $('#table_users .list').load('?q='+Drupal.encodeURIComponent('poker/table/'+arg.table+'/players'), {table: arg.table.toString()}, function(responseText, textStatus, XMLHttpRequest){
         if(textStatus === 'success' && $(this).find('.user').length > 0) {
           $('#table_users .header').show();
           $('#table_users .list').removeClass('splash');
