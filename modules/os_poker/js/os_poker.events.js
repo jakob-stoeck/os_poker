@@ -20,7 +20,7 @@ OsPoker.eventHandlers = {
   },
   os_poker_jump: function(event, arg) {
   if (typeof(arg.url) != "undefined") {
-      if (arg.lightbox == true) {
+      if (arg.lightbox === true) {
         if (!arg.url.match(/TB_iframe/)) {
           arg.url += (((arg.url.match(/\?/)) ? "&" : "?") + "TB_iframe=true");
         }
@@ -35,20 +35,20 @@ OsPoker.eventHandlers = {
     selector:  'b.chips',
     fn: function(event, arg) {
       if (typeof(arg.amount) != "undefined") {
-        if(!isNaN(parseInt(arg.amount))) {
+	if(!isNaN(parseInt(arg.amount, 10))) {
           arg.amount = os_poker_number_format(arg.amount);
         }
         event.data.text(arg.amount);
       }
     }
   }
-}
+};
 
 function os_poker_init_events() {
   var nop = function(){};
   $.each(OsPoker.eventHandlers, function(event, handler) {
     if(typeof handler == 'function') {
-      os_poker_bind_message(event, null, handler)
+      os_poker_bind_message(event, null, handler);
     }
     else {
       os_poker_bind_message(event, handler.selector ? $(handler.selector) : null, handler.fn || nop);
