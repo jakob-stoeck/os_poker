@@ -837,7 +837,6 @@ function os_poker_menu()
       'page arguments' => array(2),
     ),
   );
-  dpm('os_poker_menu');
 	return $menu;
 }
 
