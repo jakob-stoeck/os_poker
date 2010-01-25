@@ -62,7 +62,7 @@ function	os_poker_submit(link, form_id, ajax, closetb)
 
 function	os_poker_number_format(x)
 {
-	if (x != 0)
+	if (x !== 0)
 	{
 		var str = x.toString(), n = str.length;
 
@@ -84,7 +84,7 @@ function	os_poker_setup_shop_item_select(elem, price, id_item)
 	$("#shop .total").each(function () {
 		var mult = $(this).attr("mul");
 		$(this).text(os_poker_number_format(price * mult));
-	})
+	});
 	
 	$("#shop #buy_form_item").val(id_item);
 }
@@ -94,7 +94,6 @@ function	os_poker_setup_shop_buy(submit_type, elem)
 	if (!elem.hasClass("disabled"))
 	{
 		$("#shop #buy_form_action").val(submit_type);
-    $("#shop #buy_form_activate").val(elem.hasClass("activate-item") ? 1 : 0);
 		$("#shop form#buy_form").submit();
 	}
 }
@@ -136,12 +135,15 @@ function	os_poker_update_lobby(users)
 		for (place in users)
 		{
 			var user = users[place];
-			user_list += Drupal.theme('lobby_player', user);
+			
+			user_list += "<div class='user'>";
+			user_list += '<div class="picture"><a href="?q=user/' + user.serial + '"><img alt="" src="sites/default/files/pictures/picture-' + user.serial + '.png" onError="javascript:os_poker_default_image($(this));"/></a></div>';
+			user_list += '<div class="name"><a href="?q=user/' + user.serial + '">' +  user.name + '</a></div>';
+			user_list += '<div class="money"><a href="#">' + os_poker_number_format(user.chips / 100) + '</a></div>';
+			user_list += "</div>";
 		}
 		
 		innerContainer.html(user_list);
-    Drupal.attachBehaviors(innerContainer);
-    tb_init(innerContainer);
 		return;
 	}
 	
