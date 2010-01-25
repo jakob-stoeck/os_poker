@@ -68,29 +68,6 @@ function os_poker_simple_payment_process(&$payment) {
 }
 
 
-function os_poker_form_alter(&$form, $form_state, $form_id) {
-  switch($form_id) {
-    case 'user_login_block':
-      if($_GET['os_poker_failed_login']) drupal_get_form('os_poker_failed_login_form');
-    case 'os_poker_failed_login_form':
-      if(!is_array($form['#validate'])) {
-          $form['#validate'] = array($form['#validate'], 'os_poker_user_login_final_validate');
-        }
-        else {
-          $key = array_search('user_login_final_validate', $form['#validate']);
-          if($key === FALSE) {
-            $form['#validate'][] = 'os_poker_user_login_final_validate';
-          }
-          else {
-            $form['#validate'][$key] = 'os_poker_user_login_final_validate';
-          }
-        }
-    case 'user_login':
-      $form['name']['#title'] = t('E-Mail');
-      break;
-  }
-}
-
 /**
 * Implementation of hook_form_FORM_ID_alter().
 */
@@ -106,6 +83,19 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										$form['#id'] . '\');" ' .
 										drupal_attributes($aAttr) .
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
+  $form['name']['#title'] = t('E-Mail');
+  if(!is_array($form['#validate'])) {
+    $form['#validate'] = array($form['#validate'], 'os_poker_user_login_final_validate');
+  }
+  else {
+    $key = array_search('user_login_final_validate', $form['#validate']);
+    if($key === FALSE) {
+      $form['#validate'][] = 'os_poker_user_login_final_validate';
+    }
+    else {
+      $form['#validate'][$key] = 'os_poker_user_login_final_validate';
+    }
+  }
 }
 
 /**
@@ -122,9 +112,9 @@ function os_poker_user_login_final_validate($form, &$form_state) {
     $overlay .= '<div id="failed-login">';
     $overlay .= '<h1>'.t('Login').'</h1>';
     $overlay .= theme('status_messages');
-    $overlay .= ($form['#id'] == 'os-poker-failed-login-form') ? drupal_render_form('os_poker_failed_login_form', $form) : drupal_get_form('os_poker_failed_login_form');
+    $overlay .= drupal_get_form('os_poker_failed_login_form');
     $overlay .= '</div>';
-    os_poker_set_overlay($overlay, array('style' => 'height: auto'));
+    os_poker_set_overlay($overlay);
   }
 }
 
@@ -133,21 +123,13 @@ function os_poker_user_login_final_validate($form, &$form_state) {
  */
 function os_poker_failed_login_form(&$form_state) {
   $form = user_login($form_state);
-  $form['#action'] = url($_GET['q'], array('query' => array('os_poker_failed_login' => true)));
-  module_load_include('inc', 'remember_me', 'includes/remember_me');
-  remember_me_insert_checkbox($form);
   $form['#submit'][] = 'user_login_submit';
   $form['name']['#title'] = t('E-Mail');
-  $form['name']['#size'] = $form['pass']['#size'] = 20;
-  $form['name']['#prefix'] = $form['pass']['#prefix'] = '<div class="container-inline">';
-  $form['name']['#suffix'] = $form['pass']['#suffix'] = '</div>';
   unset($form['name']['#description']);
   unset($form['pass']['#description']);
-  $form['submit']['#suffix'] = t(' or !signup', array('!signup' => l(t('Sign up') , '<front>', array('attributes' => array('class' => 'close'))))) . '</div>';
-  $form['submit']['#prefix'] = '<div class="container-inline">';
+  $form['submit']['#suffix'] = t('or !signup', array('!signup' => l(t('Sign up') , '<front>', array('attributes' => array('class' => 'close')))));
   $form['forgot'] = array(
     '#type' => 'markup',
-    '#weight' => 3,
     '#value' => l(t("Forgot your Password ?"), "poker/forgot-password", array(
       "attributes" => array(
         "title" => t("Request new password via e-mail") . ".",
@@ -160,11 +142,16 @@ function os_poker_failed_login_form(&$form_state) {
                 "keepThis" => "true",
                 "TB_iframe" => "true",
       ),
+      '#weight' => 1,
     )),    
   );
-  $form['#redirect'] = '<front>';
   return $form;
 }
+
+function os_poker_form_user_login_alter(&$form, $form_state) {
+  $form['name']['#title'] = t('E-Mail');
+}
+
 
 /**
 * Implementation of hook_form_FORM_ID_alter().
@@ -258,16 +245,13 @@ function	os_poker_gadget()
 	return NULL;
 }
 
+
 /**
 * Implementation of hook_init().
 */
+
 function os_poker_init()
 {
-  if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/^(simpletest\d+);/", $_SERVER['HTTP_USER_AGENT'], $matches)) {
-    module_load_include('php', 'os_poker', 'poker.class');
-    CPoker::ChangePokerDB('pythonpokernetworktest');
-  }
-
 	$inpoker = FALSE;
 	if (isset($_GET["q"]))
 	{
@@ -317,6 +301,7 @@ function os_poker_init()
 	if (user_is_logged_in())
 	{
 		$cuser = CUserManager::instance()->CurrentUser();
+
 		$prof = $cuser->profile_nickname;
 
 		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
@@ -328,9 +313,6 @@ function os_poker_init()
   if(os_poker_inline_messages()) {
     drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
   }
-  drupal_add_js(array('os_poker' => array(
-    'user_picture_default' => variable_get('user_picture_default', ''),
-  )), 'setting');
 }
 
 function os_poker_inline_messages(){
@@ -537,13 +519,7 @@ function 	os_poker_theme()
     ),
     'os_poker_overlay' => array(
       'arguments' => array(),
-    ),
-    'country' => array(
-      'arguments' => array('code' => NULL),
-    ),
-    'players_at_table' => array(
-      'arguments' => array('players' => NULL)
-    ),
+    )
   );
 }
 
@@ -829,21 +805,9 @@ function os_poker_menu()
       'type' => MENU_CALLBACK,
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_skin_css',
-    ),
-    'poker/table/%/players' => array(
-      'title' => 'Players at table',
-      'access callback' => MENU_FOUND,
-      'page callback' => 'os_poker_table_players_page',
-      'page arguments' => array(2),
-    ),
+    )
   );
 	return $menu;
-}
-
-function os_poker_table_players_page($table_id) {
-  module_load_include('php', 'os_poker', 'poker.class');
-  $players = CPoker::UsersAtTable($table_id, true);
-  print theme('players_at_table', $players);
 }
 
 /**
@@ -855,16 +819,12 @@ function os_poker_table_players_page($table_id) {
  */
 function os_poker_closebox_page() {
   $front = url('<front>');
+  drupal_set_message('test');
+  //$messages = json_encode(theme('status_messages'));
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
-    if(window == window.top) {
-       window.top.location = $front;
-    } else if(typeof window.top.tb_remove === 'function' ) {
-      window.top.tb_remove();
-    } else {
-      window.top.location = window.top.location;
-    }
+    window.top.location = window == window.top ? $front : window.top.location;
     //--><!]]>
   </script></head></html>
 EOT;
@@ -1232,48 +1192,6 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   }
 }
 
-function os_poker_preprocess_user_picture(&$variables) {
-  $variables['picture'] = '';
-  if (variable_get('user_pictures', 0)) {
-    $account = $variables['account'];
-    $account_picture = $account->picture;
-    if (!empty($account_picture) && file_exists($account_picture)) {
-      $picture = file_create_url($account->picture);
-    }
-    else if (variable_get('user_picture_default', '')) {
-      $picture = variable_get('user_picture_default', '');
-    }
-    else {
-      $picture = drupal_get_path("theme", "poker") . "/images/picture-default.png";
-    }
-
-    if (isset($picture)) {
-      $alt = t("@user's picture", array('@user' => $account->profile_nickname ? $account->profile_nickname : variable_get('anonymous', t('Anonymous'))));
-      $variables['picture'] = theme('image', $picture, $alt, $alt, '', FALSE);
-      $account_uid = $account->uid;
-      if (!empty($account_uid) && user_access('access user profiles')) {
-        if(arg(0) != 'poker' || (arg(1) == 'table' && arg(3) == 'players')) {
-          $options = array(
-            'attributes' => array(
-              'title' => t('View user profile.'),
-              'class' => 'thickbox'
-          ),
-          'query' => array(
-            'height' => 442,
-            'width' => 603,
-            'TB_iframe' => 'true'
-          ),
-          'html' => TRUE);
-        } else {
-           $options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
-        }
-
-        $variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
-      }
-    }
-  }
-}
-
 /**
  * Implementation of hook_mail().
  */
@@ -1361,7 +1279,7 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  * Callback for the poker/skin.css path.
  */
 function os_poker_skin_css() {
-  header('Content-type: text/css');
+  header("Content-type: text/css");
   $url = theme('poker_skin_css_url');
   print("@import url($url);\n");
   module_load_include('php', 'os_poker', 'shop.class');
@@ -1470,27 +1388,4 @@ function theme_os_poker_overlay() {
   else {
     return '';
   }
-}
-
-function theme_country($code) {
-  $country = countries_api_get_country($code);
-  if($country) {
-    return t($country['printable_name']);
-  }
-  else {
-    return 'Unknown';
-  }
-}
-
-function theme_players_at_table($players = array()) {
-  $output = '<div class="userlist">';
-  foreach($players as $player) {
-    $output .= "<div class='user'>";
-    $output .= theme('user_picture', $player);
-    $output .= '<div class="name">'.theme('username', $player).'</div>';
-    $output .= '<div class="money"> $'.$player->Chips() .'</div>';
-    $output .= "</div>";
-  }
-  $output .= '</div>';
-  return $output;
 }

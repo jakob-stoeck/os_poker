@@ -62,7 +62,7 @@ function	os_poker_submit(link, form_id, ajax, closetb)
 
 function	os_poker_number_format(x)
 {
-	if (x != 0)
+	if (x !== 0)
 	{
 		var str = x.toString(), n = str.length;
 
@@ -84,7 +84,7 @@ function	os_poker_setup_shop_item_select(elem, price, id_item)
 	$("#shop .total").each(function () {
 		var mult = $(this).attr("mul");
 		$(this).text(os_poker_number_format(price * mult));
-	})
+	});
 	
 	$("#shop #buy_form_item").val(id_item);
 }

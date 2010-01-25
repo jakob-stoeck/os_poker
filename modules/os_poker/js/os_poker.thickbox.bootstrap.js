@@ -8,7 +8,7 @@ $(document).ready(function () {
 	
 	$("#message-list .inner-item-list a").each(function() {
 	
-		if ($(this).hasClass("user_relationships_popup_link") == false && $(this).hasClass("noreplace") == false)
+		if ($(this).hasClass("user_relationships_popup_link") === false && $(this).hasClass("noreplace") === false)
 		{
 			var tg = $(this).attr("href");
 			
