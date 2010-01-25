@@ -235,14 +235,3 @@ function os_poker_play_now_clicked()
 {
 
 }
-
-/*
-**
-*/
-
-function os_poker_switch_today_gift_blocks()
-{
-	  $('#today_gift').hide();
-	  $('#today_gift_invite').show();
-}
-

@@ -544,6 +544,18 @@ function 	os_poker_theme()
     'players_at_table' => array(
       'arguments' => array('players' => NULL)
     ),
+    'daily_gift' => array(
+      'arguments' => array('amount' => NULL),
+    ),
+    'poker_image' => array(
+      'arguments' => array(
+        'filename' => NULL,
+        'alt' => '',
+        'title' => '',
+        'attributes' => NULL,
+        'getsize' => TRUE,
+      ),
+    )
   );
 }
 
@@ -1232,6 +1244,10 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   }
 }
 
+function os_poker_preprocess_os_poker_buddylist(&$variables) {
+  $variables['daily_gift'] = theme('daily_gift', '100');
+}
+
 function os_poker_preprocess_user_picture(&$variables) {
   $variables['picture'] = '';
   if (variable_get('user_pictures', 0)) {
@@ -1493,4 +1509,42 @@ function theme_players_at_table($players = array()) {
   }
   $output .= '</div>';
   return $output;
+}
+
+function theme_daily_gift($amount = 100) {
+  $current_user = CUserManager::instance()->CurrentUser();
+  $path = drupal_get_path('module', 'os_poker') . '/images/';
+
+  $enable = $current_user && $current_user->CanDailyGift();
+  $output = '';
+  if (true || $enable) {
+    $output .= '<div id="today_gift">';
+    $output .= theme('poker_image', 'daily_gifts.jpg', t("Today's free gift"), t('Send $!amount chips to your poker buddies!', array(
+      '!amount' => $amount,
+    )));
+    $output .= '</div>';
+  }
+  $output .= '<div id="today_gift_invite"';
+  if($enable) {
+    $output .= ' style="display: none;"';
+  }
+  $output .= '>';
+  $output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  $output .= '</div>';
+  return $output;
+}
+
+function theme_poker_image($filename, $alt = '', $title = '', $attributes = NULL, $getsize = TRUE) {
+  global $theme;
+  if(file_exists(drupal_get_path('theme', $theme) .'/images/'. $filename)) {
+    $path = drupal_get_path('theme', $theme) .'/images/'. $filename;
+  }
+  else if(file_exists(drupal_get_path('module', 'os_poker') .'/images/'. $filename)) {
+    $path = drupal_get_path('module', 'os_poker') . '/images/'. $filename;
+  }
+  else {
+    $path = drupal_get_path('theme', 'poker') .'/images/'. $filename;
+  }
+  dpm($path);
+  return theme('image', $path, $alt, $title, $attributes, $getsize);
 }

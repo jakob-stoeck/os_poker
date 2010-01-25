@@ -161,11 +161,26 @@ function	_os_poker_process_message_unsafe()
 			break;
 
 			case "os_poker_daily_gift":
-				if ($current_user->CanDailyGift())
-				{
-					$current_user->DailyGift();
+				if ($current_user->CanDailyGift()) {
+					if ($current_user->DailyGift()) {
+            $resp["messages"][] = array(
+              'type' => 'os_poker_gift_sent',
+              'body' => array(
+                'text' => t('You have sent !amount free chips to !count buddies', array(
+                  '!count' => count($current_user->Buddies()),
+                  '!amount' => 100
+                )),
+              )
+            );
+          }
+          else {
+            $resp["messages"][] = array("type" => "noop", "body" => NULL);
+          }
 				}
-				$resp["messages"][] = array("type" => "noop", "body" => NULL);
+        else {
+          $resp["messages"][] = array("type" => "noop", "body" => NULL);
+        }
+				
 			break;
 
 			case "os_poker_load_messagebox":
@@ -256,9 +271,8 @@ function	_os_poker_process_message_unsafe()
 	{
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
-
 	_os_poker_process_message_set_header();
-	return json_encode($resp);
+	print json_encode($resp);
 }
 
 

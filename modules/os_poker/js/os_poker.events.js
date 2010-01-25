@@ -35,11 +35,21 @@ OsPoker.eventHandlers = {
     selector:  'b.chips',
     fn: function(event, arg) {
       if (typeof(arg.amount) != "undefined") {
-	if(!isNaN(parseInt(arg.amount, 10))) {
+        if(!isNaN(parseInt(arg.amount, 10))) {
           arg.amount = os_poker_number_format(arg.amount);
         }
         event.data.text(arg.amount);
       }
+    }
+  },
+  os_poker_gift_sent: function(event, arg) {
+    if(typeof arg.text === 'string') {
+      $('#today_gift').html(arg.text);
+      //After 60secs. remove the today gift banner and show the invite buddy one.
+      setTimeout(function(){
+        $('#today_gift').hide();
+        $('#today_gift_invite').show();
+      }, 60000);
     }
   }
 };

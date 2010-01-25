@@ -40,7 +40,12 @@ Drupal.behaviors.os_poker = function(context) {
     os_poker_slider_reset($('#buddy_panel .cursor'));
   });
 
-//Show status message in a thickbox when not on admin pages
+  //Register handler for Buddy List's "Today Gift" banner
+  $('#today_gift').click(function(){
+    os_poker_send_message({type: 'os_poker_daily_gift'});
+  })
+
+  //Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
