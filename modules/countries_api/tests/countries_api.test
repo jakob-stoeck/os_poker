@@ -1,0 +1,163 @@
+<?php
+// $Id: countries_api.test,v 1.1.2.1 2009/02/28 20:48:42 mrfelton Exp $
+
+/**
+ * @file
+ * Tests for Countries API
+ */
+
+//Define working test case variables
+define('VALID_ISO2', 'US'); 
+define('VALID_ISO3', 'USA');
+define('INVALID_ISO2', 'xx');
+define('INVALID_ISO3', 'xxx');
+define('VALID_FORMAT', 'iso2');
+define('INVALID_FORMAT', 'oh hai!');
+
+class CountriesAPITestCase extends DrupalWebTestCase {
+    
+  function getInfo() {
+    return array(
+      'name' => t('Countries API tests'),
+      'desc' => t('Tests Countries API functions'),
+      'group' => t('Countries API tests')
+    );
+  }
+
+  function setUp() {
+    parent::setUp('countries_api');
+  }
+  
+  /**
+  * Function to test countries_api_get_formats() results
+  **/
+  function test_countries_api_get_formats() {
+    $formats = countries_api_get_formats();
+    $this->assertNotNull($formats, 'Checking countries API format results. %s');
+  }
+  
+  /**
+  * Function to validate format (and presence of) countries from countries_api_get_list()
+  **/
+  function test_countries_api_get_list() {
+    $countries = countries_api_get_list();
+    $this->assertTrue(is_array($countries), 'Checking countries api list. %s');
+  }
+  
+  /**
+  * Function to validate length of countries list is greater than 0
+  **/
+  function test_count_countries_api_get_list() {
+    $countries = countries_api_get_list();
+    $this->assertNotEqual(count($countries), 0, 'Checking size of countries api. %s');
+  }
+  
+  /**
+  * Function to test _countries_api_iso_get_country returns a value
+  **/
+  function test_results_countries_api_iso_get_country() {
+    $value = VALID_ISO2;
+    $format = VALID_FORMAT;
+    $country = _countries_api_iso_get_country($value, $format);
+    $this->assertTrue($country, 'Testing countries_api_iso_get_country return format. %s');
+  }
+  
+  /**
+  * Function to test invalid format passed to _countries_api_iso_get_country
+  **/
+  function test_invalidformat__countries_api_iso_get_country() {
+    $value =  VALID_ISO2;
+    $format = INVALID_FORMAT;
+    $country = _countries_api_iso_get_country($value, $format);
+    $this->assertFalse($country, 'Testing countries_api_iso_get_country format validation. %s');
+  }
+  
+  /**
+  * Function to test countries_api_iso3_get_iso2() results
+  **/
+  function test_countries_api_iso3_get_iso2() {
+    $code = VALID_ISO3;
+    $iso2 = countries_api_iso3_get_iso2($code);
+    $this->assertNotEqual($iso2, FALSE, 'Test countries_api_iso3_get_iso2 results. %s');
+  }
+  
+  /**
+  * Function to test countries_api_iso2_get_iso3() results
+  **/
+  function test_countries_api_iso2_get_iso3() {
+    $code = VALID_ISO2;
+    $iso3 = countries_api_iso2_get_iso3($code);
+    $this->assertNotEqual($iso3, FALSE, 'Test countries_api_iso2_get_iso3 results. %s');
+  }
+  
+  /**
+  * Function to test results of countries_api_iso3_get_name()
+  **/
+  function test_countries_api_iso3_get_name() {
+    $code = VALID_ISO3;
+    $country_name = countries_api_iso3_get_name($code);
+    $this->assertNotNull($country_name, 'Test countries_api_iso3_get_name results. %s');
+  }
+  
+  /**
+  * Function to test results of countries_api_iso3_get_name()
+  **/
+  function test_nullcountries_api_iso3_get_name() {
+    $code = INVALID_ISO3;
+    $country_name = countries_api_iso3_get_name($code);
+    $this->assertNull($country_name, 'Tests countries_api_iso3_get_name with an incorrect code. %s');
+  }
+  
+  /**
+  * Function to test results of countries_api_iso2_get_name()
+  **/
+  function test_countries_api_iso2_get_name() {
+    $code = VALID_ISO2;
+    $country_name = countries_api_iso2_get_name($code);
+    $this->assertNotNull($country_name, 'Test countries_api_iso2_get_name results. %s');
+  }
+
+  /**
+  * Function to test results of countries_api_iso2_get_name()
+  **/
+  function test_nullcountries_api_iso2_get_name() {
+    $code = INVALID_ISO3;
+    $country_name = countries_api_iso2_get_name($code);
+    $this->assertNull($country_name, 'Tests countries_api_iso2_get_name with an incorrect code. %s');
+  }
+  
+  /**
+  * Function to test countries_api_get_name() results
+  **/
+  function test_countries_api_get_name() {
+    $name = VALID_ISO2;
+    $country_name = countries_api_get_name($name);
+    $this->assertNotNull($country_name, 'Test test_countries_api_get_name results. %s');
+  }
+  
+  /**
+  * Function to test countries_api_get_name() results with invalid name
+  **/
+  function test_invalid_countries_api_get_name() {
+    $name = INVALID_ISO2;
+    $country_name = countries_api_get_name($name);
+    $this->assertNull($country_name, 'Test test_countries_api_get_name results. %s');
+  }
+  
+  /**
+  * Function to test countries_api_get_array() results
+  **/
+  function test_countries_api_get_array() {
+    $countries = countries_api_get_array();
+    $this->assertNotEqual($countries, FALSE, 'Test results of countries_api_get_array.');
+  }
+  
+  /**
+  * Function to test countries_api_get_options_array results
+  **/
+  function test_countries_api_get_options_array() {
+    $countries = countries_api_get_options_array();
+    $this->assertNotNull($countries, 'Test countries_api_get_options_array.');
+  }
+
+}

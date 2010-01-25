@@ -224,7 +224,7 @@ class CShop
 		return $categories;
 	}
 
-	public static function BuyItem($item_id)
+	public static function BuyItem($item_id, $activate = FALSE)
 	{
 		require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 		require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
@@ -263,6 +263,10 @@ class CShop
 			{
 				CScheduler::instance()->RegisterTask(new CItemExpiry(), $user->uid, array('live'), $ttl, array("id_operation" => $operation_id));
 			}
+
+      if($activate) {
+        $user->ActivateItem($operation_id);
+      }
 
 			/*
 			** User must pay !

@@ -1,0 +1,49 @@
+# $Id: regions_api_service.pot,v 1.1.2.1 2009/05/17 10:43:15 mrfelton Exp $
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  regions_api_service.module,v 1.1.2.2 2009/04/06 10:58:18 mrfelton
+#  regions_api_service.info,v 1.1.2.1 2009/02/28 20:44:59 mrfelton
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2009-05-17 11:40+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: regions_api_service.module:17
+msgid "Provides regions api methods to services applications. Requires services.module."
+msgstr ""
+
+#: regions_api_service.module:48
+msgid "An iso2 country code."
+msgstr ""
+
+#: regions_api_service.module:52
+msgid "Returns an array of regions."
+msgstr ""
+
+#: regions_api_service.module:64
+msgid "No regions where found with the given argument."
+msgstr ""
+
+#: regions_api_service.info:0
+msgid "Regions API Service"
+msgstr ""
+
+#: regions_api_service.info:0
+msgid "Provides a regions api service."
+msgstr ""
+
+#: regions_api_service.info:0
+msgid "Services - services"
+msgstr ""
+

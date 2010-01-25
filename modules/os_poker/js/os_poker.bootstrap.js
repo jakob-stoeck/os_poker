@@ -15,20 +15,19 @@ if(window != window.top) {
         //this is not the document.ready call: execute the original tb_init
         original.apply(this, arguments);
       }
-    };
+    }
   })(jQuery);
 }
 
 Drupal.behaviors.os_poker = function(context) {
   //A counter incremented for each call of this function
-  arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
-  var call_counter = arguments.callee.call_counter;
+  var call_counter= arguments.callee.call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
   
-  if(call_counter === 0 && !$(document.body).hasClass('page-poker')) {
-      if(typeof os_poker_input_file_style === 'function') {os_poker_input_file_style();}
-      if(typeof os_poker_message_start === 'function') {os_poker_message_start();}
-      if(typeof os_poker_init_events === 'function') {os_poker_init_events();}
-      if(typeof os_poker_init_menu === 'function') {os_poker_init_menu();}
+  if(call_counter == 0 && !$(document.body).hasClass('page-poker')) {
+    if(typeof os_poker_input_file_style === 'function') os_poker_input_file_style();
+    if(typeof os_poker_message_start === 'function') os_poker_message_start();
+    if(typeof os_poker_init_events === 'function') os_poker_init_events();
+    if(typeof os_poker_init_menu === 'function') os_poker_init_menu();
   }
   
   //Register slider handler for the Buddy List's panel
@@ -39,8 +38,8 @@ Drupal.behaviors.os_poker = function(context) {
     os_poker_filter_online($('#buddy_panel .buddy_list_block'), this.checked);
     os_poker_slider_reset($('#buddy_panel .cursor'));
   });
-  
-  //Show status message in a thickbox when not on admin pages
+
+//Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
@@ -48,7 +47,7 @@ Drupal.behaviors.os_poker = function(context) {
       //create an hidden container for the thickbox
       var $popup = $messages.eq(0).after(Drupal.theme('os_poker_popup', id)).next().hide();
       //move the message into its .content
-      $popup.find('.content').append($messages).end();
+      $popup.find('.content').append($messages).end()
       //register tb_remove as handler for its .close link
       $popup.find('.close').click(tb_remove).end();
       //Reveal the popup (delayed with setTimeout so that any pending javascript is executed before)
@@ -59,11 +58,27 @@ Drupal.behaviors.os_poker = function(context) {
       }, 0);
     }
   }
-};
+}
 
 /**
  * Provides markup for the holding the content of the thickbox content for popup message. 
  */
+
+Drupal.theme.os_poker_link = function() {
+  return Drupal.settings.basePath + '?q=' + Array.prototype.join.apply(arguments, ['/']);
+}
+
 Drupal.theme.os_poker_popup = function(id) {
   return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div></div>';
-};
+}
+
+Drupal.theme.lobby_player = function(player) {
+  var output = '<div class="user">';
+  output += '<div class="picture"><a class="thickbox" href="' + Drupal.theme('os_poker_link', 'poker/profile/profile', player.serial, '&height=442&width=603&keepThis=true&TB_iframe=true') + '"><img alt="" src="xsites/default/files/pictures/picture-' + player.serial + '.png"/></a></div>';
+  output += '<div class="name"><a class="thickbox" href="' + Drupal.theme('os_poker_link', 'poker/profile/profile', player.serial, '&height=442&width=603&keepThis=true&TB_iframe=true') + '">'+player.name+'</a></div>';
+  output += '<div class="money"><a href="#">' + os_poker_number_format(player.chips / 100) + '</a></div>';
+  output += '</div>';
+  return output;
+}
+
+Drupal.theme

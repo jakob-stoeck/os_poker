@@ -25,11 +25,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 			<?php
 				if (variable_get('user_relationships_show_user_pictures', 0))
 				{
-					$alt = t("@user's picture", array('@user' => $buddies_entry->name ? $buddies_entry->name : variable_get('anonymous', t('Anonymous'))));
-			  
-					$picture = theme('image', $buddies_entry->picture, $alt, $alt, '', FALSE);
-					$attributes = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
-					print l($picture, "poker/profile/profile/$oBuddy->uid", $attributes);
+					print theme('user_picture', $buddies_entry);
 				}
 			?>
 			</div>
@@ -37,7 +33,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 			<div class="buddy_result_list_infos">
 				<div class="buddy_result_list_name <?php if ($buddies_entry->Online()) { print "online"; } ?>">
 					<?php 
-						print theme('username', $oBuddy);
+						print theme('username', $buddies_entry);
 					?>
 				</div>
 				<div class="buddy_result_list_chips">

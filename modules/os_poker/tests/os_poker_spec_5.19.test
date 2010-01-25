@@ -133,7 +133,7 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		$this->drupalLogin($this->skel_user);
 		
 		$this->_checkInformation($user2->uid);
-		$this->assertText(t("Add Buddy"), "Link add buddy present");
+		$this->assertRaw(t("Add Buddy"), "Link add buddy present");
 		$this->assertText(t("Report Abuse"), "Link to report abuse present");
 		$this->assertText(t("Buy Gift"), "Buy Gift button present");
 		$this->assertNoText(t("Activate"), "Activate button not present");
@@ -187,7 +187,8 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		$this->assertText($cuser->Status(), "User status is present");
 		$this->assertText($cuser->Chips(TRUE), "User amount of chips is present");
 		$this->assertText($cuser->profile_city, "User city is present");
-		$this->assertText($cuser->profile_country, "User country is present");
+    $country = countries_api_get_country($cuser->profile_country);
+		$this->assertText(t($country['printable_name']), "User country is present");
 		$this->assertText(t("Profile"), "Link to full profile is present");
 	}
 

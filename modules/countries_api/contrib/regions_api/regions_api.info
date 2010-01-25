@@ -1,0 +1,11 @@
+; $Id: regions_api.info,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+name = "Regions codes API"
+description = "This module provides an API for accessing country region (province/state) data."
+package = "Location"
+core = 6.x
+; Information added by drupal.org packaging script on 2009-06-27
+version = "6.x-1.1"
+core = "6.x"
+project = "countries_api"
+datestamp = "1246131027"
+

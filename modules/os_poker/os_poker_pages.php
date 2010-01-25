@@ -164,7 +164,7 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 	
 	if ($user_id != NULL && $user_id != $current_user->uid)
 	{
-		$target_user =  CUserManager::instance()->User($user_id);
+		$target_user =  CUserManager::instance()->User($user_id);;
 		$external = TRUE;
 	}
 	
@@ -366,7 +366,7 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				case "subtarget":
 					if ($subtarget->uid == $current_user->uid)
 					{
-						$success = CShop::BuyItem($_POST["shop_item"]);
+						$success = CShop::BuyItem($_POST["shop_item"], empty($_POST["shop_item_activate"]) ? FALSE : !!$_POST["shop_item_activate"]);
 					}
 					else
 					{
@@ -384,8 +384,11 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				break;
 			}
 			
-			if ($success == FALSE)
+			if ($success == FALSE) {
 				$error = theme('poker_error_message', "<h1>" . t("Sorry !") . "</h1>" . t("You don't have enough Chips."));
+      } else if ($target_type == 'table') {
+        drupal_goto('poker/closebox');
+      }
 		}
 		
 		$params = 	array(

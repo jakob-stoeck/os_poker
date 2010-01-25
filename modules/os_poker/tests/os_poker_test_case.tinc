@@ -77,7 +77,8 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'user_relationship_invites',
         'user_relationship_blocks',
         'user_relationship_mailer',
-		'simple_payments',
+        'simple_payments',
+        'countries_api',
         'os_poker'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
@@ -245,7 +246,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $profile += array(
       'profile_nickname' => $this->randomName(),
       'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
+      'profile_country'  => 'FR',
       'profile_city'     => $this->randomName(),
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
@@ -257,7 +258,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $profile += array(
       'profile_nickname' => $drupal_user->name,
       'profile_gender'   => t('Male'),
-      'profile_country'  => t('France'),
+      'profile_country'  => 'FR',
       'profile_city'     => $this->randomName(),
       'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );

@@ -1,7 +1,7 @@
 <div id="user-brief">
 	<div id="user-brief-inner">
 		<div class="fleft avatar">
-			<img src="<?php print $os_user->picture; ?>" alt="avatar"/>
+      <?php print theme('user_picture', $os_user); ?>
 		</div>
 		<div class="fleft info1">
 			<p class="welcome">

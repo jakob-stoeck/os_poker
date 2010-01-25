@@ -284,7 +284,13 @@ body.iframe a.LayerClose
 
 #shop .footer .right
 {
-	width: 415px;
+	width: 510px;
+}
+
+#shop .footer .left
+{
+	width: 92px;
+  margin-top: -2em;
 }
 
 /*
@@ -1010,4 +1016,32 @@ font-size:12px;
 font-weight:bold;
 /*padding:10px 0 0 256px;*/
 padding:10px 0 0 46px;
+}
+
+/**
+ * Login failed form
+ */
+ #os-poker-failed-login-form {
+   padding-left: 100px;
+}
+
+#os-poker-failed-login-form .container-inline {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#os-poker-failed-login-form .form-item label {
+  display: inline-block;
+  margin-left: -100px;
+  width: 100px;
+  text-align: right;
+}
+
+#os-poker-failed-login-form .form-item label.option {
+  display: inline;
+  margin-left: 0;
+}
+
+#os-poker-failed-login-form a.close {
+  font-weight: bold;
 }

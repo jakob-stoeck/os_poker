@@ -1,0 +1,5 @@
+.jpoker_table .jpoker_avatar, .poker_small_profile .poker_avatar {
+    background: url(images/picture-default.png);
+    width: 69px;
+    height: 69px;
+}

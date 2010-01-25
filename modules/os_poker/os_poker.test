@@ -287,7 +287,7 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		$u = $this->drupalCreateUser(array('administer users'));
 		$pu = $userManager->User($u->uid);
 		$pu->profile_nickname = $u->name;
-		$pu->profile_country = "France";
+		$pu->profile_country = "FR";
 		$pu->profile_city = "Nantes";
 		$pu->profile_gender = "Female";
 		$pu->Save();
@@ -295,7 +295,7 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		//
 		$u = $this->drupalCreateUser(array('administer users'));
 		$pu = $userManager->User($u->uid);
-		$pu->profile_country = "France";
+		$pu->profile_country = "FR";
 		$pu->profile_city = "Nantes";
 		$pu->profile_gender = "Male";
 		$pu->profile_nickname = $u->name;
@@ -304,7 +304,7 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		//
 		$u = $this->drupalCreateUser(array('administer users'));
 		$pu = $userManager->User($u->uid);
-		$pu->profile_country = "France";
+		$pu->profile_country = "FR";
 		$pu->profile_city = "Paris";
 		$pu->profile_gender = "Female";
 		$pu->profile_nickname = $u->name;
@@ -313,26 +313,26 @@ class OSPokerUserTestCase extends DrupalWebTestCase
 		//
 		$u = $this->drupalCreateUser(array('administer users'));
 		$pu = $userManager->User($u->uid);
-		$pu->profile_country = "France";
+		$pu->profile_country = "FR";
 		$pu->profile_city = "Orléan";
 		$pu->profile_nickname = $u->name;
 		$pu->Save();
-		$this->assertNotNull($pu, "CUser created");				
+		$this->assertNotNull($pu, "CUser created");
 		//
 		$u = $this->drupalCreateUser(array('administer users'));
 		$pu = $userManager->User($u->uid);
 		$pu->profile_nickname = $u->name;
 		$pu->profile_gender = "Female";
 		$pu->Save();
-		$this->assertNotNull($pu, "CUser created");		
+		$this->assertNotNull($pu, "CUser created");
 
-
+   
 		$allusers = $userManager->SearchUsers($params);
 		
 		//User search without param returns all
 		$this->assertEqual(count($allusers), 6, "6 Users found");
-		
-		$params["profile_country"] = "France";
+
+		$params["profile_country"] = "FR";
 		$allusers = $userManager->SearchUsers($params);
 		$this->assertEqual(count($allusers), 4, "4 Users from France");
 		

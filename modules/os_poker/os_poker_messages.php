@@ -100,7 +100,47 @@ function os_poker_poll_messages()
 **
 */
 
-function	os_poker_process_message()
+function os_poker_process_message() {
+  set_error_handler('_os_poker_process_message_error_handler');
+  set_exception_handler('_os_poker_process_message_exception_handler');
+  _os_poker_process_message_unsafe();
+  restore_error_handler();
+  restore_exception_handler();
+}
+
+function _os_poker_process_message_error_handler($errno, $errstr) {
+  switch($errno) {
+    case E_ERROR:
+    case E_USER_ERROR:
+      $resp = array(
+        'errorMsg' => $errstr,
+        'error' => TRUE,
+        'messages' => array('type' => 'noop', 'body' => NULL),
+      );
+      _os_poker_process_message_set_header();
+      die(json_encode($resp));
+      return true;
+      break;
+  }
+}
+
+function _os_poker_process_message_exception_handler($exception) {
+  $resp = array(
+    'errorMsg' => $exception->getMessage(),
+    'error' => TRUE,
+    'messages' => array('type' => 'noop', 'body' => NULL),
+  );
+  _os_poker_process_message_set_header();
+  die(json_encode($resp));
+}
+
+function _os_poker_process_message_set_header() {
+  header('Cache-Control: no-store, no-cache, must-revalidate');
+  header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+  header('Content-type: application/json');
+}
+
+function	_os_poker_process_message_unsafe()
 {
 	$current_user = CUserManager::instance()->CurrentUser();
 	$resp = array(
@@ -157,7 +197,12 @@ function	os_poker_process_message()
 						$args["links"] = "<a class='noreplace' href='javascript:void(0);' onclick='javascript:parent.os_poker_start_challenge(" . $current_user->uid . ", " . $target_user->uid. ");'>" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
 
 						CMessageSpool::instance()->SendMessage($target_user->uid, $args);
-						CMessageSpool::instance()->SendInstantMessage(array("text" => t("You just challenged !user", array("!user" => $target_user->profile_nickname))));
+						CMessageSpool::instance()->SendInstantMessage(array(
+              'text' => t("You just challenged !user", array(
+                "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
+              )),
+              'title' => t('Challenge'),
+            ));
 					}
 				}
 			break;
@@ -166,6 +211,9 @@ function	os_poker_process_message()
 				if (isset($_GET["id_item"]) && is_numeric($_GET["id_item"])) {
 					$current_user->ActivateItem($_GET["id_item"]);
 				}
+        else {
+          trigger_error(t('Invalid item ID: %item_id', array('%item_id' => isset($_GET["id_item"]) ? $_GET["id_item"] : 'undefined')), E_USER_ERROR);
+        }
 			break;
 
 			case "os_poker_invite_user":
@@ -183,13 +231,22 @@ function	os_poker_process_message()
 
 							//TODO : Check $_GET["online"] to send mail
 							CMessageSpool::instance()->SendMessage($target_user->uid, $args);
-							CMessageSpool::instance()->SendInstantMessage(array("text" => t("Invitation sent to !user", array("!user" => $target_user->profile_nickname))));
+							CMessageSpool::instance()->SendInstantMessage(array(
+                'text' => t("Invitation sent to !user", array(
+                  "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
+                )),
+                'title' => t('Invitation'),
+              ));
 						}
 					}
 				}
 			break;
-
-			case "HAND":
+      case 'os_poker_trigger_error':
+        trigger_error("Message triggered error.", E_USER_ERROR);
+        break;
+      case 'os_poker_trigger_exception':
+        throw new Exception('Message triggered exception.');
+        break;
 			default:
 				$resp["messages"][] = array("type" => "noop", "body" => NULL);
 			break;
@@ -200,10 +257,7 @@ function	os_poker_process_message()
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
 
-	header('Cache-Control: no-store, no-cache, must-revalidate');
-	header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
-	header('Content-type: application/json');
-
+	_os_poker_process_message_set_header();
 	return json_encode($resp);
 }
 

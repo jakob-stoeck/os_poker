@@ -9,14 +9,12 @@
 	</div>
 	<div class="panel">
 		<div class="left fleft">
-			<div class="picture">
 			<?php
 				if ($target_user)
 				{
-					print '<img src="' . $target_user->picture . '" alt="user"/>';
+					print theme('user_picture', $target_user);
 				}
 			?>
-			</div>
 			<div class="block_title_bar block_title_text"><?php print t("Rank") . ": " . $user_rank; ?></div>
 		</div>
 		<div class="right fleft">

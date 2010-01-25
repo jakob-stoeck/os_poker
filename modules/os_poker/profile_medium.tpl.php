@@ -6,7 +6,7 @@
 			if ($target_user) {
 		?>
 		<div class="picture fleft">
-			<img src="<?php print $target_user->picture; ?>" alt="user"/>
+			<?php print theme('user_picture', $target_user); ?>
 		</div>
 		<div class="links fleft">
 			<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/profile/profile/" . $target_user->uid, array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
@@ -14,31 +14,25 @@
 				<div class="label"><?php print t("Profile"); ?></div>
 				<div class="user_login_clear"></div>
 			</div>
-			<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/shop/", array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
-				<div class="pre">&nbsp;</div>
-				<div class="label"><?php print t("Buy Gift"); ?></div>
-				<div class="user_login_clear"></div>
-			</div>
-			<?php } else if (!$target_user->profile_accept_gifts) { ?>
+			<?php if ($external == FALSE || !$target_user->profile_accept_gifts) : ?>
 					<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/shop/shop/1/table/" . $game_id . "/" . $target_user->uid, array("query" => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit">
 					<div class="pre">&nbsp;</div>
 					<div class="label"><?php print t("Buy Gift"); ?></div>
 					<div class="user_login_clear"></div>
 				</div>
-			<?php } ?>
-			<?php if ($external == TRUE && !$target_user->profile_ignore_buddy) { 
-				
+			<?php endif; ?>
+			<?php if ($external == TRUE && !$target_user->profile_ignore_buddy) { 	
 				$buddies = $current_user->Buddies();
 				if (!in_array($target_user->uid, $buddies) && !$current_user->BuddyRequested($target_user->uid)) {
-			?>
-      <?php print drupal_get_form('os_poker_add_buddy_button', $target_user->uid); ?>
-			<?php } } ?>
+          print drupal_get_form('os_poker_add_buddy_button', $target_user->uid);
+        }
+      } ?>
 		</div>
 		<div class="info fleft">
 			<?php print t("Status"); ?> : <span class='darkred'><?php print $target_user->Status(); ?></span><br/>
 			<?php print t("Chips"); ?> : <span class='darkred'><?php print $target_user->Chips(TRUE); ?></span><br/>
 			<span><?php print $target_user->profile_city; ?></span><br/>
-			<span><?php print $target_user->profile_country; ?></span><br/>
+			<span><?php print theme('country', $target_user->profile_country); ?></span><br/>
 			
 		</div>
 		<div class="items fleft">
@@ -81,6 +75,7 @@
 			</div>
 			<?php } ?>
 		</div>
+<?php } ?>
 		<div class="clear"></div>
 	</div>
 </div>

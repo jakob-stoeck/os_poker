@@ -20,14 +20,13 @@ function poker_theme() {
 }
 
 function phptemplate_username($object) {
-
-  if ($object->uid && $object->name) {
+  if ($object->uid && $object->profile_nickname) {
     // Shorten the name when it is too long or it will break many tables.
-    if (drupal_strlen($object->name) > 20) {
-      $name = drupal_substr($object->name, 0, 15) .'...';
+    if (drupal_strlen($object->profile_nickname) > 20) {
+      $name = drupal_substr($object->profile_nickname, 0, 15) .'...';
     }
     else {
-      $name = $object->name;
+      $name = $object->profile_nickname;
     }
 
     if (user_access('access user profiles')) {

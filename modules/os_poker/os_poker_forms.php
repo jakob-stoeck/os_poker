@@ -19,24 +19,45 @@
 
 require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
-/*
-**
-*/
-
+/**
+ * Validator for the custom signup form. Sets expected values in $form_state.
+ */
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
 	$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
-	
-	password_policy_password_validate($form, $form_state);
-	user_register_validate($form, $form_state);
-
 }
 
-function	os_poker_sign_up_form_submit($form, &$form_state)
-{
-	password_policy_password_submit($form, $form_state);
-	user_register_submit($form, $form_state);
-
+/**
+ * Final validator for the custom signup form. Filters duplicated error since
+ * name is always equals to email (@see os_poker_sign_up_form_validate).
+ */
+function os_poker_sign_up_form_final_validate($form, &$form_state) {
+  $messages = drupal_get_messages('error', TRUE);
+  $errors = $messages['error'] ? $messages['error'] : array();
+  $replacements = array(
+    t('The name %name is already taken.', array('%name' => $form_state['values']["mail"])) => FALSE,
+    t('The e-mail address %email is already registered. <a href="@password">Have you forgotten your password?</a>', array('%email' => $form_state['values']['mail'], '@password' => url('user/password')))
+      => t('The e-mail address %email is already registered. !password', array('%email' => $form_state['values']['mail'], '!password' => l(
+        t('Have you forgotten your password?'),
+        "poker/forgot-password", array(
+          "attributes" => array(
+            "title" => t("Request new password via e-mail") . ".",
+            "class" => "thickbox",
+          ),
+          "query" => array(
+            "height" => "187",
+            "width" => "382",
+            "keepThis" => "true",
+            "TB_iframe" => "true",
+          ),
+    ))))
+  );
+  foreach($errors as $error) {
+    $replacement = $replacements[$error];
+    if($replacement !== FALSE) {
+      drupal_set_message($replacement ? $replacement : $error, 'error');
+    }
+  }
 }
 
 function	os_poker_sign_up_form($form_state)
@@ -94,6 +115,8 @@ function	os_poker_sign_up_form($form_state)
 		}
 	}
 
+  $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
+  $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
 	return $form;
 }
 
@@ -459,12 +482,12 @@ function	os_poker_buddy_search_form($form_state)
 														'#size' => 30,
 														'#maxlength' => 64,
 												);
-	
+  
 	$form['profile_country'] =	array(
-															'#type' => 'textfield',
+															'#type' => 'select',
 															'#title' => t('Country'),
-															'#size' => 30,
-															'#maxlength' => 64,
+                              '#multiple' => false,
+                              '#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
 													);
 						
 	$form['submit'] =	array(
@@ -520,7 +543,7 @@ function	os_poker_first_profile_form($form_state)
 	
 	$cuser = CUserManager::instance()->CurrentUser();
 	$nick = $cuser->profile_nickname;
-	
+
 	$form["profile_nickname"] = array(
 										'#type' => 'textfield',
 										'#title' => t('Nickname'),
@@ -568,7 +591,7 @@ function	os_poker_first_profile_form($form_state)
 	$form['profile_country'] =	array(
 										'#type' => 'select',
 										'#title' => t('Country'),
-										'#options' => array(NULL => t('Select...')) + $pfields['profile_country'],
+										'#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_country,
 								);
@@ -579,7 +602,7 @@ function	os_poker_first_profile_form($form_state)
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_city,
 								);
-								
+  
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
@@ -673,15 +696,6 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	if (!empty($edit["profile_city"])) { $cuser->profile_city = $edit["profile_city"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_country"])) { $cuser->profile_country = $edit["profile_country"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["picture"])) { $cuser->picture = $edit["picture"]; } else { $profileComplete &= FALSE; }
-
-	/* if picture is always default but gender has been defined, set a sex specific avatar */
-	if (empty($edit["picture"]) && ($cuser->picture == $cuser->DefaultValue("picture") || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_male.jpg" || $cuser->picture == drupal_get_path("theme", "poker")."/images/picture_default_female.jpg"))
-		{
-			if ($cuser->profile_gender == "Male")
-				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_male.jpg";
-			else if ($cuser->profile_gender == "Female")
-				$cuser->picture = drupal_get_path("theme", "poker") . "/images/picture_default_female.jpg";
-		}
 
 	//Check Profile complete
 	if ($profileComplete && $cuser->CompleteProfile() == FALSE)

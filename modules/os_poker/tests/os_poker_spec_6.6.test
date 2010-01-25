@@ -1,0 +1,76 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+
+class OSPokerProfileTestCase extends OsPokerWebTestCase {
+
+  protected $skel_user;
+
+  public static function getInfo() {
+    return array(
+      'name'        => '6.6 Main Navigation: Profile',
+      'description' => 'Test the profiles tabs',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    $this->user = $this->drupalCreateUser();
+    $this->OsPokerLogin($this->user, array('profile_nickname' => $this->randomString()));
+    $this->userManager = CUserManager::instance();
+  }
+
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  function testUpdateProfile(){
+    $edit = array(
+      'profile_nickname' => $this->randomString(),
+      'profile_gender' => 'Male',
+      'profile_country' => array_rand(countries_api_get_array()),
+      'profile_city' => $this->randomString(),
+    );
+    $this->drupalPost('poker/profile/update', $edit, 'Send');
+    $this->assertText(t('Thank you for updating your profile.'));
+    $cuser = $this->userManager->User($this->user->uid, true);
+    foreach($edit as $key => $value) {
+      $this->assertFieldByName($key, $value);
+    }
+  }
+
+  function testSettings() {
+    $edit = array(
+      'profile_options[profile_ignore_buddy]' => (boolean) rand(0, 1),
+      'profile_options[profile_email_notify]' => (boolean) rand(0, 1),
+      'profile_options[profile_html_email]' => (boolean) rand(0, 1),
+      'profile_options[profile_accept_gifts]' => (boolean) rand(0, 1),
+      'profile_options[profile_newsletter]' => (boolean) rand(0, 1),
+    );
+    $this->drupalPost('poker/profile/settings', $edit, 'Send');
+    $this->assertText(t('Personal Settings'));
+    $cuser = $this->userManager->User($this->user->uid, true);
+    foreach($edit as $key => $value) {
+      $this->assertFieldByName($key, $value);
+    }
+  }
+}

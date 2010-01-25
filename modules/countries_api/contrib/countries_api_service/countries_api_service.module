@@ -1,0 +1,74 @@
+<?php
+// $Id: countries_api_service.module,v 1.1.2.1 2009/05/17 10:43:14 mrfelton Exp $
+
+/**
+ * @file
+ * The module which exposes services related to countries_api
+ */
+ 
+define('COUNTRIES_API_SERVICE_PERM', 'load raw countries data');
+ 
+/**
+ * Implementation of hook_help().
+ */
+function countries_api_service_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#service_countries_api':
+      return '<p>'. t('Provides countries api methods to services applications. Requires services.module.') .'</p>';
+  }
+}
+
+/**
+ * Implementation of hook_perm()
+**/
+function countries_api_service_perm() {
+  return array(COUNTRIES_API_SERVICE_PERM);
+}
+
+/**
+ * Function to check user access
+**/
+function countries_api_service_access($account) {
+  return user_access(COUNTRIES_API_SERVICE_PERM, $account);
+}
+
+/**
+ * Implementation of hook_service()
+**/
+function countries_api_service_service() {
+  return array(
+    array(
+      '#method'   => 'countries_api.get_options_array',
+      '#callback' => 'countries_api_service_get_options_array',
+      '#key'      => FALSE,
+      '#args'     => array(
+        array(
+          '#name'         => 'first element value',
+          '#type'         => 'string',
+          '#description'  => t("The value of the first element in the array (defaults to '')"),
+          '#optional'     => TRUE,
+        ),
+        array(
+          '#name'         => 'first element label',
+          '#type'         => 'string',
+          '#description'  => t("The label of the first value in the array (defaults to 'Please Choose')"),
+          '#optional'     => TRUE,
+        ),
+      ),
+      '#return'   => 'array',
+      '#help'     => t('Returns an associative array in $country["iso2"] => $country["printable_name"] format.'),
+    )
+  );
+}
+
+/**
+ * Returns an array of countries
+ */
+function countries_api_service_get_options_array($value = '', $label = 'Please Choose') {
+  $countries = countries_api_get_options_array(array($value => $label));
+  
+  if (!$countries) {
+    return services_error(t('No countries where found.'));
+  }
+  return $countries;
+}

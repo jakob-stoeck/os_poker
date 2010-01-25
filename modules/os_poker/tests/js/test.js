@@ -4,45 +4,98 @@ QUnit.log = function(result, message)
   {  
     window.console.log(result +' :: '+ message);  
   }  
+}  
+
+Drupal.settings.basePath = '/test/';
+
+module('os_poker.event', {
+
+});
+
+function mockFn(){
+  var c = function() {
+    c.count++;
+    c.history.push(arguments);
+  }
+  c.count = 0;
+  c.history = [];
+  return c;
 };
 
-module("os_poker_update_lobby", {
+test('os_poker_init_events', 9, function(){
+
+  var originalHandlers = OsPoker.eventHandlers;
+  OsPoker.eventHandlers = {
+    simple_callback: mockFn(),
+    callback_with_selector: {
+        fn: mockFn(),
+        selector: '#main'
+    },
+    callback_without_selector: {
+        fn: mockFn()
+    }
+  };
+  os_poker_init_events();
+  os_poker_trigger('simple_callback', 'foo');
+  os_poker_trigger('callback_with_selector', 'bar');
+  os_poker_trigger('callback_without_selector', 'foobar');
+  equals(OsPoker.eventHandlers.simple_callback.count, 1, 'simple_callback has been used once');
+  equals(OsPoker.eventHandlers.simple_callback.history[0][0].data, undefined, 'with an undefined data property in the first arguments,');
+  equals(OsPoker.eventHandlers.simple_callback.history[0][1], 'foo', 'and with the expected second argument');
+  equals(OsPoker.eventHandlers.callback_with_selector.fn.count, 1, 'callback_with_selector has been used once,');
+  equals(OsPoker.eventHandlers.callback_with_selector.fn.history[0][0].data.selector, '#main', 'with the expected data property in the first arguments,');
+  equals(OsPoker.eventHandlers.callback_with_selector.fn.history[0][1], 'bar', ',and with the expected second argument');
+  equals(OsPoker.eventHandlers.callback_without_selector.fn.count, 1, 'callback_without_selector has been used once,');
+  equals(OsPoker.eventHandlers.callback_without_selector.fn.history[0][0].data, undefined, 'with an undefined data property in the first arguments,');
+  equals(OsPoker.eventHandlers.callback_without_selector.fn.history[0][1], 'foobar', 'and with the expected second argument');
+  OsPoker.eventHandlers = originalHandlers;
+});
+
+module("os_poker_table_selected", {
 	setup: function() {
-	    var table_users = $('<div id="table_users">').appendTo('#main');
-      $('<div class="header"></div>').appendTo(table_users);
-	    var list = $('<div class="list splash">').appendTo(table_users);
-	    $('<div class="userlist">').appendTo(list);
+    var ajax = function(options) {
+      $.ajax.options = options;
+    };
+    ajax.jquery_ajax = $.ajax;
+    $.ajax = ajax;
+    var table_users = $('<div id="table_users">').appendTo('#main');
+    $('<div class="header"></div>').appendTo(table_users);
+    var list = $('<div class="list splash">').appendTo(table_users);
+    $('<div class="userlist">').appendTo(list);
+    window.tb_init = mockFn;
+    os_poker_init_events();
+    os_poker_trigger('os_poker_table_selected', {table: 0});
 	},
 	teardown: function() {
+    $.ajax = $.ajax.jquery_ajax;
 	}
 });
 
-test("with users", function() {
-	expect(13);
-	os_poker_update_lobby([{serial: 1, name: 'foo', chips: 100}, {serial: 2, name: 'bar', chips: 2000000}]);
+test("with users", 4, function() {
+  ok($.ajax.options && $.ajax.options.complete, '$.ajax has been called with a complete callback');
+  var html = '<div class="userlist"><div class="user"></div><div class="user"></div></div>';
+  $.ajax.options.complete({responseText: html}, 'success');
 	equals($('.list').hasClass('splash'), false, '.list container should not have splash class');
-	equals($('.userlist .user').length, 2, '.userlist container should contain 2 users');
-
-	equals($('.userlist .picture a').eq(0).attr('href'), '?q=user/1', "first user picture should link to user/1");
-	equals($('.userlist .picture img').eq(0).attr('src'), 'sites/default/files/pictures/picture-1.png', "first user picture src should be picture-1.png");
-	equals($('.userlist .name a').eq(0).text(), 'foo', 'first user name should be foo');
-	equals($('.userlist .name a').eq(0).attr('href'), '?q=user/1', 'first user name should link to user/1');
-	equals($('.userlist .money a').eq(0).text(), '$ 1', "foo's money should be $ 1");
-
-	equals($('.userlist .picture a').eq(1).attr('href'), '?q=user/2', "first user picture should link to user/2");
-	equals($('.userlist .picture img').eq(1).attr('src'), 'sites/default/files/pictures/picture-2.png', "first user picture src should be picture-1.png");
-	equals($('.userlist .name a').eq(1).text(), 'bar', 'first user name should be bar');
-	equals($('.userlist .name a').eq(1).attr('href'), '?q=user/2', 'first user name should link to user/1');
-	equals($('.userlist .money a').eq(1).text(), '$ 20,000', "foo's money should be $ 20,000");
+	equals($('.list').html(), html, '.list contains the returned markup');
   ok(!!$('#table_users .header:visible').length, 'Header is visible.');
 });
 
-test("without users", function() {
-	expect(3);
-	os_poker_update_lobby([]);
-	equals($('.list').hasClass('splash'), true, '.list container should have splash class');
-	equals($('.userlist .user').length, 0, '.userlist container should contain no users');
-  ok(!$('#table_users .header:visible').length, 'Header is hidden.');
+test("without users", 4, function() {
+  ok($.ajax.options && $.ajax.options.complete, '$.ajax has been called with a complete callback');
+  var html = '<div class="userlist"></div>';
+  $.ajax.options.complete({responseText: html}, 'success');
+	equals($('.list').hasClass('splash'), true, '.list container should not have splash class');
+	equals($('.list').html(), '', '.list contains the returned markup');
+  ok(!$('#table_users .header:visible').length, 'Header is not visible.');
+});
+
+test("error in request", 4, function() {
+  ok($.ajax.options && $.ajax.options.complete, '$.ajax has been called with a complete callback');
+  var html = 'FAIL!';
+  $.ajax.options.complete({responseText: html}, 'failure');
+	equals($('.list').hasClass('splash'), true, '.list container should not have splash class');
+	equals($('.list').html(), '', '.list should be empty');
+  ok(!$('#table_users .header:visible').length, 'Header is not visible.');
 });
 
 module("os_poker_messages", {
@@ -173,7 +226,7 @@ test('should not thrown an uncaught exception when an expected element is missin
   } catch (exception) {
     ok(false, 'uncaught exception thrown');
   }
-});
+})
 
 module('Drupal.behaviors.os_poker', {
   setup: function(){
@@ -185,7 +238,7 @@ module('Drupal.behaviors.os_poker', {
     };
     window.tb_remove = function() {
       testContext.tb_remove += 1;
-    };
+    }
     window.tb_init = function(){};
     //create Drupal-like HTML message markup
     $('#main').append('<div class="messages status"><ul><li>First status message</li><li>Second status message</il></ul></div>');
