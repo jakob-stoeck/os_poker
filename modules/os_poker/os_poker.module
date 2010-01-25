@@ -848,6 +848,12 @@ function os_poker_menu()
       'page callback' => 'os_poker_table_players_page',
       'page arguments' => array(2),
     ),
+    'user/%user/table' => array(
+      'title' => 'Poker table',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_user_table_page',
+      'page arguments' => array(1),
+    )
   );
 	return $menu;
 }
@@ -856,6 +862,17 @@ function os_poker_table_players_page($table_id) {
   module_load_include('php', 'os_poker', 'poker.class');
   $players = CPoker::UsersAtTable($table_id, true);
   print theme('players_at_table', $players);
+}
+
+function os_poker_user_table_page($account) {
+  $tables = CPoker::FindUserTable($account->uid);
+  if($tables) {
+    drupal_goto('<front>', array('view' => 'table', 'game_id' => reset($tables)->serial));
+  }
+  else {
+    drupal_set_message(t('%player is not at a table.', array('%player' => $account->profile_nickname)), 'warning');
+    drupal_goto('<front>');
+  }
 }
 
 /**
@@ -1517,7 +1534,7 @@ function theme_daily_gift($amount = 100) {
 
   $enable = $current_user && $current_user->CanDailyGift();
   $output = '';
-  if (true || $enable) {
+  if ($enable) {
     $output .= '<div id="today_gift">';
     $output .= theme('poker_image', 'daily_gifts.jpg', t("Today's free gift"), t('Send $!amount chips to your poker buddies!', array(
       '!amount' => $amount,
@@ -1545,6 +1562,5 @@ function theme_poker_image($filename, $alt = '', $title = '', $attributes = NULL
   else {
     $path = drupal_get_path('theme', 'poker') .'/images/'. $filename;
   }
-  dpm($path);
   return theme('image', $path, $alt, $title, $attributes, $getsize);
 }

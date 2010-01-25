@@ -44,16 +44,16 @@
 			
 				if ($buddy->Online())
 				{
-					$text = t("Join table");
-					$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . ", online: true})";
+					print l(t('Join table') .'&nbsp;&gt;&gt;', 'user/'. $buddy->uid .'/table', array('html' => TRUE));
+
 				}
 				else
 				{
-					$text = t("Invite now");
-					$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "})";
+					$onclick = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "})";
+          print l(t('Invite now') .'&nbsp;&gt;&gt;', 'javascript:void(0);', array('html' => TRUE, 'absolute' => TRUE, 'attributes' => array('onclick' => $onclick)));
 				}
 			?>
-			<a href="javascript:void(0);" onclick="javascript:<?php print $url; ?>;"><?php print $text; ?>&nbsp;&gt;&gt;</a><br/>
+			<br/>
 			<?php
 				if ($buddy->profile_accept_gifts == 0)
 				{
