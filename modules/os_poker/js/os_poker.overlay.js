@@ -4,7 +4,7 @@ Drupal.behaviors.os_poker_overlay = function(context) {
     $('html').css('overflow', 'hidden');
     var $content = $overlay.find('.content');
     var $floater = $overlay.find('.floater');
-    var mask = $('#os-poker-overlay-mask');
+    var $mask = $('#os-poker-overlay-mask');
     var height = $content.outerHeight();
     $floater.css('margin-bottom', -Math.ceil(height/2) + 'px');
     var close = function() {
