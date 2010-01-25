@@ -6,11 +6,15 @@ Drupal.behaviors.os_poker_overlay = function(context) {
     var $floater = $overlay.find('.floater');
     var height = $content.outerHeight();
     $floater.css('margin-bottom', -Math.ceil(height/2) + 'px');
+    var close = function() {
+      $(this).hide();
+      $('#os-poker-overlay-mask').hide();
+      $('html').css('overflow', '');
+
+    };
     $overlay.bind('click', function(event){
       if($(event.target).hasClass('close')) {
-        $(this).hide();
-        $('#os-poker-overlay-mask').hide();
-        $('html').css('overflow', '');
+        close();
         return false;
       }
       return true;
