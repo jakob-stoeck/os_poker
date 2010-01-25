@@ -4,7 +4,7 @@ QUnit.log = function(result, message)
   {  
     window.console.log(result +' :: '+ message);  
   }  
-};
+}  
 
 Drupal.settings.basePath = '/test/';
 
@@ -226,7 +226,7 @@ test('should not thrown an uncaught exception when an expected element is missin
   } catch (exception) {
     ok(false, 'uncaught exception thrown');
   }
-});
+})
 
 module('Drupal.behaviors.os_poker', {
   setup: function(){
@@ -238,7 +238,7 @@ module('Drupal.behaviors.os_poker', {
     };
     window.tb_remove = function() {
       testContext.tb_remove += 1;
-    };
+    }
     window.tb_init = function(){};
     //create Drupal-like HTML message markup
     $('#main').append('<div class="messages status"><ul><li>First status message</li><li>Second status message</il></ul></div>');
