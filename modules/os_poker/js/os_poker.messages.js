@@ -101,7 +101,7 @@ function	os_poker_message_debug()
 
       success: function(responseObject)
 			{
-				setTimeout(function(){os_poker_message_debug();}, 6000);
+				setTimeout(os_poker_message_debug, 6000);
 			},
 			
       error: function(XMLHttpRequest, textStatus, errorThrown)
@@ -130,7 +130,7 @@ function	os_poker_message_listen()
 			{
 				os_poker_process_message(responseObject);
 				
-				_os_poker_timer_handler = setTimeout(function() {os_poker_message_listen();}, 6000);
+				_os_poker_timer_handler = setTimeout(os_poker_message_listen, 6000);
 				_os_poker_listen_handler = null;
 			},
 			

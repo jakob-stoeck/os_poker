@@ -80,5 +80,3 @@ Drupal.theme.lobby_player = function(player) {
   output += '</div>';
   return output;
 }
-
-Drupal.theme

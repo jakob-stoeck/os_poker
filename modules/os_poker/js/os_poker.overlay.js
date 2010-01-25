@@ -15,5 +15,11 @@ Drupal.behaviors.os_poker_overlay = function(context) {
       }
       return true;
     });
+    //Opening a thickbox should close the overlay.
+    //Since thickbox stop event bubbling, the previous bind will not catch click events on element triggering a thickbox.
+    $overlay.find('a.thickbox, area.thickbox, input.thickbox').bind('click', function(event){
+      close();
+    });
+
   }
 };

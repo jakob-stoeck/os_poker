@@ -135,12 +135,7 @@ function	os_poker_update_lobby(users)
 		for (place in users)
 		{
 			var user = users[place];
-			
-			user_list += "<div class='user'>";
-			user_list += '<div class="picture"><a href="?q=user/' + user.serial + '"><img alt="" src="sites/default/files/pictures/picture-' + user.serial + '.png" onError="javascript:os_poker_default_image($(this));"/></a></div>';
-			user_list += '<div class="name"><a href="?q=user/' + user.serial + '">' +  user.name + '</a></div>';
-			user_list += '<div class="money"><a href="#">' + os_poker_number_format(user.chips / 100) + '</a></div>';
-			user_list += "</div>";
+			user_list += Drupal.theme('lobby_player', user);
 		}
 		
 		innerContainer.html(user_list);
