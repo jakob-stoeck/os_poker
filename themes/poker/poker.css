@@ -1008,14 +1008,17 @@ div#buddylist .buddy_list_placeholder .body a
 }
 
 
-div#buddylist  #today_gift
-{
-	float: left;
-}
-div#buddylist  #today_gift_invite
-{
-	float: left;
-	display: none;
+#buddylist #today_gift {
+  background-image: url(images/bg_today_gift.jpg);
+  background-color: black;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 87px;
+  height: 170px;
+  color: white;
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
 }
 
 div#buddylist .next, div#buddylist .next:hover

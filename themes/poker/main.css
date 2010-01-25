@@ -1045,3 +1045,12 @@ padding:10px 0 0 46px;
 #os-poker-failed-login-form a.close {
   font-weight: bold;
 }
+
+/**
+ * Buddy list
+ */
+div#buddylist  #today_gift,
+div#buddylist  #today_gift_invite
+{
+	float: left;
+}

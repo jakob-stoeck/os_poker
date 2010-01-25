@@ -392,7 +392,7 @@ class CUser
 	{
 		$lg = $this->LastDailyGift();
 
-		return (!$lg || $lg + 86400 <= time());
+		return (!$lg || $lg + 86400 <= time()) && count($this->Buddies(TRUE));
 	}
 
 	public function DailyGift()
