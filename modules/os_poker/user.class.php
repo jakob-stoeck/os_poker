@@ -168,6 +168,9 @@ class CUser
 				db_query($sql, $app_id, $this->_user->uid, $key, json_encode($this->_vars[$key]));
 			}
 
+      if(in_array('money', $this->_OSDirty)) {
+        CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $this->_user->uid, array('live'));
+      }
 			$save = TRUE;
 			$this->_OSDirty = array();
 		}
@@ -230,7 +233,6 @@ class CUser
 		  $this->_vars["money"] = array("1" => (float)bcmul($value, 100));
 			$this->_OSDirty[] = "money";
 			CPoker::CheckRewards("chips", $this->_user->uid, array("chips" => $value));
-      CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $this->_user->uid, array('live'));
 		}
 	}
 

@@ -774,7 +774,7 @@ function os_poker_menu()
 					'poker/messages/send' => array(
 												'page callback'    => 'os_poker_process_message',
 												'file' 			   => 'os_poker_messages.php',
-												'access callback'  => 'user_is_logged_in',
+												'access callback'  => MENU_FOUND,
 												'type'             => MENU_CALLBACK,
 										),
 

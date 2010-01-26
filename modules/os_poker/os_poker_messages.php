@@ -142,6 +142,7 @@ function _os_poker_process_message_set_header() {
 
 function	_os_poker_process_message_unsafe()
 {
+  static $poker_server_events =  array('NONE', 'HAND', 'TOURNEY', 'BUY_IN', 'REFILL', 'PRIZE', 'REGISTER', 'UNREGISTER', 'LEAVE', 'SEAT');
 	$current_user = CUserManager::instance()->CurrentUser();
 	$resp = array(
 					"errorMsg" => NULL,
@@ -149,10 +150,8 @@ function	_os_poker_process_message_unsafe()
 					"messages" => array(),
 				);
 
-	if ($current_user && $current_user->uid != 0)
-	{
-		$message_type = (isset($_GET["type"]) ? $_GET["type"] : "noop");
-
+  $message_type = trim(isset($_GET["type"]) ? trim($_GET["type"]) : "noop");
+	if ($current_user && $current_user->uid != 0) {
 		switch($message_type)
 		{
 			case "os_poker_sit_down":
@@ -267,8 +266,38 @@ function	_os_poker_process_message_unsafe()
 			break;
 		}
 	}
-	else
-	{
+  else if(in_array(drupal_strtoupper($message_type), $poker_server_events)) {
+    if(preg_match('/\[([^,]+),([^,]+),([^,]+)\]/', $_GET['args'], $args)) {
+      array_shift($args);
+    }
+    //Event setn from the poker server
+    //TODO Authenticate the request... how ?
+    switch($message_type) {
+    case  'BUY_IN':
+        list($uid, $game_id, $amount)  = $args;
+        if(user_load($uid)) {
+          CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $uid, array('live'));
+          $resp["messages"][] = array("type" => "debug", "body" => t('Recevied BUY_IN for user !uid', array('!uid' => $uid)));
+        }
+        else {
+          trigger_error(t('Invalid user ID: %uid', array('%uid' => $uid)), E_USER_ERROR);
+        }
+        break;
+      case 'HAND':
+      case 'TOURNEY':
+      case 'REFILL':
+      case 'PRIZE':
+      case 'REGISTER':
+      case 'UNREGISTER':
+      case 'LEAVE':
+      case 'SEAT':
+      case 'NONE':
+        $resp["messages"][] = array("type" => "noop", "body" => NULL);
+			break;
+    }
+
+  }
+	else {
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
 	_os_poker_process_message_set_header();
