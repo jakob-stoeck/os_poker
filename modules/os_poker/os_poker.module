@@ -1271,7 +1271,7 @@ function os_poker_preprocess_user_picture(&$variables) {
     $account = $variables['account'];
     $account_picture = $account->picture;
     if (!empty($account_picture) && file_exists($account_picture)) {
-      $picture = file_create_url($account->picture);
+      $picture = $account->picture;
     }
     else if (variable_get('user_picture_default', '')) {
       $picture = variable_get('user_picture_default', '');
@@ -1281,8 +1281,9 @@ function os_poker_preprocess_user_picture(&$variables) {
     }
 
     if (isset($picture)) {
+      $preset = isset($variables['imagecache_preset']) ? $variables['imagecache_preset'] : 'user_picture';
       $alt = t("@user's picture", array('@user' => $account->profile_nickname ? $account->profile_nickname : variable_get('anonymous', t('Anonymous'))));
-      $variables['picture'] = theme('image', $picture, $alt, $alt, '', FALSE);
+      $variables['picture'] = theme('imagecache', $preset, $picture, $alt, $alt);
       $account_uid = $account->uid;
       if (!empty($account_uid) && user_access('access user profiles')) {
         if(arg(0) != 'poker' || (arg(1) == 'table' && arg(3) == 'players')) {
@@ -1333,6 +1334,28 @@ function os_poker_mail($key, &$message, $params) {
       }
       break;
   }
+}
+
+/**
+ * Impelementation of hook_imagecache_default_presets()
+ */
+function os_poker_imagecache_default_presets() {
+  $presets = array();
+  $presets['user_picture'] = array (
+    'presetname' => 'user_picture',
+    'actions' => array (
+      0 => array (
+        'weight' => '0',
+        'module' => 'imagecache',
+        'action' => 'imagecache_scale_and_crop',
+        'data' => array (
+          'width' => '118',
+          'height' => '118',
+        ),
+      ),
+    ),
+  );
+  return $presets;
 }
 
 /**
