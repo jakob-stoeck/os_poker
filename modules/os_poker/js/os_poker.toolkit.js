@@ -207,6 +207,9 @@ function	os_poker_activate_item(elem)
 	os_poker_send_message({type:"os_poker_activate_item", id_item:elem.id});
 	$(elem).parent().children().removeClass("active");
 	$(elem).addClass('active');
+  if(typeof window.top.tb_remove === 'function') {
+    window.top.tb_remove();
+  }
 }
 
 /*
