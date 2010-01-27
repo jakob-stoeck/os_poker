@@ -464,17 +464,14 @@ function	os_poker_buddy_search_form($form_state)
 														'#title' => t('Gender'),
 														'#options' => $sex_options,
 												);
-	
-	$level_options =	array(
-								t("Level1"),
-								t("Level2"),
-						);
-	
+	$level_options = CPoker::GetStatus();
+  $level_options[-1] = '--';
 	$form['level'] =	array(
-												'#type' => 'select',
-												'#title' => t('Level'),
-												'#options' => $level_options,
-										);
+      '#type' => 'select',
+      '#title' => t('Level'),
+      '#options' => $level_options,
+      '#default_value' => -1,
+  );
 	
 	$form['profile_city'] =	array(
 														'#type' => 'textfield',

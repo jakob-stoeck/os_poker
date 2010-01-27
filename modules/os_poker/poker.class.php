@@ -294,7 +294,26 @@ class CPoker
 					
 		return	$rewards;
 	}
-}       
+
+  public static function GetStatus() {
+    static $status = NULL;
+    if(!isset($status)) {
+      $status = array(
+        10000000 => t('Rockefeller'),
+        5000000 => t("Highroller"),
+        2500000 => t("Shark"),
+        1000000 => t("Big Rock"),
+        500000 => t("Stone Face"),
+        250000 => t("Pokermaniac"),
+        100000 => t("Chip Hunter"),
+        50000 => t("Rising Star"),
+        10000 => t("Chippy"),
+        0 => t("Fish"),
+      );
+    }
+    return $status;
+  }
+}   
         
 
         

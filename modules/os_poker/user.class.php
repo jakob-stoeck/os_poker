@@ -515,38 +515,16 @@ class CUser
 	  return $num_rewards;
 	}
 
-	public function Status(&$level = NULL, &$maxlevel = NULL)
+	public function Status()
 	{
-		$statusList = 	array(
-								"Rockefeller" => 10000000,
-								"Highroller" => 5000000,
-								"Shark" => 2500000,
-								"Big Rock" => 1000000,
-								"Stone Face" => 500000,
-								"Pokermaniac" => 250000,
-								"Chip Hunter" => 100000,
-								"Rising Star" => 50000,
-								"Chippy" => 10000,
-								"Fish" => 0,
-						);
-
-		$s = "Fish";
-
-		$maxlevel = count($statusList);
-		$level = $maxlevel;
-
-		$chips = $this->Chips();
-		foreach ($statusList as $name => $value)
-		{
-			if ($chips >= $value)
-			{
-				$s = $name;
-				break;
-			}
-			--$level;
-		}
-
-		return t($s);
+    $status = CPoker::GetStatus();
+    $chips = $this->Chips();
+    foreach($status as $value => $name) {
+      if($chips >= $value) {
+        return $name;
+      }
+    }
+    return $status[0];
 	}
 
 	public function	Tables($forceReload = FALSE)
@@ -723,6 +701,15 @@ class CUserManager
 				$where[] = "((`pf`.`name` LIKE '{$field_n}') AND (LOWER(`pv`.`value`) LIKE LOWER('%s')))";
         $val[] = $field_v;
 			}
+      if($field_n == 'level') {
+        if($field_v >= 0) {
+          $sql .= 'JOIN {application_settings} AS appdata ON user_id = uid ';
+          $where[] = "(appdata.application_id = %d) AND (appdata.name = '%s') AND (CAST(TRIM(BOTH '{' FROM SUBSTRING(appdata.value,6)) AS DECIMAL) >= %d)";
+          $val[] = os_poker_get_poker_app_id();
+          $val[] = 'money';
+          $val[] = bcmul($field_v, 100);
+        }
+      }
 			else if (in_array($field_n, $ufields) && !empty($field_v))
 			{
 				$where[] = "((`u`.`{$field_n}`) LIKE '%s')";
