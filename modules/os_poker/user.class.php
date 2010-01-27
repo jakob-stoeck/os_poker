@@ -704,7 +704,7 @@ class CUserManager
       if($field_n == 'level') {
         if($field_v >= 0) {
           $sql .= 'JOIN {application_settings} AS appdata ON user_id = uid ';
-          $where[] = "(appdata.application_id = %d) AND (appdata.name = '%s') AND (CAST(TRIM(BOTH '{' FROM SUBSTRING(appdata.value,6)) AS DECIMAL) >= %d)";
+          $where[] = "(appdata.application_id = %d) AND (appdata.name = '%s') AND (CAST(SUBSTRING(appdata.value,6) AS DECIMAL) >= %d)";
           $val[] = os_poker_get_poker_app_id();
           $val[] = 'money';
           $val[] = bcmul($field_v, 100);

@@ -55,17 +55,28 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
 
   function  testSearching() {
     $profiles = array(
-      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
-      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
-      array('profile_country'=>'BE', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
-      array('profile_country'=>'BE', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
-      array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
-      array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
+      0 => array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Male'),
+      1 => array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Male'),
+      2 => array('profile_country'=>'BE', 'profile_city'=>'Bruxelles', 'profile_gender'=>'Male'),
+      3 => array('profile_country'=>'BE', 'profile_city'=>'Namur', 'profile_gender'=>'Male'),
+      4 => array('profile_country'=>'FR', 'profile_city'=>'Paris', 'profile_gender'=>'Female'),
+      5 => array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
+    );
+    $chips = array(
+      5 => 1000000,
+      4 => 500000,
+      3 => 250000,
+      2 => 100000,
+      1 => 50000,
+      0 => 10000,
     );
     $users = array();
     foreach($profiles as $key => $profile) {
       $user = $this->OsPokerCreateUserWithProfile($profile);
       $users[$key] = CUserManager::instance()->User($user->uid);
+      $users[$key]->chips = $chips[$key];
+      $users[$key]->Save();
+      $this->pass(t('User !name created with !count chips.', array('!name' => $users[$key]->profile_nickname, '!count' => $users[$key]->Chips())));
     }
 		// set last user online
 		/* cmirey: ERROR => Table 'drupal6.simpletest377220session' doesn't exist query: INSERT INTO simpletest377220session (sid, uid, timestamp) VALUES ("1", 0, 0) */
@@ -75,7 +86,7 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     //User search without param returns all
     $this->drupalPost('poker/buddies/search', array(), t("Send"));
     foreach($users as $user) {
-      $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+      $this->assertRaw(theme('username', $user), t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
     }
 
     //User search only online
@@ -83,7 +94,7 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     $this->drupalPost('poker/buddies/search', array("online_only"=>1), t("Send"));
     $this->assertText("main_user", t('User %nickname found in search results', array('%nickname' => "main_user")));
     foreach($users as $user) {
-      $this->assertNoText($user->profile_nickname, t('User %nickname not found in search results', array('%nickname' => $user->profile_nickname)));
+      $this->assertNoRaw(theme('username', $user), t('User %nickname not found in search results', array('%nickname' => $user->profile_nickname)));
     }
     
 		//
@@ -100,23 +111,35 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
       $this->drupalPost('poker/buddies/search', array($k => $v), t("Send"));
       foreach($users as $user) {
         if($user->{$k} == $v) {
-          $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+          $this->assertRaw(theme('username', $user), t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
         }
         else {
-          $this->assertNoText($user->profile_nickname, t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
+          $this->assertNoRaw(theme('username', $user), t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
         }
       }
     }
+
     foreach($profiles as $pk => $profile) {
       $this->drupalPost('poker/buddies/search', $profile, t("Send"));
       foreach($users as $uk => $user) {
         if($pk == $uk) {
-          $this->assertText($user->profile_nickname, t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+          $this->assertRaw(theme('username', $user), t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
         } else {
-          $this->assertNoText($user->profile_nickname, t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
+          $this->assertNoRaw(theme('username', $user), t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
+        }
+      }      
+    }
+    foreach($chips as $key => $value) {
+      $this->drupalPost('poker/buddies/search', array('level' => $value), t("Send"));
+      foreach($users as $uk => $user) {
+        if($key <= $uk) {
+          $this->assertRaw(theme('username', $user), t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));
+        } else {
+          $this->assertNoRaw(theme('username', $user), t('User %nickname not found is search results', array('%nickname' => $user->profile_nickname)));
         }
       }
-      
     }
+
+
   }
 }
