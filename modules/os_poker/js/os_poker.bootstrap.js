@@ -45,6 +45,26 @@ Drupal.behaviors.os_poker = function(context) {
     os_poker_send_message({type: 'os_poker_daily_gift'});
   })
 
+  //Display hint in form field
+  $('#user_login input[name=name]').val('E-mail').focus(function(){
+    if($(this).val() === 'E-mail') {
+      $(this).val('');
+    }
+  }).blur(function(){
+    if($(this).val() === '') {
+      $(this).val('E-mail');
+    }
+  });
+  $('#user_login input[name=pass]').val('password').focus(function(){
+    if($(this).val() === 'password') {
+      $(this).val('');
+    }
+  }).blur(function(){
+    if($(this).val() === '') {
+      $(this).val('password');
+    }
+  });
+
   //Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
