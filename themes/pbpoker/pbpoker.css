@@ -316,28 +316,8 @@ div#header div#logo
 
 #header .language-bar
 {
-  padding-top:5px;
-}
-
-.language-bar a
-{
-	margin-left:5px;
-}
-
-.language-bar a.text
-{
-	margin-right:5px;
-}
-
-.language-bar a.current
-{
-	font-weight:bold;
-}
-
-#footer .language-bar
-{
-	padding-bottom:5px;
-	color: white;
+  padding-top: 6px;
+  margin-left: 0;
 }
 
 #footer .language-bar a {

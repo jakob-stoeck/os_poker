@@ -293,32 +293,11 @@ div#header div#header-blocks
 /*
 **
 */
-
 #header .language-bar
 {
-	margin-left:415px;
-	padding-top:20px;
-}
-
-.language-bar a
-{
-	margin-left:5px;
-}
-
-.language-bar a.text
-{
-	margin-right:5px;
-}
-
-.language-bar a.current
-{
-	font-weight:bold;
-}
-
-#footer .language-bar
-{
-	padding-bottom:5px;
-	color:white;
+	margin-left: 370px;
+  height: 21px;
+  padding-top: 20px;
 }
 
 .footer-links a

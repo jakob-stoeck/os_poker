@@ -42,6 +42,9 @@
 		if ($icons == TRUE)
 		{
 			print implode("", $output);
+      if (user_is_logged_in()) {
+        print l(t('Logout'), 'poker/logout', array('attributes'=> array('class' => 'logout')));
+      }
 		}
 		else
 		{
