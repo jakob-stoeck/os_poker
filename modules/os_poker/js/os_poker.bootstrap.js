@@ -46,7 +46,7 @@ Drupal.behaviors.os_poker = function(context) {
   })
 
   //Display hint in form field
-  $('#user_login input[name=name]').val('E-mail').focus(function(){
+  $('#user_login input[name=name]').focus(function(){
     if($(this).val() === 'E-mail') {
       $(this).val('');
     }
@@ -54,8 +54,8 @@ Drupal.behaviors.os_poker = function(context) {
     if($(this).val() === '') {
       $(this).val('E-mail');
     }
-  });
-  $('#user_login input[name=pass]').val('password').focus(function(){
+  }).blur();
+  $('#user_login input[name=pass]').focus(function(){
     if($(this).val() === 'password') {
       $(this).val('');
     }
@@ -63,7 +63,7 @@ Drupal.behaviors.os_poker = function(context) {
     if($(this).val() === '') {
       $(this).val('password');
     }
-  });
+  }).blur();
 
   //Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
