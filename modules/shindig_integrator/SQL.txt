@@ -1,0 +1,59 @@
+/* $Id: SQL.txt,v 1.1 2008/12/08 07:23:01 impetus Exp $ */
+CREATE TABLE IF NOT EXISTS `user_applications`(
+						  `id` int(11) NOT NULL auto_increment,
+						  `user_id` int(11) NOT NULL,
+						  `application_id` int(11) NOT NULL,
+						  PRIMARY KEY  (`id`),
+						  KEY `user_id` (`user_id`),
+						  KEY `application_id` (`application_id`)
+						) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE IF NOT EXISTS `activities` (
+						  `id` int(11) NOT NULL auto_increment,
+						  `user_id` int(11) NOT NULL,
+						  `app_id` int(11) NOT NULL,
+						  `title` char(128) NOT NULL,
+						  `body` char(255) NOT NULL,
+						  `created` int(11) NOT NULL,
+						  KEY `id` (`id`),
+						  KEY `activity_stream_id` (`user_id`),
+						  KEY `created` (`created`)) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE IF NOT EXISTS `activity_media_items` (
+							  `id` int(11) NOT NULL auto_increment,
+							  `activity_id` int(11) NOT NULL,
+							  `mime_type` char(64) collate latin1_general_ci NOT NULL,
+							  `media_type` enum('AUDIO','IMAGE','VIDEO') collate latin1_general_ci NOT NULL,
+							  `url` char(128) collate latin1_general_ci NOT NULL,
+							  KEY `id` (`id`),
+							  KEY `activity_id` (`activity_id`)
+							) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE IF NOT EXISTS `applications` (
+						  `id` int(11) NOT NULL auto_increment,
+						  `url` char(128) collate latin1_general_ci NOT NULL,
+						  `title` char(128) collate latin1_general_ci default NULL,
+						  `directory_title` varchar(128) collate latin1_general_ci default NULL,
+						  `screenshot` char(128) collate latin1_general_ci default NULL,
+						  `thumbnail` char(128) collate latin1_general_ci default NULL,
+						  `author` char(128) collate latin1_general_ci default NULL,
+						  `author_email` char(128) collate latin1_general_ci default NULL,
+						  `description` mediumtext collate latin1_general_ci,
+						  `settings` mediumtext collate latin1_general_ci,
+						  `version` varchar(64) collate latin1_general_ci NOT NULL,
+						  `height` int(11) NOT NULL default '0',
+						  `scrolling` int(11) NOT NULL default '0',
+						  `modified` int(11) NOT NULL,
+						  `order` int(11) NOT NULL,
+						  UNIQUE KEY `url` (`url`),
+						  KEY `id` (`id`)
+						) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE IF NOT EXISTS `application_settings` (
+						  `application_id` int(11) NOT NULL,
+						  `user_id` int(11) NOT NULL,
+						  `module_id` int(11) NOT NULL,
+						  `name` char(128) collate latin1_general_ci NOT NULL,
+						  `value` char(255) collate latin1_general_ci NOT NULL,
+						  UNIQUE KEY `application_id` (`application_id`,`user_id`,`module_id`,`name`)
+						) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;

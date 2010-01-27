@@ -1,0 +1,15 @@
+; $Id: shindig_integrator.info,v 1.2 2008/12/08 12:58:17 impetus Exp $
+name = Shindig Integrator
+description = Allows user to integrate Shindig with Drupal.
+core = 6.x
+php = 5.x
+dependencies[] = user_relationships_api 
+dependencies[] = profile
+dependencies[] = jquery_update
+project = "ShindigIntegrator"
+; Information added by drupal.org packaging script on 2009-10-27
+version = "6.x-2.1"
+core = "6.x"
+project = "ShindigIntegrator"
+datestamp = "1256622062"
+

@@ -1,0 +1,59 @@
+***************
+*** 1,57 ****
+- <?php
+- 
+- // $Id$
+- 
+- /**
+-  * @file
+-  * Tests for the ShindigIntegrator modules.
+-  *
+-  */
+- 
+- class ShindigIntegratorTestCase extends DrupalWebTestCase {
+-   /**
+-    * Implementation of getInfo().
+-    */
+-   public static function getInfo() {
+-     return array(
+-       'name' => t('ShindigIntegrator tests'),
+-       'description' => t('Test ShindigIntegrator.'),
+-       'group' => t('ShindigIntegrator'),
+-     );
+-   }
+- 
+-   /**
+-    * Implementation of setUp().
+-    */
+-   function setUp() {
+-     parent::setUp('profile', 'shindig_integrator');
+-   }
+- 
+-   /**
+-    * Test ShindigIntegrator
+-    */
+-   function test_add_new_profile_field() {
+-     shindig_integrator_add_new_profile_field(array('title' => 'Foo', 'name' => 'profile_foo'));
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_foo'"));
+-     $this->assertEqual($field->title, 'Foo');
+-     $this->assertEqual($field->type, 'textfield');
+-   }
+- 
+-   function test_profile_fields_created() {
+-      $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_fname'"));
+-     $this->assertEqual($field->title, 'First name');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_lname'"));
+-     $this->assertEqual($field->title, 'Last name');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_gender'"));
+-     $this->assertEqual($field->title, 'Gender');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_dob'"));
+-     $this->assertEqual($field->title, 'Date of Birth');
+-     $this->assertEqual($field->type, 'date');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_city'"));
+-     $this->assertEqual($field->title, 'City');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_country'"));
+-     $this->assertEqual($field->title, 'Country');
+-     $field = db_fetch_object(db_query("SELECT * FROM {profile_fields} where name = 'profile_interest'"));
+-     $this->assertEqual($field->title, 'Interested in');
+-   }
+- }--- 0 ----

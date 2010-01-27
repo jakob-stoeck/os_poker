@@ -1355,7 +1355,41 @@ function os_poker_imagecache_default_presets() {
       ),
     ),
   );
+  $presets['user_picture_gadget'] = array (
+    'presetname' => 'user_picture_gadget',
+    'actions' => array (
+      0 => array (
+        'weight' => '0',
+        'module' => 'imagecache',
+        'action' => 'imagecache_scale_and_crop',
+        'data' => array (
+          'width' => '69',
+          'height' => '69',
+        ),
+      ),
+    ),
+  );
   return $presets;
+}
+
+/**
+ * Implementation of hook_people_alter().
+ */
+function os_poker_people_alter($people) {
+  foreach($people as $uid => $person) {
+    $account = user_load($uid);
+    //Set user picture using ImageCache URL
+    $person->setThumbnailUrl(imagecache_create_url('user_picture_gadget', $account->picture, FALSE, TRUE));
+    //Set country name from code.
+    foreach($person->getAddresses() as $address) {
+      //Translate country code to country name using themeable output.
+      //$address->getCountry() is set in ShindigIntegratorDbFetcher::getPeople
+      //and user the profile_country profile fields which store the country
+      //as ISO-2 code.
+      $country = theme('country', $address->getCountry());
+      $address->setCountry($country);
+    }
+  }
 }
 
 /**

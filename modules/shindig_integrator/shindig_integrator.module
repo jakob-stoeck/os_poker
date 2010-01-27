@@ -1,0 +1,850 @@
+<?php
+// $Id: shindig_integrator.module,v 1.2.2.10.2.2 2009/10/23 12:28:34 impetus Exp $
+/**
+ * @file
+ * Module to integrate shindig framework
+ *
+ * @see http://incubator.apache.org/shindig/
+ * This module contains core shindig server
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function shindig_integrator_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#shindig_integrator' :
+      $output = t('This module helps to make any drupal based SNS opensocial compatible.<br/>
+    			   <ul><li>To run this module you must have Profile Module with following field names only.
+	  			   <table>
+	  			   		<tr>
+	  			   			<th>Title</th>
+	  			   			<th>Name(In DB)</th>
+	  			   			<th>Type</th>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>First name</td>
+	  			   			<td>profile_fname</td>
+	  			   			<td>single-line textfield</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>Last name</td>
+	  			   			<td>profile_lname</td>
+	  			   			<td>single-line textfield</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>Gender</td>
+	  			   			<td>profile_gender</td>
+	  			   			<td>list selection</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>Date of Birth</td>
+	  			   			<td>profile_dob</td>
+	  			   			<td>date</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>City</td>
+	  			   			<td>profile_city</td>
+	  			   			<td>single-line textfield</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>Country</td>
+	  			   			<td>profile_country</td>
+	  			   			<td>list selection</td>
+	  			   		</tr>
+	  			   		<tr>
+	  			   			<td>Interested in</td>
+	  			   			<td>profile_interest</td>
+	  			   			<td>multi-line textfield</td>
+	  			   		</tr>
+	  			   	</table><br/>
+ 					<li>Currently above fields are supported in the module. More fields can be easily added as per the requirement in <b>/shindig/php/src/social/sample/ShindigIntegratorDbFetcher.php</b>.</li>
+					<li> The above field names are mandatory for this module to run successfully. If you don\'t want to use profile fields as defined above, you need to modify the function <b>getPeople()</b> of <b>"/shindig/php/src/social/sample/ShindigIntegratorDbFetcher.php"</b>, in order to run any open social application.</li>
+					<li>You can get help how to add profile fields using <a href="@profile_help">Profile Module Help</a></li>
+					<li>OpenSocial Specifications for profile fields can be found at following locations:
+						<ul>
+							<li><a href="@address">Address Specifications</a></li>
+							<li><a href="@body_type">Body Type Specifications</a></li>
+							<li><a href="@enum">Various Enum Fields Specifications</a></li>
+							<li><a href="@name">Name Specifications</a></li>
+						</ul>
+					</li>
+				</ul>',
+                array('@profile_help' => url('/admin/help/profile'),
+                      '@address' => url('http://code.google.com/apis/opensocial/docs/0.8/reference/#opensocial.Address'),
+                      '@body_type' => url('http://code.google.com/apis/opensocial/docs/0.8/reference/#opensocial.BodyType'),
+                      '@name' => url('http://code.google.com/apis/opensocial/docs/0.8/reference/#opensocial.Name')
+                     ));
+    return $output;
+  }
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function shindig_integrator_perm() {
+  return array(
+    'view application directory',
+    'create application',
+    'delete applications',
+    'view application canvas',
+    'view list of user applications',
+    'view user applications on profile',
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function shindig_integrator_menu() {
+  $items                   = array();
+  $items['show_directory'] = array(
+    'title'            => t('Application gallery'),
+    'description'      => t('Show all applications.'),
+    'page callback'    => 'show_directory_page',
+    'access arguments' => array('view application directory'),
+    'type'             => MENU_NORMAL_ITEM);
+
+  $items['create_app'] = array(
+    'title'            => t('Add new application'),
+    'description'      => 'Add new application to database through xml URL.',
+    'page callback'    => 'drupal_get_form',
+    'page arguments'   => array('create_app_form'),
+    'access arguments' => array('create application'),
+    'type'             => MENU_NORMAL_ITEM);
+
+  $items['application_canvas/%/%'] = array(
+    'title'            => t('Application canvas page'),
+    'description'      => t('Show Application In Canvas View.'),
+    'page callback'    => 'application_canvas_page',
+    'page arguments'   => array(1, 2),
+    'access arguments' => array('view application canvas'),
+    'type'             => MENU_CALLBACK);
+
+  $items['setPrefs'] = array(
+    'title'            => t('Application canvas page'),
+    'description'      => t('Set User preference.'),
+    'page callback'    => 'set_user_preference',
+    'access arguments' => array('view application canvas'),
+    'type'             => MENU_CALLBACK);
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function shindig_integrator_theme() {
+  return array(
+    'apps_on_profile' => array(
+      'arguments' => array('items' => NULL),
+    ),
+    'add_gadget' => array(
+      'arguments' => array(
+        'app_id' => NULL,
+        'mod_id' => NULL,
+        'view' => NULL,
+        'owner_id' => NULL),
+    ),
+    'application_canvas' => array(
+      'arguments' => array(
+        'app_id' => NULL,
+        'mod_id' => NULL),
+    ),
+  );
+}
+
+/**
+ * Implementation of hook_block().
+ */
+function shindig_integrator_block($op = 'list', $delta = 0, $edit = array()) {
+    switch ($op) {
+    case 'list':
+      $blocks[0]['info'] = t('List user applications');
+      return $blocks;
+
+    case 'view':
+      global $user;
+      if ( !user_access('view list of user applications')) {
+        return ;
+      }
+      if (!$user->uid) {
+        return;
+      }
+      $owner_id  = $user->uid;
+      $viewer_id = $user->uid;
+      $output    = "";
+      $apps      = array();
+      $result    = db_query("SELECT * FROM {applications} WHERE id IN (SELECT application_id FROM {user_applications} WHERE user_id =%d)", $owner_id);
+      if (!$result) {
+        return FALSE;
+      }
+      while ($record = db_fetch_object($result)) {
+        $app               = array();
+        $app_id            = $record->id;
+        $result_get_mod_id = db_query("SELECT id FROM {user_applications} WHERE user_id =%d AND application_id =%d", $owner_id, $app_id);
+        if (!$result_get_mod_id) {
+          return FALSE;
+        }
+        $record_get_mod_id = db_fetch_object($result_get_mod_id);
+        $mod_id            = $record_get_mod_id->id;
+        $redirect_url      = "application_canvas/". base64_encode($app_id) ."/". base64_encode($mod_id);
+        $apps[]            = l($record->title, $redirect_url);
+      }
+      $output            =  theme('item_list', $apps);
+      $blocks['subject'] = "My applications";
+      $blocks['content'] = $output;
+      return $blocks;
+  }
+}
+
+/**
+ * Page callback for 'show_directory'.
+ *
+ * @param
+ * $msg
+ *   A string shows message whether application added to user's account or not
+ * $error
+ *   A string shows it is error message or simple message
+ *   Html for application directory
+ */
+function show_directory_page($msg="", $error="") {
+  global $user;
+
+  if ( !user_access('view application directory')) {
+    return ;
+  }
+
+  if ( user_access('delete applications')) {
+    drupal_set_message('Please note, the "Remove" link is NOT the opposite of "Add". "Add" will add an application to your account, where as remove will delete the appication from the system completely. To remove an application from your account, please use the links provided on the "Application canvas" page.');
+  }
+
+  $path                = drupal_get_path('module', 'shindig_integrator');
+  $default_thumb       = "$path/images/noimage.gif";
+  $num_apps_on_page    = 10;
+  $result_get_user_app = db_query("SELECT application_id FROM {user_applications} WHERE user_id = %d", $user->uid);
+  if (!$result_get_user_app) {
+    return FALSE;
+  }
+  $i                   = 0;
+  $user_app_array      = array();
+
+  while ($user_app_record = db_fetch_object($result_get_user_app)) {
+    $user_app_array[$i++] = $user_app_record->application_id;
+  }
+  $num = base64_decode(arg(2));
+  $attr['width']       = "100";
+  $attr['height']      = "75";
+  $result_get_all_apps = pager_query(
+    "SELECT * FROM {applications}",
+    $num_apps_on_page, 0, "SELECT COUNT(*) FROM {applications}");
+  $apps = array();
+  $headers = array();
+  while ($record_get_all_apps = db_fetch_object($result_get_all_apps)) {
+    $app_id          = $record_get_all_apps->id;
+    $app_thumb       = ($record_get_all_apps->thumbnail) ?
+      $record_get_all_apps->thumbnail:(($record_get_all_apps->screenshot) ?
+      $record_get_all_apps->screenshot:$default_thumb);
+    $app_description = $record_get_all_apps->description;
+    $app_dir_title   = ($record_get_all_apps->directory_title) ? $record_get_all_apps->directory_title: $record_get_all_apps->title;
+    $app             = array();
+    $app[]           = theme('image', check_plain($app_thumb), '', '', $attr, FALSE);
+    $app[]           = check_plain($app_dir_title);
+    $app[]           = ($app_description=="")?"No Description":check_plain($app_description);
+    if (!in_array($app_id, $user_app_array)) {
+        $app[] = (drupal_get_form('add_app_form_'. $app_id, $app_id) . (user_access('delete application') ?
+          drupal_get_form('remove_app_form_'. $app_id, $app_id) : ' '));
+    }
+    else {
+      $app[] = ((user_access('delete application') ?
+        drupal_get_form('remove_app_form_'. $app_id, $app_id) :
+        ''));
+    }
+    $apps[] = $app;
+  }
+  $output        = "";
+  $attr['width'] = "100%";
+  $output        = theme('table', $headers, $apps, $attr);
+  $output       .=  theme('pager', NULL, $num_apps_on_page, 0);
+  return $output;
+}
+
+/**
+ * Implementation of hook_forms().
+ *
+ * This is necessary when multiple forms appear on the same page, each
+ * requiring a separate form_id, but all using the same underlying callbacks.
+ */
+function shindig_integrator_forms($form_id, $args) {
+  if (strpos($form_id, "add_app_form_") === 0) {
+    $forms[$form_id] = array('callback' => 'add_app_form');
+    return $forms;
+  }
+
+  if (strpos($form_id, "remove_app_form_") === 0) {
+    $forms[$form_id] = array('callback' => 'remove_app_form');
+    return $forms;
+  }
+
+}
+
+/**
+ * Form to remove an application from application directory
+ *
+ * @param
+ * $form_id
+ *   Form id
+ * $app_id
+ *   Id of application which user wants to delete from his account
+ */
+function remove_app_form($form_id, $app_id) {
+  $form['app_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $app_id
+  );
+
+  $form['submit'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Remove'),
+  );
+  $form['#submit'] = array("remove_app_form_submit");
+  return $form;
+}
+
+/**
+ * Submit function for remove_app_form
+ */
+function remove_app_form_submit($form, &$form_state) {
+  drupal_get_messages('error');
+  drupal_get_messages('status');
+  $app_id  = $form_state['values']['app_id'];
+
+  $res = db_query("DELETE FROM {user_applications} WHERE application_id=%d", $app_id);
+  if (!$res) {
+    return FALSE;
+  }
+  $res = db_query("DELETE FROM {applications} WHERE id=%d", $app_id);
+  if (!$res) {
+    drupal_set_message(t('There is some problem to remove these application from directory. Please try again.'));
+  }
+  else {
+    drupal_set_message(t('Application removed successfully from directory.'));
+  }
+}
+
+/**
+ * Form to add an application to user's account
+ *
+ * @param
+ * $form_id
+ *   Form id
+ * $app_id
+ *   Id of application which user wants to delete from his account
+ */
+function add_app_form($form_id, $app_id) {
+  $form['app_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $app_id
+  );
+  $form['add_app_submit'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Add'),
+  );
+  $form['#submit'] = array("add_app_form_submit");
+  return $form;
+}
+
+/**
+ * Submit function for remove_app_form
+ */
+function add_app_form_submit($form, &$form_state) {
+  global $user;
+  drupal_get_messages('error');
+  drupal_get_messages('status');
+  $app_id       = $form_state['values']['app_id'];
+  $u_id         = $user->uid;
+  if (is_null(db_query("INSERT INTO {user_applications} (user_id,application_id) VALUES(%d,%d)", $u_id, $app_id))) {
+    $msg      = t("There is some problem in adding application to your account. Please try again.");
+    drupal_set_message(t("There is some problem in adding application to your account. Please try again."), 'error');
+  }
+  else {
+    $msg = t("Application added successfully to your account");
+    drupal_set_message(t("Application added successfully to your account"));
+  }
+}
+
+/**
+ * Form to add a new application
+ */
+function create_app_form() {
+  $form['gadget_url'] = array(
+    '#type'          => 'textfield',
+    '#title'         => t('Enter URL'),
+    '#size'          => 60,
+    '#maxlength'          => 512,
+    '#description'   => t('Enter a valid gadget url'),
+    '#required' => TRUE,
+  );
+
+  $form['submit'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Add application'),
+  );
+  return $form;
+}
+
+/**
+ * Submit function for create_app_form
+ */
+function create_app_form_submit($form, &$form_state) {
+  $app_url  = trim($form_state['values']['gadget_url']);
+  $response = save_application($app_url);
+  if (!empty($response['error'])) {
+    $error = t('Cannot add the application. Error: %error', array('%error' => $response['error']));
+    drupal_set_message($error, 'error');
+  }
+  else {
+    drupal_set_message(t('Application successfully added to Application Gallery.'));
+  }
+
+}
+
+/**
+ * Validation of create_app_form
+ */
+function create_app_form_validate($form, &$form_state) {
+  $url = trim($form_state['values']['gadget_url']);
+  if (!valid_url($url, TRUE)) {
+    form_set_error('', t('Invalid Url. Please enter a valid gadget url.'));
+  }
+}
+
+/**
+ * Save a new application to DB
+ *
+ * @param $app_url
+ *   URL of a gadget which user wants to add in application directory
+ * @return
+ *   Array of gadget information
+ */
+function save_application($app_url) {
+  $info     = array();
+  $time     = time() - (24 * 60 * 60);
+  $url      = $app_url;
+  $response = fetch_gadget_metadata($app_url);
+
+  if (!is_object($response) && !is_array($response)) {
+    // Invalid json object, something bad happened on the shindig metadata side.
+    $error = t('An error occured while retrieving the gadget information');
+  }
+  else {
+    // Valid response, process it
+    $gadget = $response->gadgets[0];
+    if (isset($gadget->errors) && !empty($gadget->errors[0])) {
+      // Failed to retrieve gadget, or failed parsing it
+      $error = $gadget->errors[0];
+    }
+    else {
+      // Retrieved and parsed gadget ok, store it in db
+      $info['url']             = $gadget->url;
+      $info['title']           = isset($gadget->title) ? $gadget->title:'';
+      $info['directory_title'] = isset($gadget->directoryTitle) ? $gadget-> directoryTitle:'';
+      $info['height']          = isset($gadget->height) ? $gadget->height:'';
+      $info['screenshot']      = isset($gadget->screenshot) ? $gadget->screenshot:'';
+      $info['thumbnail']       = isset($gadget->thumbnail) ? $gadget->thumbnail:'';
+      $info['author']          = isset($gadget->author) ? $gadget->author:'';
+      $info['author_email']    = isset($gadget->authorEmail) ? $gadget->authorEmail:'';
+      $info['description']     = isset($gadget->description) ? $gadget->description:'';
+      $info['settings']        = isset($gadget->userPrefs) ? serialize($gadget->userPrefs):'';
+      $info['height']          = !empty($gadget->height) ? $gadget->height:'0';
+
+      switch ($gadget->scrolling) {
+        case TRUE :
+        case 1:
+          $info['scrolling'] = "1";
+          break;
+        default : $info['scrolling'] = "0";
+      }
+      // Extract the version from the iframe url
+      $iframe_url              = $gadget->iframeUrl;
+      $iframe_params           = array();
+
+      parse_str($iframe_url, $iframe_params);
+      $info['version']         = isset($iframe_params['v']) ? $iframe_params['v']:'';
+      $info['modified']        = time();
+
+      // Insert new application into our db, or if it exists (but had expired info) update the meta data
+      db_query("INSERT INTO {applications}
+          (id, url, title, directory_title, screenshot, thumbnail, author, author_email, description, settings, version, height, scrolling, modified)
+		  VALUES(0, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+		ON DUPLICATE KEY UPDATE url = '%s', title = '%s', directory_title = '%s', screenshot = '%s', thumbnail = '%s', author = '%s', 	author_email = '%s', description = '%s', settings = '%s', version = '%s', height = '%s', scrolling = '%s', modified = '%s'",
+        $info['url'], $info['title'], $info['directory_title'],
+        $info['screenshot'], $info['thumbnail'], $info['author'],
+        $info['author_email'], $info['description'], $info['settings'],
+        $info['version'], $info['height'], $info['scrolling'],
+        $info['modified'], $info['url'], $info['title'],
+        $info['directory_title'], $info['screenshot'], $info['screenshot'],
+        $info['thumbnail'], $info['author'], $info['author_email'],
+        $info['description'], $info['settings'], $info['version'],
+        $info['height'], $info['scrolling'], $info['modified']);
+
+      $res = db_query("SELECT id FROM {applications} WHERE url = '%s'" , $info['url']);
+      $record = db_fetch_object($res);
+      $error = '';
+      if (is_null($record)) {
+        $error = t("Could not store application in registry");
+      }
+      else {
+        $info['id'] = $record->id;
+      }
+    }
+  }
+  $info['error'] = $error;
+  return $info;
+}
+
+/**
+ * Function to fetch gadget metadata
+ *
+ * @param $app_url
+ *  Gadget URL to get all information about that gadget
+ * @return
+ *  Gadget's data in json decoded string
+ */
+function fetch_gadget_metadata($app_url) {
+  $path_shindig = drupal_get_path('module', 'shindig_integrator');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/config/local');
+  $request = json_encode(
+    array(
+      'context' => array('country' => 'US', 'language' => 'en', 'view' => 'default', 'container' => 'default'),
+      'gadgets' =>    array(
+        array('url' => $app_url, 'moduleId' => '1'))
+    )
+  );
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, ShindigConfig::get('gadget_server') .'/gadgets/metadata');
+  curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_AUTOREFERER, 1);
+  curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+  curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 4);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+  curl_setopt($ch, CURLOPT_POST, 1);
+  curl_setopt($ch, CURLOPT_POSTFIELDS, 'request='. urlencode($request));
+  $content = @curl_exec($ch);
+  return json_decode($content);
+}
+
+/**
+ * Implementation of hook_user().
+ */
+function shindig_integrator_user($op, &$edit, &$owner, $category = '') {
+  switch ($op) {
+    case 'view':
+      if (!user_access('view user applications on profile')) {
+        return;
+      }
+
+      global $user;
+      $path       = drupal_get_path('module', 'shindig_integrator');
+      $image_path               = "$path/images/";
+      $width                    = 500;
+      $view                     = "profile";
+      $owner_id                 = isset($owner->uid) ? $owner->uid:$user->uid;
+      $viewer_id                = $user->uid;
+      $output                   = "";
+      $apps                     = array();
+      $result_get_app           = db_query("SELECT id, title FROM {applications} WHERE id IN
+											(
+											  SELECT application_id FROM {user_applications} WHERE user_id =%d
+                                            )", $owner_id);
+      if (!$result_get_app) {
+        return FALSE;
+      }
+      $record_found = FALSE;
+      while ($record_get_app    = db_fetch_object($result_get_app)) {
+        $record_found      = TRUE;
+        $app_id            = $record_get_app->id;
+        $result_get_mod_id = db_query("SELECT id FROM {user_applications} WHERE user_id = %d AND application_id = %d", $owner_id, $app_id);
+        if (!$result_get_mod_id) {
+          return FALSE;
+        }
+        $record_get_mod_id = db_fetch_object($result_get_mod_id);
+        $mod_id            = $record_get_mod_id->id;
+        $apps[]            = array('app_id' => $app_id, 'mod_id' => $mod_id);
+      }
+      $output  =  theme('apps_on_profile', $apps);
+      $items[] = array('title' => 'Applications', 'value' => $output, 'recordFound' => $record_found);
+
+      $owner->content['Applications'] = array(
+            '#type'       => 'user_profile_item',
+            '#title'      => t('Applications'),
+            '#value'      => $output,
+            '#attributes' => array('class' => 'Applications'),
+          );
+          return;
+      break;
+  }
+}
+
+/**
+ * Page callback for 'application_canvas'
+ *
+ * @param
+ * $app_id
+ *   Application id
+ * $mod_id
+ *   Module id - specific user's application id
+ */
+function application_canvas_page($app_id = NULL, $mod_id = 0) {
+  if (!user_access('view application canvas')) {
+    return;
+  }
+  if (!$app_id) {
+    return;
+  }
+  $output = theme('application_canvas', $app_id, $mod_id);
+  return $output;
+}
+
+/**
+ * Theme to show applications on use's profile page
+ *
+ * @param $items
+ *   Array of user applications
+ */
+function theme_apps_on_profile($items) {
+  global $user;
+  $path       = drupal_get_path('module', 'shindig_integrator');
+  $image_path = "$path/images/";
+  $width      = 500;
+  $view       = "profile";
+  $owner_id   = isset($owner->uid) ? $owner->uid:$user->uid;
+  $output     = "";
+  $attr = '';
+  if (!empty($items)) {
+    foreach ($items as $item) {
+      $app_id  = check_plain($item['app_id']);
+      $mod_id  = check_plain($item['mod_id']);
+      $output .= theme('add_gadget', $app_id, $mod_id, $view, check_plain($owner_id));
+      $output .= '<hr>';
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Theme to add_gadget on any type of page
+ *
+ * @param
+ * $app_id
+ *   Application id
+ * $mod_id
+ *   Module id - specific user's application id
+ * $view
+ *   Application's view type "canvas, profile"
+ * $owner_id
+ *   Owner of application, whose application is viewing by a viewer
+ * @return
+ * HTML in string format
+ */
+function theme_add_gadget($app_id, $mod_id, $view, $owner_id) {
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/Config');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/SecurityToken');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/BlobCrypter');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/BasicSecurityToken');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/BasicBlobCrypter');
+  module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/Crypto');
+
+  global $user;
+  $viewer_id   = $user->uid;
+  $output      = '';
+  $rs_Apps     = db_query("SELECT * FROM {applications} WHERE id = %d", $app_id);
+  if (!$rs_Apps) {
+    return FALSE;
+  }
+  while ($gadget = db_fetch_object($rs_Apps)) {
+  $container   = "default";
+
+  // get user preferences
+  $result = db_query('SELECT name, value FROM {application_settings} WHERE application_id = %d and user_id = %d', $app_id, $viewer_id);
+  $user_prefs = array();
+  while ($row = db_fetch_array($result)) {
+    $user_prefs[$row['name']] = $row['value'];
+  }
+
+  $prefs       = "";
+
+  $settings = ! empty($gadget->settings) ? unserialize($gadget->settings) : array();
+  foreach ($settings as $key => $setting) {
+    if (! empty($key)) {
+      $value = isset($user_prefs[$key]) ? $user_prefs[$key] : (isset($setting->default) ? $setting->default : NULL);
+      if (isset($user_prefs[$key])) {
+        unset($user_prefs[$key]);
+      }
+      $prefs .= '&up_'. urlencode(check_plain($key)) .'='. urlencode(check_plain($value));
+    }
+  }
+
+  // Prepare the user preferences for inclusion in the iframe url
+  foreach ($user_prefs as $name => $value) {
+    // if some keys _are_ set in the db, but not in the gadget metadata, we still parse them on the url
+    // (the above loop unsets the entries that matched
+    if (! empty($value)) {
+      $prefs .= '&up_'. urlencode($name) .'='. urlencode($value);
+    }
+  }
+  $security_token = BasicSecurityToken::createFromValues(isset($owner_id) ? $owner_id:'0', // Owner
+    (isset($viewer_id) ? $viewer_id:'0'),                                                 // Viewer
+    $gadget->id,                                                                          // App id
+    $_SERVER['HTTP_HOST'],                                                                // Domain
+    urlencode($gadget->url),                                                              // App url
+    $mod_id                                                                               // Mod id
+    );
+
+  $gadget_url_params = array();
+  parse_str(parse_url($gadget->url, PHP_URL_QUERY), $gadget_url_params);
+
+  module_load_include('php', 'shindig_integrator', '/shindig/php/config/local');
+
+  $path = drupal_get_path('module', 'shindig_integrator');
+
+  $iframe_url = ShindigConfig::get('gadget_server') .'/gadgets/ifr?'.
+    'synd='. $container
+    .'&container='. check_plain($container)
+    .'&viewer='. check_plain((isset($viewer_id) ? $viewer_id:'0'))
+    .'&owner='. check_plain((isset($owner_id) ? $owner_id:$viewer_id))
+    .'&aid='. base64_encode(check_plain($gadget->id))
+    .'&mid='. base64_encode(check_plain($mod_id))
+    .'&nocache=1'
+    .'&country=US'
+    .'&lang=EN'
+    .'&view='. check_plain($view)
+    .'&parent='. urlencode('http://'. $_SERVER['HTTP_HOST'])
+    . $prefs
+    . (isset($_REQUEST['appParams']) ? '&view-params='. urlencode(check_plain($_REQUEST['appParams'])):'')
+    .'&st='. base64_encode($security_token->toSerialForm())
+    .'&v='. check_plain($gadget->version)
+    .'&url='. urlencode(check_url($gadget->url))
+    .'#rpctoken='. rand(0, getrandmax());
+
+    $height      = !empty($gadget->height) ? check_plain($gadget->height):'200';
+    $iframe_name = "remote_iframe_" . check_plain($mod_id);
+    $iframe_id   = "remote_iframe_" . check_plain($mod_id);
+    $scrolling   = $gadget->scrolling ? 'yes':'no';
+
+    drupal_add_css($path ."/css/jquery.css");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/util.js?c=1");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/json.js?c=1");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/rpc/rpc.js?c=1");
+    drupal_add_js($path ."/js/jquery.all.js");
+    drupal_add_js($path ."/js/container.js");
+
+    $iframe_str  = '<iframe width="100%" height='. $height .' name='. $iframe_name .' id='. $iframe_id .' scrolling ='. $scrolling .' frameborder="no" src= "'. $iframe_url .'" class="gadgets-gadget"></iframe>';
+
+    $output .= '<div class="iframe_div"'.' id='. $iframe_id .'_title align="center" style="padding-top:30px;font-family: inherit;font-size: large;font-weight: bold;">'. check_plain($gadget->title) .'</div><br/>';
+    $output .= '<div class="iframe_div" align="center" style="padding-top:30px;">'. $iframe_str ."</div>\n";
+  }
+  return $output;
+}
+
+/**
+ * Theme to show application on canvas page
+ *
+ * @param
+ * $app_id
+ *   Application id
+ * $mod_id
+ *   Module id - specific user's application id
+ * @return
+ *   HTML in string format
+ */
+function theme_application_canvas($app_id, $mod_id) {
+  global $user;
+  $path       = drupal_get_path('module', 'shindig_integrator');
+  $image_path = "$path/images/";
+  $view       = "canvas";
+  $ret        = array();
+  $attr       = array();
+  $owner_id   = $user->uid;
+  $app_id     = base64_decode(check_plain($app_id));
+  $mod_id     = base64_decode(check_plain($mod_id));
+  $output     = "";
+  $output    .= theme('add_gadget', $app_id, $mod_id, $view, $owner_id);
+  $output .= '<div align="right">';
+  $output .= drupal_get_form('delete_app_form', $app_id);
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Form to delete an application from user's account
+ *
+ * @param
+ * $form_id
+ *   Form id
+ * $app_id
+ *   Id of application which user wants to delete from his account
+ */
+function delete_app_form($form_id, $app_id) {
+  $form['app_id'] = array(
+    '#type' => 'hidden',
+    '#value' => $app_id
+  );
+
+  $form['submit'] = array(
+    '#type'  => 'submit',
+    '#value' => t('Delete application'),
+  );
+  return $form;
+}
+
+/**
+ * Submit function for delete_app_form
+ */
+function delete_app_form_submit($form, &$form_state) {
+  $app_id  = trim($form_state['values']['app_id']);
+  $user_id = $user->uid;
+  $res = db_query("DELETE FROM {user_applications} WHERE application_id=%d AND user_id", $app_id, $user_id);
+  if (!$res) {
+    drupal_set_message(t('There is some problem to delete these application from your account. Please try again.'));
+  }
+  drupal_goto("user");
+}
+
+/**
+ * Function to set user preferences through gadgets
+ */
+function set_user_preference() {
+  if (empty($_POST['st']) || empty($_POST['name']) || ! isset($_POST['value'])) {
+    header("HTTP/1.0 400 Bad Request", TRUE);
+    echo "<html><body><h1>400 - Bad Request</h1></body></html>";
+  }
+  else {
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/Config');
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/SecurityToken');
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/BlobCrypter');
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/BasicSecurityToken');
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/BasicBlobCrypter');
+    module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/Crypto');
+    try {
+      $st = urldecode(base64_decode($_POST['st']));
+      $key = urldecode($_POST['name']);
+      $value = urldecode($_POST['value']);
+
+      $token = BasicSecurityToken::createFromToken($st, Config::get('token_max_age'));
+      $app_id = $token->getAppId();
+      $viewer = $token->getViewerId();
+      db_query("INSERT INTO {application_settings}
+              (application_id, user_id, name, value)
+              values (%d, %d, '%s', '%s')
+              on duplicate key update value = '%s'", $app_id, $viewer, $key, $value, $value);
+      echo "success";
+    } catch (Exception $e) {
+      header("HTTP/1.0 400 Bad Request", TRUE);
+      echo "<html><body><h1>400 - Bad Request</h1>". $e->getMessage() ."</body></html>";
+    }
+  }
+  die();
+}

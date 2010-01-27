@@ -1,0 +1,529 @@
+<?php
+// $Id: shindig_integrator.install,v 1.2.2.6 2009/08/13 08:17:35 impetus Exp $
+/**
+ * @file
+ * Install/Update/Uninstall file for applications
+ */
+/**
+ * Implementation of hook_schema().
+ */
+function shindig_integrator_schema() {  
+  $schema['user_applications'] = array(
+    'description' => t('Table for user applications.'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('Id of user\'s application.'),
+        'type' => 'serial', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'user_id' => array(
+        'description' => t('User\'s ID.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'application_id' => array(
+        'description' => t('Application\'s Id.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),      
+    ),
+    'primary key' => array('id'),
+    'indexes' => array(
+      'user_applications_user_id' => array('user_id'),
+      'user_applications_application_id' => array('application_id'),
+    ),  
+  );
+ 
+  $schema['activities'] = array(
+    'description' => t('Table for activities.'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('Id of activity.'),
+        'type' => 'serial', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'user_id' => array(
+        'description' => t('User\'s ID to whom activity belongs.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'app_id' => array(
+        'description' => t('Application\'s Id to which activity belongs.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),      
+      'title' => array( 
+        'description' => t('Activity title.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'not null' => TRUE, 
+        'default' => ''),
+      'body' => array( 
+        'description' => t('Activity Body.'),
+        'type' => 'varchar', 
+        'length' => 255, 
+        'not null' => TRUE, 
+        'default' => ''),
+      'created' => array(
+        'description' => t('When activity created.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE, 
+        'default' => 0)),
+    'indexes' => array(
+      'activities_id' => array('id'),
+      'activities_activity_stream_id' => array('user_id'),
+      'activities_created' => array('created'),
+    ),     
+  );
+  
+  $schema['activity_media_items'] = array(
+    'description' => t('Table for activity media items.'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('Id of media item.'),
+        'type' => 'serial', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'activity_id' => array(
+        'description' => t('Activity Id to which media item belongs.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'mime_type' => array(
+        'description' => t('Mime Type.'),
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => ''),      
+      'media_type' => array( 
+        'description' => t('Media type.'),
+        'type' => 'varchar', 
+        'length' => 255, 
+        'not null' => TRUE, 
+        'default' => ''),
+      'url' => array( 
+        'description' => t('URL of media item.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'not null' => TRUE, 
+        'default' => '')), 
+    'indexes' => array(
+      'activity_media_items_id' => array('id'),
+      'activity_media_items_activity_id' => array('activity_id'),
+    ),   
+  );
+  
+  $schema['applications'] = array(
+    'description' => t('Table for Opensocial applications.'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('Id of media item.'),
+        'type' => 'serial', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'url' => array( 
+        'description' => t('Gadget URL.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'not null' => TRUE, 
+        'default' => ''),
+      'title' => array(
+        'description' => t('Application Title.'),
+        'type' => 'varchar',
+        'length' => 128, 
+        'default' => NULL),      
+      'directory_title' => array( 
+        'description' => t('Application\'s directory title.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'default' => NULL),
+      'screenshot' => array( 
+        'description' => t('Gadget\'s screenshot.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'default' => NULL),
+      'thumbnail' => array( 
+        'description' => t('Gadget\'s thumbnail.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'default' => NULL),
+      'author' => array( 
+        'description' => t('Author name of gadget.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'default' => NULL),
+      'author_email' => array( 
+        'description' => t('Author\'s email of gadget.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'default' => NULL), 
+      'description' => array( 
+        'description' => t('Description of gadget.'),
+        'type' => 'text', 
+        'default' => NULL),
+      'settings' => array( 
+        'description' => t('Settings of gadget.'),
+        'type' => 'text', 
+        'default' => ''),
+      'version' => array( 
+        'description' => t('Version of gadget.'),
+        'type' => 'varchar', 
+        'length' => 64, 
+        'default' => ''),
+      'height' => array( 
+        'description' => t('Height of gadget.'),
+        'type' => 'int',
+        'not null' => TRUE, 
+        'default' => 0), 
+      'scrolling' => array( 
+        'description' => t('Scrolling settings of gadget.'),
+        'type' => 'int', 
+        'not null' => TRUE,        
+        'default' => 0), 
+      'modified' => array( 
+        'description' => t('Modification of gadget.'),
+        'type' => 'int',
+        'not null' => TRUE, 
+        'default' => 0),
+    ),  
+    'unique keys' => array(
+      'url'  => array('url'),
+    ),
+    'indexes' => array(
+      'applications_id' => array('id'),
+    ),
+  );
+  
+   $schema['application_settings'] = array(
+    'description' => t('Table for Application specific data.'),
+    'fields' => array(
+      'application_id' => array(
+        'description' => t('Id for application settings.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),
+      'user_id' => array(
+        'description' => t('User\'s ID to whom application setting belongs.'),
+        'type' => 'int', 
+        'unsigned' => TRUE, 
+        'not null' => TRUE),    
+      'name' => array( 
+        'description' => t('Name of setting.'),
+        'type' => 'varchar', 
+        'length' => 128, 
+        'not null' => TRUE, 
+        'default' => ''),
+      'value' => array( 
+        'description' => t('Value of Setting.'),
+        'type' => 'text', 
+        'length' => 255, 
+        'not null' => TRUE, 
+        'default' => '')), 
+    'unique keys' => array(
+      'application_settings_application_id' => array('application_id', 'user_id', 'name'),
+    ),   
+  );
+  return $schema;
+}
+
+/**
+ * Install the initial schema
+ * 
+ */
+function shindig_integrator_install() {
+  $success = shindig_integrator_install_files();
+  if (drupal_install_schema('shindig_integrator') && $success) {
+    drupal_set_message(t('Shindig Integrator Installed Sucessfully'));
+  }
+  else {
+    drupal_set_message(t('There is some problem in installation of Shindig Integrator.', 'error'));
+  }
+  shindig_integrator_create_profile_fields();
+}
+
+function shindig_integrator_create_profile_fields() {
+  shindig_integrator_add_new_profile_field(array('title' => 'First name', 'name' => 'profile_fname'));
+  shindig_integrator_add_new_profile_field(array('title' => 'Last name', 'name' => 'profile_lname'));
+  shindig_integrator_add_new_profile_field(array('title' => 'Gender', 'name' => 'profile_gender'));
+  shindig_integrator_add_new_profile_field(array('title' => 'Date of Birth', 'name' => 'profile_dob', 'type' => "date"));
+  shindig_integrator_add_new_profile_field(array('title' => 'City', 'name' => 'profile_city'));
+  shindig_integrator_add_new_profile_field(array('title' => 'Country', 'name' => 'profile_country'));
+  shindig_integrator_add_new_profile_field(array('title' => 'Interested in', 'name' => 'profile_interest'));
+}
+
+/**
+ * Create and modify required files to run shindig_integrator
+ */
+function shindig_integrator_install_files() {
+  $path_shindig = drupal_get_path('module', 'shindig_integrator');
+  $success      = TRUE;
+  $string       = "<?php\n";
+  $string      .= '
+    /**
+     * Configuration class.
+     */
+    class ShindigConfigException extends Exception {}
+
+      $shindigConfig = array(
+      "gadget_server" => "http://'. $_SERVER['HTTP_HOST'] . base_path() . $path_shindig .'/shindig/php",
+      "web_prefix" => "'. base_path() . $path_shindig .'/shindig/php",
+      "default_js_prefix" => "'. base_path() . $path_shindig .'/shindig/php/gadgets/js/",
+      "default_iframe_prefix" => "'. $path_shindig .'/shindig/php/gadgets/ifr?",
+      "include_path" => "'. $_SERVER['DOCUMENT_ROOT'] . base_path() .'includes/",
+      "settings_php" => "'. $_SERVER['DOCUMENT_ROOT'] . base_path() . conf_path() .'/settings.php",
+      "person_service" => "ShindigIntegratorPeopleService",
+      "activity_service" => "ShindigIntegratorActivitiesService",
+      "app_data_service" => "ShindigIntegratorAppDataService",
+    );
+    $GLOBALS["shindigConfig"] = $shindigConfig;
+
+    class ShindigConfig {
+    static function get($key)
+    {					
+      global $shindigConfig;						
+     if (isset($shindigConfig[$key])) {
+       return $shindigConfig[$key];
+     }
+     else {
+       throw new ShindigConfigException("Invalid Config Key");
+     }
+    }
+  }';
+
+  $filename = "$path_shindig/shindig/php/config/local.php";
+  $handle   = fopen($filename, 'w');
+  if ($handle) {
+    if (!fwrite($handle, $string)) {
+      $success = FALSE;
+    }
+    fclose($handle);
+  }
+  
+  /* 
+  *  To set path to container.php in shindig config file
+  */
+  $config_file = "$path_shindig/shindig/php/src/common/Config.php";
+  $str = file_get_contents($config_file);
+  $find_str = "include_once 'config/container.php';";
+  $replace_str = "
+      if (file_exists('config/container.php')) {
+        include_once 'config/container.php';
+	  } else {
+	    include_once '$path_shindig/shindig/php/config/container.php'; 
+	  }
+      "; 
+  $str = str_replace($find_str,$replace_str,$str);
+  global $TEST;
+  if ($TEST == false) {
+    file_put_contents($config_file,$str);
+  }
+
+  $filename = "$path_shindig/shindig/config/container.js";
+  $handle   = @fopen($filename, "r");
+  $file_str = "";
+  if ($handle) {
+    $file_str = fread($handle, filesize($filename));
+    fclose($handle);
+  }
+  $replace      = "http://%host%";
+  $replace_with = base_path() . $path_shindig ."/shindig/php";
+  $substr       =  str_replace($replace, $replace_with, $file_str);
+  
+  $replace      = "/gadgets/files/container/rpc_relay.html";
+  $replace_with = base_path() . $path_shindig ."/gadgets/files/container/rpc_relay.html";
+  $substr       =  str_replace($replace, $replace_with, $substr);
+  
+  $handle       = @fopen($filename, "w");
+  if ($handle) {
+    if (!fwrite($handle, $substr)) {
+      $success = FALSE;
+    }
+    fclose($handle);
+  }
+  
+  
+  $filename = "$path_shindig/js/container.js";
+  $handle   = @fopen($filename, "r");
+  $file_str = "";
+  if ($handle) {
+    $file_str = fread($handle, filesize($filename));
+    fclose($handle);
+  }
+  $replace      = "/setPrefs";
+  $replace_with = base_path() ."setPrefs";
+  $substr       =  str_replace($replace, $replace_with, $file_str);
+  
+  $replace      = "/application_canvas/";
+  $replace_with = base_path() ."application_canvas/";
+  $substr       =  str_replace($replace, $replace_with, $substr);
+  
+  $replace      = "/user/";
+  $replace_with = base_path() ."user/";
+  $substr       =  str_replace($replace, $replace_with, $substr);
+
+  $handle       = @fopen($filename, "w");
+  if ($handle) {
+    if (!fwrite($handle, $substr)) {
+      $success = FALSE;
+    }
+    fclose($handle);
+  }
+  
+
+  if (!file_exists("$path_shindig/shindig/php/includes/database.mysql-common.inc")) {
+    mkdir("$path_shindig/shindig/php/includes");
+    $src = "./includes/database.mysql-common.inc";
+    $dest = "$path_shindig/shindig/php/includes/database.mysql-common.inc";
+    if (!copy($src, $dest)) {
+      $success = FALSE;
+    }
+  }
+
+  if (
+      !copy(
+            "$path_shindig/shindig_files/ShindigIntegratorActivitiesService.php", 
+            "$path_shindig/shindig/php/src/social/sample/ShindigIntegratorActivitiesService.php"
+            ) || 
+      !copy(
+            "$path_shindig/shindig_files/ShindigIntegratorAppDataService.php", 
+            "$path_shindig/shindig/php/src/social/sample/ShindigIntegratorAppDataService.php"
+            ) || 
+      !copy(
+            "$path_shindig/shindig_files/ShindigIntegratorDbFetcher.php", 
+            "$path_shindig/shindig/php/src/social/sample/ShindigIntegratorDbFetcher.php"
+            ) || 
+      !copy(
+            "$path_shindig/shindig_files/ShindigIntegratorPeopleService.php", 
+            "$path_shindig/shindig/php/src/social/sample/ShindigIntegratorPeopleService.php"
+            )
+     ) {
+         $success = FALSE;
+       }
+
+  return $success;
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function shindig_integrator_uninstall() {
+  $success = shindig_integrator_uninstall_files();
+  if (drupal_uninstall_schema('shindig_integrator') && $success) {
+    drupal_set_message(t('Shindig Integrator uninstalled Sucessfully'));
+  }
+  else {
+    drupal_set_message(t('There is some problem in uninstallation', 'error'));
+  }
+}
+
+/**
+ * Delete and modify files which are required for shindig_integrator
+ */
+function shindig_integrator_uninstall_files() {
+  $path_shindig = drupal_get_path('module', 'shindig_integrator');
+  $success = TRUE;
+  
+  $config_file = "$path_shindig/shindig/php/src/common/Config.php";
+  $str = file_get_contents($config_file);
+  $replace_str = "include_once 'config/container.php';";
+  $find_str = "
+      if (file_exists('config/container.php')) {
+        include_once 'config/container.php';
+	  } else {
+	    include_once '$path_shindig/shindig/php/config/container.php'; 
+	  }
+      "; 
+  $str = str_replace($find_str,$replace_str,$str);
+  file_put_contents($config_file,$str);
+  
+  $filename = "$path_shindig/shindig/php/config/local.php";
+  unlink($filename);
+  $filename = "$path_shindig/shindig/config/container.js";
+  $handle = @fopen($filename, "r");
+  $file_str = "";
+  if ($handle) {
+    $file_str = fread($handle, filesize($filename));
+    fclose($handle);
+  }
+  $replace_with = "http://%host%";
+  $replace      = base_path() . $path_shindig ."/shindig/php";
+  $substr       =  str_replace($replace, $replace_with, $file_str);
+  
+  $replace_with = "/gadgets/files/container/rpc_relay.html";
+  $replace      = base_path() . $path_shindig ."/gadgets/files/container/rpc_relay.html";
+  $substr       =  str_replace($replace, $replace_with, $substr);
+  
+  $handle = @fopen($filename, "w");
+  if ($handle) {
+    if (!fwrite($handle, $substr)) {
+      $success = FALSE;
+    }
+    fclose($handle);
+  }
+  
+   $filename = "$path_shindig/js/container.js";
+  $handle    = @fopen($filename, "r");
+  $file_str  = "";
+  if ($handle) {
+    $file_str = fread($handle, filesize($filename));
+    fclose($handle);
+  }
+  $replace_with = "/setPrefs";
+  $replace      = base_path() ."setPrefs";
+  $substr       =  str_replace($replace, $replace_with, $file_str);
+
+  $handle       = @fopen($filename, "w");
+  if ($handle) {
+    if (!fwrite($handle, $substr)) {
+      $success = FALSE;
+    }
+    fclose($handle);
+  }
+  return $success;
+}
+
+/**
+ * Implementation of hook_requirements
+ */
+ 
+function shindig_integrator_requirements($phase) {
+  $requirements = array();
+  
+  // Ensure translations don't break at install time.
+  $t = get_t();
+  $path_shindig = drupal_get_path('module', 'shindig_integrator');
+  if (!file_exists("$path_shindig/shindig/php")) {
+    $requirements['shindig_integrator'] = array(
+    'title' => $t('shindig core library'),
+    'value' => $t('Not found'),
+    'description' => $t('shindig_integrator needs to install shindig core code first from <a href="@shindig_core">here</a>.', 
+                array('@shindig_core' => url('http://svn.apache.org/repos/asf/incubator/shindig/trunk/') )),
+    'severity' => REQUIREMENT_ERROR,
+    );
+  }
+  
+  return $requirements;
+}
+
+function shindig_integrator_add_new_profile_field($_values)
+{
+  $default_values = array(
+                          //'title'=>"",
+                          //'name' => "",
+                          'explanation' => "",
+                          'category' => "Personal information",
+                          'type' => "textfield",
+                          'weight' => 0,
+                          'required' => 1,
+                          'register' => 1,
+                          'visibility' => 2,
+                          'autocomplete' => 0,
+                          );
+  $form = array();
+  $form_state = array();
+  $form_state['values'] = array();
+  $form_state['values'] = array_merge($default_values, $_values);
+
+  db_query("INSERT INTO {profile_fields} (title, name, explanation, category, type, weight, required, register, visibility, autocomplete, options, page) VALUES ('%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %d, '%s', '%s')", $form_state['values']['title'], $form_state['values']['name'], $form_state['values']['explanation'], $form_state['values']['category'], $form_state['values']['type'], $form_state['values']['weight'], $form_state['values']['required'], $form_state['values']['register'], $form_state['values']['visibility'], $form_state['values']['autocomplete'], $form_state['values']['options'], $form_state['values']['page']);
+}

@@ -1,0 +1,9 @@
+/* $Id: NOTICE.txt,v 1.1 2008/12/08 07:23:01 impetus Exp $ */
+			ShindigIntegrator
+		Copyright 2008 Impetus Technologies, Inc. 
+=============================================================================================
+
+This product includes code referenced from Partuza (http://code.google.com/p/partuza) 
+by Chris Chabot, Licensed under GPLv2
+=============================================================================================
+This module requires shindig files for security token generation.			 

@@ -1,0 +1,84 @@
+<?php
+
+// $Id$
+
+/**
+ * @file
+ * Tests ShindigIntegrator support for opensocial Address.
+ *
+ */
+
+require_once(dirname(__FILE__) . '/../shindig/php/src/social/model/ComplexField.php');
+require_once(dirname(__FILE__) . '/../shindig/php/src/social/model/Person.php');
+require_once(dirname(__FILE__) . '/../shindig/php/src/social/model/Name.php');
+require_once(dirname(__FILE__) . '/../shindig/php/src/social/model/Address.php');
+global $TEST_ENABLED;
+$TEST_ENABLED = 1;
+require_once(dirname(__FILE__) . '/../shindig_files/ShindigIntegratorDbFetcher.php');
+
+class ShindigIntegratorAddressTestCase extends DrupalWebTestCase {
+
+  public static function getInfo() {
+    return array(
+      'name' => t('ShindigIntegrator Address test'),
+      'description' => t('Test ShindigIntegrator Address support.'),
+      'group' => t('ShindigIntegrator'),
+    );
+  }
+
+  function setUp() {
+    parent::setUp('profile', 'shindig_integrator');
+	db_query("INSERT IGNORE INTO `{profile_fields}` 
+			VALUES (1,'First name','profile_fname','','Personal information','','textfield',-4,0,0,4,0,''),
+			(2,'Last name','profile_lname','','Personal information','','textfield',-3,0,0,4,0,''),
+			(9,'Nickname','profile_nickname','','Personal information','','textfield',-10,1,0,2,0,''),
+			(4,'Date of Birth','profile_dob','','Personal information','','date',-8,0,0,2,0,''),
+			(5,'City','profile_city','','Personal information','','textfield',-7,0,0,2,0,''),
+			(10,'Country','profile_country','','Personal information','','selection',-6,0,0,2,0,'France\r\nGermany'),
+			(7,'Interested in','profile_interest','','Personal information','','textfield',-5,0,0,4,0,''),
+			(8,'Gender','profile_gender','','Personal information','','selection',-9,0,0,2,0,'Male\r\nFemale\r\nDon\'t Display\r\n')");
+  }
+
+  function test_no_address() {
+    $user = $this->drupalCreateUser(array('administer users'));
+    $profile = array();
+    $profile["profile_fname"] = "foo_fname";
+    $profile["profile_lname"] = "foo_lname";
+    $profile["profile_nickname"] = "foo_nickname";
+    $profile["profile_interest"] = "foo_interest";
+    $profile["profile_gender"] = "foo_gender";
+    profile_save_profile($profile, $user, "Personal information");
+    $uids = array();
+    $uids[] = $user->uid;
+    $fetcher = ShindigIntegratorDbFetcher::get();
+    $peoples = $fetcher->getPeople($uids, null, null);
+    $person = $peoples[$user->uid];
+    $addresses = $person->getAddresses();
+    $address = $addresses[0];
+    $this->assertEqual('', $address->getLocality(), 'person address locality should be null');
+    $this->assertEqual('', $address->getCountry(), 'person address country should be null');
+  }
+
+
+  function test_address() {
+    $user = $this->drupalCreateUser(array('administer users'));
+    $profile = array();
+    $profile["profile_fname"] = "foo_fname";
+    $profile["profile_lname"] = "foo_lname";
+    $profile["profile_nickname"] = "foo_nickname";
+    $profile["profile_city"] = "foo_city";
+    $profile["profile_country"] = "foo_country";
+    $profile["profile_interest"] = "foo_interest";
+    $profile["profile_gender"] = "foo_gender";
+    profile_save_profile($profile, $user, "Personal information", FALSE);
+    $uids = array();
+    $uids[] = $user->uid;
+    $fetcher = ShindigIntegratorDbFetcher::get();
+    $peoples = $fetcher->getPeople($uids, null, null);
+    $person = $peoples[$user->uid];
+    $addresses = $person->getAddresses();
+    $address = $addresses[0];
+    $this->assertEqual('foo_city', $address->getLocality(), 'person address localily should be set');
+    $this->assertEqual('foo_country', $address->getCountry(), 'person address country should be set');
+  }
+}
