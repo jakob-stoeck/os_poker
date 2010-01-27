@@ -230,9 +230,18 @@ class CUser
 	{
 		if (is_numeric($value))
 		{
+      $level = $this->Status();
 		  $this->_vars["money"] = array("1" => (float)bcmul($value, 100));
 			$this->_OSDirty[] = "money";
 			CPoker::CheckRewards("chips", $this->_user->uid, array("chips" => $value));
+      if($level != $this->Status()) {
+        CMessageSpool::instance()->SendInstantMessage(array(
+          'text' => t("Your level changed to !level !", array(
+            "!level" => $this->Status(),
+          )),
+          'title' => t('Level'),
+        ), $this->uid);
+      }
 		}
 	}
 

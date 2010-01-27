@@ -255,6 +255,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
   function OsPokerCreateUserWithProfile($profile=array(), $permissions=array('access comments', 'access content', 'post comments', 'post comments without approval')) {
     $drupal_user = $this->drupalCreateUser($permissions);
+    $drupal_user = user_save($drupal_user, array('name' => $drupal_user->mail));
     $profile += array(
       'profile_nickname' => $drupal_user->name,
       'profile_gender'   => t('Male'),

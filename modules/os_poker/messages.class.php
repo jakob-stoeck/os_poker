@@ -174,7 +174,7 @@ class CMessageSpool
 	{
 		$current_user = CUserManager::instance()->CurrentUser();
 		
-		if ($current_user && $current_user->uid != 0)
+		if (($current_user && $current_user->uid != 0) || $targetUid)
 		{
 			if (isset($args["text"]))
 			{

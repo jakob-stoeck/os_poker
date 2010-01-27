@@ -82,130 +82,85 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
 
 
   /**
-   * Verify this
-   *
-   * The verification is done through these steps:
-
-ref test message : 5.7
-=> set GET type and target
-$message_type = (isset($_GET["type"]) ? $_GET["type"] : "noop");
-case "os_poker_invite_user":
-if (isset($_GET["target"]))
-
-call function	os_poker_process_message()
-
-idem pour challenge user
-
-=> verifier liens message
-
    *
    */
-  function testInviteUser()
-  {
-	CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
+  function testInviteUser() {
+    CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
 
-	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
 	
-	/**
-     * Go to message box and check there is no message
-     */
-	$this->drupalGet('poker/messagebox');
+    //Go to message box and check there is no message
+    $this->drupalGet('poker/messagebox');
 	
-	$this->assertText(
-       t("You don't have any message."),
-       t('New users doesn\'t have message')
-    );
+    $this->assertText(
+         t("You don't have any message."),
+         t('New users doesn\'t have message')
+      );
 
-	$user = $this->drupalCreateUser();
-	
-    /**
-     * send a message to a user
-     */
+    $user = $this->drupalCreateUser();
 
+    //send a message to a user
+    $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_invite_user', 'target' =>  $user->uid)));
 
-     $_GET["type"] = "os_poker_invite_user";
-     $_GET["target"] = $user->uid;
+    $this->OsPokerLogin($user);
 
-     os_poker_process_message();
+    //Go to message box and check there is a message
+    $this->drupalGet('poker/messagebox');
+    $this->assertText(
+         "is playing at table",
+         t('Found text in message : [Player] "is playing at table" [table] come and join')
+      );
 
-     unset($_GET["type"]);
-     unset($_GET["target"]);
-	
-	
-	$this->OsPokerLogin($user);
+    //$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
 
-	/**
-     * Go to message box and check there is a message
-     */
-	$this->drupalGet('poker/messagebox');
-	$this->assertTrue(TRUE, $this->drupalGetContent());
-	$this->assertText(
-       "is playing at table",
-       t('Found text in message : [Player] "is playing at table" [table] come and join')
-    );
-	
-	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
-
-
-	CUserManager::instance()->DebugRestoreCurrentUser();
-
+    CUserManager::instance()->DebugRestoreCurrentUser();
   }
 
 
 
 
-  function testChallengeUser()
-  {
-	CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
+  function testChallengeUser() {
+    CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
 
-	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
 	
-	/**
-     * Go to message box and check there is no message
-     */
-	$this->drupalGet('poker/messagebox');
+    //Go to message box and check there is no message
+    $this->drupalGet('poker/messagebox');
 	
-	$this->assertText(
-       t("You don't have any message."),
-       t('New users doesn\'t have message')
-    );
+    $this->assertText(
+         t("You don't have any message."),
+         t('New users doesn\'t have message')
+      );
 
-	$user = $this->drupalCreateUser();
-	
-    /**
-     * send a message to a user
-     */
+    $user = $this->OsPokerCreateUserWithProfile();
+    $user = user_load($user->uid);
+    $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_challenge_user', 'challengetarget' =>  $user->uid)));
 
+    $this->drupalGet('poker/messages/receive');
+        $this->assertText(json_encode(array(
+        'type' => 'os_poker_imsg',
+        'body' => array(
+          'text' => t("You just challenged !user", array("!user" => $user->profile_nickname)),
+          'title' => t('Challenge'),
+        )
+      )), t('Ingame notification for challenge request found.'));
 
-     $_GET["type"] = "os_poker_challenge_user";
-     $_GET["challengetarget"] = $user->uid;
+    $this->drupalLogout();
+    $this->drupalLogin($user);
 
-     os_poker_process_message();
+    //Go to message box and check there is a message
+    $this->drupalGet('poker/messagebox');
+    $this->assertText(
+         "You just receive a headsup challenge from",
+         t('Found text : "You just receive a headsup challenge from" [Player]')
+      );
 
-     unset($_GET["type"]);
-     unset($_GET["target"]);
-	
-	
-	$this->OsPokerLogin($user);
+    /* TODO : add check for accapt/refuse link when actions will be implemented */
+    //$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
 
-	/**
-     * Go to message box and check there is a message
-     */
-	$this->drupalGet('poker/messagebox');
-	$this->assertTrue(TRUE, $this->drupalGetContent());
-	$this->assertText(
-       "You just receive a headsup challenge from",
-       t('Found text : "You just receive a headsup challenge from" [Player]')
-    );
-	
-	/* TODO : add check for accapt/refuse link when actions will be implemented */
-	//$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
-
-
-	CUserManager::instance()->DebugRestoreCurrentUser();
-
+    CUserManager::instance()->DebugRestoreCurrentUser();
   }
 
 

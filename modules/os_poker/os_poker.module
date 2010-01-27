@@ -623,8 +623,18 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
 		break;
 
 		case 'login' :
-			CUserManager::instance()->CurrentUser(TRUE);
+			$player = CUserManager::instance()->CurrentUser(TRUE);
 			CScheduler::instance()->Trigger('login');
+      foreach($player->Buddies(TRUE) as $buddy) {
+        if($buddy->Online()) {
+          CMessageSpool::instance()->SendInstantMessage(array(
+            'text' => t("Your buddy !user is online.", array(
+              "!user" => $buddy->profile_nickname ? $buddy->profile_nickname : variable_get('anonymous', t('Anonymous')),
+            )),
+            'title' => t('Buddy Online'),
+          ), $buddy->uid);
+        }
+      }
       if (user_access('maintain own relationships')) {
         _user_relationships_ui_unset_notifications($account);
       }
@@ -1381,8 +1391,17 @@ function os_poker_imagecache_default_presets() {
 function os_poker_people_alter($people) {
   foreach($people as $uid => $person) {
     $account = user_load($uid);
+    if (!empty($account->picture) && file_exists($account->picture)) {
+      $picture = $account->picture;
+    }
+    else if (variable_get('user_picture_default', '')) {
+      $picture = variable_get('user_picture_default', '');
+    }
+    else {
+      $picture = drupal_get_path("theme", "poker") . "/images/picture-default.png";
+    }
     //Set user picture using ImageCache URL
-    $person->setThumbnailUrl(imagecache_create_url('user_picture_gadget', $account->picture, FALSE, TRUE));
+    $person->setThumbnailUrl(imagecache_create_url('user_picture_gadget', $picture, FALSE, TRUE));
     //Set country name from code.
     foreach($person->getAddresses() as $address) {
       //Translate country code to country name using themeable output.
@@ -1426,8 +1445,20 @@ function os_poker_add_buddy_button(&$form_state, $requestee_uid) {
   unset($form['description']);
   //Set validation and submit hanlders
   $form['#validate'] = array('user_relationships_ui_request_validate');
-  $form['#submit'] = array('user_relationships_ui_request_submit');
+  $form['#submit'] = array('user_relationships_ui_request_submit','os_poker_relationships_ui_request_submit');
+  //Store the requestee
+  $form['#requestee'] = $requestee;
   return $form;
+}
+
+function os_poker_relationships_ui_request_submit($form, $form_state) {
+  $target_user = $form['#requestee'];
+  CMessageSpool::instance()->SendInstantMessage(array(
+    'text' => t("Buddy request sent to !user", array(
+      "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
+    )),
+    'title' => t('Buddy Request'),
+  ));
 }
 
 /**

@@ -142,25 +142,46 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    *
    */
 
-  function testMessageOnReward(){
-	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+  function testMessageOnReward() {
+    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 
-   $player = CUserManager::instance()->User($this->skel_user->uid);
+     $player = CUserManager::instance()->User($this->skel_user->uid);
 
-    $rew = $player->Rewards();
+      $rew = $player->Rewards();
 
-    CPoker::GiveReward("reward1", $player, $rew);
+      CPoker::GiveReward("reward1", $player, $rew);
 
-    /*
-     * Go to message box and check there is a message
-     */
-	$this->drupalGet('poker/messagebox');
+      /*
+       * Go to message box and check there is a message
+       */
+    $this->drupalGet('poker/messagebox');
 
-	$this->assertText(
-       "You just won reward " . $rew["reward1"]["name"],
-       t('Reward message received')
-    );
+    $this->assertText(
+         "You just won reward " . $rew["reward1"]["name"],
+         t('Reward message received')
+      );
 
+    $this->drupalGet('poker/messages/receive');
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => 'You just won reward Newcomer : Player sits down at the table for the first time',
+        'title' => 'Reward',
+      )
+    )), t('Ingame notification for reward found.'));
+  }
+
+  function testNotificationOnStatus() {
+    $player = CUserManager::instance()->User($this->skel_user->uid);
+    $player->chips = 10000000;
+    $this->drupalGet('poker/messages/receive');
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => 'Your level changed to Rockefeller !',
+        'title' => 'Level',
+      )
+    )), t('Ingame notification for level change found.'));
   }
 
 
@@ -295,8 +316,8 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    */
 
   function insertShopItemsAndCategories() {
-    db_query("INSERT INTO {poker_category} VALUES (1,'Drinks'),(2,'Snacks'),(3,'Smokes'),(4,'Entertainment')");
-    db_query("INSERT INTO {poker_item} VALUES (2,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',105674,1,'next monday'),(11,1,'sites/default/files/poker_items/item-1.jpg','Test',42,1,'+3 minutes'),(1,1,'sites/default/files/poker_items/item-1.jpg','Beer',5,1,'+1 minute'),(14,3,'sites/default/files/poker_items/item-2.jpg','Test1',10,1,'+5 minutes'),(15,3,NULL,'Test2',0,1,NULL),(16,4,'sites/default/files/poker_items/item-2.jpg','Sun glasses',100,1,'+2 hour')");
+    //db_query("INSERT INTO {poker_category} VALUES (1,'Drinks'),(2,'Snacks'),(3,'Smokes'),(4,'Entertainment')");
+    //db_query("INSERT INTO {poker_item} VALUES (2,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',105674,1,'next monday'),(11,1,'sites/default/files/poker_items/item-1.jpg','Test',42,1,'+3 minutes'),(1,1,'sites/default/files/poker_items/item-1.jpg','Beer',5,1,'+1 minute'),(14,3,'sites/default/files/poker_items/item-2.jpg','Test1',10,1,'+5 minutes'),(15,3,NULL,'Test2',0,1,NULL),(16,4,'sites/default/files/poker_items/item-2.jpg','Sun glasses',100,1,'+2 hour')");
   }
 
 

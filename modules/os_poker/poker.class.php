@@ -201,6 +201,10 @@ class CPoker
 																		  "!desc" => $prewards[$name]["desc"])); 
 			
 			CMessageSpool::instance()->SendMessage($player->uid, $args);
+      CMessageSpool::instance()->SendInstantMessage(array(
+        'text' => $args["text"],
+        'title' => t('Reward'),
+      ), $player->uid);
 		}
 	}
 	

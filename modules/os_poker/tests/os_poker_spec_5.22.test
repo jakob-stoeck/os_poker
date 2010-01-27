@@ -117,6 +117,17 @@ class OSPokerBuddyRequest extends OsPokerWebTestCase {
     $this->assertRaw(self::REQUEST_LINK, t('From medium profile a buddy request can be started'), t('SpecPoker'));
     $this->drupalPost(NULL, array(), 'Add Buddy');
     $this->assertText(t('Your buddy request has been sent to !requestee.', array('%relationship_name' => 'buddy', '!requestee' => $this->users[1]->name)));
+
+    $this->drupalGet('poker/messages/receive');
+    $buddy = user_load($this->users[1]->uid);
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' =>t("Buddy request sent to !user", array("!user" => $buddy->profile_nickname )),
+        'title' => t('Buddy Request'),
+      )
+    )), t('Ingame notification for buddy request found.'));
+
     $this->OsPokerCreateBuddyRelationShip($this->users[0], $this->users[1]);
     $this->drupalGet('poker/profile/medium/'.$this->users[1]->uid);
     $this->assertNoRaw(self::REQUEST_LINK, t('the button is only shown on profiles of players who are not buddies yet'), t('SpecPoker'));
