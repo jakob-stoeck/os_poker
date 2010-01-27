@@ -2490,3 +2490,21 @@ padding-left:5px;
   background-position: top left;
   padding: 15px;
 }
+
+
+#poker-teaser .info {
+  color: white;
+  margin: 15px 80px 15px 15px;
+}
+
+#poker-teaser .info strong {
+  color: #A8904A;
+}
+
+#poker-teaser #poker-tutorial {
+  display: none;
+}
+
+#TB_ajaxContent .tb-fix-margin {
+  margin: -2px -15px -15px;
+}

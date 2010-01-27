@@ -555,6 +555,9 @@ function 	os_poker_theme()
         'attributes' => NULL,
         'getsize' => TRUE,
       ),
+    ),
+    'poker_tutorial_link' => array(
+      'arguments' => array(),
     )
   );
 }
@@ -1111,7 +1114,7 @@ function os_poker_block($op = 'list', $delta = 0, $edit = array())
 				case 7:
 					//TODO: Load teaser text from somewhere ??
 					$teaserText = 	"<h1>" . t("WANT SOME HELP GETTING STARTED") . "?</h1>" .
-									t("We show you how to play poker in just one minute") . "! <a class=\"yellow\" href=\"javascript:void(0);\">" . t("Click here") . "!</a>";
+									t("We show you how to play poker in just one minute !tutorial.", array('!tutorial' => theme('poker_tutorial_link')));
 
 					$block['subject'] = t('Teaser');
 					$block['content'] = theme("os_poker_teaser", $teaserText);
@@ -1620,4 +1623,13 @@ function theme_poker_image($filename, $alt = '', $title = '', $attributes = NULL
     $path = drupal_get_path('theme', 'poker') .'/images/'. $filename;
   }
   return theme('image', $path, $alt, $title, $attributes, $getsize);
+}
+
+function theme_poker_tutorial_link() {
+  return l(t("Click here!"), 'javascript:void(0);', array(
+    'absolute' => TRUE,
+    'attributes' => array(
+      'class' => 'yellow',
+    ),
+  ));
 }
