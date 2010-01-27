@@ -27,7 +27,7 @@
 			  $reward_key = $os_user->GetLastReward();
 			  $reward_last = $rewards[$reward_key];
 			  $imagePath = file_directory_path() . "/poker_rewards/";
-			  $defaultPicture = $imagePath ."reward_default.jpg";
+			  $defaultPicture = $imagePath ."reward_default.gif";
 
 		?>
 	
@@ -46,7 +46,12 @@
 			     <?php } ?>
 			    </div>
 			    <div class="reward_status"><p><strong>
-			      <?php print($reward_last['name']); ?>
+            <?php if($num_rewards) {
+              print($reward_last['name']);
+            }
+            else {
+              print t('no rewards achieved');
+            }?>
 			    </strong>
 			    <br/>
 			      <?php print($num_rewards." / ".count($rewards)); ?>
