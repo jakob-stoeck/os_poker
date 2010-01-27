@@ -585,7 +585,7 @@ function	os_poker_first_profile_form($form_state)
 									'#type' => 'date',
 									'#title' => t('Birthday'),
 									'#attributes' => array("class" => "custom_input date"),
-									'#default_value' => $cuser->profile_dob,
+									'#default_value' => $cuser->profile_dob ? $cuser->profile_dob : array('month' => 1, 'day' => 1, 'year' => 1990),
 							);
 
 	$form['profile_country'] =	array(
