@@ -342,13 +342,11 @@ check active status is always on same item
     CShop::BuyItem(102);
     $cuser = CUserManager::instance()->User($this->users[0]->uid);
     $inventory = $cuser->Items();
-    $this->print_r($inventory);
     $item = reset($inventory);
     $cuser->ActivateItem($item->operation_id);
     CScheduler::instance()->ReloadTasks();
     CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
 		$messages = CMessageSpool::instance()->Get();
-    $this->print_r($messages);
     $this->assertTrue(in_array(
       array('type' => 'os_poker_gift', 'body' => array(
         'gift' => $item->item->name,
