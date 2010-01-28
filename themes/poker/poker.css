@@ -1738,6 +1738,10 @@ ul.categories li a span
 #shop #items .ajax-pager
 {
 	height:14px;
+  height:14px;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
 }
 
 #shop #items .inner-item-list a

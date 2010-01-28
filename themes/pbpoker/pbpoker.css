@@ -1640,7 +1640,15 @@ ul.categories li a span
   height:320px;
 }
 
-#shop #items a
+#shop #items .ajax-pager
+{
+	height:14px;
+  position: absolute;
+  bottom: 0;
+  right: 10px;
+}
+
+#shop #items .inner-item-list a
 {
 	background:transparent url(images/bg_shop_item.gif) no-repeat scroll left top;
 	height:95px;
