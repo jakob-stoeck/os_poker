@@ -266,6 +266,7 @@ function shindig_integrator_install_files() {
       "activity_service" => "ShindigIntegratorActivitiesService",
       "app_data_service" => "ShindigIntegratorAppDataService",
       "drupal_base_path" => "'.base_path().'",
+      "drupal_dir" => "'. getcwd() .'",
     );
     $GLOBALS["shindigConfig"] = $shindigConfig;
 

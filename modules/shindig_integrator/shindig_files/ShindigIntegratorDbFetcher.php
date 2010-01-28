@@ -32,15 +32,22 @@ class ShindigIntegratorDbFetcher {
         //Ignore config exception for drupal_base_path
       }
       $dir = getcwd();
-      //Walk the directory tree to Drupal root
-      chdir(dirname(__FILE__));
-      $this->drupal_dir = getcwd();
-      chdir('..');
-      while(!file_exists('cron.php') && $this->drupal_dir != getcwd()) {
+      try {
+        $this->drupal_dir = Config::get('drupal_dir');
+        chdir($this->drupal_dir);
+      }
+      catch(Exception $exc) {
+        //Walk the directory tree to Drupal root
+        //This doesn't work if this file realpath is not under the Drupal root
+        chdir(dirname(__FILE__));
         $this->drupal_dir = getcwd();
         chdir('..');
+        while(!file_exists('cron.php') && $this->drupal_dir != getcwd()) {
+          $this->drupal_dir = getcwd();
+          chdir('..');
+        }
+        $this->drupal_dir = getcwd();
       }
-      $this->drupal_dir = getcwd();
       require_once './includes/bootstrap.inc';
       drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
       //Return to original dir
@@ -182,7 +189,7 @@ class ShindigIntegratorDbFetcher {
 				}
 			}
 		}
-    	//Invoke hook_people_alter() implementations
+    //Invoke hook_people_alter() implementations
 		$this->drupalAlter('people', $ret, $profileDetails, $options);
 		return $ret;
 	}
@@ -257,7 +264,10 @@ class ShindigIntegratorDbFetcher {
     if(count($ids)) {
       $placeholders_ids = array_fill(0, count($ids), "%d");
       if (in_array("@all", $keys)) {
-        $res = db_query("SELECT user_id, name, value FROM {application_settings} WHERE application_id = %d AND user_id IN (" . implode(',', $placeholders_ids) . ")", $app_id, $ids);
+        $values = array();
+        $values[] = $app_id;
+        $values = array_merge($values, $ids);
+        $res = db_query("SELECT user_id, name, value FROM {application_settings} WHERE application_id = %d AND user_id IN (" . implode(',', $placeholders_ids) . ")", $values);
       } 
 	  else {
 	    if(count($keys)) {
