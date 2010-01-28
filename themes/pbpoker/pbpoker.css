@@ -875,17 +875,6 @@ div#buddylist .buddy_list_placeholder .body a
 	background:transparent url(images/buddy_online.png) no-repeat scroll left center;
 }
 
-.buddy_list_picture
-{
-
-}
-
-.buddy_list_picture img
-{
-	height:50px;
-	width:50px;
-}
-
 .buddy_list_chips 
 {
 	color: #A8904A;

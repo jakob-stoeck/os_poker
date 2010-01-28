@@ -1090,3 +1090,12 @@ div#buddylist  #today_gift_invite
   vertical-align: middle;
   margin-top: 4px;
 }
+
+/**
+ * buddy_list
+ */
+
+ .buddy_list_picture img {
+	height:50px !important;
+	width:50px !important;
+}
