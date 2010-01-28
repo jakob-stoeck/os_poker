@@ -87,7 +87,7 @@
   <?php print $scripts; ?>
 </head>
 
-<body class="<?php print $body_classes; ?>">
+<body class="iframe <?php print $body_classes; ?>">
 				<div id="messages">
 					<?php print $messages; ?>
 				</div>

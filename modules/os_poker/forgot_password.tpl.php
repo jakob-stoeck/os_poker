@@ -1,4 +1,5 @@
 <div id="forgot-password">
+  <a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
 	<div class="header">
 		<h1><?php print t("Trouble Accessing Your Account ?"); ?></h1>
 		<p><?php print t("Forgot your password ? Enter your login email below and we will send you an email to change your password."); ?></p>

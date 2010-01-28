@@ -2,6 +2,7 @@
 </div>
 
 <div id="poker-first-profile">
+  <a class="LayerClose" onclick="javascript:os_poker_submit(this, 'os-poker-first-profile-form');" href="javascript:void(0);">&nbsp;</a>
 	<div class="title">
 		<h1><?php print $title ?></h1> <?php print $subtitle ?>
 	</div>

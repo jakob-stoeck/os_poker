@@ -2381,6 +2381,11 @@ width:87px;
 	color:white;
 }
 
+#forgot-password .LayerClose,
+#poker-first-profile a.LayerClose {
+  background-image: url(images/button_layerclose3.gif) !important;
+}
+
 #forgot-password .header
  {
 
