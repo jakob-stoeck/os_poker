@@ -76,6 +76,7 @@ class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
    */
   function tearDown() {
     parent::tearDown();
+    $this->users = array();
   }
 
   function testWhoIsAtThatTable() {

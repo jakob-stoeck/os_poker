@@ -56,14 +56,18 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
   function setUp() {
     // Enable required modules and set default site configuration.
     parent::setUp();
-		
+		require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
+    $this->userManager = CUserManager::instance();
 		$this->insertShopItemsAndCategories();
 
     //Create three users
-    for ($i = 0; $i < 3; $i++) {
-      $buddy = $this->users[] = $this->OsPokerCreateUserWithProfile();
+    for ($i = 0; $i < 4; $i++) {
+      $this->users[$i] = $this->OsPokerCreateUserWithProfile();
     }
-
+    $this->user = $this->users[0];
+    $this->OsPokerCreateBuddyRelationShip($this->users[0], $this->users[1]);
+    $this->OsPokerCreateBuddyRelationShip($this->users[0], $this->users[2]);
+    $this->drupalLogin($this->user);
   }
 
   /**
@@ -71,6 +75,7 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
    */
   function tearDown() {
     parent::tearDown();
+    $this->users = array();
   }
   
   function insertShopItemsAndCategories() {
@@ -211,7 +216,6 @@ check active status is always on same item
    }
 
    $this->assertEqual($active_id_1, $active_id_2, "Active id : ".$active_id_1." / ".$active_id_2." => unchanged after getting 1 new gift");
-
   }
 
   /**
@@ -224,7 +228,7 @@ check active status is always on same item
    *
    */
   function testItemExpiry() {
-    require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
+    
 
     $items = array(
       114 => 'Test1',
@@ -250,7 +254,7 @@ check active status is always on same item
     }
 	//restore current user
 	CUserManager::instance()->DebugRestoreCurrentUser();
-	
+
 	//Create Cuser
 	$cuser = CUserManager::instance()->User($this->users[1]->uid);
 	$this->assertNotNull($cuser, "CUser instancied for user : " . $this->users[1]->uid);
@@ -310,7 +314,7 @@ check active status is always on same item
    */
   function testUserCanNotBuyUnaffordableGift() {
     $this->drupalLogin($this->users[0]);
-    $cuser = new CUser($this->users[0]->uid);
+    $cuser = CUserManager::instance()->User($this->users[0]->uid);
     $cuser->chips = 0;
     $cuser->Save();
     $this->drupalGet('');
@@ -336,13 +340,15 @@ check active status is always on same item
   function testActiveItemFrom() {
     $this->drupalLogin($this->users[0]);
     CShop::BuyItem(102);
-    $cuser = new CUser($this->users[0]->uid);
+    $cuser = CUserManager::instance()->User($this->users[0]->uid);
     $inventory = $cuser->Items();
+    $this->print_r($inventory);
     $item = reset($inventory);
     $cuser->ActivateItem($item->operation_id);
     CScheduler::instance()->ReloadTasks();
     CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
 		$messages = CMessageSpool::instance()->Get();
+    $this->print_r($messages);
     $this->assertTrue(in_array(
       array('type' => 'os_poker_gift', 'body' => array(
         'gift' => $item->item->name,
@@ -352,6 +358,81 @@ check active status is always on same item
       ,$messages),
       t('Live message to notify gift to %to from %from found', array('%from' => $cuser->uid, '%to' => $cuser->uid))
     );
+  }
+
+  public function assertItemItemBoughtFor($item_id, $uid) {
+    $items = $this->userManager->User($uid)->Items();
+    $item = end($items);
+    $this->assertEqual($item->id_item, $item_id, t('Item with id=!id bought for user with uid=!uid', array('!id' => $item_id, '!uid' => $uid)));
+  }
+
+
+  public function testBuy() {
+    CUserManager::instance()->DebugForceCurrentUser($this->user->uid);
+    $table_id = $this->createPokerTable('bar');
+    $this->joinPokerTable($this->users[0], $table_id);
+    $this->joinPokerTable($this->users[1], $table_id);
+    $this->joinPokerTable($this->users[3], $table_id);
+
+    $this->pass('<h1>Test from personal view</h1>');
+
+    $this->pass('<h2>Buy</h2>');
+    $this->drupalPost('poker/shop/shop/1/self', array(
+      'shop_action' => 'subtarget',
+      'shop_item' => '1',
+    ), 'Send');
+    $this->assertItemItemBoughtFor(1, $this->user->uid);
+    $this->pass('<h2>Buy for Buddies</h2>');
+    $this->drupalPost('poker/shop/shop/1/self', array(
+      'shop_action' => 'target',
+      'shop_item' => '2',
+    ), 'Send');
+    for($i = 1; $i < 3; $i++) {
+      $this->assertItemItemBoughtFor(2, $this->users[$i]->uid);
+    }
+
+    $this->pass('<h1>Test from Buddy view</h1>');
+
+    $this->pass('<h2>Buy</h2>');
+    $this->drupalPost('poker/shop/shop/1/buddy/'.$this->users[1]->uid, array(
+      'shop_action' => 'subtarget',
+      'shop_item' => '3',
+    ), 'Send');
+    $this->assertItemItemBoughtFor(3, $this->users[1]->uid);
+
+    $this->pass('<h2>Buy for Buddies</h2>');
+    $this->drupalPost('poker/shop/shop/1/buddy/'.$this->users[1]->uid, array(
+      'shop_action' => 'target',
+      'shop_item' => '4',
+    ), 'Send');
+    for($i = 1; $i < 3; $i++) {
+      $this->assertItemItemBoughtFor(4, $this->users[$i]->uid);
+    }
+
+    $this->pass('<h1>Test from Table view</h1>');
+
+    $this->pass('<h2>Buy</h2>');
+    $this->drupalPost('poker/shop/shop/1/table//'.$this->users[1]->uid, array(
+      'shop_action' => 'subtarget',
+      'shop_item' => '5',
+    ), 'Send');
+    $this->assertItemItemBoughtFor(5, $this->users[1]->uid);
+    $this->pass('<h2>Buy fo Table</h2>');
+    $this->drupalPost('poker/shop/shop/1/table/'.$table_id.'/'.$this->users[1]->uid, array(
+      'shop_action' => 'target',
+      'shop_item' => '6',
+    ), 'Send');
+    $this->assertItemItemBoughtFor(6, $this->users[1]->uid);
+    $this->assertItemItemBoughtFor(6, $this->users[3]->uid);
+
+    $this->pass('<h2>Buy for Table and Buddies</h2>');
+    $this->drupalPost('poker/shop/shop/1/table/'.$table_id.'/'.$this->users[1]->uid, array(
+      'shop_action' => 'special',
+      'shop_item' => '7',
+    ), 'Send');
+    for($i = 1; $i < 4; $i++) {
+      $this->assertItemItemBoughtFor(7, $this->users[$i]->uid);
+    }
   }
 
 	function removed_testFail()

@@ -121,7 +121,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
       $root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
       $this->drupalLogin($root);
-      $this->drupalPost('poker/first_profile', array(), t('Send'));
+      //$this->drupalPost('poker/first_profile', array(), t('Send'));
       $this->drupalPost('admin/build/block',
         array(
           'os_poker_8[region]' => 'middle_content_right',
@@ -163,6 +163,12 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
   function tearDown() {
     global $os_poker_db_query_override;
     $os_poker_db_query_override = "db_query";
+    if(isset($this->POKER_DB)) {
+      $previous_db = db_set_active($this->createPokerDatabase());
+      db_query("TRUNCATE TABLE pokertables");
+      db_query("TRUNCATE TABLE user2table");
+      db_set_active($previous_db);
+    }
     parent::tearDown();
   }
 
@@ -254,21 +260,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
   }
 
   function OsPokerCreateUserWithProfile($profile=array(), $permissions=array('access comments', 'access content', 'post comments', 'post comments without approval')) {
-    $drupal_user = $this->drupalCreateUser($permissions);
-    $drupal_user = user_save($drupal_user, array('name' => $drupal_user->mail));
-    $profile += array(
-      'profile_nickname' => $drupal_user->name,
-      'profile_gender'   => t('Male'),
-      'profile_country'  => 'FR',
-      'profile_city'     => $this->randomName(),
-      'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
-    );
-    $osp_user = CUserManager::instance(TRUE)->User($drupal_user->uid);
-    foreach($profile as $p => $v) {
-      $osp_user->{$p} = $v;
-    }
-    $osp_user->Save();
-    return $drupal_user;
+    return $this->drupalCreateUser($permissions, $profile);
   }
 
   function OsPokerSendInvites($invites) {
@@ -412,6 +404,26 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     return $ret;
   }
 
+  protected function drupalCreateUser($permissions = array('access comments', 'access content', 'post comments', 'post comments without approval'), $profile = array()) {
+    $user = parent::drupalCreateUser($permissions);
+    $this->pass_raw[$user->uid] = $user->pass_raw;
+
+    $profile += array(
+      'profile_nickname' => $user->name,
+      'profile_gender'   => t('Male'),
+      'profile_country'  => 'FR',
+      'profile_city'     => $this->randomName(),
+      'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    
+    $osp_user = CUserManager::instance()->User($user->uid);
+    foreach($profile as $p => $v) {
+      $osp_user->{$p} = $v;
+    }
+    $osp_user->Save();
+    return $user;
+  }
+
   /**
    * Overload drupal login function
    */
@@ -419,15 +431,13 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     if ($this->loggedInUser) {
       $this->drupalLogout();
     }
-
     $edit = array(
       'name' => $user->name,
-      'pass' => $user->pass_raw
+      'pass' => $user->pass_raw ? $user->pass_raw : $this->pass_raw[$user->uid],
     );
     $this->drupalPost('user', $edit, t('Log in'));
 
     // If a "log out" link appears on the page, it is almost certainly because
-    // the login was successful.
     $pass = $this->assertNoField('name', t('User %name successfully logged in.', array('%name' => $user->name)), t('User login'));
 
     if ($pass) {
@@ -456,19 +466,18 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
    *
    */
   function createPokerDatabase() {
-    static $POKER_DB;
-    if(!isset($POKER_DB)) {
-      $POKER_DB = "pythonpokernetworktest";
+    if(!isset($this->POKER_DB)) {
+      $this->POKER_DB = "pythonpokernetworktest";
       require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-      shell_exec("mysqladmin -f -u root drop $POKER_DB");
-      shell_exec("mysqladmin -u root create $POKER_DB");
-      shell_exec("mysql -u root $POKER_DB < /usr/share/poker-network/schema.sql");
+      shell_exec("mysqladmin -f -u root drop $this->POKER_DB");
+      shell_exec("mysqladmin -u root create $this->POKER_DB");
+      shell_exec("mysql -u root $this->POKER_DB < /usr/share/poker-network/schema.sql");
       global $db_url;
       if (is_string($db_url)) { $db_url = array('default' => $db_url); } // Thanks Bdragon
-      $db_url[$POKER_DB] = "mysql://root@localhost/$POKER_DB";
-      CPoker::ChangePokerDB($POKER_DB);
+      $db_url[$this->POKER_DB] = "mysql://root@localhost/$this->POKER_DB";
+      CPoker::ChangePokerDB($this->POKER_DB);
     }
-    return $POKER_DB;
+    return $this->POKER_DB;
   }
 
   /**
@@ -504,5 +513,9 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
     $users_at_table = CPoker::UsersAtTable($game_id);
     $this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+ }
+
+ function print_r($var) {
+   $this->pass('<pre>'. print_r($var, true) .'</pre>');
  }
 }
