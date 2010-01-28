@@ -2465,6 +2465,13 @@ padding-left:5px;
   padding: 15px;
 }
 
+#os-poker-overlay a.closebutton {
+  text-indent: -10000px;
+  background-color: transparent;
+  background-image: url(images/button_layerclose.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
 
 #poker-teaser .info {
   color: white;

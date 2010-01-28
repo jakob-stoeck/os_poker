@@ -2741,3 +2741,11 @@ body.page-poker #content-header .title-wrapper a.LayerClose
   background-position: top left;
   padding: 15px;
 }
+
+#os-poker-overlay a.closebutton {
+  text-indent: -10000px;
+  background-color: transparent;
+  background-image: url(images/button_layerclose3.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
