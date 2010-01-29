@@ -402,7 +402,18 @@ function os_poker_pass_reset(&$form_state, $uid, $timestamp, $hashed_pass, $acti
           // user_authenticate_finalize() also updates the login timestamp of the
           // user, which invalidates further use of the one-time login link.
           user_authenticate_finalize($form_state['values']);
-          drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
+          drupal_set_message(t('You have just used your one-time login link. It is no longer necessary to use this link to login. !settings-page.', array(
+            '!settings-page' => l('Please change your password' ,'poker/profile/settings', array(
+              'attributes' => array(
+                'onclick' => "(function(a){var url = a.href; tb_remove();setTimeout(function(){tb_show('',url, false)},201);})(this);return false;",
+              ),
+              'query' => array(
+                'height' => 442,
+                'width' => 603,
+                'TB_iframe' => 'true'
+              ),
+            )),
+          )));
 					//          drupal_goto('poker/profile/settings/'. $user->uid);
           drupal_goto('<front>');
         }
