@@ -256,7 +256,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       'profile_city'     => $this->randomName(),
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
-    $this->drupalPost('poker/first_profile', $profile, t('Send'));
+    $this->drupalPost('poker/profile/update', $profile, t('Send'));
   }
 
   function OsPokerCreateUserWithProfile($profile=array(), $permissions=array('access comments', 'access content', 'post comments', 'post comments without approval')) {
@@ -405,6 +405,9 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
   }
 
   protected function drupalCreateUser($permissions = array('access comments', 'access content', 'post comments', 'post comments without approval'), $profile = array()) {
+    if(!$permissions) {
+      $permissions = array('access comments', 'access content', 'post comments', 'post comments without approval');
+    }
     $user = parent::drupalCreateUser($permissions);
     $this->pass_raw[$user->uid] = $user->pass_raw;
 
@@ -419,6 +422,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $osp_user = CUserManager::instance()->User($user->uid);
     foreach($profile as $p => $v) {
       $osp_user->{$p} = $v;
+      $user->{$p} = $v;
     }
     $osp_user->Save();
     return $user;

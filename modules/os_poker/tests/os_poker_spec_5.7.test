@@ -142,7 +142,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    *
    */
 
-  function testMessageOnReward() {
+  function testMessageAndNotificationOnReward() {
     require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 
      $player = CUserManager::instance()->User($this->skel_user->uid);
@@ -195,7 +195,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    * - verify links are present
    */
 
-  function testMessageOnChallenge(){
+  function testMessageAndNotificationOnChallenge(){
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
 
@@ -203,8 +203,8 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		$this->drupalLogout($this->skel_user);
 
 		//Create a user to challenge
-		$target_user = $this->drupalCreateUser();
-		$this->OsPokerLogin($target_user, array('profile_nickname' => 'target_user'));
+		$target_user = $this->drupalCreateUser(NULL, array('profile_nickname' => 'target_user'));
+		$this->drupalLogin($target_user);
 
 
 		/*
@@ -227,7 +227,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		$this->drupalGet('poker/messagebox');
 
 		$this->assertText(
-				 t("You just receive a headsup challenge from skel_user"),
+				 t("You just receive a headsup challenge from !name", array('!name' => $this->skel_user->profile_name)),
 				 t('Challenge message received')
 			);
 
@@ -242,6 +242,18 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     );
 
 		$this->drupalLogout($target_user);
+    //Login as challenging user.
+    $this->drupalLogin($this->skel_user);
+    //Fetch pending ''live'' messages
+    $this->drupalGet('poker/messages/receive');
+    //Test for ingame notifcation.
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => t('You just challenged !user', array('!user' => 'target_user')),
+        'title' => t('Challenge'),
+      )
+    )), t('Ingame notification for challenge found.'));
   }
 
 
@@ -254,7 +266,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
    * - verify that user 1 spooler contains 1 message
    * - verify name and table name are correct
    */
-  function testMessageOnInvite(){
+  function testMessageAndNotificationOnInvite(){
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
 	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
@@ -263,8 +275,8 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		$this->drupalLogout($this->skel_user);
 
 		//Create a user to challenge
-		$target_user = $this->drupalCreateUser();
-		$this->OsPokerLogin($target_user, array('profile_nickname' => 'target_user'));
+		$target_user = $this->drupalCreateUser(NULL, array('profile_nickname' => 'target_user'));
+		$this->drupalLogin($target_user);
 
 		//setup and join a poker table
 		$oldDb = CPoker::ChangePokerDB($this->createPokerDatabase());
@@ -293,11 +305,24 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		$this->drupalGet('poker/messagebox');
 
 		$this->assertText(
-				 t("!user is playing at table !table come and join", array("!user" => "skel_user", "!table" => "TestTable")),
+				 t("!user is playing at table !table come and join", array("!user" => $this->skel_user->profile_name, "!table" => "TestTable")),
 				 t('Invitation message received')
 			);
 
-		$this->drupalLogout($target_user);
+    $this->drupalLogout($target_user);
+
+    //Login as inviting user.
+    $this->drupalLogin($this->skel_user);
+    //Fetch pending ''live'' messages
+    $this->drupalGet('poker/messages/receive');
+    //Test for ingame notifcation.
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => t('Invitation sent to !user', array('!user' => 'target_user')),
+        'title' => t('Invitation'),
+      )
+    )), t('Ingame notification for invitation found.'));
   }
 
 
