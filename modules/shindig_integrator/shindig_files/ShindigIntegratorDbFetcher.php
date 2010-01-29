@@ -63,9 +63,6 @@ class ShindigIntegratorDbFetcher {
 
   /**
    * @see drupal_alter
-   *
-   * @param <type> $type
-   * @param <type> $data
    */
   private function drupalAlter($type, &$data) {
     $dir = getcwd();
@@ -95,7 +92,8 @@ class ShindigIntegratorDbFetcher {
   private function drupalInvokeAll() {
     $dir = getcwd();
     chdir($this->drupal_dir);
-    $return = call_user_func_array('module_invoke_all', func_get_args());
+    $args = func_get_args();
+    $return = call_user_func_array('module_invoke_all', $args);
     chdir($dir);
     return $return;
   }
