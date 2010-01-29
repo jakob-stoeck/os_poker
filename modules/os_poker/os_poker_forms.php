@@ -35,6 +35,7 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
   $messages = drupal_get_messages('error', TRUE);
   $errors = $messages['error'] ? $messages['error'] : array();
   $replacements = array(
+    t('You must enter a username.') => FALSE,
     t('The name %name is already taken.', array('%name' => $form_state['values']["mail"])) => FALSE,
     t('The e-mail address %email is already registered. <a href="@password">Have you forgotten your password?</a>', array('%email' => $form_state['values']['mail'], '@password' => url('user/password')))
       => t('The e-mail address %email is already registered. !password', array('%email' => $form_state['values']['mail'], '!password' => l(

@@ -793,6 +793,12 @@ div.messages li
 	list-style-type:none;
 }
 
+div.messages li li {
+  list-style-position: inside;
+  list-style-type: circle;
+  text-indent: 0.5em;
+}
+
 div.poker_error_message
 {
 	background:transparent url(images/bg_no_result.gif) no-repeat scroll top left;
@@ -815,11 +821,8 @@ div.poker_error_message .msg a
 
 #middle-content-right #messages div.messages
 {
-	width:235px;
-	height:32px;
-	overflow-y:hidden;
-	right:20px;
-	position:absolute;
+  z-index: 1;
+  width: 300px;
 }
 
 .messages-popup
