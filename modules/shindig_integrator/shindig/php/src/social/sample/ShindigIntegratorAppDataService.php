@@ -1,5 +1,5 @@
 <?php
-// $Id: ShindigIntegratorAppDataService.php,v 1.1 2008/12/08 07:23:01 impetus Exp $
+// $Id: ShindigIntegratorAppDataService.php,v 1.1.4.2 2009/08/14 10:09:17 impetus Exp $
 /**
  * @file
  * OpenSocial AppData Service
@@ -26,6 +26,13 @@ class ShindigIntegratorAppDataService implements AppDataService {
 	*/
 	public function deletePersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
 	{
+	  if ($fields == null || $fields[0] == '*') {
+	  	$key = "*";
+        if (! ShindigIntegratorDbFetcher::get()->deleteAppData($userId, $key, $token->getAppId())) {
+						throw new SocialSpiException("Internal server error", ResponseError::$INTERNAL_ERROR);
+		}
+        return null;
+  	  }
 		foreach ($fields as $key) {
 			if (! ShindigIntegratorAppDataService::isValidKey($key)) {
 				throw new SocialSpiException("The person app data key had invalid characters", ResponseError::$BAD_REQUEST);
@@ -62,11 +69,11 @@ class ShindigIntegratorAppDataService implements AppDataService {
 	*/ 
 	public function getPersonData($userId, GroupId $groupId, $appId, $fields, SecurityToken $token)
 	{
+		if (! isset($fields[0])) {
+          $fields[0] = '@all';
+        }
 		$ids = ShindigIntegratorDbFetcher::get()->getIdSet($userId, $groupId, $token);
 		$data = ShindigIntegratorDbFetcher::get()->getAppData($ids, $fields, $appId);
-		if (!count($data)) {
-			throw new SocialSpiException("Data Not Found (app_id = ".print_r($appId, true).") (fields =".print_r($fields, true).")", ResponseError::$NOT_FOUND);
-		}
 		return new DataCollection($data);
 	}
     
