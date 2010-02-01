@@ -316,13 +316,21 @@ function os_poker_init()
 
 	if (user_is_logged_in())
 	{
+    global $user;
 		$cuser = CUserManager::instance()->CurrentUser();
 		$prof = $cuser->profile_nickname;
 
 		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
 		{
 		  drupal_goto("poker/first_profile");
+      //TODO: Remove drupal goto and user os_poker_set_overlay
+      //module_load_include('php', 'os_poker', 'os_poker_forms');
+      //os_poker_set_overlay(theme('os_poker_first_profile', drupal_get_form('os_poker_first_profile_form'), os_poker_random_user_list()));
 		}
+    else if (!$user->splash || isset($_GET['splash'])) {
+      user_save($user, array('splash' => TRUE));
+      os_poker_set_overlay(theme('welcome_splash', $cuser));
+    }
 	}
 
   if(os_poker_inline_messages()) {
@@ -558,6 +566,10 @@ function 	os_poker_theme()
     ),
     'poker_tutorial_link' => array(
       'arguments' => array(),
+    ),
+    'welcome_splash' => array(
+      'arguments' => array('player' => NULL),
+      'template' => 'welcome-splash',
     )
   );
 }
@@ -1319,6 +1331,40 @@ function os_poker_preprocess_user_picture(&$variables) {
       }
     }
   }
+}
+
+function os_poker_preprocess_welcome_splash(&$variables)  {
+  $player = $variables['player'];
+  $site_name = variable_get('site_name', 'Site Name');
+  $variables['title'] = t('Welcome to  !site-name', array('!site-name' => $site_name));
+  $variables['text'] = '<p><strong>'. t('To start we\'ve given you $ !amount chips.', array('!amount' => $player->Chips())) .'</strong></p>';
+  $variables['text'] .= '<p>'. t('The more friends you have playing !site-name, the more free chips you get every day !', array('!site-name' => $site_name)) .'</p>';
+  $variables['links_raw'] = array(
+    'lobby' => array(
+      'title' => 'Go to lobby',
+      'href' => '<front>',
+      'attributes' => array(
+        'class' => 'close',
+      )
+    ),
+    'help' => array(
+      'title' => 'Learn to play',
+      'href' => 'poker/help',
+      'attributes' => array(
+        'class' => 'thickbox close',
+      ),
+      'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
+    ),
+    'invite' => array(
+      'title' => 'Invite friends',
+      'href' => 'poker/buddies/invite',
+      'attributes' => array(
+        'class' => 'thickbox close',
+      ),
+      'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
+    ),
+  );
+  $variables['links'] = theme('links', $variables['links_raw']);
 }
 
 /**
