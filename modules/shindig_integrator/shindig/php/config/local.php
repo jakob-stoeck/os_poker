@@ -6,7 +6,7 @@
     class ShindigConfigException extends Exception {}
 
       $shindigConfig = array(
-      "gadget_server" => "http://drupal-404.pokersource.info/drupal6/sites/all/modules/shindig_integrator/shindig/php",
+      "gadget_server" => "http://drupal-demo.pokersource.info/drupal6/sites/all/modules/shindig_integrator/shindig/php",
       "web_prefix" => "/drupal6/sites/all/modules/shindig_integrator/shindig/php",
       "default_js_prefix" => "/drupal6/sites/all/modules/shindig_integrator/shindig/php/gadgets/js/",
       "default_iframe_prefix" => "sites/all/modules/shindig_integrator/shindig/php/gadgets/ifr?",
