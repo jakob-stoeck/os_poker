@@ -118,7 +118,10 @@
 				<?php if ($title || $tabs || $help): ?>
 					<div id="content-header">
 						<?php if ($title): ?>
+            <div class="title-wrapper">
 							<h1 class="title"><?php print $title; ?></h1>
+              <a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
+            </div>
 						<?php endif; ?>
 						<?php if ($tabs): ?>
 							<div class="tabs">

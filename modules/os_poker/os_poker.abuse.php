@@ -2,36 +2,30 @@
 function os_poker_report_abuse_form($form_state, $reported) {
   global $user;
   $form = array(
-    'heading' => array(
+    'text' => array(
       '#type' => 'markup',
-      '#value' => t('Report abuse by %username.', array('%username' => $reported->profile_nickname)),
+      '#value' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
     ),
     'reason' => array(
       '#type' => 'checkboxes',
       '#required' => true,
       '#multiple' => false,
-      '#title' => t('Reason'),
-      '#description' => t('Your reason for reporting %username as abusive.', array('%username' => $reported->profile_nickname)),
       '#options' => array(
-        'profile_picture' => t('Offending profile picture'),
+        'image' => t('Player image'),
+        'chat' => t('Player chat'),
+        'name' => t('Player name'),
+        'cheat' => t('Player cheats at poker'),
         'other' => t('Other'),
       ),
     ),
     'details' => array(
       '#type' => 'textarea',
       '#title' => 'Details',
-      '#description' => 'Provide details about the reported abuse.',
+      '#description' => 'Your message',
     ),
     'submit' => array(
       '#type' => 'submit',
-      '#value' => t('Report abuse'),
-    ),
-    'cancel' => array(
-      '#type' => 'submit',
-      '#value' => t('Cancel'),
-      '#attributes' => array(
-        'class' => 'tb_remove',
-      ),
+      '#value' => t('Send'),
     ),
     '#reporter' => $user,
     '#reported' => $reported,
