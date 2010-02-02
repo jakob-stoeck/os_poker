@@ -571,7 +571,10 @@ function 	os_poker_theme()
     'welcome_splash' => array(
       'arguments' => array('player' => NULL),
       'template' => 'welcome-splash',
-    )
+    ),
+    'os_poker_help' => array(
+      'template' => 'help.en',
+    ),
   );
 }
 
@@ -879,6 +882,12 @@ function os_poker_menu()
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_user_table_page',
       'page arguments' => array(1),
+    ),
+    'poker/help' => array(
+      'title' => 'Help',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_help_page',
+      'file' 			   => 'os_poker_pages.php',
     )
   );
 	return $menu;

@@ -283,10 +283,8 @@ function	os_poker_forgot_password_page()
 /*
 **
 */
-
-function	os_poker_help_page()
-{
-
+function	os_poker_help_page() {
+  drupal_set_title('');
 	return theme('os_poker_help');
 }
 
