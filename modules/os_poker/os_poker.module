@@ -329,7 +329,7 @@ function os_poker_init()
       }
       else if (!$user->splash || isset($_GET['splash'])) {
         user_save($user, array('splash' => TRUE));
-        os_poker_set_overlay(theme('welcome_splash', $cuser));
+        os_poker_set_overlay(theme('welcome_splash', $cuser), array('class' => 'welcome-splash'));
       }
     }
 	}
@@ -1631,7 +1631,7 @@ function theme_os_poker_overlay() {
       $overlay['attributes']['style'] .= ' height: ' . $overlay['height'] . ';';
     }
     if($overlay['attributes']['class']) {
-      $overlay['attributes']['class'] .= 'content';
+      $overlay['attributes']['class'] .= ' content';
     }
     else {
       $overlay['attributes']['class'] = 'content';
