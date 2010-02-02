@@ -1,5 +1,5 @@
 <div id="ContainerContentHelp">
-    <a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
+	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">
 			<li><a href="#">Poker Hands</a></li>
@@ -9,6 +9,53 @@
 			<li><a href="#">Guidelines</a></li>
 			<li><a href="#">Security Advice</a></li>
 		</ul>
+	</div>
+
+
+	<div id="help-pokerhands" class="helpbox">
+		<h4 class="helpbox-title">Poker Hands</h4>
+		<dl class="helpbox-list">
+    		<dt>Royal Flush
+		    	<img alt="" src="/img/1_royal_flush.gif" />
+			</dt>
+			<dd>A, K, Q, J, 10 all of the same suit.</dt>
+			<dt>Straight Flush
+				<img alt="" src="/img/2_straight_flush.gif" />
+			</dt>
+			<dd>Any five card sequence in the same suit (Ex: 4, 5, 6, 7, 8). </dd>
+    		<dt>4-Of-a-Kind
+				<img alt="" src="/img/3_4_of_a_kind.gif" />
+			</dt>
+			<dd>All four cards of the same index (Ex: Q, Q, Q, Q)</dd>
+			<dt>Full House
+				<img alt="" src="/img/4_full_house.gif" />
+			</dt>
+			<dd>Three of a kind combined with a pair (Ex: A, A, A, 4, 4, 4). In the event of a draw with a Full House, the three of kind index determines the winner. </dd>
+			<dt>Flush</dt>
+			    <img alt="" src="/img/5_flush.gif" />
+			</dt>
+			<dd>Any five cards of the same suit, but not in sequence. In the event of a draw, the index of the highest card counts. For example, if the first four cards have the same index, the fifth is counted as the highest card. If all five cards are the same, the pot is divided since all suits have the same value.</dd>
+			<dt>Straight
+			    <img alt="" src="/img/6_straight.gif" />
+			</dt>
+			<dd>Five cards in sequence, but not in the same suit. The Straight that ends in the highest card wins. If there is no difference in this regard, a draw is declared and the pot is divided. In a Straight, an ace counts as an ace or 1, thus resulting in the lowest possible Straight (A, 2, 3, 4, 5) and the highest possible Straight (10, J, Q, K, A). </dd>
+			<dt>3-Of-a-Kind
+			    <img alt="" src="/img/7_3_of_a_kind.gif" />
+			</dt>
+			<dd>Three cards of the same index. The highest Three of a Kind wins if two players have Three of a Kinds.</dd>
+			<dt>Two Pairs
+				<img alt="" src="/img/8_2_pair.gif" />
+			</dt>
+			<dd>Two separate pairs (e.g. A, A, 9, 9). In this case, the player with the highest pair wins if two or more players have Two Pairs. If the highest pairs are also the same, the second highest counts. If these are also the same, the fifth card counts (known as the kicker). </dd>
+			<dt>One Pair
+			    <img alt="" src="/img/9_one_pair.gif" />
+			</dt>
+		    <dd>Two cards of the same index. In this case, the player with the highest pair wins if two or more players have a One Pair. </dd>
+			<dt>High Card
+			    <img alt="" src="/img/10_high_card.gif" />
+			</dt>
+			<dd>The highest card wins if no player has Pair or a higher index card.</dd>
+		</dl>
 	</div>
 
 	<div id="help-rules" class="helpbox">
