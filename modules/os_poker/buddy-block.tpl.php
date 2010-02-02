@@ -49,8 +49,8 @@
 				}
 				else
 				{
-					$onclick = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "})";
-          print l(t('Invite now') .'&nbsp;&gt;&gt;', 'javascript:void(0);', array('html' => TRUE, 'absolute' => TRUE, 'attributes' => array('onclick' => $onclick)));
+					$onclick = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "}); return false";
+          print l(t('Invite now') .'&nbsp;&gt;&gt;', '', array('html' => TRUE, 'absolute' => TRUE, 'attributes' => array('onclick' => $onclick)));
 				}
 			?>
 			<br/>
