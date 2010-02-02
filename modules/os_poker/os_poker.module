@@ -320,16 +320,17 @@ function os_poker_init()
 		$cuser = CUserManager::instance()->CurrentUser();
 		$prof = $cuser->profile_nickname;
 
-		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
-		{
-		  drupal_goto("poker/first_profile");
-      //TODO: Remove drupal goto and user os_poker_set_overlay
-      //module_load_include('php', 'os_poker', 'os_poker_forms');
-      //os_poker_set_overlay(theme('os_poker_first_profile', drupal_get_form('os_poker_first_profile_form'), os_poker_random_user_list()));
-		}
-    else if (!$user->splash || isset($_GET['splash'])) {
-      user_save($user, array('splash' => TRUE));
-      os_poker_set_overlay(theme('welcome_splash', $cuser));
+    //Redirect to poker/first_profile or display the ''welcome'' overlay on all
+    //pages except poker/first_profile and logout
+		if (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")) {
+      if (empty($prof)) {
+        drupal_goto("poker/first_profile");
+        //TODO: Remove drupal goto and user os_poker_set_overlay
+      }
+      else if (!$user->splash || isset($_GET['splash'])) {
+        user_save($user, array('splash' => TRUE));
+        os_poker_set_overlay(theme('welcome_splash', $cuser));
+      }
     }
 	}
 
