@@ -1274,3 +1274,113 @@ body.page-poker #content-header .title-wrapper a.LayerClose
   margin-right: 10px;
   width: 300px;
 }
+
+
+/*
+ *  Helpbox
+ */
+
+.helpbox {
+	margin: 1em;
+	padding: 3em 1em 1em;
+	border: 1px dotted #810E0B;
+	overflow: auto;
+	position: relative;
+}
+
+.helpbox-title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 98%;
+	padding: 0.3em 1% !important;
+	height: auto !important;
+	color: #fff;
+}
+
+dl.helpbox-list {
+	overflow: auto;
+}
+
+dl.helpbox-list dt,
+dl.helpbox-list dd {
+	float: left;
+	height: 60px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	background: #fff;
+	width: 400px; /* FIXME : should this be static ? */
+}
+
+dl.helpbox-list dt {
+	clear: both;
+	font-weight: bold;
+	border-right: none;
+	width: 150px;
+}
+
+.helpbox h5 {
+	display: block;
+	font-size: 1em;
+}
+
+.helpbox ul,
+.helpbox ol.helpbox-list {
+	margin-left: 1.2em;
+	margin-bottom: 1em;
+}
+
+.helpbox ul.helpbox-list {
+	list-style: none;
+	margin-left: 0;
+}
+
+.helpbox p,
+.helpbox ul.helpbox-list li,
+.helpbox ol.helpbox-list li {
+	margin-bottom: 0.5em;
+}
+
+
+/*
+ *  Cards / Help
+ */
+
+.poker-hand {
+	display: block;
+	width: 150px;
+	height: 42px;
+	text-indent: -10000px;
+}
+
+.poker-hand.royal-flush {
+	background: url(images/cards/hands/royal_flush.gif) no-repeat;
+}
+.poker-hand.straight-flush {
+	background: url(images/cards/hands/straight_flush.gif) no-repeat;
+}
+.poker-hand.four-of-a-kind {
+	background: url(images/cards/hands/4_of_a_kind.gif) no-repeat;
+}
+.poker-hand.full-house {
+	background: url(images/cards/hands/full_house.gif) no-repeat;
+}
+.poker-hand.flush {
+	background: url(images/cards/hands/flush.gif) no-repeat;
+}
+.poker-hand.straight {
+	background: url(images/cards/hands/straight.gif) no-repeat;
+}
+.poker-hand.three-of-a-kind {
+	background: url(images/cards/hands/3_of_a_kind.gif) no-repeat;
+}
+.poker-hand.two-pairs {
+	background: url(images/cards/hands/2_pair.gif) no-repeat;
+}
+.poker-hand.one-pair {
+	background: url(images/cards/hands/one_pair.gif) no-repeat;
+}
+.poker-hand.high-card {
+	background: url(images/cards/hands/high_card.gif) no-repeat;
+}
