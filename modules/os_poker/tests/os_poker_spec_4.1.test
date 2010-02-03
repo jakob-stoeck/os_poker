@@ -197,6 +197,9 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 
 		$this->assertTrue($this->getAbsoluteUrl(''), $this->getUrl(), 'On the home page. ' . $this->getAbsoluteUrl('') . ' == ' . $this->getUrl() );
 
+    $this->assertText(t('Welcome to  !site-name', array('!site-name' => variable_get('site_name', 'Site Name'))), 'After a skiped signup profile form, the welcome page must be overlayed on top of the 1st page');
+    $this->drupalGet($this->getUrl());
+    $this->assertNoText(t('Welcome to  !site-name', array('!site-name' => variable_get('site_name', 'Site Name'))), 'The welcome page is not  overlayed on top of the 2nd page');
     /**
      * the user did not fill the form and therefore only has the minimum amount.
      */
@@ -214,21 +217,65 @@ class OSPokerSignUp extends OsPokerWebTestCase {
       t('If no picture for the profile is uploaded, an anonymous pic is assigned.'),
 			t('SpecPoker')
     );
-
   }
 
-  function testGenderSpecificDefaultImage(){
-		/* save new user profile defining sex without setting picture field */
-    $this->OsPokerSignUpUser();
-    $profile = array(
+  function testGenderSpecificDefaultImage() {
+
+    $user = $this->drupalCreateUser(array('access comments', 'access content', 'post comments', 'post comments without approval', 'administer users'), array(
       'profile_nickname' => $this->randomName(),
-      'profile_gender'   => t('Female'),
+    ));
+    $this->drupalLogin($user);
+
+    $edit = array(
+      'user_picture_default' => drupal_get_path('theme', 'poker') . '/images/picture-default.png',
+      'user_picture_default_female' => drupal_get_path('theme', 'poker') . '/images/picture_default_female.jpg',
+      'user_picture_default_male' => drupal_get_path('theme', 'poker') . '/images/picture_default_male.jpg',
     );
-    $this->drupalPost('poker/first_profile', $profile, t('Send'));
+    $this->drupalPost('admin/user/settings', $edit, 'Save configuration');
+
+
+    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+    $this->drupalGet("poker/profile");
+    $this->assertRaw(
+      t('picture-default'),
+      t('Profile must display the default <em>unknow</em> picture for users with no custom picture selected and no gender.'),
+			t('SpecPoker')
+    );
+
+        $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => 'Female',
+    );
+
+    $this->drupalPost('poker/profile/update', $profile, t('Send'));
 		$this->drupalGet("poker/profile");
     $this->assertRaw(
       t('picture_default_female'),
-      t('If there is a value for sex it is specific to it, if not it is a neutral one.'),
+      t('Profile must display the default <em>female</em> picture for <em>female</em> users with no custom picture selected.'),
+			t('SpecPoker')
+    );
+
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => 'Male',
+    );
+    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+		$this->drupalGet("poker/profile");
+    $this->assertRaw(
+      t('picture_default_male'),
+      t('Profile must display the default <em>male</em> picture for <em>male</em> users with no custom picture selected.'),
+			t('SpecPoker')
+    );
+
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => 'Don\'t Display',
+    );
+    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+		$this->drupalGet("poker/profile");
+    $this->assertRaw(
+      t('picture-default'),
+      t('Profile must display the default <em>no-gender</em> picture for users with no custom picture selected who have chosen to not display the gender.'),
 			t('SpecPoker')
     );
 	}
