@@ -15,44 +15,44 @@
 	<div id="help-pokerhands" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Poker Hands</h4>
 		<dl class="helpbox-list">
-    		<dt>Royal Flush
-			<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/1_royal_flush.gif" />
+			<dt>Royal Flush
+				<span class="poker-hand royal-flush" title="Royal Flush">A,K,Q,J,10</span>
 			</dt>
 			<dd>A, K, Q, J, 10 all of the same suit.</dt>
 			<dt>Straight Flush
-				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/2_straight_flush.gif" />
+				<span class="poker-hand straight-flush" title="Straight Flush">4,5,6,7,8</span>
 			</dt>
 			<dd>Any five card sequence in the same suit (Ex: 4, 5, 6, 7, 8). </dd>
     		<dt>4-Of-a-Kind
-				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/3_4_of_a_kind.gif" />
+				<span class="poker-hand four-of-a-kind" title="4 Of A Kind">Q,Q,Q,Q</span>
 			</dt>
 			<dd>All four cards of the same index (Ex: Q, Q, Q, Q)</dd>
 			<dt>Full House
-				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/4_full_house.gif" />
+				<span class="poker-hand full-house" title="Full House">A,A,A,4,4</span>
 			</dt>
-			<dd>Three of a kind combined with a pair (Ex: A, A, A, 4, 4, 4). In the event of a draw with a Full House, the three of kind index determines the winner. </dd>
+			<dd>Three of a kind combined with a pair (Ex: A, A, A, 4, 4). In the event of a draw with a Full House, the three of kind index determines the winner. </dd>
 			<dt>Flush
-			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/5_flush.gif" />
+				<span class="poker-hand flush" title="Flush">K,D,10,4,2</span>
 			</dt>
 			<dd>Any five cards of the same suit, but not in sequence. In the event of a draw, the index of the highest card counts. For example, if the first four cards have the same index, the fifth is counted as the highest card. If all five cards are the same, the pot is divided since all suits have the same value.</dd>
 			<dt>Straight
-			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/6_straight.gif" />
+				<span class="poker-hand straight" title="Straight">10,J,Q,K,A</span>
 			</dt>
 			<dd>Five cards in sequence, but not in the same suit. The Straight that ends in the highest card wins. If there is no difference in this regard, a draw is declared and the pot is divided. In a Straight, an ace counts as an ace or 1, thus resulting in the lowest possible Straight (A, 2, 3, 4, 5) and the highest possible Straight (10, J, Q, K, A). </dd>
 			<dt>3-Of-a-Kind
-			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/7_3_of_a_kind.gif" />
+				<span class="poker-hand three-of-a-kind" title="3 Of A Kind">K,K,K</span>
 			</dt>
 			<dd>Three cards of the same index. The highest Three of a Kind wins if two players have Three of a Kinds.</dd>
 			<dt>Two Pairs
-				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/8_2_pair.gif" />
+				<span class="poker-hand two-pairs" title="2 Pairs">A,A,9,9</span>
 			</dt>
 			<dd>Two separate pairs (e.g. A, A, 9, 9). In this case, the player with the highest pair wins if two or more players have Two Pairs. If the highest pairs are also the same, the second highest counts. If these are also the same, the fifth card counts (known as the kicker). </dd>
 			<dt>One Pair
-			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/9_one_pair.gif" />
+				<span class="poker-hand one-pair" title="1 Pair">A,A</span>
 			</dt>
 		    <dd>Two cards of the same index. In this case, the player with the highest pair wins if two or more players have a One Pair. </dd>
 			<dt>High Card
-			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/10_high_card.gif" />
+				<span class="poker-hand high-card" title="High Card">A</span>
 			</dt>
 			<dd>The highest card wins if no player has Pair or a higher index card.</dd>
 		</dl>
