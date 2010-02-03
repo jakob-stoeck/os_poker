@@ -242,6 +242,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			t('SpecPoker')
     );
 
+    /* Female */
     $profile = array(
       'profile_gender'   => 'Female',
     );
