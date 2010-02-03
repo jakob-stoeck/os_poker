@@ -2416,3 +2416,37 @@ padding-left: 5px;
  text-transform: uppercase;
  text-decoration: none !important;
 }
+/*
+ * Poker hands / Help
+ */
+
+.poker-hand.royal-flush {
+	background: url(images/cards/hands/royal_flush.gif) no-repeat;
+}
+.poker-hand.straight-flush {
+	background: url(images/cards/hands/straight_flush.gif) no-repeat;
+}
+.poker-hand.four-of-a-kind {
+	background: url(images/cards/hands/4_of_a_kind.gif) no-repeat;
+}
+.poker-hand.full-house {
+	background: url(images/cards/hands/full_house.gif) no-repeat;
+}
+.poker-hand.flush {
+	background: url(images/cards/hands/flush.gif) no-repeat;
+}
+.poker-hand.straight {
+	background: url(images/cards/hands/straight.gif) no-repeat;
+}
+.poker-hand.three-of-a-kind {
+	background: url(images/cards/hands/3_of_a_kind.gif) no-repeat;
+}
+.poker-hand.two-pairs {
+	background: url(images/cards/hands/2_pair.gif) no-repeat;
+}
+.poker-hand.one-pair {
+	background: url(images/cards/hands/one_pair.gif) no-repeat;
+}
+.poker-hand.high-card {
+	background: url(images/cards/hands/high_card.gif) no-repeat;
+}
