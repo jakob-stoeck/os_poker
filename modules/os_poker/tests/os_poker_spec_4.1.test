@@ -234,7 +234,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $this->drupalPost('admin/user/settings', $edit, 'Save configuration');
 
 
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
     $this->drupalGet("poker/profile");
     $this->assertRaw(
       t('picture-default'),
@@ -242,8 +241,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			t('SpecPoker')
     );
 
-        $profile = array(
-      'profile_nickname' => $this->randomName(),
+    $profile = array(
       'profile_gender'   => 'Female',
     );
 
@@ -256,7 +254,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     );
 
     $profile = array(
-      'profile_nickname' => $this->randomName(),
       'profile_gender'   => 'Male',
     );
     $this->drupalPost('poker/profile/update', $profile, t('Send'));
@@ -268,7 +265,6 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     );
 
     $profile = array(
-      'profile_nickname' => $this->randomName(),
       'profile_gender'   => 'Don\'t Display',
     );
     $this->drupalPost('poker/profile/update', $profile, t('Send'));
