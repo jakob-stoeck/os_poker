@@ -1345,6 +1345,7 @@ dl.helpbox-list dt {
 
 /*
  *  Cards / Help
+ *  this should actually be placed in a CSS file that comes with the os_poker module
  */
 
 .poker-hand {
