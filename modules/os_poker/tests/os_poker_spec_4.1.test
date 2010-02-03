@@ -226,6 +226,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     ));
     $this->drupalLogin($user);
 
+    /* Set default pictures */
     $edit = array(
       'user_picture_default' => drupal_get_path('theme', 'poker') . '/images/picture-default.png',
       'user_picture_default_female' => drupal_get_path('theme', 'poker') . '/images/picture_default_female.jpg',
