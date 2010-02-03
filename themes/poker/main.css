@@ -947,7 +947,7 @@ div.poker_error_message .msg a
 		padding-bottom: 10px !important;
 		padding-right: 10px !important;
 		padding-left: 208px !important;
-    background: transparent url("images/bg_confirm_black.png") top left no-repeat;
+    background: #dfdfdf url(images/messages-popup.png) top left no-repeat;
 }
 
 .messages-popup .content {
@@ -977,12 +977,12 @@ div.poker_error_message .msg a
     color: white;
     text-align: left;
 }
-
+/*
 #messages_popup_ajax
 {
     width: 501px;
     height: 256px;
-    background: transparent url("images/bg_confirm_black.png") top left no-repeat;
+    /*background: transparent url("images/bg_confirm_black.png") top left no-repeat;
     position: absolute;
     z-index: 4242;
     top:100px;
@@ -1029,6 +1029,19 @@ width:100%;
 z-index:1000;
 }
 
+#messages_popup_ajax div.messages
+{
+ border: none;
+ height: 100%;
+ width: 100%;
+ left: 0px;
+ top: 0px;
+ height: 225px;
+ width: 250px;
+ margin-left: 210px;
+ margin-top: 20px;
+}
+*/
 
 #messages_popup div.messages
 {
@@ -1044,19 +1057,6 @@ z-index:1000;
  margin-top: 20px;
 }
 
-#messages_popup_ajax div.messages
-{
- border: none;
- height: 100%;
- width: 100%;
- left: 0px;
- top: 0px;
-/* allow simple display for standard messages */
- height: 225px;
- width: 250px;
- margin-left: 210px;
- margin-top: 20px;
-}
 
 #TB_ajaxContent.messages-popup a.button {
   position: static;
@@ -1080,11 +1080,9 @@ z-index:1000;
 
 #TB_ajaxContent.messages-popup .content {
   text-align:center;
-  background-color: transparent;
-  background-image: url(images/dummy_gift_confirm_black.gif);
+  /*background-image: url(images/dummy_gift_confirm_black.gif);*/ /* FIXME add white arrow */
   background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: 210px 0;
+  /*background-position: 210px 0;*/
   color:#DCD8B5;
   font-size:16px;
   font-weight:bold;
