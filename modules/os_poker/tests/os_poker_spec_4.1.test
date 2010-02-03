@@ -234,6 +234,7 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     );
     $this->drupalPost('admin/user/settings', $edit, 'Save configuration');
 
+    /* No Gender */
     $this->drupalGet("poker/profile");
     $this->assertRaw(
       t('picture-default'),
