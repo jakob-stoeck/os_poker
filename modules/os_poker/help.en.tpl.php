@@ -13,53 +13,53 @@
 
 
 	<div id="help-pokerhands" class="helpbox">
-		<h4 class="helpbox-title">Poker Hands</h4>
+		<h4 class="helpbox-title block_title_bar">Poker Hands</h4>
 		<dl class="helpbox-list">
     		<dt>Royal Flush
-		    	<img alt="" src="/img/1_royal_flush.gif" />
+			<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/1_royal_flush.gif" />
 			</dt>
 			<dd>A, K, Q, J, 10 all of the same suit.</dt>
 			<dt>Straight Flush
-				<img alt="" src="/img/2_straight_flush.gif" />
+				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/2_straight_flush.gif" />
 			</dt>
 			<dd>Any five card sequence in the same suit (Ex: 4, 5, 6, 7, 8). </dd>
     		<dt>4-Of-a-Kind
-				<img alt="" src="/img/3_4_of_a_kind.gif" />
+				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/3_4_of_a_kind.gif" />
 			</dt>
 			<dd>All four cards of the same index (Ex: Q, Q, Q, Q)</dd>
 			<dt>Full House
-				<img alt="" src="/img/4_full_house.gif" />
+				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/4_full_house.gif" />
 			</dt>
 			<dd>Three of a kind combined with a pair (Ex: A, A, A, 4, 4, 4). In the event of a draw with a Full House, the three of kind index determines the winner. </dd>
-			<dt>Flush</dt>
-			    <img alt="" src="/img/5_flush.gif" />
+			<dt>Flush
+			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/5_flush.gif" />
 			</dt>
 			<dd>Any five cards of the same suit, but not in sequence. In the event of a draw, the index of the highest card counts. For example, if the first four cards have the same index, the fifth is counted as the highest card. If all five cards are the same, the pot is divided since all suits have the same value.</dd>
 			<dt>Straight
-			    <img alt="" src="/img/6_straight.gif" />
+			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/6_straight.gif" />
 			</dt>
 			<dd>Five cards in sequence, but not in the same suit. The Straight that ends in the highest card wins. If there is no difference in this regard, a draw is declared and the pot is divided. In a Straight, an ace counts as an ace or 1, thus resulting in the lowest possible Straight (A, 2, 3, 4, 5) and the highest possible Straight (10, J, Q, K, A). </dd>
 			<dt>3-Of-a-Kind
-			    <img alt="" src="/img/7_3_of_a_kind.gif" />
+			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/7_3_of_a_kind.gif" />
 			</dt>
 			<dd>Three cards of the same index. The highest Three of a Kind wins if two players have Three of a Kinds.</dd>
 			<dt>Two Pairs
-				<img alt="" src="/img/8_2_pair.gif" />
+				<img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/8_2_pair.gif" />
 			</dt>
 			<dd>Two separate pairs (e.g. A, A, 9, 9). In this case, the player with the highest pair wins if two or more players have Two Pairs. If the highest pairs are also the same, the second highest counts. If these are also the same, the fifth card counts (known as the kicker). </dd>
 			<dt>One Pair
-			    <img alt="" src="/img/9_one_pair.gif" />
+			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/9_one_pair.gif" />
 			</dt>
 		    <dd>Two cards of the same index. In this case, the player with the highest pair wins if two or more players have a One Pair. </dd>
 			<dt>High Card
-			    <img alt="" src="/img/10_high_card.gif" />
+			    <img alt="" src="<?php print drupal_get_path('theme', 'pbpoker'); ?>/images/hands/10_high_card.gif" />
 			</dt>
 			<dd>The highest card wins if no player has Pair or a higher index card.</dd>
 		</dl>
 	</div>
 
 	<div id="help-rules" class="helpbox">
-		<h4 class="helpbox-title">Hold'em Rules</h4>
+		<h4 class="helpbox-title block_title_bar">Hold'em Rules</h4>
 			<p>In Texas Hold’em poker, each player is initially dealt two cards face down (known as hole cards) and five community cards are placed face down in the middle of the table. Hole cards and community cards can be used in any combination with a view to obtaining the best possible five-card hand from the available seven cards. </p>
 			<p><em>Dealer button</em>: The dealer button is the position from which the cards are dealt. Each round of poker begins at the dealer button, which shifts one position to the left after each hand. </p>
 			<p><em>Small blind</em>: Refers to a small bet that the player immediately following the dealer is required to place at the beginning of the first round. </p>
@@ -79,7 +79,7 @@ The winner with the best five-card hand is now determined from among the remaini
 	</div>
 
 	<div id="help-tips" class="helpbox">
-		<h4 class="helpbox-title">Tips</h4>
+		<h4 class="helpbox-title block_title_bar">Tips</h4>
 		<ol class="helpbox-list">
 			<li><strong>Choose the hands you play wisely</strong><br />
 			Patience is the key to success in poker. Poker professionals only look at the flop in 20 to 30 percent of cases. You will (and should!) increase your chances of getting a good hand by waiting until you get one. </li>
@@ -101,7 +101,7 @@ The winner with the best five-card hand is now determined from among the remaini
 	</div>
 
 	<div id="help-getting-chips" class="helpbox">
-		<h4 class="helpbox-title">Getting Chips</h4>
+		<h4 class="helpbox-title block_title_bar">Getting Chips</h4>
 		<ul class="helpbox-list">
 			<li><strong>Daily Lottery</strong><br />
 			Your daily chance to win up to 1 Million chips!<br />
@@ -118,7 +118,7 @@ The winner with the best five-card hand is now determined from among the remaini
 	</div>
 
 	<div id="help-guidelines" class="helpbox">
-		<h4 class="helpbox-title">Guidelines</h4>
+		<h4 class="helpbox-title block_title_bar">Guidelines</h4>
 		<p>Fairness and mutual respect at the poker table are of supreme importance to us. We ask that you observe the following rules and regulations so as to ensure that all concerned derive maximum enjoyment from playing: </p>
 		<ul class="helpbox-list">
 			<li>Spamming is strictly prohibited, as is posting of affiliate codes and/or links from other Web sites. </li>
@@ -133,7 +133,7 @@ The winner with the best five-card hand is now determined from among the remaini
 	</div>
 
 	<div id="help-security" class="helpbox">
-		<h4 class="helpbox-title">Security Advice</h4>
+		<h4 class="helpbox-title block_title_bar">Security Advice</h4>
 		<h5>Don’t give Hackers, Spammers and Scammers a chance</h5>
 		<p>We will never ask you for sensitive information via e-mail or in game chat, like</p>
 		<ul>
