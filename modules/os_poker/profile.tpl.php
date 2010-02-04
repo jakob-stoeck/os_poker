@@ -58,9 +58,10 @@
 						<td class="Column03"><?php print t("Best Hand"); ?>:</td>
 						<td class="Column04">
 						<?php 
-							if (is_array($target_user->BestHand))
+							if ($target_user->BestHand != $target_user->DefaultValue('BestHand'))
 							{
-								foreach ($target_user->BestHand as $card)
+								$besthand = explode(' ', $target_user->BestHand);
+								foreach ($besthand as $card)
 								{
 									$head = $card[0];
 									$color = $card[1];
