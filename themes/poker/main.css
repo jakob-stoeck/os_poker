@@ -941,14 +941,13 @@ div.poker_error_message .msg a
 
 .messages-popup
 {
-    width: 278px !important;
-    height: 256px !important;
-		padding-top: 30px !important;
-		padding-bottom: 10px !important;
-		padding-right: 10px !important;
-		padding-left: 208px !important;
-    background: #dfdfdf url(images/messages-popup.png) top left no-repeat;
+    width: 305px !important;
+    height: 130px !important;
+	padding: 20px 10px 10px !important;
+    background: #dfdfdf url(images/messages-popup.jpg) top left no-repeat;
 	color: #6c6c6c;
+	-moz-box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
+	box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
 }
 
 .messages-popup .content {
@@ -974,8 +973,9 @@ div.poker_error_message .msg a
 .messages-popup  div.messages
 {
     background: none;
-		border: 0;
-    color: white;
+	border: 0;
+    color: #6c6c6c;
+	font-size: 12px;
     text-align: left;
 }
 /*
@@ -1084,13 +1084,13 @@ z-index:1000;
   background-repeat: no-repeat;
   /*background-position: 210px 0;*/
   /*color:#DCD8B5;*/
-  font-size:16px;
-  font-weight:bold;
+  /*font-size:16px;*/
+  /*font-weight:bold;*/
   line-height:20px;
-  padding-right: 53px;
-  margin-bottom: 10px;
+  /*padding-right: 53px;*/
+  /*margin-bottom: 10px;*/
   overflow: auto;
-  height: 147px;
+  height: 80px; /* FIXME */
 }
 
 #TB_ajaxContent.messages-popup .content .messages {
@@ -1102,11 +1102,11 @@ z-index:1000;
 }
 
 .messages.error .header {
-color:#DCD8B5;
-font-size:16px;
-font-weight:bold;
+	color: darkred;
+	font-size: 16px;
+	font-weight: bold;
 /*padding:102px 0 0 256px;*/
-padding:82px 0 0 46px;
+/*padding:82px 0 0 46px;*/
 }
 
 /* Hide the messages header and button */
