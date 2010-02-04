@@ -211,12 +211,14 @@ function	_os_poker_process_message_unsafe()
 						$args["links"] = "<a class='noreplace' href='javascript:void(0);' onclick='javascript:parent.os_poker_start_challenge(" . $current_user->uid . ", " . $target_user->uid. ");'>" . t("Accept") . "</a>/<a href='javascript:void(0);' >" . t("Refuse") . "</a>";
 
 						CMessageSpool::instance()->SendMessage($target_user->uid, $args);
-						CMessageSpool::instance()->SendInstantMessage(array(
+            $notification = array(
               'text' => t("You just challenged !user", array(
                 "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
               )),
               'title' => t('Challenge'),
-            ));
+            );
+						CMessageSpool::instance()->SendInstantMessage($notification);
+            $resp["messages"][] = array("type" => "os_poker_notify", "body" => $notification);
 					}
 				}
 			break;
@@ -245,12 +247,14 @@ function	_os_poker_process_message_unsafe()
 
 							//TODO : Check $_GET["online"] to send mail
 							CMessageSpool::instance()->SendMessage($target_user->uid, $args);
-							CMessageSpool::instance()->SendInstantMessage(array(
-                'text' => t("Invitation sent to !user", array(
+              $notification = array(
+                'text' => t("You just invited !user to play", array(
                   "!user" => $target_user->profile_nickname ? $target_user->profile_nickname : variable_get('anonymous', t('Anonymous')),
                 )),
                 'title' => t('Invitation'),
-              ));
+              );
+							CMessageSpool::instance()->SendInstantMessage($notification);
+              $resp["messages"][] = array("type" => "os_poker_notify", "body" => $notification);
 						}
 					}
 				}

@@ -85,11 +85,14 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
    *
    */
   function testInviteUser() {
-    CUserManager::instance()->DebugForceCurrentUser($skel_user->uid);
+    CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
 
     require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
     require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
 	
+    $game_id = $this->createPokerTable($this->randomString());
+    $this->joinPokerTable($this->skel_user, $game_id);
+
     //Go to message box and check there is no message
     $this->drupalGet('poker/messagebox');
 	
@@ -102,6 +105,23 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
 
     //send a message to a user
     $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_invite_user', 'target' =>  $user->uid)));
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_notify',
+      'body' => array(
+        'text' => t("You just invited !user to play", array("!user" => $user->profile_nickname)),
+        'title' => t('Invitation'),
+      )
+    )), t('Confirmation message for invitation found.'));
+
+
+    $this->drupalGet('poker/messages/receive');
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => t("You just invited !user to play", array("!user" => $user->profile_nickname)),
+        'title' => t('Invitation'),
+      )
+    )), t('Ingame notification for invitation found.'));
 
     $this->OsPokerLogin($user);
 
@@ -137,15 +157,22 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
     $user = $this->OsPokerCreateUserWithProfile();
     $user = user_load($user->uid);
     $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_challenge_user', 'challengetarget' =>  $user->uid)));
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_notify',
+      'body' => array(
+        'text' => t("You just challenged !user", array("!user" => $user->profile_nickname)),
+        'title' => t('Challenge'),
+      )
+    )), t('Ingame notification for challenge request found.'));
 
     $this->drupalGet('poker/messages/receive');
-        $this->assertText(json_encode(array(
-        'type' => 'os_poker_imsg',
-        'body' => array(
-          'text' => t("You just challenged !user", array("!user" => $user->profile_nickname)),
-          'title' => t('Challenge'),
-        )
-      )), t('Ingame notification for challenge request found.'));
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_imsg',
+      'body' => array(
+        'text' => t("You just challenged !user", array("!user" => $user->profile_nickname)),
+        'title' => t('Challenge'),
+      )
+    )), t('Ingame notification for challenge request found.'));
 
     $this->drupalLogout();
     $this->drupalLogin($user);
