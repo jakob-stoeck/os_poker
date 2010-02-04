@@ -1578,7 +1578,13 @@ function os_poker_skin_css() {
     $class = os_poker_clean_css_identifier($item->name);
     $img_url = file_create_url($item->picture);
     print(".poker_gift_$class {background-image: url($img_url);}\n");
-  }  
+  }
+  module_load_include('php', 'os_poker', 'poker.class');
+  foreach(CPoker::GetRewards() as $key => $reward) {
+    $class = os_poker_clean_css_identifier($reward['name']);
+    $img_url = file_create_url($reward['picture']);
+    print(".poker_reward_$key {background-image: url($img_url);}\n");
+  }
 }
 
 /**
