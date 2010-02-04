@@ -143,7 +143,7 @@ The winner with the best five-card hand is now determined from among the remaini
 			<li>Don’t follow links to external sources regarding free chips.</li>
 			<li>You should always check the URL in the address bar of your browser when entering personal information</li>
 		</ul>
-		<h5>Keep your password secure</strong></h5>
+		<h5>Keep your password secure</h5>
 		<ul>
 			<li>Never share your password with anyone</li>
 			<li>Change your password at least every six months</li>
