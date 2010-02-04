@@ -970,7 +970,7 @@ div.poker_error_message .msg a
   cursor: pointer;
 }
 
-.messages-popup  div.messages
+.messages-popup div.messages
 {
     background: none;
 	border: 0;
@@ -1078,19 +1078,17 @@ z-index:1000;
   border: 0 !important;
 }
 
+/* confirmation dialogs */
+#TB_ajaxContent.messages-popup .content .pokerSubmit a {
+  color: #6c480c;
+  font-weight: bold;
+}
+
 #TB_ajaxContent.messages-popup .content {
-  text-align:center;
-  /*background-image: url(images/dummy_gift_confirm_black.gif);*/ /* FIXME add white arrow */
   background-repeat: no-repeat;
-  /*background-position: 210px 0;*/
-  /*color:#DCD8B5;*/
-  /*font-size:16px;*/
-  /*font-weight:bold;*/
-  line-height:20px;
-  /*padding-right: 53px;*/
-  /*margin-bottom: 10px;*/
+  line-height: 1.4em;
   overflow: auto;
-  height: 80px; /* FIXME */
+  height: auto;
 }
 
 #TB_ajaxContent.messages-popup .content .messages {
@@ -1105,8 +1103,6 @@ z-index:1000;
 	color: darkred;
 	font-size: 16px;
 	font-weight: bold;
-/*padding:102px 0 0 256px;*/
-/*padding:82px 0 0 46px;*/
 }
 
 /* Hide the messages header and button */
