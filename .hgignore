@@ -7,4 +7,8 @@ syntax: glob
 .settings
 nbproject
 modules/devel
+modules/shindig_integrator/js/container.js
+modules/shindig_integrator/shindig/config/container.js
+modules/shindig_integrator/shindig/php/config/local.php
+modules/shindig_integrator/shindig/php/src/common/Config.php
 #*#
