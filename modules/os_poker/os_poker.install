@@ -293,3 +293,17 @@ function os_poker_update_2() {
   $r[] = update_sql("UPDATE {profile_values} SET value = 'DE' WHERE fid = 10 AND value = 'Germany'", $sql);
   return $r;
 }
+
+function os_poker_update_3() {
+		// Add the 'is_read' column to poker_scheduler if not present
+		$schema = drupal_get_schema("poker_scheduler");
+		$spec = array(
+				'type' => 'int',
+				'size' => 'tiny',
+				'not null' => TRUE,
+				'default' => 0,	
+				);
+		db_add_field($result, "poker_scheduler", "is_read", $spec);
+		
+		return array();
+}
