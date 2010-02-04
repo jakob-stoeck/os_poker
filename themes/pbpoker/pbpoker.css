@@ -2306,7 +2306,6 @@ padding-left: 5px;
 {
 	height: 300px;
 	width: 600px;
-	background-color: black;
 }
 
 .messages-popup .close {
@@ -2317,7 +2316,6 @@ padding-left: 5px;
 	position: absolute;
 	top: 0;
 	right: 0;
-	background-color: transparent;
  background-image: url(images/button_layerclose.gif);
  background-repeat: no-repeat;
  background-position: center center;
@@ -2327,7 +2325,6 @@ padding-left: 5px;
 	background-color: transparent !important;
 	background-image: none !important;
 	border: 0 !important;
-	color: white;
 }
 
 /**

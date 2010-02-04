@@ -948,6 +948,7 @@ div.poker_error_message .msg a
 		padding-right: 10px !important;
 		padding-left: 208px !important;
     background: #dfdfdf url(images/messages-popup.png) top left no-repeat;
+	color: #6c6c6c;
 }
 
 .messages-popup .content {
@@ -1043,8 +1044,7 @@ z-index:1000;
 }
 */
 
-#messages_popup div.messages
-{
+#messages_popup div.messages {
  border: none;
  height: 100%;
  width: 100%;
@@ -1083,7 +1083,7 @@ z-index:1000;
   /*background-image: url(images/dummy_gift_confirm_black.gif);*/ /* FIXME add white arrow */
   background-repeat: no-repeat;
   /*background-position: 210px 0;*/
-  color:#DCD8B5;
+  /*color:#DCD8B5;*/
   font-size:16px;
   font-weight:bold;
   line-height:20px;
