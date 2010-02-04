@@ -94,7 +94,6 @@ function os_poker_form_alter(&$form, $form_state, $form_id) {
 /**
 * Implementation of hook_form_FORM_ID_alter().
 */
-
 function os_poker_form_user_login_block_alter(&$form, $form_state)
 {
 
@@ -106,6 +105,28 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										$form['#id'] . '\');" ' .
 										drupal_attributes($aAttr) .
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
+}
+
+/**
+* Implementation of hook_form_FORM_ID_alter().
+*/
+function os_poker_form_user_admin_settings_alter(&$form, $form_state) {
+    $form['pictures']['settings']['user_picture_default_male'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default <em>male</em> picture'),
+    '#default_value' => variable_get('user_picture_default_male', ''),
+    '#size' => 30,
+    '#maxlength' => 255,
+    '#description' => t('URL of picture to display for <em>male</em> users with no custom picture selected. Leave blank for none.'),
+  );
+      $form['pictures']['settings']['user_picture_default_female'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default <em>female</em> picture'),
+    '#default_value' => variable_get('user_picture_default_female', ''),
+    '#size' => 30,
+    '#maxlength' => 255,
+    '#description' => t('URL of picture to display for <em>female</em> users with no custom picture selected. Leave blank for none.'),
+  );
 }
 
 /**
@@ -1305,8 +1326,12 @@ function os_poker_preprocess_user_picture(&$variables) {
   if (variable_get('user_pictures', 0)) {
     $account = $variables['account'];
     $account_picture = $account->picture;
+    $gender = drupal_strtolower($account->profile_gender);
     if (!empty($account_picture) && file_exists($account_picture)) {
       $picture = $account->picture;
+    }
+    else if (variable_get('user_picture_default_'.$gender, '')) {
+      $picture =variable_get('user_picture_default_'.$gender, '');
     }
     else if (variable_get('user_picture_default', '')) {
       $picture = variable_get('user_picture_default', '');
