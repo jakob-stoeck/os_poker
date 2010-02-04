@@ -1345,6 +1345,10 @@ function os_poker_mail($key, &$message, $params) {
         $message['body'][] = t('He/she also provided the following details:', array(),$language);
         $message['body'][] = check_plain($message['params']['details']);
       }
+      $message['body'][] = t('Reporter: !reporter_profile', 
+				array('!reporter_profile' => url('poker/profile/profile/' . $reporter->uid, array('absolute' => true))));
+      $message['body'][] = t('Culprit: !reported_profile', 
+				array('!reported_profile' => url('poker/profile/profile/' . $reported->uid, array('absolute' => true))));
       break;
   }
 }

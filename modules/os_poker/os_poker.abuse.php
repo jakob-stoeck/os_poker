@@ -14,14 +14,13 @@ function os_poker_report_abuse_form($form_state, $reported) {
         'image' => t('Player image'),
         'chat' => t('Player chat'),
         'name' => t('Player name'),
-        'cheat' => t('Player cheats at poker'),
-        'other' => t('Other'),
+        'cheat' => t('Players poker play cheating'),
       ),
     ),
     'details' => array(
       '#type' => 'textarea',
-      '#title' => 'Details',
-      '#description' => 'Your message',
+      '#title' => 'Your Message',
+      '#description' => '',
     ),
     'submit' => array(
       '#type' => 'submit',
@@ -39,7 +38,7 @@ function os_poker_report_abuse_form_validate($form, &$form_state) {
 
 function os_poker_report_abuse_form_submit($form, &$form_state) {
   $op = isset($form_state['values']['op']) ? $form_state['values']['op'] : '';
-  if($op == t('Report abuse')) {
+  if($op == t('Send')) {
     $to = variable_get('os_poker_abuse_mail_to', 1);
     if(is_numeric($to)) {
       $to = user_load($to)->mail;
