@@ -249,12 +249,16 @@ function	os_poker_messagebox_page()
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 	
 	$mbox = CScheduler::instance()->GetTasks("inbox");
-	
+
 	if (isset($_GET["list"]) && $_GET["list"] == "messages" && !empty($_GET["ajax"]))
 	{
 		return theme('os_poker_message_list', $mbox);
 	}
 	
+	// Mark the messages as read - we consider all messages to be read once the user opens the messagebox
+	CScheduler::instance()->MarkTasksAsRead();
+	// Reset the unread message count in the navbar
+	drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.messageboxreset.js', 'module');
 	return theme('os_poker_messagebox', $mbox);
 }
 

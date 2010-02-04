@@ -58,7 +58,7 @@ function os_poker_poll_messages()
 			{
 				CScheduler::instance()->ReloadTasks();
 				CScheduler::instance()->Trigger("inbox");
-				$mbox = CScheduler::instance()->GetTasks("inbox");
+				$mbox = CScheduler::instance()->GetUnreadTasks("inbox");
 				$mboxsize = count($mbox);
 				$resp["messages"][] = array("type" => "os_poker_messagebox", "body" => array("inbox" => $mboxsize,
 																							 "picture" => drupal_get_path('module', 'os_poker') . "/images/mailbox.png"));
@@ -184,7 +184,7 @@ function	_os_poker_process_message_unsafe()
 
 			case "os_poker_load_messagebox":
 				CScheduler::instance()->Trigger("inbox");
-				$mbox = CScheduler::instance()->GetTasks("inbox");
+				$mbox = CScheduler::instance()->GetUnreadTasks("inbox");
 				$mboxsize = count($mbox);
 				if ($_GET["msgcount"] != $mboxsize)
 				{

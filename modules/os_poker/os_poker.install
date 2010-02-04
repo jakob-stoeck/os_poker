@@ -165,6 +165,12 @@ function os_poker_schema()
 																							'not null' => TRUE,
 																							'default' => 0,	
 																					),
+																		'is_read' => 	array(
+																							'type' => 'int',
+																							'size' => 'tiny',
+																							'not null' => TRUE,
+																							'default' => 0,	
+																					),
 																),
 													'primary key' => array('id_task'),
 													'indexes' =>	array(

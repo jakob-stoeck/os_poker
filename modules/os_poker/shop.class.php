@@ -372,8 +372,10 @@ class CShop
 					CScheduler::instance()->RegisterTask(new CItemExpiry(), $target->uid, 'live', $ttl, array("id_operation" => $operation_id));
 					++$operation_id;
 
-					$args["symbol"] = 'item';
-					$args["text"] = t("You just receive a gift from !user", array("!user", $user->profile_nickname));
+					$args["symbol"] = $item->picture;
+					$args["text"] = t("You just receive a !gift from !user", 
+														array("!gift" => substr($item->name, 0, 30), //XXX max length should be a constant
+																	"!user" => $user->profile_nickname));
 
 					if (_os_poker_user_accepts_gifts($user))
 					{
