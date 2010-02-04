@@ -69,7 +69,7 @@ class OSPokerSpecificationsRewards extends OsPokerWebTestCase {
     $this->skel_user = $this->drupalCreateUser();
     // Login the user, complete profile form
     $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
-
+    $this->createJPokerApplication();
   }
 
   /**
@@ -89,23 +89,12 @@ class OSPokerSpecificationsRewards extends OsPokerWebTestCase {
    *
    */
 
-  function createJPokerApplication() {
-    db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
-  }
-
-  function insertApplicationData($key, $value) {
-    $app_id = db_last_insert_id("{applications}", "id");
-    $this->assertEqual($app_id, db_last_insert_id("{applications}", "id)"));
-    db_query("INSERT INTO {application_settings} (application_id, user_id, name, value) VALUES(%d, %d, '%s', '%s')", $app_id, $this->skel_user->uid, $key, $value);
-  }
-
   function testRewardsFromAppData(){
 
     /**
      * Go to here.
      */
-    $this->createJPokerApplication();
-    $this->insertApplicationData('reward55', time());
+    $this->insertApplicationData($this->skel_user->uid, 'reward55', time());
     $this->drupalGet('poker/profile/rewards', array('query' => array('page' => '3')));
     $this->assertRaw('<div title="Player buys a gift for every player at the table, aggregate value more than 10.000 Chips" class="mask disabled">', 'reward54 should be inactive');
     $this->assertRaw('<div title="Player wins with a royal flush" class="mask ">', 'reward55 should be active' );
