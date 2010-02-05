@@ -187,22 +187,22 @@ class CPoker
 		}
 	}
 	
-	public static function	GiveReward($name, $player, $prewards)
-	{
-		if ($prewards[$name]["value"] == 0)
-		{
+	public static function	GiveReward($name, $player, $prewards) {
+		if ($prewards[$name]["value"] == 0) {
 			$player->{$name} = time();
 			$nChips = $player->Chips();
 			$player->chips = $nChips + $prewards[$name]["bonus"];
 			$player->Save();
 
 			$args["symbol"] = $prewards[$name]["picture"];
-			$args["text"] = t("You just won reward !name : !desc", array("!name" => $prewards[$name]["name"],
-																		  "!desc" => $prewards[$name]["desc"])); 
+			$args["text"] = t("You just won reward !name : !desc", array(
+        "!name" => $prewards[$name]["name"],
+				"!desc" => $prewards[$name]["desc"]
+      ));
 			
 			CMessageSpool::instance()->SendMessage($player->uid, $args);
       CMessageSpool::instance()->SendInstantMessage(array(
-        'text' => $args["text"],
+        'text' => '<div class="poker_reward_'.os_poker_clean_css_identifier($name).'">' . $args["text"] . '</div>',
         'title' => t('Reward'),
       ), $player->uid);
 		}

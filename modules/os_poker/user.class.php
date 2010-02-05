@@ -872,6 +872,8 @@ class CUserManager
 
 class CUpdateUserChipsCount extends CMessage {
 	public function Run($context_user, $arguments) {
+    //force reload of current user to ensure chips count is updated.
+    $context_user = CUserManager::instance()->User($context_user->uid, true);
     $msg = array(
       'type' => 'os_poker_update_chips',
       'body' => array(

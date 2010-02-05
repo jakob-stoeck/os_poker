@@ -51,6 +51,11 @@ OsPoker.eventHandlers = {
         $('#today_gift_invite').show();
       }, 60000);
     }
+  },
+  os_poker_notify: function(event, arg) {
+    if(typeof arg.text === 'string') {
+      OsPoker.dialog($('<div>' + arg.text +'</div>').appendTo(document.body));
+    }
   }
 };
 

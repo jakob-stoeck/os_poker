@@ -2395,3 +2395,55 @@ padding-left:5px;
 #TB_ajaxContent .tb-fix-margin {
   margin: -2px -15px -15px;
 }
+
+/**
+ * Welcome splash
+ */
+#os-poker-overlay .welcome-splash {
+  background-image: url(images/bg_welcome.jpg);
+  background-color: black;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 0;
+  border-color: transparent;
+  height: 366px;
+  width: 566px;
+}
+
+#welcome-splash h1 {
+  display: none;
+}
+
+#welcome-splash .text {
+  color:white;
+  font-size:larger;
+  margin-left:85px;
+  margin-top:113px;
+  width:335px;
+}
+
+#welcome-splash .text p {
+  margin-bottom: 1em;
+}
+
+#welcome-splash .text strong {
+  font-size:larger;
+}
+#welcome-splash ul.links {
+  margin-left:180px;
+  width:141px;
+}
+
+#welcome-splash ul.links a {
+  display: block;
+  width: 141px;
+  height: 28px;
+  padding-top: 7px;
+  background-image: url(images/button_welcome.gif);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none !important;
+}

@@ -94,7 +94,6 @@ function os_poker_form_alter(&$form, $form_state, $form_id) {
 /**
 * Implementation of hook_form_FORM_ID_alter().
 */
-
 function os_poker_form_user_login_block_alter(&$form, $form_state)
 {
 
@@ -106,6 +105,28 @@ function os_poker_form_user_login_block_alter(&$form, $form_state)
 										$form['#id'] . '\');" ' .
 										drupal_attributes($aAttr) .
 										" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Login") . "</div><div class='user_login_clear'></div></div>");
+}
+
+/**
+* Implementation of hook_form_FORM_ID_alter().
+*/
+function os_poker_form_user_admin_settings_alter(&$form, $form_state) {
+    $form['pictures']['settings']['user_picture_default_male'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default <em>male</em> picture'),
+    '#default_value' => variable_get('user_picture_default_male', ''),
+    '#size' => 30,
+    '#maxlength' => 255,
+    '#description' => t('URL of picture to display for <em>male</em> users with no custom picture selected. Leave blank for none.'),
+  );
+      $form['pictures']['settings']['user_picture_default_female'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Default <em>female</em> picture'),
+    '#default_value' => variable_get('user_picture_default_female', ''),
+    '#size' => 30,
+    '#maxlength' => 255,
+    '#description' => t('URL of picture to display for <em>female</em> users with no custom picture selected. Leave blank for none.'),
+  );
 }
 
 /**
@@ -316,13 +337,22 @@ function os_poker_init()
 
 	if (user_is_logged_in())
 	{
+    global $user;
 		$cuser = CUserManager::instance()->CurrentUser();
 		$prof = $cuser->profile_nickname;
 
-		if (empty($prof) && (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")))
-		{
-		  drupal_goto("poker/first_profile");
-		}
+    //Redirect to poker/first_profile or display the ''welcome'' overlay on all
+    //pages except poker/first_profile and logout
+		if (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")) {
+      if (empty($prof)) {
+        drupal_goto("poker/first_profile");
+        //TODO: Remove drupal goto and user os_poker_set_overlay
+      }
+      else if (!$user->splash || isset($_GET['splash'])) {
+        user_save($user, array('splash' => TRUE));
+        os_poker_set_overlay(theme('welcome_splash', $cuser), array('class' => 'welcome-splash'));
+      }
+    }
 	}
 
   if(os_poker_inline_messages()) {
@@ -558,7 +588,14 @@ function 	os_poker_theme()
     ),
     'poker_tutorial_link' => array(
       'arguments' => array(),
-    )
+    ),
+    'welcome_splash' => array(
+      'arguments' => array('player' => NULL),
+      'template' => 'welcome-splash',
+    ),
+    'os_poker_help' => array(
+      'template' => 'help.en',
+    ),
   );
 }
 
@@ -866,6 +903,12 @@ function os_poker_menu()
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_user_table_page',
       'page arguments' => array(1),
+    ),
+    'poker/help' => array(
+      'title' => 'Help',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_help_page',
+      'file' 			   => 'os_poker_pages.php',
     )
   );
 	return $menu;
@@ -1283,8 +1326,12 @@ function os_poker_preprocess_user_picture(&$variables) {
   if (variable_get('user_pictures', 0)) {
     $account = $variables['account'];
     $account_picture = $account->picture;
+    $gender = drupal_strtolower($account->profile_gender);
     if (!empty($account_picture) && file_exists($account_picture)) {
       $picture = $account->picture;
+    }
+    else if (variable_get('user_picture_default_'.$gender, '')) {
+      $picture =variable_get('user_picture_default_'.$gender, '');
     }
     else if (variable_get('user_picture_default', '')) {
       $picture = variable_get('user_picture_default', '');
@@ -1319,6 +1366,40 @@ function os_poker_preprocess_user_picture(&$variables) {
       }
     }
   }
+}
+
+function os_poker_preprocess_welcome_splash(&$variables)  {
+  $player = $variables['player'];
+  $site_name = variable_get('site_name', 'Site Name');
+  $variables['title'] = t('Welcome to  !site-name', array('!site-name' => $site_name));
+  $variables['text'] = '<p><strong>'. t('To start we\'ve given you $ !amount chips.', array('!amount' => $player->Chips())) .'</strong></p>';
+  $variables['text'] .= '<p>'. t('The more friends you have playing !site-name, the more free chips you get every day !', array('!site-name' => $site_name)) .'</p>';
+  $variables['links_raw'] = array(
+    'lobby' => array(
+      'title' => 'Go to lobby',
+      'href' => '<front>',
+      'attributes' => array(
+        'class' => 'close',
+      )
+    ),
+    'help' => array(
+      'title' => 'Learn to play',
+      'href' => 'poker/help',
+      'attributes' => array(
+        'class' => 'thickbox close',
+      ),
+      'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
+    ),
+    'invite' => array(
+      'title' => 'Invite friends',
+      'href' => 'poker/buddies/invite',
+      'attributes' => array(
+        'class' => 'thickbox close',
+      ),
+      'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
+    ),
+  );
+  $variables['links'] = theme('links', $variables['links_raw']);
 }
 
 /**
@@ -1497,7 +1578,13 @@ function os_poker_skin_css() {
     $class = os_poker_clean_css_identifier($item->name);
     $img_url = file_create_url($item->picture);
     print(".poker_gift_$class {background-image: url($img_url);}\n");
-  }  
+  }
+  module_load_include('php', 'os_poker', 'poker.class');
+  foreach(CPoker::GetRewards() as $key => $reward) {
+    $class = os_poker_clean_css_identifier($reward['name']);
+    $img_url = file_create_url($reward['picture']);
+    print(".poker_reward_$key {background-image: url($img_url);}\n");
+  }
 }
 
 /**
@@ -1588,7 +1675,7 @@ function theme_os_poker_overlay() {
       $overlay['attributes']['style'] .= ' height: ' . $overlay['height'] . ';';
     }
     if($overlay['attributes']['class']) {
-      $overlay['attributes']['class'] .= 'content';
+      $overlay['attributes']['class'] .= ' content';
     }
     else {
       $overlay['attributes']['class'] = 'content';

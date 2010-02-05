@@ -59,7 +59,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 					if ($buddies_entry->Online())
 					{
 						$text = t("Join table");
-						$url = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddies_entry->uid . ", online: true})";
+            $url = 'window.top.document.location.href =\'' . url('user/'. $buddies_entry->uid .'/table').'\'';
 					}
 					else
 					{

@@ -1,3 +1,5 @@
+var OsPoker = OsPoker || {};
+
 /**
  * Drop call of tb_init('a.thickbox, area.thickbox, input.thickbox') on page load
  * in any nested (i)frame. Yes this is an ugly hack. But its needed since
@@ -69,31 +71,40 @@ Drupal.behaviors.os_poker = function(context) {
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
     if ($messages.length) {
-      var id = 'messages-popup-' + call_counter;
-      //create an hidden container for the thickbox
-      var $popup = $messages.eq(0).after(Drupal.theme('os_poker_popup', id)).next().hide();
-      //move the message into its .content
-      $popup.find('.content').append($messages).end();
-      //register tb_remove as handler for its .close link
-      $popup.find('.close').click(tb_remove).end();
-      //Reveal the popup (delayed with setTimeout so that any pending javascript is executed before)
-      setTimeout(function(){
-        tb_show('', '#TB_inline?height=' + $popup.outerHeight() + '&width=' + $popup.outerWidth() + '&inlineId=' + id + '&modal=true', false);
-        //Copy the classes from the container to the TB_ajaxContent wrapper
-        $("#TB_ajaxContent").addClass($popup.attr('class'));
-      }, 0);
+      OsPoker.dialog($messages);
     }
   }
 };
 
-/**
- * Provides markup for the holding the content of the thickbox content for popup message. 
- */
+OsPoker.dialog = function(content) {
+  //A counter incremented for each call of this function
+  var call_counter = arguments.callee.call_counter ? arguments.callee.nextCpt++ : 0;
+  arguments.callee.call_counter = call_counter;
+
+  var $content = $(content);
+  var id = 'messages-popup-' + call_counter;
+  //create an hidden container for the thickbox
+  var $popup = $content.eq(0).after(Drupal.theme('os_poker_popup', id)).next().hide();
+  //move the message into its .content
+  $popup.find('.content').append($content).end();
+  //register tb_remove as handler for its .close link
+  $popup.find('.close').click(tb_remove).end();
+  //Reveal the popup (delayed with setTimeout so that any pending javascript is executed before)
+  setTimeout(function(){
+    tb_show('', '#TB_inline?height=' + $popup.outerHeight() + '&width=' + $popup.outerWidth() + '&inlineId=' + id + '&modal=true', false);
+    //Copy the classes from the container to the TB_ajaxContent wrapper
+    $("#TB_ajaxContent").addClass($popup.attr('class'));
+  }, 0);
+}
 
 Drupal.theme.os_poker_link = function() {
   return Drupal.settings.basePath + '?q=' + Array.prototype.join.apply(arguments, ['/']);
 };
 
+/**
+ * Provides markup for the container holding the content of the thickbox for
+ * popup message. 
+ */
 Drupal.theme.os_poker_popup = function(id) {
   return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div></div>';
 };
