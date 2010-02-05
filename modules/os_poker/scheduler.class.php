@@ -406,8 +406,9 @@ class CScheduler
 			$tasks = $this->GetTasks($trigger);
 			$unread_tasks = array();
 			foreach ($tasks as $task) {
-					if ($task->is_read == 0)
+					if ($task->is_read == 0) {
 							$unread_tasks[] = $task;
+					}
 			}
 
 			return $unread_tasks;
@@ -415,8 +416,9 @@ class CScheduler
 
 	public function MarkTasksAsRead() {
 			$sql = "UPDATE `{poker_scheduler}` SET `is_read` = 1 WHERE `uid` = %d AND (`moment` <= NOW() OR `visible` = 1)";
-			if (!db_query($sql, $this->_user->uid))
+			if (!db_query($sql, $this->_user->uid)) {
 					throw new Exception(t('Failed to mark tasks as read'));
+			}
 	}
 
 	private	function	ClearNewTask()

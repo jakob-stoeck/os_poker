@@ -1,0 +1,123 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+
+/**
+ * Spec: 5.16: Report Abuse
+ *
+ * Verify the Report Abuse feature.
+ *
+ * @assert: The medium profile page of a user provides a report abuse button.
+ * @assert: The full profile page of a user provides a report abuse button.
+ * @assert: Clicking the report abuse button opens a thickbox with a form.
+ * @assert: The form offers a list of predefined reason for reporting
+ * @assert: The form offers optional free text space
+ * @assert: The report will be sent by mail to defined address
+ * @assert: The report will be recorded in a data base
+ * @assert: Username and/or id of the reporting user should be added
+ *          automatically
+ *          .
+ */
+class OSPokerShopTestCase extends OsPokerWebTestCase {
+
+  protected $skel_user;
+
+  public static function getInfo() {
+    return array(
+      'name'        => '6.7 Shop',
+      'description' => 'Shop interface',
+      'group'       => 'OS Poker Specifications',
+    );
+  }
+
+  function setUp() {
+    parent::setUp();
+    $this->users[0] = $this->OsPokerCreateUserWithProfile();
+    $this->users[1] = $this->OsPokerCreateUserWithProfile();
+
+    $this->drupalLogin($this->users[0]);
+  }
+
+  function tearDown() {
+    parent::tearDown();
+  }
+
+
+  /**
+   * Send gift
+   *  - send a gift from user 0 to user 1
+   *  - verify the entries are created correctly in the poker_scheduler table
+   */
+  function testSendGift() {
+			// clear the poker_scheduler table
+			$sql = "DELETE from {poker_scheduler}";
+			db_query($sql);
+
+			$category = array('id_category' => 1,
+												'name' => 'Test Category',
+					);
+
+			$item = array('id_category' => 1,
+										'id_item' => 1,
+										'name' => 'Water',
+										'picture' => 'sites/default/files/poker_items/wasser.gif',
+										'price' => 4,
+										'available' => 1,
+										'ttl' => '+5 minutes',
+					);
+			$this->OsPokerSetupShop(array($category), array($item));
+		
+			$path = "poker/shop/shop/1/buddy/" . $this->users[1]->uid;
+			$this->drupalGet($path);
+			$body = $this->drupalGetContent();
+			//$this->pass($body, "Body");
+			$this->assertTrue(preg_match('#os_poker_setup_shop_item_select\(\$\(this\), ([0-9]+), ([0-9]+)\);.*?<img.*?src=["\']([^"\']+)[\'"].*?alt=["\']([^"\']+)[\'"]#s',
+																	 $body, $m), "Gift shop displays gifts");
+	
+			$this->assertEqual($m[1], $item['price'], "Display gift price");
+			$this->assertEqual($m[2], $item['id_item'], "Display gift id");
+			$this->assertEqual($m[3], $item['picture'], "Display gift image");
+			$this->assertEqual($m[4], $item['name'], "Display gift name");
+
+			$edit = array('shop_action' => 'subtarget',
+										'shop_item' => $item['id_item'],
+										'shop_item_activate' => 1,
+					);
+			$submit = 'Send';
+			$this->drupalPost($path, $edit, $submit);
+			$body = $this->drupalGetContent();
+			//$this->pass('<pre>' . $body . '</pre>', "Form submit");
+			
+			// Verify the message has been sent to the inbox
+			$user_tasks = CScheduler::instance()->GetUserTasks($this->users[1]->uid);
+			$tasks = array_values($user_tasks['inbox']);
+			$this->assertEqual(count($tasks), 1, "One message added to database");
+
+
+			$args = json_decode($tasks[0]->arguments);
+			$this->pass($args->body->symbol, 'Symbol in DB');
+			$this->pass($args->body->text, 'Text in DB');
+
+			$this->assertEqual($args->body->symbol, $item['picture'], "Message has proper gift picture");
+			$this->assertEqual($args->body->text, "You just receive a " . $item['name'] . " from " . $this->users[0]->profile_nickname, 
+												 "Message has proper gift picture");
+	}
+}

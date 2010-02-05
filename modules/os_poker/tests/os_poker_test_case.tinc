@@ -298,6 +298,26 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     }
   }
 
+	function OsPokerSetupShop($categories, $items) {
+			foreach ($categories as $category) {
+					$sql = "INSERT INTO {poker_category} VALUES (%d, '%s')";
+					$this->assertTrue(db_query($sql, $category['id_category'], $category['name']), "Setting up category: " . $cateogry['name']);
+			}
+
+			foreach ($items as $item) {
+					$sql = "INSERT INTO {poker_item} VALUES (%d, %d, '%s', '%s', %d, %d, '%s')";
+					$this->assertTrue(db_query($sql, 
+																		 $item['id_item'],
+																		 $item['id_category'],
+																		 $item['picture'],
+																		 $item['name'], // name
+																		 $item['price'], // Price
+																		 $item['available'],
+																		 $item['ttl']
+																), "Setting up Item: " . $item['name']);
+			}
+	}
+
   function OsPokerCreateBuddyRelationShip($user1, $user2) {
     static $buddy_rtid;
     if(!isset($buddy_rtid)) {
@@ -317,7 +337,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     )), 'OS Poker');
 
   }
-
 
   /**
    * Assert that the most recently sent e-mail message is an invitation for a

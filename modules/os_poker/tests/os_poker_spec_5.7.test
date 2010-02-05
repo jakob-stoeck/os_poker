@@ -162,10 +162,10 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
       );
 
     $this->drupalGet('poker/messages/receive');
-    $this->assertText(json_encode(array(
+    $this->assertRaw(json_encode(array(
       'type' => 'os_poker_imsg',
       'body' => array(
-        'text' => 'You just won reward Newcomer : Player sits down at the table for the first time',
+        'text' => '<div class="poker_reward_reward1">You just won reward Newcomer : Player sits down at the table for the first time</div>',
         'title' => 'Reward',
       )
     )), t('Ingame notification for reward found.'));
@@ -319,7 +319,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     $this->assertText(json_encode(array(
       'type' => 'os_poker_imsg',
       'body' => array(
-        'text' => t('Invitation sent to !user', array('!user' => 'target_user')),
+        'text' => t('You just invited !user to play', array('!user' => 'target_user')),
         'title' => t('Invitation'),
       )
     )), t('Ingame notification for invitation found.'));

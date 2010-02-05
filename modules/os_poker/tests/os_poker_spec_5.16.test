@@ -43,7 +43,7 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
   public static function getInfo() {
     return array(
       'name'        => '5.16 Report Abuse',
-      'description' => 'Report azbuse test',
+      'description' => 'Report abuse test',
       'group'       => 'OS Poker Specifications',
     );
   }
@@ -109,10 +109,29 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
   }
 
   /**
-   * Check that:
+   * Check that the report abuse form is valid:
    *  - The form offers a list of predefined reason for reporting
    *  - The form offers optional free text space
-   *  - The report will be sent by mail to defined address
+   */
+  function testReportAbuseForm() {
+			$this->drupalGet('poker/report_abuse/' . $this->users[1]->uid);
+			$this->assertRaw(t('Player image'), t('Predefined reasons - player image'));
+			$this->assertFieldByName('reason[image]',	'', t('Predefined reasons - player image checkbox.'));
+
+			$this->assertRaw(t('Player chat'), t('Predefined reasons - player chat'));
+			$this->assertFieldByName('reason[chat]',	'', t('Predefined reasons - player chat checkbox.'));
+
+			$this->assertRaw(t('Player name'), t('Predefined reasons - player name'));
+			$this->assertFieldByName('reason[name]',	'', t('Predefined reasons - player name checkbox.'));
+
+			$this->assertRaw(t('Players poker play cheating'), t('Predefined reasons - player cheating'));
+			$this->assertFieldByName('reason[cheat]',	'', t('Predefined reasons - player cheating checkbox.'));
+
+			$this->assertRaw(t('Your Message'), t('Optional message'));
+			$this->assertFieldByName('details',	'', t('Predefined reasons - optional message.'));
+  }
+
+	/*  - The report will be sent by mail to defined address
    *  - The report will be recorded in a data base
    *  - Username and/or id of the reporting user should be added automatically .
    *
@@ -128,8 +147,62 @@ class OSPokerReportAbuseTestCase extends OsPokerWebTestCase {
    *    - Dont fill the free text with a random string
    *  - Check for sent mails for abuse report
    *  - Check DB for abuse report
-   */
-  function testSubmit() {
-    //TODO
-  }
+	 */
+	function testReportAbuseFormSubmit() {
+			// No option selected
+			$fields = array('reason[image]' => false,
+											'reason[chat]' => false,
+											'reason[name]' => false,
+											'reason[cheat]' => false,
+											'details' => 'xyz',
+					);
+											
+			$this->drupalPost('poker/report_abuse/' . $this->users[1]->uid, 
+												$fields, 
+												"Send");
+			$this->assertRaw(t("field is required."));
+			$emails = $this->drupalGetMails();
+			$this->assertEqual(count($emails), 0, 'No mail sent no options checked');
+
+			$fields = array('reason[image]' => false,
+											'reason[chat]' => true,
+											'reason[name]' => false,
+											'reason[cheat]' => false,
+											'details' => 'testing chat abuse report',
+					);
+											
+			$this->drupalPost('poker/report_abuse/' . $this->users[1]->uid, 
+												$fields, 
+												"Send");
+			$this->assertRaw(t("Your message has been sent"));
+
+			// address to which email should be sent
+			$to = variable_get('os_poker_abuse_mail_to', 1);
+			if(is_numeric($to)) {
+					$to = user_load($to)->mail;
+			}
+
+			$emails = $this->drupalGetMails();
+			$this->assertEqual(count($emails), 1, 'One mail sent for reason chat.');
+			$params = $emails[0]['params'];
+			$this->assertMail('to', $to, t("To address correct"));
+			$this->assertEqual($params['details'], t("testing chat abuse report"), t("Email params: details"));
+			$this->assertEqual($params['reporter']->uid, $this->users[0]->uid, t("Email params: reporter uid is correct"));
+			$this->assertEqual($params['reported']->uid, $this->users[1]->uid, t("Email params: reported uid is correct"));
+
+			$body = $emails[0]['body'];
+			$this->pass('<pre>' .$body . '</pre>', 'Email body');
+
+			$re = '#Reporter\:.*http\://[^/]+/.*?poker/profile/profile/' . $this->users[0]->uid . '#s';
+			$this->pass($re, 'Regex 1');
+			$this->assertTrue(preg_match($re,
+																	 $body),
+												t("Email body: Reporter profile included"));
+			$re = '#Culprit\:.*http\://[^/]+/.*?poker/profile/profile/' . $this->users[1]->uid . '#s';
+			$this->pass($re, 'Regex 2');
+			$this->assertTrue(preg_match($re,
+																	 $body),
+												t("Email body: Culprit profile included"));
+	}
+
 }
