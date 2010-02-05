@@ -41,12 +41,15 @@ function	os_poker_init_menu()
 		$(this).attr("class", "thickbox");
 	});
 
+  //Add thickboxing to links to poker/help
+  $('a[href*=poker/help]:not(.thickbox)').addClass('thickbox');
+
 	//Messagebox item
 	os_poker_init_messagebox();
 	
 	//Logout click
 	//Call os_poker_message_shutdown() to avoid session remanence
-	var logout = $("#block-menu-menu-end-links .last a");
+	var logout = $("a[href*=poker/logout]:not(.logout-processed)").addClass('logout-processed');
 
 	logout.bind("click",  function(event) {
 		os_poker_message_shutdown();
