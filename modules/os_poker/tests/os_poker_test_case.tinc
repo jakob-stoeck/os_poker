@@ -541,6 +541,15 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
  }
 
+  function createJPokerApplication() {
+    db_query("INSERT INTO {applications} (url, title) VALUES('http://dummyurl', 'jpoker')");
+  }
+
+  function insertApplicationData($uid, $key, $value) {
+    $app_id = os_poker_get_poker_app_id();
+    db_query("INSERT INTO {application_settings} (application_id, user_id, name, value) VALUES(%d, %d, '%s', '%s')", $app_id, $uid, $key, $value);
+  }
+
  function print_r($var) {
    $this->pass('<pre>'. print_r($var, true) .'</pre>');
  }

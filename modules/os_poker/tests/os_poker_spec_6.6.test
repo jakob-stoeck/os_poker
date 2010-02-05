@@ -37,6 +37,7 @@ class OSPokerProfileTestCase extends OsPokerWebTestCase {
     $this->user = $this->drupalCreateUser();
     $this->OsPokerLogin($this->user, array('profile_nickname' => $this->randomString()));
     $this->userManager = CUserManager::instance();
+    $this->createJPokerApplication();
   }
 
   function tearDown() {
@@ -73,4 +74,13 @@ class OSPokerProfileTestCase extends OsPokerWebTestCase {
       $this->assertFieldByName($key, $value);
     }
   }
+
+	function testBestHand() {
+    $this->drupalGet('poker/profile');
+		$this->assertPattern('/Best\sHand:<\/td>\s+<td\sclass="Column04">\s+N\/A/');
+    $this->drupalGet('poker/profile');
+    $this->insertApplicationData($this->user->uid, 'BestHand', 'As Ac Ad Ks Ad');
+		$this->drupalGet('poker/profile');
+		$this->assertNoPattern('/Best\sHand:<\/td>\s+<td\sclass="Column04">\s+N\/A/');
+	}
 }
