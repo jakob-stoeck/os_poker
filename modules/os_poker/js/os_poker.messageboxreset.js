@@ -10,5 +10,3 @@ Drupal.behaviors.mesageboxResetBehavior = function() {
 	count.text('');
 	pix.hide();
 };
-
-
