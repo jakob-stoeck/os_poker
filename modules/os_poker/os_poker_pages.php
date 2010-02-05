@@ -289,6 +289,7 @@ function	os_poker_forgot_password_page()
 */
 function	os_poker_help_page() {
   drupal_set_title('');
+  jquery_ui_add('ui.tabs');
 	return theme('os_poker_help');
 }
 

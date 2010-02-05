@@ -2,12 +2,12 @@
 	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">
-			<li><a href="#">Poker Hands</a></li>
-			<li><a href="#">Hold'Em Rules</a></li>
-			<li><a href="#">Tips</a></li>
-			<li><a href="#">Getting Chips</a></li>
-			<li><a href="#">Guidelines</a></li>
-			<li><a href="#">Security Advice</a></li>
+			<li><a href="#help-pokerhands">Poker Hands</a></li>
+			<li><a href="#help-rules">Hold'Em Rules</a></li>
+			<li><a href="#help-tips">Tips</a></li>
+			<li><a href="#help-getting-chips">Getting Chips</a></li>
+			<li><a href="#help-guidelines">Guidelines</a></li>
+			<li><a href="#help-security">Security Advice</a></li>
 		</ul>
 	</div>
 

@@ -594,7 +594,7 @@ function 	os_poker_theme()
       'template' => 'welcome-splash',
     ),
     'os_poker_help' => array(
-      'template' => 'help.en',
+      'template' => 'help',
     ),
   );
 }
@@ -1400,6 +1400,12 @@ function os_poker_preprocess_welcome_splash(&$variables)  {
     ),
   );
   $variables['links'] = theme('links', $variables['links_raw']);
+}
+
+
+function os_poker_preprocess_os_poker_help(&$variables) {
+  global $language;
+  $variables['template_files'] = array('help.en', 'help.'.$language->language);
 }
 
 /**

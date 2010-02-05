@@ -74,6 +74,10 @@ Drupal.behaviors.os_poker = function(context) {
       OsPoker.dialog($messages);
     }
   }
+
+  if (typeof $.fn.tabs == 'function') {
+    $('#ContainerContentHelp .tabs').tabs();
+  }
 };
 
 OsPoker.dialog = function(content) {
