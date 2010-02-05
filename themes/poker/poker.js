@@ -1,14 +1,15 @@
 Drupal.theme.os_poker_popup = function(id) {
-  return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div>'+Drupal.theme('os_poker_button', Drupal.t('OK'), 'close')+'</div>';
+  return '<div id="'+id+'" class="messages-popup"><a class="close" href="#">close</a><div class="content"></div>'+Drupal.theme('os_poker_button', Drupal.t('close'), 'close')+'</div>';
 
 }
 
 Drupal.theme.os_poker_button = function(label, cls) {
-  var output = '<div class="poker_submit"';
+  var output = '<div class="poker_submit';
   if (typeof cls != 'undefined') {
+    output += ' ';
     output += cls;
   }
-  output += '>';
+  output += '">';
   output += '<div class="pre">&nbsp;</div>';
   output += '<div style="width: 60px; text-align: center;" class="label">';
   output += label;

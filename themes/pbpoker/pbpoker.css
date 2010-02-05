@@ -2308,7 +2308,7 @@ padding-left: 5px;
 	width: 600px;
 }
 
-.messages-popup .close {
+.messages-popup a.close {
 	text-indent: -10000px;
 	display: block;
 	width: 20px;
