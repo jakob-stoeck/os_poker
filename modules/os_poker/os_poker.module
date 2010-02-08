@@ -939,7 +939,7 @@ function os_poker_user_table_page($account) {
  * are lost.
  */
 function os_poker_closebox_page() {
-  $front = url('<front>');
+  $front = json_encode(url('<front>'));
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
