@@ -169,6 +169,22 @@ test("os_poker_init_messagebox", function() {
 	equals(count.text(), " 42 ", "Message count set");
 });
 
+test("os_poker_messagebox_reset", function() {
+	expect(2);
+		
+	os_poker_init_messagebox();
+	
+	$.ajax.options.success({messages: [{type: 'os_poker_messagebox', body: {inbox:42, picture:"sites/all/modules/os_poker/images/mailbox.png"}}]});
+	
+	Drupal.behaviors.mesageboxResetBehavior();
+
+	var pix = $("#mbox_pix");										
+	var count = $("#mbox_count");	
+	
+	equals(pix.is(':hidden'), true, "Picture hidden");
+	equals(count.text(), "", "Message count reset");
+});
+
 module("os_poker.toolkit", {
 	setup: function() {
 	

@@ -941,13 +941,13 @@ div.poker_error_message .msg a
 
 .messages-popup
 {
-    width: 305px !important;
-    height: 130px !important;
-	padding: 20px 10px 10px !important;
-    background: #dfdfdf url(images/messages-popup.jpg) top left no-repeat;
-	color: #6c6c6c;
-	-moz-box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
-	box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
+    width: 245px !important;
+    height: 89px !important;
+    padding: 50px 40px 10px !important;
+    background: #dfdfdf url(images/messages-popup.jpg) top left repeat-x;
+    color: #6c6c6c;
+    -moz-box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
+    box-shadow:1px 2px 3px rgba(5, 5, 5, 0.5);
 }
 
 .messages-popup .content {
@@ -955,7 +955,7 @@ div.poker_error_message .msg a
 	overflow: auto;
 }
 
-.messages-popup .close
+.messages-popup a.close
 {
 	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
 	display:block;
@@ -1089,6 +1089,7 @@ z-index:1000;
   line-height: 1.4em;
   overflow: auto;
   height: auto;
+  max-height: 71px;
 }
 
 #TB_ajaxContent.messages-popup .content .messages {

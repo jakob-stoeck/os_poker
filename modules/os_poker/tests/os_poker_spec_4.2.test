@@ -42,35 +42,40 @@ class OSPokerLogin extends OsPokerWebTestCase {
 	}
 
 	function testInvalidLogin(){
-
-		$options = array(
-		'name' => $this->randomName() . '@' . $this->randomName() . ".com",
-		'pass' => $this->randomName(),
+    $options = array(
+      'name' => $this->randomName() . '@' . $this->randomName() . ".com",
+      'pass' => $this->randomName(),
 		);
 		$this->drupalPost('', $options, t('Log in'));
 
 		/**
 		* Verify error message is present.
 		*/
-		$this->assertText(
-		t('Sorry, unrecognized username or password.'),
-		t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
-		t('SpecPoker')
+		$this->assertRaw(
+      t('<strong>Incorrect Email/Password Combination</strong><br/>Our passwords are case sensitive. Please check your CAPS lock key.<br/>You may also try clearing your browser\'s cache.'),
+      t('If the combination of email and password is incorrect, an error message is displayed on the index page.'),
+      t('SpecPoker')
 		);
 
 	}
 
 	function testRememberMeLogin(){
 
-		$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+		$root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'), array(
+      'profile_nickname' => NULL,
+      'profile_gender'   => NULL,
+      'profile_country'  => NULL,
+      'profile_city'     => NULL,
+      'files[picture_upload]' => NULL,
+    ));
 		$this->drupalLogin($root);
 		$this->drupalPost('poker/first_profile', array(), t('Send'));
 		
 		$params = array(
-		"remember_me_checkbox"	=> 1,
-		"remember_me_lifetime"	=> 2419200,
-		"remember_me_managed"	=> 1,
-		"remember_me_phantom_session"	=> 1,
+      "remember_me_checkbox"	=> 1,
+      "remember_me_lifetime"	=> 2419200,
+      "remember_me_managed"	=> 1,
+      "remember_me_phantom_session"	=> 1,
 		);
 		
 		$this->drupalPost('admin/settings/remember_me', $params, t('Save configuration'));
@@ -78,8 +83,8 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->drupalLogout($root);
 
 		$options = array(
-		'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
-		'pass' => $this->randomName(),
+      'mail' => $this->randomName() . '@' . $this->randomName() . ".com",
+      'pass' => $this->randomName(),
 		);
 		$this->OsPokerSignUpUser($options);
 		$this->OsPokerProfileSubmit();
@@ -87,40 +92,25 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		
 
 		$login = array(
-		'name' => $options['mail'],
-		'pass' => $options['pass'],
-		'remember_me' => 1,
+      'name' => $options['mail'],
+      'pass' => $options['pass'],
+      'remember_me' => 1,
 		);
 		$this->drupalPost('', $login, t('Log in'));
 
 		$headers = $this->drupalGetHeaders(TRUE);
 		
-		$this->assertTrue(
-		(isset($headers[0]) && isset($headers[0]['set-cookie'])),
-		t('Server send cookie information')
-		);
+		$this->assertTrue((isset($headers[0]) && isset($headers[0]['set-cookie'])), t('Server send cookie information'));
 		
 		$parts = explode(';', $headers[0]['set-cookie']);
 		
 		$this->assertTrue(TRUE, $parts[0]);
 
-		$this->assertTrue(
-		strpos(
-		$parts[0],
-		'=deleted'
-		),
-		t('Previous cookie has been deleted.')
-		);
+		$this->assertTrue(strpos($parts[0], '=deleted'), t('Previous cookie has been deleted.'));
 
 		$this->assertTrue(TRUE, $parts[1]);
 		
-		$this->assertTrue(
-		strpos(
-		$parts[1],
-		'expires='
-		),
-		t('Previous cookie has been expired.')
-		);
+		$this->assertTrue(strpos($parts[1], 'expires='), t('Previous cookie has been expired.'));
 
 		$this->assertTrue(TRUE, $parts[3]);
 		$restore_tz = date_default_timezone_get();
@@ -128,33 +118,23 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$this->assertTrue(TRUE, strtotime(substr($parts[3], 9)) - time()." / Wainting : " . date("r", time() + 2000000));
 		date_default_timezone_set($restore_tz);
 		
-		$this->assertTrue(
-		strpos(
-		$parts[3],
-		'expires='
-		),
-		t('New cookie expiration time sent.')
-		);
+		$this->assertTrue(strpos($parts[3], 'expires='), t('New cookie expiration time sent.'));
 		
-		
-		
-		$this->fail(
-		t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
-		t('SpecPoker')
-		);
+		/*$this->fail(
+      t('Checking the remember me box creates a cookie which remembers the user\'s settings'),
+      t('SpecPoker')
+		);*/
 
 	}
 
 	function testRedirectAfterSecondLoginProfileComplete() {
 
-		$userA = $this->drupalCreateUser();
-		
-		$this->OsPokerLogin($userA, array('profile_nickname' => 'userA'));
+		$userA = $this->drupalCreateUser(NULL, array('profile_nickname' => 'userA'));
+
+    $this->drupalLogin($userA);
 		
 		//Test an CDelayMessage has been created to redirect user on the next login
-		
 		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
-		
 		CScheduler::instance()->ReloadTasks();
 		$mbox = CScheduler::instance()->GetTasks("login");
 		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
