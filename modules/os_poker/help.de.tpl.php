@@ -127,8 +127,8 @@ Spiele an Tischen mit höheren Einsätzen um schneller “reich” zu werden abe
 			<li>Bleibt fair! Jeder Einsatz von Software oder Cheats um sich einen unfairen Vorteil gegenüber anderen Spielern zu verschaffen ist nicht gestattet.</li>
 			<li>Das Verkaufen oder der Versuch des Verkaufens von Chips an andere Spieler ist nicht gestattet. Ebenso ist das Kauf en von Chips von anderen Spielern nicht gestattet.</li>
 		</ul>
-		<p>[Firmenname] behält sich vor, jeglichen Inhalt, welcher gegen die oben genannten Regeln verstößt ohne Vorwarnung zu löschen. Verstöße gegen diese Regeln führen zu einer Verwarnung und in schweren Fällen zu sofortiger Deaktivierung des User-Accounts ohne Vorwarnung.</p>
-		<p>Wer einen Regelverstoß melden möchte sendet bitte eine E-Mail an den Support: [support@email.com].</p>
+		<p>Playboypoker.de behält sich vor, jeglichen Inhalt, welcher gegen die oben genannten Regeln verstößt ohne Vorwarnung zu löschen. Verstöße gegen diese Regeln führen zu einer Verwarnung und in schweren Fällen zu sofortiger Deaktivierung des User-Accounts ohne Vorwarnung.</p>
+		<p>Wer einen Regelverstoß melden möchte, kann hierfür die "Missbrauch melden" Funktion nutzen, die in jedem Spielerprofil zu finden ist. Klicke einfach auf den Namen oder das Profilbild des Spielers, den Du melden möchtest und dann auf den "Missbrauch melden" Button.</p>
 	</div>
 
 	<div id="help-security" class="helpbox">

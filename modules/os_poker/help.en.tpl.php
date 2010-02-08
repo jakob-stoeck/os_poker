@@ -128,8 +128,9 @@ The winner with the best five-card hand is now determined from among the remaini
 			<li>Fair play is an absolute must. Any use of software or cheats to gain an unfair advantage over other players is strictly prohibited.</li>
 			<li>Any sale or attempted sale of chips to other players, as well as any purchase of chips from other players, is prohibited. </li>
 		</ul>
-		<p>[Company name] reserves the right to delete any content that violates any of the aforementioned rules and regulations. Any such violation will result in a warning, and in a serious case to immediate deactivation of the relevant user account without prior warning. </p>
-		<p>If you wish to report a rule violation, kindly e-mail us at [support@email.com].</p>
+		<p>
+		Playboypoker.de reserves the right to delete any content that violates any of the aforementioned rules and regulations. Any such violation will result in a warning, and in a serious case to immediate deactivation of the relevant user account without prior warning.</p>
+		<p>For reporting a breach of the rules, please use the "Report abuse" function, which can be found in every player profile. Simply click on the name or profile image of the player you want to report. There you'll find the "Report abuse" button.</p>
 	</div>
 
 	<div id="help-security" class="helpbox">
