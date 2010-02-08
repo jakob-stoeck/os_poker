@@ -806,17 +806,11 @@ body.iframe #profile-medium a.LayerClose
 
 #table_users .list
 {
-	height:240px;
-	width:300px;
-	background:transparent url(images/bg_user_table.gif) repeat-x;
-	float:left;
-	overflow:hidden;
-}
-
-#table_users .userlist
-{
-	height:240px;
-	float:none;
+	height: 250px;
+	width: 300px;
+	background: url(images/bg_user_table.gif) repeat-x;
+	float: left;
+	overflow: hidden;
 }
 
 #table_users .userlist .user
