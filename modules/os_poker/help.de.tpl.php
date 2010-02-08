@@ -1,4 +1,4 @@
-<div id="ContainerContentHelp">
+<div id="ContainerContentHelp" class="tabs-window">
 	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">
