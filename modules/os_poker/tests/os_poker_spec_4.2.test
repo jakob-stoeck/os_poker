@@ -191,7 +191,6 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		
 		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
 		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
-		$this->print_r($args);
 		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE,
 											"If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends",
 											'SpecPoker');
