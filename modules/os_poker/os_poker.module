@@ -666,7 +666,7 @@ function os_poker_user($op, &$edit, &$account, $category = NULL)
         if($buddy->Online()) {
           CMessageSpool::instance()->SendInstantMessage(array(
             'text' => t("Your buddy !user is online.", array(
-              "!user" => $buddy->profile_nickname ? $buddy->profile_nickname : variable_get('anonymous', t('Anonymous')),
+              "!user" => $player->profile_nickname ? $player->profile_nickname : variable_get('anonymous', t('Anonymous')),
             )),
             'title' => t('Buddy Online'),
           ), $buddy->uid);
