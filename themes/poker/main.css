@@ -28,10 +28,18 @@ body.iframe a.LayerClose,
 	text-decoration:none;
 }
 
+.tabs-window {
+	background: #fff url(images/bg_buddies.gif) bottom left repeat-x;
+	height: 455px;
+	padding: 5px;
+	width: 622px;
+}
+
 /**
  * BUDDIES
  */
 
+/*
 #buddies-tabs
 {
 	background-color: transparent;
@@ -41,7 +49,7 @@ body.iframe a.LayerClose,
 	padding: 5px;
 	width: 622px;
 }
-
+*/
 /*
 ** Profile
 */
@@ -82,7 +90,7 @@ body.iframe a.LayerClose,
 {
 	color:black;
 }
-
+/*
 #profile-tabs
 {
 	background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
@@ -91,7 +99,7 @@ body.iframe a.LayerClose,
 	width:622px;
 	color:#727272;
 }
-
+*/
 #profile-tabs .block_title_bar
 {
 	padding-left:5px;
@@ -326,7 +334,7 @@ body.iframe a.LayerClose,
 /*
 ** Shop
 */
-
+/*
 #shop-tabs
 {
 	background:transparent url(images/bg_shop.gif) repeat-x;
@@ -334,15 +342,10 @@ body.iframe a.LayerClose,
 	padding:5px;
 	width:622px;
 }
-
+*/
 #shop-tabs .content
 {
 	padding:10px;
-}
-
-#shop
-{
-
 }
 
 #shop .left
@@ -1272,20 +1275,15 @@ body.page-poker #content-header .title-wrapper a.LayerClose
  */
 
 .helpbox {
-	margin: 1em;
-	padding: 3em 1em 1em;
+	padding: 10px; /* actually like the .content class*/
 	border: 1px dotted #810E0B;
 	overflow: auto;
 	position: relative;
+	height: 380px;
 }
 
 .helpbox-title {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 98%;
 	padding: 0.3em 1% !important;
-	height: auto !important;
 	color: #fff;
 }
 
@@ -1301,7 +1299,7 @@ dl.helpbox-list dd {
 	margin-bottom: 10px;
 	border: 1px solid #ccc;
 	background: #fff;
-	width: 400px; /* FIXME : should this be static ? */
+	width: 392px;
 }
 
 dl.helpbox-list dt {
@@ -1318,7 +1316,7 @@ dl.helpbox-list dt {
 
 .helpbox ul,
 .helpbox ol.helpbox-list {
-	margin-left: 1.2em;
+	margin-left: 2em;
 	margin-bottom: 1em;
 }
 
@@ -1332,7 +1330,6 @@ dl.helpbox-list dt {
 .helpbox ol.helpbox-list li {
 	margin-bottom: 0.5em;
 }
-
 
 /*
  *  Cards / Help

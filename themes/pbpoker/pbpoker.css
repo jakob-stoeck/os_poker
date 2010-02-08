@@ -64,6 +64,31 @@ tr.even a {
 }
 
 /*
+ * Resetting jquery tab CSS
+ */
+
+.ui-widget-content {
+	border: none;
+	background: none;
+	color: #6c6c6c;
+}
+
+.ui-widget-header,
+.ui-state-active, .ui-widget-content .ui-state-active {
+	background: none;
+	border: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+	background: none;
+	border: none;
+}
+
+.ui-tabs-nav li {
+	margin-right: 0;
+}
+
+/*
 ** Tabs
 */
 
@@ -72,7 +97,8 @@ ul.primary {
 	font-weight: bold;
 	height: 24px;
 	margin: 5px 7px 0;
-	padding: 0 0 0 11px;
+	/*padding: 0 0 0 11px;*/
+	overflow: auto; /* lazy clear */
 }
 
 ul.primary li a {
@@ -85,13 +111,13 @@ ul.primary li a {
 	height: 18px;
 	display: block;
 	float: left;
-	margin: 0 11px 0 0;
-	padding: 5px 12px 0;
+	/*margin: 0 11px 0 0;*/
+	padding: 5px 10px 0;
 }
 
-ul.primary li.active a {
-	color: #810E0B;
-	background: #FFFFFF none;
+ul.primary li.active a, li.ui-state-active a {
+	color: #810E0B !important;
+	background: #FFFFFF !important;
 }
 
 ul.primary li a:hover {
