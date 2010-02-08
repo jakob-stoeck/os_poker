@@ -923,7 +923,7 @@ function os_poker_table_players_page($table_id) {
 function os_poker_user_table_page($account) {
   $tables = CPoker::FindUserTable($account->uid);
   if($tables) {
-    drupal_goto('<front>', array('view' => 'table', 'game_id' => reset($tables)->serial));
+    drupal_goto('<front>', array('sit' => TRUE, 'view' => 'table', 'game_id' => reset($tables)->serial));
   }
   else {
     drupal_set_message(t('%player is not at a table.', array('%player' => $account->profile_nickname)), 'warning');
