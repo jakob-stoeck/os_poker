@@ -2369,7 +2369,7 @@ padding-left: 5px;
 /**
  * Welcome splash
  */
-#os-poker-overlay .content {
+#os-poker-overlay .welcome-splash {
  background-image: url(images/bg_welcome.jpg);
  padding: 0;
  height: 366px;
