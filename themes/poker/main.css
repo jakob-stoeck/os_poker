@@ -91,16 +91,6 @@ body.iframe a.LayerClose,
 {
 	color:black;
 }
-/*
-#profile-tabs
-{
-	background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
-	height:455px;
-	padding:5px;
-	width:622px;
-	color:#727272;
-}
-*/
 #profile-tabs .block_title_bar
 {
 	padding-left:5px;
@@ -335,28 +325,9 @@ body.iframe a.LayerClose,
 /*
 ** Shop
 */
-/*
-#shop-tabs
-{
-	background:transparent url(images/bg_shop.gif) repeat-x;
-	height:455px;
-	padding:5px;
-	width:622px;
-}
-*/
 #shop-tabs .content
 {
 	padding:10px;
-}
-
-#shop .left
-{
-	float:left;
-}
-
-#shop .right
-{
-	float:left;
 }
 
 #shop .header
@@ -377,39 +348,41 @@ body.iframe a.LayerClose,
 	background:transparent url(images/buddy_offline.png) no-repeat scroll left center;
 }
 
-#shop .header .left .shop_user
-{
-	background:transparent url(images/buddy_online.png) no-repeat scroll left center;
+#shop .header .left .shop_user {
+	background:url(images/buddy_online.png) no-repeat left center;
 }
 
-#shop .panel .left
-{
+#shop .panel .left {
 	width: 138px;
+	float: left;
 }
-#shop .panel .left .top img
-{
-	width: 110px;
+
+/* user picture */
+#shop .panel .left .picture {
+	width: 120px;
+	overflow: hidden;
 }
-#shop .panel .right
-{
+#shop .panel .right {
 	width: 460px;
+	float: left;
 }
 
-#shop .footer
-{
+#shop .footer {
 	clear:both;
-	padding-top: 10px;
+	height: 45px;
 }
 
-#shop .footer .right
-{
-	width: 510px;
+#shop .footer .left {
+	position: absolute;
+	left: 0;
+	margin-right: 185px;
+	bottom: 0;
 }
 
-#shop .footer .left
-{
-	width: 92px;
-  margin-top: -2em;
+#shop .footer .right {
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 /*
