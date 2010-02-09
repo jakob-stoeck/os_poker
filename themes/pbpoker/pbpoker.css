@@ -512,15 +512,15 @@ div.poker_submit div.label input {
 	font-weight: bold;
 }
 
-div.poker_submit: hover {
+div.poker_submit:hover {
   background: transparent url(images/button_right.gif) no-repeat scroll top right;
 }
 
-div.poker_submit: hover div.pre {
+div.poker_submit:hover div.pre {
   background: transparent url(images/button_left.gif) no-repeat;
 }
 
-div.poker_submit: hover div.label{
+div.poker_submit:hover div.label{
   background: transparent url(images/button_middle.gif) repeat-x;
 	text-decoration: underline;
 }
@@ -545,17 +545,17 @@ div.poker_submit.silver div.label
 	color: #313751;
 }
 
-div.poker_submit.silver: hover
+div.poker_submit.silver:hover
 {
   background: transparent url(images/silver_button_right.gif) no-repeat scroll top right;
 }
 
-div.poker_submit.silver: hover div.pre
+div.poker_submit.silver:hover div.pre
 {
   background: transparent url(images/silver_button_left.gif) no-repeat;
 }
 
-div.poker_submit.silver: hover div.label
+div.poker_submit.silver:hover div.label
 {
   background: transparent url(images/silver_button_middle.gif) repeat-x;
 	text-decoration: underline;
@@ -565,7 +565,7 @@ div.poker_submit.silver: hover div.label
 ** The big one
 */
 
-#shop div.poker_submit.disabled: hover div.label
+#shop div.poker_submit.disabled:hover div.label
 {
 	text-decoration: none;
 }
@@ -607,28 +607,28 @@ div.poker_submit.big.disabled div.pre
 }
 
 
-div.poker_submit.big: hover {
+div.poker_submit.big:hover {
   background: transparent url(images/bg_button_goldbig_right.gif) no-repeat scroll top right;
 }
 
-div.poker_submit.big: hover div.pre {
+div.poker_submit.big:hover div.pre {
   background: transparent url(images/bg_button_goldbig_left.gif) no-repeat;
 }
 
-div.poker_submit.big: hover div.label {
+div.poker_submit.big:hover div.label {
   background: transparent url(images/bg_button_goldbig_middle.gif) repeat-x;
 	text-decoration: underline;
 }
 
-div.poker_submit.big.disabled: hover {
+div.poker_submit.big.disabled:hover {
 	background: transparent url(images/bg_button_silverbig_right.gif) no-repeat scroll top right;
 }
 
-div.poker_submit.big.disabled: hover div.pre {
+div.poker_submit.big.disabled:hover div.pre {
   background: transparent url(images/bg_button_silverbig_left.gif) no-repeat;
 }
 
-div.poker_submit.big.disabled: hover div.label {
+div.poker_submit.big.disabled:hover div.label {
 	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
 }
 
@@ -898,7 +898,7 @@ div#buddylist .buddy_list_placeholder .body a
  font-weight: bold;
 }
 
-div#buddylist .next, div#buddylist .next: hover
+div#buddylist .next, div#buddylist .next:hover
 {
 	float: left;
 	background: transparent url(images/buddy_next.png) no-repeat top center;
@@ -910,7 +910,7 @@ div#buddylist .next, div#buddylist .next: hover
 	outline: 0 none;
 }
 
-div#buddylist .previous, div#buddylist .previous: hover
+div#buddylist .previous, div#buddylist .previous:hover
 {
 	float: left;
 	background: transparent url(images/buddy_prev.png) no-repeat top center;

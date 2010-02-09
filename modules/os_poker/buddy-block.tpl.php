@@ -41,8 +41,8 @@
 		      ?>
 
 			<?php
-			
-				if ($buddy->Online())
+
+				if ($buddy->Tables())
 				{
 					print l(t('Join table') .'&nbsp;&gt;&gt;', 'user/'. $buddy->uid .'/table', array('html' => TRUE));
 
