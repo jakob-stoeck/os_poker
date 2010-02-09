@@ -284,6 +284,7 @@ function	os_poker_gadget()
 */
 function os_poker_init()
 {
+  global $language;
   if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/^(simpletest\d+);/", $_SERVER['HTTP_USER_AGENT'], $matches)) {
     module_load_include('php', 'os_poker', 'poker.class');
     CPoker::ChangePokerDB('pythonpokernetworktest');
@@ -358,9 +359,12 @@ function os_poker_init()
   if(os_poker_inline_messages()) {
     drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
   }
-  drupal_add_js(array('os_poker' => array(
-    'user_picture_default' => variable_get('user_picture_default', ''),
-  )), 'setting');
+  drupal_add_js(array(
+    'os_poker' => array(
+      'user_picture_default' => variable_get('user_picture_default', ''),
+      'language' => $language,
+    ),
+  ), 'setting');
 }
 
 function os_poker_inline_messages(){

@@ -14,7 +14,11 @@ function	os_poker_site_root()
 	
 function	os_poker_goto_table(game_id)
 {
-	document.location = os_poker_site_root() + '?view=table&game_id=' + game_id;
+  var location = os_poker_site_root() + '?view=table&game_id=' + game_id;
+  if (typeof Drupal.settings.os_poker.language == 'object') {
+    location += '&q=' + Drupal.settings.os_poker.language.language;
+  }
+	document.location = location;
 }
 
 function	os_poker_goto_lobby()
