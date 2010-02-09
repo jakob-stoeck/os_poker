@@ -3,14 +3,14 @@
 	<div class="buddy_list_number <?php if ($buddy && $buddyNumber == 1) print "golden"; ?>">
 		<?php print $buddyNumber; ?>
 	</div>
-	
+
 	<?php if ($buddy) { ?>
 
 		<div class="buddy_list_name <?php if ($buddy->Online()) { print "online"; } ?>">
-			<?php 
+			<?php
 				$oBuddy->name = $buddy->profile_nickname;
 				$oBuddy->uid =  $buddy->uid;
-				
+
 				print theme('username', $buddy);
 			?>
 		</div>
@@ -31,12 +31,12 @@
 		      if ($buddy->Online())
 			{
 		      ?>
-			<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_challenge_user', challengetarget: <?php print $buddy->uid; ?>});"><?php print t("Challenge"); ?>&nbsp;&gt;&gt;</a><br/>
+			<a href="javascript:void(0);" onclick="javascript:os_poker_send_message({type :'os_poker_challenge_user', challengetarget: <?php print $buddy->uid; ?>});"><?php print t("Challenge"); ?> »</a><br/>
 		      <?php
 			}
 		      else
 			{
-			  print "<span class='nolink'>".t("Challenge")."&nbsp;&gt;&gt;</span><br/>";
+			  print "<span class='nolink'>".t("Challenge")." »</span><br/>";
 			}
 		      ?>
 
@@ -44,23 +44,23 @@
 
 				if ($buddy->Tables())
 				{
-					print l(t('Join table') .'&nbsp;&gt;&gt;', 'user/'. $buddy->uid .'/table', array('html' => TRUE));
+					print l(t('Join table') .' »', 'user/'. $buddy->uid .'/table', array('html' => TRUE));
 
 				}
 				else
 				{
 					$onclick = "os_poker_send_message({type :'os_poker_invite_user', target: " . $buddy->uid . "}); return false";
-          print l(t('Invite now') .'&nbsp;&gt;&gt;', '', array('html' => TRUE, 'absolute' => TRUE, 'attributes' => array('onclick' => $onclick)));
+          print l(t('Invite now') .' »', '', array('html' => TRUE, 'absolute' => TRUE, 'attributes' => array('onclick' => $onclick)));
 				}
 			?>
 			<br/>
 			<?php
 				if ($buddy->profile_accept_gifts == 0)
 				{
-					print l(t("Send Gifts") . "&nbsp;&gt;&gt;", "poker/shop/shop/1/buddy/" . $buddy->uid, array("query" => array("height" => 442,
+					print l(t("Send Gifts") . " »", "poker/shop/shop/1/buddy/" . $buddy->uid, array("query" => array("height" => 442,
 																																 "width" => 603,
 																																 "TB_iframe" => "true"),
-																												"attributes" => array("class" => "thickbox"),					
+																												"attributes" => array("class" => "thickbox"),
 																												"html" => TRUE));
 				}
 			?>
