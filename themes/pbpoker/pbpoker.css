@@ -1,7 +1,6 @@
 body {
 	margin: 0;
 	border: 0;
-	padding: 0 0 18px 0;
 	background: black url(images/bg.jpg) no-repeat fixed top center;
 	font-family: Arial, Verdana, sans-serif;
 	font-size: 11px;
@@ -219,7 +218,7 @@ body.iframe #main
 #footer
 {
 	background: transparent url(images/bg_footer.gif) no-repeat;
-	height: 88px;
+	height: 77px;
 	width: 760px;
 	text-align: right;
 	padding-top: 11px;
