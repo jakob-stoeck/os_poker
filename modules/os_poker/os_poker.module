@@ -224,7 +224,12 @@ function os_poker_preprocess_page(&$variables)
 		}
 	}
 
-	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " <a href=\"/drupal6/?q=node/6\" target=\"_blank\">" . t("Terms of Service and Privacy Policy.") . "</a></div>";
+	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
+    'attributes' => array(
+      'class' => 'thickbox',
+    ),
+    'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
+  )) . "</a></div>";
 
 	if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] && !empty($_GET['ajax']))
 	{
@@ -600,6 +605,9 @@ function 	os_poker_theme()
     'os_poker_help' => array(
       'template' => 'help',
     ),
+    'os_poker_tos' => array(
+      'template' => 'tos',
+    ),
   );
 }
 
@@ -912,6 +920,12 @@ function os_poker_menu()
       'title' => 'Help',
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_help_page',
+      'file' 			   => 'os_poker_pages.php',
+    ),
+    'poker/tos' => array(
+      'title' => 'Help',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_tos_page',
       'file' 			   => 'os_poker_pages.php',
     )
   );
@@ -1410,6 +1424,11 @@ function os_poker_preprocess_welcome_splash(&$variables)  {
 function os_poker_preprocess_os_poker_help(&$variables) {
   global $language;
   $variables['template_files'] = array('help.en', 'help.'.$language->language);
+}
+
+function os_poker_preprocess_os_poker_tos(&$variables) {
+  global $language;
+  $variables['template_files'] = array('tos.en', 'tos.'.$language->language);
 }
 
 /**
