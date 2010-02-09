@@ -101,8 +101,12 @@ OsPoker.dialog = function(content) {
   }, 0);
 }
 
-Drupal.theme.os_poker_link = function() {
-  return Drupal.settings.basePath + '?q=' + Array.prototype.join.apply(arguments, ['/']);
+Drupal.theme.os_poker_link = function() { 
+  var base = Drupal.settings.basePath + '?q=';
+  if (typeof Drupal.settings.os_poker.language == 'object') {
+    base += Drupal.settings.os_poker.language.language + '/';
+  }  
+  return base + Array.prototype.join.apply(arguments, ['/']);
 };
 
 /**

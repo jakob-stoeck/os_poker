@@ -657,7 +657,7 @@ function theme_add_gadget($app_id, $mod_id, $view, $owner_id) {
   module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/BasicBlobCrypter');
   module_load_include('php', 'shindig_integrator', '/shindig/php/src/common/sample/Crypto');
 
-  global $user;
+  global $user, $language;
   $viewer_id   = $user->uid;
   $output      = '';
   $rs_Apps     = db_query("SELECT * FROM {applications} WHERE id = %d", $app_id);
@@ -719,7 +719,7 @@ function theme_add_gadget($app_id, $mod_id, $view, $owner_id) {
     .'&mid='. base64_encode(check_plain($mod_id))
     .'&nocache=1'
     .'&country=US'
-    .'&lang=EN'
+    .'&lang='. drupal_strtoupper($language->language)
     .'&view='. check_plain($view)
     .'&parent='. urlencode('http://'. $_SERVER['HTTP_HOST'])
     . $prefs

@@ -129,9 +129,23 @@ class OSPokerLogin extends OsPokerWebTestCase {
 
 	function testRedirectAfterSecondLoginProfileComplete() {
 
-		$userA = $this->drupalCreateUser(NULL, array('profile_nickname' => 'userA'));
+		$userA = $this->drupalCreateUser(NULL, array('profile_nickname' => NULL));
 
     $this->drupalLogin($userA);
+
+    //Since the user was create with a NULL profile_nickname, we should have
+    //been redirected to first_profile
+    $this->assertText(
+      t('Create your Profile'),
+      t('After first login the profile page is shown to the user.')
+    );
+    //In order to get a complete profile, we need to set a nickname and a user
+    //pciture
+    $this->drupalPost('poker/first_profile', array(
+      'profile_nickname' => $this->randomString(),
+      'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png'
+    ), t('Send'));
+
 		
 		//Test an CDelayMessage has been created to redirect user on the next login
 		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
@@ -139,8 +153,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$mbox = CScheduler::instance()->GetTasks("login");
 		$this->assertTrue(count($mbox) > 0, "There is a task for login event");
 		CUserManager::instance()->DebugRestoreCurrentUser();
-		
-		$is_delay_msg = FALSE;
+
 		foreach ($mbox as $msg)
 		{
 			if ($msg->type == "CDelayMessage")
@@ -178,7 +191,6 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		
 		$this->assertTrue($is_message, "CDelayMessage has been converted to CMessage");
 		$this->assertTrue($args["type"] == 'os_poker_jump', "Message triggers client side 'os_poker_jump'");
-		
 		$this->assertTrue(strpos($args["body"]["url"], "poker/buddies/invite") !== FALSE,
 											"If profile is complete, the lobby page is called and a thickbox is opened with the possibility to invite more friends",
 											'SpecPoker');
@@ -189,11 +201,26 @@ class OSPokerLogin extends OsPokerWebTestCase {
 
 	function testRedirectAfterSecondLoginProfileIncomplete() {
 
-		$userA = $this->drupalCreateUser();
+		$userA = $this->drupalCreateUser(NULL, array(
+      'profile_nickname' => NULL,
+      'profile_gender'   => NULL,
+      'profile_country'  => NULL,
+      'profile_city'     => NULL,
+      'picture' => NULL,
+    ));
 		
 		$this->drupalLogin($userA);
-		$this->OsPokerProfileSkip();
-		
+
+    //Since the user was create with a NULL profile_nickname, we should have
+    //been redirected to first_profile
+    $this->assertText(
+      t('Create your Profile'),
+      t('After first login the profile page is shown to the user.')
+    );
+    //In order to get a complete profile, we need to set a nickname and a user
+    //pciture
+    $this->drupalPost('poker/first_profile', array(), t('Send'));
+
 		//Test an CDelayMessage has been created to redirect user on the next login
 		
 		CUserManager::instance()->DebugForceCurrentUser($userA->uid);
@@ -251,10 +278,15 @@ class OSPokerLogin extends OsPokerWebTestCase {
 	function testProfilePercentageAndChipsAtCompletion()
 	{
 
-		$userA = $this->drupalCreateUser();
+		$userA = $this->drupalCreateUser(NULL, array(
+      'profile_nickname' => NULL,
+      'profile_gender'   => NULL,
+      'profile_country'  => NULL,
+      'profile_city'     => NULL,
+      'picture' => NULL,
+    ));
 		
 		$this->drupalLogin($userA);
-		$this->OsPokerProfileSkip();
 		
 		//Test an CDelayMessage has been created to redirect user on the next login
 		
@@ -297,15 +329,10 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$edit['files[picture_upload]'] = drupal_get_path('module', 'os_poker').'/avatar1.png';
 		$edit['profile_dob[month]'] = 1;
     $edit['profile_dob[day]'] = 1;
-    $edit['profile_dob[year]'] = 1970;
+    $edit['profile_dob[year]'] = 1980;
 		$this->drupalPost('poker/profile/update', $edit, t('Send'));
-		$this->drupalGet('poker/profile/update');
 
-		/* create and set a nickname variable for further uniqueness check */
-		$nickcheck = "UNIQUENick";
-		$test_user->profile_nickname = $nickcheck;
-		$test_user->Save();
-		$test_user = CUserManager::instance()->User($userA->uid, TRUE);
+    $test_user = CUserManager::instance()->User($userA->uid, TRUE);
 
 		$this->assertTrue($test_user->GetProfileCompletePercent() == 100, 'with '.$fields_count.' : '.$test_user->GetProfileCompletePercent().'% =>after setting all fields, percentage of the profile is 100',
 								'SpecPoker');
@@ -321,13 +348,12 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		$userB = $this->drupalCreateUser();
 		
 		$this->drupalLogin($userB);
-		$this->OsPokerProfileSkip();
 
 		CUserManager::instance()->DebugForceCurrentUser($userB->uid);
 
 		/* try to update with an existing nickname and an image file with wrong extension */
 		$edit = array();
-		$edit['profile_nickname'] = $nickcheck;
+		$edit['profile_nickname'] = $test_user->profile_nickname;
 		$edit['files[picture_upload]'] = drupal_get_path('module', 'os_poker').'/avatar1.txt';
 		$this->drupalPost('poker/profile/update', $edit, t('Send'));
 

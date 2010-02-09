@@ -22,7 +22,11 @@ function	os_poker_brutal_logout()
 			
             error: function(XMLHttpRequest, textStatus, errorThrown)
 						{
-							document.location.href = os_poker_site_root();
+						  var location = os_poker_site_root();
+              if (typeof Drupal.settings.os_poker.language == 'object') {
+                location += '&q=' + Drupal.settings.os_poker.language.language;
+              }
+							document.location.href = location;
             }
 	});
 }
