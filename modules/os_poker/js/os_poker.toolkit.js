@@ -23,7 +23,11 @@ function	os_poker_goto_table(game_id)
 
 function	os_poker_goto_lobby()
 {
-	document.location = os_poker_site_root();
+  var location = os_poker_site_root();
+  if (typeof Drupal.settings.os_poker.language == 'object') {
+    location += '&q=' + Drupal.settings.os_poker.language.language;
+  }
+	document.location = location;
 }
 
 /*
@@ -197,7 +201,11 @@ function	os_poker_filter_online(elem, status)
 function	os_poker_start_challenge(player1, player2)
 {
 	$.get(os_poker_site_root(), {view: "table", challenge: player1 +","+player2}, function() {
-		document.location.href = os_poker_site_root() + "?&view=table&challenge=join";
+    var location = os_poker_site_root() + "?&view=table&challenge=join";
+    if (typeof Drupal.settings.os_poker.language == 'object') {
+      location += '&q=' + Drupal.settings.os_poker.language.language;
+    }
+		document.location.href = location;
 	});
 	
 }
@@ -222,7 +230,13 @@ function	os_poker_activate_item(elem)
 
 function	os_poker_show_medium_profile(user_id, game_id)
 {
-	var tUrl = os_poker_site_root() + "?q=poker/profile/medium/" + user_id;
+  var tUrl;
+  if (typeof Drupal.settings.os_poker.language == 'object') {
+  	tUrl = os_poker_site_root() + "?q=" + Drupal.settings.os_poker.language + "/poker/profile/medium/" + user_id;
+	}
+	else {
+	  tUrl = os_poker_site_root() + "?q=poker/profile/medium/" + user_id;
+	}
 	
 	if (typeof(game_id) != "undefined")
 	{
