@@ -56,7 +56,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 				
 				<?php
 
-					if ($buddies_entry->Online())
+					if ($buddies_entry->Tables())
 					{
 						$text = t("Join table");
             $url = 'window.top.document.location.href =\'' . url('user/'. $buddies_entry->uid .'/table').'\'';

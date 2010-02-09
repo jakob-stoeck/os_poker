@@ -296,6 +296,15 @@ function	os_poker_help_page() {
 /*
 **
 */
+function	os_poker_tos_page() {
+  drupal_set_title('');
+  jquery_ui_add('ui.tabs');
+	return theme('os_poker_tos');
+}
+
+/*
+**
+*/
 
 function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target_id = NULL, $subtarget_id = NULL)
 {
