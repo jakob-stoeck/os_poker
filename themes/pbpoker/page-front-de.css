@@ -4,7 +4,7 @@
   display: block;
   width: 411px;
   height: 55px;
-  background-image: url(images/teaser-title-en.gif);
+  background-image: url(images/teaser-title-de.gif);
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center center;
@@ -16,7 +16,7 @@
   display: block;
   width: 300px;
   height: 55px;
-  background-image: url(images/signup-title-en.gif);
+  background-image: url(images/signup-title-de.gif);
   background-color: transparent;
   background-repeat: no-repeat;
   background-position: center center;
@@ -25,4 +25,19 @@
 #poker-teaser .subtitle
 {
   display: none;
+}
+
+#page-front-banners #banner-signup
+{
+  background-image: url('images/front-banner-signup-de.gif');
+}
+
+#page-front-banners #banner-tournament
+{
+  background-image: url('images/front-banner-tournament-de.gif');
+}
+
+#page-front-banners #banner-join
+{
+  background-image: url('images/front-banner-join-de.gif');
 }

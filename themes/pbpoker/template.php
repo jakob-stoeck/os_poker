@@ -11,6 +11,10 @@ function pbpoker_theme() {
       'arguments' => array('text' => ""),
       'template' => 'os-poker-teaser',
     ),
+    'os_poker_home_signup' => array(
+      'arguments' => array('form' => NULL),
+      'template' => 'home_signup',
+    ),
     'page_front_banner' => array(
       'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
     ),
