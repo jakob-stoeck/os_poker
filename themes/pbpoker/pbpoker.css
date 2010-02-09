@@ -1454,6 +1454,12 @@ div#buddies-list .footer
 	padding-top: 5px;
 }
 
+/* should go with tabs-window config */
+#buddies-invited_list {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
 .BannerTop
 {
  height: 169px;
