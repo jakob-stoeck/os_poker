@@ -337,6 +337,11 @@ div#header div#logo
 ** Login Block
 */
 
+#user-login-form {
+	width: 305px; /* only used on front */
+	overflow: hidden;
+}
+
 div#user_login
 {
 	color: #FFFFFF;
@@ -345,7 +350,7 @@ div#user_login
 	text-decoration: none;
 	margin-top: 12px;
 	white-space: nowrap;
-	width: 305px;
+	width: 400px;
 }
 
 div#user_login .user_login_row
@@ -755,6 +760,7 @@ div#buddylist .header label
 	background: transparent url(images/bg_titlebar.gif) repeat-x top left;
 	height: 20px;
 	padding-top: 3px;
+	font-size: 12px;
 }
 
 .block_title_text

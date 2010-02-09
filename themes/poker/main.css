@@ -33,6 +33,7 @@ body.iframe a.LayerClose,
 	height: 455px;
 	padding: 5px;
 	width: 622px;
+	overflow: hidden !important;
 }
 
 /**
@@ -1283,7 +1284,7 @@ body.page-poker #content-header .title-wrapper a.LayerClose
 	padding: 10px; /* actually like the .content class*/
 	overflow: auto;
 	position: relative;
-	height: 380px;
+	height: 330px;
 }
 
 .helpbox-title {

@@ -151,6 +151,7 @@ body.not-logged-in #middle-content-right
   margin-bottom: -10px;
   background-image: url(images/bg_signup_banners.png);
   text-align: center;
+  position: relative; /* IE */
 }
 
 
@@ -166,7 +167,11 @@ body.not-logged-in #middle-content-right
   background-position: center center;
   background-repeat: no-repeat;
 	vertical-align: middle;
-  text-indent: -10000px;
+  /*text-indent: -10000px;*/
+}
+
+#page-front-banners a.banner span {
+	display: none;
 }
 
 #page-front-banners #banner-signup
