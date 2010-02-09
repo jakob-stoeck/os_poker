@@ -151,6 +151,7 @@ body.not-logged-in #middle-content-right
   margin-bottom: -10px;
   background-image: url(images/bg_signup_banners.png);
   text-align: center;
+  position: relative; /* IE */
 }
 
 
