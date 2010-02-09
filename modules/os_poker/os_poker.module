@@ -1429,7 +1429,7 @@ function os_poker_preprocess_os_poker_help(&$variables) {
 
 function os_poker_preprocess_os_poker_tos(&$variables) {
   global $language;
-  $variables['template_files'] = array('imprint.en', 'tos.'.$language->language);
+  $variables['template_files'] = array('imprint.en', 'imprint.'.$language->language);
 }
 
 /**
