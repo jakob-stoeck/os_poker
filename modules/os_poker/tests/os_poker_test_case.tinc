@@ -219,31 +219,6 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $this->OsPokerProfileSubmit($profile);
   }
 
-
-  /**
-   * Skips the profile submission
-	 * TODO : move to 4.2 test, does not belong here
-   */
-  function OsPokerProfileSkip() {
-
-    // check if profile page is there..
-    $this->assertText(
-      t('Create your Profile'),
-      t('After first login the profile page is shown to the user.')
-    );
-
-    // Submit default form
-    $this->drupalPost('poker/first_profile', array(), t('Send'));
-
-    // Once submitted, the form should dissapear.
-    $this->assertNoField(
-      'profile_nickname',
-      t('User %name completed registration.', array('%name' => $user->name)),
-      t('User login')
-    );
-
-  }
-
   /**
    * Submits the user profile with default and optional values.
    *
@@ -438,7 +413,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
       'profile_gender'   => t('Male'),
       'profile_country'  => 'FR',
       'profile_city'     => $this->randomName(),
-      'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+      'picture' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
     
     $osp_user = CUserManager::instance()->User($user->uid);

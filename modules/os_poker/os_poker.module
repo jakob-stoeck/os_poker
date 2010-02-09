@@ -284,6 +284,7 @@ function	os_poker_gadget()
 */
 function os_poker_init()
 {
+  global $language;
   if (isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/^(simpletest\d+);/", $_SERVER['HTTP_USER_AGENT'], $matches)) {
     module_load_include('php', 'os_poker', 'poker.class');
     CPoker::ChangePokerDB('pythonpokernetworktest');
@@ -358,9 +359,12 @@ function os_poker_init()
   if(os_poker_inline_messages()) {
     drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
   }
-  drupal_add_js(array('os_poker' => array(
-    'user_picture_default' => variable_get('user_picture_default', ''),
-  )), 'setting');
+  drupal_add_js(array(
+    'os_poker' => array(
+      'user_picture_default' => variable_get('user_picture_default', ''),
+      'language' => $language,
+    ),
+  ), 'setting');
 }
 
 function os_poker_inline_messages(){
@@ -923,7 +927,7 @@ function os_poker_table_players_page($table_id) {
 function os_poker_user_table_page($account) {
   $tables = CPoker::FindUserTable($account->uid);
   if($tables) {
-    drupal_goto('<front>', array('view' => 'table', 'game_id' => reset($tables)->serial));
+    drupal_goto('<front>', array('sit' => TRUE, 'view' => 'table', 'game_id' => reset($tables)->serial));
   }
   else {
     drupal_set_message(t('%player is not at a table.', array('%player' => $account->profile_nickname)), 'warning');
@@ -939,7 +943,7 @@ function os_poker_user_table_page($account) {
  * are lost.
  */
 function os_poker_closebox_page() {
-  $front = url('<front>');
+  $front = json_encode(url('<front>'));
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--

@@ -159,7 +159,7 @@ class GadgetRenderingServlet extends HttpServlet {
     if (! $view->getQuirks()) {
       $content .= "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n";
     }
-    $content .= "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><style type=\"text/css\">" . Config::get('gadget_css') . "</style></head><body>\n";
+    $content .= "<html lang=" . strtolower($context->getLocale()->getLanguage()) . "><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><style type=\"text/css\">" . Config::get('gadget_css') . "</style></head><body>\n";
     // Forced libs first.
     if (! empty($forcedLibs)) {
       $libs = explode(':', $forcedLibs);
