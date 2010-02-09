@@ -1038,10 +1038,10 @@ div#buddylist .previous, div#buddylist .previous:hover
 	background: url(images/play-now.gif) no-repeat top center;
 	height: 46px;
 	width: 320px;
-	margin-top: 10px;
 }
 
 #play-now p.text {
+	margin-top: 10px;
 	font-weight:bold;
 	text-align: center;
 }
