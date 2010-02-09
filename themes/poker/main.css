@@ -1281,7 +1281,6 @@ body.page-poker #content-header .title-wrapper a.LayerClose
 
 .helpbox {
 	padding: 10px; /* actually like the .content class*/
-	border: 1px dotted #810E0B;
 	overflow: auto;
 	position: relative;
 	height: 380px;
