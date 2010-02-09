@@ -6,7 +6,7 @@ body
 	padding:0px 0px 18px 0px;
 	background:#7d7d7d url(images/bg.gif) repeat-x fixed top left;
 	font-family:arial, verdana, sans-serif;
-	font-size:11px;	
+	font-size:11px;
 	text-align:left;
 	color:gray;
 }
@@ -105,7 +105,7 @@ ul.secondary li a.active
 ** Tabs
 */
 
-ul.primary 
+ul.primary
 {
 	font-size:12px;
 	font-weight:bold;
@@ -235,7 +235,7 @@ body.iframe #main
 	text-align:right;
 }
 
-#footer #footer-inner 
+#footer #footer-inner
 {
 	padding-right:7px;
 	padding-top:10px;
@@ -502,7 +502,7 @@ div.poker_submit:hover div.pre {
 div.poker_submit:hover div.label{
     background: transparent url(images/button_middle.gif) repeat-x;
 	text-decoration:underline;
-} 
+}
 
 /*
 ** The silver one
@@ -609,7 +609,7 @@ div.poker_submit.big.disabled:hover div.pre {
 
 div.poker_submit.big.disabled:hover div.label {
 	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
-} 
+}
 
 /*
 ** Medium version needed in shop (get chips)
@@ -740,7 +740,7 @@ div.poker_submit.medium div.pre
 **
 */
 
-div#navbar 
+div#navbar
 {
 	height:29px;
 	width:760px;
@@ -790,7 +790,7 @@ div#navbar ul.menu li a:hover
 **
 */
 
-div#buddylist 
+div#buddylist
 {
 
 }
@@ -958,7 +958,7 @@ div#buddylist .buddy_list_placeholder .body a
 	background:transparent url(images/buddy_online.png) no-repeat scroll left center;
 }
 
-.buddy_list_chips 
+.buddy_list_chips
 {
 	color:#FABF6A;
 	padding-bottom:10px;
@@ -1070,7 +1070,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 **
 */
 
-#user-brief 
+#user-brief
 {
 	background-color:#2f1210;
 	height:81px;
@@ -1121,26 +1121,30 @@ div#buddylist .previous, div#buddylist .previous:hover
 **
 */
 
-#play-now 
-{
-	height:81px;
-	margin-bottom:5px;
+#play-now  {
+	height: 81px;
+	width: 320px;
+	margin-bottom: 5px;
 }
 
-#play-now  p
-{
-	margin: 0;
-	text-align:center;
-	width:320px;
-	padding-top:10px;
-}
-
-#play-now  p.text
-{
+#play-now p.text {
 	font-weight:bold;
-	padding-top:0;
+	text-align: center;
+	margin-top: 10px;
 }
 
+#play-now #play-now-button {
+    display: block;
+	background: url(images/play_now.gif) no-repeat top center;
+	height: 46px;
+	width: 320px;
+}
+
+/* this part should go to a specific german CSS ie pbpoker-de.css */
+
+body.de #play-now #play-now-button {
+	background-image: url(images/play_now-de.png);
+}
 
 /*
 ** Ranking
@@ -1349,7 +1353,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 {
 	position:absolute;
 	background-color:transparent;
-	width:90px;	
+	width:90px;
 	height:90px;
 	left:0;
 	top:0;
@@ -1365,7 +1369,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 }
 
 /*
-** BUDDIES 
+** BUDDIES
 */
 
 div#buddies-search
@@ -1562,7 +1566,7 @@ div#buddies-list .footer
 {
     color: #FFFFFF;
     padding: 5px 0px 0px 105px;
-    
+
 }
 
 /*
@@ -1816,7 +1820,7 @@ p.Buddies
  width:20px;
 }
 
-p.Note 
+p.Note
 {
  margin: 0;
  margin-top:50px;
@@ -1895,7 +1899,7 @@ div.TeaseMore .poker_submit .label
 	padding-top:9px;
 }
 
-p.Link a 
+p.Link a
 {
  color:#7A1C1C;
  font-weight:bold;
@@ -2325,11 +2329,11 @@ width:87px;
 	width:95px;
 	padding:0 5px 0 0;
  }
- 
+
 #forgot-password  #edit-name
 {
 	width:150px;
-} 
+}
 
 #forgot-password .poker_submit
 {

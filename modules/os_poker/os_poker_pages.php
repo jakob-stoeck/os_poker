@@ -36,24 +36,24 @@ function	os_poker_first_profile_page()
 
 function	os_poker_buddies_page($action = NULL, $page=0)
 {
-	$output = "<div id='buddies-tabs'>".theme('buddies_tabs', $action);
-	
+	$output = "<div id='buddies-tabs' class='tabs-window'>".theme('buddies_tabs', $action);
+
 	switch ($action)
 	{
 		case "search":
 			$lsr = NULL;
-		
+
 			if (isset($_REQUEST["form_id"]) && $_REQUEST["form_id"] == "os_poker_buddy_search_form")
 			{
 				/*$offset = 0;
 				$limit = NULL;
-				
+
 				if (isset($_REQUEST["page"]))
 				{
 					$page = $_REQUEST["page"];
 					$offset = $page * $limit;
 				}*/
-					
+
 				$lsr = CUserManager::instance()->SearchUsers($_REQUEST);
 			}
 
@@ -64,35 +64,35 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 			}
 			else
 			{
-			  $output .= theme('buddies_search', drupal_get_form('os_poker_buddy_search_form'), CUserManager::instance()->CurrentUser());	
+			  $output .= theme('buddies_search', drupal_get_form('os_poker_buddy_search_form'), CUserManager::instance()->CurrentUser());
 			}
 		break;
 		case "invite":
-			$output .= theme('buddies_invite', drupal_get_form('os_poker_buddies_invite_form'), CUserManager::instance()->CurrentUser());	
-			
+			$output .= theme('buddies_invite', drupal_get_form('os_poker_buddies_invite_form'), CUserManager::instance()->CurrentUser());
+
 		break;
 		case "invitedlist":
 			$cuser = CUserManager::instance()->CurrentUser();
-		
+
 			if (isset($_POST["invite_action"]) && !empty($_POST["invite_target"]))
 			{
 				if ($_POST["invite_action"] == "remind")
 				{
 					$sql = "SELECT * FROM `{invite}` WHERE `email` = '%s' AND `uid` = %d AND `expiry` < %s LIMIT 1";
-			
+
 					$time = (time() * 2);
 					$res = db_query($sql, $_POST["invite_target"], $cuser->uid, $time);
-					
+
 					if ($res != FALSE)
 					{
 						$inv = db_fetch_object($res);
-						
+
 						if ($inv != FALSE)
 						{
 							require_once(drupal_get_path('module', 'invite') . "/invite.module");
-						
+
 							global $language;
-						
+
 							if (!variable_get('invite_use_users_email', 0)) {
 								$from = variable_get('invite_manual_from', '');
 							}
@@ -111,7 +111,7 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 															));
 
 							// Send e-mail.
-							$params = array('invite' => $invite); 
+							$params = array('invite' => $invite);
 						   $message = drupal_mail('invite', 'invite', $_POST["invite_target"], $language, $params, $from, TRUE);
 						   drupal_set_message(t("Invitation resent to !email", array("!email"=> $_POST["invite_target"])));
 						}
@@ -120,23 +120,23 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 							drupal_set_message(t("Invitation must have expired to be resent."), 'error');
 						}
 					}
-				
+
 				}
 				else if ($_POST["invite_action"] == "delete")
 				{
 					$sql = "DELETE FROM `{invite}` WHERE `email` = '%s' AND `uid` = %d";
-					
+
 					$res = db_query($sql, $_POST["invite_target"], $cuser->uid);
-					
+
 					if ($res)
 					{
 						drupal_set_message(t("Your invite has been deleted."));
 					}
 				}
 			}
-		
-		  $output .= theme('buddies_invitedlist', $cuser);	
-			
+
+		  $output .= theme('buddies_invitedlist', $cuser);
+
 		break;
 		default :
 		  $output .= theme('buddies_list', CUserManager::instance()->CurrentUser()->Buddies(TRUE),  CUserManager::instance()->CurrentUser());
@@ -159,21 +159,21 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 	$current_user =  CUserManager::instance()->CurrentUser();
 	$target_user = $current_user;
 	$external = FALSE;
-	
-	
-	
+
+
+
 	if ($user_id != NULL && $user_id != $current_user->uid)
 	{
 		$target_user =  CUserManager::instance()->User($user_id);;
 		$external = TRUE;
 	}
-	
+
 	switch ($tab)
 	{
 		case "settings":
 			if ($external == FALSE)
 			{
-				$content = theme('os_poker_profile_settings', 
+				$content = theme('os_poker_profile_settings',
 								drupal_get_form('os_poker_profile_personal_settings_form'),
 								drupal_get_form('os_poker_profile_email_settings_form'),
 								drupal_get_form('os_poker_profile_password_settings_form')
@@ -193,32 +193,32 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 			{
 				return theme('os_poker_reward_fulllist', $target_user->Rewards());
 			}
-		
+
 			$content = theme('os_poker_rewards', $target_user, $external);
 		break;
-		
+
 		case "ranking":
-		
+
 			$searchParams = array();
 			$lsr = CUserManager::instance()->SearchUsers($searchParams);
 			$userlist = CUserManager::instance()->UserList($lsr);
 			usort($userlist, "_os_poker_sort_buddies");
 			$user_rank = array_search($target_user, $userlist);
-			
+
 			if (isset($_GET["list"]) && $_GET["list"] == "ranking" && !empty($_GET["ajax"]))
 			{
 				return theme('os_poker_ranking_list', $userlist);
 			}
-		
+
 			$content = theme('os_poker_ranking', $target_user, $user_rank + 1, $userlist);
 		break;
-		
+
 		case "medium":
 			$content = theme('os_poker_medium_profile', $target_user, $external, $current_user, $game_id);
 
       return $content;
 		break;
-		
+
 		default:
 			if (isset($_GET["list"]) && !empty($_GET["ajax"]))
 			{
@@ -230,13 +230,13 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 				{
 					$content = theme('os_poker_item_minilist', $target_user);
 				}
-			
+
 				return $content;
 			}
 			$content = theme('os_poker_profile', $target_user, $external);
 		break;
 	}
-	
+
 	return theme('os_poker_profile_tabs', $tab, $content, $external);
 }
 
@@ -247,14 +247,14 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 function	os_poker_messagebox_page()
 {
 	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-	
+
 	$mbox = CScheduler::instance()->GetTasks("inbox");
 
 	if (isset($_GET["list"]) && $_GET["list"] == "messages" && !empty($_GET["ajax"]))
 	{
 		return theme('os_poker_message_list', $mbox);
 	}
-	
+
 	// Mark the messages as read - we consider all messages to be read once the user opens the messagebox
 	CScheduler::instance()->MarkTasksAsRead();
 	// Reset the unread message count in the navbar
@@ -296,12 +296,21 @@ function	os_poker_help_page() {
 /*
 **
 */
+function	os_poker_tos_page() {
+  drupal_set_title('');
+  jquery_ui_add('ui.tabs');
+	return theme('os_poker_tos');
+}
+
+/*
+**
+*/
 
 function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target_id = NULL, $subtarget_id = NULL)
 {
 	$content = "";
 	if ($tab == NULL || $tab == "shop")
-	{	
+	{
 		require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 		require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
 		require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
@@ -309,12 +318,12 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 		$subtarget = NULL;
 		$buddies = NULL;
 		$cats = CShop::ListCategories();
-		
+
 		if ($target_type == NULL)
 		{
 			$target_type = "self";
 		}
-		
+
 		if ($category == NULL)
 		{
 			$vcats = array_keys($cats);
@@ -323,24 +332,24 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				$category = $vcats[0];
 			}
 		}
-		
+
 		$prods =  CShop::ListItems($category);
-		
+
 		if (isset($_GET["list"]) && $_GET["list"] == "items" && !empty($_GET["ajax"]))
 		{
 			return 	print theme('os_poker_item_list', $prods);
 		}
-		
+
 		$current_user =  CUserManager::instance()->CurrentUser();
 		$buddies = array_filter($current_user->Buddies(TRUE), "_os_poker_user_accepts_gifts");
-		
+
 		switch($target_type)
 		{
 			case "table":
 				$target = array_filter(CPoker::UsersAtTable($target_id, TRUE), "_os_poker_user_accepts_gifts");
 				if ($subtarget_id)
 					$subtarget = CUserManager::instance()->User($subtarget_id);
-					
+
 				$merge = $target + $buddies;
 				$special = array();
 				foreach($merge as $u)
@@ -358,12 +367,12 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				$subtarget = $current_user;
 			break;
 		}
-			
+
 		if (!empty($_POST["shop_action"]) && !empty($_POST["shop_item"]))
 		{
 			$action = $_POST["shop_action"];
 			$success = TRUE;
-			
+
 			switch ($action)
 			{
 				case "subtarget":
@@ -376,24 +385,24 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 						$success = CShop::GiveItem($_POST["shop_item"], array($subtarget));
 					}
 				break;
-				
+
 				case "target":
 					$success = CShop::GiveItem($_POST["shop_item"], $target);
 				break;
-							
+
 				case "special":
-				
+
 					$success = CShop::GiveItem($_POST["shop_item"], $special);
 				break;
 			}
-			
+
 			if ($success == FALSE) {
 				$error = theme('poker_error_message', "<h1>" . t("Sorry !") . "</h1>" . t("You don't have enough Chips."));
       } else if ($target_type == 'table') {
         drupal_goto('poker/closebox');
       }
 		}
-		
+
 		$params = 	array(
 							"categories" => $cats,
 							"current_category" => $category,
@@ -408,14 +417,14 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 							"special" => $special,
 							"error" => $error,
 					);
-		
+
 		$content = theme('os_poker_shop', $params);
 	}
 	else if ($tab == "get_chips")
 	{
 	  $content = theme('os_poker_shop_get_chips', drupal_get_form('chips_paypal_form'), $params);
 	}
-	
+
 	return theme('os_poker_shop_tabs', $tab, $content);
 }
 
@@ -438,7 +447,7 @@ function chips_paypal_form($form_state)
 		'undefined_quantity' => 1,
 		/*		'quantity' => 1,*/
 		);
- 
+
   $form = simple_payments_paypal_payment_form($vars);
 
   $opts = array("5" => t("75.000 Chips for €5"),
@@ -500,7 +509,7 @@ foreach ($vcats as $catid)
 	if ($items)
 	  {
 	    foreach ($items as $item)
-	      {	
+	      {
 		$form .= "<tr>".drupal_get_form("os_poker_shop_admin_form_" . $item->id_item, array($item->id_item, $cats, $catid))."</tr>";
 	      }
 	  }
@@ -508,7 +517,7 @@ foreach ($vcats as $catid)
   }
 
  $form .= "<tr><td>ADD NEW</td></tr><tr>".drupal_get_form("os_poker_shop_admin_form_" . 0, array(0, $cats, $catid))."</tr>";
- 
+
  $form .= "</table>";
  return $form;
 }

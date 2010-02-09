@@ -232,7 +232,7 @@ function	os_poker_show_medium_profile(user_id, game_id)
 {
   var tUrl;
   if (typeof Drupal.settings.os_poker.language == 'object') {
-  	tUrl = os_poker_site_root() + "?q=" + Drupal.settings.os_poker.language + "/poker/profile/medium/" + user_id;
+  	tUrl = os_poker_site_root() + "?q=" + Drupal.settings.os_poker.language.language + "/poker/profile/medium/" + user_id;
 	}
 	else {
 	  tUrl = os_poker_site_root() + "?q=poker/profile/medium/" + user_id;

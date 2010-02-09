@@ -1,4 +1,4 @@
-<div id="shop-tabs">
+<div id="shop-tabs" class="tabs-window">
 	<a class="LayerClose" onclick="javascript:parent.tb_remove();" href="javascript:void(0);">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">

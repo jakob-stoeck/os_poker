@@ -11,6 +11,10 @@ function pbpoker_theme() {
       'arguments' => array('text' => ""),
       'template' => 'os-poker-teaser',
     ),
+    'os_poker_home_signup' => array(
+      'arguments' => array('form' => NULL),
+      'template' => 'home_signup',
+    ),
     'page_front_banner' => array(
       'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
     ),
@@ -94,16 +98,17 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
 
 function pbpoker_poker_tutorial_link() {
   $tutorial = pbpoker_flash_tutorial();
-  $url = '#TB_inline?height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial';
-  return l(t("Click here!"), $url, array(
+  return l(t("Click here!"), '#TB_inline', array(
     'external' => TRUE,
     'attributes' => array(
       'class' => 'yellow thickbox',
     ),
+    'query' => 'height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial&',
   ));
 }
 
 function pbpoker_flash_tutorial() {
+  global $language;
   static $file, $size;
   if(!isset($file)) {
       $file = drupal_get_path('theme', 'pbpoker') .'/swf/PokerTutorial.'. $language->language .'.swf';

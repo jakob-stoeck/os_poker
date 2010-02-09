@@ -6,7 +6,7 @@
     class ShindigConfigException extends Exception {}
 
       $shindigConfig = array(
-      "gadget_server" => "http://drupal-demo.pokersource.info/drupal6/sites/all/modules/shindig_integrator/shindig/php",
+      "gadget_server" => "http://drupal-rikeko.pokersource.info/drupal6/sites/all/modules/shindig_integrator/shindig/php",
       "web_prefix" => "/drupal6/sites/all/modules/shindig_integrator/shindig/php",
       "default_js_prefix" => "/drupal6/sites/all/modules/shindig_integrator/shindig/php/gadgets/js/",
       "default_iframe_prefix" => "sites/all/modules/shindig_integrator/shindig/php/gadgets/ifr?",
@@ -22,8 +22,8 @@
 
     class ShindigConfig {
     static function get($key)
-    {					
-      global $shindigConfig;						
+    {
+      global $shindigConfig;
      if (isset($shindigConfig[$key])) {
        return $shindigConfig[$key];
      }

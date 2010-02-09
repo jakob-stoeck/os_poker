@@ -28,10 +28,18 @@ body.iframe a.LayerClose,
 	text-decoration:none;
 }
 
+.tabs-window {
+	background: #fff url(images/bg_buddies.gif) bottom left repeat-x;
+	height: 455px;
+	padding: 5px;
+	width: 622px;
+}
+
 /**
  * BUDDIES
  */
 
+/*
 #buddies-tabs
 {
 	background-color: transparent;
@@ -41,7 +49,7 @@ body.iframe a.LayerClose,
 	padding: 5px;
 	width: 622px;
 }
-
+*/
 /*
 ** Profile
 */
@@ -82,7 +90,7 @@ body.iframe a.LayerClose,
 {
 	color:black;
 }
-
+/*
 #profile-tabs
 {
 	background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
@@ -91,7 +99,7 @@ body.iframe a.LayerClose,
 	width:622px;
 	color:#727272;
 }
-
+*/
 #profile-tabs .block_title_bar
 {
 	padding-left:5px;
@@ -315,7 +323,7 @@ body.iframe a.LayerClose,
 #os-poker-profile-personal-settings-form .poker_submit
 {
 	clear:both;
-	margin-left:545px;
+	margin-left: 520px;
 }
 
 #os-poker-profile-personal-settings-form .form-checkboxes .form-item
@@ -326,7 +334,7 @@ body.iframe a.LayerClose,
 /*
 ** Shop
 */
-
+/*
 #shop-tabs
 {
 	background:transparent url(images/bg_shop.gif) repeat-x;
@@ -334,15 +342,10 @@ body.iframe a.LayerClose,
 	padding:5px;
 	width:622px;
 }
-
+*/
 #shop-tabs .content
 {
 	padding:10px;
-}
-
-#shop
-{
-
 }
 
 #shop .left
@@ -806,17 +809,11 @@ body.iframe #profile-medium a.LayerClose
 
 #table_users .list
 {
-	height:240px;
-	width:300px;
-	background:transparent url(images/bg_user_table.gif) repeat-x;
-	float:left;
-	overflow:hidden;
-}
-
-#table_users .userlist
-{
-	height:240px;
-	float:none;
+	height: 250px;
+	width: 300px;
+	background: url(images/bg_user_table.gif) repeat-x;
+	float: left;
+	overflow: hidden;
 }
 
 #table_users .userlist .user
@@ -1172,18 +1169,11 @@ div#buddylist  #today_gift_invite
  * Languages bar
  */
 
-.language-bar a
-{
-  margin-left:5px;
+.language-bar a {
+  margin-left: 5px;
 }
 
-#header .language-bar a {
-  display: block;
-  float: left;
-}
-
-.language-bar a.text
-{
+.language-bar a.text {
 	margin-right:5px;
 }
 
@@ -1192,16 +1182,28 @@ div#buddylist  #today_gift_invite
 	font-weight:bold;
 }
 
-#footer .language-bar
-{
-	padding-bottom:5px;
-	color:white;
-}
-
 .language-bar a.logout {
   font-weight: bold;
   vertical-align: middle;
   margin-top: 4px;
+}
+
+#header .language-bar a {
+  display: block;
+  float: left;
+}
+
+#footer .language-bar {
+	padding-bottom: 5px;
+	color: #fff;
+}
+
+/* hide language choices */
+.language-bar a.language-link {
+  display: none !important;
+}
+#footer .language-bar {
+  display:none !important;
 }
 
 /**
@@ -1278,36 +1280,34 @@ body.page-poker #content-header .title-wrapper a.LayerClose
  */
 
 .helpbox {
-	margin: 1em;
-	padding: 3em 1em 1em;
-	border: 1px dotted #810E0B;
+	padding: 10px; /* actually like the .content class*/
 	overflow: auto;
 	position: relative;
+	height: 380px;
 }
 
 .helpbox-title {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 98%;
 	padding: 0.3em 1% !important;
-	height: auto !important;
 	color: #fff;
 }
 
 dl.helpbox-list {
-	overflow: auto;
+	overflow: hidden;
+}
+
+* html dl.helpbox-list {
+	height: 1%;
 }
 
 dl.helpbox-list dt,
 dl.helpbox-list dd {
 	float: left;
-	height: 60px;
+	height: 75px;
 	padding: 10px;
 	margin-bottom: 10px;
 	border: 1px solid #ccc;
 	background: #fff;
-	width: 400px; /* FIXME : should this be static ? */
+	width: 392px;
 }
 
 dl.helpbox-list dt {
@@ -1324,7 +1324,7 @@ dl.helpbox-list dt {
 
 .helpbox ul,
 .helpbox ol.helpbox-list {
-	margin-left: 1.2em;
+	margin-left: 2em;
 	margin-bottom: 1em;
 }
 
@@ -1338,7 +1338,6 @@ dl.helpbox-list dt {
 .helpbox ol.helpbox-list li {
 	margin-bottom: 0.5em;
 }
-
 
 /*
  *  Cards / Help
