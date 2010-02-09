@@ -5,7 +5,7 @@
 			<li><a href="#help-pokerhands">Pokerblätter</a></li>
 			<li><a href="#help-rules">Hold'Em Regeln</a></li>
 			<li><a href="#help-tips">Tipps</a></li>
-			<li><a href="#help-getting-chips">Chips kaufen</a></li>
+			<li><a href="#help-getting-chips">Chips</a></li>
 			<li><a href="#help-guidelines">Richtlinien</a></li>
 			<li><a href="#help-security">Sicherheitshinweis</a></li>
 		</ul>
@@ -100,7 +100,7 @@ In Texas Hold’em poker, each player is initially dealt two cards face down (kn
 	</div>
 
 	<div id="help-getting-chips" class="helpbox">
-		<h4 class="helpbox-title block_title_bar">Getting Chips</h4>
+		<h4 class="helpbox-title block_title_bar">Wie bekomme ich Chips?</h4>
 		<ul class="helpbox-list">
 			<li><strong>Daily Lottery</strong><br />
 			Jeden Tag hast du die Chance bis zu 1 Million Chips zu gewinnen.<br />

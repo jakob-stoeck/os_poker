@@ -1049,6 +1049,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 	background: url(images/play_now.gif) no-repeat top center;
 	height: 46px;
 	width: 320px;
+	margin-top: 10px;
 }
 
 /* this part should go to a specific german CSS ie pbpoker-de.css */
