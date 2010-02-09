@@ -79,7 +79,7 @@ var Container = Class.extend({
 				type: "POST",
 				dataType: 'html',
 				cache: false,
-				url : '/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/drupal6/setPrefs',
+				url : '/setPrefs',
 				data : { name : name, value : value, st : params.st }
 			});
 		}
