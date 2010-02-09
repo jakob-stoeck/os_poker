@@ -1027,24 +1027,29 @@ div#buddylist .previous, div#buddylist .previous:hover
 **
 */
 
-#play-now
-{
+#play-now  {
 	height: 81px;
+	width: 320px;
 	margin-bottom: 5px;
 }
 
-#play-now p
-{
-	margin: 0;
+#play-now p.text {
+	font-weight:bold;
 	text-align: center;
-	width: 320px;
-	padding-top: 10px;
+	margin-top: 10px;
 }
 
-#play-now p.text
-{
-	font-weight: bold;
-	padding-top: 0;
+#play-now #play-now-button {
+    display: block;
+	background: url(images/play_now.gif) no-repeat top center;
+	height: 46px;
+	width: 320px;
+}
+
+/* this part should go to a specific german CSS ie pbpoker-de.css */
+
+body.de #play-now #play-now-button {
+	background-image: url(images/play_now-de.png);
 }
 
 /*
