@@ -15,6 +15,9 @@ function pbpoker_theme() {
       'arguments' => array('form' => NULL),
       'template' => 'home_signup',
     ),
+    'os_poker_help' => array(
+      'template' => 'help.en',
+    ),
     'page_front_banner' => array(
       'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
     ),
@@ -96,6 +99,10 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   $variables['tutorial'] = pbpoker_flash_tutorial();
 }
 
+function pbpoker_preprocess_os_poker_help(&$variables) {
+  $variables['tutorial'] = pbpoker_flash_tutorial('help/Tutorial');
+}
+
 function pbpoker_poker_tutorial_link() {
   $tutorial = pbpoker_flash_tutorial();
   return l(t("Click here!"), '#TB_inline', array(
@@ -107,13 +114,13 @@ function pbpoker_poker_tutorial_link() {
   ));
 }
 
-function pbpoker_flash_tutorial() {
+function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
   global $language;
   static $file, $size;
   if(!isset($file)) {
-      $file = drupal_get_path('theme', 'pbpoker') .'/swf/PokerTutorial.'. $language->language .'.swf';
+      $file = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.'. $language->language .'.swf';
     if(!file_exists($file)) {
-      $file = drupal_get_path('theme', 'pbpoker') .'/swf/PokerTutorial.en.swf';
+      $file = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.en.swf';
     }
     $size = @getimagesize($file);
   }

@@ -604,7 +604,7 @@ function 	os_poker_theme()
       'template' => 'welcome-splash',
     ),
     'os_poker_help' => array(
-      'template' => 'help',
+      'template' => 'help.en',
     ),
     'os_poker_tos' => array(
       'template' => 'imprint.en',
