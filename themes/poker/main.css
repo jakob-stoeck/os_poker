@@ -407,8 +407,7 @@ div.tb-fix-margin a.LayerClose
 
 body.iframe #messagebox a.LayerClose
 {
-	background:transparent url(images/button_layerclose.gif) repeat scroll 0 0;
-	top:8px;
+	top: 8px;
 }
 
 #messagebox .block_title_text
