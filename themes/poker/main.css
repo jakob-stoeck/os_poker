@@ -424,7 +424,7 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .message
 {
-	padding: 5px;
+	padding: 3px 5px;
 	border-bottom: 1px dotted #810E0B;
 }
 
@@ -444,6 +444,8 @@ body.iframe #messagebox a.LayerClose
 {
 	width:182px;
 	padding: 0 5px;
+	height: 54px;
+	overflow-y: auto;
 }
 
 #messagebox .message .body a
