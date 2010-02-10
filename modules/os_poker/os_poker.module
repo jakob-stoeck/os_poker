@@ -224,7 +224,7 @@ function os_poker_preprocess_page(&$variables)
 		}
 	}
 
-	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
+	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " " .  l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
     'attributes' => array(
       'class' => 'thickbox',
     ),
@@ -1330,7 +1330,9 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {
-      $avatar = "sites/default/files/pictures/picture-default.png";
+      $avatar = "sites/default/files/pictures/playboy.jpg"; 
+       // XXX - should use the 'user_picture_default' instead of hardcoding
+      //variable_get('user_picture_default', '');
     }
     $variables['avatars'] .= theme('image', $avatar, NULL, NULL, array('class' => 'first_profile_userlist_avatar'));
   }

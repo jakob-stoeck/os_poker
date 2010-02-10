@@ -69,7 +69,7 @@
 // jsUriTemplate will have %host% and %js% substituted.
 // No locked domain special cases, but jsUriTemplate must
 // never conflict with a lockedDomainSuffix.
-"gadgets.jsUriTemplate" : "/drupal6/sites/all/modules/shindig_integrator/shindig/php/gadgets/js/%js%",
+"gadgets.jsUriTemplate" : "/sites/all/modules/shindig_integrator/shindig/php/gadgets/js/%js%",
 
 // Use an insecure security token by default
 "gadgets.securityTokenType" : "insecure",
@@ -88,8 +88,8 @@
 "gadgets.features" : {
   "core.io" : {
     // Note: /proxy is an open proxy. Be careful how you expose this!
-    "proxyUrl" : "/drupal6/sites/all/modules/shindig_integrator/shindig/php/gadgets/proxy?refresh=%refresh%&url=%url%",
-    "jsonProxyUrl" : "/drupal6/sites/all/modules/shindig_integrator/shindig/php/gadgets/makeRequest"
+    "proxyUrl" : "/sites/all/modules/shindig_integrator/shindig/php/gadgets/proxy?refresh=%refresh%&url=%url%",
+    "jsonProxyUrl" : "/sites/all/modules/shindig_integrator/shindig/php/gadgets/makeRequest"
   },
   "views" : {
     "profile" : {
@@ -108,7 +108,11 @@
     /// parameter if it passes input validation and is not null.
     // This should never be on the same host in a production environment!
     // Only use this for TESTING!
-    "parentRelayUrl" : "/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/gadgets/files/container/rpc_relay.html",
+<<<<<<< local
+    "parentRelayUrl" : "/sites/all/modules/shindig_integrator/gadgets/files/container/rpc_relay.html",
+=======
+    "parentRelayUrl" : "/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/drupal6/sites/all/modules/shindig_integrator/gadgets/files/container/rpc_relay.html",
+>>>>>>> other
 
     // If true, this will use the legacy ifpc wire format when making rpc
     // requests.
@@ -129,7 +133,7 @@
     // Path to fetch opensocial data from
     // Must be on the same domain as the gadget rendering server
     "impl" : "rpc",  //Use "rpc" to enable JSON-RPC, "rest' for REST
-    "path" : "/drupal6/sites/all/modules/shindig_integrator/shindig/php/social",
+    "path" : "/sites/all/modules/shindig_integrator/shindig/php/social",
     "domain" : "shindig",
     "enableCaja" : false,
     "supportedFields" : {

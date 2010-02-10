@@ -64,7 +64,55 @@ class Config {
       if (file_exists('config/container.php')) {
         
       if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
+        
+      if (file_exists('config/container.php')) {
         include_once 'config/container.php';
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
+	  } else {
+	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
+	  }
+      
 	  } else {
 	    include_once 'sites/all/modules/shindig_integrator/shindig/php/config/container.php'; 
 	  }

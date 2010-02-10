@@ -97,7 +97,7 @@ ul.primary {
 	height: 24px;
 	margin: 5px 7px 0;
 	/*padding: 0 0 0 11px;*/
-	overflow: auto; /* lazy clear */
+	overflow: hidden; /* lazy clear */
 }
 
 ul.primary li a {
@@ -388,6 +388,11 @@ div#user_login .form-item
 div#user_login #edit-remember-me-wrapper
 {
 	padding-top: 3px;
+}
+
+div#user_login #edit-remember-me-wrapper label
+{
+	font-size: 10px;
 }
 
 div#user_login #edit-remember-me

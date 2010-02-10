@@ -34,7 +34,7 @@ class GadgetServer {
     $request = new RemoteContentRequest($context->getUrl());
     $xml = $context->getHttpFetcher()->fetch($request, $context);
     if ($xml->getHttpCode() != '200') {
-      throw new GadgetException("Failed to retrieve gadget content");
+      throw new GadgetException("Failed to retrieve gadget content at url: " . $context->getUrl() . " HTTP Code: " . $xml->getHttpCode() . " Error: " . $xml->getResponseContent());
     }
     $specParser = new GadgetSpecParser();
     $gadget = $specParser->parse($xml->getResponseContent(), $context);
