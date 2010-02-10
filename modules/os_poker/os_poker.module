@@ -224,7 +224,7 @@ function os_poker_preprocess_page(&$variables)
 		}
 	}
 
-	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
+	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " " .  l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
     'attributes' => array(
       'class' => 'thickbox',
     ),
