@@ -1397,14 +1397,14 @@ function os_poker_preprocess_welcome_splash(&$variables)  {
   $variables['text'] .= '<p>'. t('The more friends you have playing !site-name, the more free chips you get every day !', array('!site-name' => $site_name)) .'</p>';
   $variables['links_raw'] = array(
     'lobby' => array(
-      'title' => 'Go to lobby',
+      'title' => t('Go to lobby'),
       'href' => '<front>',
       'attributes' => array(
         'class' => 'close',
       )
     ),
     'help' => array(
-      'title' => 'Learn to play',
+      'title' => t('Learn to play'),
       'href' => 'poker/help',
       'attributes' => array(
         'class' => 'thickbox close',
@@ -1412,7 +1412,7 @@ function os_poker_preprocess_welcome_splash(&$variables)  {
       'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
     ),
     'invite' => array(
-      'title' => 'Invite friends',
+      'title' => t('Invite friends'),
       'href' => 'poker/buddies/invite',
       'attributes' => array(
         'class' => 'thickbox close',
