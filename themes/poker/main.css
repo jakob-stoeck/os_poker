@@ -758,6 +758,19 @@ body.iframe #profile-medium a.LayerClose
 	outline: 0 none;
 }
 
+/* quick fix for german */
+body.de #profile-medium .links {
+	width: 140px;
+	padding-left: 44px;
+}
+body.de #profile-medium .links .poker_submit .label {
+	width: 125px;
+}
+body.de #profile-medium .activate {
+	width: 140px;
+	float: right !important;
+	margin-top: -30px;
+}
 /**
  * Overlays
  */
