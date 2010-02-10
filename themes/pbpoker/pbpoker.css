@@ -390,6 +390,11 @@ div#user_login #edit-remember-me-wrapper
 	padding-top: 3px;
 }
 
+div#user_login #edit-remember-me-wrapper label
+{
+	font-size: 10px;
+}
+
 div#user_login #edit-remember-me
 {
 	vertical-align: middle;
