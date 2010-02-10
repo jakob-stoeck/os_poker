@@ -993,7 +993,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief
 {
-	background-color: #D4D3CF;
+	background: #fff url(images/bg_user_brief.png) left -20px repeat-x;
 	color: #635E58;
 	font-weight: bold;
 	height: 72px;
