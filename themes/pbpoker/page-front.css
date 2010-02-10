@@ -56,10 +56,7 @@ body.not-logged-in #middle-content-right
   background-position: center center;
   width: 142px;
   height: 75px;
-  padding-bottom: 5px;
-  padding-left: 8px;
-  padding-right: 20px;
-  padding-top: 10px;
+  padding: 10px 20px 5px 10px;
   position: absolute;
   right: -185px;
   bottom: 120px;
