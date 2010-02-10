@@ -1,3 +1,8 @@
+/* buy / invite buttons must have the same size in german */
+#user_login .poker_submit .label {
+	width: 60px !important;
+}
+
 #poker-teaser .title
 {
   text-indent: -10000px;

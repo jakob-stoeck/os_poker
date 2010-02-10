@@ -937,11 +937,12 @@ div#buddylist .buddy_list_placeholder .body a
 
 .buddy_list_name, .buddy_list_name a
 {
-	color:#FABF6A;
-	font-weight:bold;
-	overflow:hidden;
-	padding-bottom:5px;
-	width:60px;
+	color: #FABF6A;
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 5px;
+	width: 60px; /* fixme */
+	white-space: nowrap;
 }
 
 .buddy_list_name

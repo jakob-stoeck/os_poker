@@ -868,6 +868,7 @@ div#buddylist .buddy_list_placeholder .body a
 	overflow: hidden;
 	padding-bottom: 5px;
 	width: 60px;
+	white-space: nowrap;
 }
 
 .buddy_list_name
