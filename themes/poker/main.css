@@ -12,7 +12,8 @@ html.framed body {
  * Thickboxes
  */
 body.iframe a.LayerClose,
-#poker-first-profile a.LayerClose
+#poker-first-profile a.LayerClose,
+div.tb-fix-margin a.LayerClose
 {
 	background-color: transparent;
 	background-image: url(images/button_layerclose.gif);
@@ -26,6 +27,12 @@ body.iframe a.LayerClose,
 	width:20px;
 	z-index:777;
 	text-decoration:none;
+}
+
+div.tb-fix-margin a.LayerClose
+{
+   	top: 12px;
+	right: 42px;
 }
 
 .tabs-window {
