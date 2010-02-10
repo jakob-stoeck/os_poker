@@ -337,7 +337,6 @@ div#header div#logo
 */
 
 #user-login-form {
-	width: 305px; /* only used on front */
 	overflow: hidden;
 }
 
@@ -349,7 +348,7 @@ div#user_login
 	text-decoration: none;
 	margin-top: 12px;
 	white-space: nowrap;
-	width: 400px;
+	width: 305px;
 }
 
 div#user_login .user_login_row
