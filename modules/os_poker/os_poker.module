@@ -181,7 +181,7 @@ function os_poker_failed_login_form(&$form_state) {
                 "keepThis" => "true",
                 "TB_iframe" => "true",
       ),
-    )),    
+    )),
   );
   $form['#redirect'] = '<front>';
   return $form;
@@ -1255,7 +1255,7 @@ function	os_poker_random_user_list($count = 6)
 function theme_os_poker_message_symbol($symbol) {
   static $outputs = array();
   if(!isset($outputs[$symbol])) {
-    $files = array( 
+    $files = array(
       $symbol,
       drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.gif",
       drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.jpg"
@@ -1458,9 +1458,9 @@ function os_poker_mail($key, &$message, $params) {
         $message['body'][] = t('He/she also provided the following details:', array(),$language);
         $message['body'][] = check_plain($message['params']['details']);
       }
-      $message['body'][] = t('Reporter: !reporter_profile', 
+      $message['body'][] = t('Reporter: !reporter_profile',
 				array('!reporter_profile' => url('poker/profile/profile/' . $reporter->uid, array('absolute' => true))));
-      $message['body'][] = t('Culprit: !reported_profile', 
+      $message['body'][] = t('Culprit: !reported_profile',
 				array('!reported_profile' => url('poker/profile/profile/' . $reported->uid, array('absolute' => true))));
       break;
   }
@@ -1669,7 +1669,7 @@ function _user_relationships_ui_unset_notifications(&$account) {
 
 /**
  * Set an overlay to display over the next rendered page.
- * 
+ *
  * Overlay are not interactive (thick)boxes, they will be displayed (centeter)
  * over the content without the option to close.
  *

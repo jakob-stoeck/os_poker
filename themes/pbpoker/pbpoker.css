@@ -337,7 +337,6 @@ div#header div#logo
 */
 
 #user-login-form {
-	width: 305px; /* only used on front */
 	overflow: hidden;
 }
 
@@ -349,7 +348,7 @@ div#user_login
 	text-decoration: none;
 	margin-top: 12px;
 	white-space: nowrap;
-	width: 400px;
+	width: 305px;
 }
 
 div#user_login .user_login_row
@@ -868,6 +867,7 @@ div#buddylist .buddy_list_placeholder .body a
 	overflow: hidden;
 	padding-bottom: 5px;
 	width: 60px;
+	white-space: nowrap;
 }
 
 .buddy_list_name
@@ -893,6 +893,7 @@ div#buddylist .buddy_list_placeholder .body a
 .buddy_list_links a
 {
 	font-weight: bold;
+	white-space: nowrap;
 }
 
 #buddylist #today_gift {
@@ -992,7 +993,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief
 {
-	background-color: #D4D3CF;
+	background: #fff url(images/bg_user_brief.png) left -20px repeat-x;
 	color: #635E58;
 	font-weight: bold;
 	height: 72px;
@@ -2165,7 +2166,7 @@ width: 87px;
 
 #forgot-password .LayerClose,
 #poker-first-profile a.LayerClose {
- background-image: url(images/button_layerclose3.gif);
+ background-image: url(images/button_layerclose.gif);
 }
 
 #forgot-password .header
