@@ -407,7 +407,7 @@ div.tb-fix-margin a.LayerClose
 
 body.iframe #messagebox a.LayerClose
 {
-	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+	background:transparent url(images/button_layerclose.gif) repeat scroll 0 0;
 	top:8px;
 }
 
@@ -684,7 +684,7 @@ body.iframe #messagebox a.LayerClose
 
 body.iframe #profile-medium a.LayerClose
 {
-	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+	background:transparent url(images/button_layerclose.gif) repeat scroll 0 0;
 	top:8px;
 }
 
