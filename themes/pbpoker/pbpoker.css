@@ -2469,6 +2469,12 @@ div.poker_error_message {
  text-decoration: none !important;
 }
 
+body.de #welcome-splash ul.links a {
+    font-size: 13px;
+	padding-top: 11px;
+	height: 24px;
+}
+
 /*
  * Poker hands / Help
  */
@@ -2507,7 +2513,7 @@ div.poker_error_message {
 /**
  * Repot abuse
  */
- 
+
 body.poker-report-abuse #page {
  padding-top: 1px;
  background-image: url(images/bg_report_abuse.png);
