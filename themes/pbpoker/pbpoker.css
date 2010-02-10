@@ -893,6 +893,7 @@ div#buddylist .buddy_list_placeholder .body a
 .buddy_list_links a
 {
 	font-weight: bold;
+	white-space: nowrap;
 }
 
 #buddylist #today_gift {
