@@ -2430,17 +2430,6 @@ div.poker_error_message {
  width: 566px;
 }
 
-body.de #welcome-splash ul.links a 
-{
- background-image:url(images/button_welcome-de.gif);
- width: 171px
-}
-
-body.de #welcome-splash ul.links {
- margin-left: 165px;
- width: 171px
-}
-
 #welcome-splash h1 {
  display: none;
 }
@@ -2512,4 +2501,14 @@ body.de #welcome-splash ul.links {
 }
 .poker-hand.high-card {
 	background: url(images/cards/hands/high_card.gif) no-repeat;
+}
+
+/**
+ * Repot abuse
+ */
+ 
+body.poker-report-abuse {
+ background-image: url(images/bg_report_abuse.png);
+ background-repeat: repeat-x;
+ background-color: #dedfe1;
 }
