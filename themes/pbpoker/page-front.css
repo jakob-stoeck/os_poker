@@ -34,7 +34,6 @@ body.not-logged-in #middle-content-right
   height: 432px;
 }
 
-
 #poker-teaser-table
 {
   background-color:transparent;
@@ -56,13 +55,14 @@ body.not-logged-in #middle-content-right
   background-position: center center;
   width: 143px;
   height: 75px;
-  padding: 8px 17px 5px 8px;
+  padding: 8px 20px 5px 4px;
   position: absolute;
   right: -185px;
   bottom: 120px;
   color: white;
   font-weight: bold;
   z-index: 1;
+  text-align: center;
 }
 
 #poker-teaser-text *
