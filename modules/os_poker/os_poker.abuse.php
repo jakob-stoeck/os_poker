@@ -2,10 +2,10 @@
 function os_poker_report_abuse_form($form_state, $reported) {
   global $user;
   $form = array(
-    'text' => array(
+    /*'text' => array(
       '#type' => 'markup',
       '#value' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    ),
+    ),*/
     'reason' => array(
       '#type' => 'checkboxes',
       '#required' => true,
@@ -21,6 +21,8 @@ function os_poker_report_abuse_form($form_state, $reported) {
       '#type' => 'textarea',
       '#title' => 'Your Message',
       '#description' => '',
+      '#resizable' => FALSE,
+      '#cols' => 40
     ),
     'submit' => array(
       '#type' => 'submit',
