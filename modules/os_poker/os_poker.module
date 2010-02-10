@@ -1330,7 +1330,9 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {
-      $avatar = "sites/default/files/pictures/picture-default.png";
+      $avatar = "sites/default/files/pictures/playboy.jpg"; 
+       // XXX - should use the 'user_picture_default' instead of hardcoding
+      //variable_get('user_picture_default', '');
     }
     $variables['avatars'] .= theme('image', $avatar, NULL, NULL, array('class' => 'first_profile_userlist_avatar'));
   }
