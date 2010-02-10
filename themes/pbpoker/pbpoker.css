@@ -545,12 +545,14 @@ div.poker_submit.silver
 div.poker_submit.silver div.pre
 {
   background: transparent url(images/silver_button_left.gif) no-repeat;
+  padding-top: 2px;
 }
 
 div.poker_submit.silver div.label
 {
   background: transparent url(images/silver_button_middle.gif) repeat-x;
 	color: #313751;
+  padding-top: 2px;
 }
 
 div.poker_submit.silver:hover
