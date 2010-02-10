@@ -2503,3 +2503,22 @@ div.poker_error_message {
 .poker-hand.high-card {
 	background: url(images/cards/hands/high_card.gif) no-repeat;
 }
+
+/**
+ * Repot abuse
+ */
+ 
+body.poker-report-abuse #page {
+ padding-top: 1px;
+ background-image: url(images/bg_report_abuse.png);
+ background-repeat: repeat-x;
+ background-color: #dedfe1;
+}
+
+#os-poker-report-abuse-form label.option {
+ font-weight: bold;
+}
+
+#os-poker-report-abuse-form #edit-details-wrapper label {
+  margin-bottom: 10px;
+}
