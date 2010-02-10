@@ -937,11 +937,12 @@ div#buddylist .buddy_list_placeholder .body a
 
 .buddy_list_name, .buddy_list_name a
 {
-	color:#FABF6A;
-	font-weight:bold;
-	overflow:hidden;
-	padding-bottom:5px;
-	width:60px;
+	color: #FABF6A;
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 5px;
+	width: 60px; /* fixme */
+	white-space: nowrap;
 }
 
 .buddy_list_name
@@ -2285,7 +2286,7 @@ width:87px;
 
 #forgot-password .LayerClose,
 #poker-first-profile a.LayerClose {
-  background-image: url(images/button_layerclose3.gif) !important;
+  background-image: url(images/button_layerclose.gif) !important;
 }
 
 #forgot-password .header
@@ -2589,7 +2590,7 @@ color:#65625D;
 #os-poker-overlay a.closebutton {
   text-indent: -10000px;
   background-color: transparent;
-  background-image: url(images/button_layerclose3.gif);
+  background-image: url(images/button_layerclose.gif);
   background-repeat: no-repeat;
   background-position: center center;
 }

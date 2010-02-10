@@ -2,7 +2,7 @@
 	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">
-			<li><a href="#help-imprint">Imprint</a></li>
+			<li><a href="#help-imprint">Impressum</a></li>
 			<li><a href="#help-terms-of-service">Allgemeine Geschäftsbedingungen</a></li>
 		</ul>
 	</div>
