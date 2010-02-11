@@ -1683,7 +1683,14 @@ div.DailyBonusStep02
  position: relative;
  width: 282px;
 }
-
+body.de div.DailyBonusStep02
+{
+ background: transparent url(images/bg_daily_bonus02_de.jpg) no-repeat scroll 0 0;
+ height: 289px;
+ position: relative;
+ width: 282px;
+ top: -28px;
+}
 p.Dollar1
 {
  color: #6F1E1E;
@@ -1697,7 +1704,12 @@ p.Dollar1
  position: absolute;
  top: 2px;
 }
-
+body.de p.Dollar1 {
+  position: absolute;
+  top: 42px;
+  left: 45px;
+  font-size: 24px;
+}
 p.Dollar2
 {
  color: #585858;
@@ -1713,7 +1725,11 @@ p.Dollar2
  top: 140px;
  width: 34px;
 }
-
+body.de p.Dollar2 
+{
+  top: 158px;
+   left: 95px;
+}
 p.Dollar3 {
 color: #FFFFFF;
 font-family: arial,helvetica;
@@ -1728,7 +1744,11 @@ text-align: left;
 top: 177px;
 width: 51px;
 }
-
+body.de p.Dollar3 
+{
+   top: 187px;
+   left: 164px;
+}
 p.Buddies
 {
  color: #FFFFFF;
@@ -1744,7 +1764,11 @@ p.Buddies
  top: 220px;
  width: 20px;
 }
-
+body.de p.Buddies 
+{
+   top: 239px;
+   left: 218px;
+}
 p.Note
 {
  margin: 0;
