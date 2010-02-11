@@ -309,7 +309,8 @@ function os_poker_init()
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.events.js", "theme");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.slider.js", "theme");
 	drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
-  drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/swfobject.js");
 
 	if ($inpoker == FALSE && user_is_logged_in() > 0)
 	{
@@ -335,6 +336,19 @@ function os_poker_init()
 		 imagewidth : 70,
 		 width : 160
 		 });
+	}
+
+	";
+
+	drupal_add_js($inline_js, 'inline');
+
+	$inline_js = "
+
+	function	os_poker_close_tutorial()
+	{
+		if(typeof window.top.tb_remove === 'function' ) {
+      			window.top.tb_remove();
+    		}
 	}
 
 	";
@@ -1330,7 +1344,7 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {
-      $avatar = "sites/default/files/pictures/playboy.jpg"; 
+      $avatar = "sites/default/files/pictures/playboy.jpg";
        // XXX - should use the 'user_picture_default' instead of hardcoding
       //variable_get('user_picture_default', '');
     }
