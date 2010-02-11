@@ -27,8 +27,6 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
   const USER_AGENT = 'Shindig PHP';
 
   public function fetchRequest($request) {
-    $fd =fopen("/tmp/debug.log", "a");
-    fwrite($fd, "url " . $request->getUrl() . "\n");
     $request->handle = curl_init();
     curl_setopt($request->handle, CURLOPT_URL, $request->getUrl());
     curl_setopt($request->handle, CURLOPT_FOLLOWLOCATION, 1);
@@ -41,7 +39,6 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     curl_setopt($request->handle, CURLOPT_SSL_VERIFYPEER, 0);
     $proxy = Config::get('proxy');
     if (! empty($proxy)) {
-      fwrite($fd, "  PROXY: " . $proxy . "\n");
       curl_setopt($request->handle, CURLOPT_PROXY, $proxy);
     }
     if ($request->hasHeaders()) {
@@ -62,7 +59,6 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     if ($request->isPost()) {
       curl_setopt($request->handle, CURLOPT_POST, 1);
       curl_setopt($request->handle, CURLOPT_POSTFIELDS, $request->getPostBody());
-      fwrite($fd, "  POST " . $request->getPostBody() . "\n------\n");
     }
     // Execute the request
     $content = @curl_exec($request->handle);
@@ -80,7 +76,6 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     }
     if(curl_errno($request->handle))
     {
-        fwrite($fd, "  ERROR HAPPENED " . curl_errno($request->handle) . "\n");
 	$httpCode = '500';
 	$body = 'Curl error: ' . curl_error($request->handle);
     }   
@@ -91,7 +86,6 @@ class BasicRemoteContentFetcher extends RemoteContentFetcher {
     $request->setResponseSize(strlen($content));
     curl_close($request->handle);
     unset($request->handle);
-    fclose($fd);
     return $request;
   }
 
