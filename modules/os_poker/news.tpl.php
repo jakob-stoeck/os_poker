@@ -13,6 +13,18 @@
 				<!--<![endif]-->
 			</object>
 		</div>
+		<script language="JavaScript" type="text/javascript">
+		  function pb_open_tutorial() {
+		    if(typeof tb_show == 'function') {
+		      tb_show(undefined, '<?php print url('poker/help', array(
+		        'attributes' => array(
+              'class' => 'thickbox close',
+            ),
+            'fragment' => 'help-tutorial',
+            'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE))) ?>', false);
+	      }
+		  }
+		</script>
 		<div class="next"></div>
 		<div class="clear"></div>
 	</div>
