@@ -7,6 +7,7 @@ Drupal.behaviors.os_poker_overlay = function(context) {
     var $mask = $('#os-poker-overlay-mask');
     var height = $content.outerHeight();
     $floater.css('margin-bottom', -Math.ceil(height/2) + 'px');
+    $floater.height($floater.height()); // <- this fix the element height in IE... die IE ! die !
     var close = function() {
       $overlay.hide();
       $mask.hide();

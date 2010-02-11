@@ -342,6 +342,19 @@ function os_poker_init()
 
 	drupal_add_js($inline_js, 'inline');
 
+	$inline_js = "
+
+	function	os_poker_close_tutorial()
+	{
+		if(typeof window.top.tb_remove === 'function' ) {
+      			window.top.tb_remove();
+    		}
+	}
+
+	";
+
+	drupal_add_js($inline_js, 'inline');
+
 
 	if (user_is_logged_in())
 	{
@@ -605,7 +618,7 @@ function 	os_poker_theme()
       'template' => 'welcome-splash',
     ),
     'os_poker_help' => array(
-      'template' => 'help',
+      'template' => 'help.en',
     ),
     'os_poker_tos' => array(
       'template' => 'imprint.en',

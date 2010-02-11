@@ -76,7 +76,7 @@ Drupal.behaviors.os_poker = function(context) {
   }
 
   if (typeof $.fn.tabs == 'function') {
-    $('#ContainerContentHelp .tabs').tabs();
+    $('#ContainerContentHelp div.tabs:not(.os-poker-processed)').addClass('os-poker-processed').tabs();
   }
 };
 
