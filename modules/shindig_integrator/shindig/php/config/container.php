@@ -72,7 +72,7 @@ $shindigConfig = array(
   'token_max_age' => 60 * 60,
 
   // Ability to customize the style thats injected into the gadget document. Don't forget to put the link/etc colors in shindig/config/container.js too!
-  'gadget_css' => '',  
+  'gadget_css' => 'body{margin: 0px;padding: 0px;}',  
 
   // P3P privacy policy to use for the iframe document
   'P3P' => 'CP="CAO PSA OUR"',
