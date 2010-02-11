@@ -1688,6 +1688,14 @@ div.DailyBonusStep02
  width: 282px;
 }
 
+body.de div.DailyBonusStep02
+{
+ background: transparent url(images/bg_daily_bonus02_de.jpg) no-repeat scroll 0 0;
+ height: 289px;
+ position: relative;
+ width: 282px;
+}
+
 p.Dollar1
 {
  color: #6F1E1E;
