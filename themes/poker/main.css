@@ -664,6 +664,9 @@ body.iframe #messagebox a.LayerClose
 	height:30px;
 }
 
+body.de #profile-medium .abuse .poker_submit .label {
+	width: 140px;
+}
 #profile-medium .activate
 {
 	padding-left:15px;
@@ -685,7 +688,7 @@ body.iframe #messagebox a.LayerClose
 
 body.iframe #profile-medium a.LayerClose
 {
-	background:transparent url(images/button_layerclose.gif) repeat scroll 0 0;
+	background:transparent url(images/button_layerclose.gif) no-repeat;
 	top:8px;
 }
 
