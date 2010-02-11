@@ -99,19 +99,20 @@ In Texas Hold’em poker, each player is initially dealt two cards face down (kn
 		</ol>
 	</div>
 
-	<div id="help-tutorial" class="helpbox">
-    <p style="text-align: center;">
-      <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" type="text/javascript"></script>
-      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="<?php print $tutorial['size'][0]?>" height="<?php print $tutorial['size'][1]?>">
-        <param name="movie" value="<?php print $tutorial['file']?>" />
-        <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="<?php print $tutorial['file']?>" width="<?php print $tutorial['size'][0]?>" height="<?php print $tutorial['size'][1]?>">
-        <!--<![endif]-->
-          <p></p>
-        <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object>
+	<div id="help-tutorial" class="helpbox" style="overflow: hidden">
+    <p>
+      <a class="tab-iframe" href="<?php print $tutorial ?>" style="display: none"></a>
+      <script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+          $('#ContainerContentHelp .tabs').bind('tabsshow', function(event, ui){
+            if(!$(ui.tab).hasClass('foo')) {
+              $('iframe.tutorial').remove();
+              var href = $('.tab-iframe').attr('href');
+              $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+            }
+          });
+        });
+      </script>
     </p>
 	</div>
 
