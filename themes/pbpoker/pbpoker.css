@@ -1688,6 +1688,14 @@ div.DailyBonusStep02
  width: 282px;
 }
 
+body.de div.DailyBonusStep02
+{
+ background: transparent url(images/bg_daily_bonus02_de.jpg) no-repeat scroll 0 0;
+ height: 289px;
+ position: relative;
+ width: 282px;
+}
+
 p.Dollar1
 {
  color: #6F1E1E;
@@ -1835,6 +1843,32 @@ p.Link a
  text-decoration: underline;
 }
 
+
+body.de div.DailyBonusStep02 {
+ background-image: url(images/bg_daily_bonus02-de.gif);
+ background-position: 0px -28px;
+}
+
+body.de p.Dollar1 {
+ top: 13px;
+ left: 47px;
+ font-size: 23px;
+}
+
+body.de p.Dollar2 {
+  top: 130px;
+  left: 96px;
+}
+
+body.de p.Dollar3 {
+  top: 158px;
+  left: 164px;
+}
+
+body.de p.Buddies {
+  top: 211px;
+  left: 218px;
+}
 
 /*
 ** INVITEDLIST
@@ -2531,3 +2565,5 @@ body.poker-report-abuse #page {
 #os-poker-report-abuse-form #edit-details-wrapper label {
   margin-bottom: 10px;
 }
+
+
