@@ -103,7 +103,7 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
 }
 
 function pbpoker_preprocess_os_poker_help(&$variables) {
-  $variables['tutorial'] = pbpoker_flash_tutorial('help/Tutorial');
+  $variables['tutorial'] = drupal_get_path('theme', 'pbpoker') . '/swf/help/Tutorial_002.html';
 }
 
 function pbpoker_poker_tutorial_link() {
