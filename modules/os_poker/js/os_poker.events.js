@@ -3,9 +3,10 @@ var OsPoker = OsPoker || {};
 OsPoker.eventHandlers = {
   os_poker_table_selected: function(event, arg) {
     if(!isNaN(parseInt(arg.table, 10))) {
-      $('#table_users .list').load(Drupal.settings.basePath+'?q='+Drupal.encodeURIComponent('poker/table/'+arg.table.toString()+'/players'), function(responseText, textStatus, XMLHttpRequest){
+      $('#table_users .inner-list').load(Drupal.settings.basePath+'?q='+Drupal.encodeURIComponent('poker/table/'+arg.table.toString()+'/players'), function(responseText, textStatus, XMLHttpRequest){
         if(textStatus === 'success' && $(this).find('.user').length > 0) {
           $('#table_users .header').show();
+          $('#table_users #list-banner').hide();
           $('#table_users .list').removeClass('splash');
           Drupal.attachBehaviors(this);
           tb_init(this);
@@ -13,6 +14,7 @@ OsPoker.eventHandlers = {
         else {
           $(this).html('');
           $('#table_users .header').hide();
+          $('#table_users #list-banner').show();
           $('#table_users .list').addClass('splash');
         }
       });
