@@ -279,7 +279,7 @@ function	os_poker_gadget()
 		$output     = "";
 		$output    .= theme('add_gadget', $app_id, $mod_id, $view, $owner_id);
 		$output 	= str_replace("<br>", "", $output);
-		$output 	= str_replace("<br/>", "", $output);
+		//$output 	= str_replace("<br/>", "", $output);
 		return $output;
 	}
 
