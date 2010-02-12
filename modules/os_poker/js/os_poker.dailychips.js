@@ -5,7 +5,10 @@
 Drupal.behaviors.dailygiftBehavior = function() {
 // Trigger invite friends thickbox instead of dailychips confirmation
 setTimeout(function() {
-   tb_show('Daily Gifts', 'http://' + window.location.hostname +'/drupal6/?q=poker/buddies/invite&height=442&width=603&TB_iframe=true');
+    var bl = $(".buddy_list_placeholder a.thickbox");
+    if (bl.length > 0) {
+        bl.eq(0).trigger('click');
+    } 
 }, 1000);
 }
 
