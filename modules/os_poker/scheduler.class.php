@@ -125,7 +125,9 @@ class CDailyChips implements ITask
 
 		$context_user->Save();
 		CScheduler::instance()->RegisterTask($this, $context_user->uid, array('login', 'live'), "+1 day");
-		drupal_set_message(t("Daily gift : !invites Invites = !nchips Chips allocated.", array("!invites" => $nInvites, "!nchips" => $allocation)));
+
+		$_SESSION['dailychips'] = 1;
+		//drupal_set_message(t("XXX Daily gift : !invites Invites = !nchips Chips allocated.", array("!invites" => $nInvites, "!nchips" => $allocation)));
 
 	}
 	

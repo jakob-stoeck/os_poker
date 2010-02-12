@@ -313,6 +313,11 @@ function os_poker_init()
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/swfobject.js");
 
+	if ($_SESSION['dailychips'] == 1) {
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.dailychips.js", "module");
+			$_SESSION['dailychips'] = null;
+	}
+
 	if ($inpoker == FALSE && user_is_logged_in() > 0)
 	{
 		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
