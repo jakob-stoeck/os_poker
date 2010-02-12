@@ -2,17 +2,16 @@
 <div class="panel">
 	<div class="previous"></div>
 	<div class="list splash">
-      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="300" height="100">
-        <param name="movie" value="<?php print drupal_get_path("theme", "pbpoker") ?>/swf/promotion/shop_300x100.swf" />
-        <param name="FlashVars" value="clickTag=http://www.bunnystore.de/playboy/?hnr=poker.playboy" />
-        <!--[if !IE]>-->
-        <object FlashVars="clickTag=http://www.bunnystore.de/playboy/?hnr=poker.playboy" type="application/x-shockwave-flash" data="<?php print drupal_get_path("theme", "pbpoker") ?>/swf/promotion/shop_300x100.swf" width="300" height="100">
-        <!--<![endif]-->
-          <p></p>
-        <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object>
+      <div id="home_promotion_2-banner">
+  		</div>
+  		<?php $swf = drupal_get_path("theme", "pbpoker"). '/swf/promotion/shop_300x100.swf'; ?>
+			<script type="text/javascript">
+        swfobject.embedSWF('<?php print $swf?>', "home_promotion_2-banner", "300", "100", "9.0.0", undefined, {
+          'clickTag' : 'http://www.bunnystore.de/playboy/?hnr=poker.playboy'
+        }, {
+          'wmode': 'transparent'
+        });
+      </script>
 	</div>
 	<div class="next"></div>
 	<div class="clear"></div>
