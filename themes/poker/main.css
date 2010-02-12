@@ -98,16 +98,6 @@ div.tb-fix-margin a.LayerClose
 {
 	color:black;
 }
-/*
-#profile-tabs
-{
-	background:transparent url(images/bg_shop.gif) repeat-x scroll 0 0;
-	height:455px;
-	padding:5px;
-	width:622px;
-	color:#727272;
-}
-*/
 #profile-tabs .block_title_bar
 {
 	padding-left:5px;
@@ -342,28 +332,9 @@ div.tb-fix-margin a.LayerClose
 /*
 ** Shop
 */
-/*
-#shop-tabs
-{
-	background:transparent url(images/bg_shop.gif) repeat-x;
-	height:455px;
-	padding:5px;
-	width:622px;
-}
-*/
 #shop-tabs .content
 {
 	padding:10px;
-}
-
-#shop .left
-{
-	float:left;
-}
-
-#shop .right
-{
-	float:left;
 }
 
 #shop .header
@@ -384,39 +355,47 @@ div.tb-fix-margin a.LayerClose
 	background:transparent url(images/buddy_offline.png) no-repeat scroll left center;
 }
 
-#shop .header .left .shop_user
-{
-	background:transparent url(images/buddy_online.png) no-repeat scroll left center;
+#shop .header .left .shop_user {
+	background:url(images/buddy_online.png) no-repeat left center;
 }
 
-#shop .panel .left
-{
+#shop .panel .left {
 	width: 138px;
+	float: left;
 }
-#shop .panel .left .top img
-{
-	width: 110px;
+
+/* user picture */
+#shop .panel .left .picture {
+	width: 120px;
+	overflow: hidden;
 }
-#shop .panel .right
-{
+#shop .panel .right {
 	width: 460px;
+	float: left;
 }
 
-#shop .footer
-{
+#shop .footer {
 	clear:both;
-	padding-top: 10px;
+	height: 45px;
 }
 
-#shop .footer .right
-{
-	width: 510px;
+#shop .footer .left {
+	position: absolute;
+	left: 0;
+	margin-right: 185px;
+	bottom: 0;
 }
 
 #shop .footer .left
 {
 	width: 92px;
   margin-top: -6em;
+}
+#shop .footer .right 
+{
+	position: absolute;
+	right: 0;
+	bottom: 0;
 }
 
 /*
@@ -434,8 +413,7 @@ div.tb-fix-margin a.LayerClose
 
 body.iframe #messagebox a.LayerClose
 {
-	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
-	top:8px;
+	top: 8px;
 }
 
 #messagebox .block_title_text
@@ -452,7 +430,7 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .message
 {
-	padding: 5px;
+	padding: 3px 5px;
 	border-bottom: 1px dotted #810E0B;
 }
 
@@ -472,6 +450,8 @@ body.iframe #messagebox a.LayerClose
 {
 	width:182px;
 	padding: 0 5px;
+	height: 54px;
+	overflow-y: auto;
 }
 
 #messagebox .message .body a
@@ -690,6 +670,9 @@ body.iframe #messagebox a.LayerClose
 	height:30px;
 }
 
+body.de #profile-medium .abuse .poker_submit .label {
+	width: 140px;
+}
 #profile-medium .activate
 {
 	padding-left:15px;
@@ -711,7 +694,7 @@ body.iframe #messagebox a.LayerClose
 
 body.iframe #profile-medium a.LayerClose
 {
-	background:transparent url(images/button_layerclose2.gif) repeat scroll 0 0;
+	background:transparent url(images/button_layerclose.gif) no-repeat;
 	top:8px;
 }
 
@@ -785,6 +768,19 @@ body.iframe #profile-medium a.LayerClose
 	outline: 0 none;
 }
 
+/* quick fix for german */
+body.de #profile-medium .links {
+	width: 140px;
+	padding-left: 44px;
+}
+body.de #profile-medium .links .poker_submit .label {
+	width: 125px;
+}
+body.de #profile-medium .activate {
+	width: 140px;
+	float: right !important;
+	margin-top: -30px;
+}
 /**
  * Overlays
  */
@@ -1315,7 +1311,7 @@ dl.helpbox-list dd {
 	margin-bottom: 10px;
 	border: 1px solid #ccc;
 	background: #fff;
-	width: 392px;
+	width: 380px;
 }
 
 dl.helpbox-list dt {

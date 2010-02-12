@@ -337,7 +337,6 @@ div#header div#logo
 */
 
 #user-login-form {
-	width: 305px; /* only used on front */
 	overflow: hidden;
 }
 
@@ -349,7 +348,7 @@ div#user_login
 	text-decoration: none;
 	margin-top: 12px;
 	white-space: nowrap;
-	width: 400px;
+	width: 305px;
 }
 
 div#user_login .user_login_row
@@ -546,12 +545,14 @@ div.poker_submit.silver
 div.poker_submit.silver div.pre
 {
   background: transparent url(images/silver_button_left.gif) no-repeat;
+  padding-top: 2px;
 }
 
 div.poker_submit.silver div.label
 {
   background: transparent url(images/silver_button_middle.gif) repeat-x;
 	color: #313751;
+  padding-top: 2px;
 }
 
 div.poker_submit.silver:hover
@@ -868,6 +869,7 @@ div#buddylist .buddy_list_placeholder .body a
 	overflow: hidden;
 	padding-bottom: 5px;
 	width: 60px;
+	white-space: nowrap;
 }
 
 .buddy_list_name
@@ -893,6 +895,7 @@ div#buddylist .buddy_list_placeholder .body a
 .buddy_list_links a
 {
 	font-weight: bold;
+	white-space: nowrap;
 }
 
 #buddylist #today_gift {
@@ -964,6 +967,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 #middle-content-left-table .iframe_div
 {
 	height: 600px;
+	margin-top: -15px;
 	margin-left: -10px;
 	margin-bottom: -10px;
 	padding: 0 !important;
@@ -992,7 +996,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief
 {
-	background-color: #D4D3CF;
+	background: #fff url(images/bg_user_brief.png) left -20px repeat-x;
 	color: #635E58;
 	font-weight: bold;
 	height: 72px;
@@ -1689,7 +1693,7 @@ body.de div.DailyBonusStep02
  height: 289px;
  position: relative;
  width: 282px;
- top: -28px;
+ /* top: -28px; */
 }
 p.Dollar1
 {
@@ -1855,6 +1859,32 @@ p.Link a
  text-decoration: underline;
 }
 
+
+body.de div.DailyBonusStep02 {
+ background-image: url(images/bg_daily_bonus02-de.gif);
+ background-position: 0px -28px;
+}
+
+body.de p.Dollar1 {
+ top: 13px;
+ left: 47px;
+ font-size: 23px;
+}
+
+body.de p.Dollar2 {
+  top: 130px;
+  left: 96px;
+}
+
+body.de p.Dollar3 {
+  top: 158px;
+  left: 164px;
+}
+
+body.de p.Buddies {
+  top: 211px;
+  left: 218px;
+}
 
 /*
 ** INVITEDLIST
@@ -2189,7 +2219,7 @@ width: 87px;
 
 #forgot-password .LayerClose,
 #poker-first-profile a.LayerClose {
- background-image: url(images/button_layerclose3.gif);
+ background-image: url(images/button_layerclose.gif);
 }
 
 #forgot-password .header
@@ -2492,6 +2522,12 @@ div.poker_error_message {
  text-decoration: none !important;
 }
 
+body.de #welcome-splash ul.links a {
+    font-size: 13px;
+	padding-top: 11px;
+	height: 24px;
+}
+
 /*
  * Poker hands / Help
  */
@@ -2526,3 +2562,24 @@ div.poker_error_message {
 .poker-hand.high-card {
 	background: url(images/cards/hands/high_card.gif) no-repeat;
 }
+
+/**
+ * Repot abuse
+ */
+
+body.poker-report-abuse #page {
+ padding-top: 1px;
+ background-image: url(images/bg_report_abuse.png);
+ background-repeat: repeat-x;
+ background-color: #dedfe1;
+}
+
+#os-poker-report-abuse-form label.option {
+ font-weight: bold;
+}
+
+#os-poker-report-abuse-form #edit-details-wrapper label {
+  margin-bottom: 10px;
+}
+
+
