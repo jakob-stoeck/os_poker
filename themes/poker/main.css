@@ -383,13 +383,8 @@ div.tb-fix-margin a.LayerClose
 	position: absolute;
 	left: 0;
 	margin-right: 185px;
-	bottom: 0;
-}
-
-#shop .footer .left
-{
+	bottom: 22px;
 	width: 92px;
-  margin-top: -6em;
 }
 #shop .footer .right 
 {
