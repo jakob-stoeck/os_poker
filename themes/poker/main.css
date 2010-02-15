@@ -401,8 +401,8 @@ div.tb-fix-margin a.LayerClose
 	background:#FFFFFF url(images/bg_shop.gif) repeat scroll 0 0;
 	color:#727272;
 	width:302px;
-	height:294px;
-	padding:6px 9px;
+	height:302px;
+	padding:6px 8px;
 }
 
 body.iframe #messagebox a.LayerClose
@@ -419,7 +419,6 @@ body.iframe #messagebox a.LayerClose
 #messagebox  #message-list
 {
 	margin-top:1px;
-	border-top:1px solid #CCCCCA;
 }
 
 #messagebox .message
@@ -444,7 +443,7 @@ body.iframe #messagebox a.LayerClose
 {
 	width:192px;
 	padding: 0 3px;
-	height: 54px;
+	height: 56px;
 	overflow: hidden;
 }
 
