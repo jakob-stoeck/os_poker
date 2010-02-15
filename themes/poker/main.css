@@ -382,9 +382,8 @@ div.tb-fix-margin a.LayerClose
 #shop .footer .left {
 	position: absolute;
 	left: 0;
-	margin-right: 185px;
-	bottom: 26px;
-	width: 92px;
+	bottom: 8px;
+	width: 125px;
 }
 #shop .footer .right
 {
