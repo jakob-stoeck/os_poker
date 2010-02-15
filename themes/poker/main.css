@@ -460,7 +460,7 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .inner-item-list
 {
-	height:244px;
+	/*height:244px;*/
 }
 
 #messagebox .ajax-pager
