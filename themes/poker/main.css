@@ -419,6 +419,7 @@ body.iframe #messagebox a.LayerClose
 #messagebox  #message-list
 {
 	margin-top:1px;
+	position: relative;
 }
 
 #messagebox .message
@@ -465,7 +466,9 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .ajax-pager
 {
-	padding-top:5px;
+	position: absolute;
+	bottom: -27px;
+	right: 0;
 }
 
 /*
