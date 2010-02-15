@@ -403,6 +403,7 @@ div.tb-fix-margin a.LayerClose
 	width:302px;
 	height:302px;
 	padding:6px 8px;
+	position: relative; /*that should work already */
 }
 
 body.iframe #messagebox a.LayerClose
@@ -419,7 +420,7 @@ body.iframe #messagebox a.LayerClose
 #messagebox  #message-list
 {
 	margin-top:1px;
-	position: relative;
+	position: static; /* thats just because there is a too generic position relative on every DIV, that should move. */
 }
 
 #messagebox .message
@@ -459,16 +460,11 @@ body.iframe #messagebox a.LayerClose
 	height:50px;
 }
 
-#messagebox .inner-item-list
-{
-	/*height:244px;*/
-}
-
 #messagebox .ajax-pager
 {
 	position: absolute;
-	bottom: -27px;
-	right: 0;
+	bottom: 0;
+	right: 5px;
 }
 
 /*
