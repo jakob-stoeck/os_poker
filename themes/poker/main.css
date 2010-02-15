@@ -386,7 +386,7 @@ div.tb-fix-margin a.LayerClose
 	bottom: 26px;
 	width: 92px;
 }
-#shop .footer .right 
+#shop .footer .right
 {
 	position: absolute;
 	right: 0;
@@ -425,7 +425,7 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .message
 {
-	padding: 3px 5px;
+	padding: 3px 0;
 	border-bottom: 1px dotted #810E0B;
 }
 
@@ -443,10 +443,10 @@ body.iframe #messagebox a.LayerClose
 
 #messagebox .message .body
 {
-	width:182px;
-	padding: 0 5px;
+	width:192px;
+	padding: 0 3px;
 	height: 54px;
-	overflow-y: auto;
+	overflow: hidden;
 }
 
 #messagebox .message .body a
