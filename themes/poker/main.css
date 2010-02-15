@@ -404,11 +404,12 @@ div.tb-fix-margin a.LayerClose
 	height:302px;
 	padding:6px 8px;
 	position: relative; /*that should work already */
+	overflow: hidden;
 }
 
 body.iframe #messagebox a.LayerClose
 {
-	top: 8px;
+	top: 6px;
 }
 
 #messagebox .block_title_text
