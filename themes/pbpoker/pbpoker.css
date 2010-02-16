@@ -1645,22 +1645,25 @@ ul.categories li a span
 ** PAGER
 */
 
-
-
-.item-list ul.pager
-{
-	text-align: right;
-}
-
 ul.pager a.active
 {
 	color: #727272;
 	font-weight: bold;
 }
 
+ul.pager a
+{
+	background: none !important;
+}
+
 ul.pager .pager-current
 {
  color: #A8904A;
+}
+
+.item-list ul.pager
+{
+	text-align: right;
 }
 
 .item-list .pager li
