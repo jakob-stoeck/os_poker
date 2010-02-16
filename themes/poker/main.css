@@ -236,7 +236,7 @@ div.tb-fix-margin a.LayerClose
 	margin:0;
 	padding-top:10px;
 	padding-right:10px;
-	height:22px;
+	/*height:22px;*/
 	float:left;
 }
 
@@ -267,7 +267,7 @@ div.tb-fix-margin a.LayerClose
 #profile-settings #edit-pass-wrapper
 {
 	display:block;
-	height:32px;
+	/*height:32px;*/
 	padding:0;
 }
 
@@ -278,13 +278,13 @@ div.tb-fix-margin a.LayerClose
 	text-align:right;
 	padding-right:3px;
 	padding-top:3px;
-	height:19px;
+	/*height:19px;*/
 	white-space:nowrap;
 }
 
 #profile-settings .poker_submit
 {
-	margin-top:12px;
+	padding-top: 12px;
 }
 
 #profile-settings .setting-block .form-item input
