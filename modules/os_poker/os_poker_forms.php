@@ -66,8 +66,11 @@ function	os_poker_sign_up_form($form_state)
 	require_once(drupal_get_path('module', 'password_policy') . "/password_policy.module");
 	
 	$form = array();
-  	$account = array(); // not used, but needed by the hook
-  	$form = user_relationship_invites_user('register', $form, $account, NULL);
+	$account = array(); // not used, but needed by the hook
+
+	/* Invoke the user_relationship_invites_user() hook to ensure buddy relationship will be triggered
+		 upon submitting the sign up form */
+	$form = user_relationship_invites_user('register', $form, $account, NULL);
 				
 	$form["name"] = array(
 							'#type' => 'hidden',
@@ -122,10 +125,13 @@ function	os_poker_sign_up_form($form_state)
   $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
   $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
 
+	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
   if (isset($form['mail']['#default_value'])) {
     $form['mail']['#value'] = $form['mail']['#default_value'];
   }
+
+	/* Mark the signup as invite based to ensure additional chips will be credited */
   if (($code = $_SESSION[INVITE_SESSION]))
   {
     $form['poker_invite'] = array('#type' => 'value', '#value' => TRUE);
