@@ -472,35 +472,32 @@ div#user_login .custom_input
 */
 
 div.poker_submit {
-  background: transparent url(images/button_right.gif) no-repeat scroll top right;
-  color: #1b1401;
-  display: inline-block;
-  font: normal 12px arial, sans-serif;
-  text-decoration: none;
+	color: #1b1401;
+	font: normal 12px Arial, sans-serif;
+	text-decoration: none;
 	cursor: pointer;
-	padding-right: 7px; /* sliding doors padding */
 	margin-top: 2px;
 }
 
 .container-inline div.poker_submit {
- display: inline-block;
- vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
 
-
 div.poker_submit div.pre {
-  background: transparent url(images/button_left.gif) no-repeat;
-  display: block;
+	background: url(images/button_left.gif) no-repeat;
+	display: block;
 	float: left;
-  height: 16px;
+	height: 16px;
 	width: 7px;
 }
 
 div.poker_submit div.label {
-  background: transparent url(images/button_middle.gif) repeat-x;
-  display: block;
+	background: url(images/button_long_right.gif) no-repeat scroll top right;
+    padding-right: 7px;
+	display: block;
 	float: left;
-  height: 16px;
+	height: 16px;
 	text-align: center;
 }
 
@@ -520,27 +517,9 @@ div.poker_submit div.label input {
 	font-weight: bold;
 }
 
-div.poker_submit:hover {
-  background: transparent url(images/button_right.gif) no-repeat scroll top right;
-}
-
-div.poker_submit:hover div.pre {
-  background: transparent url(images/button_left.gif) no-repeat;
-}
-
-div.poker_submit:hover div.label{
-  background: transparent url(images/button_middle.gif) repeat-x;
-	text-decoration: underline;
-}
-
 /*
 ** The silver one
 */
-
-div.poker_submit.silver
-{
-  background: transparent url(images/silver_button_right.gif) no-repeat scroll top right;
-}
 
 div.poker_submit.silver div.pre
 {
@@ -550,25 +529,9 @@ div.poker_submit.silver div.pre
 
 div.poker_submit.silver div.label
 {
-  background: transparent url(images/silver_button_middle.gif) repeat-x;
-	color: #313751;
-  padding-top: 2px;
-}
-
-div.poker_submit.silver:hover
-{
-  background: transparent url(images/silver_button_right.gif) no-repeat scroll top right;
-}
-
-div.poker_submit.silver:hover div.pre
-{
-  background: transparent url(images/silver_button_left.gif) no-repeat;
-}
-
-div.poker_submit.silver:hover div.label
-{
-  background: transparent url(images/silver_button_middle.gif) repeat-x;
-	text-decoration: underline;
+  background: transparent url(images/silver_button_long_right.gif) repeat-x;
+  color: #313751;
+  /*padding-top: 2px;*/
 }
 
 /*
@@ -1645,22 +1608,25 @@ ul.categories li a span
 ** PAGER
 */
 
-
-
-.item-list ul.pager
-{
-	text-align: right;
-}
-
 ul.pager a.active
 {
 	color: #727272;
 	font-weight: bold;
 }
 
+ul.pager a
+{
+	background: none !important;
+}
+
 ul.pager .pager-current
 {
  color: #A8904A;
+}
+
+.item-list ul.pager
+{
+	text-align: right;
 }
 
 .item-list .pager li
@@ -2508,6 +2474,9 @@ div.poker_error_message {
  width: 141px;
 }
 
+#welcome-splash ul.links li {
+	margin-top: 5px;
+}
 #welcome-splash ul.links a {
  display: block;
  width: 141px;

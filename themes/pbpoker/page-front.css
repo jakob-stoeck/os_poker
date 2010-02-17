@@ -129,12 +129,14 @@ body.not-logged-in #middle-content-right
   margin:0;
 }
 
-#messages #terms
-{
-  color:white;
-  font-size:10px;
-  width:200px;
-  padding-left:100px;
+#messages {
+	color: white;
+	font-size: 10px;
+	width: 295px;
+}
+#messages #terms {
+	margin-left: 100px;
+	margin-top: 10px;
 }
 
 /**
