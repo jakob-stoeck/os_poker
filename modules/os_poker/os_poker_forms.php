@@ -71,6 +71,8 @@ function	os_poker_sign_up_form($form_state)
 	/* Invoke the user_relationship_invites_user() hook to ensure buddy relationship will be triggered
 		 upon submitting the sign up form */
 	$form = user_relationship_invites_user('register', $form, $account, NULL);
+	// Force buddy request to be approved
+	$form['relationship_invite_approve'] = array('#type' => 'value', '#value' => 'approve');
 				
 	$form["name"] = array(
 							'#type' => 'hidden',
