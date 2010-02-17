@@ -948,6 +948,12 @@ function os_poker_menu()
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_tos_page',
       'file' 			   => 'os_poker_pages.php',
+    ),
+    'invite/accept/%invite' => array(
+      'page callback' => 'poker_invite_accept',
+      'page arguments' => array(2),
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
     )
   );
 	return $menu;
@@ -1807,3 +1813,14 @@ function theme_poker_tutorial_link() {
     ),
   ));
 }
+
+function poker_invite_accept($invite) {
+  global $user;
+
+  if (!$user->uid && invite_validate($invite)) {
+    $_SESSION[INVITE_SESSION] = $invite->reg_code;
+  }
+
+  drupal_goto();
+}
+

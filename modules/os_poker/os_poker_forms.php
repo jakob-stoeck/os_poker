@@ -66,6 +66,8 @@ function	os_poker_sign_up_form($form_state)
 	require_once(drupal_get_path('module', 'password_policy') . "/password_policy.module");
 	
 	$form = array();
+  	$account = array(); // not used, but needed by the hook
+  	$form = user_relationship_invites_user('register', $form, $account, NULL);
 				
 	$form["name"] = array(
 							'#type' => 'hidden',
@@ -76,6 +78,7 @@ function	os_poker_sign_up_form($form_state)
 							'#title' => t("Your Email"),
 							'#attributes' => array("class" => "custom_input"),
 							'#required' => TRUE,
+
 					);
 
 	$form["pass"] = array(
@@ -118,7 +121,17 @@ function	os_poker_sign_up_form($form_state)
 
   $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
   $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
-	return $form;
+
+  invite_form_alter($form, $form_state, 'user_register');
+  if (isset($form['mail']['#default_value'])) {
+    $form['mail']['#value'] = $form['mail']['#default_value'];
+  }
+  if (($code = $_SESSION[INVITE_SESSION]))
+  {
+    $form['poker_invite'] = array('#type' => 'value', '#value' => TRUE);
+  } 
+
+  return $form;
 }
 
 /*

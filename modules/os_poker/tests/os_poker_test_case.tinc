@@ -528,4 +528,16 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
  function print_r($var) {
    $this->pass('<pre>'. print_r($var, true) .'</pre>');
  }
+
+ /* For some forms we dont have submit button, but rather javascript code to submit.
+	* This function alters the drupalPost() to disregard submit button match if $submit is passed as NULL
+	*/
+ function handleForm(&$post, &$edit, &$upload, $submit, $form) {
+		 $submit_matches = parent::handleForm($post, $edit, $upload, $submit, $form);
+		 if (!$submit)
+				 $submit_matches = true;
+
+		 return $submit_matches;
+ }
+
 }

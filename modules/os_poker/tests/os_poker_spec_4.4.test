@@ -241,6 +241,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
 
     // Use the invitation code to login the site.
     $this->drupalGet('invite/accept/'. $code);
+		$this->assertEqual($this->getUrl(), $this->getAbsoluteUrl(''), 'Invite accept redirects to start page');
 
     // The request has to redirect to user registration form with prepopulated
     // information from the invite submission. Our email should have been
@@ -251,21 +252,33 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
       t('Invitation verified, invited email found in registration form.')
     );
 
+		$this->assertRaw('home_signup_form', 'Verify start page', 'SpecPoker');
+		$this->assertRaw('id="os-poker-sign-up-form"', 'Verify start page', 'SpecPoker');
+
     // Complete the fields and submit the registration form.
     $password = $this->randomName();
     $options = array(
- 		  'name'        => $name,
-      'pass[pass1]' => $password,
-      'pass[pass2]' => $password,
+ 		  'mail'        => $email,
+      'pass' => $password,
     );
-    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
+    $this->drupalPost($this->getAbsoluteUrl(''), $options, null);
 
     /**
      * completes the 'invited' profile
      */
 		$this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
-		$this->fail("cmirey: something totally odd here ! instead of getting a user with nickname 'invited', it is set with 'test86' which is the last user I've created in normal environment... How can this happen ? => ");
 
+    $html = $this->drupalGet($this->getAbsoluteUrl(''));
+
+		if (preg_match("#<b class=[\"']chips[\"']>([^<]*)</b>#", $html, $m)) {
+				$this->pass("Chips got: ", $m[1]);
+				$nchips = preg_replace('/[\$\.,]+/', '', $m[1]);
+				$this->assertEqual($nchips, 8000, 
+													 t('he should be granted 5000 chips for signing up following an invitation (higher than for normal sign up)'));
+													 
+		} else {
+				$this->fail("Unable to find chips got");
+		}
 
     /**
      * Verify invited chip reward.
@@ -314,145 +327,10 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
     $this->assertLink('invited', 0, t('Invited %name is already a buddy.', array('%name' => $name)));
   }
 
-
   /**
-   * Verify invited users requesting not to be buddies are not related, neither
-   * chips are granted.
-   *
-   * The verification is done through these steps:
-   * - Register an 'invitee' user, and complete its profile.
-   * - go to buddy list and verify it is empty.
-   * - go to invite page, and submit one invitation.
-   * - verify the invitation email is sent.
-   * - Logout 'invitee' user.
-   * - using the code from the invitation email, register a 'invited' new user
-   *   select NO when asked for buddy relationship.
-   * - complete the profile page.
-   * - Verify chip reward for being invited is NOT granted.
-   * - go to buddies page, there should be NO 'invitee' user as buddy
-   * - Logout 'invited' user.
-   * - Login as 'invitee' user.
-   * - go to buddies page, there should be NO 'invited' user as buddy
-   *
+   * We no longer need to test the case where the invitee decides to disapprove the buddy request.
+   * ref. http://drupal-dev.pokersource.info/z2/ticket/169#comment:2
    */
-  function testInvitedRegistrationNobuddy(){
-
-    /**
-     * Register an 'invitee' account and complete its profile.
-     * This user has 'invitee' for nickname.
-     */
-    $user = $this->drupalCreateUser();
-    // Login the user, complete profile form
-    $this->OsPokerLogin($user, array('profile_nickname' => 'invitee'));
-
-    /**
-     * Verify 'invitee' user has no buddies
-     */
-    $this->verifyUserHasNoBuddies();
-
-    /**
-     * Submit an invitation
-     */
-    // Create a random name - email pair and send invite
-    $name = $this->randomName();
-    $email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
-    $this->OsPokerSendInvites(array($name => $email));
-
-    /**
-     * Verify that invitation email was sent.
-     */
-    $this->assertInviteMail(
-      $email,
-      t('Invitation email message sent for !name.', array('!name' => $name))
-    );
-
-    /**
-     * Logout 'invitee' user.
-     */
-    $this->drupalLogout();
-
-    /**
-     * Using invitation code, register the 'invited' user.
-     * This user has 'invited' for nickname
-     */
-    // Get the invitation code from the last sent email.
-    $mail_queue = end($this->drupalGetMails());
-    $code = $mail_queue['params']['invite']->code;
-
-    // Use the invitation code to login the site.
-    $this->drupalGet('invite/accept/'. $code);
-
-    // The request has to redirect to user registration form with prepopulated
-    // information from the invite submission. Our email should have been
-    // filled in the form with invite information.
-    $this->assertFieldByName(
-      'mail',
-      $email,
-      t('Invitation verified, invited email found in registration form.')
-    );
-
-    // Complete the fields and submit the registration form.
-    $password = $this->randomName();
-    $options = array(
-      'name'        => $name,
-      'pass[pass1]' => $password,
-      'pass[pass2]' => $password,
-      'relationship_invite_approve' => 'disapprove'
-    );
-    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
-
-    /**
-     * completes the 'invited' profile
-     */
-    $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
-
-    /**
-     * Verify invited chip reward.
-     */
-/*
-** cmirey : even if he refuse the relationship, he should be granted the chips bonus :
-** v1.0.2 / 4.4 (p.10): "The email provides an invitation link. When the new user clicks on it, he
-** is taken to the to an registration process. It should be possible to track,
-** which user invited him (establishing automatically a buddy relation) and
-** he should be granted 5000 chips for signing up following an invitation
-** (higher than for normal sign up)."
-
-     $this->assertText(
-       t('You have $ 3,000 Chips'),
-       t('Invited user not requesting buddy relationhips has not been granted with +$5.000 chips.')
-     );
-*/
-
-    /**
-     * Verify invited chip reward.
-     */
-     $this->assertText(
-       t('You have $ 8,000 Chips'),
-       t('he should be granted 5000 chips for signing up following an invitation (higher than for normal sign up)'), t('SpecPoker')
-     );
-
-
-    /**
-     * Verify that 'invitee' is NOT a buddy of 'invited' user
-     */
-    $this->verifyUserHasNoBuddies();
-
-    /**
-     * Logout 'invited' user.
-     */
-    $this->drupalLogout();
-
-    /**
-     * Login as 'invitee' user.
-     */
-    $this->drupalLogin($user);
-
-    /**
-     * Verify that 'invited' user is NOT a buddy of 'invitee' user.
-     */
-    $this->verifyUserHasNoBuddies();
-  }
-
 
   /**
    * Verify users invited several times only gets chips reward once.
@@ -544,6 +422,7 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
 
     // Use the invitation code to login the site.
     $this->drupalGet('invite/accept/'. $code);
+		$this->assertEqual($this->getUrl(), $this->getAbsoluteUrl(''), 'Invite accept redirects to start page');
 
     // The request has to redirect to user registration form with prepopulated
     // information from the invite submission. Our email should have been
@@ -554,21 +433,32 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
       t('Invitation verified, invited email found in registration form.')
     );
 
+		$this->assertRaw('home_signup_form', 'Verify start page', 'SpecPoker');
+		$this->assertRaw('id="os-poker-sign-up-form"', 'Verify start page', 'SpecPoker');
+
     // Complete the fields and submit the registration form.
     $password = $this->randomName();
     $options = array(
-      'name'        => $name,
-      'pass[pass1]' => $password,
-      'pass[pass2]' => $password,
+      'mail'        => $email,
+      'pass' => $password,
     );
-    $this->drupalPost($this->getUrl(), $options, t('Create new account'));
+    $this->drupalPost($this->getUrl(), $options, null);
 
     /**
      * completes the 'invited' profile
      */
     $this->OsPokerProfileSubmit(array('profile_nickname' => 'invited'));
 
+    $html = $this->drupalGet($this->getAbsoluteUrl(''));
 
+		if (preg_match('#<b class=["\']chips["\']>([^<]*)</b>#', $html, $m)) {
+				$this->pass("Chips got: ", $m[1]);
+				$nchips = preg_replace('/[\$\.,]+/', '', $m[1]);
+				$this->assertEqual($nchips, 8000, 
+													 t('User invited multiple times only gets +$5.000 chips grant once.'));
+		} else {
+				$this->fail("Unable to find chips got");
+		}
 
     /**
      * Verify invited chip reward.
@@ -657,5 +547,4 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
       t("User has no buddies.")
     );
   }
-
 }
