@@ -331,7 +331,7 @@ function os_poker_init()
 
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
 
-	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button.gif";
+	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";
 	$inline_js = "
 
 	function	os_poker_input_file_style()
@@ -339,7 +339,7 @@ function os_poker_init()
 		$('input[type=file]').filestyle({
 		 image: '{$file_button}',
 		 imageheight : 18,
-		 imagewidth : 70,
+		 imagewidth : 100,
 		 width : 160
 		 });
 	}
@@ -428,6 +428,7 @@ function 	os_poker_cron()
 
 function 	os_poker_theme()
 {
+  global $language;
   return array(
 				'os_poker_header_user_brief' => array(
 											  'arguments' => array('os_user' => NULL),

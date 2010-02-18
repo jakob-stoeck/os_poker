@@ -89,7 +89,7 @@
 					</tr>
 					<tr class="BgGrey">
 						<td class="Column01"><?php print t("Gender"); ?>:</td>
-						<td class="Column02"><?php print $target_user->profile_gender; ?></td>
+						<td class="Column02"><?php print t($target_user->profile_gender); ?></td>
 						<td class="Column03"><?php print t("Hands won"); ?>:</td>
 						<td class="Column04"><?php print $target_user->HandsWon; ?></td>
 					</tr>	

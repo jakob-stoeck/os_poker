@@ -618,10 +618,16 @@ function	os_poker_first_profile_form($form_state)
 									'#default_value' => $cuser->profile_dob ? $cuser->profile_dob : array('month' => 1, 'day' => 1, 'year' => 1990),
 							);
 
+	$countries_list = array_map(get_t(), countries_api_get_array('iso2', 'printable_name'));
+	uasort($countries_list, "strnatcmp");
+
 	$form['profile_country'] =	array(
 										'#type' => 'select',
 										'#title' => t('Country'),
-										'#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
+										'#options' => array_merge(array(NULL => t('--')), $countries_list),
+
+
+
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_country,
 								);

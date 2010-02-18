@@ -1806,6 +1806,13 @@ div.TeaseMore
  height: 31px;
  text-align: right;
 }
+body.de div.TeaseMore
+{
+ background:transparent url(images/bg_tease_more_de.gif) no-repeat scroll 0 0;
+ height:31px;
+ text-align: right;
+}
+
 
 div.TeaseMore .poker_submit
 {

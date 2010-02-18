@@ -14,11 +14,11 @@ usort($list_invited, "_os_poker_sort_invites");
   <!-- Table Left -->
   <table cellspacing="0" cellpadding="0" class="TableLeft">
   <tbody><tr>
-  <th class="Column01">Email</th>
-  <th class="Column02">Date</th>
-  <th class="Column03">Status</th>
-  <th class="Column04">Remind</th>
-  <th style="border-right: medium none;" class="Column05">Delete</th>
+  <th class="Column01"><?php print(t("E-Mail")) ?></th>
+  <th class="Column02"><?php print(t("Date")) ?></th>
+  <th class="Column03"><?php print(t("Status")) ?></th>
+  <th class="Column04"><?php print(t("Remind")) ?></th>
+  <th style="border-right: medium none;" class="Column05"><?php print(t("Delete")) ?></th>
   </tr>
 <?php
 $page = $_GET["page"];
@@ -91,7 +91,7 @@ for ($i = 0; $i < $items_per_page; $i++)
 <?php
 $GLOBALS['pager_page_array'][] = $page; //what page you are on
 $GLOBALS['pager_total'][] = $page_total; // total number of pages
-print theme('pager', NULL, $items_per_page);
+print theme('pager', array(t("« first"), t("‹ previous"), null, t("next ›"), t("last »")), $items_per_page);
 ?>
  </div>
 <!--
@@ -102,9 +102,9 @@ Page: <a href="#">1</a> <span class="Marked">2</span> <a href="#">3</a> <a href=
 
     <!-- Legend -->
     <div class="Legend">
-    <p>Invitation accepted=</p>
+    <p><?php print(t("Invitation accepted=")) ?></p>
     <div><img alt="" src="sites/all/themes/poker/images/icon_accepted.gif"/></div>
-    <p style="margin-left: 10px;">Not yet confirmed=</p>
+    <p style="margin-left: 10px;"><?php print(t("Not yet confirmed=")) ?></p>
     <div><img alt="" src="sites/all/themes/poker/images/icon_notconfirmed.gif"/></div>
     <div class="Clear"/>
     </div>
@@ -117,22 +117,22 @@ Page: <a href="#">1</a> <span class="Marked">2</span> <a href="#">3</a> <a href=
 
 <table cellspacing="0" cellpadding="0" class="TableRight">
     <tbody><tr>
-    <th colspan="2">Overview</th>
+    <th colspan="2"><?php print(t("Overview")) ?></th>
     </tr>
     
     <tr>
-    <td colspan="2">You have invited<br/><span><?php print $invites["total"]; ?></span> friends</td>
+    <td colspan="2"><?php print(t("You have invited:<br/> <span>%total</span> friends", array("%total" => $invites["total"]))) ?> </td>
     </tr>
     <tr><td colspan="2" class="Dotted"><div class="LineDotted"/></td></tr>
     
     <tr>
-    <td>Accepted<br/>invitations:</td>
+    <td><?php print(t("Accepted<br/>invitations")) ?>:</td>
     <td class="Number"><br/><span><?php print count($invites["accepted"]); ?></span></td>
     </tr>
     <tr><td colspan="2" class="Dotted"><div class="LineDotted"/></td></tr>
 
     <tr>
-    <td>Pending<br/>invitations:</td>
+    <td><?php print(t("Pending<br/>invitations")) ?>:</td>
     <td class="Number"><br/><span><?php print count($invites["pending"]); ?></span></td>
     </tr>
     

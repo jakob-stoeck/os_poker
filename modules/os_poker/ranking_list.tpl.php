@@ -28,7 +28,7 @@
 			$GLOBALS['pager_total'][0] = (int)($nusers / $perPage); // total number of pages
 			if ($nusers % $perPage)
 				$GLOBALS['pager_total'][0] = $GLOBALS['pager_total'][0] + 1;
-			print theme('pager', array(), $perPage, 0, array("ajax" => TRUE, "list" => "ranking"), 5);
+			print theme('pager', array(t("« first"), t("‹ previous"), null, t("next ›"), t("last »")), $perPage, 0, array("ajax" => TRUE, "list" => "ranking"), 5);
 		}
 	?>
 </div>

@@ -31,12 +31,13 @@
 			</div>
 			<div class="user_stats">
    <?php   print "<p><strong>".t("Status:")."</strong> ".$target_user->Status()."</p>"; ?>
-			<?php   print "<p><strong>".t("Profile:")."</strong> ".$target_user->GetProfileCompletePercent()."% filled!</p>"; ?>
+			<?php   print "<p><strong>".t("Profile:")."</strong> ".$target_user->GetProfileCompletePercent()."% " . t("filled!") . "</p>"; ?>
 			 </div>
 			 <div class="image_promo">
 			 <?php
+global $language;
 				 print '<p class="Dollar">2.000</p>';
-				 print '<img src="' . drupal_get_path("theme", "poker") . "/images/bg_update_profile.gif" . '" alt="promo"/>';
+				 print '<img src="' . drupal_get_path("theme", "poker") . "/images/bg_update_profile_" . $language->language . ".gif" . '" alt="promo"/>';
 			?>
 			</div>
 		</div>
