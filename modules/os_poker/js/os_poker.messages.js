@@ -54,8 +54,16 @@ function	os_poker_process_message(messages)
 **
 */
 
-function	os_poker_send_message(args)
+function	os_poker_send_message(js_args)
 {
+	var args = {};
+	$.each(js_args, function(key,val) {
+		if ( typeof(key) != 'function' && key != 'type') {
+			args[key] = JSON.stringify(val);
+		} else {
+			args[key] = val;
+		}
+	});
 	args.ajax = 1;
 
 	_os_poker_send_handler = $.ajax({
