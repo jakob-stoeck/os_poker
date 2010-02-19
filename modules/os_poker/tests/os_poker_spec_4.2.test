@@ -41,6 +41,22 @@ class OSPokerLogin extends OsPokerWebTestCase {
 		parent::tearDown();
 	}
 
+	function testLoginByEmail() {
+			$user = $this->drupalCreateUser();
+			$this->pass("User name: " . $user->name);
+			$this->pass("User mail: " . $user->mail);
+			$this->pass(print_r($user, true), "USER");
+
+			$user->name = $user->mail;
+			$this->assertTrue($this->drupalLogin($user), t("User login by email"));
+	}
+
+	function testLoginByNick() {
+			$user = $this->drupalCreateUser();
+			$user->name = $user->profile_nickname;
+			$this->assertTrue($this->drupalLogin($user), t("User login by profile_nickname"));
+	}
+
 	function testInvalidLogin(){
     $options = array(
       'name' => $this->randomName() . '@' . $this->randomName() . ".com",

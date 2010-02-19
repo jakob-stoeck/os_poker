@@ -444,6 +444,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     if ($pass) {
       $this->loggedInUser = $user;
     }
+		return $pass;
   }
 
   /*

@@ -727,6 +727,8 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 		$cuser->profile_nickname = $edit["profile_nickname"];	
 	}
 	
+	$cuser->name = $cuser->profile_nickname;
+
 	if (!empty($edit["profile_dob"])) { $cuser->profile_dob = $edit["profile_dob"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_gender"])) { $cuser->profile_gender = $edit["profile_gender"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_city"])) { $cuser->profile_city = $edit["profile_city"]; } else { $profileComplete &= FALSE; }
