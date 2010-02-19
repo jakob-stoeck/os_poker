@@ -555,6 +555,7 @@ div.poker_submit.big div.label {
 	height: 34px;
 	color: #6E4809;
 	font-weight: bold;
+	padding-right: 0;
 }
 
 div.poker_submit.big div.pre
