@@ -271,10 +271,13 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
     $html = $this->drupalGet($this->getAbsoluteUrl(''));
 
 		if (preg_match("#<b class=[\"']chips[\"']>([^<]*)</b>#", $html, $m)) {
-				$this->pass("Chips got: ", $m[1]);
+				$this->pass(t("Chips got: "). $m[1]);
 				$nchips = preg_replace('/[\$\.,]+/', '', $m[1]);
 				$this->assertEqual($nchips, 8000, 
 													 t('he should be granted 5000 chips for signing up following an invitation (higher than for normal sign up)'));
+				if ($nchips != 8000) {
+						$this->fail(t("He is granted {$nchips} chips instead of 8000"));
+				}
 													 
 		} else {
 				$this->fail("Unable to find chips got");
@@ -452,10 +455,13 @@ class OSPokerSpecificationsInvite extends OsPokerWebTestCase {
     $html = $this->drupalGet($this->getAbsoluteUrl(''));
 
 		if (preg_match('#<b class=["\']chips["\']>([^<]*)</b>#', $html, $m)) {
-				$this->pass("Chips got: ", $m[1]);
+				$this->pass(t("Chips got: ") . $m[1]);
 				$nchips = preg_replace('/[\$\.,]+/', '', $m[1]);
 				$this->assertEqual($nchips, 8000, 
 													 t('User invited multiple times only gets +$5.000 chips grant once.'));
+				if ($nchips != 8000) {
+						$this->fail(t("He is granted {$nchips} chips instead of 8000"));
+				}
 		} else {
 				$this->fail("Unable to find chips got");
 		}
