@@ -33,8 +33,10 @@ function email_registration_user($op, &$edit, &$account, $category = NULL) {
       }
 
       // replace with generated username
-      db_query("UPDATE {users} SET name = '%s' WHERE uid = '%s'", $namenew, $account->uid);
-      $account->name = $namenew;
+// Currently this module is not compatible with autologin after registration. So disabling this.
+// This will be handled in os_poker after profile submit which would set the 'nme' field o profilenick_name anyway.
+//      db_query("UPDATE {users} SET name = '%s' WHERE uid = '%s'", $namenew, $account->uid);
+//      $account->name = $namenew;
       break;
   }
   return;
