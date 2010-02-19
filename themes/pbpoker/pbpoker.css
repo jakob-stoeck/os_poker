@@ -547,6 +547,7 @@ div.poker_submit.big
 {
 	 background: transparent url(images/bg_button_goldbig_right.gif) no-repeat scroll top right;
 	 padding-right: 12px;
+	 overflow: auto;
 }
 
 div.poker_submit.big div.label {
@@ -630,9 +631,6 @@ div.poker_submit.medium div.pre
 	height: 22px;
 	width: 8px;
 }
-
-
-
 
 /*
 **
