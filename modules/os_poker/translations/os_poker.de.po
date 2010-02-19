@@ -46,12 +46,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-01-05 08:46+0100\n"
-"PO-Revision-Date: 2010-01-29 19:47+0100\n"
+"POT-Creation-Date: 2010-02-19 00:16+0100\n"
+"PO-Revision-Date: 2010-02-19 10:37+0100\n"
 "Last-Translator: Lord Byron <Akrostichon.Maniac@web.de>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -67,59 +67,95 @@ msgstr "Weiterspielen"
 msgid "* Please note that just new player are getting this bonus."
 msgstr "* Hinweis: Diesen Bonus erhalten nur neue Spieler."
 
-#: buddies-list.tpl.php:28
-#: buddy-block.tpl.php:21
-msgid "@user's picture"
-msgstr "@user's Profilbild"
+#: buddies-invitedlist.tpl.php:17
+#: os_poker_forms.php:812
+#: os_poker.module:89;161
+msgid "E-Mail"
+msgstr "E-Mail"
 
-#: buddies-list.tpl.php:28
-#: buddy-block.tpl.php:21
-msgid "Anonymous"
-msgstr "Anonymous"
+#: buddies-invitedlist.tpl.php:18
+msgid "Date"
+msgstr "Datum"
 
-#: buddies-list.tpl.php:31
-#: buddy-block.tpl.php:24
-msgid "View user profile."
-msgstr "Spielerprofil ansehen."
+#: buddies-invitedlist.tpl.php:19
+#: profile.tpl.php:15
+#: profile_medium.tpl.php:32
+#: profile_update.tpl.php:15
+#: user_brief.tpl.php:16
+msgid "Status"
+msgstr "Status"
 
-#: buddies-list.tpl.php:57
-#: buddy-block.tpl.php:42;47
-#: profile.tpl.php:121
+#: buddies-invitedlist.tpl.php:20
+msgid "Remind"
+msgstr "Erinnern"
+
+#: buddies-invitedlist.tpl.php:21
+msgid "Delete"
+msgstr "Löschen"
+
+#: buddies-invitedlist.tpl.php:105
+msgid "Invitation accepted="
+msgstr "Einladung akzeptiert="
+
+#: buddies-invitedlist.tpl.php:107
+msgid "Not yet confirmed="
+msgstr "Noch nicht bestätigt="
+
+#: buddies-invitedlist.tpl.php:120
+msgid "Overview"
+msgstr "Übersicht"
+
+#: buddies-invitedlist.tpl.php:124
+msgid "You have invited:<br/> <span>%total</span> friends"
+msgstr "Versendete <br/> Einladungen: <span>%total</span>"
+
+#: buddies-invitedlist.tpl.php:129
+msgid "Accepted<br/>invitations"
+msgstr "Erfolgreiche<br/>Einladungen"
+
+#: buddies-invitedlist.tpl.php:135
+msgid "Pending<br/>invitations"
+msgstr "Ausstehende<br/>Einladungen"
+
+#: buddies-list.tpl.php:53
+#: buddy-block.tpl.php:34;39
+#: os_poker_messages.php:218
+#: profile.tpl.php:122
 msgid "Challenge"
 msgstr "Fordern"
 
-#: buddies-list.tpl.php:65
-#: buddy-block.tpl.php:55
+#: buddies-list.tpl.php:61
+#: buddy-block.tpl.php:47
 msgid "Join table"
 msgstr "Zum Tisch"
 
-#: buddies-list.tpl.php:70
-#: buddy-block.tpl.php:60
+#: buddies-list.tpl.php:66
+#: buddy-block.tpl.php:53
 msgid "Invite now"
 msgstr "Einladen"
 
-#: buddies-list.tpl.php:87
+#: buddies-list.tpl.php:83
 msgid "Send gifts"
 msgstr "Spendieren"
 
-#: buddies-list.tpl.php:125
-#: os_poker_pages.php:388
+#: buddies-list.tpl.php:121
+#: os_poker_pages.php:400
 msgid "Sorry !"
 msgstr "Sorry !"
 
-#: buddies-list.tpl.php:125
+#: buddies-list.tpl.php:121
 msgid "your Searchrequest didn't match any Players."
 msgstr "keine Spieler passend zu Deiner Suchanfrage gefunden."
 
-#: buddies-list.tpl.php:125
+#: buddies-list.tpl.php:121
 msgid "Try again"
 msgstr "Noch einmal versuchen"
 
-#: buddies-list.tpl.php:131
+#: buddies-list.tpl.php:127
 msgid "You don't have any buddy."
 msgstr "Du hast noch keine Buddies."
 
-#: buddies-list.tpl.php:131
+#: buddies-list.tpl.php:127
 msgid "Invite a buddy"
 msgstr "Buddy einladen"
 
@@ -135,66 +171,69 @@ msgstr "Dann bist Du hier richtig! Ob in Deiner Nähe, landesweit oder internati
 msgid "* Please note that you can only add players to your buddy list or send gifts when you are both playing at the same table."
 msgstr "* Bitte beachte, dass Du nur Spieler zu Deiner Buddy Liste hinzufügen kannst, während Du mit Ihnen am selben Tisch spielst."
 
-#: buddy-block.tpl.php:68
-#: profile.tpl.php:116
-msgid "Send Gifts"
-msgstr "Spendieren"
+#: buddies-tabs.tpl.php:4
+msgid "Buddies"
+msgstr "Buddies"
 
-#: buddy-block.tpl.php:80
-msgid "Invite"
-msgstr "Einladen"
+#: buddies-tabs.tpl.php:5
+#: os_poker_forms.php:533
+msgid "Search"
+msgstr "Suche"
 
-#: buddy-block.tpl.php:83
+#: buddies-tabs.tpl.php:6
+#: buddy-block.tpl.php:75
 msgid "Invite Friends"
 msgstr "Freunde einladen"
 
-#: first_profile.tpl.php:6
-msgid "Create your Profile"
-msgstr "Erstelle Dein Profil"
+#: buddy-block.tpl.php:60
+#: profile.tpl.php:117
+msgid "Send Gifts"
+msgstr "Spendieren"
 
-#: first_profile.tpl.php:6
-msgid "One last step to discover the fun, excitement and challenge of poker."
-msgstr "Nur noch ein Schritt um den Spass, die Spannung und die Herausforderung des Pokerns zu entdecken."
-
-#: first_profile.tpl.php:13
-msgid "Find new Poker Buddies!"
-msgstr "Finde neue Poker Buddies!"
+#: buddy-block.tpl.php:72
+msgid "Invite"
+msgstr "Einladen"
 
 #: footer.tpl.php:7
 msgid "Terms of service"
 msgstr "AGB's"
 
-#: footer.tpl.php:8
+#: footer.tpl.php:14
+#: os_poker.module:942;948
 msgid "Help"
 msgstr "Hilfe"
 
-#: footer.tpl.php:9
-msgid "Editorial"
+#: footer.tpl.php:15
+msgid "Imprint"
 msgstr "Impressum"
 
-#: footer.tpl.php:10
+#: footer.tpl.php:21
 msgid "Sources"
 msgstr "Sources"
 
-#: forgot_password.tpl.php:3
+#: forgot_password.tpl.php:4
 msgid "Trouble Accessing Your Account ?"
 msgstr "Probleme auf Deinen Account zuzugreifen?"
 
-#: forgot_password.tpl.php:4
+#: forgot_password.tpl.php:5
 msgid "Forgot your password ? Enter your login email below and we will send you an email to change your password."
 msgstr "Passwort vergessen? Gib die E-Mail Adresse ein unter der Du Dich angemeldet hast und wir senden Dir eine E-Mail wie Du Dein Passwort ändern kannst."
 
-#: forgot_password.tpl.php:15
+#: forgot_password.tpl.php:16
 msgid "If you have a different problem accessing your account, please see our !help."
 msgstr "Wenn Du ein anderes Problem haben solltest auf Deinen Account zuzugreifen, besuche unsere !help."
 
-#: forgot_password.tpl.php:15
+#: forgot_password.tpl.php:16
 msgid "Login Problems Help Page"
 msgstr "Login Probleme Hilfe-Seite"
 
 #: home_signup.tpl.php:3
 msgid "SIGN UP : It's free and anyone can join !"
 msgstr "REGISTRIEREN : Kostenlos anmelden und mitmachen !"
+
+#: language_bar.tpl.php:46
+msgid "Logout"
+msgstr "Ausloggen"
 
 #: messagebox.tpl.php:4
 #: messages_popup.tpl.php:22
@@ -205,47 +244,41 @@ msgstr "Nachrichten"
 msgid "You don't have any message."
 msgstr "Du hast keine Nachrichten."
 
-#: news.tpl.php:33
+#: messages.class.php:188
+msgid "Notification"
+msgstr "Benachrichtigung"
+
+#: news.tpl.php:54
 msgid "read more"
 msgstr "weiterlesen"
 
-#: news.tpl.php:39
+#: news.tpl.php:60
 msgid "more"
 msgstr "mehr"
 
-#: os_poker.abuse.php:7
-msgid "Report abuse by %username."
-msgstr "Missbrauch melden von %username."
-
-#: os_poker.abuse.php:13
-msgid "Reason"
-msgstr "Grund"
-
 #: os_poker.abuse.php:14
-msgid "Your reason for reporting %username as abusive."
-msgstr "Der Grund warum Du %username als missbräuchlich meldest."
+msgid "Player image"
+msgstr "Profilbild"
+
+#: os_poker.abuse.php:15
+msgid "Player chat"
+msgstr "Spieler Chat"
 
 #: os_poker.abuse.php:16
-msgid "Offending profile picture"
-msgstr "Anstössiges Profilbild"
+msgid "Player name"
+msgstr "Spielername"
 
 #: os_poker.abuse.php:17
-#: os_poker.info:0
-msgid "Other"
-msgstr "Andere"
+msgid "Players poker play cheating"
+msgstr "Spieler cheated"
 
-#: os_poker.abuse.php:27;48
-#: profile.tpl.php:131
-#: profile_medium.tpl.php:31
-#: os_poker.module:675
-msgid "Report abuse"
-msgstr "Missbrauch melden"
+#: os_poker.abuse.php:29;43
+#: os_poker_forms.php:98;216;253;301;364;372;525;644;841
+#: os_poker_admin.inc:102
+msgid "Send"
+msgstr "Senden"
 
-#: os_poker.abuse.php:31
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: os_poker.abuse.php:62
+#: os_poker.abuse.php:57
 msgid "Your message has been sent."
 msgstr "Deine Nachricht wurde versendet."
 
@@ -273,235 +306,270 @@ msgstr "Vorgabewerte wiederherstellen"
 msgid "The e-mail address you specified is not valid."
 msgstr "Die angegebene e-Mail-Adresse ist nicht gültig."
 
-#: os_poker_forms.php:54;195
+#: os_poker_forms.php:38
+msgid "You must enter a username."
+msgstr "Du musst einen Usernamen eingeben."
+
+#: os_poker_forms.php:39
+msgid "The name %name is already taken."
+msgstr "Der Name %name ist schon vergeben."
+
+#: os_poker_forms.php:40
+msgid "The e-mail address %email is already registered. <a href=\"@password\">Have you forgotten your password?</a>"
+msgstr "Die E-Mail Adresse %email wird schon verwendet. <a href=\"@password\">Hast Du Dein Passwort vergessen?</a>"
+
+#: os_poker_forms.php:41
+msgid "The e-mail address %email is already registered. !password"
+msgstr "Die E-Mail Adresse %email wird schon verwendet. !password"
+
+#: os_poker_forms.php:42
+msgid "Have you forgotten your password?"
+msgstr "Hast Du Dein Passwort vergessen?"
+
+#: os_poker_forms.php:45
+#: os_poker.module:174
+msgid "Request new password via e-mail"
+msgstr "Fordere ein neues Passwort per E-Mail an"
+
+#: os_poker_forms.php:83;240
 msgid "Your Email"
 msgstr "Deine E-Mail"
 
-#: os_poker_forms.php:62
+#: os_poker_forms.php:92
 msgid "New Password"
 msgstr "Neues Passwort"
 
-#: os_poker_forms.php:68;171;208;256;319;327;466;579;780
-#: os_poker_admin.inc:102
-msgid "Send"
-msgstr "Senden"
-
-#: os_poker_forms.php:76
+#: os_poker_forms.php:106
 msgid "Sign Up"
 msgstr "Registrieren"
 
-#: os_poker_forms.php:161
+#: os_poker_forms.php:206
 msgid "Ignore all new buddy request"
 msgstr "Alle neuen Buddy Anfragen ignorieren"
 
-#: os_poker_forms.php:162
+#: os_poker_forms.php:207
 msgid "Please notify me by email whenever I receive a message"
-msgstr "Ich möchte per E-Mail benachrichtigt werden, wenn ich eine Nachricht erhalte"
+msgstr "E-Mail Benachrichtigung bei internen Nachrichten"
 
-#: os_poker_forms.php:163
+#: os_poker_forms.php:208
 msgid "I don't accept any gift"
 msgstr "Ich akzeptiere keine Geschenke"
 
-#: os_poker_forms.php:164
+#: os_poker_forms.php:209
 msgid "I wish to receive the weekly email newsletter (recommended)"
 msgstr "Ich möchte den E-Mail Newsletter erhalten (empfohlen)"
 
-#: os_poker_forms.php:165
+#: os_poker_forms.php:210
 msgid "I wish to receive emails in HTML-format"
 msgstr "Ich möchte E-Mails im HTML-Format erhalten"
 
-#: os_poker_forms.php:179
+#: os_poker_forms.php:224
 msgid "Save"
-msgstr "Speichern"
+msgstr "Save"
 
-#: os_poker_forms.php:202
+#: os_poker_forms.php:247
 msgid "New Email"
 msgstr "Neue E-Mail"
 
-#: os_poker_forms.php:217;270
+#: os_poker_forms.php:262;315
 msgid "OK"
 msgstr "OK"
 
-#: os_poker_forms.php:240
+#: os_poker_forms.php:285
 msgid "Password successfully modified"
 msgstr "Passwort erfolgreich geändert"
 
-#: os_poker_forms.php:311;422
+#: os_poker_forms.php:356;484
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: os_poker_forms.php:345
+#: os_poker_forms.php:396
 msgid "You have already used this one-time login link. It is not necessary to use this link to login anymore. You are already logged in."
 msgstr "Du hast diesen einmaligen Login Link schon benutzt. Du kannst diesen Link nicht noch einmal benutzen. Du bist schon eingeloggt."
 
-#: os_poker_forms.php:357
+#: os_poker_forms.php:408
 msgid "You have tried to use a one-time login for an account which has been blocked."
-msgstr "Du hast hast versucht einen einmaligen Login Link zu verwenden für einen Account der deaktiviert wurde."
+msgstr "Du hast versucht einen einmaligen Login Link zu verwenden für einen Account der deaktiviert wurde."
 
-#: os_poker_forms.php:363
+#: os_poker_forms.php:414
 msgid "You have tried to use a one-time login link that has expired. Please request a new one using the form below."
 msgstr "Du hast versucht einen einmaligen Login Link zu verwenden der abgelaufen ist. Bitte fordere einen neuen über das Formular an."
 
-#: os_poker_forms.php:375
-msgid "You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password."
-msgstr "Du hast Deinen einmaligen Login Link schon benutzt. Es ist nicht mehr nötig diesen Link zum Login zu benutzen. Bitte ändere nun Dein Passwort."
+#: os_poker_forms.php:426
+msgid "You have just used your one-time login link. It is no longer necessary to use this link to login. !settings-page."
+msgstr "Du hast Deinen einmaligen Login Link benutzt. Es ist nicht mehr nötig diesen Link zum Login zu benutzen. !settings-page."
 
-#: os_poker_forms.php:380
+#: os_poker_forms.php:442
 msgid "<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to login to the site and change your password.</p>"
 msgstr "<p>Dies ist ein einmaliger Login für %user_name wird am  %expiration_date ablaufen.</p><p>Klick auf diesen Button um dich einzuloggen und ändere Dein Passwort.</p>"
 
-#: os_poker_forms.php:381
+#: os_poker_forms.php:443
 msgid "This login can be used only once."
 msgstr "Dieser Login kann nur einmal benutzt werden."
 
-#: os_poker_forms.php:382
+#: os_poker_forms.php:444
 msgid "Log in"
 msgstr "Einloggen"
 
-#: os_poker_forms.php:388
+#: os_poker_forms.php:450
 msgid "You have tried to use a one-time login link which has either been used or is no longer valid. Please request a new one using the form below."
 msgstr "Du hast versucht einen einmaligen Login Link zu benutzen, der entweder schon benutzt wurde oder nicht mehr gültig ist. Bitte fordere einen neuen über das Formular an."
 
-#: os_poker_forms.php:409
+#: os_poker_forms.php:471
 msgid "Search Online player only!"
 msgstr "Suche nur Spieler die online sind."
 
-#: os_poker_forms.php:415;520;632
+#: os_poker_forms.php:477;579;697
 msgid "Nickname"
 msgstr "Nickname"
 
-#: os_poker_forms.php:429
+#: os_poker_forms.php:491
 msgid "Male"
 msgstr "Männlich"
 
-#: os_poker_forms.php:430
+#: os_poker_forms.php:492
 msgid "Female"
 msgstr "Weiblich"
 
-#: os_poker_forms.php:435;546
-#: profile.tpl.php:90
+#: os_poker_forms.php:497;605
+#: profile.tpl.php:91
 msgid "Gender"
 msgstr "Geschlecht"
 
-#: os_poker_forms.php:440
-msgid "Level1"
-msgstr "Level1"
-
-#: os_poker_forms.php:441
-msgid "Level2"
-msgstr "Level2"
-
-#: os_poker_forms.php:446
+#: os_poker_forms.php:504
+#: user.class.php:242
 msgid "Level"
 msgstr "Level"
 
-#: os_poker_forms.php:452;572
+#: os_poker_forms.php:511;637
 #: profile.tpl.php:39
 msgid "City"
 msgstr "Stadt"
 
-#: os_poker_forms.php:459;564
+#: os_poker_forms.php:518;626
 #: profile.tpl.php:56
 msgid "Country"
 msgstr "Land"
 
-#: os_poker_forms.php:474
-msgid "Search"
-msgstr "Suche"
+#: os_poker_forms.php:520;627
+msgid "--"
+msgstr "--"
 
-#: os_poker_forms.php:535
+#: os_poker_forms.php:594
 msgid "Profile photo"
 msgstr "Profilbild"
 
-#: os_poker_forms.php:537
+#: os_poker_forms.php:596
 msgid "Upload a photo. Max : %dimensions and %size kB."
 msgstr "Bild hochladen. Max : %dimensions und %size kB."
 
-#: os_poker_forms.php:557
+#: os_poker_forms.php:616
 msgid "Birthday"
 msgstr "Geburtstag"
 
-#: os_poker_forms.php:565
-msgid "Select..."
-msgstr "Wähle..."
-
-#: os_poker_forms.php:595
+#: os_poker_forms.php:660
 msgid "Join"
 msgstr "Mitmachen"
 
-#: os_poker_forms.php:595
+#: os_poker_forms.php:660
 msgid "Save Profile"
-msgstr "Profil speichern"
+msgstr "Speichern"
 
-#: os_poker_forms.php:601
+#: os_poker_forms.php:666
 msgid "Skip this step"
-msgstr "Überspringen"
+msgstr "&nbsp;"
 
-#: os_poker_forms.php:601
+#: os_poker_forms.php:666
 msgid "Here"
-msgstr "Hier"
+msgstr "Später ausfüllen"
 
-#: os_poker_forms.php:632
+#: os_poker_forms.php:697
 msgid "already exists."
 msgstr "existiert schon."
 
-#: os_poker_forms.php:639
+#: os_poker_forms.php:704
 msgid "Thank you for updating your profile."
 msgstr "Danke für die Aktualisierung  Deines Profils."
 
-#: os_poker_forms.php:745
+#: os_poker_forms.php:780
+msgid "The entered e-mail address is invalid. Please correct it."
+msgstr "Die angegebene E-Mail-Adresse ist nicht gültig. Bitte Eingabe korrigieren."
+
+#: os_poker_forms.php:806
 msgid "Name"
 msgstr "Name"
 
-#: os_poker_forms.php:751
-msgid "E-Mail"
-msgstr "E-Mail"
-
-#: os_poker_forms.php:772
+#: os_poker_forms.php:833
 msgid "Send invite"
 msgstr "Einladung senden"
 
-#: os_poker_forms.php:792
+#: os_poker_forms.php:853
 msgid "Sorry, you've reached the maximum number of invitations."
 msgstr "Sorry, Du hast die maximale Anzahl an Einladungen erreicht."
 
-#: os_poker_forms.php:833
+#: os_poker_forms.php:894
 msgid "'send mass invitations' permission must be set !"
 msgstr "'send mass invitations' permission must be set !"
 
-#: os_poker_forms.php:369
+#: os_poker_forms.php:420
+#: os_poker.module:139
 msgid "user"
 msgstr "user"
 
-#: os_poker_forms.php:369
+#: os_poker_forms.php:420
 msgid "User %name used one-time login link at time %timestamp."
 msgstr "User %name used one-time login link at time %timestamp."
 
-#: os_poker_messages.php:156
+#: os_poker_messages.php:168
+msgid "You have sent !amount free chips to !count buddies"
+msgstr "Du hast !amount Chips an !count Buddies gesendet"
+
+#: os_poker_messages.php:210
 msgid "You just receive a headsup challenge from !user"
 msgstr "Du hast soeben eine Heads-up Herausforderung von !user erhalten"
 
-#: os_poker_messages.php:157
-#: os_poker.module:441
+#: os_poker_messages.php:211
+#: os_poker.module:656
 msgid "Accept"
 msgstr "Annehmen"
 
-#: os_poker_messages.php:157
-#: os_poker.module:443
+#: os_poker_messages.php:211
+#: os_poker.module:658
 msgid "Refuse"
 msgstr "Ablehnen"
 
-#: os_poker_messages.php:160
+#: os_poker_messages.php:215
 msgid "You just challenged !user"
 msgstr "Du hast soeben !user herausgefordert"
 
-#: os_poker_messages.php:183
+#: os_poker_messages.php:216;252
+#: os_poker.module:703;1393;1602
+msgid "Anonymous"
+msgstr "Anonymous"
+
+#: os_poker_messages.php:231
+msgid "Invalid item ID: %item_id"
+msgstr "Ungültige Item ID: %item_id"
+
+#: os_poker_messages.php:246
 msgid "!user is playing at table !table come and join"
 msgstr "!user spielt am Tisch !table spiele mit"
 
-#: os_poker_messages.php:187
-msgid "Invitation sent to !user"
-msgstr "Einladung versendet an !user"
+#: os_poker_messages.php:251
+msgid "You just invited !user to play"
+msgstr "Du hast soeben !user eingeladen zu spielen"
+
+#: os_poker_messages.php:254
+msgid "Invitation"
+msgstr "Einladung"
+
+#: os_poker_messages.php:284
+msgid "Recevied BUY_IN for user !uid"
+msgstr "Recevied BUY_IN for user !uid"
+
+#: os_poker_messages.php:287
+msgid "Invalid user ID: %uid"
+msgstr "Ungültige User ID: %uid"
 
 #: os_poker_pages.php:116
 msgid "Invitation resent to !email"
@@ -513,555 +581,607 @@ msgstr "Die Einladung muß abgelaufen sein um erneut gesendet zu werden."
 
 #: os_poker_pages.php:133
 msgid "Your invite has been deleted."
-msgstr "Deine Einladung wurdfe gelöscht."
+msgstr "Deine Einladung wurde gelöscht."
 
-#: os_poker_pages.php:388
+#: os_poker_pages.php:400
 msgid "You don't have enough Chips."
 msgstr "Du hast nicht genügend Chips."
 
-#: os_poker_pages.php:438
+#: os_poker_pages.php:453
 msgid "75.000 Chips for €5"
 msgstr "75.000 Chips für €5"
 
-#: os_poker_pages.php:439
+#: os_poker_pages.php:454
 msgid "150.000 Chips for €10"
 msgstr "150.000 Chips für €10"
 
-#: os_poker_pages.php:440
+#: os_poker_pages.php:455
 msgid "400.000 Chips for €20"
 msgstr "400.000 Chips für €20"
 
-#: os_poker_pages.php:441
+#: os_poker_pages.php:456
 msgid "1.000.000 Chips for €50"
 msgstr "1.000.000 Chips für €50"
 
-#: os_poker_pages.php:442
+#: os_poker_pages.php:457
 msgid "2.500.000 Chips for €100"
 msgstr "2.500.000 Chips für €100"
 
-#: os_poker_pages.php:443
+#: os_poker_pages.php:458
 msgid "5.000.000 Chips for €150"
 msgstr "5.000.000 Chips für €150"
+
+#: os_poker_toolkit.php:75
+msgid "Application preference %name set to default value %value."
+msgstr "Application preference %name set to default value %value."
+
+#: play_now.tpl.php:4
+msgid "Play now"
+msgstr "Jetzt spielen!"
 
 #: play_now.tpl.php:7
 msgid "Players Online Now"
 msgstr "Spieler momentan online"
 
-#: poker.class.php:200
+#: poker.class.php:198
 msgid "You just won reward !name : !desc"
 msgstr "Du hast soeben das Reward !name : !desc gewonnen"
 
-#: poker.class.php:214
+#: poker.class.php:206
+msgid "Reward"
+msgstr "Reward"
+
+#: poker.class.php:218
 msgid "Newcomer"
 msgstr "Newcomer"
 
-#: poker.class.php:214
+#: poker.class.php:218
 msgid "Player sits down at the table for the first time"
 msgstr "Spieler nimmt zum ersten Mal am Spieltisch Platz"
 
-#: poker.class.php:215
+#: poker.class.php:219
 msgid "Blind Hen"
 msgstr "Blind Hen"
 
-#: poker.class.php:215
+#: poker.class.php:219
 msgid "Player wins his first hand"
 msgstr "Spieler gewinnt zum ersten Mal eine Hand"
 
-#: poker.class.php:216
+#: poker.class.php:220
 msgid "It's taking part that counts!"
 msgstr "It's taking part that counts!"
 
-#: poker.class.php:216
+#: poker.class.php:220
 msgid "Player participates in a tourney/sng for the first time"
 msgstr "Spieler nimmt zum ersten Mal an einem Turnier/Sit & Go teil"
 
-#: poker.class.php:217
+#: poker.class.php:221
 msgid "Bullets"
 msgstr "Bullets"
 
-#: poker.class.php:217
+#: poker.class.php:221
 msgid "Player wins with AA hole cards"
 msgstr "Spieler gewinnt mit AA hole cards"
 
-#: poker.class.php:218
+#: poker.class.php:222
 msgid "Cowboys"
 msgstr "Cowboys"
 
-#: poker.class.php:218
+#: poker.class.php:222
 msgid "Player wins with KK hole cards"
 msgstr "Spieler gewinnt mit KK hole cards"
 
-#: poker.class.php:219
+#: poker.class.php:223
 msgid "Jailhouse Rock"
 msgstr "Jailhouse Rock"
 
-#: poker.class.php:219
+#: poker.class.php:223
 msgid "Player wins with QQ hole cards"
 msgstr "Spieler gewinnt mit QQ hole cards"
 
-#: poker.class.php:220
+#: poker.class.php:224
 msgid "Fish-Hooks"
 msgstr "Fish-Hooks"
 
-#: poker.class.php:220
+#: poker.class.php:224
 msgid "Player wins with JJ hole cards"
 msgstr "Spieler gewinnt mit JJ hole cards"
 
-#: poker.class.php:221
+#: poker.class.php:225
 msgid "Route 66"
 msgstr "Route 66"
 
-#: poker.class.php:221
+#: poker.class.php:225
 msgid "Player wins with 66 hole cards"
 msgstr "Spieler gewinnt mit 66 hole cards"
 
-#: poker.class.php:222
+#: poker.class.php:226
 msgid "Sailboats"
 msgstr "Sailboats"
 
-#: poker.class.php:222
+#: poker.class.php:226
 msgid "Player wins with 44 hole cards"
 msgstr "Spieler gewinnt mit 44 hole cards"
 
-#: poker.class.php:223
+#: poker.class.php:227
 msgid "Big Slick"
 msgstr "Big Slick"
 
-#: poker.class.php:223
+#: poker.class.php:227
 msgid "Player wins with AK hole cards"
 msgstr "Spieler gewinnt mit AK hole cards"
 
-#: poker.class.php:224
+#: poker.class.php:228
 msgid "Big Chick"
 msgstr "Big Chick"
 
-#: poker.class.php:224
+#: poker.class.php:228
 msgid "Player wins with AD hole cards"
 msgstr "Spieler gewinnt mit AQ hole cards"
 
-#: poker.class.php:225
+#: poker.class.php:229
 msgid "Dinner for two"
 msgstr "Dinner for two"
 
-#: poker.class.php:225
+#: poker.class.php:229
 msgid "Player wins with 69 hole cards"
 msgstr "Spieler gewinnt mit 69 hole cards"
 
-#: poker.class.php:226
+#: poker.class.php:230
 msgid "Valentines's"
 msgstr "Valentines's"
 
-#: poker.class.php:226
+#: poker.class.php:230
 msgid "Day Player wins with KQ hole cards, both heart"
 msgstr "Day Spieler gewinnt mit KQ hole cards, beide in Herz"
 
-#: poker.class.php:227
+#: poker.class.php:231
 msgid "Big Bang 5.000"
 msgstr "Big Bang 5.000"
 
-#: poker.class.php:227
+#: poker.class.php:231
 msgid "Player wins a big pot, more than 5.000 chips"
 msgstr "Spieler gewinnt einen grossen Pot, mehr als 5.000 Chips"
 
-#: poker.class.php:228
+#: poker.class.php:232
 msgid "No risk no fun"
 msgstr "No risk no fun"
 
-#: poker.class.php:228
+#: poker.class.php:232
 msgid "Player wins an all-in"
 msgstr "Spieler gewinnt ein All-in"
 
-#: poker.class.php:229
+#: poker.class.php:233
 msgid "Be my Buddy I"
 msgstr "Be my Buddy I"
 
-#: poker.class.php:229
+#: poker.class.php:233
 msgid "Player has at least 5 buddies"
 msgstr "Spieler hat mindestens 5 Poker Buddies"
 
-#: poker.class.php:230
+#: poker.class.php:234
 msgid "Follow me I"
 msgstr "Follow me I"
 
-#: poker.class.php:230
+#: poker.class.php:234
 msgid "Player has at least 2 successful invitations"
 msgstr "Spieler hat mindestens 2 erfolgreiche Einladungen"
 
-#: poker.class.php:231
+#: poker.class.php:235
 msgid "Regular's Table"
 msgstr "Regular's Table"
 
-#: poker.class.php:231
+#: poker.class.php:235
 msgid "Player sits down at the table with at least one buddy"
 msgstr "Spieler spielt mit mindestens einem Buddy an einem Tisch"
 
-#: poker.class.php:232
+#: poker.class.php:236
 msgid "It's my round!"
 msgstr "It's my round!"
 
-#: poker.class.php:232
+#: poker.class.php:236
 msgid "Player buys a gift for every player at the table, value doesn't matter"
 msgstr "Spieler gibt allen Mitspielern am Tisch ein Geschenk, Wert egal"
 
-#: poker.class.php:233
+#: poker.class.php:237
 msgid "Challenger"
 msgstr "Challenger"
 
-#: poker.class.php:233
+#: poker.class.php:237
 msgid "Player participates in a challenge"
 msgstr "Spieler nutzt die Challenge Funktion"
 
-#: poker.class.php:235
+#: poker.class.php:239
 msgid "Jackpot"
 msgstr "Jackpot"
 
-#: poker.class.php:235
+#: poker.class.php:239
 msgid "Player wins with 777"
 msgstr "Spieler gewinnt mit 777"
 
-#: poker.class.php:236
+#: poker.class.php:240
 msgid "Trips"
 msgstr "Trips"
 
-#: poker.class.php:236
+#: poker.class.php:240
 msgid "Player wins with three of a kind"
 msgstr "Spieler gewinnt mit einem Drilling"
 
-#: poker.class.php:237
+#: poker.class.php:241
 msgid "Ten Times Trips"
 msgstr "Ten Times Trips"
 
-#: poker.class.php:237
+#: poker.class.php:241
 msgid "Player wins with three of a kind, 10 times"
 msgstr "Spieler gewinnt mit einem Drilling, 10 mal"
 
-#: poker.class.php:238
+#: poker.class.php:242
 msgid "Road Testing"
 msgstr "Road Testing"
 
-#: poker.class.php:238
+#: poker.class.php:242
 msgid "Player wins with a street"
 msgstr "Spieler gewinnt mit einer Strasse"
 
-#: poker.class.php:239
+#: poker.class.php:243
 msgid "On The Road"
 msgstr "On The Road"
 
-#: poker.class.php:239
+#: poker.class.php:243
 msgid "Player wins with a street, 10 times"
 msgstr "Spieler gewinnt mit einer Strasse, 10 mal"
 
-#: poker.class.php:240
+#: poker.class.php:244
 msgid "Flush"
 msgstr "Flush"
 
-#: poker.class.php:240
+#: poker.class.php:244
 msgid "Player wins with a flush"
 msgstr "Spieler gewinnt mit einem Flush"
 
-#: poker.class.php:241
+#: poker.class.php:245
 msgid "Flush 10x"
 msgstr "Flush 10x"
 
-#: poker.class.php:241
+#: poker.class.php:245
 msgid "Player wins with a flush, 10 times"
 msgstr "Spieler gewinnt mit einem Flush, 10 mal"
 
-#: poker.class.php:242
+#: poker.class.php:246
 msgid "Full House"
 msgstr "Full House"
 
-#: poker.class.php:242
+#: poker.class.php:246
 msgid "Player wins with a full house"
 msgstr "Spieler gewinnt mit einem Full House"
 
-#: poker.class.php:243
+#: poker.class.php:247
 msgid "Full House 10x"
 msgstr "Full House 10x"
 
-#: poker.class.php:243
+#: poker.class.php:247
 msgid "Player wins with a full house, 10 times"
 msgstr "Spieler gewinnt mit einem Full House, 10 mal"
 
-#: poker.class.php:244
+#: poker.class.php:248
 msgid "Broadway"
 msgstr "Broadway"
 
-#: poker.class.php:244
+#: poker.class.php:248
 msgid "Player wins with AKQJT"
 msgstr "Spieler gewinnt mit AKQJT"
 
-#: poker.class.php:245
+#: poker.class.php:249
 msgid "The Bicycle"
 msgstr "The Bicycle"
 
-#: poker.class.php:245
+#: poker.class.php:249
 msgid "Player wins with A2345"
 msgstr "Spieler gewinnt mit A2345"
 
-#: poker.class.php:246
+#: poker.class.php:250
 msgid "Big Bang 10.000"
 msgstr "Big Bang 10.000"
 
-#: poker.class.php:246
+#: poker.class.php:250
 msgid "Player wins a big pot, more than 10.000 chips"
 msgstr "Spieler gewinnt einen riesigen Pot, mehr als 10.000 Chips"
 
-#: poker.class.php:247
+#: poker.class.php:251
 msgid "Big Bang 25.000"
 msgstr "Big Bang 25.000"
 
-#: poker.class.php:247
+#: poker.class.php:251
 msgid "Player wins a big pot, more than 25.000 chips"
 msgstr "Spieler gewinnt einen riesigen Pot, mehr als 25.000 Chips"
 
-#: poker.class.php:248
+#: poker.class.php:252
 msgid "Bad Beat Full House"
 msgstr "Bad Beat Full House"
 
-#: poker.class.php:248
+#: poker.class.php:252
 msgid "Player holds a full house and looses his hand"
 msgstr "Spieler verliert mit Full House"
 
-#: poker.class.php:249
+#: poker.class.php:253
 msgid "Final Table"
 msgstr "Final Table"
 
-#: poker.class.php:249
+#: poker.class.php:253
 msgid "Player places top 9 in a tourney"
 msgstr "Spieler erreicht den Final Table in einem Turnier"
 
-#: poker.class.php:250
+#: poker.class.php:254
 msgid "Lounge Lizard"
 msgstr "Lounge Lizard"
 
-#: poker.class.php:250
+#: poker.class.php:254
 msgid "Player has at least 10 buddies"
 msgstr "Spieler hat mindestens 10 Poker Buddies"
 
-#: poker.class.php:251
+#: poker.class.php:255
 msgid "Randy Dandy"
 msgstr "Randy Dandy"
 
-#: poker.class.php:251
+#: poker.class.php:255
 msgid "Player has at least 5 successful invitations"
 msgstr "Spieler hat mehr als 5 erfolgreiche Einladungen"
 
-#: poker.class.php:252
+#: poker.class.php:256
 msgid "Regular's Table II"
 msgstr "Regular's Table II"
 
-#: poker.class.php:252
+#: poker.class.php:256
 msgid "Player sits down at the table with at least three buddies"
 msgstr "Spieler spielt mit mind. 3 Buddies an einem Tisch"
 
-#: poker.class.php:253
+#: poker.class.php:257
 msgid "It's my round! II"
 msgstr "It's my round! II"
 
-#: poker.class.php:253
+#: poker.class.php:257
 msgid "Player buys a gift for every player at the table, aggregate value more than 1.000 Chips"
 msgstr "Spieler gibt allen Mitspielern am Tisch ein Geschenk, Gesamtwert mehr als 1.000 Chips"
 
-#: poker.class.php:255
+#: poker.class.php:259
 msgid "The Millionaires Club"
 msgstr "The Millionaires Club"
 
-#: poker.class.php:255
+#: poker.class.php:259
 msgid "Player has a peek chip count of 1.000.000 chips"
 msgstr "Spieler hat mehr 1 Million Chips erreicht"
 
-#: poker.class.php:256
+#: poker.class.php:260
 msgid "On a Rush"
 msgstr "On a Rush"
 
-#: poker.class.php:256
+#: poker.class.php:260
 msgid "Player wins 10 hands in a row during a session"
 msgstr "Spieler gewinnt 10 Hände in Folge während einer Session"
 
-#: poker.class.php:257
+#: poker.class.php:261
 msgid "Quads"
 msgstr "Quads"
 
-#: poker.class.php:257
+#: poker.class.php:261
 msgid "Player wins with four of a kind"
 msgstr "Spieler gewinnt mit einem Vierling"
 
-#: poker.class.php:258
+#: poker.class.php:262
 msgid "Straight Flush"
 msgstr "Straight Flush"
 
-#: poker.class.php:258
+#: poker.class.php:262
 msgid "Player wins with a straight flush"
 msgstr "Spieler gewinnt mit einem Straight Flush"
 
-#: poker.class.php:259
+#: poker.class.php:263
 msgid "The Road to Success"
 msgstr "The Road to Success"
 
-#: poker.class.php:259
+#: poker.class.php:263
 msgid "Player wins with a street, 50 times"
 msgstr "Spieler gewinnt mit einer Strasse, 50 mal"
 
-#: poker.class.php:260
+#: poker.class.php:264
 msgid "Flush Rush"
 msgstr "Flush Rush"
 
-#: poker.class.php:260
+#: poker.class.php:264
 msgid "Player wins with a flush, 50 times"
 msgstr "Spieler gewinnt mit einem Flush, 50 mal"
 
-#: poker.class.php:261
+#: poker.class.php:265
 msgid "House-Hunter"
 msgstr "House-Hunter"
 
-#: poker.class.php:261
+#: poker.class.php:265
 msgid "Player wins with a full house, 50 times"
 msgstr "Spieler gewinnt mit einem Full House, 50 mal"
 
-#: poker.class.php:262
+#: poker.class.php:266
 msgid "Big Bang 100.000"
 msgstr "Big Bang 100.000"
 
-#: poker.class.php:262
+#: poker.class.php:266
 msgid "Player wins a big pot, more than 100.000 chips"
 msgstr "Spieler gewinnt einen riesigen Pot, mehr als 100.000 Chips"
 
-#: poker.class.php:263
+#: poker.class.php:267
 msgid "Kamikaze"
 msgstr "Kamikaze"
 
-#: poker.class.php:263
+#: poker.class.php:267
 msgid "Player wins with 27 hole cards, any suit"
 msgstr "Spieler gewinnt mit 27 hole cards"
 
-#: poker.class.php:264
+#: poker.class.php:268
 msgid "Bad Beat Quads"
 msgstr "Bad Beat Quads"
 
-#: poker.class.php:264
+#: poker.class.php:268
 msgid "Player holds four of a kind and looses his hand"
 msgstr "Spieler verliert mit Quads"
 
-#: poker.class.php:265
+#: poker.class.php:269
 msgid "Tournament Pro"
 msgstr "Tournament Pro"
 
-#: poker.class.php:265
+#: poker.class.php:269
 msgid "Player wins a tourney"
 msgstr "Spieler gewinnt ein Turnier"
 
-#: poker.class.php:266
+#: poker.class.php:270
 msgid "Cool Dude"
 msgstr "Cool Dude"
 
-#: poker.class.php:266
+#: poker.class.php:270
 msgid "Player has at least 50 buddies"
 msgstr "Spieler hat mehr als 50 Poker Buddies"
 
-#: poker.class.php:267
+#: poker.class.php:271
 msgid "Party Animal"
 msgstr "Party Animal"
 
-#: poker.class.php:267
+#: poker.class.php:271
 msgid "Player has at least 25 successful invitations"
 msgstr "Spieler hat mehr als 25 erfolgreiche Einladungen"
 
-#: poker.class.php:268
+#: poker.class.php:272
 msgid "Full table/Private"
 msgstr "Full table/Private"
 
-#: poker.class.php:268
+#: poker.class.php:272
 msgid "Table Player sits down at the table with 8 buddies"
 msgstr "Spieler spielt mit mind. 8 Buddies an einem Tisch"
 
-#: poker.class.php:269
+#: poker.class.php:273
 msgid "It's my round! III"
 msgstr "It's my round! III"
 
-#: poker.class.php:269
+#: poker.class.php:273
 msgid "Player buys a gift for every player at the table, aggregate value more than 10.000 Chips"
 msgstr "Spieler gibt allen Mitspielern am Tisch ein Geschenk, Gesamtwert mehr als 10.000 Chips"
 
-#: poker.class.php:271
+#: poker.class.php:275
 msgid "Royal Family"
 msgstr "Royal Family"
 
-#: poker.class.php:271
+#: poker.class.php:275
 msgid "Player wins with a royal flush"
 msgstr "Spieler gewinnt mit einem Royal Flush"
 
-#: poker.class.php:272
+#: poker.class.php:276
 msgid "Marathon"
 msgstr "Marathon"
 
-#: poker.class.php:272
+#: poker.class.php:276
 msgid "at least 42 hours at the table within 8 days"
 msgstr "Spieler spielt mind. 42 Stunden innerhalb einer Woche"
 
-#: poker.class.php:273
+#: poker.class.php:277
 msgid "Strike!"
 msgstr "Strike!"
 
-#: poker.class.php:273
+#: poker.class.php:277
 msgid "all bronze, silver and goild achievements complete"
 msgstr "Spieler hat sämtliche Bronze, Silber und Gold Rewards erlangt"
 
-#: poker.class.php:274
+#: poker.class.php:278
 msgid "Milestone 10.000"
 msgstr "Milestone 10.000"
 
-#: poker.class.php:274
+#: poker.class.php:278
 msgid "hands played"
 msgstr "Hände gespielt"
 
-#: poker.class.php:275
+#: poker.class.php:279
 msgid "Tournament Expert"
 msgstr "Tournament Expert"
 
-#: poker.class.php:275
+#: poker.class.php:279
 msgid "Player wins at least 10 tourneys"
 msgstr "Spieler hat 10 Turniere gewonnen"
 
-#: poker.class.php:276
+#: poker.class.php:280
 msgid "Donald Trump"
 msgstr "Donald Trump"
 
-#: poker.class.php:276
+#: poker.class.php:280
 msgid "Player had more than 1 million chips, lost everything and has again > 1 million chips"
 msgstr "Spieler hatte über 1 Million Chips - fiel auf Null und ist jetzt wieder über 1 Million"
 
-#: poker.class.php:277
+#: poker.class.php:281
 msgid "Big Spender"
 msgstr "Big Spender"
 
-#: poker.class.php:277
+#: poker.class.php:281
 msgid "Player buys a gift for every player at the table, aggregate value more than 100.000 Chips"
 msgstr "Spieler gibt allen Mitspielern am Tisch ein Geschenk, Gesamtwert mehr 100.000 Chips"
 
-#: poker.class.php:278
+#: poker.class.php:282
 msgid "Buddy King"
 msgstr "Buddy King"
 
-#: poker.class.php:278
+#: poker.class.php:282
 msgid "Player has at least 100 buddies"
 msgstr "Spieler hat mind. 100 Poker Buddies"
 
-#: poker.class.php:279
+#: poker.class.php:283
 msgid "Invitation King"
 msgstr "Invitation King"
 
-#: poker.class.php:279
+#: poker.class.php:283
 msgid "Player has at least 50 successful invitations"
 msgstr "Spieler hat mehr als 50 erfolgreiche Einladungen"
 
-#: poker.class.php:280
+#: poker.class.php:284
 msgid "Playboy"
 msgstr "Playboy"
 
-#: poker.class.php:280
+#: poker.class.php:284
 msgid "Player has spent at least 1.000.000 chips for gifts"
 msgstr "Spieler hat 1 Million für Gifts ausgegeben!"
+
+#: poker.class.php:302
+msgid "Rockefeller"
+msgstr "Rockefeller"
+
+#: poker.class.php:303
+msgid "Highroller"
+msgstr "Highroller"
+
+#: poker.class.php:304
+msgid "Shark"
+msgstr "Shark"
+
+#: poker.class.php:305
+msgid "Big Rock"
+msgstr "Big Rock"
+
+#: poker.class.php:306
+msgid "Stone Face"
+msgstr "Stone Face"
+
+#: poker.class.php:307
+msgid "Pokermaniac"
+msgstr "Pokermaniac"
+
+#: poker.class.php:308
+msgid "Chip Hunter"
+msgstr "Chip Hunter"
+
+#: poker.class.php:309
+msgid "Rising Star"
+msgstr "Rising Star"
+
+#: poker.class.php:310
+msgid "Chippy"
+msgstr "Chippy"
+
+#: poker.class.php:311
+msgid "Fish"
+msgstr "Fisch"
 
 #: profile.tpl.php:15
 #: profile_update.tpl.php:15
@@ -1069,57 +1189,55 @@ msgid "Player since"
 msgstr "Spieler seit"
 
 #: profile.tpl.php:15
-#: profile_medium.tpl.php:54
+#: profile_medium.tpl.php:33
 #: profile_update.tpl.php:15
 #: shop_get_chips.tpl.php:12
 #: user_brief.tpl.php:12
 msgid "Chips"
 msgstr "Chips"
 
-#: profile.tpl.php:15
-#: profile_medium.tpl.php:53
-#: profile_update.tpl.php:15
-#: user_brief.tpl.php:16
-msgid "Status"
-msgstr "Status"
-
 #: profile.tpl.php:34
 msgid "Actual Player Ranking"
-msgstr "Spieler Ranking"
+msgstr "Spieler Profil"
 
 #: profile.tpl.php:41
 msgid "Biggest Pot Won"
-msgstr "Grösster gewonnener Pot"
+msgstr "Grösster Pot"
 
 #: profile.tpl.php:58
 msgid "Best Hand"
 msgstr "Bestes Blatt"
 
-#: profile.tpl.php:78
+#: profile.tpl.php:79
 msgid "Age"
 msgstr "Alter"
 
-#: profile.tpl.php:86
+#: profile.tpl.php:87
 msgid "Hands Played"
 msgstr "Gespielte Hände"
 
-#: profile.tpl.php:92
+#: profile.tpl.php:93
 msgid "Hands won"
 msgstr "Gewonnene Hände"
 
-#: profile.tpl.php:106
+#: profile.tpl.php:107
 msgid "Update Profile"
 msgstr "Profil aktualisieren"
 
-#: profile.tpl.php:126
+#: profile.tpl.php:127
 msgid "Join Table"
 msgstr "Platz nehmen"
 
-#: profile.tpl.php:141
+#: profile.tpl.php:132
+#: profile_medium.tpl.php:64
+msgid "Report Abuse"
+msgstr "Missbrauch melden"
+
+#: profile.tpl.php:142
 msgid "Recent Rewards"
 msgstr "Letzte Rewards"
 
-#: profile.tpl.php:149
+#: profile.tpl.php:150
 msgid "Recent Gifts"
 msgstr "Letzte Geschenke"
 
@@ -1128,27 +1246,19 @@ msgstr "Letzte Geschenke"
 msgid "Profile"
 msgstr "Profil"
 
-#: profile_medium.tpl.php:19;25
+#: profile_medium.tpl.php:20
 msgid "Buy Gift"
 msgstr "Geschenk kaufen"
 
-#: profile_medium.tpl.php:44
-msgid "Add Buddy"
-msgstr "Buddy hinzufügen"
-
-#: profile_medium.tpl.php:61
+#: profile_medium.tpl.php:40
 msgid "Today's Gift"
 msgstr "Geschenk des Tages"
 
-#: profile_medium.tpl.php:61
+#: profile_medium.tpl.php:40
 msgid "Activate Item"
 msgstr "Aktiviere Item"
 
-#: profile_medium.tpl.php:85
-msgid "Report Abuse"
-msgstr "Missbrauch melden"
-
-#: profile_medium.tpl.php:94
+#: profile_medium.tpl.php:73
 msgid "Activate"
 msgstr "Aktivieren"
 
@@ -1184,60 +1294,72 @@ msgstr "Status:"
 msgid "Profile:"
 msgstr "Profil:"
 
-#: profile_update.tpl.php:44
-msgid "For a complete Profile you'll get $2.000 Chips for free!"
-msgstr "Für ein vollständiges Profil erhälst Du $2.000 Chips geschenkt!"
+#: profile_update.tpl.php:34
+msgid "filled!"
+msgstr "ausgefüllt!"
 
-#: ranking.tpl.php:20
+#: profile_update.tpl.php:45
+msgid "For a complete Profile you'll get $2.000 Chips for free!"
+msgstr "Für ein vollständiges Profil erhältst Du $2.000 Chips geschenkt!"
+
+#: ranking.tpl.php:18
 msgid "Rank"
 msgstr "Rang"
 
-#: ranking.tpl.php:23
+#: ranking.tpl.php:21
 msgid "Top Ten"
 msgstr "Top Ten"
+
+#: ranking_list.tpl.php:31
+msgid "« first"
+msgstr "« Anfang"
+
+#: ranking_list.tpl.php:31
+msgid "‹ previous"
+msgstr "‹ zurück"
+
+#: ranking_list.tpl.php:31
+msgid "next ›"
+msgstr "weiter ›"
+
+#: ranking_list.tpl.php:31
+msgid "last »"
+msgstr "Ende »"
 
 #: scheduler.class.php:57
 msgid "Invitation Bonus : 5000 Chips"
 msgstr "Einladungs Bonus : 5000 Chips"
 
-#: scheduler.class.php:128
-msgid "Daily gift : !invites Invites = !nchips Chips allocated."
-msgstr "Daily gift : !invites Einladungen = !nchips Chips zugewiesen."
-
-#: scheduler.class.php:319
+#: scheduler.class.php:321
 msgid "ERROR : there is more task (!task) than allowed for user !id"
 msgstr "ERROR : there is more task (!task) than allowed for user !id"
 
-#: scheduler.class.php:365
-msgid "Warning !field parameter is too long (max 1024 chars)"
-msgstr "Warnung !field Parameter ist zu lang (max 1024 chars)"
+#: scheduler.class.php:367;369;371
+msgid "Warning !field parameter is too long (max !max_length chars)"
+msgstr "Warnung !field Parameter ist zu lang (max !max_length chars)"
 
-#: scheduler.class.php:367
-msgid "Warning !field parameter is too long (max 256 chars)"
-msgstr "Warnung !field Parameter ist zu lang (max 256 chars)"
+#: scheduler.class.php:422
+msgid "Failed to mark tasks as read"
+msgstr "Failed to mark tasks as read"
 
-#: scheduler.class.php:369
-msgid "Warning !field parameter is too long (max 32 chars)"
-msgstr "Warnung !field Parameter ist zu lang (max 32 chars)"
-
-#: scheduler.class.php:410
+#: scheduler.class.php:431
 msgid "Failed to clear scheduler dirty flag"
 msgstr "Failed to clear scheduler dirty flag"
 
-#: scheduler.class.php:418
+#: scheduler.class.php:439
 msgid "Failed to set scheduler dirty flag"
 msgstr "Failed to set scheduler dirty flag"
 
-#: scheduler.class.php:477;513
+#: scheduler.class.php:501;537
 msgid "Error : bad parameter to CScheduler::GetUsertasks (wait only for numerics)"
 msgstr "Error : ungültiger Parameter für CScheduler::GetUsertasks (nur Ziffern gestattet)"
 
-#: scheduler.class.php:240
+#: scheduler.class.php:242
 msgid "CScheduler::Trigger"
 msgstr "CScheduler::Trigger"
 
-#: scheduler.class.php:240
-#: os_poker.module:541
+#: scheduler.class.php:242
+#: os_poker.module:768
 msgid "%uid : %sess"
 msgstr "%uid : %sess"
 
@@ -1245,7 +1367,7 @@ msgstr "%uid : %sess"
 msgid "No item with id : !id"
 msgstr "Kein Item mit der id : !id"
 
-#: shop.class.php:86;166;253;335;411
+#: shop.class.php:86;166;253;339;430
 msgid "DB error : !message"
 msgstr "DB error : !message"
 
@@ -1257,51 +1379,63 @@ msgstr "Object \"!class\" enthält nicht das Feld \"!field\""
 msgid "Invalid parameter to \"!class\" ctor."
 msgstr "Ungültiger Parameter für \"!class\" ctor."
 
-#: shop.class.php:242
+#: shop.class.php:244
 msgid "User doesn't have enough money."
 msgstr "User hat nicht genügend Chips."
 
-#: shop.class.php:293
-msgid "Bad parameter"
-msgstr "Bad parameter"
+#: shop.class.php:297
+msgid "Bad parameter: !cause"
+msgstr "Bad parameter: !cause"
 
-#: shop.class.php:301
+#: shop.class.php:297
+msgid "$target is empty"
+msgstr "$target is empty"
+
+#: shop.class.php:297
+msgid "$targer is not an array"
+msgstr "$targer is not an array"
+
+#: shop.class.php:305
 msgid "No one of targets accepts gifts"
 msgstr "Keiner der gewählten akzeptiert Geschenke"
 
-#: shop.class.php:313
+#: shop.class.php:317
 msgid "User doesn't have enough money (!uc vs !cn needed)."
 msgstr "User hat nicht genügend Chips (!uc vs !cn benötigt)."
 
-#: shop.class.php:359
-msgid "You just receive a gift from !user"
-msgstr "Du hast soeben ein Geschenk von !user erhalten"
+#: shop.class.php:376
+msgid "You just receive a !gift from !user"
+msgstr "Du hast soeben von !user dieses Geschenk erhalten: !gift"
 
-#: shop.class.php:363
+#: shop.class.php:382
 msgid "Send a gift in return"
-msgstr "Sende eine Gegengabe"
+msgstr "Revanchiere dich gleich"
 
-#: shop.tpl.php:74
+#: shop.tpl.php:76
 msgid "Info:"
 msgstr "Info:"
 
-#: shop.tpl.php:74
+#: shop.tpl.php:76
 msgid "Purchase taken from Off-Table Chips."
-msgstr "Kauf erfolgt mit Chips, die sich nicht am Spieltisch befinden."
+msgstr "Der Kauf erfolgt mit den Chips, die sich nicht am Spieltisch befinden."
 
-#: shop.tpl.php:82
+#: shop.tpl.php:84
 msgid "Buy for Table and Buddies"
 msgstr "Für Tisch und Buddies kaufen"
 
-#: shop.tpl.php:89
+#: shop.tpl.php:91
 msgid "Buy for Table"
 msgstr "Für alle am Tisch kaufen"
 
-#: shop.tpl.php:97
+#: shop.tpl.php:99
+msgid "Buy and activate"
+msgstr "Kaufe und aktiviere"
+
+#: shop.tpl.php:108
 msgid "Buy for Buddies"
 msgstr "Für Buddies kaufen"
 
-#: shop.tpl.php:106
+#: shop.tpl.php:117
 msgid "Buy"
 msgstr "Kaufen"
 
@@ -1311,7 +1445,7 @@ msgstr "1. Wähle ein Angebotspaket:"
 
 #: shop_get_chips.tpl.php:13
 msgid "Get Chips to play Playboy-Poker and buy basic items."
-msgstr "Erhalte Chips um Playboy-Poker zu spielen und Geschenke zu kaufen."
+msgstr "Hier kannst Du Playboy-Pokerchips kaufen."
 
 #: shop_get_chips.tpl.php:21
 msgid "Choose Payment Option:"
@@ -1319,7 +1453,7 @@ msgstr "Wähle eine Zahlungsmöglichkeit:"
 
 #: shop_get_chips.tpl.php:30
 msgid "Please select the amount of chips you want to buy.<br/>The first time, open https://sandbox.paypal.com/cgi-bin/webscr in a new tab and initialize the session with paypal sandbox using cmirey@persistant.fr / testtest then come back on this page, click on buy and use poker_1259758311_per@persistant.fr / testtest as sandbox paypal account."
-msgstr "Wähle aus wieviele Chips Du kaufen möchtest.<br/>The first time, open https://sandbox.paypal.com/cgi-bin/webscr in a new tab and initialize the session with paypal sandbox using cmirey@persistant.fr / testtest then come back on this page, click on buy and use poker_1259758311_per@persistant.fr / testtest as sandbox paypal account."
+msgstr "Wähle aus wieviele Chips Du kaufen möchtest."
 
 #: shop_tabs.tpl.php:5
 msgid "Shop"
@@ -1329,10 +1463,6 @@ msgstr "Shop"
 msgid "Get Chips"
 msgstr "Chips kaufen"
 
-#: shop_tabs.tpl.php:7
-msgid "Earn Chips"
-msgstr "Chips verdienen"
-
 #: table_users.tpl.php:3
 msgid "At this table"
 msgstr "An diesem Tisch"
@@ -1341,17 +1471,25 @@ msgstr "An diesem Tisch"
 msgid "Play Texas Hold'em Poker with your Friends. Get FREE Pokerchips every day that you play !"
 msgstr "Lust auf eine Partie Poker? Poker mit Deinen Freunden und unseren Bunnys !"
 
-#: user.class.php:382
+#: user.class.php:239
+msgid "Your level changed to !level !"
+msgstr "Du bist nun auf dem Level !level !"
+
+#: user.class.php:420
 msgid "You just receive a daily gift from !user"
 msgstr "Du hast soeben ein Geschenk von !user erhalten."
 
-#: user.class.php:638;639;640;641
+#: user.class.php:656;657;658;659
 msgid "N/A"
 msgstr "N/A"
 
-#: user.class.php:782
+#: user.class.php:809
 msgid "Requested user is not a uid or a CUser"
 msgstr "Angeforderter user ist keine uid oder ein CUser"
+
+#: user.class.php:895
+msgid "Unknown"
+msgstr "Unbekannt"
 
 #: user_brief.tpl.php:8
 msgid "Welcome"
@@ -1361,9 +1499,13 @@ msgstr "Willkommen"
 msgid "Your rewards"
 msgstr "Deine Rewards"
 
+#: user_brief.tpl.php:53
+msgid "no rewards achieved"
+msgstr "noch keine Rewards"
+
 #: user_header_brief.tpl.php:6
 msgid "Invite more"
-msgstr "Weitere einladen"
+msgstr "Einladen"
 
 #: user_header_brief.tpl.php:15
 msgid "You have @buddies Pokerbuddies"
@@ -1375,7 +1517,7 @@ msgstr "@buddies Online"
 
 #: user_header_brief.tpl.php:37
 msgid "Get more"
-msgstr "Erwerbe mehr"
+msgstr "Kaufen"
 
 #: user_header_brief.tpl.php:43
 msgid "You have !chips Chips"
@@ -1393,209 +1535,353 @@ msgstr "VG erfolgreich modifiziert"
 msgid "Nothing to modify"
 msgstr "Nichts zu verändern"
 
-#: os_poker.module:85
+#: os_poker.module:107;144
 msgid "Login"
 msgstr "Login"
 
-#: os_poker.module:107
-msgid "By signing up, you agree to the"
-msgstr "Durch Deine Anmeldung erklärst Du Dich einverstanden mit den"
+#: os_poker.module:116
+msgid "Default <em>male</em> picture"
+msgstr "Default <em>male</em> picture"
 
-#: os_poker.module:107
+#: os_poker.module:120
+msgid "URL of picture to display for <em>male</em> users with no custom picture selected. Leave blank for none."
+msgstr "URL of picture to display for <em>male</em> users with no custom picture selected. Leave blank for none."
+
+#: os_poker.module:124
+msgid "Default <em>female</em> picture"
+msgstr "Default <em>female</em> picture"
+
+#: os_poker.module:128
+msgid "URL of picture to display for <em>female</em> users with no custom picture selected. Leave blank for none."
+msgstr "URL of picture to display for <em>female</em> users with no custom picture selected. Leave blank for none."
+
+#: os_poker.module:141
+msgid "<strong>Incorrect Email/Password Combination</strong><br/>Our passwords are case sensitive. Please check your CAPS lock key.<br/>You may also try clearing your browser's cache."
+msgstr "<strong>Falsche E-Mail/Passwort Kombination</strong><br/>Bitte Groß- und Kleinschreibung beachten. Bitte überprüfe die Feststelltaste.<br/>Zuletzt versuche deinen Browsercache zu leeren."
+
+#: os_poker.module:167
+msgid " or !signup"
+msgstr " oder !signup"
+
+#: os_poker.module:167
+msgid "Sign up"
+msgstr "Registrieren"
+
+#: os_poker.module:172
+msgid "Forgot your Password ?"
+msgstr "Passwort vergessen?"
+
+#: os_poker.module:227
+msgid "By signing up, you agree to the"
+msgstr "Durch Deine Anmeldung erklärst Du Dich einverstanden mit den "
+
+#: os_poker.module:227
 msgid "Terms of Service and Privacy Policy."
 msgstr "Nutzungsbedingungen."
 
-#: os_poker.module:125
+#: os_poker.module:255
 msgid "Show online Poker Buddies only."
 msgstr "Zeige nur Poker Buddies die online sind."
 
-#: os_poker.module:440
+#: os_poker.module:655
 msgid "!user wants to be your buddy"
 msgstr "!user möchte Dein Buddy werden"
 
-#: os_poker.module:537
+#: os_poker.module:702
+msgid "Your buddy !user is online."
+msgstr "Dein Buddy !user ist online."
+
+#: os_poker.module:705
+msgid "Buddy Online"
+msgstr "Buddy Online"
+
+#: os_poker.module:764
 msgid "Session logout askedfor %name."
 msgstr "Session logout askedfor %name."
 
-#: os_poker.module:558
+#: os_poker.module:785
 msgid "DEL %sess from table sessions"
 msgstr "DEL %sess from table sessions"
 
-#: os_poker.module:624
+#: os_poker.module:851
 msgid "Shop administration"
 msgstr "Shop administration"
 
-#: os_poker.module:724
+#: os_poker.module:975
+msgid "%player is not at a table."
+msgstr "%player ist an keinem Tisch."
+
+#: os_poker.module:1036
 msgid "Poker : Open Social header user brief"
 msgstr "Poker : Open Social header user brief"
 
-#: os_poker.module:730
+#: os_poker.module:1042
 msgid "Poker : Footer information"
 msgstr "Poker : Footer information"
 
-#: os_poker.module:736
+#: os_poker.module:1048
 msgid "Poker : Buddylist"
 msgstr "Poker : Buddylist"
 
-#: os_poker.module:742
+#: os_poker.module:1054
 msgid "Poker : Gadjet"
 msgstr "Poker : Gadjet"
 
-#: os_poker.module:748
+#: os_poker.module:1060
 msgid "Poker : Who is at that Table"
 msgstr "Poker : Who is at that Table"
 
-#: os_poker.module:754
+#: os_poker.module:1066
 msgid "Poker : Open Social user brief"
 msgstr "Poker : Open Social user brief"
 
-#: os_poker.module:760
+#: os_poker.module:1072
 msgid "Poker : Play now !"
 msgstr "Poker : Play now !"
 
-#: os_poker.module:766
+#: os_poker.module:1078
 msgid "Poker : Home Teaser"
 msgstr "Poker : Home Teaser"
 
-#: os_poker.module:772
+#: os_poker.module:1084
 msgid "Poker : Home Signup"
 msgstr "Poker : Home Signup"
 
-#: os_poker.module:778
+#: os_poker.module:1090
 msgid "Poker : News"
 msgstr "Poker : News"
 
-#: os_poker.module:784
+#: os_poker.module:1096
 msgid "Poker : Home Promotions"
 msgstr "Poker : Home Promotions"
 
-#: os_poker.module:790
+#: os_poker.module:1102
 msgid "Poker : Language bar"
 msgstr "Poker : Language bar"
 
-#: os_poker.module:854
+#: os_poker.module:1166
 msgid "OS header user brief"
 msgstr "OS header user brief"
 
-#: os_poker.module:859
+#: os_poker.module:1171
 msgid "Footer information"
 msgstr "Footer information"
 
-#: os_poker.module:864
-msgid "Buddielist"
-msgstr "Buddy Liste"
+#: os_poker.module:1176
+msgid "Buddylist"
+msgstr "Buddyliste"
 
-#: os_poker.module:873
+#: os_poker.module:1185
 msgid "Poker Gadjet"
 msgstr "Poker Gadjet"
 
-#: os_poker.module:880
+#: os_poker.module:1192
 msgid "Who is at that Table"
 msgstr "Wer spielt an diesem Tisch"
 
-#: os_poker.module:888
+#: os_poker.module:1200
 msgid "OS user brief"
 msgstr "OS user brief"
 
-#: os_poker.module:896
+#: os_poker.module:1208
 msgid "Play now !"
 msgstr "Jetzt spielen!"
 
-#: os_poker.module:903
+#: os_poker.module:1215
 msgid "WANT SOME HELP GETTING STARTED"
-msgstr "STARTHILFE GEFÄLLIG?"
+msgstr "STARTHILFE GEFÄLLIG"
 
-#: os_poker.module:904
-msgid "We show you how to play poker in just one minute"
-msgstr "Ich zeige Dir ganz schnell wie es geht!"
+#: os_poker.module:1216
+msgid "We show you how to play poker in just one minute !tutorial."
+msgstr "Ich zeige Dir ganz <br> schnell wie es geht! !tutorial"
 
-#: os_poker.module:904
-msgid "Click here"
-msgstr "Hier klicken"
-
-#: os_poker.module:906
+#: os_poker.module:1218
 msgid "Teaser"
 msgstr "Teaser"
 
-#: os_poker.module:911
+#: os_poker.module:1223
 msgid "Home sign up"
 msgstr "Home sign up"
 
-#: os_poker.module:917;918;919
+#: os_poker.module:1229;1230;1231
 msgid "Westspieler Poker Tour: Toller..."
 msgstr "Westspieler Poker Tour: Toller..."
 
-#: os_poker.module:922
+#: os_poker.module:1234
 msgid "Home News"
 msgstr "Home News"
 
-#: os_poker.module:927
+#: os_poker.module:1239
 msgid "Home Promotion"
 msgstr "Home Promotion"
 
-#: os_poker.module:932
+#: os_poker.module:1244
 msgid "Language bar"
 msgstr "Language bar"
 
-#: os_poker.module:998
+#: os_poker.module:1310
 msgid "!time ago"
 msgstr "vor !time"
 
-#: os_poker.module:1024
+#: os_poker.module:1336
 msgid "Accepted"
 msgstr "Akzeptiert"
 
-#: os_poker.module:1027
+#: os_poker.module:1339
 msgid "Refused"
 msgstr "Abgelehnt"
 
-#: os_poker.module:1052
+#: os_poker.module:1353
+msgid "Create your Profile"
+msgstr "Erstelle Dein Profil"
+
+#: os_poker.module:1354
+msgid "One last step to discover the fun, excitement and challenge of poker."
+msgstr "Nur noch ein Schritt um den Spass, die Spannung und die Herausforderung des Pokerns zu entdecken."
+
+#: os_poker.module:1355
+msgid "Find new Poker Buddies!"
+msgstr "Finde neue Poker Buddies!"
+
+#: os_poker.module:1356
+msgid "The text that shows at the bottom of the first profile page and that has yet to be defined."
+msgstr "Sex ist wie ein Pokerspiel. Wenn Du keinen guten Partner hast, musst Du wenigstens eine verdammt gute Hand haben."
+
+#: os_poker.module:1393
+msgid "@user's picture"
+msgstr "@user's Profilbild"
+
+#: os_poker.module:1400;1410
+msgid "View user profile."
+msgstr "Spielerprofil ansehen."
+
+#: os_poker.module:1422
+msgid "Welcome to  !site-name"
+msgstr "Willkomen auf  !site-name"
+
+#: os_poker.module:1423
+msgid "To start we've given you $ !amount chips."
+msgstr "Für einen guten Start haben wir Dir $ !amount Chips geschenkt."
+
+#: os_poker.module:1424
+msgid "The more friends you have playing !site-name, the more free chips you get every day !"
+msgstr "Je mehr Freunde Du auf !site-name hast, desto mehr Chips bekommst Du jeden Tag geschenkt !"
+
+#: os_poker.module:1427
+msgid "Go to lobby"
+msgstr "Zur Lobby"
+
+#: os_poker.module:1434
+msgid "Learn to play"
+msgstr "Pokern lernen"
+
+#: os_poker.module:1442
+msgid "Invite friends"
+msgstr "Freunde einladen"
+
+#: os_poker.module:1476
 msgid "[!site_name] Abuse by !reported"
 msgstr "[!site_name] Missbrauch von !reported"
 
-#: os_poker.module:1053
+#: os_poker.module:1477
 msgid "Hi,"
 msgstr "Hi,"
 
-#: os_poker.module:1054
+#: os_poker.module:1478
 msgid "!reporter reported abuse by !reported on !site_name."
 msgstr "!reporter reported abuse by !reported on !site_name."
 
-#: os_poker.module:1059
+#: os_poker.module:1483
 msgid "He/she gave the following reason: !reason"
 msgstr "He/she gave the following reason: !reason"
 
-#: os_poker.module:1061
+#: os_poker.module:1485
 msgid "He/she also provided the following details:"
 msgstr "He/she also provided the following details:"
 
-#: os_poker.module:529;541
+#: os_poker.module:1488
+msgid "Reporter: !reporter_profile"
+msgstr "Reporter: !reporter_profile"
+
+#: os_poker.module:1490
+msgid "Culprit: !reported_profile"
+msgstr "Beschuldigter: !reported_profile"
+
+#: os_poker.module:1585
+msgid "Add Buddy"
+msgstr "Buddy hinzufügen"
+
+#: os_poker.module:1601
+msgid "Buddy request sent to !user"
+msgstr "Buddy Anfrage an !user gesendet"
+
+#: os_poker.module:1604
+msgid "Buddy Request"
+msgstr "Buddy Anfrage"
+
+#: os_poker.module:1681
+msgid "pending relationship requests"
+msgstr "pending relationship requests"
+
+#: os_poker.module:1780
+msgid "Today's free gift"
+msgstr "Geschenk des Tages"
+
+#: os_poker.module:1780
+msgid "Send $!amount chips to your poker buddies!"
+msgstr "Sende $!amount Chips an Deine Poker Buddies!"
+
+#: os_poker.module:1790
+msgid "Invite more friends"
+msgstr "Mehr Freunde einladen"
+
+#: os_poker.module:1810
+msgid "Click here!"
+msgstr "Hier klicken!"
+
+#: os_poker.module:139
+msgid "Login attempt failed for %user."
+msgstr "Login-Versuch fehlgeschlagen für %user."
+
+#: os_poker.module:756;768
 msgid "os_poker_logout"
 msgstr "os_poker_logout"
 
-#: os_poker.module:529
+#: os_poker.module:756
 msgid "Trigger"
 msgstr "Trigger"
 
-#: os_poker.module:984
+#: os_poker.module:1296
 msgid "OS Poker"
 msgstr "OS Poker"
 
-#: os_poker.module:984
+#: os_poker.module:1296
 msgid "Unknow symbol used in message: %symbol."
 msgstr "Nicht unterstütztes Zeichen in der Nachricht: %symbol."
 
-#: os_poker.module:708
+#: os_poker.module:1020
 msgid "administer os poker"
 msgstr "administer os poker"
 
-#: os_poker.module:683
+#: os_poker.module:902
+msgid "Report abuse"
+msgstr "Missbrauch melden"
+
+#: os_poker.module:910
 msgid "Os Poker"
 msgstr "Os Poker"
 
-#: os_poker.module:684
+#: os_poker.module:911
 msgid "Configure OS Poker features"
 msgstr "Configure OS Poker features"
+
+#: os_poker.module:930
+msgid "Players at table"
+msgstr "Spieler am Tisch"
+
+#: os_poker.module:936
+msgid "Poker table"
+msgstr "Pokertisch"
 
 #: os_poker.install:26
 msgid "Contains items for gifts"
@@ -1613,7 +1899,7 @@ msgstr "Items user operations"
 msgid "Task scheduler"
 msgstr "Task scheduler"
 
-#: os_poker.install:176
+#: os_poker.install:182
 msgid "User extension"
 msgstr "User extension"
 
@@ -1624,4 +1910,993 @@ msgstr "Open Social Poker"
 #: os_poker.info:0
 msgid "Pokermania World Open Social plugin"
 msgstr "Pokermania World Open Social plugin"
+
+#: os_poker.info:0
+msgid "Other"
+msgstr "Andere"
+
+#: translations/country.php:2
+msgid "Afghanistan"
+msgstr "Afghanistan"
+
+#: translations/country.php:3
+msgid "Albania"
+msgstr "Albanien"
+
+#: translations/country.php:4
+msgid "Algeria"
+msgstr "Algerien"
+
+#: translations/country.php:5
+msgid "American Samoa"
+msgstr ""
+
+#: translations/country.php:6
+msgid "Andorra"
+msgstr "Andorra"
+
+#: translations/country.php:7
+msgid "Angola"
+msgstr "Angola"
+
+#: translations/country.php:8
+msgid "Anguilla"
+msgstr ""
+
+#: translations/country.php:9
+msgid "Antarctica"
+msgstr ""
+
+#: translations/country.php:10
+msgid "Antigua and Barbuda"
+msgstr ""
+
+#: translations/country.php:11
+msgid "Argentina"
+msgstr "Argentinien"
+
+#: translations/country.php:12
+msgid "Armenia"
+msgstr "Armenien"
+
+#: translations/country.php:13
+msgid "Aruba"
+msgstr "Aruba"
+
+#: translations/country.php:14
+msgid "Australia"
+msgstr "Australien"
+
+#: translations/country.php:15
+msgid "Austria"
+msgstr "Österreich"
+
+#: translations/country.php:16
+msgid "Azerbaijan"
+msgstr "Azerbaidschan"
+
+#: translations/country.php:17
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: translations/country.php:18
+msgid "Bahrain"
+msgstr "Bahrain"
+
+#: translations/country.php:19
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: translations/country.php:20
+msgid "Barbados"
+msgstr "Barbados"
+
+#: translations/country.php:21
+msgid "Belarus"
+msgstr ""
+
+#: translations/country.php:22
+msgid "Belgium"
+msgstr "Belgien"
+
+#: translations/country.php:23
+msgid "Belize"
+msgstr ""
+
+#: translations/country.php:24
+msgid "Benin"
+msgstr ""
+
+#: translations/country.php:25
+msgid "Bermuda"
+msgstr ""
+
+#: translations/country.php:26
+msgid "Bhutan"
+msgstr ""
+
+#: translations/country.php:27
+msgid "Bolivia"
+msgstr "Bolivien"
+
+#: translations/country.php:28
+msgid "Bosnia and Herzegovina"
+msgstr "Bosnien Herzegowina"
+
+#: translations/country.php:29
+msgid "Botswana"
+msgstr "Botswana"
+
+#: translations/country.php:30
+msgid "Bouvet Island"
+msgstr "Bouvet Insel"
+
+#: translations/country.php:31
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: translations/country.php:32
+msgid "British Indian Ocean Territory"
+msgstr ""
+
+#: translations/country.php:33
+msgid "Brunei Darussalam"
+msgstr ""
+
+#: translations/country.php:34
+msgid "Bulgaria"
+msgstr "Bulgarien"
+
+#: translations/country.php:35
+msgid "Burkina Faso"
+msgstr ""
+
+#: translations/country.php:36
+msgid "Burundi"
+msgstr ""
+
+#: translations/country.php:37
+msgid "Cambodia"
+msgstr "Kambodia"
+
+#: translations/country.php:38
+msgid "Cameroon"
+msgstr "Kamerun"
+
+#: translations/country.php:39
+msgid "Canada"
+msgstr "Kanada"
+
+#: translations/country.php:40
+msgid "Cape Verde"
+msgstr ""
+
+#: translations/country.php:41
+msgid "Cayman Islands"
+msgstr ""
+
+#: translations/country.php:42
+msgid "Central African Republic"
+msgstr ""
+
+#: translations/country.php:43
+msgid "Chad"
+msgstr ""
+
+#: translations/country.php:44
+msgid "Chile"
+msgstr "Chile"
+
+#: translations/country.php:45
+msgid "China"
+msgstr "China"
+
+#: translations/country.php:46
+msgid "Christmas Island"
+msgstr ""
+
+#: translations/country.php:47
+msgid "Cocos (Keeling) Islands"
+msgstr ""
+
+#: translations/country.php:48
+msgid "Colombia"
+msgstr "Kolumbien"
+
+#: translations/country.php:49
+msgid "Comoros"
+msgstr ""
+
+#: translations/country.php:50
+msgid "Congo"
+msgstr "Kongo"
+
+#: translations/country.php:51
+msgid "Congo, the Democratic Republic of the"
+msgstr ""
+
+#: translations/country.php:52
+msgid "Cook Islands"
+msgstr ""
+
+#: translations/country.php:53
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: translations/country.php:54
+msgid "Cote D'Ivoire"
+msgstr ""
+
+#: translations/country.php:55
+msgid "Croatia"
+msgstr "Kroatien"
+
+#: translations/country.php:56
+msgid "Cuba"
+msgstr "Kuba"
+
+#: translations/country.php:57
+msgid "Cyprus"
+msgstr "Zypern"
+
+#: translations/country.php:58
+msgid "Czech Republic"
+msgstr "Tschechische Republik"
+
+#: translations/country.php:59
+msgid "Denmark"
+msgstr "Dänemark"
+
+#: translations/country.php:60
+msgid "Djibouti"
+msgstr ""
+
+#: translations/country.php:61
+msgid "Dominica"
+msgstr ""
+
+#: translations/country.php:62
+msgid "Dominican Republic"
+msgstr "Dominikanische Republik"
+
+#: translations/country.php:63
+msgid "Ecuador"
+msgstr "Ecuador"
+
+#: translations/country.php:64
+msgid "Egypt"
+msgstr "Ägypten"
+
+#: translations/country.php:65
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: translations/country.php:66
+msgid "Equatorial Guinea"
+msgstr ""
+
+#: translations/country.php:67
+msgid "Eritrea"
+msgstr "Eritrea"
+
+#: translations/country.php:68
+msgid "Estonia"
+msgstr "Estland"
+
+#: translations/country.php:69
+msgid "Ethiopia"
+msgstr ""
+
+#: translations/country.php:70
+msgid "Falkland Islands (Malvinas)"
+msgstr ""
+
+#: translations/country.php:71
+msgid "Faroe Islands"
+msgstr ""
+
+#: translations/country.php:72
+msgid "Fiji"
+msgstr ""
+
+#: translations/country.php:73
+msgid "Finland"
+msgstr "Finnland"
+
+#: translations/country.php:74
+msgid "France"
+msgstr "Frankreich"
+
+#: translations/country.php:75
+msgid "French Guiana"
+msgstr ""
+
+#: translations/country.php:76
+msgid "French Polynesia"
+msgstr ""
+
+#: translations/country.php:77
+msgid "French Southern Territories"
+msgstr ""
+
+#: translations/country.php:78
+msgid "Gabon"
+msgstr ""
+
+#: translations/country.php:79
+msgid "Gambia"
+msgstr ""
+
+#: translations/country.php:80
+msgid "Georgia"
+msgstr ""
+
+#: translations/country.php:81
+msgid "Germany"
+msgstr "Deutschland"
+
+#: translations/country.php:82
+msgid "Ghana"
+msgstr "Ghana"
+
+#: translations/country.php:83
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: translations/country.php:84
+msgid "Greece"
+msgstr "Griechenland"
+
+#: translations/country.php:85
+msgid "Greenland"
+msgstr "Grönland"
+
+#: translations/country.php:86
+msgid "Grenada"
+msgstr "Grenada"
+
+#: translations/country.php:87
+msgid "Guadeloupe"
+msgstr ""
+
+#: translations/country.php:88
+msgid "Guam"
+msgstr ""
+
+#: translations/country.php:89
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: translations/country.php:90
+msgid "Guinea"
+msgstr ""
+
+#: translations/country.php:91
+msgid "Guinea-Bissau"
+msgstr ""
+
+#: translations/country.php:92
+msgid "Guyana"
+msgstr ""
+
+#: translations/country.php:93
+msgid "Haiti"
+msgstr "Haiti"
+
+#: translations/country.php:94
+msgid "Heard Island and Mcdonald Islands"
+msgstr ""
+
+#: translations/country.php:95
+msgid "Holy See (Vatican City State)"
+msgstr ""
+
+#: translations/country.php:96
+msgid "Honduras"
+msgstr "Honduras"
+
+#: translations/country.php:97
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: translations/country.php:98
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: translations/country.php:99
+msgid "Iceland"
+msgstr "Island"
+
+#: translations/country.php:100
+msgid "India"
+msgstr "Indien"
+
+#: translations/country.php:101
+msgid "Indonesia"
+msgstr "Indonesien"
+
+#: translations/country.php:102
+msgid "Iran, Islamic Republic of"
+msgstr "Iran"
+
+#: translations/country.php:103
+msgid "Iraq"
+msgstr "Irak"
+
+#: translations/country.php:104
+msgid "Ireland"
+msgstr "Irland"
+
+#: translations/country.php:105
+msgid "Israel"
+msgstr "Israel"
+
+#: translations/country.php:106
+msgid "Italy"
+msgstr "Italien"
+
+#: translations/country.php:107
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: translations/country.php:108
+msgid "Japan"
+msgstr "Japan"
+
+#: translations/country.php:109
+msgid "Jordan"
+msgstr "Jordanien"
+
+#: translations/country.php:110
+msgid "Kazakhstan"
+msgstr ""
+
+#: translations/country.php:111
+msgid "Kenya"
+msgstr "Kenia"
+
+#: translations/country.php:112
+msgid "Kiribati"
+msgstr ""
+
+#: translations/country.php:113
+msgid "Korea, Democratic People's Republic of"
+msgstr ""
+
+#: translations/country.php:114
+msgid "Korea, Republic of"
+msgstr ""
+
+#: translations/country.php:115
+msgid "Kuwait"
+msgstr "Kuwait"
+
+#: translations/country.php:116
+msgid "Kyrgyzstan"
+msgstr ""
+
+#: translations/country.php:117
+msgid "Lao People's Democratic Republic"
+msgstr ""
+
+#: translations/country.php:118
+msgid "Latvia"
+msgstr "Lettland"
+
+#: translations/country.php:119
+msgid "Lebanon"
+msgstr "Libanon"
+
+#: translations/country.php:120
+msgid "Lesotho"
+msgstr ""
+
+#: translations/country.php:121
+msgid "Liberia"
+msgstr ""
+
+#: translations/country.php:122
+msgid "Libyan Arab Jamahiriya"
+msgstr ""
+
+#: translations/country.php:123
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: translations/country.php:124
+msgid "Lithuania"
+msgstr "Litauen"
+
+#: translations/country.php:125
+msgid "Luxembourg"
+msgstr "Luxemburg"
+
+#: translations/country.php:126
+msgid "Macao"
+msgstr "Macao"
+
+#: translations/country.php:127
+msgid "Macedonia, the Former Yugoslav Republic of"
+msgstr ""
+
+#: translations/country.php:128
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: translations/country.php:129
+msgid "Malawi"
+msgstr "Malawi"
+
+#: translations/country.php:130
+msgid "Malaysia"
+msgstr "Malaysia"
+
+#: translations/country.php:131
+msgid "Maldives"
+msgstr "Malediven"
+
+#: translations/country.php:132
+msgid "Mali"
+msgstr "Mali"
+
+#: translations/country.php:133
+msgid "Malta"
+msgstr "Malta"
+
+#: translations/country.php:134
+msgid "Marshall Islands"
+msgstr ""
+
+#: translations/country.php:135
+msgid "Martinique"
+msgstr "Martinique"
+
+#: translations/country.php:136
+msgid "Mauritania"
+msgstr ""
+
+#: translations/country.php:137
+msgid "Mauritius"
+msgstr "Mauritius"
+
+#: translations/country.php:138
+msgid "Mayotte"
+msgstr ""
+
+#: translations/country.php:139
+msgid "Mexico"
+msgstr "Mexico"
+
+#: translations/country.php:140
+msgid "Micronesia, Federated States of"
+msgstr ""
+
+#: translations/country.php:141
+msgid "Moldova, Republic of"
+msgstr ""
+
+#: translations/country.php:142
+msgid "Monaco"
+msgstr "Monaco"
+
+#: translations/country.php:143
+msgid "Mongolia"
+msgstr ""
+
+#: translations/country.php:144
+msgid "Montenegro"
+msgstr ""
+
+#: translations/country.php:145
+msgid "Montserrat"
+msgstr ""
+
+#: translations/country.php:146
+msgid "Morocco"
+msgstr "Marokko"
+
+#: translations/country.php:147
+msgid "Mozambique"
+msgstr "Mosambik"
+
+#: translations/country.php:148
+msgid "Myanmar"
+msgstr ""
+
+#: translations/country.php:149
+msgid "Namibia"
+msgstr "Namibia"
+
+#: translations/country.php:150
+msgid "Nauru"
+msgstr ""
+
+#: translations/country.php:151
+msgid "Nepal"
+msgstr "Nepal"
+
+#: translations/country.php:152
+msgid "Netherlands"
+msgstr "Niederlande"
+
+#: translations/country.php:153
+msgid "Netherlands Antilles"
+msgstr ""
+
+#: translations/country.php:154
+msgid "New Caledonia"
+msgstr "Neu Kaledonien"
+
+#: translations/country.php:155
+msgid "New Zealand"
+msgstr "Neuseeland"
+
+#: translations/country.php:156
+msgid "Nicaragua"
+msgstr "Nicaragua"
+
+#: translations/country.php:157
+msgid "Niger"
+msgstr "Niger"
+
+#: translations/country.php:158
+msgid "Nigeria"
+msgstr "Nigeria"
+
+#: translations/country.php:159
+msgid "Niue"
+msgstr ""
+
+#: translations/country.php:160
+msgid "Norfolk Island"
+msgstr ""
+
+#: translations/country.php:161
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: translations/country.php:162
+msgid "Norway"
+msgstr "Norwegen"
+
+#: translations/country.php:163
+msgid "Oman"
+msgstr "Oman"
+
+#: translations/country.php:164
+msgid "Pakistan"
+msgstr "Pakistan"
+
+#: translations/country.php:165
+msgid "Palau"
+msgstr "Palau"
+
+#: translations/country.php:166
+msgid "Palestinian Territory, Occupied"
+msgstr ""
+
+#: translations/country.php:167
+msgid "Panama"
+msgstr "Panama"
+
+#: translations/country.php:168
+msgid "Papua New Guinea"
+msgstr "Papua Neu Guinea"
+
+#: translations/country.php:169
+msgid "Paraguay"
+msgstr "Paraguay"
+
+#: translations/country.php:170
+msgid "Peru"
+msgstr "Peru"
+
+#: translations/country.php:171
+msgid "Philippines"
+msgstr "Philippinen"
+
+#: translations/country.php:172
+msgid "Pitcairn"
+msgstr ""
+
+#: translations/country.php:173
+msgid "Poland"
+msgstr "Polen"
+
+#: translations/country.php:174
+msgid "Portugal"
+msgstr "Portugal"
+
+#: translations/country.php:175
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: translations/country.php:176
+msgid "Qatar"
+msgstr ""
+
+#: translations/country.php:177
+msgid "Reunion"
+msgstr "Reunion"
+
+#: translations/country.php:178
+msgid "Romania"
+msgstr "Rumänien"
+
+#: translations/country.php:179
+msgid "Russian Federation"
+msgstr "Russland"
+
+#: translations/country.php:180
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: translations/country.php:181
+msgid "Saint Helena"
+msgstr ""
+
+#: translations/country.php:182
+msgid "Saint Kitts and Nevis"
+msgstr ""
+
+#: translations/country.php:183
+msgid "Saint Lucia"
+msgstr ""
+
+#: translations/country.php:184
+msgid "Saint Pierre and Miquelon"
+msgstr ""
+
+#: translations/country.php:185
+msgid "Saint Vincent and the Grenadines"
+msgstr ""
+
+#: translations/country.php:186
+msgid "Samoa"
+msgstr ""
+
+#: translations/country.php:187
+msgid "San Marino"
+msgstr ""
+
+#: translations/country.php:188
+msgid "Sao Tome and Principe"
+msgstr ""
+
+#: translations/country.php:189
+msgid "Saudi Arabia"
+msgstr "Saudi Arabien"
+
+#: translations/country.php:190
+msgid "Senegal"
+msgstr "Senegal"
+
+#: translations/country.php:191
+msgid "Serbia"
+msgstr "Serbien"
+
+#: translations/country.php:192
+msgid "Seychelles"
+msgstr ""
+
+#: translations/country.php:193
+msgid "Sierra Leone"
+msgstr ""
+
+#: translations/country.php:194
+msgid "Singapore"
+msgstr "Singapur"
+
+#: translations/country.php:195
+msgid "Slovakia"
+msgstr "Slovakei"
+
+#: translations/country.php:196
+msgid "Slovenia"
+msgstr "Slovenien"
+
+#: translations/country.php:197
+msgid "Solomon Islands"
+msgstr ""
+
+#: translations/country.php:198
+msgid "Somalia"
+msgstr "Somalia"
+
+#: translations/country.php:199
+msgid "South Africa"
+msgstr "Südafrika"
+
+#: translations/country.php:200
+msgid "South Georgia and the South Sandwich Islands"
+msgstr ""
+
+#: translations/country.php:201
+msgid "Spain"
+msgstr "Spanien"
+
+#: translations/country.php:202
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: translations/country.php:203
+msgid "Sudan"
+msgstr ""
+
+#: translations/country.php:204
+msgid "Suriname"
+msgstr "Suriname"
+
+#: translations/country.php:205
+msgid "Svalbard and Jan Mayen"
+msgstr ""
+
+#: translations/country.php:206
+msgid "Swaziland"
+msgstr ""
+
+#: translations/country.php:207
+msgid "Sweden"
+msgstr "Schweden"
+
+#: translations/country.php:208
+msgid "Switzerland"
+msgstr "Schweitz"
+
+#: translations/country.php:209
+msgid "Syrian Arab Republic"
+msgstr ""
+
+#: translations/country.php:210
+msgid "Taiwan, Province of China"
+msgstr "Taiwan"
+
+#: translations/country.php:211
+msgid "Tajikistan"
+msgstr "Tadschikistan"
+
+#: translations/country.php:212
+msgid "Tanzania, United Republic of"
+msgstr ""
+
+#: translations/country.php:213
+msgid "Thailand"
+msgstr "Thailand"
+
+#: translations/country.php:214
+msgid "Timor-Leste"
+msgstr ""
+
+#: translations/country.php:215
+msgid "Togo"
+msgstr "Togo"
+
+#: translations/country.php:216
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: translations/country.php:217
+msgid "Tonga"
+msgstr "Tonga"
+
+#: translations/country.php:218
+msgid "Trinidad and Tobago"
+msgstr "Trinidad und Tobago"
+
+#: translations/country.php:219
+msgid "Tunisia"
+msgstr "Tunesien"
+
+#: translations/country.php:220
+msgid "Turkey"
+msgstr "Türkei"
+
+#: translations/country.php:221
+msgid "Turkmenistan"
+msgstr ""
+
+#: translations/country.php:222
+msgid "Turks and Caicos Islands"
+msgstr ""
+
+#: translations/country.php:223
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: translations/country.php:224
+msgid "Uganda"
+msgstr "Uganda"
+
+#: translations/country.php:225
+msgid "Ukraine"
+msgstr "Ukraine"
+
+#: translations/country.php:226
+msgid "United Arab Emirates"
+msgstr "Vereinigte Arabische Emirate"
+
+#: translations/country.php:227
+msgid "United Kingdom"
+msgstr "Großbritannien"
+
+#: translations/country.php:228
+msgid "United States"
+msgstr "Vereinigte Staaten"
+
+#: translations/country.php:229
+msgid "United States Minor Outlying Islands"
+msgstr ""
+
+#: translations/country.php:230
+msgid "Uruguay"
+msgstr "Uruguay"
+
+#: translations/country.php:231
+msgid "Uzbekistan"
+msgstr "Usbekistan"
+
+#: translations/country.php:232
+msgid "Vanuatu"
+msgstr ""
+
+#: translations/country.php:233
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: translations/country.php:234
+msgid "Viet Nam"
+msgstr "Vietnam"
+
+#: translations/country.php:235
+msgid "Virgin Islands, British"
+msgstr ""
+
+#: translations/country.php:236
+msgid "Virgin Islands, U.s."
+msgstr ""
+
+#: translations/country.php:237
+msgid "Wallis and Futuna"
+msgstr ""
+
+#: translations/country.php:238
+msgid "Western Sahara"
+msgstr ""
+
+#: translations/country.php:239
+msgid "Yemen"
+msgstr "Jemen"
+
+#: translations/country.php:240
+msgid "Zambia"
+msgstr "Sambia"
+
+#: translations/country.php:241
+msgid "Zimbabwe"
+msgstr "Simbabwe"
+
+#~ msgid "Daily gift : !invites Invites = !nchips Chips allocated."
+#~ msgstr "Daily gift : !invites Einladungen = !nchips Chips zugewiesen."
+#~ msgid "Earn Chips"
+#~ msgstr "Chips verdienen"
+#~ msgid "Editorial"
+#~ msgstr "Impressum"
+#~ msgid "Report abuse by %username."
+#~ msgstr "Missbrauch melden von %username."
+#~ msgid "Your reason for reporting %username as abusive."
+#~ msgstr "Der Grund warum Du %username als missbräuchlich meldest."
+#~ msgid "Offending profile picture"
+#~ msgstr "Anstössiges Profilbild"
+#~ msgid "Level1"
+#~ msgstr "Level1"
+#~ msgid "Level2"
+#~ msgstr "Level2"
+#~ msgid "Select..."
+#~ msgstr "Wähle..."
+#~ msgid "Invitation sent to !user"
+#~ msgstr "Einladung versendet an !user"
+#~ msgid "Warning !field parameter is too long (max 1024 chars)"
+#~ msgstr "Warnung !field Parameter ist zu lang (max 1024 chars)"
+#~ msgid "Warning !field parameter is too long (max 256 chars)"
+#~ msgstr "Warnung !field Parameter ist zu lang (max 256 chars)"
 

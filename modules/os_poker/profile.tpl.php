@@ -88,8 +88,17 @@
 						<td class="Column04"><?php print $target_user->HandsPlayed; ?></td>
 					</tr>
 					<tr class="BgGrey">
+					<?php
+					/* Handle the case where gender is either not set or set to Don't Display */
+					$gender = $target_user->profile_gender;
+					if ($gender != 'Male' && $gender != 'Female') {
+   						$gender_t = '';
+					} else {
+   						$gender_t = t($gender);
+					}
+					?>
 						<td class="Column01"><?php print t("Gender"); ?>:</td>
-						<td class="Column02"><?php print t($target_user->profile_gender); ?></td>
+						<td class="Column02"><?php print $gender_t; ?></td>
 						<td class="Column03"><?php print t("Hands won"); ?>:</td>
 						<td class="Column04"><?php print $target_user->HandsWon; ?></td>
 					</tr>	

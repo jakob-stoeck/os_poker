@@ -121,7 +121,8 @@ Page: <a href="#">1</a> <span class="Marked">2</span> <a href="#">3</a> <a href=
     </tr>
     
     <tr>
-    <td colspan="2"><?php print(t("You have invited:<br/> <span>%total</span> friends", array("%total" => $invites["total"]))) ?> </td>
+    <td><?php print(t("You have invited:<br/> <span>%total</span> friends", array("%total" => ''))) ?> </td>
+    <td class="Number"><br/><span><?php print($invites['total']) ?></span></td>
     </tr>
     <tr><td colspan="2" class="Dotted"><div class="LineDotted"/></td></tr>
     
