@@ -966,7 +966,6 @@ div#buddylist .previous, div#buddylist .previous:hover
 	width: 395px;
 	padding: 5px;
 	margin-bottom: 4px;
-	overflow: hidden;
 }
 
 #user-brief .avatar img
@@ -982,7 +981,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 #user-brief .info1
 {
 	width: 140px;
-	margin-left: 8px;
+	padding-left: 8px;
 }
 
 #user-brief p
