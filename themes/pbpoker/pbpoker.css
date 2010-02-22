@@ -140,7 +140,7 @@ ul.secondary li a.active {
 
 #main
 {
-	background: transparent url(images/pre_body_bg.gif) repeat scroll top left;
+	background: url(images/pre_body_bg.gif) repeat top left;
 	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
@@ -155,7 +155,7 @@ ul.secondary li a.active {
 
 #content-bottom .block
 {
-	padding-top: 10px;
+	margin-top: 10px;
 }
 
 

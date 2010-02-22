@@ -37,9 +37,9 @@ div.tb-fix-margin a.LayerClose
 
 .tabs-window {
 	background: #fff url(images/bg_buddies.gif) bottom left repeat-x;
-	height: 455px;
+	width: 621px;
+	height: 444px;
 	padding: 5px;
-	width: 622px;
 	overflow: hidden !important;
 }
 
