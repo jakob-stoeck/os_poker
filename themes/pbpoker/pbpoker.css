@@ -477,6 +477,7 @@ div.poker_submit {
 	text-decoration: none;
 	cursor: pointer;
 	margin-top: 2px;
+	overflow: hidden;
 }
 
 .container-inline div.poker_submit {
