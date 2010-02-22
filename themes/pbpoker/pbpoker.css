@@ -732,7 +732,6 @@ div#buddylist .header label
 	height: 20px;
 	padding-top: 3px;
 	font-size: 12px;
-	position: relative;
 }
 
 .block_title_text
@@ -1055,7 +1054,7 @@ body.de #play-now #play-now-button {
 
 #ranking
 {
-	/*padding-left: 17px;*/
+	padding-left: 17px;
 }
 
 #ranking .panel .right
@@ -1063,6 +1062,13 @@ body.de #play-now #play-now-button {
 	padding-left: 15px;
 }
 
+*:first-child+html #ranking .panel .left .block_title_bar {
+	width: 115px;
+	margin-top: 5px;
+}
+*:first-child+html #ranking .panel .right .block_title_bar {
+	width: 450px;
+}
 #ranking .inner-item-list
 {
 	height: 308px;
