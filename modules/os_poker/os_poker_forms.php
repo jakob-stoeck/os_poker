@@ -72,12 +72,12 @@ function	os_poker_sign_up_form($form_state)
 		 upon submitting the sign up form */
 	if (!empty($_SESSION[INVITE_SESSION])) {
 		$form = user_relationship_invites_user('register', $form, $account, NULL);
+		// Force buddy request to be approved
+		$form['relationship_invite_approve'] = array('#type' => 'value', '#value' => 'approve');
 	} else {
 		$form = array();
 	}
 
-	// Force buddy request to be approved
-	$form['relationship_invite_approve'] = array('#type' => 'value', '#value' => 'approve');
 				
 	$form["name"] = array(
 							'#type' => 'hidden',
