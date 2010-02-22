@@ -2480,6 +2480,7 @@ div.poker_error_message {
 
 #welcome-splash ul.links li {
 	margin-top: 5px;
+	display: block !important;
 }
 #welcome-splash ul.links a {
  display: block;
