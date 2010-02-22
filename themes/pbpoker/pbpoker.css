@@ -724,10 +724,11 @@ div#buddylist .header label
 
 .block_title_bar
 {
-	background: transparent url(images/bg_titlebar.gif) repeat-x top left;
+	background: url(images/bg_titlebar.gif) repeat-x top left;
 	height: 20px;
 	padding-top: 3px;
 	font-size: 12px;
+	position: relative;
 }
 
 .block_title_text
@@ -965,6 +966,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 	width: 395px;
 	padding: 5px;
 	margin-bottom: 4px;
+	overflow: hidden;
 }
 
 #user-brief .avatar img
@@ -979,7 +981,7 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief .info1
 {
-	width: 150px;
+	width: 140px;
 	margin-left: 8px;
 }
 
