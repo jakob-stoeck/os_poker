@@ -1479,13 +1479,15 @@ div#buddies-list .footer
 ul.categories
 {
 	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 138px;
 }
 
 ul.categories li a
 {
-	border-bottom: 1px solid #CCCBC9;
-	border-left: 1px solid #CCCBC9;
-	border-top: 1px solid #CCCBC9;
+	border: 1px solid #CCCBC9;
+	border-right: none;
 	color: #CE9900;
 	display: block;
 	font-weight: bold;
@@ -1493,20 +1495,12 @@ ul.categories li a
 	line-height: 17px;
 	margin: 5px 0 0;
 	padding: 4px 0 0 7px;
-	width: 130px;
 	text-decoration: none;
-}
-
-ul.categories li
-{
-	list-style-image: none;
-	list-style-position: inside;
-	list-style-type: none;
 }
 
 ul.categories li.active a, ul.categories li a:hover
 {
-	background: transparent url(images/bg_button_shopnav.gif) repeat-x;
+	background: url(images/bg_button_shopnav.gif) repeat-x;
 }
 
 ul.categories li a span
