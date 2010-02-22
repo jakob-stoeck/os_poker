@@ -109,7 +109,6 @@
 			<div class="clear"></div>
 		</div>
 	</div> <!-- /#header-inner, /#header -->
-	
 	<?php if ($navbar): ?>
 	<div id="navbar">
 		<div id="navbar-inner" class="clear-block region region-navbar">

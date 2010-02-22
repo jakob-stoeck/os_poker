@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-02-08 16:28+0100\n"
+"POT-Creation-Date: 2010-02-22 08:40+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -44,47 +44,51 @@ msgstr ""
 msgid " in "
 msgstr ""
 
-#: template.php:60
+#: page-front.tpl.php:127
+msgid "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
+msgstr ""
+
+#: template.php:70
 msgid "Sign up now and get a bonus! <strong>$1000 Chips</strong>"
 msgstr ""
 
-#: template.php:61
+#: template.php:71
 msgid "$1Mio. chips tournament!"
 msgstr ""
 
-#: template.php:62
+#: template.php:72
 msgid "Join the world's <strong>sexiest poker!</strong>"
 msgstr ""
 
-#: template.php:84
+#: template.php:94
 msgid "Play Texas Hold'em Poker with your Fiends."
 msgstr ""
 
-#: template.php:85
+#: template.php:95
 msgid "Get <strong>free</strong> Pokerchips every day that you play!"
 msgstr ""
 
-#: template.php:86
+#: template.php:96
 msgid "<strong><span class=\"star\">*</span> Become a high roller and win hot prizes</strong>"
 msgstr ""
 
-#: template.php:87
+#: template.php:97
 msgid "Experience with us the exciting world of poker!"
 msgstr ""
 
-#: template.php:88
+#: template.php:98
 msgid "Get your thrills in high-stakes games and tournaments, playing for millions, without any risk. All stakes are just virtual game money with no value."
 msgstr ""
 
-#: template.php:90
+#: template.php:100
 msgid "Poker Table"
 msgstr ""
 
-#: template.php:98
+#: template.php:111
 msgid "Click here!"
 msgstr ""
 
-#: template.php:115
+#: template.php:130
 msgid "Sorry, your browser does not support Flash."
 msgstr ""
 

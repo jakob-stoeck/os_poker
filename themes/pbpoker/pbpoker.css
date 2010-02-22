@@ -2550,4 +2550,36 @@ body.poker-report-abuse #page {
   margin-bottom: 10px;
 }
 
+#tourney-notify-template {
+  display: none;
+}
+#tourney-notify {
+  width: 742px;
+  height: 24px;
+  margin-bottom: 11px;
 
+  background-image: url(images/tourney-notify.jpg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+
+  display: none;
+}
+
+#tourney-notify .notify-text {
+  padding-top: 6px;
+  text-align: center;
+  color: #65605c;
+}
+
+#tourney-notify a.close-button {
+  float: right;
+  display: block;
+  position: relative;
+  width: 19px;
+  height: 20px;
+  margin: 2px 4px 0px 0px;
+  background-image: url(images/close.png);
+  background-repeat: no-repeat;
+  background-color: transparent;
+   pointer: cursor;
+}

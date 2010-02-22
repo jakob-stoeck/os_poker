@@ -122,8 +122,10 @@
 		</div>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
-
     <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >
+		<div id="tourney-notify-template">
+		<?php print(t("The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!")); ?>
+		</div>
 		<div id="main-inner" class="clear-block<?php if ($navbar) { print ' with-navbar'; } ?>">
 			<div id="content">
 				<div id="content-inner">

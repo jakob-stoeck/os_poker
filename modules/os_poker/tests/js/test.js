@@ -324,3 +324,28 @@ test('', 1, function(){
   os_poker_slider_reset($('#main .cursor'));
   ok(expectedCursorInnerWidth <= $('#main .cursor').innerWidth(), 'After calling os_poker_slider_reset, cursor with should be larger enough to display all its children on a single line.');
 });
+
+module('os_poker.tourney-notify', {
+  setup: function(){
+    var template = $('<div id="tourney-notify-template">Some message <span></span></div>').appendTo('#main');
+  },
+	teardown: function(){$("#tourney-notify").remove();}
+});
+
+test('', function() {
+	expect(7);
+	
+    	os_poker_init_tourney_notify();
+	equals($("#tourney-notify-template").length, 0, "Notify template is removed");
+	ok($("#tourney-notify").length, 'tourney notify popup is initialized');
+	ok($("#tourney-notify").is(":hidden"), 'tourney notify popup should be hidden by default');
+	window.top.os_poker_tourney_start_notify("My tourney", 100, true);
+	ok(!$("#tourney-notify").is(":hidden"), 'tourney notify popup should show when triggered');
+	$("#tourney-notify .close-button").trigger('click');
+	equals($("#tourney-notify .notify-text a").html(), "My tourney/100", "Tourney name and table should be displayed");
+	equals($("#tourney-notify .notify-text a").attr('href'), os_poker_site_root() + '?view=table&game_id=100', "Tourney name and table should be linked to the table");
+
+	ok($("#tourney-notify").is(":hidden"), 'tourney notify popup should be hidden when close button is clicked.');
+	
+});
+
