@@ -353,9 +353,9 @@ div#user_login
 
 div#user_login .user_login_row
 {
-	display: block;
 	float: left;
 	white-space: nowrap;
+	margin-left: 7px;
 }
 
 div#user_login .user_login_brief_row
@@ -369,11 +369,8 @@ div#user_login .user_login_brief_row
 
 div#user_login .user_login_line
 {
-	display: block;
 	float: none;
-	overflow: hidden;
 	height: 20px;
-	padding-left: 7px;
 	text-align: left;
 }
 
@@ -389,7 +386,14 @@ div#user_login #edit-remember-me-wrapper
 	padding-top: 3px;
 }
 
-div#user_login #edit-remember-me-wrapper label
+/* dirty dirty ie7 fix */
+*:first-child+html div#user_login #edit-remember-me-wrapper
+{
+	margin-top: -3px;
+	margin-left: -29px;
+}
+
+div#user_login #edit-remember-me-wrapper
 {
 	font-size: 10px;
 }
@@ -724,10 +728,11 @@ div#buddylist .header label
 
 .block_title_bar
 {
-	background: transparent url(images/bg_titlebar.gif) repeat-x top left;
+	background: url(images/bg_titlebar.gif) repeat-x top left;
 	height: 20px;
 	padding-top: 3px;
 	font-size: 12px;
+	position: relative;
 }
 
 .block_title_text
@@ -979,8 +984,8 @@ div#buddylist .previous, div#buddylist .previous:hover
 
 #user-brief .info1
 {
-	width: 150px;
-	margin-left: 8px;
+	width: 140px;
+	padding-left: 8px;
 }
 
 #user-brief p
@@ -1050,7 +1055,7 @@ body.de #play-now #play-now-button {
 
 #ranking
 {
-	padding-left: 17px;
+	/*padding-left: 17px;*/
 }
 
 #ranking .panel .right
