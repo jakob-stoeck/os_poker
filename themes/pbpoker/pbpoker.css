@@ -2570,6 +2570,13 @@ body.poker-report-abuse #page {
   text-align: center;
   color: #65605c;
 }
+#tourney-notify a,
+#tourney-notify a:hover,
+#tourney-notify a:visited {
+  color: #65605c;
+  font-weight: bold;
+  font-decoration: none;
+}
 
 #tourney-notify a.close-button {
   float: right;
