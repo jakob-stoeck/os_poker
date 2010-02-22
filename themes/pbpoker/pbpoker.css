@@ -523,13 +523,13 @@ div.poker_submit div.label input {
 
 div.poker_submit.silver div.pre
 {
-  background: transparent url(images/silver_button_left.gif) no-repeat;
+  background-image: url(images/silver_button_left.gif);
   padding-top: 2px;
 }
 
 div.poker_submit.silver div.label
 {
-  background: transparent url(images/silver_button_long_right.gif) no-repeat;
+  background-image: url(images/silver_button_long_right.gif);
   color: #313751;
 }
 
