@@ -1269,9 +1269,13 @@ body.de #play-now #play-now-button {
 div#buddies-search
 {
  color: rgb(108, 108, 108);
- overflow: hidden hidden;
+ overflow: hidden;
  padding: 13px 0 0 58px;
  width: 510px;
+}
+
+div#buddies-search form { /* IE7 */
+	position:relative;
 }
 
 div#buddies-search .poker_submit .label
