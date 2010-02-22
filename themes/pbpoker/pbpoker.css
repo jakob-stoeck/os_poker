@@ -493,7 +493,7 @@ div.poker_submit div.pre {
 }
 
 div.poker_submit div.label {
-	background: url(images/button_long_right.gif) no-repeat scroll top right;
+	background: url(images/button_long_right.gif) no-repeat top right;
     padding-right: 7px;
 	display: block;
 	float: left;
@@ -529,9 +529,8 @@ div.poker_submit.silver div.pre
 
 div.poker_submit.silver div.label
 {
-  background: transparent url(images/silver_button_long_right.gif) repeat-x;
+  background: transparent url(images/silver_button_long_right.gif) no-repeat;
   color: #313751;
-  /*padding-top: 2px;*/
 }
 
 /*
@@ -1415,6 +1414,7 @@ div#buddies-list .buddy_result_list_links .poker_submit
 {
  font-size: 11px;
  margin-bottom: 2px;
+ overflow: hidden;
 }
 
 
@@ -1746,7 +1746,7 @@ p.Note
  overflow: hidden;
  padding: 16px 0 0;
  text-align: left;
- width: 280px;
+ width: 282px;
 }
 
 .buddies-invite-right
@@ -1774,7 +1774,7 @@ p.Note
  line-height: 13px;
  margin: 0;
  padding: 4px;
- width: 130px;
+ width: 126px;
 }
 
 .buddies-invite-right .form-textarea
