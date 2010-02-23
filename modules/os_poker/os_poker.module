@@ -19,6 +19,10 @@
 
 require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
+// interval between page loads that considered to be a new browser session
+define('NOTIFY_INTERVAL', 60*60);
+
+
 
 function os_poker_simple_payment_process(&$payment) {
   $save = FALSE;
@@ -368,6 +372,28 @@ function os_poker_init()
     global $user;
 		$cuser = CUserManager::instance()->CurrentUser();
 		$prof = $cuser->profile_nickname;
+
+		$tourneys = CPoker::ActiveTourneysForUser($cuser->uid);
+		if ($tourneys && count($tourneys) > 0) {
+				$tourney_name = $tourneys[0]->name;
+				$table_id = $tourneys[0]->table_serial;
+				$inline_js = "
+window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
+";
+
+				if (!isset($_REQUEST["game_id"]) ||
+						$_REQUEST["game_id"] != $table_id) {
+						$last_notify = isset($_SESSION['tourney_notify_' . $tourney_id])?$_SESSION['tourney_notify_' . $tourney_id]:null;
+
+						if ($last_notify === null || (time() - $last_notify > NOTIFY_INTERVAL)) {
+								$_SESSION['tourney_notify_' . $tourney_id] = time();
+								drupal_add_js($inline_js, 'inline');
+						}
+
+				}
+		}
+
+
 
     //Redirect to poker/first_profile or display the ''welcome'' overlay on all
     //pages except poker/first_profile and logout

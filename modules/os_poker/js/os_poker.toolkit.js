@@ -269,6 +269,10 @@ function os_poker_init_tourney_notify() {
         $("p.buddy_count").click(function(e) {
                 os_poker_tourney_start_notify("Test", 123, true);
         });
+
+  if (window.top.tourney_notify) {
+    os_poker_tourney_start_notify(window.top.tourney_notify.name, window.top.tourney_notify.table_id, true);
+  }
 }
 
 function os_poker_tourney_start_notify(tourney_name, table_id, flag_in_progress) 

@@ -90,6 +90,25 @@ class CPoker
 		return $tables;
 	}
 	
+	public static function ActiveTourneysForUser($user_id) {
+		$lastDb = db_set_active(self::$_pokerDB);
+	
+		$sql = "SELECT `tourney_serial`, `table_serial`, `tourneys`.`name` FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `user_serial` = %d and `tourneys`.`state` = 'running'";
+		$res = db_query($sql, $user_id);
+
+		$tourneys = array();
+		if ($res) {
+				while (($t = db_fetch_object($res)))
+				{
+						$tourneys []= $t;
+				}
+		}
+
+		db_set_active($lastDb);
+		
+		return $tourneys;
+	}
+
 	public static function	CheckRewards($action, $source, $targets)
 	{
 		$player = CUserManager::instance()->User($source);
