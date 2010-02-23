@@ -11,7 +11,7 @@
 				<?php 
 					print t("Chips") . ": <b class='chips'>" . $os_user->Chips(TRUE) . "</b><br/>";
 					
-					$s = $os_user->Status($level, $maxl);
+					$s = $os_user->StatusEx($level, $maxl);
 					
 					print t("Status") . ": {$s} ({$level}/{$maxl})";
 				?>

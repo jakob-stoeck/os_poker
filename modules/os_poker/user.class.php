@@ -527,6 +527,21 @@ class CUser
     return $status[0];
 	}
 
+	public function StatusEx(&$level, &$maxlevel)
+	{
+            $status = CPoker::GetStatus();
+            $chips = $this->Chips();
+	    $level = $maxlevel = count(array_keys($status));
+            foreach($status as $value => $name) {
+               if($chips >= $value) {
+                 return $name;
+               }
+	       $level--;
+            }
+            return $status[0];
+	}
+
+
 	public function	Tables($forceReload = FALSE)
 	{
 		if ($this->_Tables == NULL || $forceReload == TRUE)

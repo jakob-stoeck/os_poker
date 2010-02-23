@@ -80,6 +80,15 @@ class OSPokerStatusLevelEvaluation extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
+  function testStatusEx() {
+     $test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
+     $test_user->chips = 250000;
+     $test_user->Save();
+     $status = $test_user->StatusEx($level, $max_level);
+     $this->assertEqual($status, t("Pokermaniac"), t("Status is returned correctly"));
+     $this->assertEqual($level, 5, t("Level is returned correctly"));
+     $this->assertEqual($max_level, 10, t("Max level is returned correctly"));
+  }
 
   /**
    * Verify this
