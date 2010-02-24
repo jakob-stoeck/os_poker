@@ -11,6 +11,7 @@
 #  profile_medium.tpl.php: n/a
 #  profile_update.tpl.php: n/a
 #  user_brief.tpl.php: n/a
+#  ranking_list.tpl.php: n/a
 #  buddies-list.tpl.php: n/a
 #  buddy-block.tpl.php: n/a
 #  os_poker_messages.php: n/a
@@ -34,10 +35,9 @@
 #  play_now.tpl.php: n/a
 #  poker.class.php: n/a
 #  shop_get_chips.tpl.php: n/a
+#  ranking.tpl.php: n/a
 #  profile_tabs.tpl.php: n/a
 #  profile_settings.tpl.php: n/a
-#  ranking.tpl.php: n/a
-#  ranking_list.tpl.php: n/a
 #  scheduler.class.php: n/a
 #  shop.class.php: n/a
 #  shop.tpl.php: n/a
@@ -53,7 +53,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-02-19 00:16+0100\n"
+"POT-Creation-Date: 2010-02-24 11:29+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -74,11 +74,11 @@ msgstr ""
 msgid "* Please note that just new player are getting this bonus."
 msgstr ""
 
-#: buddies-invitedlist.tpl.php:17 os_poker_forms.php:812 os_poker.module:89;161
+#: buddies-invitedlist.tpl.php:17 os_poker_forms.php:819 os_poker.module:93;165
 msgid "E-Mail"
 msgstr ""
 
-#: buddies-invitedlist.tpl.php:18
+#: buddies-invitedlist.tpl.php:18 profile.tpl.php:199
 msgid "Date"
 msgstr ""
 
@@ -92,6 +92,22 @@ msgstr ""
 
 #: buddies-invitedlist.tpl.php:21
 msgid "Delete"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94 ranking_list.tpl.php:31
+msgid "« first"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94 ranking_list.tpl.php:31
+msgid "‹ previous"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94 ranking_list.tpl.php:31
+msgid "next ›"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94 ranking_list.tpl.php:31
+msgid "last »"
 msgstr ""
 
 #: buddies-invitedlist.tpl.php:105
@@ -110,15 +126,15 @@ msgstr ""
 msgid "You have invited:<br/> <span>%total</span> friends"
 msgstr ""
 
-#: buddies-invitedlist.tpl.php:129
+#: buddies-invitedlist.tpl.php:130
 msgid "Accepted<br/>invitations"
 msgstr ""
 
-#: buddies-invitedlist.tpl.php:135
+#: buddies-invitedlist.tpl.php:136
 msgid "Pending<br/>invitations"
 msgstr ""
 
-#: buddies-list.tpl.php:53 buddy-block.tpl.php:34;39 os_poker_messages.php:218 profile.tpl.php:122
+#: buddies-list.tpl.php:53 buddy-block.tpl.php:34;39 os_poker_messages.php:218 profile.tpl.php:126
 msgid "Challenge"
 msgstr ""
 
@@ -170,7 +186,7 @@ msgstr ""
 msgid "Buddies"
 msgstr ""
 
-#: buddies-tabs.tpl.php:5 os_poker_forms.php:533
+#: buddies-tabs.tpl.php:5 os_poker_forms.php:538
 msgid "Search"
 msgstr ""
 
@@ -178,7 +194,7 @@ msgstr ""
 msgid "Invite Friends"
 msgstr ""
 
-#: buddy-block.tpl.php:60 profile.tpl.php:117
+#: buddy-block.tpl.php:60 profile.tpl.php:121
 msgid "Send Gifts"
 msgstr ""
 
@@ -190,7 +206,7 @@ msgstr ""
 msgid "Terms of service"
 msgstr ""
 
-#: footer.tpl.php:14 os_poker.module:942;948
+#: footer.tpl.php:14 os_poker.module:969;975
 msgid "Help"
 msgstr ""
 
@@ -262,7 +278,7 @@ msgstr ""
 msgid "Players poker play cheating"
 msgstr ""
 
-#: os_poker.abuse.php:29;43 os_poker_forms.php:98;216;253;301;364;372;525;644;841 os_poker_admin.inc:102
+#: os_poker.abuse.php:29;43 os_poker_forms.php:103;221;258;306;369;377;530;649;848 os_poker_admin.inc:102
 msgid "Send"
 msgstr ""
 
@@ -314,191 +330,191 @@ msgstr ""
 msgid "Have you forgotten your password?"
 msgstr ""
 
-#: os_poker_forms.php:45 os_poker.module:174
+#: os_poker_forms.php:45 os_poker.module:178
 msgid "Request new password via e-mail"
 msgstr ""
 
-#: os_poker_forms.php:83;240
+#: os_poker_forms.php:88;245
 msgid "Your Email"
 msgstr ""
 
-#: os_poker_forms.php:92
+#: os_poker_forms.php:97
 msgid "New Password"
 msgstr ""
 
-#: os_poker_forms.php:106
+#: os_poker_forms.php:111
 msgid "Sign Up"
 msgstr ""
 
-#: os_poker_forms.php:206
+#: os_poker_forms.php:211
 msgid "Ignore all new buddy request"
 msgstr ""
 
-#: os_poker_forms.php:207
+#: os_poker_forms.php:212
 msgid "Please notify me by email whenever I receive a message"
 msgstr ""
 
-#: os_poker_forms.php:208
+#: os_poker_forms.php:213
 msgid "I don't accept any gift"
 msgstr ""
 
-#: os_poker_forms.php:209
+#: os_poker_forms.php:214
 msgid "I wish to receive the weekly email newsletter (recommended)"
 msgstr ""
 
-#: os_poker_forms.php:210
+#: os_poker_forms.php:215
 msgid "I wish to receive emails in HTML-format"
 msgstr ""
 
-#: os_poker_forms.php:224
+#: os_poker_forms.php:229
 msgid "Save"
 msgstr ""
 
-#: os_poker_forms.php:247
+#: os_poker_forms.php:252
 msgid "New Email"
 msgstr ""
 
-#: os_poker_forms.php:262;315
+#: os_poker_forms.php:267;320
 msgid "OK"
 msgstr ""
 
-#: os_poker_forms.php:285
+#: os_poker_forms.php:290
 msgid "Password successfully modified"
 msgstr ""
 
-#: os_poker_forms.php:356;484
+#: os_poker_forms.php:361;489
 msgid "E-mail"
 msgstr ""
 
-#: os_poker_forms.php:396
+#: os_poker_forms.php:401
 msgid "You have already used this one-time login link. It is not necessary to use this link to login anymore. You are already logged in."
 msgstr ""
 
-#: os_poker_forms.php:408
+#: os_poker_forms.php:413
 msgid "You have tried to use a one-time login for an account which has been blocked."
 msgstr ""
 
-#: os_poker_forms.php:414
+#: os_poker_forms.php:419
 msgid "You have tried to use a one-time login link that has expired. Please request a new one using the form below."
 msgstr ""
 
-#: os_poker_forms.php:426
+#: os_poker_forms.php:431
 msgid "You have just used your one-time login link. It is no longer necessary to use this link to login. !settings-page."
 msgstr ""
 
-#: os_poker_forms.php:442
+#: os_poker_forms.php:447
 msgid "<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to login to the site and change your password.</p>"
 msgstr ""
 
-#: os_poker_forms.php:443
+#: os_poker_forms.php:448
 msgid "This login can be used only once."
 msgstr ""
 
-#: os_poker_forms.php:444
+#: os_poker_forms.php:449
 msgid "Log in"
 msgstr ""
 
-#: os_poker_forms.php:450
+#: os_poker_forms.php:455
 msgid "You have tried to use a one-time login link which has either been used or is no longer valid. Please request a new one using the form below."
 msgstr ""
 
-#: os_poker_forms.php:471
+#: os_poker_forms.php:476
 msgid "Search Online player only!"
 msgstr ""
 
-#: os_poker_forms.php:477;579;697
+#: os_poker_forms.php:482;584;702
 msgid "Nickname"
 msgstr ""
 
-#: os_poker_forms.php:491
+#: os_poker_forms.php:496
 msgid "Male"
 msgstr ""
 
-#: os_poker_forms.php:492
+#: os_poker_forms.php:497
 msgid "Female"
 msgstr ""
 
-#: os_poker_forms.php:497;605 profile.tpl.php:91
+#: os_poker_forms.php:502;610 profile.tpl.php:99
 msgid "Gender"
 msgstr ""
 
-#: os_poker_forms.php:504 user.class.php:242
+#: os_poker_forms.php:509 user.class.php:242
 msgid "Level"
 msgstr ""
 
-#: os_poker_forms.php:511;637 profile.tpl.php:39
+#: os_poker_forms.php:516;642 profile.tpl.php:38
 msgid "City"
 msgstr ""
 
-#: os_poker_forms.php:518;626 profile.tpl.php:56
+#: os_poker_forms.php:523;631 profile.tpl.php:44
 msgid "Country"
 msgstr ""
 
-#: os_poker_forms.php:520;627
+#: os_poker_forms.php:525;632
 msgid "--"
 msgstr ""
 
-#: os_poker_forms.php:594
+#: os_poker_forms.php:599
 msgid "Profile photo"
 msgstr ""
 
-#: os_poker_forms.php:596
+#: os_poker_forms.php:601
 msgid "Upload a photo. Max : %dimensions and %size kB."
 msgstr ""
 
-#: os_poker_forms.php:616
+#: os_poker_forms.php:621
 msgid "Birthday"
 msgstr ""
 
-#: os_poker_forms.php:660
+#: os_poker_forms.php:665
 msgid "Join"
 msgstr ""
 
-#: os_poker_forms.php:660
+#: os_poker_forms.php:665
 msgid "Save Profile"
 msgstr ""
 
-#: os_poker_forms.php:666
+#: os_poker_forms.php:671
 msgid "Skip this step"
 msgstr ""
 
-#: os_poker_forms.php:666
+#: os_poker_forms.php:671
 msgid "Here"
 msgstr ""
 
-#: os_poker_forms.php:697
+#: os_poker_forms.php:702
 msgid "already exists."
 msgstr ""
 
-#: os_poker_forms.php:704
+#: os_poker_forms.php:709
 msgid "Thank you for updating your profile."
 msgstr ""
 
-#: os_poker_forms.php:780
+#: os_poker_forms.php:787
 msgid "The entered e-mail address is invalid. Please correct it."
 msgstr ""
 
-#: os_poker_forms.php:806
+#: os_poker_forms.php:813
 msgid "Name"
 msgstr ""
 
-#: os_poker_forms.php:833
+#: os_poker_forms.php:840
 msgid "Send invite"
 msgstr ""
 
-#: os_poker_forms.php:853
+#: os_poker_forms.php:860
 msgid "Sorry, you've reached the maximum number of invitations."
 msgstr ""
 
-#: os_poker_forms.php:894
+#: os_poker_forms.php:901
 msgid "'send mass invitations' permission must be set !"
 msgstr ""
 
-#: os_poker_forms.php:420 os_poker.module:139
+#: os_poker_forms.php:425 os_poker.module:143
 msgid "user"
 msgstr ""
 
-#: os_poker_forms.php:420
+#: os_poker_forms.php:425
 msgid "User %name used one-time login link at time %timestamp."
 msgstr ""
 
@@ -510,11 +526,11 @@ msgstr ""
 msgid "You just receive a headsup challenge from !user"
 msgstr ""
 
-#: os_poker_messages.php:211 os_poker.module:656
+#: os_poker_messages.php:211 os_poker.module:683
 msgid "Accept"
 msgstr ""
 
-#: os_poker_messages.php:211 os_poker.module:658
+#: os_poker_messages.php:211 os_poker.module:685
 msgid "Refuse"
 msgstr ""
 
@@ -522,7 +538,7 @@ msgstr ""
 msgid "You just challenged !user"
 msgstr ""
 
-#: os_poker_messages.php:216;252 os_poker.module:703;1393;1602
+#: os_poker_messages.php:216;252 os_poker.module:730;1430;1639
 msgid "Anonymous"
 msgstr ""
 
@@ -602,563 +618,563 @@ msgstr ""
 msgid "Players Online Now"
 msgstr ""
 
-#: poker.class.php:198
+#: poker.class.php:255
 msgid "You just won reward !name : !desc"
 msgstr ""
 
-#: poker.class.php:206
+#: poker.class.php:263
 msgid "Reward"
 msgstr ""
 
-#: poker.class.php:218
+#: poker.class.php:275
 msgid "Newcomer"
 msgstr ""
 
-#: poker.class.php:218
+#: poker.class.php:275
 msgid "Player sits down at the table for the first time"
 msgstr ""
 
-#: poker.class.php:219
+#: poker.class.php:276
 msgid "Blind Hen"
 msgstr ""
 
-#: poker.class.php:219
+#: poker.class.php:276
 msgid "Player wins his first hand"
 msgstr ""
 
-#: poker.class.php:220
+#: poker.class.php:277
 msgid "It's taking part that counts!"
 msgstr ""
 
-#: poker.class.php:220
+#: poker.class.php:277
 msgid "Player participates in a tourney/sng for the first time"
 msgstr ""
 
-#: poker.class.php:221
+#: poker.class.php:278
 msgid "Bullets"
 msgstr ""
 
-#: poker.class.php:221
+#: poker.class.php:278
 msgid "Player wins with AA hole cards"
 msgstr ""
 
-#: poker.class.php:222
+#: poker.class.php:279
 msgid "Cowboys"
 msgstr ""
 
-#: poker.class.php:222
+#: poker.class.php:279
 msgid "Player wins with KK hole cards"
 msgstr ""
 
-#: poker.class.php:223
+#: poker.class.php:280
 msgid "Jailhouse Rock"
 msgstr ""
 
-#: poker.class.php:223
+#: poker.class.php:280
 msgid "Player wins with QQ hole cards"
 msgstr ""
 
-#: poker.class.php:224
+#: poker.class.php:281
 msgid "Fish-Hooks"
 msgstr ""
 
-#: poker.class.php:224
+#: poker.class.php:281
 msgid "Player wins with JJ hole cards"
 msgstr ""
 
-#: poker.class.php:225
+#: poker.class.php:282
 msgid "Route 66"
 msgstr ""
 
-#: poker.class.php:225
+#: poker.class.php:282
 msgid "Player wins with 66 hole cards"
 msgstr ""
 
-#: poker.class.php:226
+#: poker.class.php:283
 msgid "Sailboats"
 msgstr ""
 
-#: poker.class.php:226
+#: poker.class.php:283
 msgid "Player wins with 44 hole cards"
 msgstr ""
 
-#: poker.class.php:227
+#: poker.class.php:284
 msgid "Big Slick"
 msgstr ""
 
-#: poker.class.php:227
+#: poker.class.php:284
 msgid "Player wins with AK hole cards"
 msgstr ""
 
-#: poker.class.php:228
+#: poker.class.php:285
 msgid "Big Chick"
 msgstr ""
 
-#: poker.class.php:228
+#: poker.class.php:285
 msgid "Player wins with AD hole cards"
 msgstr ""
 
-#: poker.class.php:229
+#: poker.class.php:286
 msgid "Dinner for two"
 msgstr ""
 
-#: poker.class.php:229
+#: poker.class.php:286
 msgid "Player wins with 69 hole cards"
 msgstr ""
 
-#: poker.class.php:230
+#: poker.class.php:287
 msgid "Valentines's"
 msgstr ""
 
-#: poker.class.php:230
+#: poker.class.php:287
 msgid "Day Player wins with KQ hole cards, both heart"
 msgstr ""
 
-#: poker.class.php:231
+#: poker.class.php:288
 msgid "Big Bang 5.000"
 msgstr ""
 
-#: poker.class.php:231
+#: poker.class.php:288
 msgid "Player wins a big pot, more than 5.000 chips"
 msgstr ""
 
-#: poker.class.php:232
+#: poker.class.php:289
 msgid "No risk no fun"
 msgstr ""
 
-#: poker.class.php:232
+#: poker.class.php:289
 msgid "Player wins an all-in"
 msgstr ""
 
-#: poker.class.php:233
+#: poker.class.php:290
 msgid "Be my Buddy I"
 msgstr ""
 
-#: poker.class.php:233
+#: poker.class.php:290
 msgid "Player has at least 5 buddies"
 msgstr ""
 
-#: poker.class.php:234
+#: poker.class.php:291
 msgid "Follow me I"
 msgstr ""
 
-#: poker.class.php:234
+#: poker.class.php:291
 msgid "Player has at least 2 successful invitations"
 msgstr ""
 
-#: poker.class.php:235
+#: poker.class.php:292
 msgid "Regular's Table"
 msgstr ""
 
-#: poker.class.php:235
+#: poker.class.php:292
 msgid "Player sits down at the table with at least one buddy"
 msgstr ""
 
-#: poker.class.php:236
+#: poker.class.php:293
 msgid "It's my round!"
 msgstr ""
 
-#: poker.class.php:236
+#: poker.class.php:293
 msgid "Player buys a gift for every player at the table, value doesn't matter"
 msgstr ""
 
-#: poker.class.php:237
+#: poker.class.php:294
 msgid "Challenger"
 msgstr ""
 
-#: poker.class.php:237
+#: poker.class.php:294
 msgid "Player participates in a challenge"
 msgstr ""
 
-#: poker.class.php:239
+#: poker.class.php:296
 msgid "Jackpot"
 msgstr ""
 
-#: poker.class.php:239
+#: poker.class.php:296
 msgid "Player wins with 777"
 msgstr ""
 
-#: poker.class.php:240
+#: poker.class.php:297
 msgid "Trips"
 msgstr ""
 
-#: poker.class.php:240
+#: poker.class.php:297
 msgid "Player wins with three of a kind"
 msgstr ""
 
-#: poker.class.php:241
+#: poker.class.php:298
 msgid "Ten Times Trips"
 msgstr ""
 
-#: poker.class.php:241
+#: poker.class.php:298
 msgid "Player wins with three of a kind, 10 times"
 msgstr ""
 
-#: poker.class.php:242
+#: poker.class.php:299
 msgid "Road Testing"
 msgstr ""
 
-#: poker.class.php:242
+#: poker.class.php:299
 msgid "Player wins with a street"
 msgstr ""
 
-#: poker.class.php:243
+#: poker.class.php:300
 msgid "On The Road"
 msgstr ""
 
-#: poker.class.php:243
+#: poker.class.php:300
 msgid "Player wins with a street, 10 times"
 msgstr ""
 
-#: poker.class.php:244
+#: poker.class.php:301
 msgid "Flush"
 msgstr ""
 
-#: poker.class.php:244
+#: poker.class.php:301
 msgid "Player wins with a flush"
 msgstr ""
 
-#: poker.class.php:245
+#: poker.class.php:302
 msgid "Flush 10x"
 msgstr ""
 
-#: poker.class.php:245
+#: poker.class.php:302
 msgid "Player wins with a flush, 10 times"
 msgstr ""
 
-#: poker.class.php:246
+#: poker.class.php:303
 msgid "Full House"
 msgstr ""
 
-#: poker.class.php:246
+#: poker.class.php:303
 msgid "Player wins with a full house"
 msgstr ""
 
-#: poker.class.php:247
+#: poker.class.php:304
 msgid "Full House 10x"
 msgstr ""
 
-#: poker.class.php:247
+#: poker.class.php:304
 msgid "Player wins with a full house, 10 times"
 msgstr ""
 
-#: poker.class.php:248
+#: poker.class.php:305
 msgid "Broadway"
 msgstr ""
 
-#: poker.class.php:248
+#: poker.class.php:305
 msgid "Player wins with AKQJT"
 msgstr ""
 
-#: poker.class.php:249
+#: poker.class.php:306
 msgid "The Bicycle"
 msgstr ""
 
-#: poker.class.php:249
+#: poker.class.php:306
 msgid "Player wins with A2345"
 msgstr ""
 
-#: poker.class.php:250
+#: poker.class.php:307
 msgid "Big Bang 10.000"
 msgstr ""
 
-#: poker.class.php:250
+#: poker.class.php:307
 msgid "Player wins a big pot, more than 10.000 chips"
 msgstr ""
 
-#: poker.class.php:251
+#: poker.class.php:308
 msgid "Big Bang 25.000"
 msgstr ""
 
-#: poker.class.php:251
+#: poker.class.php:308
 msgid "Player wins a big pot, more than 25.000 chips"
 msgstr ""
 
-#: poker.class.php:252
+#: poker.class.php:309
 msgid "Bad Beat Full House"
 msgstr ""
 
-#: poker.class.php:252
+#: poker.class.php:309
 msgid "Player holds a full house and looses his hand"
 msgstr ""
 
-#: poker.class.php:253
+#: poker.class.php:310
 msgid "Final Table"
 msgstr ""
 
-#: poker.class.php:253
+#: poker.class.php:310
 msgid "Player places top 9 in a tourney"
 msgstr ""
 
-#: poker.class.php:254
+#: poker.class.php:311
 msgid "Lounge Lizard"
 msgstr ""
 
-#: poker.class.php:254
+#: poker.class.php:311
 msgid "Player has at least 10 buddies"
 msgstr ""
 
-#: poker.class.php:255
+#: poker.class.php:312
 msgid "Randy Dandy"
 msgstr ""
 
-#: poker.class.php:255
+#: poker.class.php:312
 msgid "Player has at least 5 successful invitations"
 msgstr ""
 
-#: poker.class.php:256
+#: poker.class.php:313
 msgid "Regular's Table II"
 msgstr ""
 
-#: poker.class.php:256
+#: poker.class.php:313
 msgid "Player sits down at the table with at least three buddies"
 msgstr ""
 
-#: poker.class.php:257
+#: poker.class.php:314
 msgid "It's my round! II"
 msgstr ""
 
-#: poker.class.php:257
+#: poker.class.php:314
 msgid "Player buys a gift for every player at the table, aggregate value more than 1.000 Chips"
 msgstr ""
 
-#: poker.class.php:259
+#: poker.class.php:316
 msgid "The Millionaires Club"
 msgstr ""
 
-#: poker.class.php:259
+#: poker.class.php:316
 msgid "Player has a peek chip count of 1.000.000 chips"
 msgstr ""
 
-#: poker.class.php:260
+#: poker.class.php:317
 msgid "On a Rush"
 msgstr ""
 
-#: poker.class.php:260
+#: poker.class.php:317
 msgid "Player wins 10 hands in a row during a session"
 msgstr ""
 
-#: poker.class.php:261
+#: poker.class.php:318
 msgid "Quads"
 msgstr ""
 
-#: poker.class.php:261
+#: poker.class.php:318
 msgid "Player wins with four of a kind"
 msgstr ""
 
-#: poker.class.php:262
+#: poker.class.php:319
 msgid "Straight Flush"
 msgstr ""
 
-#: poker.class.php:262
+#: poker.class.php:319
 msgid "Player wins with a straight flush"
 msgstr ""
 
-#: poker.class.php:263
+#: poker.class.php:320
 msgid "The Road to Success"
 msgstr ""
 
-#: poker.class.php:263
+#: poker.class.php:320
 msgid "Player wins with a street, 50 times"
 msgstr ""
 
-#: poker.class.php:264
+#: poker.class.php:321
 msgid "Flush Rush"
 msgstr ""
 
-#: poker.class.php:264
+#: poker.class.php:321
 msgid "Player wins with a flush, 50 times"
 msgstr ""
 
-#: poker.class.php:265
+#: poker.class.php:322
 msgid "House-Hunter"
 msgstr ""
 
-#: poker.class.php:265
+#: poker.class.php:322
 msgid "Player wins with a full house, 50 times"
 msgstr ""
 
-#: poker.class.php:266
+#: poker.class.php:323
 msgid "Big Bang 100.000"
 msgstr ""
 
-#: poker.class.php:266
+#: poker.class.php:323
 msgid "Player wins a big pot, more than 100.000 chips"
 msgstr ""
 
-#: poker.class.php:267
+#: poker.class.php:324
 msgid "Kamikaze"
 msgstr ""
 
-#: poker.class.php:267
+#: poker.class.php:324
 msgid "Player wins with 27 hole cards, any suit"
 msgstr ""
 
-#: poker.class.php:268
+#: poker.class.php:325
 msgid "Bad Beat Quads"
 msgstr ""
 
-#: poker.class.php:268
+#: poker.class.php:325
 msgid "Player holds four of a kind and looses his hand"
 msgstr ""
 
-#: poker.class.php:269
+#: poker.class.php:326
 msgid "Tournament Pro"
 msgstr ""
 
-#: poker.class.php:269
+#: poker.class.php:326
 msgid "Player wins a tourney"
 msgstr ""
 
-#: poker.class.php:270
+#: poker.class.php:327
 msgid "Cool Dude"
 msgstr ""
 
-#: poker.class.php:270
+#: poker.class.php:327
 msgid "Player has at least 50 buddies"
 msgstr ""
 
-#: poker.class.php:271
+#: poker.class.php:328
 msgid "Party Animal"
 msgstr ""
 
-#: poker.class.php:271
+#: poker.class.php:328
 msgid "Player has at least 25 successful invitations"
 msgstr ""
 
-#: poker.class.php:272
+#: poker.class.php:329
 msgid "Full table/Private"
 msgstr ""
 
-#: poker.class.php:272
+#: poker.class.php:329
 msgid "Table Player sits down at the table with 8 buddies"
 msgstr ""
 
-#: poker.class.php:273
+#: poker.class.php:330
 msgid "It's my round! III"
 msgstr ""
 
-#: poker.class.php:273
+#: poker.class.php:330
 msgid "Player buys a gift for every player at the table, aggregate value more than 10.000 Chips"
 msgstr ""
 
-#: poker.class.php:275
+#: poker.class.php:332
 msgid "Royal Family"
 msgstr ""
 
-#: poker.class.php:275
+#: poker.class.php:332
 msgid "Player wins with a royal flush"
 msgstr ""
 
-#: poker.class.php:276
+#: poker.class.php:333
 msgid "Marathon"
 msgstr ""
 
-#: poker.class.php:276
+#: poker.class.php:333
 msgid "at least 42 hours at the table within 8 days"
 msgstr ""
 
-#: poker.class.php:277
+#: poker.class.php:334
 msgid "Strike!"
 msgstr ""
 
-#: poker.class.php:277
+#: poker.class.php:334
 msgid "all bronze, silver and goild achievements complete"
 msgstr ""
 
-#: poker.class.php:278
+#: poker.class.php:335
 msgid "Milestone 10.000"
 msgstr ""
 
-#: poker.class.php:278
+#: poker.class.php:335
 msgid "hands played"
 msgstr ""
 
-#: poker.class.php:279
+#: poker.class.php:336
 msgid "Tournament Expert"
 msgstr ""
 
-#: poker.class.php:279
+#: poker.class.php:336
 msgid "Player wins at least 10 tourneys"
 msgstr ""
 
-#: poker.class.php:280
+#: poker.class.php:337
 msgid "Donald Trump"
 msgstr ""
 
-#: poker.class.php:280
+#: poker.class.php:337
 msgid "Player had more than 1 million chips, lost everything and has again > 1 million chips"
 msgstr ""
 
-#: poker.class.php:281
+#: poker.class.php:338
 msgid "Big Spender"
 msgstr ""
 
-#: poker.class.php:281
+#: poker.class.php:338
 msgid "Player buys a gift for every player at the table, aggregate value more than 100.000 Chips"
 msgstr ""
 
-#: poker.class.php:282
+#: poker.class.php:339
 msgid "Buddy King"
 msgstr ""
 
-#: poker.class.php:282
+#: poker.class.php:339
 msgid "Player has at least 100 buddies"
 msgstr ""
 
-#: poker.class.php:283
+#: poker.class.php:340
 msgid "Invitation King"
 msgstr ""
 
-#: poker.class.php:283
+#: poker.class.php:340
 msgid "Player has at least 50 successful invitations"
 msgstr ""
 
-#: poker.class.php:284
+#: poker.class.php:341
 msgid "Playboy"
 msgstr ""
 
-#: poker.class.php:284
+#: poker.class.php:341
 msgid "Player has spent at least 1.000.000 chips for gifts"
 msgstr ""
 
-#: poker.class.php:302
+#: poker.class.php:359
 msgid "Rockefeller"
 msgstr ""
 
-#: poker.class.php:303
+#: poker.class.php:360
 msgid "Highroller"
 msgstr ""
 
-#: poker.class.php:304
+#: poker.class.php:361
 msgid "Shark"
 msgstr ""
 
-#: poker.class.php:305
+#: poker.class.php:362
 msgid "Big Rock"
 msgstr ""
 
-#: poker.class.php:306
+#: poker.class.php:363
 msgid "Stone Face"
 msgstr ""
 
-#: poker.class.php:307
+#: poker.class.php:364
 msgid "Pokermaniac"
 msgstr ""
 
-#: poker.class.php:308
+#: poker.class.php:365
 msgid "Chip Hunter"
 msgstr ""
 
-#: poker.class.php:309
+#: poker.class.php:366
 msgid "Rising Star"
 msgstr ""
 
-#: poker.class.php:310
+#: poker.class.php:367
 msgid "Chippy"
 msgstr ""
 
-#: poker.class.php:311
+#: poker.class.php:368
 msgid "Fish"
 msgstr ""
 
@@ -1170,48 +1186,76 @@ msgstr ""
 msgid "Chips"
 msgstr ""
 
-#: profile.tpl.php:34
-msgid "Actual Player Ranking"
+#: profile.tpl.php:40
+msgid "Highest Chip Level"
 msgstr ""
 
-#: profile.tpl.php:41
+#: profile.tpl.php:46
 msgid "Biggest Pot Won"
 msgstr ""
 
-#: profile.tpl.php:58
-msgid "Best Hand"
-msgstr ""
-
-#: profile.tpl.php:79
+#: profile.tpl.php:61
 msgid "Age"
 msgstr ""
 
-#: profile.tpl.php:87
-msgid "Hands Played"
+#: profile.tpl.php:69
+msgid "Best Hand"
 msgstr ""
 
-#: profile.tpl.php:93
-msgid "Hands won"
+#: profile.tpl.php:101
+msgid "Hands Played/won"
 msgstr ""
 
-#: profile.tpl.php:107
+#: profile.tpl.php:112
 msgid "Update Profile"
 msgstr ""
 
-#: profile.tpl.php:127
+#: profile.tpl.php:131
 msgid "Join Table"
 msgstr ""
 
-#: profile.tpl.php:132 profile_medium.tpl.php:64
+#: profile.tpl.php:136 profile_medium.tpl.php:64
 msgid "Report Abuse"
 msgstr ""
 
-#: profile.tpl.php:142
+#: profile.tpl.php:149
 msgid "Recent Rewards"
 msgstr ""
 
-#: profile.tpl.php:150
+#: profile.tpl.php:155
 msgid "Recent Gifts"
+msgstr ""
+
+#: profile.tpl.php:163
+msgid "Tournaments"
+msgstr ""
+
+#: profile.tpl.php:168
+msgid "Next Tournament"
+msgstr ""
+
+#: profile.tpl.php:175
+msgid "Player is registered at"
+msgstr ""
+
+#: profile.tpl.php:179
+msgid "Player is not registered"
+msgstr ""
+
+#: profile.tpl.php:190
+msgid "Best Tournament Results"
+msgstr ""
+
+#: profile.tpl.php:197 ranking.tpl.php:18
+msgid "Rank"
+msgstr ""
+
+#: profile.tpl.php:198
+msgid "Tourney"
+msgstr ""
+
+#: profile.tpl.php:205
+msgid "No results"
 msgstr ""
 
 #: profile_medium.tpl.php:14 profile_tabs.tpl.php:5
@@ -1274,28 +1318,8 @@ msgstr ""
 msgid "For a complete Profile you'll get $2.000 Chips for free!"
 msgstr ""
 
-#: ranking.tpl.php:18
-msgid "Rank"
-msgstr ""
-
 #: ranking.tpl.php:21
 msgid "Top Ten"
-msgstr ""
-
-#: ranking_list.tpl.php:31
-msgid "« first"
-msgstr ""
-
-#: ranking_list.tpl.php:31
-msgid "‹ previous"
-msgstr ""
-
-#: ranking_list.tpl.php:31
-msgid "next ›"
-msgstr ""
-
-#: ranking_list.tpl.php:31
-msgid "last »"
 msgstr ""
 
 #: scheduler.class.php:57
@@ -1330,7 +1354,7 @@ msgstr ""
 msgid "CScheduler::Trigger"
 msgstr ""
 
-#: scheduler.class.php:242 os_poker.module:768
+#: scheduler.class.php:242 os_poker.module:795
 msgid "%uid : %sess"
 msgstr ""
 
@@ -1450,15 +1474,15 @@ msgstr ""
 msgid "You just receive a daily gift from !user"
 msgstr ""
 
-#: user.class.php:656;657;658;659
+#: user.class.php:671;672;673;674
 msgid "N/A"
 msgstr ""
 
-#: user.class.php:809
+#: user.class.php:824
 msgid "Requested user is not a uid or a CUser"
 msgstr ""
 
-#: user.class.php:895
+#: user.class.php:910
 msgid "Unknown"
 msgstr ""
 
@@ -1506,351 +1530,359 @@ msgstr ""
 msgid "Nothing to modify"
 msgstr ""
 
-#: os_poker.module:107;144
+#: os_poker.module:111;148
 msgid "Login"
 msgstr ""
 
-#: os_poker.module:116
+#: os_poker.module:120
 msgid "Default <em>male</em> picture"
 msgstr ""
 
-#: os_poker.module:120
+#: os_poker.module:124
 msgid "URL of picture to display for <em>male</em> users with no custom picture selected. Leave blank for none."
 msgstr ""
 
-#: os_poker.module:124
+#: os_poker.module:128
 msgid "Default <em>female</em> picture"
 msgstr ""
 
-#: os_poker.module:128
+#: os_poker.module:132
 msgid "URL of picture to display for <em>female</em> users with no custom picture selected. Leave blank for none."
 msgstr ""
 
-#: os_poker.module:141
+#: os_poker.module:145
 msgid "<strong>Incorrect Email/Password Combination</strong><br/>Our passwords are case sensitive. Please check your CAPS lock key.<br/>You may also try clearing your browser's cache."
 msgstr ""
 
-#: os_poker.module:167
+#: os_poker.module:171
 msgid " or !signup"
 msgstr ""
 
-#: os_poker.module:167
+#: os_poker.module:171
 msgid "Sign up"
 msgstr ""
 
-#: os_poker.module:172
+#: os_poker.module:176
 msgid "Forgot your Password ?"
 msgstr ""
 
-#: os_poker.module:227
+#: os_poker.module:231
 msgid "By signing up, you agree to the"
 msgstr ""
 
-#: os_poker.module:227
+#: os_poker.module:231
 msgid "Terms of Service and Privacy Policy."
 msgstr ""
 
-#: os_poker.module:255
+#: os_poker.module:259
 msgid "Show online Poker Buddies only."
 msgstr ""
 
-#: os_poker.module:655
+#: os_poker.module:682
 msgid "!user wants to be your buddy"
 msgstr ""
 
-#: os_poker.module:702
+#: os_poker.module:729
 msgid "Your buddy !user is online."
 msgstr ""
 
-#: os_poker.module:705
+#: os_poker.module:732
 msgid "Buddy Online"
 msgstr ""
 
-#: os_poker.module:764
+#: os_poker.module:791
 msgid "Session logout askedfor %name."
 msgstr ""
 
-#: os_poker.module:785
+#: os_poker.module:812
 msgid "DEL %sess from table sessions"
 msgstr ""
 
-#: os_poker.module:851
+#: os_poker.module:878
 msgid "Shop administration"
 msgstr ""
 
-#: os_poker.module:975
+#: os_poker.module:1002
 msgid "%player is not at a table."
 msgstr ""
 
-#: os_poker.module:1036
+#: os_poker.module:1063
 msgid "Poker : Open Social header user brief"
 msgstr ""
 
-#: os_poker.module:1042
+#: os_poker.module:1069
 msgid "Poker : Footer information"
 msgstr ""
 
-#: os_poker.module:1048
+#: os_poker.module:1075
 msgid "Poker : Buddylist"
 msgstr ""
 
-#: os_poker.module:1054
+#: os_poker.module:1081
 msgid "Poker : Gadjet"
 msgstr ""
 
-#: os_poker.module:1060
+#: os_poker.module:1087
 msgid "Poker : Who is at that Table"
 msgstr ""
 
-#: os_poker.module:1066
+#: os_poker.module:1093
 msgid "Poker : Open Social user brief"
 msgstr ""
 
-#: os_poker.module:1072
+#: os_poker.module:1099
 msgid "Poker : Play now !"
 msgstr ""
 
-#: os_poker.module:1078
+#: os_poker.module:1105
 msgid "Poker : Home Teaser"
 msgstr ""
 
-#: os_poker.module:1084
+#: os_poker.module:1111
 msgid "Poker : Home Signup"
 msgstr ""
 
-#: os_poker.module:1090
+#: os_poker.module:1117
 msgid "Poker : News"
 msgstr ""
 
-#: os_poker.module:1096
+#: os_poker.module:1123
 msgid "Poker : Home Promotions"
 msgstr ""
 
-#: os_poker.module:1102
+#: os_poker.module:1129
 msgid "Poker : Language bar"
 msgstr ""
 
-#: os_poker.module:1166
+#: os_poker.module:1193
 msgid "OS header user brief"
 msgstr ""
 
-#: os_poker.module:1171
+#: os_poker.module:1198
 msgid "Footer information"
 msgstr ""
 
-#: os_poker.module:1176
+#: os_poker.module:1203
 msgid "Buddylist"
 msgstr ""
 
-#: os_poker.module:1185
+#: os_poker.module:1212
 msgid "Poker Gadjet"
 msgstr ""
 
-#: os_poker.module:1192
+#: os_poker.module:1219
 msgid "Who is at that Table"
 msgstr ""
 
-#: os_poker.module:1200
+#: os_poker.module:1227
 msgid "OS user brief"
 msgstr ""
 
-#: os_poker.module:1208
+#: os_poker.module:1235
 msgid "Play now !"
 msgstr ""
 
-#: os_poker.module:1215
+#: os_poker.module:1242
 msgid "WANT SOME HELP GETTING STARTED"
 msgstr ""
 
-#: os_poker.module:1216
+#: os_poker.module:1243
 msgid "We show you how to play poker in just one minute !tutorial."
 msgstr ""
 
-#: os_poker.module:1218
+#: os_poker.module:1245
 msgid "Teaser"
 msgstr ""
 
-#: os_poker.module:1223
+#: os_poker.module:1250
 msgid "Home sign up"
 msgstr ""
 
-#: os_poker.module:1229;1230;1231
+#: os_poker.module:1256;1257;1258
 msgid "Westspieler Poker Tour: Toller..."
 msgstr ""
 
-#: os_poker.module:1234
+#: os_poker.module:1261
 msgid "Home News"
 msgstr ""
 
-#: os_poker.module:1239
+#: os_poker.module:1266
 msgid "Home Promotion"
 msgstr ""
 
-#: os_poker.module:1244
+#: os_poker.module:1271
 msgid "Language bar"
 msgstr ""
 
-#: os_poker.module:1310
+#: os_poker.module:1337
 msgid "!time ago"
 msgstr ""
 
-#: os_poker.module:1336
+#: os_poker.module:1363
 msgid "Accepted"
 msgstr ""
 
-#: os_poker.module:1339
+#: os_poker.module:1366
 msgid "Refused"
 msgstr ""
 
-#: os_poker.module:1353
+#: os_poker.module:1380
 msgid "Create your Profile"
 msgstr ""
 
-#: os_poker.module:1354
+#: os_poker.module:1381
 msgid "One last step to discover the fun, excitement and challenge of poker."
 msgstr ""
 
-#: os_poker.module:1355
+#: os_poker.module:1382
 msgid "Find new Poker Buddies!"
 msgstr ""
 
-#: os_poker.module:1356
+#: os_poker.module:1383
 msgid "The text that shows at the bottom of the first profile page and that has yet to be defined."
 msgstr ""
 
-#: os_poker.module:1393
+#: os_poker.module:1430
 msgid "@user's picture"
 msgstr ""
 
-#: os_poker.module:1400;1410
+#: os_poker.module:1437;1447
 msgid "View user profile."
 msgstr ""
 
-#: os_poker.module:1422
+#: os_poker.module:1459
 msgid "Welcome to  !site-name"
 msgstr ""
 
-#: os_poker.module:1423
+#: os_poker.module:1460
 msgid "To start we've given you $ !amount chips."
 msgstr ""
 
-#: os_poker.module:1424
+#: os_poker.module:1461
 msgid "The more friends you have playing !site-name, the more free chips you get every day !"
 msgstr ""
 
-#: os_poker.module:1427
+#: os_poker.module:1464
 msgid "Go to lobby"
 msgstr ""
 
-#: os_poker.module:1434
+#: os_poker.module:1471
 msgid "Learn to play"
 msgstr ""
 
-#: os_poker.module:1442
+#: os_poker.module:1479
 msgid "Invite friends"
 msgstr ""
 
-#: os_poker.module:1476
+#: os_poker.module:1513
 msgid "[!site_name] Abuse by !reported"
 msgstr ""
 
-#: os_poker.module:1477
+#: os_poker.module:1514
 msgid "Hi,"
 msgstr ""
 
-#: os_poker.module:1478
+#: os_poker.module:1515
 msgid "!reporter reported abuse by !reported on !site_name."
 msgstr ""
 
-#: os_poker.module:1483
+#: os_poker.module:1520
 msgid "He/she gave the following reason: !reason"
 msgstr ""
 
-#: os_poker.module:1485
+#: os_poker.module:1522
 msgid "He/she also provided the following details:"
 msgstr ""
 
-#: os_poker.module:1488
+#: os_poker.module:1525
 msgid "Reporter: !reporter_profile"
 msgstr ""
 
-#: os_poker.module:1490
+#: os_poker.module:1527
 msgid "Culprit: !reported_profile"
 msgstr ""
 
-#: os_poker.module:1585
+#: os_poker.module:1622
 msgid "Add Buddy"
 msgstr ""
 
-#: os_poker.module:1601
+#: os_poker.module:1638
 msgid "Buddy request sent to !user"
 msgstr ""
 
-#: os_poker.module:1604
+#: os_poker.module:1641
 msgid "Buddy Request"
 msgstr ""
 
-#: os_poker.module:1681
+#: os_poker.module:1718
 msgid "pending relationship requests"
 msgstr ""
 
-#: os_poker.module:1780
+#: os_poker.module:1817
 msgid "Today's free gift"
 msgstr ""
 
-#: os_poker.module:1780
+#: os_poker.module:1817
 msgid "Send $!amount chips to your poker buddies!"
 msgstr ""
 
-#: os_poker.module:1790
+#: os_poker.module:1827
 msgid "Invite more friends"
 msgstr ""
 
-#: os_poker.module:1810
+#: os_poker.module:1847
 msgid "Click here!"
 msgstr ""
 
-#: os_poker.module:139
+#: os_poker.module:1872
+msgid "Today"
+msgstr ""
+
+#: os_poker.module:1874
+msgid "Yesterday"
+msgstr ""
+
+#: os_poker.module:143
 msgid "Login attempt failed for %user."
 msgstr ""
 
-#: os_poker.module:756;768
+#: os_poker.module:783;795
 msgid "os_poker_logout"
 msgstr ""
 
-#: os_poker.module:756
+#: os_poker.module:783
 msgid "Trigger"
 msgstr ""
 
-#: os_poker.module:1296
+#: os_poker.module:1323
 msgid "OS Poker"
 msgstr ""
 
-#: os_poker.module:1296
+#: os_poker.module:1323
 msgid "Unknow symbol used in message: %symbol."
 msgstr ""
 
-#: os_poker.module:1020
+#: os_poker.module:1047
 msgid "administer os poker"
 msgstr ""
 
-#: os_poker.module:902
+#: os_poker.module:929
 msgid "Report abuse"
 msgstr ""
 
-#: os_poker.module:910
+#: os_poker.module:937
 msgid "Os Poker"
 msgstr ""
 
-#: os_poker.module:911
+#: os_poker.module:938
 msgid "Configure OS Poker features"
 msgstr ""
 
-#: os_poker.module:930
+#: os_poker.module:957
 msgid "Players at table"
 msgstr ""
 
-#: os_poker.module:936
+#: os_poker.module:963
 msgid "Poker table"
 msgstr ""
 
