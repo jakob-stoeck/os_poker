@@ -624,24 +624,25 @@ div.poker_submit.big.disabled:hover div.label {
 
 div.poker_submit.medium
 {
-	 background: transparent url(images/bg_button_goldmedium_right.gif) no-repeat scroll top right;
-	 padding-right: 8px;
+	 /*background: transparent url(images/bg_button_goldmedium_right.gif) no-repeat scroll top right;*/
+	 /*padding-right: 8px;*/
 }
 
 div.poker_submit.medium div.label {
-  background: transparent url(images/bg_button_goldmedium_middle.gif) repeat-x;
-	height: 22px;
+  /*background: transparent url(images/bg_button_goldmedium_middle.gif) repeat-x;*/
+  /*background: transparent url(images/bg_button.gif) repeat-x;*/
+	/*height: 22px;*/
 	color: #6E4809;
 	font-weight: bold;
-	font-size: 13px;
-	padding-top: 2px;
+	/*font-size: 13px;*/
+	/*padding-top: 2px;*/
 }
 
 div.poker_submit.medium div.pre
 {
-  background: transparent url(images/bg_button_goldmedium_left.gif) no-repeat;
-	height: 22px;
-	width: 8px;
+  /*background: transparent url(images/bg_button_goldmedium_left.gif) no-repeat;*/
+	/*height: 22px;*/
+	/*width: 8px;*/
 }
 
 /*
@@ -2433,7 +2434,7 @@ padding-left: 5px;
 }
 .choose_payment .poker_submit
 {
- width: 158px;
+ /*width: 158px;*/
 }
 .choose_payment .poker_submit .label
 {
@@ -2444,16 +2445,20 @@ padding-left: 5px;
  width: 165px;
  height: 101px;
  margin: 10px;
- background: transparent url(images/chips_buy_button.png) top left no-repeat;
+ background: url(images/chips_buy_button.png) top left no-repeat;
  cursor: pointer;
  padding: 5px 10px;
+ text-align: center;
+}
+.button_paypal .poker_submit {
+	margin 0 auto;
 }
 .logo_paypal
 {
  width: 130px;
  height: 49px;
  background: transparent url(images/logo_paypal.png) top left no-repeat;
- margin: 8px 15px;
+ margin: 8px auto;
 }
 .button_text
 {

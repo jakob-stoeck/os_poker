@@ -20,7 +20,7 @@ $('#edit-item-name').val($("input[name='amount']:checked").parent().text().subst
 <div class="choose_payment fleft">
 <div class="block_title_bar block_title_text"><?php print t("Choose Payment Option:"); ?></div>
 <div class="fleft button_paypal" onClick="javascript: update_val(); $('#chips-paypal-form').submit();">
- <div class="poker_submit medium">
+ <div class="poker_submit">
   <div class="pre"> </div>
    <div class="label">Buy with Paypal</div>
  </div>
