@@ -379,6 +379,8 @@ div#user_login .form-item
 	margin: 0;
 	padding: 0;
 	text-align: left;
+	width: 110px; /* same width as input */
+	overflow: hidden;
 }
 
 div#user_login #edit-remember-me-wrapper
@@ -387,14 +389,10 @@ div#user_login #edit-remember-me-wrapper
 }
 
 /* dirty dirty ie7 fix */
-*:first-child+html div#user_login #edit-remember-me-wrapper
+*:first-child+html div#user_login #edit-remember-me-wrapper label
 {
 	margin-top: -3px;
-	margin-left: -29px;
-}
-*:first-child+html body.de div#user_login #edit-remember-me-wrapper
-{
-	margin-left: -19px;
+	margin-left: -3px;
 }
 
 div#user_login #edit-remember-me-wrapper
