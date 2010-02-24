@@ -379,7 +379,7 @@ div#user_login .form-item
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	width: 110px; /* same width as input */
+	width: 116px; /* larger as input just for IE7 */
 	overflow: hidden;
 }
 
@@ -392,6 +392,7 @@ div#user_login #edit-remember-me-wrapper
 *:first-child+html div#user_login #edit-remember-me-wrapper
 {
 	padding-top: 0 !important;
+	margin-left: -5px;
 }
 
 div#user_login #edit-remember-me-wrapper
