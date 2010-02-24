@@ -389,7 +389,7 @@ div#user_login #edit-remember-me-wrapper
 }
 
 /* dirty dirty ie7 fix */
-*:first-child+html div#user_login #edit-remember-me-wrapper label
+*:first-child+html div#user_login #edit-remember-me-wrapper
 {
 	padding-top: 0 !important;
 }
