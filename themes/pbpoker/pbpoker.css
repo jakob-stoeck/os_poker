@@ -395,6 +395,11 @@ div#user_login #edit-remember-me-wrapper
 	margin-left: -5px;
 }
 
+*:first-child+html div#user_login #edit-remember-me-wrapper,
+*:first-child+html .small_white_text {
+	font-size: 9px !important;
+}
+
 div#user_login #edit-remember-me-wrapper
 {
 	font-size: 10px;
