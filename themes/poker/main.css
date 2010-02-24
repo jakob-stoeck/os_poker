@@ -611,117 +611,131 @@ body.iframe #messagebox a.LayerClose
 ** Medium profile
 */
 
-#profile-medium
-{
-	background:#FFFFFF url(images/bg_shop.gif) repeat scroll 0 0;
-	color:#727272;
+#profile-medium {
+	background: #FFFFFF url(images/bg_shop.gif) repeat scroll 0 0;
+	color: #727272;
 	width: 302px;
 	height: 294px;
-	padding:6px 9px;
+	padding: 6px 9px;
+	overflow: hidden;
 }
 
-#profile-medium .picture  img
-{
-	width:118px;
-	height:118px;
+#profile-medium  .panel {
+	border-top: 1px solid #CCCCCA;
+	padding-top: 5px;
+	padding-bottom: 20px; /* for absolute buttons */
+	position: relative;
 }
 
-#profile-medium .picture
-{
-	height:127px;
-}
-
-#profile-medium .links
-{
-	height:127px;
-	padding-left:90px;
-	width:94px;
-}
-
-#profile-medium .info
-{
-	width:176px;
-	height:100px;
-}
-
-#profile-medium .items
-{
-	width:125px;
-	height:114px;
-}
-
-#profile-medium img
-{
-	width:50px;
-	height:50px;
-	display:block;
-	float:left;
-}
-
-#profile-medium .abuse
-{
-	width:176px;
-	height:30px;
-}
-
-body.de #profile-medium .abuse .poker_submit .label {
-	width: 140px;
-}
-#profile-medium .activate
-{
-	padding-left:15px;
-	width:100px;
-	height:30px;
-}
-
-#profile-medium .poker_submit
-{
-	margin-bottom:5px;
-}
-
-#profile-medium .poker_submit .label, #profile-medium .poker_submit .label a
-{
-	width:80px;
-	color:#6E4809;
-	font-weight:bold;
-}
-
-body.iframe #profile-medium a.LayerClose
-{
+body.iframe #profile-medium a.LayerClose {
 	background:transparent url(images/button_layerclose.gif) no-repeat;
-	top:8px;
+	top: 9px;
 }
 
-#profile-medium .block_title_text
-{
-	color:white;
+#profile-medium .block_title_text {
+	color: white;
 	padding-left:5px;
 }
 
-#profile-medium  .panel
-{
-	margin-top:1px;
-	border-top:1px solid #CCCCCA;
-	padding-top:10px;
+#profile-medium .picture {
+	float: left;
+	margin-right: 4px;
+	margin-bottom: 5px;
+	width: 118px;
+	height: 118px;
+	overflow: hidden;
 }
 
-
-#profile-medium #item_panel
-{
-	height:85px;
-	background-color:white;
+#profile-medium .picture img {
+	width: 118px;
+	height: 118px;
 }
 
-#profile-medium .list
-{
-	float:left;
-	height:50px;
-	margin-left:10px;
-	margin-right:9px;
-	margin-top:18px;
-	overflow:hidden;
-	width:50px;
+#profile-medium .links {
+	height: 118px;
+	width: 180px;
+	overflow: hidden;
+}
+
+#profile-medium .links .poker_submit {
+	margin-bottom: 5px;
+}
+
+body.de #profile-medium .links .poker_submit {
+	margin-left: 35px;
+}
+
+#profile-medium .items {
+	width: 123px;
+	overflow: hidden;
+}
+
+*:first-child+html #profile-medium .items {
+	margin-left: 50px;
+}
+
+#profile-medium .items #item_panel {
+	height: 73px;
+	margin-bottom: 5px;
+	padding-top: 15px;
+	background-color: #fff;
+	position: relative;
+}
+
+#profile-medium .items #item_panel .list {
+	height: 50px;
+	width: 50px;
+	margin: 0 auto;
+	overflow: hidden;
 	border: 1px solid #CDCEC9;
+}
+
+#profile-medium .items .next, #profile-medium .items .next:hover,
+#profile-medium .previous, #profile-medium .previous:hover {
+	position: absolute;
+	top: 10px;
+	width: 25px;
+	height: 70px;
+	background: url(images/buddy_next.png) no-repeat top center;
+	text-decoration:none;
+	outline: none;
+}
+
+#profile-medium .items .next, #profile-medium .items .next:hover {
+	right: 2px;
+}
+
+#profile-medium .previous, #profile-medium .previous:hover {
+	left: 2px;
+	background:  url(images/buddy_prev.png) no-repeat top center;
+}
+
+#profile-medium .info {
+	height: 110px;
+	width: 170px;
+	margin-right: 5px;
+	overflow: hidden;
+	clear: both;
+}
+
+#profile-medium .abuse {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	clear: left; /* IE */
+}
+
+#profile-medium .activate {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	clear: right; /* IE */
+}
+
+#profile-medium .poker_submit .label, #profile-medium .poker_submit .label a {
+	width:80px;
+	color:#6E4809;
+	font-weight:bold;
 }
 
 #profile-medium .cursor
@@ -739,42 +753,14 @@ body.iframe #profile-medium a.LayerClose
 	border:1px solid #810E0B;
 }
 
-#profile-medium  .next, #profile-medium .next:hover
-{
-	float: left;
-	background:transparent url(images/buddy_next.png) no-repeat top center;
-	width:25px;
-	height:70px;
-	margin-top:10px;
-	margin-left:2px;
-	text-decoration:none;
-	outline: 0 none;
-}
-
-#profile-medium  .previous, #profile-medium .previous:hover
-{
-	float: left;
-	background:transparent url(images/buddy_prev.png) no-repeat top center;
-	width:25px;
-	height:70px;
-	margin-top:10px;
-	text-decoration:none;
-	outline: 0 none;
-}
-
 /* quick fix for german */
-body.de #profile-medium .links {
-	width: 140px;
-	padding-left: 44px;
-}
 body.de #profile-medium .links .poker_submit .label {
 	width: 125px;
 }
-body.de #profile-medium .activate {
+body.de #profile-medium .abuse .poker_submit .label {
 	width: 140px;
-	float: right !important;
-	margin-top: -30px;
 }
+
 /**
  * Overlays
  */
