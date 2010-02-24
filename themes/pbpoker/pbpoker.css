@@ -391,8 +391,7 @@ div#user_login #edit-remember-me-wrapper
 /* dirty dirty ie7 fix */
 *:first-child+html div#user_login #edit-remember-me-wrapper label
 {
-	margin-top: -3px;
-	margin-left: -3px;
+	padding-top: 0 !important;
 }
 
 div#user_login #edit-remember-me-wrapper
