@@ -109,6 +109,44 @@ class CPoker
 		return $tourneys;
 	}
 
+	public static function BestRankingsForUser($user_id, $limit = 20) {
+		$lastDb = db_set_active(self::$_pokerDB);
+	
+		$sql = "SELECT * FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `user_serial` = %d and `tourneys`.`state` = 'complete' AND `user2tourney`.`rank` is not null ORDER by `user2tourney`.`rank` limit %d";
+		$res = db_query($sql, $user_id, $limit);
+
+		$tourneys = array();
+		if ($res) {
+				while (($t = db_fetch_object($res)))
+				{
+						$tourneys []= $t;
+				}
+		}
+
+		db_set_active($lastDb);
+		
+		return $tourneys;
+	}
+
+	public static function RegisteredTourneysForUser($user_id, $limit = 20) {
+		$lastDb = db_set_active(self::$_pokerDB);
+	
+		$sql = "SELECT * FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `user_serial` = %d and `tourneys`.`state` = 'registering' ORDER by `tourneys`.`start_time` LIMIT %d";
+		$res = db_query($sql, $user_id, $limit);
+
+		$tourneys = array();
+		if ($res) {
+				while (($t = db_fetch_object($res)))
+				{
+						$tourneys []= $t;
+				}
+		}
+
+		db_set_active($lastDb);
+		
+		return $tourneys;
+	}
+
 	public static function	CheckRewards($action, $source, $targets)
 	{
 		$player = CUserManager::instance()->User($source);

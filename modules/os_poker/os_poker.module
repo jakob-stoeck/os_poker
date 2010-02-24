@@ -514,7 +514,7 @@ function 	os_poker_theme()
 												'template' => 'profile_tabs',
 											),
 				'os_poker_profile' => array(
-												'arguments' => array('target_user' => NULL, "external" => TRUE),
+						            'arguments' => array('target_user' => NULL, "external" => TRUE, 'next_tourney' => NULL, 'tourney_results' => array()),
 												'template' => 'profile',
 											),
 				'os_poker_medium_profile' => array(
@@ -1396,6 +1396,16 @@ function os_poker_preprocess_os_poker_buddylist(&$variables) {
   $variables['daily_gift'] = theme('daily_gift', '100');
 }
 
+function os_poker_preprocess_os_poker_profile(&$variables) {
+		$target_user = $variables['target_user'];
+		$variables['tourney_results'] = CPoker::BestRankingsForUser($target_user->uid, 5);
+		
+		$registered = CPoker::RegisteredTourneysForUser($target_user->uid);
+		if ($registered && count($registered) > 0) {
+				$variables['next_tourney'] = $registered[0];
+		}
+}
+
 function os_poker_preprocess_user_picture(&$variables) {
   $variables['picture'] = '';
   if (variable_get('user_pictures', 0)) {
@@ -1852,3 +1862,19 @@ function poker_invite_accept($invite) {
   drupal_goto();
 }
 
+function os_poker_short_string($string, $length=20) {
+		return substr($string, 0, $length);
+}
+
+function os_poker_format_date($timestamp) {
+		$now = time();
+		if (date("d.m.Y", $timestamp) == date("d.m.Y", $now)) {
+				$day = t("Today");
+		} else if (date("d.m.Y", $timestamp) == date("d.m.Y", $now - 24*60*60)) {
+				$day = t("Yesterday");
+		} else {
+				$day = date("d.m.Y", $timestamp);
+		}
+
+		return $day . " at " .  date("h:i", $timestamp);
+}

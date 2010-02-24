@@ -1178,6 +1178,7 @@ body.de #play-now #play-now-button {
 .TableRanking {
 	margin: 0 0 16px;
 	width: 441px;
+	border-collapse:separate;
 }
 
 .TableRanking td {
@@ -1201,17 +1202,54 @@ body.de #play-now #play-now-button {
 
 .TableRanking td.Column02 {
 	border-right: 1px solid #FFFFFF;
-	width: 90px;
+	width: 70px;
 }
 
 .TableRanking td.Column03 {
 	font-weight: bold;
 	white-space: nowrap;
-	width: 100px;
+	width: 110px;
 }
 
 .TableRanking td.Column04 {
 	white-space: nowrap;
+}
+
+#profile-tabs .profile_tourney_info{
+  width: 292px;
+  border: 1px solid #999999;
+  height: 198px;
+  overflow: hidden;
+}
+
+.TourneyInfo {
+  width: 293px;
+}
+
+.TourneyInfo tr {
+  height: 16px;
+}
+
+.TourneyInfo tr td {
+  /*font-size: 110%;*/
+}
+
+.TourneyInfo tr.table_header td {
+  color: #810E0B;
+  font-weight: bold;
+}
+
+.TourneyInfo tr td.bold
+{
+  font-weight: bold;
+}
+
+.TourneyInfo tr td a ,
+.TourneyInfo tr td a:visited ,
+.TourneyInfo tr td a:hover 
+{
+  font-weight: bold;
+ color: #810E0B;
 }
 
 /*
@@ -1492,6 +1530,40 @@ div#buddies-list .footer
   color: #FFFFFF;
   padding: 5px 0 0 105px;
 
+}
+
+#profile-tabs .bottom .item-list
+{
+   height: 65px;
+}
+
+#profile-tabs .bottom .inner-item-list
+{
+   height: 70px;
+}
+
+#profile-tabs .bottom .left
+{
+  margin-right: 15px;
+}
+
+#profile-tabs .bottom .right 
+{
+  width: 294px;
+}
+
+#profile-tabs div.middle 
+{
+  margin-bottom: 10px;
+}
+
+#profile-tabs .bottom 
+{
+  height: 300px;
+}
+
+#profile-tabs #profile-last-rewards {
+  margin-bottom: 15px;
 }
 
 /*
