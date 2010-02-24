@@ -392,6 +392,10 @@ div#user_login #edit-remember-me-wrapper
 	margin-top: -3px;
 	margin-left: -29px;
 }
+*:first-child+html body.de div#user_login #edit-remember-me-wrapper
+{
+	margin-left: -19px;
+}
 
 div#user_login #edit-remember-me-wrapper
 {
@@ -1246,7 +1250,7 @@ body.de #play-now #play-now-button {
 
 .TourneyInfo tr td a ,
 .TourneyInfo tr td a:visited ,
-.TourneyInfo tr td a:hover 
+.TourneyInfo tr td a:hover
 {
   font-weight: bold;
  color: #810E0B;
@@ -1547,17 +1551,17 @@ div#buddies-list .footer
   margin-right: 15px;
 }
 
-#profile-tabs .bottom .right 
+#profile-tabs .bottom .right
 {
   width: 294px;
 }
 
-#profile-tabs div.middle 
+#profile-tabs div.middle
 {
   margin-bottom: 10px;
 }
 
-#profile-tabs .bottom 
+#profile-tabs .bottom
 {
   height: 300px;
 }
