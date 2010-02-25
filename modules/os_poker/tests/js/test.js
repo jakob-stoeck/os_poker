@@ -335,11 +335,15 @@ module('os_poker.tourney-notify', {
 test('', function() {
 	expect(7);
 	
-    	os_poker_init_tourney_notify();
+    os_poker_init_tourney();
 	equals($("#tourney-notify-template").length, 0, "Notify template is removed");
 	ok($("#tourney-notify").length, 'tourney notify popup is initialized');
 	ok($("#tourney-notify").is(":hidden"), 'tourney notify popup should be hidden by default');
-	window.top.os_poker_tourney_start_notify("My tourney", 100, true);
+
+	// Simulate the os_poker_tourney_start event
+	os_poker_trigger('os_poker_tourney_start', {'tourney_name' : "My tourney", 'table_id' : 100});
+
+	// Check that the notification was displayed
 	ok(!$("#tourney-notify").is(":hidden"), 'tourney notify popup should show when triggered');
 	$("#tourney-notify .close-button").trigger('click');
 	equals($("#tourney-notify .notify-text a").html(), "My tourney/100", "Tourney name and table should be displayed");

@@ -313,6 +313,7 @@ function os_poker_init()
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messages.js", "theme");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.events.js", "theme");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.slider.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.tourney.js", "theme");
 	drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/swfobject.js");
