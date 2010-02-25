@@ -1732,17 +1732,17 @@ body.de p.Dollar1 { /* FIXME : german */
 	font-size: 23px;
 }
 
-body.de p.Dollar2 {{ /* FIXME : german */
+body.de p.Dollar2 { /* FIXME : german */
   top: 130px;
   left: 96px;
 }
 
-body.de p.Dollar3 {{ /* FIXME : german */
+body.de p.Dollar3 { /* FIXME : german */
   top: 158px;
   left: 164px;
 }
 
-body.de p.Buddies {{ /* FIXME : german */
+body.de p.Buddies { /* FIXME : german */
   top: 211px;
   left: 218px;
 }
@@ -2241,7 +2241,7 @@ div.poker_error_message {
 
 /***********************************
  * Homepage: Poker teaser
- * image/invitation
+ * image & flash tutorial
  * ********************************/
 
 #poker-teaser .info {
@@ -2257,8 +2257,7 @@ div.poker_error_message {
 	display: none;
 }
 
-/* FIXME : put that somewhere else */
-#TB_ajaxContent .tb-fix-margin {
+#poker-teaser #poker-tutorial #TB_ajaxContent .tb-fix-margin {
 	margin: -2px -15px -15px;
 }
 
