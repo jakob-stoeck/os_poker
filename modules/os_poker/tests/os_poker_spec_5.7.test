@@ -85,6 +85,85 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     parent::tearDown();
   }
 
+	/**
+	 * Verify that the tourney start notification is transmitted to the client.
+	 *
+	 * Create 3 users, and a tourney
+	 * Register the users to the tourney
+	 * Simulate a TOURNEY_START event from pokersocial
+	 * Verify that the users received a notification.
+	 */
+	function testTourneyStartNotify() {
+    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+		require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+		require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+
+		$player1 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user1'));
+		$player2 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user2'));
+		$player3 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user3'));
+		$this->drupalLogout();
+			
+		$oldDb = CPoker::ChangePokerDB($this->createPokerDatabase());
+		$tourney = $this->createPokerTourney();
+
+		$info1 = $this->pokerTourneyRegister($tourney->serial, $player1->uid, 1);
+		$info2 = $this->pokerTourneyRegister($tourney->serial, $player2->uid, 2);
+		$info3 = $this->pokerTourneyRegister($tourney->serial, $player3->uid, 3);
+
+		// Simulate the pokersocial event TOURNEY_START
+		$_GET['type'] = 'TOURNEY_START';
+		$_GET['args'] = "[{$tourney->serial},0,0]";
+
+		ob_start();
+		$ret = os_poker_process_message();
+		ob_end_clean();
+
+		unset($_GET["type"]);
+		unset($_GET["args"]);
+
+		CPoker::ChangePokerDB($oldDb);
+		
+		// Verify that the live events were generated
+		$this->drupalLogin($player1);
+
+    $html = $this->drupalGet('poker/messages/receive');
+    //Test for ingame notifcation.
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_tourney_start',
+      'body' => array(
+					'tourney_id' => $tourney->serial,
+					'tourney_name' => $tourney->description_short,
+					'table_id'     => $info1->table_serial,
+					)
+																			)), t('Tourney start notification for player1 found.'));
+
+		$this->drupalLogin($player2);
+    $html = $this->drupalGet('poker/messages/receive');
+    //Test for ingame notifcation.
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_tourney_start',
+      'body' => array(
+					'tourney_id' => $tourney->serial,
+					'tourney_name' => $tourney->description_short,
+					'table_id'     => $info2->table_serial,
+					)
+																			)), t('Tourney start notification for player2 found.'));
+
+		$this->drupalLogin($player3);
+    $html = $this->drupalGet('poker/messages/receive');
+    //Test for ingame notifcation.
+    $this->assertText(json_encode(array(
+      'type' => 'os_poker_tourney_start',
+      'body' => array(
+					'tourney_id' => $tourney->serial,
+					'tourney_name' => $tourney->description_short,
+					'table_id'     => $info3->table_serial,
+					)
+																			)), t('Tourney start notification for player3 found.'));
+		
+	}
+
+
   /**
    * Verify Messages
    *
@@ -171,78 +250,6 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     )), t('Ingame notification for reward found.'));
   }
 
-	/**
-	 * Verify that the tourney start notification is transmitted to the client.
-	 *
-	 * Create 3 users, and a tourney
-	 * Register the users to the tourney
-	 * Simulate a TOURNEY_START event from pokersocial
-	 * Verify that the users received a notification.
-	 */
-	function testTourneyStartNotify() {
-    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
-		require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
-		require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
-
-		$player1 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user1'));
-		$player2 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user2'));
-		$player3 = $this->drupalCreateUser(NULL, array('profile_nickname' => 'tourney_user3'));
-		$this->drupalLogin($player1);
-			
-		$tourney = $this->createPokerTourney();
-		$info1 = $this->pokerTourneyRegister($tourney->serial, $player1->uid, 1);
-		$info2 = $this->pokerTourneyRegister($tourney->serial, $player2->uid, 2);
-		$info3 = $this->pokerTourneyRegister($tourney->serial, $player3->uid, 3);
-
-		$_GET['type'] = 'TOURNEY_START';
-		$_GET['args'] = "[{$tourney->serial},0,0]";
-
-		CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
-		os_poker_process_message();
-		CUserManager::instance()->DebugRestoreCurrentUser();
-		
-		unset($_GET["type"]);
-		unset($_GET["args"]);
-
-		/* Verify that the live events were generated */
-		$this->drupalLogin($player1);
-    $this->drupalGet('poker/messages/receive');
-    //Test for ingame notifcation.
-    $this->assertText(json_encode(array(
-      'type' => 'os_poker_tourney_start',
-      'body' => array(
-					'tourney_id' => $tourney->serial,
-					'tourney_name' => $tourney->description_short,
-					'table_id'     => $info1->table_serial,
-					)
-																			)), t('Tourney start notification for player1 found.'));
-
-		$this->drupalLogin($player2);
-    $this->drupalGet('poker/messages/receive');
-    //Test for ingame notifcation.
-    $this->assertText(json_encode(array(
-      'type' => 'os_poker_tourney_start',
-      'body' => array(
-					'tourney_id' => $tourney->serial,
-					'tourney_name' => $tourney->description_short,
-					'table_id'     => $info2->table_serial,
-					)
-																			)), t('Tourney start notification for player2 found.'));
-
-		$this->drupalLogin($player3);
-    $this->drupalGet('poker/messages/receive');
-    //Test for ingame notifcation.
-    $this->assertText(json_encode(array(
-      'type' => 'os_poker_tourney_start',
-      'body' => array(
-					'tourney_id' => $tourney->serial,
-					'tourney_name' => $tourney->description_short,
-					'table_id'     => $info3->table_serial,
-					)
-																			)), t('Tourney start notification for player3 found.'));
-		
-	}
-
   /**
    * Verify Message on Reward from pokersocial
    *
@@ -267,7 +274,9 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		$_GET['args'] = "[15,{$player->uid},{$timestamp}]";
 		
 		CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
+		ob_start();
 		os_poker_process_message();
+		ob_end_clean();
 		CUserManager::instance()->DebugRestoreCurrentUser();
 
 		unset($_GET["type"]);

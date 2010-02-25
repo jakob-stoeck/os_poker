@@ -505,8 +505,13 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     $sql = "INSERT INTO `tourneys` (`name`, `description_short`, `description_long`, `state`) VALUES ('%s', '%s', '%s', '%s')";
     db_query($sql, $name, $description_short, $description_long, $state);
 		$id = db_last_insert_id("tourneys", "serial");
+
+		$sql = "SELECT * from tourneys WHERE serial = %d";
+		$res = db_query($sql, $id);
+		$tourney = db_fetch_object($res);
+
     db_set_active($previous_db);
-		return $id;
+		return $tourney;
  }
 
  function pokerTourneyRegister($tourney_serial, $user_serial, $table_serial = -1, $rank = null, $currency_serial = 1) {
@@ -515,9 +520,13 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 		$sql = "INSERT INTO `user2tourney` (`tourney_serial`, `user_serial`, `table_serial`, `rank`, `currency_serial`) VALUES (%d,%d, %d,%d,%d)";
 
     db_query($sql, $tourney_serial, $user_serial, $table_serial, $rank, $currency_serial);
-		$id = db_last_insert_id("tourneys", "serial");
+
+		$sql = "SELECT * from `user2tourney` WHERE `user_serial` = %d and `tourney_serial` = %d";
+		$res = db_query($sql, $user_serial, $tourney_serial);
+		$info = db_fetch_object($res);
+ 
     db_set_active($previous_db);
-		return $id;
+		return $info;
  }
 
   /**
