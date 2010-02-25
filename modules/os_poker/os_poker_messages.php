@@ -142,7 +142,7 @@ function _os_poker_process_message_set_header() {
 
 function	_os_poker_process_message_unsafe()
 {
-  static $poker_server_events =  array('NONE', 'HAND', 'TOURNEY', 'BUY_IN', 'REFILL', 'PRIZE', 'REGISTER', 'UNREGISTER', 'LEAVE', 'SEAT');
+		static $poker_server_events =  array('NONE', 'HAND', 'TOURNEY', 'BUY_IN', 'REFILL', 'PRIZE', 'REGISTER', 'UNREGISTER', 'LEAVE', 'SEAT', 'TOURNEY_START');
 	$current_user = CUserManager::instance()->CurrentUser();
 	$resp = array(
 					"errorMsg" => NULL,
@@ -294,24 +294,37 @@ function	_os_poker_process_message_unsafe()
     case  'BUY_IN':
         list($uid, $game_id, $amount)  = $args;
         if(user_load($uid)) {
-          CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $uid, array('live'));
-          $resp["messages"][] = array("type" => "debug", "body" => t('Recevied BUY_IN for user !uid', array('!uid' => $uid)));
+			CScheduler::instance()->RegisterTask(new CUpdateUserChipsCount(), $uid, array('live'));
+			$resp["messages"][] = array("type" => "debug", "body" => t('Recevied BUY_IN for user !uid', array('!uid' => $uid)));
         }
         else {
-          trigger_error(t('Invalid user ID: %uid', array('%uid' => $uid)), E_USER_ERROR);
+			trigger_error(t('Invalid user ID: %uid', array('%uid' => $uid)), E_USER_ERROR);
         }
         break;
-      case 'HAND':
-      case 'TOURNEY':
-      case 'REFILL':
-      case 'PRIZE':
-      case 'REGISTER':
-      case 'UNREGISTER':
-      case 'LEAVE':
-      case 'SEAT':
-      case 'NONE':
+
+	case 'TOURNEY_START':
+		list($tourney_serial, $dummy1, $dummy2) = $args;
+		$tourney_users = CPoker::TourneyRegisteredUsers($tourney_serial);
+
+		foreach ($tourney_users as $tourney_user) {
+			if (user_load($tourney_user->uid)) {
+				CScheduler::instance()->RegisterTask(new CTourneyNotificationMessage($tourney_serial, $tourney_user->description_short, $tourney_user->table_serial), $user->uid, array('live'));
+				$resp["messages"][] = array("type" => "debug", "body" => t('Recevied tourney start notification for user !uid', array('!uid' => $uid)));
+			}
+		}
+		break;
+
+	case 'HAND':
+	case 'TOURNEY':
+	case 'REFILL':
+	case 'PRIZE':
+	case 'REGISTER':
+	case 'UNREGISTER':
+	case 'LEAVE':
+	case 'SEAT':
+	case 'NONE':
         $resp["messages"][] = array("type" => "noop", "body" => NULL);
-			break;
+		break;
     }
 
   }

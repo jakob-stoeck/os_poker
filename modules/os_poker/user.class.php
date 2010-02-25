@@ -902,6 +902,37 @@ class CUpdateUserChipsCount extends CMessage {
   }
 }
 
+class CTourneyNotificationMessage extends CMessage {
+		var $tourney_serial = null;
+		var $tourney_name = null;
+		var $table_serial = null;
+
+		public function __construct($tourney_serial, $tourney_name, $table_serial) {
+				$this->tourney_name = $tourney_name;
+				$this->tourney_serial = $tourney_serial;
+				$this->table_serial = $table_serial;
+		}
+
+		public function Run($context_user, $arguments) {
+				//force reload of current user to ensure chips count is updated.
+				$context_user = CUserManager::instance()->User($context_user->uid, true);
+
+				$msg = array(
+						'type' => 'os_poker_tourney_start',
+						'body' => array(
+								'tourney_id' => $this->tourney_serial,
+								'tourney_name' => $this->tourney_name,
+								'table_id' => $this->table_serial,
+								)
+						);
+				parent::Run($context_user, $msg);
+		}
+
+		public function MaxInstances() {
+				return 1;
+		}
+}
+
 class CGiftNotificationMessage extends CMessage {
   public function Run($context_user, $arguments) {
     $msg = array(

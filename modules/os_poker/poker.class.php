@@ -147,6 +147,25 @@ class CPoker
 		return $tourneys;
 	}
 
+	public static function TourneyRegisteredUsers($tourney_id, $limit = 20) {
+		$lastDb = db_set_active(self::$_pokerDB);
+	
+		$sql = "SELECT * FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `tourney_serial` = %d LIMIT %d";
+		$res = db_query($sql, $tourney_id, $limit);
+
+		$tourneys = array();
+		if ($res) {
+				while (($t = db_fetch_object($res)))
+				{
+						$tourneys []= $t;
+				}
+		}
+
+		db_set_active($lastDb);
+		
+		return $tourneys;
+	}
+
 	public static function	CheckRewards($action, $source, $targets)
 	{
 		$player = CUserManager::instance()->User($source);
