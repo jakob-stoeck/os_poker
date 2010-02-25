@@ -20,7 +20,7 @@
 require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
 // interval between page loads that considered to be a new browser session
-define('NOTIFY_INTERVAL', 60*60);
+define('NOTIFY_INTERVAL', 0); // show notify everytime
 
 
 
