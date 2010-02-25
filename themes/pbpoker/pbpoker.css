@@ -2114,94 +2114,84 @@ body.de p.Buddies {{ /* FIXME : german */
 	line-height: 20px;
 }
 
-#chips-paypal-form .form-item
-{
- position: absolute;
- color: #000;
+#chips-paypal-form .form-item {
+	position: absolute;
+	color: #000;
 }
-#chips-paypal-form .form-item label
-{
- font-weight: bold;
+#chips-paypal-form .form-item label {
+	font-weight: bold;
 }
-#chips-paypal-form #edit-amount-5-wrapper
-{
- top: 0;
- left: 80px;
-}
-#chips-paypal-form #edit-amount-10-wrapper
-{
- top: 25px;
- left: 80px;
-}
-#chips-paypal-form #edit-amount-20-wrapper
-{
- top: 50px;
- left: 80px;
-}
-#chips-paypal-form #edit-amount-50-wrapper
-{
- top: 0;
- left: 350px;
-}
-#chips-paypal-form #edit-amount-100-wrapper
-{
- top: 25px;
- left: 350px;
-}
-#chips-paypal-form #edit-amount-150-wrapper
-{
- top: 50px;
- left: 350px;
+#chips-paypal-form #edit-amount-5-wrapper {
+	top: 0;
+	left: 80px;
 }
 
+#chips-paypal-form #edit-amount-10-wrapper {
+	top: 25px;
+	left: 80px;
+}
 
-.choose_payment
-{
- width: 600px;
- height: 146px;
- background: transparent url(images/bg_chips_payment.png) bottom left repeat-x;
- border: 1px solid #d7d7d7;
- margin-top: 12px;
+#chips-paypal-form #edit-amount-20-wrapper	{
+	top: 50px;
+	left: 80px;
 }
-.choose_payment .poker_submit
-{
- /*width: 158px;*/
+#chips-paypal-form #edit-amount-50-wrapper {
+	top: 0;
+	left: 350px;
 }
-.choose_payment .poker_submit .label
-{
- width: 150px;
+#chips-paypal-form #edit-amount-100-wrapper {
+	top: 25px;
+	left: 350px;
 }
-.button_paypal
-{
- width: 165px;
- height: 101px;
- margin: 10px;
- background: url(images/chips_buy_button.png) top left no-repeat;
- cursor: pointer;
- padding: 5px 10px;
- text-align: center;
+#chips-paypal-form #edit-amount-150-wrapper {
+	top: 50px;
+	left: 350px;
+}
+
+.choose_payment {
+	width: 600px;
+	height: 146px;
+	background: transparent url(images/bg_chips_payment.png) bottom left repeat-x;
+	border: 1px solid #d7d7d7;
+	margin-top: 12px;
+}
+
+.choose_payment .poker_submit .label {
+	width: 150px;
+}
+
+.button_paypal	{
+	width: 165px;
+	height: 101px;
+	margin: 10px;
+	background: url(images/chips_buy_button.png) top left no-repeat;
+	cursor: pointer;
+	padding: 5px 10px;
+	text-align: center;
 }
 .button_paypal .poker_submit {
 	margin 0 auto;
 }
-.logo_paypal
-{
- width: 130px;
- height: 49px;
- background: transparent url(images/logo_paypal.png) top left no-repeat;
- margin: 8px auto;
-}
-.button_text
-{
- width: 370px;
- height: 70px;
- margin: 10px 0;
- padding: 5px 0;
- color: #313131;
+.button_text {
+	width: 370px;
+	height: 70px;
+	margin: 10px 0;
+	padding: 5px 0;
+	color: #313131;
 }
 
-.messages-popup
-{
+.logo_paypal {
+	width: 130px;
+	height: 49px;
+	background: transparent url(images/logo_paypal.png) top left no-repeat;
+	margin: 8px auto;
+}
+
+/*****************************
+ * General popup for messages
+ * sent out by Drupal
+ * ***************************/
+.messages-popup {
 	height: 300px;
 	width: 600px;
 }
@@ -2214,9 +2204,7 @@ body.de p.Buddies {{ /* FIXME : german */
 	position: absolute;
 	top: 0;
 	right: 0;
- background-image: url(images/button_layerclose.gif);
- background-repeat: no-repeat;
- background-position: center center;
+	background: url(images/button_layerclose.gif) no-repeat center center;
 }
 
 .messages-popup div.messages.status {
@@ -2231,107 +2219,116 @@ div.poker_error_message {
     height: 264px;
 }
 
-/**
- * Overlays
- */
+/******************************
+ * Overlays (popup boxes)
+ ****************************/
 #os-poker-overlay .content {
- width: 409px;
- height: 307px;
- border: 1px solid #5b4321;
- background-color: #251c0d;
- background-image: url(images/bg_overlay.gif);
- background-repeat: repeat;
- background-position: top left;
- padding: 15px;
+	width: 409px;
+	height: 307px;
+	border: 1px solid #5b4321;
+	background: #251c0d url(images/bg_overlay.gif);
+	padding: 15px;
 }
 
+/* FIXME : necessary or not ? */
 #os-poker-overlay a.closebutton {
- text-indent: -10000px;
- background-color: transparent;
- background-image: url(images/button_layerclose.gif);
- background-repeat: no-repeat;
- background-position: center center;
+	text-indent: -10000px;
+	background-color: transparent;
+	background-image: url(images/button_layerclose.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
 }
+
+/***********************************
+ * Homepage: Poker teaser
+ * image/invitation
+ * ********************************/
 
 #poker-teaser .info {
- color: #fff;
- margin: 15px 80px 15px 15px;
+	color: #fff;
+	margin: 15px 80px 15px 15px;
 }
 
 #poker-teaser .info strong {
- color: #A8904A;
+	color: #A8904A;
 }
 
 #poker-teaser #poker-tutorial {
- display: none;
+	display: none;
 }
 
+/* FIXME : put that somewhere else */
 #TB_ajaxContent .tb-fix-margin {
- margin: -2px -15px -15px;
+	margin: -2px -15px -15px;
 }
 
-/**
- * Welcome splash
- */
+/**********************************
+ * Welcome splash = overlay after
+ * account creation
+ *********************************/
+
 #os-poker-overlay .welcome-splash {
- background-image: url(images/bg_welcome.jpg);
- padding: 0;
- height: 366px;
- width: 566px;
- margin-top: 100px !important; /* this overrides the overlay behaviour. */
+	background-image: url(images/bg_welcome.jpg);
+	padding: 0;
+	height: 366px;
+	width: 566px;
+	margin-top: 100px !important; /* this overrides the overlay behaviour. */
 }
 
 #welcome-splash h1 {
- display: none;
+	display: none;
 }
 
 #welcome-splash .text {
- color: #fff;
- font-size: larger;
- margin-left: 85px;
- margin-top: 113px;
- width: 335px;
+	color: #fff;
+	font-size: larger;
+	margin-left: 85px;
+	margin-top: 113px;
+	width: 335px;
 }
 
 #welcome-splash .text p {
- margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 
 #welcome-splash .text strong {
- font-size: larger;
+	font-size: larger;
 }
+
 #welcome-splash ul.links {
- margin-left: 180px;
- width: 141px;
+	margin-left: 180px;
+	width: 141px;
 }
 
 #welcome-splash ul.links li {
 	margin-top: 5px;
 	display: block !important;
 }
+
 #welcome-splash ul.links a {
- display: block;
- width: 141px;
- height: 28px;
- padding-top: 7px;
- background-image: url(images/button_welcome.gif);
- color: #fff;
- font-size: 16px;
- font-weight: bold;
- text-align: center;
- text-transform: uppercase;
- text-decoration: none !important;
+	display: block;
+	width: 141px;
+	height: 28px;
+	padding-top: 7px;
+	background-image: url(images/button_welcome.gif);
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none !important;
 }
 
+/* FIXME : german */
 body.de #welcome-splash ul.links a {
     font-size: 13px;
 	padding-top: 11px;
 	height: 24px;
 }
 
-/*
- * Poker hands / Help
- */
+/*******************************
+ * Thickbox Help => Poker hands
+ ******************************/
 
 .poker-hand.royal-flush {
 	background: url(images/cards/hands/royal_flush.gif) no-repeat;
@@ -2364,68 +2361,70 @@ body.de #welcome-splash ul.links a {
 	background: url(images/cards/hands/high_card.gif) no-repeat;
 }
 
-/**
- * Repot abuse
- */
+/**********************************
+ * Report abuse
+ * FIXME : where ist that ?
+ *********************************/
 
 body.poker-report-abuse #page {
- padding-top: 1px;
- background-image: url(images/bg_report_abuse.png);
- background-repeat: repeat-x;
- background-color: #dedfe1;
+	padding-top: 1px;
+	background: #dedfe1 url(images/bg_report_abuse.png) repeat-x;
 }
 
 #os-poker-report-abuse-form label.option {
- font-weight: bold;
+	font-weight: bold;
 }
 
 #os-poker-report-abuse-form #edit-details-wrapper label {
-  margin-bottom: 10px;
-}
-
-#tourney-notify-template {
-  display: none;
-}
-#tourney-notify {
-  width: 742px;
-  height: 24px;
-  margin-bottom: 11px;
-
-  background-image: url(images/tourney-notify.jpg);
-  background-repeat: no-repeat;
-  background-color: transparent;
-
-  display: none;
-}
-
-#tourney-notify .notify-text {
-  padding-top: 6px;
-  text-align: center;
-  color: #65605c;
-}
-#tourney-notify a,
-#tourney-notify a:hover,
-#tourney-notify a:visited {
-  color: #65605c;
-  font-weight: bold;
-  font-decoration: none;
-}
-
-#tourney-notify a.close-button {
-  float: right;
-  display: block;
-  position: relative;
-  width: 19px;
-  height: 20px;
-  margin: 2px 4px 0px 0px;
-  background-image: url(images/close.png);
-  background-repeat: no-repeat;
-  background-color: transparent;
-   pointer: cursor;
+	margin-bottom: 10px;
 }
 
 /*****************************
- * new static page : tourney
+ * Tourney notification
+ * FIXME : where is that?
+ * **************************/
+
+#tourney-notify-template {
+	display: none;
+}
+#tourney-notify {
+	width: 742px;
+	height: 24px;
+	margin-bottom: 11px;
+	background-image: url(images/tourney-notify.jpg);
+	background-repeat: no-repeat;
+	background-color: transparent;
+	display: none;
+}
+
+#tourney-notify .notify-text {
+	padding-top: 6px;
+	text-align: center;
+	color: #65605c;
+}
+
+#tourney-notify a,
+#tourney-notify a:hover {
+	color: #65605c;
+	font-weight: bold;
+	font-decoration: none;
+}
+
+#tourney-notify a.close-button {
+	float: right;
+	display: block;
+	position: relative;
+	width: 19px;
+	height: 20px;
+	margin: 2px 4px 0px 0px;
+	background-image: url(images/close.png);
+	background-repeat: no-repeat;
+	background-color: transparent;
+	pointer: cursor;
+}
+
+/*****************************
+ * Static page : tourney-info
  * ***************************/
 body.poker-tourneyinfo {
 	background: #141007 url(images/tourney_body_bg.png) repeat-x;
@@ -2435,14 +2434,14 @@ body.poker-tourneyinfo #main {
 	background: #fff url(images/tourney_main_bg.png) repeat-x;
 }
 
-#tourney-teaser {
+.poker-tourneyinfo #tourney-teaser {
 	width: 742px;
 	height: 208px;
 	display: block;
 	margin-bottom: 1em;
 	background: url(images/teaser-head.jpg) no-repeat center top;
 }
-#tourney-teaser h2 {
+.poker-tourneyinfo #tourney-teaser h2 {
 	display: none;
 }
 body.poker-tourneyinfo #middle-content-left {
@@ -2454,82 +2453,82 @@ body.poker-tourneyinfo #middle-content-right {
 	width: 400px;
 }
 
-.banner-box {
+.poker-tourneyinfo .banner-box {
 	color: #fae991;
 	background: #000;
 	margin-bottom: 1.5em;
 }
 
-.banner-box#become-member-box h3 {
+.poker-tourneyinfo .banner-box#become-member-box h3 {
 	background: url(images/member_banner_background_only.jpg) no-repeat -1px top;
 	height: 48px;
 	margin-bottom: 0.5em;
 }
 
-.banner-box#become-member-box h3 span {
+.poker-tourneyinfo .banner-box#become-member-box h3 span {
 	display: none;
 }
 
-.banner-box p {
+.poker-tourneyinfo .banner-box p {
 	padding-left: 30px;
 	line-height: 1.4em;
 }
 
-a#banner-tourney {
+.poker-tourneyinfo a#banner-tourney {
 	background: url(images/pb_tourney_banner.jpg);
 	display: block;
 	width: 322px;
 	height: 210px;
 }
 
-a#banner-millions {
+.poker-tourneyinfo a#banner-millions {
 	background: url(images/millions.jpg);
 	display: block;
 	width: 322px;
 	height: 162px;
 }
 
-.tourney-infobox {
+.poker-tourneyinfo .tourney-infobox {
 	background: #333;
 	color: #e3e3e3;
 	padding-bottom: 0.3em;
 	margin-bottom: 1em;
 }
-.tourney-infobox h3 {
+.poker-tourneyinfo .tourney-infobox h3 {
 	color: #c4a13d;
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
 	font-size: 1em;
 }
 
-.tourney-infobox p,
-.tourney-infobox ul,
-.tourney-infobox ol {
+.poker-tourneyinfo .tourney-infobox p,
+.poker-tourneyinfo .tourney-infobox ul,
+.poker-tourneyinfo .tourney-infobox ol {
 	margin: 1em;
 }
 
-.tourney-infobox ul,
-.tourney-infobox ol {
+.poker-tourneyinfo .tourney-infobox ul,
+.poker-tourneyinfo .tourney-infobox ol {
 	margin-left: 1.5em;
 	line-height: 1.4em;
 }
 
-.tourney-infobox ul {
+.poker-tourneyinfo .tourney-infobox ul {
 	list-style: none;
 }
 
-.tourney-infobox li {
+.poker-tourneyinfo .tourney-infobox li {
 	margin-bottom: 0.3em;
 }
 
-.tourney-infobox a {
+.poker-tourneyinfo .tourney-infobox a {
 	color: #c4a13d;
 	text-decoration: underline;
 }
-.tourney-infobox#tos-box a {
+.poker-tourneyinfo .tourney-infobox#tos-box a {
 	color: #e7e7e7;
 }
 
-.tourney-infobox#prize-box ul {
+.poker-tourneyinfo .tourney-infobox#prize-box ul {
 	font-weight: bold;
 }
