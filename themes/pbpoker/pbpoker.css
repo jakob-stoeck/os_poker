@@ -1179,6 +1179,24 @@ body.de #play-now #play-now-button {
 	margin-left: 355px;
 }
 
+#profile-update .image_promo {
+	position: relative;
+	width: 147px;
+	height: 133px;
+}
+
+#profile-update .image_promo img,
+#profile-update .image_promo p.Dollar {
+	position: absolute;
+	top: 0;
+}
+
+#profile-update .image_promo p.Dollar {
+	left: 46px;
+	top: 43px;
+	z-index: 3;
+}
+
 /*
 **
 */
