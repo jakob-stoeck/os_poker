@@ -171,6 +171,56 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     )), t('Ingame notification for reward found.'));
   }
 
+  /**
+   * Verify Message on Reward from pokersocial
+   *
+   * The verification is done through these steps:
+   * - Simulate pokersocial reward
+   * - verify that the spooler contains 1 message
+   * - verify that IM contains 1 message
+   */
+
+  function testMessageAndNotificationOnPokersocialReward() {
+    require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+		require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+		require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+
+		$rew = CPoker::GetRewards();
+		$player = $this->drupalCreateUser(NULL, array('profile_nickname' => 'reward_user'));
+		$this->drupalLogin($player);
+
+		/* Simulate OS Poker notify */ 
+		$timestamp = time();
+		$_GET['type'] = 'os_poker_reward';
+		$_GET['args'] = "[15,{$player->uid},{$timestamp}]";
+		
+		CUserManager::instance()->DebugForceCurrentUser($this->skel_user->uid);
+		os_poker_process_message();
+		CUserManager::instance()->DebugRestoreCurrentUser();
+
+		unset($_GET["type"]);
+		unset($_GET["args"]);
+		
+		/*
+		 * Go to message box and check there is a message
+		 */
+    $this->drupalGet('poker/messagebox');
+		
+    $this->assertText(
+				"You just won reward " . $rew["reward15"]["name"],
+				t('Pokersocial originated reward message received')
+				);
+		
+    $html = $this->drupalGet('poker/messages/receive');
+    $this->assertRaw(json_encode(array(
+																		 'type' => 'os_poker_imsg',
+																		 'body' => array(
+																				 'text' => '<div class="poker_reward_reward15">You just won reward ' . $rew['reward15']['name'] . ' : ' . $rew['reward15']['desc'] . '</div>',
+																				 'title' => 'Reward',
+																				 )
+																		 )), t('Ingame notification for pokersocial originated reward found.'));
+  }
+	
   function testNotificationOnStatus() {
     $player = CUserManager::instance()->User($this->skel_user->uid);
     $player->chips = 10000000;

@@ -151,7 +151,21 @@ function	_os_poker_process_message_unsafe()
 				);
 
   $message_type = trim(isset($_GET["type"]) ? trim($_GET["type"]) : "noop");
+
+	if ($message_type == "os_poker_reward") {
+			/* Reward message is a special message which comes without a current user context 
+				 args[0] = reward number
+				 args[1] = player serial
+				 args[2] = time_stamp
+			*/
+			$all_rewards = CPoker::GetRewards();
+			$params = json_decode($_GET['args'], TRUE);
+			CPoker::ShowReward("reward" . $params[0], $params[1], $all_rewards);
+			$resp["messages"][] = array("type" => "noop", "body" => NULL);
+	}
+
 	if ($current_user && $current_user->uid != 0) {
+			fwrite($fd, "Current User: {$current_user->uid} {$current_user->mail}\n");
 		switch($message_type)
 		{
 			case "os_poker_sit_down":
@@ -304,6 +318,8 @@ function	_os_poker_process_message_unsafe()
 	else {
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
+	fclose($fd);
+
 	_os_poker_process_message_set_header();
 	print json_encode($resp);
 }

@@ -264,6 +264,22 @@ class CPoker
       ), $player->uid);
 		}
 	}
+
+	public static function	ShowReward($name, $player_uid, $prewards) {
+			$args["symbol"] = $prewards[$name]["picture"];
+			$args["text"] = t("You just won reward !name : !desc", array(
+        "!name" => $prewards[$name]["name"],
+				"!desc" => $prewards[$name]["desc"]
+      ));
+
+			CMessageSpool::instance()->SendSystemMessage($player_uid, $args);
+      CMessageSpool::instance()->SendInstantMessage(array(
+        'text' => '<div class="poker_reward_'.os_poker_clean_css_identifier($name).'">' . $args["text"] . '</div>',
+        'title' => t('Reward'),
+      ), $player_uid);
+			
+			return $args;
+	}
 	
 	
 	public static function	GetRewards() // ... miam :)
