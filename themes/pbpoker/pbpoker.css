@@ -2714,10 +2714,11 @@ body.poker-report-abuse #page {
 /*****************************
  * new static page : tourney
  * ***************************/
-body.tourney-page {
+body.poker-tourneyinfo {
 	background: #141007 url(images/tourney_body_bg.png) repeat-x;
 }
-body.tourney-page #main {
+
+body.poker-tourneyinfo #main {
 	background: #fff url(images/tourney_main_bg.png) repeat-x;
 }
 
@@ -2731,12 +2732,12 @@ body.tourney-page #main {
 #tourney-teaser h2 {
 	display: none;
 }
-body.tourney-page #middle-content-left {
+body.poker-tourneyinfo #middle-content-left {
 	width: 319px;
 	margin-right: 20px;
 }
 
-body.tourney-page #middle-content-right {
+body.poker-tourneyinfo #middle-content-right {
 	width: 400px;
 }
 
