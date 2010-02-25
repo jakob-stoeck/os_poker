@@ -624,24 +624,25 @@ div.poker_submit.big.disabled:hover div.label {
 
 div.poker_submit.medium
 {
-	 background: transparent url(images/bg_button_goldmedium_right.gif) no-repeat scroll top right;
-	 padding-right: 8px;
+	 /*background: transparent url(images/bg_button_goldmedium_right.gif) no-repeat scroll top right;*/
+	 /*padding-right: 8px;*/
 }
 
 div.poker_submit.medium div.label {
-  background: transparent url(images/bg_button_goldmedium_middle.gif) repeat-x;
-	height: 22px;
+  /*background: transparent url(images/bg_button_goldmedium_middle.gif) repeat-x;*/
+  /*background: transparent url(images/bg_button.gif) repeat-x;*/
+	/*height: 22px;*/
 	color: #6E4809;
 	font-weight: bold;
-	font-size: 13px;
-	padding-top: 2px;
+	/*font-size: 13px;*/
+	/*padding-top: 2px;*/
 }
 
 div.poker_submit.medium div.pre
 {
-  background: transparent url(images/bg_button_goldmedium_left.gif) no-repeat;
-	height: 22px;
-	width: 8px;
+  /*background: transparent url(images/bg_button_goldmedium_left.gif) no-repeat;*/
+	/*height: 22px;*/
+	/*width: 8px;*/
 }
 
 /*
@@ -1176,6 +1177,24 @@ body.de #play-now #play-now-button {
 #profile-update .poker_submit
 {
 	margin-left: 355px;
+}
+
+#profile-update .image_promo {
+	position: relative;
+	width: 147px;
+	height: 133px;
+}
+
+#profile-update .image_promo img,
+#profile-update .image_promo p.Dollar {
+	position: absolute;
+	top: 0;
+}
+
+#profile-update .image_promo p.Dollar {
+	left: 46px;
+	top: 43px;
+	z-index: 3;
 }
 
 /*
@@ -2433,7 +2452,7 @@ padding-left: 5px;
 }
 .choose_payment .poker_submit
 {
- width: 158px;
+ /*width: 158px;*/
 }
 .choose_payment .poker_submit .label
 {
@@ -2444,16 +2463,20 @@ padding-left: 5px;
  width: 165px;
  height: 101px;
  margin: 10px;
- background: transparent url(images/chips_buy_button.png) top left no-repeat;
+ background: url(images/chips_buy_button.png) top left no-repeat;
  cursor: pointer;
  padding: 5px 10px;
+ text-align: center;
+}
+.button_paypal .poker_submit {
+	margin 0 auto;
 }
 .logo_paypal
 {
  width: 130px;
  height: 49px;
  background: transparent url(images/logo_paypal.png) top left no-repeat;
- margin: 8px 15px;
+ margin: 8px auto;
 }
 .button_text
 {
@@ -2686,4 +2709,113 @@ body.poker-report-abuse #page {
   background-repeat: no-repeat;
   background-color: transparent;
    pointer: cursor;
+}
+
+/*****************************
+ * new static page : tourney
+ * ***************************/
+body.tourney-page {
+	background: #141007 url(images/tourney_body_bg.png) repeat-x;
+}
+body.tourney-page #main {
+	background: #fff url(images/tourney_main_bg.png) repeat-x;
+}
+
+#tourney-teaser {
+	width: 742px;
+	height: 208px;
+	display: block;
+	margin-bottom: 1em;
+	background: url(images/teaser-head.jpg) no-repeat center top;
+}
+#tourney-teaser h2 {
+	display: none;
+}
+body.tourney-page #middle-content-left {
+	width: 319px;
+	margin-right: 20px;
+}
+
+body.tourney-page #middle-content-right {
+	width: 400px;
+}
+
+.banner-box {
+	color: #fae991;
+	background: #000;
+	margin-bottom: 1.5em;
+}
+
+.banner-box#become-member-box h3 {
+	background: url(images/member_banner_background_only.jpg) no-repeat -1px top;
+	height: 48px;
+	margin-bottom: 0.5em;
+}
+
+.banner-box#become-member-box h3 span {
+	display: none;
+}
+
+.banner-box p {
+	padding-left: 30px;
+	line-height: 1.4em;
+}
+
+a#banner-tourney {
+	background: url(images/pb_tourney_banner.jpg);
+	display: block;
+	width: 322px;
+	height: 210px;
+}
+
+a#banner-millions {
+	background: url(images/millions.jpg);
+	display: block;
+	width: 322px;
+	height: 162px;
+}
+
+.tourney-infobox {
+	background: #333;
+	color: #e3e3e3;
+	padding-bottom: 0.3em;
+	margin-bottom: 1em;
+}
+.tourney-infobox h3 {
+	color: #c4a13d;
+	background: #000 url(images/headlines_background.jpg) repeat-x top left;
+	padding: 4px 6px;
+	font-size: 1em;
+}
+
+.tourney-infobox p,
+.tourney-infobox ul,
+.tourney-infobox ol {
+	margin: 1em;
+}
+
+.tourney-infobox ul,
+.tourney-infobox ol {
+	margin-left: 1.5em;
+	line-height: 1.4em;
+}
+
+.tourney-infobox ul {
+	list-style: none;
+}
+
+.tourney-infobox li {
+	margin-bottom: 0.3em;
+}
+
+.tourney-infobox a {
+	color: #c4a13d;
+	text-decoration: underline;
+}
+.tourney-infobox#tos-box a {
+	color: #e7e7e7;
+}
+
+.tourney-infobox#prize-box ul {
+	font-weight: bold;
 }
