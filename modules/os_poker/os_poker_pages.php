@@ -522,4 +522,8 @@ foreach ($vcats as $catid)
  return $form;
 }
 
+function os_poker_tourney_info_page() {
+		return theme('os_poker_tourney_info');
+}
+
 ?>

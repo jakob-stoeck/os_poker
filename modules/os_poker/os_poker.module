@@ -566,6 +566,10 @@ function 	os_poker_theme()
 												'arguments' => array('messages' => NULL),
 												'template' => 'messagebox_list',
 											),
+				'os_poker_tourney_info' => array(
+												'arguments' => array(),
+												'template' => 'tourney_info',
+											),
     'os_poker_message' => array(
       'arguments' => array('message' => NULL),
       'template' => 'os-poker-message',
@@ -925,7 +929,12 @@ function os_poker_menu()
 												'type'             => MENU_CALLBACK,
 												'access callback'  => 'user_is_anonymous',
 										),
-
+					'poker/tourneyinfo' => array(
+							'page callback'  => 'os_poker_tourney_info_page',
+							'file'           => 'os_poker_pages.php',
+							'type'             => MENU_CALLBACK,
+							'access callback'   => TRUE,
+							),
     'poker/report_abuse/%user' => array(
       'title' => 'Report abuse',
       'page callback' => 'drupal_get_form',
