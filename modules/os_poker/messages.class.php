@@ -170,6 +170,32 @@ class CMessageSpool
 		return FALSE;
 	}
 	
+	public function SendSystemMessage($targetUid, $args) //Wait for symbol, text, link
+	{
+			if (isset($args["text"]) && isset($args["symbol"]))
+			{
+					if (!isset($args["tags"]))
+							$args["tags"] = array();
+					if (!isset($args["links"]))
+							$args["links"] = NULL;
+			
+					$res = CScheduler::instance()->RegisterTask(new CStaticMessage(), $targetUid, 'inbox', "+2 week", array(
+																													"type" => "os_poker_msg",
+																													"body" => array(
+																															"text" => $args["text"],
+																															"links" => $args["links"],
+																															"tags"  => $args["tags"],
+																															"sender" => t("system"),
+																															"senderPix" => '',
+																															"symbol" => $args["symbol"],
+																															),
+																													));
+					return ($res > 0);
+			}
+			
+			return FALSE;
+	}
+
 	public function SendInstantMessage($args, $targetUid = NULL) //text
 	{
 		$current_user = CUserManager::instance()->CurrentUser();
