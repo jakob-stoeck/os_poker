@@ -25,7 +25,7 @@ function	os_poker_goto_lobby()
 {
   var location = os_poker_site_root();
   if (typeof Drupal.settings.os_poker.language == 'object') {
-    location += '&q=' + Drupal.settings.os_poker.language.language;
+    location += '?q=' + Drupal.settings.os_poker.language.language;
   }
 	document.location = location;
 }
