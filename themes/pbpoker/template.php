@@ -41,6 +41,10 @@ function pbpoker_preprocess_page(&$variables) {
   $variables['body_classes'] .= ' ' . $language->language;
   if (arg(0) == 'poker') {
     $variables['body_classes'] .= ' '. os_poker_clean_css_identifier(arg(0) .'-'. arg(1));
+    if (arg(1) == 'pages') {
+	/* handle static pages correcty */
+	$variables['body_classes'] .= ' '. os_poker_clean_css_identifier(arg(0) .'-'. arg(2));
+    }
   }
   $language_css = path_to_theme().'/pbpoker-' . $language->language . '.css';
   if(!file_exists($language_css)) {

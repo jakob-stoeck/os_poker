@@ -241,6 +241,7 @@ function os_poker_preprocess_page(&$variables)
 		$variables['template_files'][] = 'page-ajax';
 	}
 
+
   $variables['closure'] .= theme('os_poker_overlay');
   $variables['styles'] = drupal_get_css();
   $variables['scripts'] = drupal_get_js();
@@ -929,7 +930,7 @@ function os_poker_menu()
 												'type'             => MENU_CALLBACK,
 												'access callback'  => 'user_is_anonymous',
 										),
-					'poker/tourneyinfo' => array(
+					'poker/pages/tourneyinfo' => array(
 							'page callback'  => 'os_poker_tourney_info_page',
 							'file'           => 'os_poker_pages.php',
 							'type'             => MENU_CALLBACK,
