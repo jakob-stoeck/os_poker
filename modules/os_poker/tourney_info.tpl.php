@@ -51,7 +51,7 @@
 								<li>- Jeder Teilnehmer muss das 18. Lebensjahr vollendet haben.</li>
 								<li>- Die Teilnahme ist kostenlos!</li>
 								<li>- Die Preise sind nicht übertragbar oder in bar auszahlbar.</li>
-								<li>- Bei s#ömtlichen Einsätzen handelt es sich um virtuelles Spielgeld<br />
+								<li>- Bei sämtlichen Einsätzen handelt es sich um virtuelles Spielgeld<br />
 								&nbsp;&nbsp; ohne Gegenwert.</li>
 								<li>- Wir bitten um Beachtung unserer <?php print l("Nutzungsbedingungen", "poker/tos", array('attributes' => array('class' => 'thickbox'),
 'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),)); ?>.</li>
