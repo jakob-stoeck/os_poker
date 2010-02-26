@@ -434,7 +434,7 @@ div.poker_submit div.pre {
 
 div.poker_submit div.label {
 	background: url(images/button_long_right.gif) no-repeat top right;
-    	padding-right: 7px;
+   	padding-right: 7px;
 	display: block;
 	float: left;
 	height: 16px;
@@ -471,14 +471,9 @@ div.poker_submit.silver div.label {
 ** The big one
 */
 
-#shop div.poker_submit.disabled:hover div.label {
-	text-decoration: none;
-}
-
 div.poker_submit.big {
 	 background: transparent url(images/bg_button_goldbig_right.gif) no-repeat top right;
 	 padding-right: 12px;
-	 overflow: auto;
 }
 
 /* FIXME */
@@ -1502,6 +1497,15 @@ ul.categories li a span {
 #shop .bcontainer {
 	float: right;
 	margin-left: 10px;
+}
+
+#shop div.poker_submit .label {
+	height: 31px;
+	padding-top: 3px;
+}
+
+#shop div.poker_submit.disabled:hover div.label {
+	text-decoration: none;
 }
 
 /***************************
