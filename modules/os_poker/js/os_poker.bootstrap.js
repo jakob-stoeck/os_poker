@@ -79,6 +79,7 @@ Drupal.behaviors.os_poker = function(context) {
     $('#ContainerContentHelp div.tabs:not(.os-poker-processed)').addClass('os-poker-processed').tabs();
   }
   os_poker_init_tourney();
+  os_poker_init_router();
 };
 
 OsPoker.dialog = function(content) {

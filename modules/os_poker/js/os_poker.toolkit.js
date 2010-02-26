@@ -257,4 +257,23 @@ function os_poker_play_now_clicked()
 
 }
 
+/**
+ * Router invokes JS functions based on the # anchor in the url.
+ * if the anchor is #load_xyz, it will invoke a function window.top.os_poker_load_xyz() if such
+ * a function exists.
+ */ 
+function os_poker_init_router() 
+{
+	if (window.top.location.href.match(/#(load_.+)/)) {
+		var route = 'os_poker_' + RegExp.$1;
+		if (window.top[route] && typeof(window.top[route]) == 'function') {
+			setTimeout(function() {
+				window.top[route]();
+			}, 1000);
+        }
+	}
+}
 
+function os_poker_load_tutorial() {
+	$("a.tutorial").trigger('click');
+}

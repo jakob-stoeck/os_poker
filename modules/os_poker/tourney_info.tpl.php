@@ -12,7 +12,9 @@
 						<div class="banner-box" id="become-member-box">
 							<h3><span>Noch kein Mitglied?</span></h3>
 							<p>Hol dir jetzt den Nervenkitzel, in High Stakes Partien und Turnieren um Millionen zu zocken, völlig ohne Risiko. Melde dich jetzt kostenlos an und sichere Dir $ 1.000 Chips Startguthaben!</p>
+							<a href="<?php print url(""); ?>">
 							<p class="poker_submit">Jetzt registrieren</p>
+							</a>
 						</div>
 					</div>
 
@@ -31,9 +33,9 @@
 							<ul>
 								<li>- Jetzt kostenlos anmelden und 1.000 Chips Startguthaben sichern<br />
 								&nbsp;&nbsp; Nur noch Dein Profil ausfüllen und fertig! So einfach ist das...</li>
-								<li>- Das Turnier findest Du in der <a href="#">Lobby</a> unter "Turniere".<br />
+								<li>- Das Turnier findest Du in der <?php print l("Lobby", ""); ?> unter "Turniere".<br />
 								&nbsp;&nbsp; Ab dem 02. März kannst Du dich dort für das Turnier registrieren.</li>
-								<li>- Noch nie gepokert? <a href="#">Hier</a> geht's zum Video-Tutorial mit Bunny Michaela.</li>
+								<li>- Noch nie gepokert? <?php print l("Hier", "", array('fragment' => "load_tutorial")); ?> geht's zum Video-Tutorial mit Bunny Michaela.</li>
 							</ul>
 						</div>
 						<div class="tourney-infobox" id="date-box">
@@ -51,7 +53,7 @@
 								<li>- Die Preise sind nicht übertragbar oder in bar auszahlbar.</li>
 								<li>- Bei s#ömtlichen Einsätzen handelt es sich um virtuelles Spielgeld<br />
 								&nbsp;&nbsp; ohne Gegenwert.</li>
-								<li>- Wir bitten um Beachtung unserer <a href="#">Nutzungsbedingungen</a>.</li>
+								<li>- Wir bitten um Beachtung unserer <?php print l("Nutzungsbedingungen", "poker/tos"); ?>.</li>
 							</ul>
 						</div>
 				    </div>

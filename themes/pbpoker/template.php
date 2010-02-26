@@ -72,7 +72,7 @@ function pbpoker_preprocess_page(&$variables) {
 function pbpoker_preprocess_page_front_banners(&$variables)
 {
   $variables['banners'][] = theme('page_front_banner', 'banner-signup', t('Sign up now and get a bonus! <strong>$1000 Chips</strong>'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), '');
+  $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), 'poker/pages/tourneyinfo');
   $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
 }
 
@@ -115,7 +115,7 @@ function pbpoker_poker_tutorial_link() {
   return l(t("Click here!"), '#TB_inline', array(
     'external' => TRUE,
     'attributes' => array(
-      'class' => 'yellow thickbox',
+      'class' => 'tutorial yellow thickbox',
     ),
     'query' => 'height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial&',
   ));
