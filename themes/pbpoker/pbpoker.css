@@ -2429,10 +2429,6 @@ body.poker-tourneyinfo {
 	background: #141007 url(images/tourney_body_bg.png) repeat-x;
 }
 
-body.poker-tourneyinfo #main {
-	background: #fff url(images/tourney_main_bg.png) repeat-x;
-}
-
 .poker-tourneyinfo #tourney-teaser {
 	width: 742px;
 	height: 208px;
@@ -2470,6 +2466,7 @@ body.poker-tourneyinfo #middle-content-right {
 
 .poker-tourneyinfo .banner-box p {
 	padding-left: 30px;
+	padding-right: 10px;
 	line-height: 1.4em;
 }
 
