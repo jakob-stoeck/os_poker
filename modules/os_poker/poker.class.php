@@ -93,7 +93,7 @@ class CPoker
 	public static function ActiveTourneysForUser($user_id) {
 		$lastDb = db_set_active(self::$_pokerDB);
 	
-		$sql = "SELECT `tourney_serial`, `table_serial`, `tourneys`.`name` FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `user_serial` = %d and `tourneys`.`state` = 'running'";
+		$sql = "SELECT `tourney_serial`, `table_serial`, `tourneys`.`name` FROM `user2tourney` LEFT JOIN `tourneys` ON (`user2tourney`.`tourney_serial` = `tourneys`.`serial`) WHERE `user_serial` = %d and `tourneys`.`state` = 'running' and `table_serial` != -1";
 		$res = db_query($sql, $user_id);
 
 		$tourneys = array();
