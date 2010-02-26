@@ -13,7 +13,7 @@
 							<h3><span>Noch kein Mitglied?</span></h3>
 							<p>Hol dir jetzt den Nervenkitzel, in High Stakes Partien und Turnieren um Millionen zu zocken, völlig ohne Risiko. Melde dich jetzt kostenlos an und sichere Dir $ 1.000 Chips Startguthaben!</p>
 							<a href="<?php print url(""); ?>">
-							<p class="poker_submit">Jetzt registrieren</p>
+							<div class="poker_submit big"><div class="pre"></div><div class="label">Jetzt registrieren</div></div>
 							</a>
 						</div>
 					</div>
