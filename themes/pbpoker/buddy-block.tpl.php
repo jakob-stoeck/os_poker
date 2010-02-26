@@ -1,4 +1,4 @@
-<div class="buddy_list_block <?php if ($buddy && $buddy->Online()) { print "online"; } ?> <? if ($buddyNumber == 1) print "first_buddy";  ?>">
+<div class="buddy_list_block <?php if ($buddy && $buddy->Online()) { print "online"; } ?>">
 
 	<div class="buddy_list_number <?php if ($buddy && $buddyNumber == 1) print "golden"; ?>">
 		<?php print $buddyNumber; ?>
