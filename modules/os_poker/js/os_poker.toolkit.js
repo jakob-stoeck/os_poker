@@ -264,16 +264,28 @@ function os_poker_play_now_clicked()
  */ 
 function os_poker_init_router() 
 {
-	if (window.top.location.href.match(/#(load_.+)/)) {
+	if (window.top.location.href.match(/#(load_.+)/) ||
+		window.top.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
+                var route = 'os_poker_' + RegExp.$1;
+                if (window.top[route] && typeof(window.top[route]) == 'function') {
+                        setTimeout(function() {
+                                window.top[route]();
+                        }, 1000);
+ 		}
+	}
+
+	if (window.location.href.match(/#(load_.+)/) ||
+                window.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
 		var route = 'os_poker_' + RegExp.$1;
-		if (window.top[route] && typeof(window.top[route]) == 'function') {
+		if (window[route] && typeof(window[route]) == 'function') {
 			setTimeout(function() {
-				window.top[route]();
+				window[route]();
 			}, 1000);
-        }
+        	}
 	}
 }
 
 function os_poker_load_tutorial() {
 	$("a.tutorial").trigger('click');
 }
+

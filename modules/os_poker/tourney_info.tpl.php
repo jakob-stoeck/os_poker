@@ -35,7 +35,7 @@
 								&nbsp;&nbsp; Nur noch Dein Profil ausfüllen und fertig! So einfach ist das...</li>
 								<li>- Das Turnier findest Du in der <?php print l("Lobby", ""); ?> unter "Turniere".<br />
 								&nbsp;&nbsp; Ab dem 02. März kannst Du dich dort für das Turnier registrieren.</li>
-								<li>- Noch nie gepokert? <?php print l("Hier", "", array('fragment' => "load_tutorial")); ?> geht's zum Video-Tutorial mit Bunny Michaela.</li>
+								<li>- Noch nie gepokert? <?php print l("Hier", "poker/help/&initcall_show_tutorial_tab=true&height=442&width=603&keepThis=true&TB_iframe=true", array('attributes' => array('class' => "thickbox"))); ?> geht's zum Video-Tutorial mit Bunny Michaela.</li>
 							</ul>
 						</div>
 						<div class="tourney-infobox" id="date-box">
@@ -53,7 +53,8 @@
 								<li>- Die Preise sind nicht übertragbar oder in bar auszahlbar.</li>
 								<li>- Bei s#ömtlichen Einsätzen handelt es sich um virtuelles Spielgeld<br />
 								&nbsp;&nbsp; ohne Gegenwert.</li>
-								<li>- Wir bitten um Beachtung unserer <?php print l("Nutzungsbedingungen", "poker/tos"); ?>.</li>
+								<li>- Wir bitten um Beachtung unserer <?php print l("Nutzungsbedingungen", "poker/tos", array('attributes' => array('class' => 'thickbox'),
+'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),)); ?>.</li>
 							</ul>
 						</div>
 				    </div>

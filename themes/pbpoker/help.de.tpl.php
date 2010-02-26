@@ -103,6 +103,18 @@ In Texas Hold’em poker, each player is initially dealt two cards face down (kn
     <p>
       <a class="tab-iframe" href="<?php print $tutorial ?>" style="display: none"></a>
       <script language="javascript" type="text/javascript">
+/* Dirty hack to activate tutorial tab in help thickbox */
+function os_poker_show_tutorial_tab() {
+$("a[href=#help-pokerhands]").parent().removeClass('ui-state-active')
+$("div#help-pokerhands").addClass('ui-tabs-hide')
+$("a[href=#help-tutorial]").parent().addClass('ui-state-active')
+$("div#help-tutorial").removeClass('ui-tabs-hide')
+
+$('iframe.tutorial').remove();
+var href = $('.tab-iframe').attr('href');
+$('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+}
+
         $(document).ready(function(){
           $('#ContainerContentHelp .tabs').bind('tabsshow', function(event, ui){
             if(!$(ui.tab).hasClass('foo')) {
