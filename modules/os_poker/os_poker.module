@@ -1399,7 +1399,7 @@ function os_poker_preprocess_os_poker_buddylist(&$variables) {
 function os_poker_preprocess_os_poker_profile(&$variables) {
 		$target_user = $variables['target_user'];
 		$variables['tourney_results'] = CPoker::BestRankingsForUser($target_user->uid, 5);
-		
+
 		$registered = CPoker::RegisteredTourneysForUser($target_user->uid);
 		if ($registered && count($registered) > 0) {
 				$variables['next_tourney'] = $registered[0];
@@ -1824,7 +1824,8 @@ function theme_daily_gift($amount = 100) {
     $output .= ' style="display: none;"';
   }
   $output .= '>';
-  $output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  //$output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  $output .= theme('poker_image', 'free_gift.png', t('Invite more friends'));
   $output .= '</div>';
   return $output;
 }
