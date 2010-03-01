@@ -134,15 +134,15 @@ ul.secondary li a.active {
 * Structure
 ***************************/
 
+#page {
+	width: 760px;
+	margin: 3px auto 0;
+}
+
 #main {
 	background: url(images/pre_body_bg.gif) repeat;
 	padding: 10px 5px 10px 10px;
 	width: 745px;
-}
-
-#page {
-	width: 760px;
-	margin: 3px auto 0;
 }
 
 #main.logged_in {
