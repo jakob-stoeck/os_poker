@@ -635,14 +635,12 @@ div.poker_submit.big.disabled:hover div.label {
 	background-image: url(images/bg_buddy_panel.png);
 	width: 740px;
 	height: 182px;
-	padding-top: 5px;
 	padding-left: 2px;
 }
 
 #buddylist .list {
 	float: left;
 	height: 172px;
-	margin-top: -5px;
 	overflow: hidden;
 	padding-left: 1px;
 	width: 559px;
