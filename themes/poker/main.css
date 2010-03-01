@@ -41,23 +41,13 @@ div.tb-fix-margin a.LayerClose
 	height: 444px;
 	padding: 5px;
 	overflow: hidden !important;
+	position: relative;
 }
 
 /**
  * BUDDIES
  */
 
-/*
-#buddies-tabs
-{
-	background-color: transparent;
-  background-image: url(images/bg_buddies.gif);
-  background-repeat: repeat-x;
-	height: 455px;
-	padding: 5px;
-	width: 622px;
-}
-*/
 /*
 ** Profile
 */
@@ -495,6 +485,7 @@ body.iframe #messagebox a.LayerClose
 	margin-left:auto;
 	margin-right:auto;
 	z-index:1042;
+	position: relative;
 }
 
 #poker-first-profile fieldset
