@@ -1473,7 +1473,7 @@ ul.categories li a span {
 	color: #727272;
 	text-decoration: none;
 	display: block;
-	line-height: 1em;
+	/*line-height: 1em;*/
 }
 
 #shop #items a:hover,
