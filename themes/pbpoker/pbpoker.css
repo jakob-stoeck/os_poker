@@ -1460,43 +1460,42 @@ ul.categories li a span {
 
 #shop #items .shop-item {
 	float: left;
+	margin: 5px 3px 0 5px;
+	overflow: hidden;
 }
 
 #shop #items .inner-item-list a {
-	background: url(images/bg_shop_item.gif) no-repeat;
+	/*background: url(images/bg_shop_item.gif) no-repeat;*/
+	background: #fff;
+	border: 1px solid #ccc;
 	height: 95px;
-	margin: 5px 0 0 19px;
-	width: 72px;
+	width: 81px;
 	color: #727272;
 	text-decoration: none;
 	display: block;
-	padding-top: 2px;
 }
 
 #shop #items a:hover,
 #shop #items a.selected {
-	background: url(images/bg_shop_item_hover.gif) no-repeat;
+	background: #fff url(images/bg_shop_item_hover.gif) no-repeat bottom right;
 }
 
-#shop #items a span {
+#shop #items a span img {
 	cursor: pointer;
 	display: block;
 	height: 50px;
-	margin: 5px 0 4px 8px;
-	overflow: hidden;
 	width: 50px;
+	margin: 3px auto;
+	overflow: hidden;
 }
 
 #shop #items a span.Text {
 	cursor: pointer;
 	display: block;
 	font-weight: bold;
-	height: 12px;
-	margin: 0 0 0 2px;
-	overflow: hidden;
-	padding: 0;
+	margin: 0 2px;
 	text-align: center;
-	width: 64px;
+	white-space: normal;
 }
 
 #shop .bcontainer {
