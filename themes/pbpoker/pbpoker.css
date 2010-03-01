@@ -1460,24 +1460,31 @@ ul.categories li a span {
 
 #shop #items .shop-item {
 	float: left;
-	margin: 5px 3px 0 5px;
+	margin: 2px 3px 0 5px;
 	overflow: hidden;
 }
 
 #shop #items .inner-item-list a {
-	/*background: url(images/bg_shop_item.gif) no-repeat;*/
 	background: #fff;
 	border: 1px solid #ccc;
-	height: 95px;
+	height: 96px;
+	margin-bottom: 3px;
 	width: 81px;
 	color: #727272;
 	text-decoration: none;
 	display: block;
+	line-height: 1em;
 }
 
 #shop #items a:hover,
 #shop #items a.selected {
 	background: #fff url(images/bg_shop_item_hover.gif) no-repeat bottom right;
+	border-right: none;
+	border-bottom: none;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	height: 99px;
+	margin-bottom: 0;
 }
 
 #shop #items a span img {
@@ -1494,6 +1501,8 @@ ul.categories li a span {
 	display: block;
 	font-weight: bold;
 	margin: 0 2px;
+	width: 75px;
+	overflow: hidden;
 	text-align: center;
 	white-space: normal;
 }
