@@ -740,7 +740,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist #today_gift {
-	background: #000 url(images/bg_today_gift.jpg) no-repeat center center;
+	background: url(images/bg_today_gift.jpg) no-repeat center center;
 	width: 87px;
 	height: 170px;
 	color: #fff;

@@ -1,132 +1,113 @@
-/**
- * Front page
- */
+/*******************************
+ * Stylesheet Drupal @
+ * http://playboy.de/poker
+ * front page
+ *******************************/
 
-body.not-logged-in #main
-{
-  width: 720px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 20px;
+body.not-logged-in #main {
+	width: 720px;
+	padding: 20px 20px 0;
 }
 
-body.not-logged-in #middle-content
-{
-  height: 432px;
+body.not-logged-in #middle-content {
+	height: 432px;
 }
 
-body.not-logged-in #middle-content-left
-{
-  margin: 0;
+body.not-logged-in #middle-content-left {
+	margin: 0;
 }
 
-body.not-logged-in #middle-content-right
-{
-  float: right;
+body.not-logged-in #middle-content-right {
+	float: right;
+}
+
+body.logged-in #middle-content-right {
+	width: 328px;
 }
 
 /**
  * Front page teaser
  */
-#poker-teaser
-{
-  width: 411px;
-  height: 432px;
+
+#poker-teaser {
+	width: 411px;
+	height: 432px;
 }
 
-#poker-teaser-table
-{
-  background-color:transparent;
-  background-image:url(images/teaser-table-shadow.gif);
-  background-position:right bottom;
-  background-repeat:no-repeat;
-  margin-left:7px;
-  margin-top:20px;
-  padding-bottom:8px;
-  padding-right:6px;
+#poker-teaser-table {
+	background: url(images/teaser-table-shadow.gif) bottom right no-repeat;
+	margin: 20px 0 0 7px;
+	padding: 0 6px 8px 0;
 }
 
-#poker-teaser-text
-{
-  font-size: 12px;
-  background-image: url(images/teaser-text.gif);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 143px;
-  height: 75px;
-  padding: 8px 20px 5px 4px;
-  position: absolute;
-  right: -185px;
-  bottom: 120px;
-  color: white;
-  font-weight: bold;
-  z-index: 1;
-  text-align: center;
+#poker-teaser-text {
+	background: url(images/teaser-text.gif) center center no-repeat;
+	width: 143px;
+	height: 75px;
+	padding: 8px 20px 5px 4px;
+	position: absolute;
+	right: -185px;
+	bottom: 120px;
+	color: white;
+	z-index: 1;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
 }
 
-#poker-teaser-text *
-{
-  font-size: 1em;
-  font-weight: inherit;
+#poker-teaser-text * {
+	font-size: 1em;
+	font-weight: inherit;
 }
+
 #poker-teaser-text h1,
-#poker-teaser-text a
-{
-  color: #A8904A !important;
-  display: block;
+#poker-teaser-text a {
+	color: #A8904A !important;
+	display: block;
 }
 
-#poker-teaser-girl
-{
-  position: absolute;
-  right: -320px;
-  bottom: 0;
+#poker-teaser-girl {
+	position: absolute;
+	right: -320px;
+	bottom: 0;
 }
 
 /**
  * Front page signup
  */
 
-#home_signup
-{
-  padding-bottom:10px;
+#home_signup {
+	padding-bottom: 5px;
 }
 
-#home_signup_form
-{
-  padding-top: 20px;
+#home_signup_form {
+	padding-top: 20px;
 }
 
-#home_signup_form .form-item label
-{
-  float:left;
-  width:90px;
-  text-align:right;
-  padding-right:10px;
-  color:#C7C5C5;
-  font-weight:normal;
+#home_signup_form .form-item label {
+	float: left;
+	width: 90px;
+	text-align: right;
+	padding-right: 10px;
+	color: #C7C5C5;
+	font-weight: normal;
 }
 
-#home_signup_form .form-item
-{
-  margin-top:0;
+#home_signup_form .form-item {
+	margin-top:0;
 }
 
-#home_signup_form .form-required
-{
-  display:none;
+#home_signup_form .form-required {
+	display:none;
 }
 
-#home_signup_form div.poker_submit
-{
-  margin-left:100px;
+#home_signup_form div.poker_submit {
+	margin-left: 100px;
 }
 
-#home_signup_form  .custom_input
-{
-  width:190px;
-  margin:0;
+#home_signup_form  .custom_input {
+	width: 190px;
+	margin: 0;
 }
 
 #messages {
@@ -134,6 +115,7 @@ body.not-logged-in #middle-content-right
 	font-size: 10px;
 	width: 295px;
 }
+
 #messages #terms {
 	margin-left: 100px;
 }
@@ -141,55 +123,40 @@ body.not-logged-in #middle-content-right
 /**
  * Front page banners
  */
-#page-front-banners
-{
-  padding: 0;
-  height: 175px;
-  width: 760px;
-  margin-left: -20px;
-  margin-bottom: -10px;
-  background-image: url(images/bg_signup_banners.png);
-  text-align: center;
-  position: relative; /* IE */
+
+#page-front-banners {
+	height: 175px;
+	width: 760px;
+	background-image: url(images/bg_signup_banners.png);
+	text-align: center;
+	position: relative; /* IE */
+	left: -20px;
 }
 
 
-#page-front-banners a.banner
-{
-  display: inline-block;
-  height: 165px;
-  width: 0px;
-  margin-top: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
-  background-color: transparent;
-  background-position: center center;
-  background-repeat: no-repeat;
+#page-front-banners a.banner {
+	display: block;
+	float: left;
+	width: 198px;
+	height: 162px;
+	margin: 7px 7px 0;
 	vertical-align: middle;
-  /*text-indent: -10000px;*/
+	background-repeat: no-repeat;
 }
 
 #page-front-banners a.banner span {
 	display: none;
 }
 
-#page-front-banners #banner-signup
-{
+#page-front-banners #banner-signup {
   background-image: url('images/front-banner-signup.gif');
-  width: 198px;
-  height: 162px;
 }
 
-#page-front-banners #banner-tournament
-{
+#page-front-banners #banner-tournament {
   background-image: url('images/front-banner-tournament.gif');
-  width: 198px;
-  height: 162px;
 }
 
-#page-front-banners #banner-join
-{
+#page-front-banners #banner-join {
   background-image: url('images/front-banner-join.gif');
   width: 321px;
-  height: 162px;
 }
