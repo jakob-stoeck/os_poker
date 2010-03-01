@@ -687,6 +687,7 @@ div.poker_submit.big.disabled:hover div.label {
 	width: 63px;
 	margin-top: 25px;
 	margin-left: 9px;
+	position: relative;
 }
 
 #buddylist .buddy_list_placeholder .title {
@@ -698,9 +699,9 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .buddy_list_placeholder .body {
-	left: 0;
 	position: absolute;
-	top: 77px;
+	left: 0;
+	top: 79px;
 }
 
 #buddylist .buddy_list_placeholder .body a {
