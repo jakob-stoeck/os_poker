@@ -1135,9 +1135,8 @@ padding:10px 0 0 46px;
  * Buddy list
  */
 div#buddylist #today_gift,
-div#buddylist #today_gift_invite
-{
-	/*float: left;*/
+div#buddylist #today_gift_invite {
+	float: left;
 	padding-top: 5px;
 }
 
