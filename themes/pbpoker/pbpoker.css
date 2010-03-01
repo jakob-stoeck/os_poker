@@ -13,15 +13,6 @@ body {
 	text-align: left;
 }
 
-/* FIXME */
-/*
-div {
-	display: block;
-	margin: 0;
-	padding: 0;
-	position: relative;
-}
-*/
 a {
 	text-decoration: none;
 	font-weight: normal;
