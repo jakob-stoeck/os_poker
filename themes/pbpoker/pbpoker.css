@@ -1,3 +1,8 @@
+/**********************************
+ * Stylesheet for Drupal
+ * @ http://playboy.de/poker
+ * ********************************/
+
 body {
 	margin: 0;
 	border: 0;
@@ -9,13 +14,14 @@ body {
 }
 
 /* FIXME */
+/*
 div {
 	display: block;
 	margin: 0;
 	padding: 0;
 	position: relative;
 }
-
+*/
 a {
 	text-decoration: none;
 	font-weight: normal;
@@ -152,7 +158,7 @@ ul.secondary li a.active {
 	background: #141007 url(images/body_bg.png) repeat-x;
 }
 
-#content-bottom .block {
+#content-bottom #buddylist {
 	margin-top: 10px;
 }
 
@@ -161,10 +167,11 @@ ul.secondary li a.active {
 	width: 760px;
 	height: 100px;
 	overflow: hidden;
+	position: relative;
 }
 
 #header #header-inner {
-	background: transparent url(images/bg_header_inner.png) 0 30px repeat-x;
+	background: transparent url(images/bg_header_inner.png) 0 30px repeat-x; /* FIXME combine image with header image */
 }
 
 #header #logo {
@@ -295,6 +302,9 @@ body.iframe #main {
 	margin-top: 12px;
 	white-space: nowrap;
 	width: 305px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
 }
 
 #user_login .user_login_row {
@@ -645,6 +655,7 @@ div.poker_submit.big.disabled:hover div.label {
 	overflow: hidden;
 	padding-left: 1px;
 	width: 559px;
+	position: relative;
 }
 
 #buddylist .cursor {
@@ -1276,9 +1287,9 @@ body.de #play-now #play-now-button {
 	width: 320px;
 }
 
-
 #buddies-list {
 	width: 632px;
+	position: relative;
 }
 
 #buddies-list .buddy_result_list_entry {
@@ -1438,6 +1449,10 @@ ul.categories li a span {
 	color: #65605A;
 	font-size: 14px;
 	padding: 0 2px 0 0;
+}
+
+#shop {
+	position: relative;
 }
 
 #shop #items {
@@ -2100,6 +2115,9 @@ body.de p.Buddies { /* FIXME : german */
 	background: transparent url(images/bg_chips_package.png) bottom left repeat-x;
 	border: 1px solid #d7d7d7;
 }
+.choose_package .form-radios {
+	position: relative;
+}
 .chips_icon {
 	width: 35px;
 	height: 63px;
@@ -2199,6 +2217,7 @@ body.de p.Buddies { /* FIXME : german */
 .messages-popup {
 	height: 300px;
 	width: 600px;
+	position: relative;
 }
 
 .messages-popup a.close {
@@ -2249,6 +2268,9 @@ div.poker_error_message {
  * image & flash tutorial
  * ********************************/
 
+#poker-teaser {
+	position: relative;
+}
 #poker-teaser .info {
 	color: #fff;
 	margin: 15px 80px 15px 15px;
