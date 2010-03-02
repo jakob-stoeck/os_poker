@@ -1222,9 +1222,8 @@ div#buddylist #today_gift_invite {
 
 body.page-poker #content-header .title-wrapper a.LayerClose
 {
-  background-image: url(images/button_layerclose2.gif);
-  top: 1px;
-  right: 1px;
+  background-image: url(images/button_layerclose.gif);
+  top: 6px;
 }
 
 /*
