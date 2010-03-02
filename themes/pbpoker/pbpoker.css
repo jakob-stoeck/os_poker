@@ -1,19 +1,11 @@
 body {
 	margin: 0;
 	border: 0;
-	background-color: #303030;
+	background: #303030 url(images/navbar_bg_body.jpg) repeat-x left 99px;
 	font-family: Arial, Verdana, sans-serif;
 	font-size: 11px;
 	color: #6c6c6c;
 	text-align: left;
-}
-
-/* FIXME */
-div {
-	display: block;
-	margin: 0;
-	padding: 0;
-	position: relative;
 }
 
 a {
@@ -139,104 +131,76 @@ ul.secondary li a.active {
 
 #main {
 	background: #646464 url(images/main_bg_color.png) repeat-x;
-	/*background-color: #fff;*/
 	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
 
+#page {
+	background: url(images/header_bg_color.png) repeat-x;
+}
+
+#page-inner {
+	position: relative;
+}
+
+#page-inner #sponsor {
+	position: absolute;
+	top: 0;
+	right: -170px;
+}
+
 #page-inner, #header-inner, #navbar-inner {
 	width: 760px;
-	/*margin: 3px auto 0;*/
-	margin: 0 auto 0;
+	margin: 0 auto;
 }
 
-#main.logged_in {
-	/*background: #141007 url(images/body_bg.png) repeat-x;*/
-}
-
-#content-bottom .block {
+#content-bottom #buddylist {
 	margin-top: 10px;
 }
 
-#outer-header {
-}
 #header {
-	background: #000 url(images/header_bg_color.png) repeat-x;
-	/*width: 760px;*/
 	height: 99px;
 	overflow: hidden;
 	border-bottom: 1px solid #4E4E4E;
+	position: relative;
 }
 
-#header #header-inner {
-	/*background: transparent url(images/bg_header_inner.png) 0 30px repeat-x;*/
-}
-
-#logo {
+#header #logo {
+	/*float: left;*/
 	width: 760px;
 }
-#header #logo {
-	/*padding-top: 21px;*/
-	/*padding-left: 11px;*/
-	float: left;
-}
 
-/* We hide all block in header region, except the first two */
-#header-blocks .block {
-	float: right;
-	margin-right: 10px;
-	width: 500px;
-	overflow: hidden;
-	display: none;
-}
 #header-blocks {
 	position: absolute;
+	top: 0;
+	right: -6px;
+	width: 292px;
+	height: 97px;
 	background: transparent url(images/login_bg.png) top right no-repeat;
 }
 
-#header-blocks .block .block-inner {
-	float: right;
-}
-
-#header-blocks .region-block-1 {
-	height: 30px;
-	display: block;
-}
-
-#header-blocks .region-block-2 {
-	height: 66px;
-	display: block;
-}
-
 #header .language-bar {
-	padding-top: 6px;
-	margin-left: 0;
+	position: absolute;
+	top: 0;
+	right: 15px;
+}
+#header .language-bar a.language-link {
+	display: none;
 }
 
 #footer {
 	text-align: right;
-	/*padding-top: 11px;*/
 	border-bottom: 2px solid #980E1D;
 	margin-bottom: 2em;
+	position: relative;
 }
 #footer-inner {
-	/*padding: 5px;*/
-	/*background: transparent url(images/footer_logo_new_yorker.gif) no-repeat right;*/
 	background: transparent url(images/footer_color.gif);
 	border-bottom: 1px solid #E0B1B1;
 	height: 97px;
 }
 #footer-logo {
 	background: transparent url(images/footer_logo_new_yorker.gif) no-repeat right;
-	/*height: 97px;*/
-}
-/*#footer-left {*/
-	/*float: left;*/
-/*}*/
-
-#footer #footer-inner {
-	/*padding: 5px;*/
-	/*background-color: #CCD2D6;*/
 }
 
 #footer .language-bar a {
@@ -259,10 +223,16 @@ ul.secondary li a.active {
 	color: #6D6D6D;
 }
 
+#poker-footer {
+	left: 5px;
+	bottom: 10px;
+	position: absolute;
+}
+
 #footer-powered {
-	margin-right: 10px;
-	bottom: -75px;
-	float: right;
+	right: 10px;
+	bottom: 10px;
+	position: absolute;
 }
 #sidebar-left,
 #sidebar-right {
@@ -322,33 +292,36 @@ body.iframe #main {
 
 #user_login {
 	color: #FFFFFF;
-	height: 91px;
+	height: 97px;
 	overflow: hidden;
 	text-decoration: none;
-	margin-top: -6px;
-	white-space: nowrap;
-	width: 270px;
-	font-size: 10px;
+	font-size: 10px !important;
+	margin-left: 21px;
+	margin-top: 10px;
+}
+
+#user_login .right_align {
+	margin: 28px 15px 0;
 }
 
 #user_login .user_login_row {
-	float: left;
-	white-space: nowrap;
-	margin-left: 7px;
+	/*float: left;*/
+	/*white-space: nowrap;*/
+	/*margin-left: 7px;*/
 }
 
 #user_login .user_login_brief_row {
 	display: block;
 	float: right;
 	white-space: nowrap;
-	padding-left: 7px;
-	padding-top: 2px;
+	/*padding-right: 7px;*/
+	/*margin-top: 2px;*/
 }
 
 #user_login .user_login_line {
-	float: none;
-	height: 20px;
-	text-align: left;
+	/*float: none;*/
+	/*/*height: 20px;*/*/
+	/*text-align: left;*/
 }
 
 #user_login .form-item {
@@ -356,12 +329,14 @@ body.iframe #main {
 	padding: 0;
 	text-align: left;
 	width: 110px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 #user_login #edit-remember-me-wrapper {
 	padding-top: 3px;
 	font-size: 10px;
+	position: absolute;
+	top: 61px;
 }
 
 /* dirty dirty ie7 fix */
@@ -388,6 +363,8 @@ body.iframe #main {
 	float: left;
 	width: 110px;
 	margin: 0 0 8px;
+	z-index: 99;
+	position: relative;
 }
 
 /* FIXME */
@@ -405,35 +382,39 @@ body.iframe #main {
 	text-decoration: underline;
 }
 
+/* FIXME MAYBE - this stuff is in main.css */
+a.logout {
+	font-weight: normal !important;
+	z-index: 99;
+	position: relative;
+}
+
+#user_login .poker_submit {
+	margin-top: -2px;
+	padding-left: 10px;
+	font-size: 10px;
+}
+
+
 /******************************
 * Header infos when logged in
 *******************************/
 
 .chips_count,
 .buddy_count {
-	padding: 0 0 0 15px;
-	margin: 4px 0 0 0;
-}
-
-.buddy_count {
-	/*background: url(images/icon_buddies.gif) no-repeat;*/
-	float: left;
-	white-space: normal;
+	/*padding: 0 0 0 15px;*/
+	/*margin: 4px 0 0 0;*/
 	width: 130px;
-	text-align: left;
-}
-
-.chips_count {
-	/*background: url(images/icon_chips.gif) no-repeat;*/
-	text-align: left;
+	text-align: left !important;
+	white-space: normal;
 }
 
 /* FIXME */
 .right_align {
-	position: absolute;
-	right: 0px;
-	text-align: right;
-	top: 1px;
+	/*position: absolute;*/
+	/*right: 0px;*/
+	/*text-align: right;*/
+	/*top: 1px;*/
 }
 
 /* FIXME */
@@ -479,9 +460,10 @@ div.poker_submit div.label {
 	float: left;
 	/*height: 16px;*/
 	text-align: center;
-	padding: 3px 6px 3px 9px;
+	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
 	color: #FFF;
+	/*width: 60px;*/
 }
 
 /* FIXME */
@@ -573,25 +555,16 @@ div.poker_submit.big.disabled:hover div.label {
 	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
 }
 
-/**************************
- * Home Signup
- * ***********************/
-#home_signup_form div.poker_submit div.label {
-	color: #6f480a;
-	font-weight: bold;
-}
-
 /*************************
 * Main menu
 *************************/
 
 #navbar {
-	height: 28px;
+	height: 29px;
 	/*width: 760px;*/
-	background: #1e1e1e url(images/navbar_bg_color.png) repeat-x 0 0;
-	overflow: hidden;
+	background: #555 url(images/navbar_bg_color.png) repeat-x 0 0;
 	border-top: 1px solid #000;
-	border-bottom: 1px solid #4E4E4E;
+	border-bottom: 1px solid #000;
 }
 
 #navbar ul.menu {
@@ -608,12 +581,11 @@ div.poker_submit.big.disabled:hover div.label {
 #navbar ul.menu li {
 	/*border-right: 1px solid #000;*/
 	/*border-left: 1px solid #4E4E4E;*/
-	background: url(images/navbar_li_bgleft_2px.png) no-repeat left;
+	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
 	display: block;
 	float: left;
 	/*height: 23px;*/
 	height: 22px;
-	/*background: url(images/navi_separator.png) no-repeat top right;*/
 	text-align: center;
 	margin: 0;
 	padding: 6px 20px 0;
@@ -698,10 +670,11 @@ div.poker_submit.big.disabled:hover div.label {
 #buddylist .list {
 	float: left;
 	height: 172px;
-	margin-top: -5px;
+	/*margin-top: -5px;*/
 	overflow: hidden;
 	padding-left: 1px;
 	width: 559px;
+	position: relative;
 }
 
 #buddylist .cursor {
@@ -712,18 +685,19 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .first_buddy {
-	border-left: 1px solid #CBCED4;
+	border-left: 1px solid #C9C9C9;
 }
 .buddy_list_block {
 	background: #D3D2D0 url(images/friend_box_bg_color.png) repeat-x;
 	border-bottom: 1px dotted #8C8C8C;
-	/*border-right: 1px solid #CBCED4;*/
+	border-right: 1px solid #C9C9C9;
 	height: 167px;
 	padding-top: 4px;
-	width: 79px;
-	/*width: 78px;*/
+	/*width: 79px;*/
+	width: 78px;
 	float: left;
 	text-align: center;
+	position: relative;
 }
 
 .buddy_list_number {
@@ -768,19 +742,18 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .buddy_list_placeholder .body {
-	left: 0;
 	position: absolute;
-	top: 77px;
-	padding: 3px;
+	left: 0;
+	top: 110px;
+	margin: 10px;
+	padding: 3px 3px 3px 15px;
+	background: #D9291A url(images/arrow_white.gif) no-repeat 5px 6px;
+	text-align: left;
 }
 
 #buddylist .buddy_list_placeholder .body a {
 	/*color: #000;*/
 	/*font-weight: bold;*/
-}
-
-div.body {
-	background-color: #D9291A;
 }
 
 .buddy_list_name {
@@ -926,26 +899,31 @@ div.body {
 	display: block;
 	padding: 0;
 	margin: 0;
-	border: 1px solid #653a38;
+	/*border: 1px solid #653a38;*/
 }
 
 #user-brief .info1 {
 	width: 140px;
 	/*padding-left: 8px;*/
 	padding-left: 55px;
+	position: relative;
 }
 
 #user-brief p {
 	margin: 0;
-	padding-top: 5px;
+	/*padding-top: 5px;*/
 }
 
-#user-brief p.info {
+#user-brief p.info, #user-brief div.reward_status, .reward_icon {
 	padding-top: 7px;
 }
 
 #user-brief p.info b {
-	color: #A9804A;
+	color: #D9291A;
+}
+
+.reward_title {
+	color: #FFF;
 }
 
 /*
@@ -976,13 +954,13 @@ div.body {
 .welcome {
 	color: #FFF;
 	top: -180px;
-	left: 456px;
+	left: 465px;
 	position: absolute;
 }
 
 .avatar {
-	top: -125px;
-	left: 468px;
+	top: 36px;
+	left: 488px;
 	position: absolute;
 }
 
@@ -1386,6 +1364,7 @@ body.de #play-now #play-now-button {
 
 #buddies-list {
 	width: 632px;
+	position: relative;
 }
 
 #buddies-list .buddy_result_list_entry {
@@ -1545,6 +1524,10 @@ ul.categories li a span {
 	color: #65605A;
 	font-size: 14px;
 	padding: 0 2px 0 0;
+}
+
+#shop {
+	position: relative;
 }
 
 #shop #items {
@@ -2207,6 +2190,9 @@ body.de p.Buddies { /* FIXME : german */
 	background: transparent url(images/bg_chips_package.png) bottom left repeat-x;
 	border: 1px solid #d7d7d7;
 }
+.choose_package .form-radios {
+	position: relative;
+}
 .chips_icon {
 	width: 35px;
 	height: 63px;
@@ -2306,6 +2292,7 @@ body.de p.Buddies { /* FIXME : german */
 .messages-popup {
 	height: 300px;
 	width: 600px;
+	position: relative;
 }
 
 .messages-popup a.close {
@@ -2648,3 +2635,26 @@ body.poker-tourneyinfo #middle-content-right {
 .poker-tourneyinfo .tourney-infobox#prize-box ul {
 	font-weight: bold;
 }
+
+/* Override page-front.css */
+
+#page-front-banners {
+	background: none !important;
+}
+
+/* Front page elements */
+#how_it_works {
+	background: transparent url(images/how_it_works_bg.png) no-repeat;
+	height: 296px;
+	width: 376px;
+	color: #000;
+}
+#how_description {
+	padding: 76px 15px 0 110px;
+	/*color: #000;*/
+}
+#how_description p, #how_it_works p  {
+	margin-top: 10px;
+}
+
+

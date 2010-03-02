@@ -41,6 +41,7 @@ div.tb-fix-margin a.LayerClose
 	height: 444px;
 	padding: 5px;
 	overflow: hidden !important;
+	position: relative;
 }
 
 /**
@@ -495,6 +496,7 @@ body.iframe #messagebox a.LayerClose
 	margin-left:auto;
 	margin-right:auto;
 	z-index:1042;
+	position: relative;
 }
 
 #poker-first-profile fieldset

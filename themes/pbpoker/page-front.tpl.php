@@ -89,9 +89,11 @@
 
 <body class="<?php print $body_classes; ?>">
   <div id="page">
+	<div id="page-inner">
 
+	<a id="sponsor" href="http://www.newyorker.de"><img src="/drupal6/sites/all/themes/pbpoker/images/logo_new-yorker.png" alt="Powered by New Yorker" target="_blank" /></a>
     <div id="header">
-		<div id="header-inner"><!-- class="clear-block"> -->
+		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
 				<div id="logo">
 					<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
@@ -105,9 +107,9 @@
 				  <?php print $header; ?>
 				</div> <!-- /#header-blocks -->
 			<?php endif; ?>
-		</div> <!-- /#header-inner -->
-		<a href="http://www.newyorker.de"><img src="/drupal6/sites/all/themes/pbpoker/images/logo_new-yorker.png" alt="Powered by New Yorker" target="_blank" /></a>
-	</div> <!-- /#header -->
+			<div class="clear"></div>
+		</div>
+	</div> <!-- /#header-inner, /#header -->
 
 	<?php if ($navbar): ?>
 	<div id="navbar">
@@ -121,9 +123,6 @@
 		</div>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
-	<div id="navbar-bottom"></div>
-
-	<div id="page-inner">
     <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >
 		<div id="tourney-notify-template">
 		<?php print(t("The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!")); ?>
@@ -222,6 +221,7 @@
         <?php endif; ?>
 
         <?php print $footer; ?>
+
 		<div id="footer-powered"><a href="http://www.newyorker.de">powered by New Yorker</a></div>
       </div></div> <!-- /#footer-inner, /#footer -->
     <?php endif; ?>
