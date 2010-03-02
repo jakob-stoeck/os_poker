@@ -793,11 +793,10 @@ body.de #profile-medium .abuse .poker_submit .label {
   display: none;
 }
 
-#table_users .list
-{
+#table_users .list {
 	height: 250px;
 	width: 300px;
-	background: url(images/bg_user_table.gif) repeat-x;
+	/*background: url(images/bg_user_table.gif) repeat-x;*/
 	float: left;
 	overflow: hidden;
 }

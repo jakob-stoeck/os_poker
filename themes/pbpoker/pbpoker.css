@@ -1610,7 +1610,7 @@ ul.categories li a span {
 ****************************/
 
 #table_users .list.splash {
-	background: transparent url(images/user_table_splash.jpg) no-repeat;
+	/*background: transparent url(images/user_table_splash.jpg) no-repeat;*/
 }
 
 #table_users .next {
@@ -1619,6 +1619,9 @@ ul.categories li a span {
 
 #table_users .previous {
 	background: transparent url(images/user-table-prev.gif) no-repeat bottom left;
+}
+.splash {
+	float: left;
 }
 
 /***************************
