@@ -32,7 +32,7 @@
 		?>
 
 			<div class="fleft reward_separator">
-				<img src="<?php print drupal_get_path("theme", "poker") . "/images/brief_separator.png"; ?>" alt="avatar"/>
+				<img src="<?php print drupal_get_path("theme", "pbpoker") . "/images/rewards_separator.png"; ?>" />
 			</div>
 			<div class="fleft">
 			    <p class="reward_title"><strong>

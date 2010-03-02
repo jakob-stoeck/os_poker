@@ -25,6 +25,12 @@ function pbpoker_theme() {
       'arguments' => array(),
       'template' => 'page-front-banners',
     ),
+	/* added because of broken module */
+	'os_poker_user_brief' => array(
+		'arguments' => array('os_user' => NULL),
+		'template' => 'user_brief',
+	),
+	/* end of added stuff */
   );
 }
 
@@ -89,7 +95,7 @@ function pbpoker_preprocess_block(&$variables) {
 
 function pbpoker_preprocess_os_poker_teaser(&$variables) {
   global $language;
-  
+
   $theme_path = drupal_get_path('theme', 'pbpoker');
   $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
   $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');

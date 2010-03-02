@@ -638,7 +638,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .header label {
-	color: #E9DFD1;
+	/*color: #E9DFD1;*/
 	font-size: 11px;
 	font-weight: bold;
 	vertical-align: middle;
@@ -653,7 +653,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .block_title_text {
-	color: #E9DFD1;
+	color: #FFF;
 	font-size: 11px;
 	font-weight: bold;
 }
@@ -701,7 +701,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .buddy_list_number {
-	background: url(images/buddy_number_bg.png) no-repeat scroll 0 0;
+	background: url(images/buddy_number_bg.gif) no-repeat scroll 0 0;
 	color: #fff;
 	margin-left: 10px;
 	text-align: center;
@@ -711,7 +711,6 @@ div.poker_submit.big.disabled:hover div.label {
 
 .buddy_list_number.golden {
 	background: url(images/buddy_first_number_bg.png) no-repeat;
-	color: #000;
 }
 .buddy_list_invite {
 	/*width: 100px;*/
@@ -770,7 +769,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 .buddy_list_name,
 .buddy_list_name a {
-	color: #A8904A;
+	color: #635E58;
 	font-weight: bold;
 	overflow: hidden;
 	padding-bottom: 5px;
@@ -786,6 +785,7 @@ div.poker_submit.big.disabled:hover div.label {
 .buddy_list_links a {
 	font-weight: bold;
 	white-space: nowrap;
+	color: #646464;
 }
 
 #buddylist #today_gift {
@@ -932,6 +932,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 .reward_separator {
 	width: 10px;
+	padding-top: 16px;
 }
 
 .reward_icon {
@@ -2322,11 +2323,11 @@ div.poker_error_message {
  * Overlays (popup boxes)
  ****************************/
 #os-poker-overlay .content {
-	width: 409px;
-	height: 307px;
-	border: 1px solid #5b4321;
-	background: #251c0d url(images/bg_overlay.gif);
-	padding: 15px;
+	/*width: 409px;*/
+	/*height: 307px;*/
+	/*border: 1px solid #5b4321;*/
+	/*background: #251c0d url(images/bg_overlay.gif);*/
+	/*padding: 15px;*/
 }
 
 /* FIXME : necessary or not ? */
@@ -2394,8 +2395,9 @@ div.poker_error_message {
 }
 
 #welcome-splash ul.links {
-	margin-left: 180px;
+	margin-left: 150px;
 	width: 141px;
+	margin-top: 124px;
 }
 
 #welcome-splash ul.links li {
@@ -2405,8 +2407,8 @@ div.poker_error_message {
 
 #welcome-splash ul.links a {
 	display: block;
-	width: 141px;
-	height: 28px;
+	width: 150px;
+	height: 30px;
 	padding-top: 7px;
 	background-image: url(images/button_welcome.gif);
 	color: #fff;
