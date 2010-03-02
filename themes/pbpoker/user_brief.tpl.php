@@ -5,7 +5,7 @@
 		</div>
 		<div class="fleft info1">
 			<p class="welcome">
-				<?php print t("Welcome") . ",<br/>" . ucfirst($os_user->profile_nickname); ?>
+				<?php print t("Welcome") . ", <strong>" . ucfirst($os_user->profile_nickname)."</strong>"; ?>
 			</p>
 			<p class="info">
 				<?php

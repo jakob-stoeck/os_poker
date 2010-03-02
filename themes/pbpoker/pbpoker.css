@@ -56,6 +56,10 @@ tr.even a {
 	cursor: pointer;
 }
 
+.hidden {
+	display: none;
+}
+
 /***************************
  * Resetting jquery tab CSS
  ***************************/
@@ -463,7 +467,7 @@ div.poker_submit div.label {
 	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
 	color: #FFF;
-	/*width: 60px;*/
+	width: 60px;
 }
 
 /* FIXME */
@@ -912,6 +916,7 @@ div.poker_submit.big.disabled:hover div.label {
 #user-brief p {
 	margin: 0;
 	/*padding-top: 5px;*/
+	white-space: nowrap;
 }
 
 #user-brief p.info, #user-brief div.reward_status, .reward_icon {
@@ -957,6 +962,7 @@ div.poker_submit.big.disabled:hover div.label {
 	top: -180px;
 	left: 465px;
 	position: absolute;
+	font-weight: normal;
 }
 
 .avatar {
@@ -2395,9 +2401,10 @@ div.poker_error_message {
 }
 
 #welcome-splash ul.links {
-	margin-left: 150px;
-	width: 141px;
-	margin-top: 124px;
+	margin-left: 146px;
+	/*width: 141px;*/
+	margin-top: 185px;
+	position: absolute;
 }
 
 #welcome-splash ul.links li {

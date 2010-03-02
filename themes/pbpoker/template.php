@@ -30,6 +30,10 @@ function pbpoker_theme() {
 		'arguments' => array('os_user' => NULL),
 		'template' => 'user_brief',
 	),
+	'os_poker_os_poker_welcome-splash' => array(
+		'arguments' => array('os_user' => NULL),
+		'template' => 'welcome-splash',
+	),
 	/* end of added stuff */
   );
 }
