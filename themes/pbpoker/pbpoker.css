@@ -269,6 +269,11 @@ body.iframe #main {
 	border: 0 hidden #525252;
 }
 
+body.poker-profile #TB_window {
+	top: 71%;
+	left: 49%;
+}
+
 /* FIXME : rgba */
 .TB_overlayBG {
 	background-color: #000000;
@@ -2241,6 +2246,35 @@ div.poker_error_message {
     height: 264px;
 }
 
+/*****************************
+ * popup for messages inside thickboxes
+ * ***************************/
+
+body.iframe .messages-popup
+{
+    height: 55px !important;
+    padding: 12px 10px 9px !important;
+    background: #dfdfdf url(images/BG_message.jpg) top left repeat-x;
+    color: #6c6c6c;
+    border: 1px solid #999999;
+	font-size: 85%;
+	overflow: hidden !important;
+    -moz-box-shadow:0px;
+    box-shadow:0px;
+/*	width: 95% !important;*/
+}
+
+body.iframe .messages-popup .content {
+	height: 40px !important;
+	overflow: hidden !important;
+}
+
+body.iframe .messages-popup a.close 
+{
+	display: none !important;
+}
+
+
 /******************************
  * Overlays (popup boxes)
  ****************************/
@@ -2561,3 +2595,46 @@ body.poker-tourneyinfo #middle-content-right {
 .poker-tourneyinfo .tourney-infobox#prize-box ul {
 	font-weight: bold;
 }
+
+/*****************************
+ * Overrides: user_relationships
+ * ***************************/
+
+
+.user_relationships_ui_popup_form 
+{
+    background:#DDDDDD url(images/BG_message.jpg) repeat scroll 0 0;
+    border:1px solid #999999;
+    padding:10px;
+	height: 45px;
+}
+
+.user_relationships_ui_popup_form a.thickbox
+{
+	color: #727272;
+	font-weight: bold;
+}
+
+#user-relationships-ui-pending-requested div.poker_submit
+{
+	/*margin-top: 0px;*/
+}
+
+#user-relationships-ui-pending-requested div.poker_submit div.pre 
+{
+      	display: none;
+}
+
+#user-relationships-ui-pending-requested div.poker_submit div.label
+{
+    	background: transparent;
+	color: #810E0B;
+	position: relative;
+	top: -1.5px;
+}
+
+#user-relationships-ui-pending-requested .container-inline a 
+{
+	color: #810E0B;
+}
+
