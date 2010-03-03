@@ -38,6 +38,14 @@ function pbpoker_theme() {
 		'arguments' => array('os_user' => NULL),
 		'template' => 'home_promotion',
 	),
+	'os_poker_profile' => array(
+		'arguments' => array('target_user' => NULL, "external" => TRUE, 'next_tourney' => NULL, 'tourney_results' => array()),
+		'template' => 'profile',
+	),
+	'os_poker_table_users' => array(
+		'arguments' => array('item' => NULL, 'selected' => FALSE),
+		'template' => 'table_users',
+	),
 	/* This one doesn't work */
 	'os_poker_news' => array(
 		'arguments' => array('os_user' => NULL),

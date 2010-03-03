@@ -101,7 +101,7 @@ ul.primary li a {
 	font-weight: bold;
 	border: 1px solid #CBCBC9;
 	border-bottom: none;
-	background: #DFDFDF url(images/bg_layernavbutton.gif) repeat-x scroll 0 0;
+	background: transparent url(images/thickboxes_tab_bg.png) repeat-x;
 	color: #6C6C6C;
 	height: 18px;
 	display: block;
@@ -284,6 +284,10 @@ body.iframe #main {
 	filter: alpha(opacity=50);
     -moz-opacity : 0.5;
     opacity : 0.5;
+}
+
+.tabs-window .block_title_bar {
+	background: transparent url(images/titlebar_js_bg.png) repeat-x;
 }
 
 /************************
@@ -566,9 +570,10 @@ div.poker_submit.big.disabled:hover div.label {
 #navbar {
 	height: 29px;
 	/*width: 760px;*/
-	background: #555 url(images/navbar_bg_color.png) repeat-x 0 0;
+	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
+	padding-left: 2px;
 }
 
 #navbar ul.menu {
@@ -586,25 +591,27 @@ div.poker_submit.big.disabled:hover div.label {
 	/*border-right: 1px solid #000;*/
 	/*border-left: 1px solid #4E4E4E;*/
 	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
-	display: block;
+	display: inline;
 	float: left;
-	/*height: 23px;*/
-	height: 22px;
 	text-align: center;
 	margin: 0;
-	padding: 6px 20px 0;
+	/*padding: 6px 20px 0;*/
 	list-style-type: none;
 	list-style-image: none;
+	padding-left: 2px;
+	padding: 0;
 }
 
 #navbar ul.menu li a {
+	display: block;
 	color: #fff;
 	font-family: arial; /* FIXME */
 	font-size: 12px;
 	font-weight: normal;
 	text-decoration: none;
 	margin: 0;
-	padding: 0;
+	padding: 6px 20px 0;
+	height: 22px;
 }
 
 #navbar ul.menu li a:hover {
@@ -612,6 +619,11 @@ div.poker_submit.big.disabled:hover div.label {
 }
 #navbar-bottom {
 	border-top: 1px solid #000;
+}
+
+/*#navbar ul.menu li.active-trail {*/
+#navbar ul.menu li.active-trail a.active {
+	background: url(images/active-trail.jpg);
 }
 
 /*******************************
@@ -1068,6 +1080,10 @@ body.de #play-now #play-now-button {
 * Thickbox : Profile => Update profile
 ********************************/
 
+#profile .poker_submit label {
+	width: 80px;
+	font-size: 10px;
+}
 #profile-update {
 	padding-left: 17px;
 }
@@ -1171,7 +1187,7 @@ body.de #play-now #play-now-button {
 }
 
 .TableRanking td.Column02 {
-	border-right: 1px solid #FFFFFF;
+	border-right: 8px solid #FFFFFF;
 	width: 70px;
 }
 
@@ -1471,7 +1487,8 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .bottom {
-  height: 300px;
+  height: 212px;
+  margin-top: 40px;
 }
 
 #profile-tabs .bottom .item-list {
@@ -1479,7 +1496,7 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .bottom .inner-item-list {
-   height: 70px;
+   /*height: 70px;*/
 }
 
 #profile-tabs .bottom .left {
@@ -1496,6 +1513,22 @@ body.de #play-now #play-now-button {
 
 #profile-tabs #profile-last-rewards {
   margin-bottom: 15px;
+}
+
+#profile-tabs .poker_submit .label {
+	font-size: 10px;
+}
+
+/*#profile-tabs*/
+#os-poker-profile-password-settings-form .label, #os-poker-profile-email-settings-form .label {
+	width: 26px;
+}
+
+#profile-tabs .profile-up-submit .label {
+	position: absolute;
+	left: 30px;
+	top: 210px;
+	width: 86px;
 }
 
 /************************************

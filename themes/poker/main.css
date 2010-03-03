@@ -109,10 +109,9 @@ div.tb-fix-margin a.LayerClose
 	color:white;
 }
 
-#profile-tabs .poker_submit .label
-{
-	color:#6E4809;
-	font-weight:bold;
+#profile-tabs .poker_submit .label {
+	/*color:#6E4809;*/
+	/*font-weight:bold;*/
 }
 
 #profile-tabs #profile
@@ -200,10 +199,9 @@ div.tb-fix-margin a.LayerClose
 	border:1px solid #810E0B;
 }
 
-#profile-tabs .bottom .inner-item-list
-{
+#profile-tabs .bottom .inner-item-list {
 	height:120px;
-	border-bottom: 1px dotted #810E0B;
+	/*border-bottom: 1px dotted #810E0B;*/
 	padding-left:12px;
 	overflow:hidden;
 }
@@ -227,9 +225,8 @@ div.tb-fix-margin a.LayerClose
 	margin-left:15px;
 }
 
-#profile-settings .setting-subblock
-{
-	padding-bottom:10px;
+#profile-settings .setting-subblock {
+	/*padding-bottom:10px;*/
 }
 
 #profile-settings .setting-block .form-item
@@ -590,10 +587,10 @@ body.iframe #messagebox a.LayerClose
 
 
 #poker-first-profile div.poker_submit div.label {
-	color:#6f480a;
-	font-weight:bold;
+	/*color:#6f480a;*/
+	/*font-weight:bold;*/
 	text-align:center;
-	width:70px;
+	/*width:70px;*/
 }
 
 #poker-first-profile p
@@ -736,7 +733,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .poker_submit .label, #profile-medium .poker_submit .label a {
 	width:80px;
-	color:#6E4809;
+	/*color:#6E4809;*/
 	font-weight:bold;
 }
 
