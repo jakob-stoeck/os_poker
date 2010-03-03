@@ -663,6 +663,9 @@ function 	os_poker_theme()
     'os_poker_tos' => array(
       'template' => 'imprint.en',
     ),
+    'os_poker_skin' => array(
+      'template' => 'skin',
+    ),
   );
 }
 
@@ -993,7 +996,14 @@ function os_poker_menu()
       'page arguments' => array(2),
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
-    )
+				),
+					'poker/skin' => array(
+							'title' => 'Skin',
+							'page callback' => 'os_poker_skin_page',
+							'file' 			   => 'os_poker_pages.php',
+							'access arguments' => array('administer os poker'),
+    ),
+							
   );
 	return $menu;
 }

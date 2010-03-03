@@ -526,4 +526,7 @@ function os_poker_tourney_info_page() {
 		return theme('os_poker_tourney_info');
 }
 
+function os_poker_skin_page() {
+		return theme('os_poker_skin');
+}
 ?>
