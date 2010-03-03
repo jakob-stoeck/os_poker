@@ -2638,3 +2638,8 @@ body.poker-tourneyinfo #middle-content-right {
 	color: #810E0B;
 }
 
+
+/* quickfix z2#210 FIXME */
+#edit-picture-upload-wrapper div input.file {
+	display: none !important;
+}
