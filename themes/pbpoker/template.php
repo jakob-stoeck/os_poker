@@ -30,9 +30,18 @@ function pbpoker_theme() {
 		'arguments' => array('os_user' => NULL),
 		'template' => 'user_brief',
 	),
-	'os_poker_os_poker_welcome-splash' => array(
+	'os_poker_welcome-splash' => array(
 		'arguments' => array('os_user' => NULL),
 		'template' => 'welcome-splash',
+	),
+	'os_poker_home_promotion' => array(
+		'arguments' => array('os_user' => NULL),
+		'template' => 'home_promotion',
+	),
+	/* This one doesn't work */
+	'os_poker_news' => array(
+		'arguments' => array('os_user' => NULL),
+		'template' => 'news',
 	),
 	/* end of added stuff */
   );
