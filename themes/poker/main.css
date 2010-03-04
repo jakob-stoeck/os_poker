@@ -491,13 +491,6 @@ body.iframe #messagebox a.LayerClose
 	border:0 none;
 }
 
-#poker-first-profile .title
-{
-	color:white;
-	border-bottom: 1px dotted white;
-	padding-bottom:5px;
-}
-
 #poker-first-profile .title h1
 {
 	font-size:14px;

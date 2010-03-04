@@ -149,8 +149,10 @@ body.not-logged-in #middle-content-right
 	width: 295px;
 }
 #messages #terms {
-	margin-left: 100px;
-	margin-top: 10px;
+	margin-left: 116px;
+	position: absolute;
+	top: 305px;
+	width: 187px;
 }
 
 /**
