@@ -1,0 +1,64 @@
+1	Newcomer	Player sits down at the table for the first time	PS	newcomer.gif	Bronce
+2	Blind Hen	Player wins his first hand	PS	blindhen.gif	Bronce
+3	It's taking part that counts!	Player participates in a tourney/sng for the first time	PS	it's_taking_part_that_counts.gif	Bronce
+4	Bullets	Player wins with AA hole cards	PS	bullets.gif	Bronce
+5	Cowboys	Player wins with KK hole cards	PS	cowboys.gif	Bronce
+6	Jailhouse Rock	Player wins with QQ hole cards	PS	jailhouserock.gif	Bronce
+7	Fish-Hooks	Player wins with JJ hole cards	PS	fish-hooks.gif	Bronce
+8	Route 66	Player wins with 66 hole cards	PS	route66.gif	Bronce
+9	Sailboats	Player wins with 44 hole cards	PS	sailboats.gif	Bronce
+10	Big Slick	Player wins with AK hole cards	PS	bigslick.gif	Bronce
+11	Big Chick	Player wins with AD hole cards	PS	bigchick.gif	Bronce
+12	Dinner for two	Player wins with 69 hole cards	PS	dinner_for_two.gif	Bronce
+13	Valentines's Day	Player wins with KQ hole cards, both heart	PS	valentinessday.gif	Bronce
+14	Big Bang 5.000	Player wins a big pot, more than 5.000 chips	PS	big_bang_5000.gif	Bronce
+15	No risk no fun	Player wins an all-in	PS	norisknofun.gif	Bronce
+16	Be my Buddy I	Player has at least 5 buddies	SN	be_my_buddy_I.gif	Bronce
+17	Follow me I	Player has at least 2 successful invitations	SN	follow_me_I.gif	Bronce
+18	Regular's Table	Player sits down at the table with at least one buddy	PS/SN	regulars_table.gif	Bronce
+19	It's my round!	Player buys a gift for every player at the table, value doesn't matter	PS/SN	Its_my_round.gif	Bronce
+20	Challenger	Player participates in a challenge	PS/SN	challenger.gif	Bronce
+21	Jackpot	Player wins with 777	PS	jackpot.gif	Silver
+22	Trips	Player wins with three of a kind	PS	trips.gif	Silver
+23	Ten Times Trips	Player wins with three of a kind, 10 times	PS	trips.gif	Silver
+24	Road Testing	Player wins with a street	PS	road_testing.gif	Silver
+25	On The Road	Player wins with a street, 10 times	PS	on_the_road.gif	Silver
+26	Flush	Player wins with a flush	PS	flush.gif	Silver
+27	Flush 10x	Player wins with a flush, 10 times	PS	flush.gif	Silver
+28	Full House	Player wins with a full house	PS	full_house.gif	Silver
+29	Full House 10x	Player wins with a full house, 10 times	PS	full_house.gif	Silver
+30	Broadway	Player wins with AKQJT	PS	broadway.gif	Silver
+31	The Bicycle	Player wins with A2345	PS	bicycle.gif	Silver
+32	Big Bang 10.000	Player wins a big pot, more than 10.000 chips	PS	big_bang_10000.gif	Silver
+33	Big Bang 25.000	Player wins a big pot, more than 25.000 chips	PS	_big_bang_25000.gif	Silver
+34	Bad Beat Full House	Player holds a full house and looses his hand	PS	bad_beat_full_house.gif	Silver
+35	Final Table	Player places top 9 in a tourney	PS	final_table.gif	Silver
+36	Lounge Lizard	Player has at least 10 buddies	SN	loungelizard.gif	Silver
+37	Randy Dandy	Player has at least 5 successful invitations	SN	randy_dandy.gif	Silver
+38	Regular's Table II	Player sits down at the table with at least three buddies	PS/SN	regulars_table_II.gif	Silver
+39	It's my round! II	Player buys a gift for every player at the table, aggregate value more than 1.000 Chips	PS/SN	its_my_round_II.gif	Silver
+40	The Millionaires Club	Player has a peek chip count of 1.000.000 chips	SN	the_millionaires_club.gif	Gold
+41	On a Rush	Player wins 10 hands in a row during a session	PS	on_a_rush.gif	Gold
+42	Quads	Player wins with four of a kind	PS	quads.gif	Gold
+43	Straight Flush	Player wins with a straight flush	PS	straightflush.gif	Gold
+44	The Road to Success	Player wins with a street, 50 times	PS	the_road_to__uccess.gif	Gold
+45	Flush Rush	Player wins with a flush, 50 times	PS	flush_rush.gif	Gold
+46	House-Hunter	Player wins with a full house, 50 times	PS	house-hunter.gif
+47	Big Bang 100.000	Player wins a big pot, more than 100.000 chips	PS	big_bang_100000.gif	Gold
+48	Kamikaze	Player wins with 27 hole cards, any suit	PS	kamikaze.gif	Gold
+49	Bad Beat Quads	Player holds four of a kind and looses his hand	PS	bad_beat_quads.gif	Gold
+50	Tournament Pro	Player wins a tourney	PS	tournament_pro.gif	Gold
+51	Cool Dude	Player has at least 50 buddies	SN	cool_dude.gif	Gold
+52	Party Animal	Player has at least 25 successful invitations	SN	party_animal.gif	Gold
+53	Private Table	Player sits down at the table with 8 buddies	PS/SN	full_table_private_table.gif	Gold
+54	It's my round! III	Player buys a gift for every player at the table, aggregate value more than 10.000 Chips	PS/SN	its_my_round_III.gif	Gold
+55	Royal Family	Player wins with a royal flush	PS	royal_family.gif	Platinum
+56	Marathon	at least 42 hours at the table within 8 days	PS	marathon.gif	Platinum
+57	Strike!	all achievements complete	SN	strike.gif	Platinum
+58	Milestone	10.000 hands played	PS	milestone.gif	Platinum
+59	Tournament Expert	Player wins at least 10 tourneys	PS	tournament_expert.gif	Platinum
+60	Donald Trump	Player had more than 1 million chips, lost everything and has again > 1 million chips	SN	donald_trump.gif	Platinum
+61	Big Spender	Player buys a gift for every player at the table, aggregate value more than 100.000 Chips	SN	big_spender.gif	Platinum
+62	Buddy King	Player has at least 100 buddies	SN	buddy_king.gif	Platinum
+63	Invitation King	Player has at least 50 successful invitations	SN	invitation_king.gif	Platinum
+64	Playboy	Player has spent at least 1.000.000 chips for gifts	SN	playboy.gif	Platinum

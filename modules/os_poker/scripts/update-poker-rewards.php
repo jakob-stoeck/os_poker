@@ -46,7 +46,7 @@ function update_rewards($txtfile, &$rewards) {
 	$line_num = 0;
 	foreach ($data as $line) {
 		$line_num++;
-		$fields = split("\t", $line);
+		$fields = split("\t", trim($line));
 		if (count($fields) != 6) {
 			print "Malformatted line at $txtfile:$line_num, skipping\n";
 			continue;
