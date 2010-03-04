@@ -98,6 +98,16 @@ function	os_poker_sign_up_form($form_state)
 							'#required' => TRUE,
 					);
 					
+	$form['profile_email_notify'] = array(
+			'#type' => 'hidden',
+			'#value' => 1,
+			);
+
+	$form['profile_newsletter'] = array(
+			'#type' => 'hidden',
+			'#value' => 1,
+			);
+
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
