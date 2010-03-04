@@ -3,7 +3,8 @@
  * @ http://playboy.de/poker
  * ********************************/
 
-body {
+body,
+body.poker-first-profile {
 	margin: 0;
 	border: 0;
 	background: #000 url(images/bg.jpg) no-repeat fixed top center;
@@ -925,7 +926,7 @@ body.de #play-now #play-now-button {
 ********************************/
 
 #poker-first-profile {
-	background: url(images/pre_body_bg.gif)
+	background: url(images/pre_body_bg.gif);
 	border: 1px solid #5A4220;
 }
 
