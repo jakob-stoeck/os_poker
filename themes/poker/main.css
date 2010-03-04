@@ -484,17 +484,7 @@ body.iframe #messagebox a.LayerClose
     opacity : 0.6;
 }
 
-#poker-first-profile
-{
-	background:transparent url(images/pre_body_bg.gif) repeat scroll top left;
-	border:#501713 solid 1px;
-	width: 380px;
-	padding:15px;
-	margin-left:auto;
-	margin-right:auto;
-	z-index:1042;
-	position: relative;
-}
+/* Moving -> #poker-first-profile  and others TO pbpoker.css ~ Line 1022 */
 
 #poker-first-profile fieldset
 {

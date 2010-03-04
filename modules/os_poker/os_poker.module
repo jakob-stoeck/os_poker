@@ -336,7 +336,8 @@ function os_poker_init()
 
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
 
-	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";
+	/*$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";*/
+	$file_button = drupal_get_path('theme', 'pbpoker') . "/images/browse_button_de.png";
 	$inline_js = "
 
 	function	os_poker_input_file_style()

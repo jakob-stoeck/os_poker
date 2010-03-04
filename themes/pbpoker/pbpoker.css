@@ -570,7 +570,7 @@ div.poker_submit.big.disabled:hover div.label {
 #navbar {
 	height: 29px;
 	/*width: 760px;*/
-	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
+	/*background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;*/
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	padding-left: 2px;
@@ -586,6 +586,7 @@ div.poker_submit.big.disabled:hover div.label {
 #navbar ul.menu li:first-child {
 	/*border-left: 1px solid #000;*/
 	/*background: url(images/navbar_li_firstchild_bg.png) no-repeat left;*/
+	margin-left: O;
 }
 #navbar ul.menu li {
 	/*border-right: 1px solid #000;*/
@@ -597,6 +598,7 @@ div.poker_submit.big.disabled:hover div.label {
 	margin: 0;
 	/*padding: 6px 20px 0;*/
 	list-style-type: none;
+	padding-left: 2px;
 	list-style-image: none;
 	padding-left: 2px;
 	padding: 0;
@@ -612,17 +614,18 @@ div.poker_submit.big.disabled:hover div.label {
 	margin: 0;
 	padding: 6px 20px 0;
 	height: 22px;
+	margin-left: 2px;
 }
 
-#navbar ul.menu li a:hover {
-	text-decoration: underline;
-}
+/*#navbar ul.menu li a:hover {*/
+	/*text-decoration: underline;*/
+/*}*/
 #navbar-bottom {
 	border-top: 1px solid #000;
 }
 
 /*#navbar ul.menu li.active-trail {*/
-#navbar ul.menu li.active-trail a.active {
+#navbar ul.menu li.active-trail a.active, #navbar ul.menu a:hover {
 	background: url(images/active-trail.jpg);
 }
 
@@ -1023,8 +1026,20 @@ body.de #play-now #play-now-button {
 ********************************/
 
 #poker-first-profile {
-	background: url(images/pre_body_bg.gif)
-	border: 1px solid #5A4220;
+	background:transparent url(images/first_time_register_bg.png) repeat scroll top left;
+	border: 1px solid #767676;
+	width: 380px;
+	padding:15px;
+	margin-left:auto;
+	margin-right:auto;
+	z-index:1042;
+	position: relative;
+}
+
+#poker-first-profile .title {
+	color:white;
+	border-bottom: 1px dotted #A8A8A8;
+	padding-bottom:5px;
 }
 
 /******************************
