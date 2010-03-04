@@ -1,0 +1,5 @@
+To update the rewards, run:
+php scripts/update-poker-rewards.php
+in the directory modules/os_poker
+
+
