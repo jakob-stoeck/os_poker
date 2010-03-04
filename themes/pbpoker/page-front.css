@@ -87,9 +87,9 @@ body.not-logged-in #middle-content-right
  * ***********************/
 
 #home_signup {
-	background: transparent url(images/register_bg.png) no-repeat;
+	background: transparent url(images/register_bg.png) no-repeat scroll -3px 0;
 	height: 296px;
-	width: 356px;
+	width: 353px;
 	/*padding: 76px 15px 0 110px !important;*/
 }
 

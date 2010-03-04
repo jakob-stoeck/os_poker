@@ -91,7 +91,11 @@
   <div id="page">
 	<div id="page-inner">
 
-	<a id="sponsor" href="http://www.newyorker.de"><img src="/drupal6/sites/all/themes/pbpoker/images/logo_new-yorker.png" alt="Powered by New Yorker" target="_blank" /></a>
+<?php
+// Added by n4mu to simplify (i hope)
+$cfg_theme_path = drupal_get_path("theme", "pbpoker")
+?>
+<a id="sponsor" href="http://www.newyorker.de"><img src="<? print $cfg_theme_path; ?>/images/logo_new-yorker.png" alt="Powered by New Yorker" target="_blank" /></a>
     <div id="header">
 		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
@@ -202,7 +206,62 @@
 
 				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
+
+				<? // Static home page things ?>
+				<? $what_page_we_on = "index";
+					// index = index when not logged in
+				?>
+
+				<? if ($what_page_we_on == "index") { ?>
+				<? // Front page not logged in - index.psd ?>
+					<div class="white_boxes">
+						<h2 class="title_bar">Preise</h2>
+						<div class="fleft prize_box">
+							<img class="fleft" src="<? print $cfg_theme_path; ?>/images/prize_hits.png" />
+							<div class="prize_txt">
+								<h3>Tagespreis</h3>
+								<p>Lorem text lol bonjour</p>
+							</div>
+						</div>
+						<div class="fright prize_box">
+							<div class="fleft">
+								<img src="<? print $cfg_theme_path; ?>/images/prize_cdpack.png" />
+							</div>
+							<div class="prize_txt">
+								<h3>Wochenpreis</h3>
+								<p>Lorem text lol bonjour</p>
+							</div>
+						</div>
+						<div class="fleft prize_box">
+							<div class="fleft">
+								<img src="<? print $cfg_theme_path; ?>/images/prize_fashion.png" />
+							</div>
+							<div class="prize_txt">
+								<h3>Monatpreis</h3>
+								<p>Lorem text lol bonjour</p>
+							</div>
+						</div>
+						<div class="fright prize_box">
+							<div class="fleft">
+								<img src="<? print $cfg_theme_path; ?>/images/prize_tbo.png" />
+							</div>
+							<div class="prize_txt">
+								<h3>Jahrespreis 2010</h3>
+								<p>Lorem text lol bonjour</p>
+							</div>
+						</div>
+						<div class="clear"></div>
+					</div>
+
+					<div class="white_boxes">
+						<h2 class="title_bar">Games</h2>
+					</div>
+
+				<? } else { ?>
+				<? // END Static home page things ?>
+
 				<?php print $bottom_content; ?>
+				<? } // Part of my semi static thing ?>
 
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>

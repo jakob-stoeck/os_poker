@@ -47,6 +47,10 @@ tr.even a {
 	float: left;
 }
 
+.fright {
+	float: right;
+}
+
 .right-aligned {
 	right: 0;
 	position: absolute;
@@ -135,8 +139,8 @@ ul.secondary li a.active {
 
 #main {
 	background: #646464 url(images/main_bg_color.png) repeat-x;
-	padding: 10px 5px 10px 10px;
-	width: 745px;
+	padding: 10px;
+	width: 740px;
 }
 
 #page {
@@ -573,7 +577,7 @@ div.poker_submit.big.disabled:hover div.label {
 	/*background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;*/
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
-	padding-left: 2px;
+	margin-left: -2px;
 }
 
 #navbar ul.menu {
@@ -856,7 +860,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #middle-content-left {
-	margin-right: 12px;
+	margin-right: 7px;
 	float: left;
 	/* FIXME : needs width */
 }
@@ -2696,6 +2700,8 @@ body.poker-tourneyinfo #middle-content-right {
 	font-weight: bold;
 }
 
+/* This Part will need cleaning */
+
 /* Override page-front.css */
 
 #page-front-banners {
@@ -2704,9 +2710,9 @@ body.poker-tourneyinfo #middle-content-right {
 
 /* Front page elements */
 #how_it_works {
-	background: transparent url(images/how_it_works_bg.png) no-repeat;
+	background: transparent url(images/how_it_works_bg.png) no-repeat scroll -6px 0;
 	height: 296px;
-	width: 376px;
+	width: 365px;
 	color: #000;
 }
 #how_description {
@@ -2717,4 +2723,35 @@ body.poker-tourneyinfo #middle-content-right {
 	margin-top: 10px;
 }
 
+.white_boxes {
+	background-color: #FFF;
+	padding: 5px 6px;
+	margin-bottom: 10px;
+}
 
+.prize_box {
+	color: #000;
+	margin: 8px 10px;
+	overflow: hidden;
+	height: 113px;
+	background: transparent url(images/prize_box.gif) no-repeat scroll top right;
+	width: 344px;
+}
+
+.prize_txt {
+	padding: 13px 10px 10px 144px;
+}
+
+.prize_txt h3 {
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+.title_bar {
+	background-color: #000;
+	color: #FFF;
+	padding: 7px 9px;
+	text-transform: uppercase;
+	letter-spacing: -0.06em;
+	font-size: 13px;
+}
