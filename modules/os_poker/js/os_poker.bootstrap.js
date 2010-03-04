@@ -26,7 +26,7 @@ Drupal.behaviors.os_poker = function(context) {
   var call_counter = arguments.callee.call_counter ? arguments.callee.call_counter + 1 : 1;
   arguments.callee.call_counter = call_counter;
   
-  if(call_counter === 1 && !$(document.body).hasClass('page-poker')) {
+  if(call_counter === 1 && !$(document.body).hasClass('iframe')) {
       if(typeof os_poker_input_file_style === 'function') {os_poker_input_file_style();}
       if(typeof os_poker_message_start === 'function') {os_poker_message_start();}
       if(typeof os_poker_init_events === 'function') {os_poker_init_events();}

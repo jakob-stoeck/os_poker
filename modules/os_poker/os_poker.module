@@ -305,7 +305,7 @@ function os_poker_init()
 	$inpoker = FALSE;
 	if (isset($_GET["q"]))
 	{
-		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker");
+		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker") && (substr($_GET["q"], 0, strlen("poker/pages")) != "poker/pages");
 	}
 
 
