@@ -71,10 +71,12 @@ function update_rewards($txtfile, &$rewards) {
 }
 
 function usage($cmd) {
-	print "Usage: $cmd <path to rewards.txt>\n
-\n
+	print "Usage: $cmd <path to rewards.txt>
+
 rewards.txt is the tab delimited text file formatted as per http://drupal-dev.pokersource.info/z2/wiki/RewardMap
+
 ";
+	exit;
 }
 
 if (empty($argv[1])) {
