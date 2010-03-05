@@ -322,9 +322,7 @@ body.iframe #main {
 #user_login p {
 	color: #FFF;
 	font-size: 11px;
-	/*text-transform: uppercase;*/
 	text-align: left;
-	/*margin-bottom: 3px;*/
 }
 
 #user_login .right_align {
@@ -334,44 +332,22 @@ body.iframe #main {
 #user_login .fleft, #user_login .fright {
 	margin-top: 6px;
 }
-#user_login .fright {
-	/*margin-right: 12px;*/
-}
-
-#user_login .user_login_row {
-	/*float: left;*/
-	/*white-space: nowrap;*/
-	/*margin-left: 7px;*/
-}
 
 #user_login .user_login_brief_row {
 	display: block;
 	float: right;
 	white-space: nowrap;
-	/*padding-right: 7px;*/
-	/*margin-top: 2px;*/
-}
-
-#user_login .user_login_line {
-	/*float: none;*/
-	/*/*height: 20px;*/*/
-	/*text-align: left;*/
 }
 
 #user_login .form-item {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	/*width: 110px;*/
-	/*overflow: hidden;*/
 }
 
 #user_login #edit-remember-me-wrapper {
-	/*padding-top: 3px;*/
 	font-size: 10px;
-	/*position: absolute;*/
-	/*top: 71px;*/
-	/*left: 20px:*/
+	margin-left: -1px;
 }
 
 #forgot_password {
@@ -397,15 +373,6 @@ body.iframe #main {
 #user_login .user_login_clear {
 	clear: both;
 	float: none;
-}
-
-#user_login .custom_input {
-	/* SEE IF WE CAN GET RID OF THIS */
-	/*float: left;*/
-	/*width: 110px;*/
-	/*margin: 0 0 8px;*/
-	/*z-index: 99;*/
-	/*position: relative;*/
 }
 
 /* FIXME */
