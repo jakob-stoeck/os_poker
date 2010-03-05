@@ -691,6 +691,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .list {
+	border-left: 1px solid #C9C9C9;
 	float: left;
 	height: 172px;
 	/*margin-top: -5px;*/
@@ -2754,4 +2755,115 @@ body.poker-tourneyinfo #middle-content-right {
 	text-transform: uppercase;
 	letter-spacing: -0.06em;
 	font-size: 13px;
+}
+
+/*****************************
+ * GAMES
+ * ***************************/
+
+/* Games on homepage (unlogged) */
+
+.games_hp {
+	width: 166px;
+	color: #000;
+	overflow: none;
+	margin: 12px 8px;
+	float: left;
+}
+
+.games_hp h3 {
+
+}
+
+.games_hp p {
+	margin: 2px 0 11px;
+}
+
+.submit_get {
+	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
+	padding: 1px 5px 1px 12px;
+	font-size: 10px;
+}
+.submit_get {
+	text-decoration: none;
+}
+
+/*******
+ * SEO
+ * *****/
+
+.seo_text {
+	color: #908F8F;
+}
+
+/**************
+ * Things from page-front.css that are not yet properly arranged
+ * *************************************************************/
+
+#messages {
+	color: #000;
+	font-size: 10px;
+	width: 295px;
+}
+
+#messages #terms {
+	margin-left: 116px;
+	position: absolute;
+	top: 305px;
+	width: 187px;
+}
+
+#terms a {
+	color: black;
+}
+
+/**
+ * Front page banners
+ */
+#page-front-banners {
+  padding: 0;
+  height: 175px;
+  width: 760px;
+  margin-left: -20px;
+  margin-bottom: -10px;
+  /*background-image: url(images/bg_signup_banners.png);*/
+  /*display: none;*/
+  text-align: center;
+  position: relative; /* IE */
+}
+
+#page-front-banners a.banner {
+  display: inline-block;
+  height: 165px;
+  width: 0px;
+  margin-top: 7px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: transparent;
+  background-position: center center;
+  background-repeat: no-repeat;
+	vertical-align: middle;
+  /*text-indent: -10000px;*/
+}
+
+#page-front-banners a.banner span {
+	display: none;
+}
+
+#page-front-banners #banner-signup {
+  background-image: url('images/front-banner-signup.gif');
+  width: 198px;
+  height: 162px;
+}
+
+#page-front-banners #banner-tournament {
+  background-image: url('images/front-banner-tournament.gif');
+  width: 198px;
+  height: 162px;
+}
+
+#page-front-banners #banner-join {
+  background-image: url('images/front-banner-join.gif');
+  width: 321px;
+  height: 162px;
 }
