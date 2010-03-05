@@ -46,11 +46,10 @@ function pbpoker_theme() {
 		'arguments' => array('item' => NULL, 'selected' => FALSE),
 		'template' => 'table_users',
 	),
-	/* This one doesn't work */
-	'os_poker_news' => array(
-		'arguments' => array('os_user' => NULL),
-		'template' => 'news',
-	),
+    'user_login_block' => array(
+      'template' => 'user_login',
+      'arguments' => array('form' => NULL),
+    ),
 	/* end of added stuff */
   );
 }

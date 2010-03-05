@@ -308,12 +308,34 @@ body.iframe #main {
 	overflow: hidden;
 	text-decoration: none;
 	font-size: 10px !important;
-	margin-left: 21px;
-	margin-top: 10px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
+	text-align: left;
+}
+
+#login_title {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#user_login p {
+	color: #FFF;
+	font-size: 11px;
+	/*text-transform: uppercase;*/
+	text-align: left;
+	/*margin-bottom: 3px;*/
 }
 
 #user_login .right_align {
 	margin: 28px 15px 0;
+}
+
+#user_login .fleft, #user_login .fright {
+	margin-top: 6px;
+}
+#user_login .fright {
+	/*margin-right: 12px;*/
 }
 
 #user_login .user_login_row {
@@ -340,15 +362,21 @@ body.iframe #main {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	width: 110px;
+	/*width: 110px;*/
 	/*overflow: hidden;*/
 }
 
 #user_login #edit-remember-me-wrapper {
-	padding-top: 3px;
+	/*padding-top: 3px;*/
 	font-size: 10px;
-	position: absolute;
-	top: 61px;
+	/*position: absolute;*/
+	/*top: 71px;*/
+	/*left: 20px:*/
+}
+
+#forgot_password {
+	text-transform: none;
+	margin-left: 3px;
 }
 
 /* dirty dirty ie7 fix */
@@ -372,11 +400,12 @@ body.iframe #main {
 }
 
 #user_login .custom_input {
-	float: left;
-	width: 110px;
-	margin: 0 0 8px;
-	z-index: 99;
-	position: relative;
+	/* SEE IF WE CAN GET RID OF THIS */
+	/*float: left;*/
+	/*width: 110px;*/
+	/*margin: 0 0 8px;*/
+	/*z-index: 99;*/
+	/*position: relative;*/
 }
 
 /* FIXME */
@@ -403,7 +432,7 @@ a.logout {
 
 #user_login .poker_submit {
 	margin-top: -2px;
-	padding-left: 10px;
+	/*padding-left: 10px;*/
 	font-size: 10px;
 }
 
@@ -434,8 +463,9 @@ a.logout {
 	background:  url(images/bg_input_signup.gif) repeat 0 0;
 	border: 1px solid #D0D0CF;
 	font-size: 11px;
-	line-height: 13px;
-	padding: 2px;
+	/*line-height: 13px;*/
+	/*padding: 2px;*/
+	width: 164px;
 }
 
 /************************
@@ -717,8 +747,7 @@ div.poker_submit.big.disabled:hover div.label {
 	border-right: 1px solid #C9C9C9;
 	height: 167px;
 	padding-top: 4px;
-	/*width: 79px;*/
-	width: 78px;
+	width: 79px;
 	float: left;
 	text-align: center;
 	position: relative;
@@ -2821,27 +2850,26 @@ body.poker-tourneyinfo #middle-content-right {
  * Front page banners
  */
 #page-front-banners {
-  padding: 0;
-  height: 175px;
-  width: 760px;
-  margin-left: -20px;
-  margin-bottom: -10px;
-  /*background-image: url(images/bg_signup_banners.png);*/
-  /*display: none;*/
-  text-align: center;
-  position: relative; /* IE */
+	padding: 0;
+	height: 175px;
+	width: 760px;
+	margin-left: -20px;
+	margin-bottom: -10px;
+	/*background-image: url(images/bg_signup_banners.png);*/
+	text-align: center;
+	position: relative; /* IE */
 }
 
 #page-front-banners a.banner {
-  display: inline-block;
-  height: 165px;
-  width: 0px;
-  margin-top: 7px;
-  margin-left: 5px;
-  margin-right: 5px;
-  background-color: transparent;
-  background-position: center center;
-  background-repeat: no-repeat;
+	display: inline-block;
+	height: 165px;
+	width: 0px;
+	margin-top: 7px;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: transparent;
+	background-position: center center;
+	background-repeat: no-repeat;
 	vertical-align: middle;
   /*text-indent: -10000px;*/
 }
