@@ -30,6 +30,10 @@ function pbpoker_theme() {
 		'arguments' => array('os_user' => NULL),
 		'template' => 'user_brief',
 	),
+	'os_poker_header_user_brief' => array(
+		'arguments' => array('os_user' => NULL),
+		'template' => 'user_header_brief',
+	),
 	'os_poker_welcome-splash' => array(
 		'arguments' => array('os_user' => NULL),
 		'template' => 'welcome-splash',
@@ -50,6 +54,10 @@ function pbpoker_theme() {
       'template' => 'user_login',
       'arguments' => array('form' => NULL),
     ),
+	'os_poker_languages' => array(
+		'arguments' => array('icons' => FALSE),
+		'template' => 'language_bar',
+	),
 	/* end of added stuff */
   );
 }

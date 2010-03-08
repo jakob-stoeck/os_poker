@@ -1,18 +1,10 @@
 <div id="user-brief">
 	<div id="user-brief-inner">
-		<div class="fleft avatar">
-      <?php print theme('user_picture', $os_user); ?>
-		</div>
 		<div class="fleft info1">
-			<p class="welcome">
-				<?php print t("Welcome") . ", <strong>" . ucfirst($os_user->profile_nickname)."</strong>"; ?>
-			</p>
 			<p class="info">
 				<?php
 					print t("Chips") . ": <b class='chips'>" . $os_user->Chips(TRUE) . "</b><br/>";
-
 					$s = $os_user->StatusEx($level, $maxl);
-
 					print t("Status") . ": {$s} ({$level}/{$maxl})";
 				?>
 			</p>

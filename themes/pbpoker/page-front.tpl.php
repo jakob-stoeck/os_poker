@@ -213,6 +213,11 @@ $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
 
 			</div></div> <!-- /#content-inner, /#content -->
 		</div>
+
+		<div id="skyscraper">
+			<img src="<? print $cfg_theme_path; ?>/images/skyscraper_1.png"/>
+		</div>
+
 	</div> <!-- /#main-inner, /#main -->
 
     <?php if ($footer || $footer_message): ?>

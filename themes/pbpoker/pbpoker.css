@@ -154,7 +154,7 @@ ul.secondary li a.active {
 #page-inner #sponsor {
 	position: absolute;
 	top: 0;
-	right: -170px;
+	right: -180px;
 }
 
 #page-inner, #header-inner, #navbar-inner {
@@ -326,7 +326,7 @@ body.iframe #main {
 }
 
 #user_login .right_align {
-	margin: 28px 15px 0;
+	/*margin: 28px 15px 0;*/
 }
 
 #user_login .fleft, #user_login .fright {
@@ -375,6 +375,29 @@ body.iframe #main {
 	float: none;
 }
 
+#avatar img {
+	height: 40px;
+	width: 40px;
+}
+
+#avatar {
+	padding-top: 6px;
+	margin-right: 6px;
+}
+
+#user_info_box .fleft, #user_info_box .fright {
+	margin: 0;
+}
+
+#user_info_box {
+	margin-top: 12px;
+}
+
+#user_info_box p {
+	font-size: 10px;
+}
+
+
 /* FIXME */
 .small_white_text, .small_white_text a {
 	text-decoration: none;
@@ -391,10 +414,10 @@ body.iframe #main {
 }
 
 /* FIXME MAYBE - this stuff is in main.css */
-a.logout {
-	font-weight: normal !important;
-	z-index: 99;
-	position: relative;
+#logout a {
+	/*font-weight: normal !important;*/
+	/*z-index: 99;*/
+	/*position: relative;*/
 }
 
 #user_login .poker_submit {
@@ -911,17 +934,6 @@ div.poker_submit.big.disabled:hover div.label {
 	margin-bottom: 4px;
 }
 
-#user-brief .avatar img {
-	/*height: 69px;*/
-	/*width: 69px;*/
-	height: 40px;
-	width: 40px;
-	display: block;
-	padding: 0;
-	margin: 0;
-	/*border: 1px solid #653a38;*/
-}
-
 #user-brief .info1 {
 	width: 140px;
 	/*padding-left: 8px;*/
@@ -969,22 +981,6 @@ div.poker_submit.big.disabled:hover div.label {
 .reward_status {
 	margin: 8px 0 0;
 	white-space: nowrap;
-}
-
-/* moving Login infos up to header */
-
-.welcome {
-	color: #FFF;
-	top: -180px;
-	left: 465px;
-	position: absolute;
-	font-weight: normal;
-}
-
-.avatar {
-	top: 36px;
-	left: 488px;
-	position: absolute;
 }
 
 /*************************
@@ -2708,7 +2704,7 @@ body.poker-tourneyinfo #middle-content-right {
 /* Front page elements */
 #how_it_works {
 	background: transparent url(images/how_it_works_bg.png) no-repeat scroll -6px 0;
-	height: 296px;
+	height: 285px;
 	width: 365px;
 	color: #000;
 }
@@ -2862,3 +2858,20 @@ body.poker-tourneyinfo #middle-content-right {
   width: 321px;
   height: 162px;
 }
+
+/* Skyscraper advert */
+
+#skyscraper {
+	position: absolute;
+	left: 775px;
+	top: 152px;
+}
+
+#skyscraper img {
+	width: 180px;
+	height: 475px;
+}
+
+
+
+
