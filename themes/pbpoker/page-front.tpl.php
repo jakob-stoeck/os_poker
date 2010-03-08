@@ -94,7 +94,7 @@
 <?php // Added by n4mu to simplify (i hope)
 $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
 
-<a id="sponsor" href="http://www.newyorker.de"><img src="<? print $cfg_theme_path; ?>/images/logo_new-yorker.png" alt="Powered by New Yorker" target="_blank" /></a>
+<a id="sponsor"i onclick="window.open(this.href); return false;" href="http://newyorker.de/" <img src="<? print $cfg_theme_path; ?>/images/logo_new-yorker.png" alt="Powered by New Yorker"></a>
     <div id="header">
 		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
