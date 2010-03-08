@@ -1,0 +1,13 @@
+; $Id: simplecdn_imagecache.info,v 1.1 2009/02/21 12:18:30 starnox Exp $
+name = ImageCache
+description = Enable the use of images (via ImageCache) with Simple CDN.
+core = 6.x
+package = CDN
+dependencies[] = simplecdn
+dependencies[] = imagecache
+; Information added by drupal.org packaging script on 2009-10-06
+version = "6.x-1.1"
+core = "6.x"
+project = "simplecdn"
+datestamp = "1254866168"
+
