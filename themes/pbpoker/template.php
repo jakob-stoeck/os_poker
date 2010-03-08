@@ -58,6 +58,14 @@ function pbpoker_theme() {
 		'arguments' => array('icons' => FALSE),
 		'template' => 'language_bar',
 	),
+    'buddies_list' => array(
+      'arguments' => array('buddies' => NULL, 'current_user' => NULL, 'action' => NULL, 'page' => NULL),
+      'template'  => 'buddies-list',
+    ),
+    'poker_error_message' => array(
+      'arguments' => array('text' => NULL),
+      'template'  => 'error_message',
+    ),
 	/* end of added stuff */
   );
 }

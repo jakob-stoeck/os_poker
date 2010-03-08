@@ -632,9 +632,10 @@ div.poker_submit.big.disabled:hover div.label {
 	display: block;
 	color: #fff;
 	font-family: arial; /* FIXME */
-	font-size: 12px;
+	font-size: 11px;
 	font-weight: normal;
 	text-decoration: none;
+	text-transform: capitalize;
 	margin: 0;
 	padding: 6px 20px 0;
 	height: 22px;
@@ -1467,6 +1468,23 @@ body.de #play-now #play-now-button {
 	margin-left: 10px;
 }
 
+/* this might be messy because of templates */
+#buddies-tabs {
+	background: transparent url(images/buddies_bg_girl.png) no-repeat;
+}
+
+/*#buddy_search_404 {*/
+	/*margin-left: -217px;*/
+	/*margin-top: -202px;*/
+	/*background: transparent url(images/buddies_sorry_not_found.png) no-repeat;*/
+/*}*/
+
+div.poker_error_message .msg {
+	/*padding-left: 215 !important;*/
+	/*padding-top: 83px;*/
+	/*width: 315px;*/
+}
+
 /********************************
  * FIXME : what is that?
  * *****************************/
@@ -1683,7 +1701,7 @@ ul.pager a.active {
 }
 
 ul.pager .pager-current {
-	color: #A8904A;
+	color: #D42918;
 }
 
 .item-list ul.pager {
@@ -2001,9 +2019,11 @@ body.de p.Buddies { /* FIXME : german */
 
 .TableRight {
 	border: 1px solid #DADADA;
-	position: absolute;
-	right: 20px;
-	top: 0;
+	/*position: absolute;*/
+	/*right: 20px;*/
+	/*top: 0;*/
+	float: right;
+	margin-top: -26px;
 }
 
 .TableRight th {
@@ -2040,10 +2060,12 @@ body.de p.Buddies { /* FIXME : german */
 
 .InviteMore {
 	height: 170px;
-	left: 515px;
-	position: absolute;
-	top: 180px;
+	/*left: 515px;*/
+	/*position: absolute;*/
+	/*top: 180px;*/
 	width: 87px;
+	clear: both;
+	float: right;
 }
 
 /*************************
@@ -2368,10 +2390,24 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.gif) no-repeat top left;
-    width: 100%;
-    height: 264px;
+    /*background: url(images/bg_no_result.gif) no-repeat top left;*/
+    background: none;
 }
+#buddy_search_404 {
+	background: transparent url(images/buddies_sorry_not_found.png) no-repeat 0 0;
+	height: 363px;
+	position: absolute;
+	left: 0;
+	top: 56px;
+	/*width: 100%;*/
+}
+#buddy_search_404_msg {
+	border-bottom: 1px dotted #D92322;
+	margin-left: 208px;
+	padding: 100px 0 20px 20px;
+	width: 254px;
+}
+
 
 /******************************
  * Overlays (popup boxes)
