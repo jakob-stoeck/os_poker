@@ -9,7 +9,8 @@
 				<p class="buddy_count">
 					<?php
 						$buddies = $os_user->Buddies(TRUE);
-						$status_string = t("You have @buddies Pokerbuddies", array("@buddies" => count($buddies))) . " (<u>";
+						//$status_string = t("You have @buddies Pokerbuddies", array("@buddies" => count($buddies))) . " (<u>";
+						$status_string = t("You have @buddies Friends", array("@buddies" => count($buddies))) . " (<u>";
 						$onl = 0;
 						foreach($buddies as $buddy) {
 							if ($buddy->Online()) {
@@ -30,7 +31,8 @@
 
 			<div class="fleft">
 				<p class="chips_count">
-					<?php print t("You have !chips Chips", array("!chips" => "<u><b class='chips'>" . $os_user->Chips(TRUE) . "</b></u>")); ?>
+					<?php //print t("You have !chips Chips", array("!chips" => "<u><b class='chips'>" . $os_user->Chips(TRUE) . "</b></u>")); ?>
+					<?php print t("You have !chips Coins", array("!chips" => "<u><b class='chips'>" . $os_user->Chips(TRUE) . "</b></u>")); ?>
 				</p>
 			</div>
 			<div class="fright">
