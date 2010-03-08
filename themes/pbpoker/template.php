@@ -69,6 +69,7 @@ function pbpoker_preprocess_page(&$variables) {
   }
 
   $variables['footer_scripts'] = drupal_get_js('footer');
+  $variables['special_scripts'] = drupal_get_js('special');
 }
 
 function pbpoker_preprocess_page_front_banners(&$variables)
