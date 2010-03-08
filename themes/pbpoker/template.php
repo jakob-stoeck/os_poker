@@ -66,6 +66,10 @@ function pbpoker_theme() {
       'arguments' => array('text' => NULL),
       'template'  => 'error_message',
     ),
+	'os_poker_shop_tabs' => array(
+		'arguments' => array('active_tab' => NULL, 'content' => NULL),
+		'template' => 'shop_tabs',
+	),
 	/* end of added stuff */
   );
 }
