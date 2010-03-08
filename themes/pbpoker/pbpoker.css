@@ -393,6 +393,9 @@ body.iframe #main {
 	font-size: 10px;
 }
 
+#edit-name {
+	text-transform: uppercase;
+}
 
 /* FIXME */
 .small_white_text, .small_white_text a {
@@ -453,7 +456,6 @@ body.iframe #main {
 	/*padding: 2px;*/
 	width: 164px;
 	color: #474747;
-	text-transform: uppercase;
 }
 
 /************************
