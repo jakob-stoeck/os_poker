@@ -1,0 +1,10 @@
+<?php
+// $Id: simplecdn_imagecache.install,v 1.1 2009/02/21 12:18:30 starnox Exp $
+
+function simplecdn_imagecache_install() {
+  //Do Nothing
+}
+
+function simplecdn_imagecache_uninstall() {
+  //Do Nothing
+}

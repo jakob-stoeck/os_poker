@@ -1,0 +1,41 @@
+<?php
+// $Id: simplecdn_image.module,v 1.1 2009/02/21 12:18:29 starnox Exp $
+
+/**
+ * Implementation of hook_help().
+ */
+function simplecdn_image_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#simplecdn_image":
+      $output = '<p>'. t("Enable the use of images (Drupal Core) with Simple CDN.") .'</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_simplecdnapi().
+ */
+function simplecdn_image_simplecdnapi($op) {
+  switch ($op) {
+    case 'load':
+      return array(
+        'eid' => 'image',
+        'name' => 'Image',
+      );
+      break;
+  }
+}
+
+/**
+ * Override Theme Function (Drupal 6.9).
+ */
+function phptemplate_image($path, $alt = '', $title = '', $attributes = NULL, $getsize = TRUE) {
+  if (!$getsize || (is_file($path) && (list($width, $height, $type, $image_attributes) = @getimagesize($path)))) {
+    $attributes = drupal_attributes($attributes);
+    $url = (url($path) == $path) ? $path : (base_path() . $path);
+    $url = simplecdn_rewrite_url($url, 'image'); // ADDED LINE
+    return '<img src="'. check_url($url) .'" alt="'. check_plain($alt) .'" title="'. check_plain($title) .'" '. (isset($image_attributes) ? $image_attributes : '') . $attributes .' />';
+  }
+}

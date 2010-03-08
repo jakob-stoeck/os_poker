@@ -1,0 +1,36 @@
+<?php
+
+function simplecdn_install() {
+  drupal_install_schema('simplecdn');
+}
+
+function simplecdn_uninstall() {
+  drupal_uninstall_schema('simplecdn');
+}
+
+function simplecdn_schema() {
+    $schema['simplecdn_mirrors'] = array(
+    'fields' => array(
+      'mid' => array(
+        'description' => t('The primary identifier for a CDN mirror.'),
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE),
+      'name' => array(
+        'description' => t('The name of the CDN mirror.'),
+        'type' => 'varchar',
+        'length' => 20,
+        'not null' => TRUE,
+        'default' => ''),
+      'url' => array(
+        'description' => t('If the player should autostart or not.'),
+        'type' => 'varchar',
+        'length' => 256,
+        'not null' => TRUE,
+        'default' => 'http://'),
+    ),
+    'primary key' => array('mid'),
+  );
+
+  return $schema;
+}

@@ -5,27 +5,21 @@
       <div id="home_promotion_1-banner">
   		</div>
   		<?php $swf = drupal_get_path("theme", "pbpoker"). '/swf/promotion/poker_300x100.swf'; ?>
-			<script type="text/javascript">
-        swfobject.embedSWF('<?php print $swf?>', "home_promotion_1-banner", "300", "100", "9.0.0", undefined, {}, {
-          'wmode': 'transparent'
-        });
-        function pb_open_tutorial() {
-		      if(typeof tb_show == 'function') {
-		        tb_show(undefined, '<?php print url('poker/help', array(
-		          'attributes' => array(
-                'class' => 'thickbox close',
-              ),
-              'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE))) ?>', false);
-	        }
-	        $('#TB_iframeContent').one('load', function(){
-	          var iframeDocument = $(this).contents().get(0);
-	          var w = iframeDocument.parentWindow || iframeDocument.defaultView;
-	          if(typeof w == 'object' && typeof w.$ == 'function') {
-	            w.$('.tabs').tabs('select', 3);
-	          }	          
-          });
-		    }
+        <script type="text/javascript">
+    	 $(window).ready(function() {
+    		 var id = 'home_promotion_1-banner';
+    		 var att = {
+    			 'wmode': 'transparent',
+    			 'width' : 300,
+    			 'height' : 100,
+    			 'data' : '<?php print $swf?>'
+             };
+    		 var par = {};
+    
+    		 swfobject.createSWF(att, par, id);
+		 });
       </script>
+
 		</div>
 		<div class="next"></div>
 		<div class="clear"></div>

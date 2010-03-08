@@ -67,6 +67,8 @@ function pbpoker_preprocess_page(&$variables) {
   if($variables['is_front'] && !$variables['logged_in']) {
     $variables['bottom_content'] = theme('page_front_banners');
   }
+
+  $variables['footer_scripts'] = drupal_get_js('footer');
 }
 
 function pbpoker_preprocess_page_front_banners(&$variables)
@@ -137,3 +139,17 @@ function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }
+
+function css_using_cdn($styles) {
+		$lines = preg_split('/[\r\n]+/', $styles);
+			$newlines = array();
+			foreach ($lines as $line) {
+						if (preg_match('/^(.*href=[\'"])([^\'"]+)([\'"].*)$/', $line, $m)) {
+										$line = $m[1] . simplecdn_rewrite_url($m[2], 'css') . $m[3];
+													$newlines[] = $line;
+												}
+							}
+
+				return join("\n", $newlines);
+}
+

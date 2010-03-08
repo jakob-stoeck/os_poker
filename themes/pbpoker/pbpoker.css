@@ -103,7 +103,7 @@ ul.primary li a {
 	font-weight: bold;
 	border: 1px solid #CBCBC9;
 	border-bottom: none;
-	background: #DFDFDF url(images/bg_layernavbutton.gif) repeat-x 0 0;
+	background: #DFDFDF url(images/bg_layernavbutton.png) repeat-x 0 0;
 	color: #6C6C6C;
 	height: 18px;
 	display: block;
@@ -141,7 +141,7 @@ ul.secondary li a.active {
 }
 
 #main {
-	background: url(images/pre_body_bg.gif) repeat;
+	background: url(images/pre_body_bg.png) repeat-x;
 	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
@@ -155,7 +155,7 @@ ul.secondary li a.active {
 }
 
 #header {
-	background: #000 url(images/bg_footer.gif) repeat -7px 0;
+	background: #000 url(images/bg_footer.png) repeat;
 	width: 760px;
 	height: 100px;
 	overflow: hidden;
@@ -201,7 +201,7 @@ ul.secondary li a.active {
 }
 
 #footer {
-	background: url(images/bg_footer.gif) no-repeat;
+	background: url(images/bg_footer.png);
 	height: 77px;
 	width: 760px;
 	text-align: right;
@@ -389,11 +389,11 @@ body.poker-profile #TB_window {
 }
 
 .buddy_count {
-	background: url(images/icon_buddies.gif) no-repeat;
+	background: url(images/icon_buddies.png) no-repeat;
 }
 
 .chips_count {
-	background: url(images/icon_chips.gif) no-repeat;
+	background: url(images/icon_chips.png) no-repeat;
 }
 
 /* FIXME */
@@ -406,7 +406,7 @@ body.poker-profile #TB_window {
 
 /* FIXME */
 .custom_input {
-	background:  url(images/bg_input_signup.gif) repeat 0 0;
+	background:  url(images/bg_input_signup.png) repeat-x;
 	border: 1px solid #D0D0CF;
 	font-size: 11px;
 	line-height: 13px;
@@ -432,7 +432,7 @@ div.poker_submit {
 }
 
 div.poker_submit div.pre {
-	background: url(images/button_left.gif) no-repeat;
+	background: url(images/button_left.png) no-repeat;
 	display: block;
 	float: left;
 	height: 16px;
@@ -440,7 +440,7 @@ div.poker_submit div.pre {
 }
 
 div.poker_submit div.label {
-	background: url(images/button_long_right.gif) no-repeat top right;
+	background: url(images/button_long_right.png) no-repeat top right;
    	padding-right: 7px;
 	display: block;
 	float: left;
@@ -465,12 +465,14 @@ div.poker_submit div.label input {
 */
 
 div.poker_submit.silver div.pre {
-  background-image: url(images/silver_button_left.gif);
+  background-image: url(images/silver_button_left.png);
+  background-position: left top;
   padding-top: 2px;
 }
 
 div.poker_submit.silver div.label {
-  background-image: url(images/silver_button_long_right.gif);
+  background-image: url(images/silver_button_long_right.png);
+  background-position: right top;
   color: #313751;
 }
 
@@ -479,13 +481,14 @@ div.poker_submit.silver div.label {
 */
 
 div.poker_submit.big {
-	 background: transparent url(images/bg_button_goldbig_right.gif) no-repeat top right;
+	 background: transparent url(images/bg_button_goldbig_right.png) no-repeat top right;
 	 padding-right: 12px;
 }
 
 /* FIXME */
 div.poker_submit.big div.label {
-	background: transparent url(images/bg_button_goldbig_middle.gif) repeat-x;
+	background: transparent url(images/bg_button_goldbig_middle.png) repeat-x;
+	background-position: top left;
 	height: 26px;
 	padding-top: 8px;
 	padding-right: 0;
@@ -494,47 +497,55 @@ div.poker_submit.big div.label {
 }
 
 div.poker_submit.big div.pre {
-	background: transparent url(images/bg_button_goldbig_left.gif) no-repeat;
+	background: transparent url(images/bg_button_goldbig_left.png) no-repeat;
+	background-position: top left;
 	height: 34px;
 	width: 12px;
 }
 
 div.poker_submit.big.disabled {
-	background: transparent url(images/bg_button_silverbig_right.gif) no-repeat top right;
+	background: transparent url(images/bg_button_silverbig_right.png) no-repeat top right;
+	background-position: top left;
 }
 
 div.poker_submit.big.disabled div.label {
-	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
+	background: transparent url(images/bg_button_silverbig_middle.png) repeat-x;
+	background-position: top left;
 	color: #8C8B89;
 }
 
 div.poker_submit.big.disabled div.pre {
-  background: transparent url(images/bg_button_silverbig_left.gif) no-repeat;
+  background: transparent url(images/bg_button_silverbig_left.png) no-repeat;
+	background-position: top left;
 }
 
 div.poker_submit.big:hover {
-  background: transparent url(images/bg_button_goldbig_right.gif) no-repeat top right;
+  background: transparent url(images/bg_button_goldbig_right.png) no-repeat top right;
 }
 
 div.poker_submit.big:hover div.pre {
-  background: transparent url(images/bg_button_goldbig_left.gif) no-repeat;
+  background: transparent url(images/bg_button_goldbig_left.png) no-repeat;
+	background-position: top left;
 }
 
 div.poker_submit.big:hover div.label {
-  background: transparent url(images/bg_button_goldbig_middle.gif) repeat-x;
+  background: transparent url(images/bg_button_goldbig_middle.png) repeat-x;
+	background-position: top left;
 	text-decoration: underline;
 }
 
 div.poker_submit.big.disabled:hover {
-	background: transparent url(images/bg_button_silverbig_right.gif) no-repeat top right;
+	background: transparent url(images/bg_button_silverbig_right.png) no-repeat top right;
 }
 
 div.poker_submit.big.disabled:hover div.pre {
-  background: transparent url(images/bg_button_silverbig_left.gif) no-repeat;
+  background: transparent url(images/bg_button_silverbig_left.png) no-repeat;
+	background-position: top left;
 }
 
 div.poker_submit.big.disabled:hover div.label {
-	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
+	background: transparent url(images/bg_button_silverbig_middle.png) repeat-x;
+	background-position: top left;
 }
 
 /**************************
@@ -624,7 +635,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 /* FIXME : this is a general element */
 .block_title_bar {
-	background: url(images/bg_titlebar.gif) repeat-x top left;
+	background: url(images/bg_titlebar.png) repeat-x top left;
 	height: 20px;
 	padding-top: 3px;
 	font-size: 12px;
@@ -638,7 +649,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 #buddylist #buddy_panel {
 	background-color: #EAE8E5;
-	background-image: url(images/bg_buddy_panel.png);
+	background-image: url(images/bg_buddy_panel.png) repeat-x;
 	width: 740px;
 	height: 182px;
 	padding-left: 2px;
@@ -746,7 +757,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist #today_gift {
-	background: url(images/bg_today_gift.jpg) no-repeat center center;
+	background: url(images/bg_today_gift.png) no-repeat center center;
 	width: 87px;
 	height: 170px;
 	color: #fff;
@@ -910,7 +921,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 #play-now #play-now-button {
     display: block;
-	background: url(images/play_now.gif) no-repeat top center;
+	background: url(images/play_now.png) no-repeat top center;
 	height: 46px;
 	width: 320px;
 	margin-top: 10px;
@@ -926,7 +937,7 @@ body.de #play-now #play-now-button {
 ********************************/
 
 #poker-first-profile {
-	background: url(images/pre_body_bg.gif);
+	background: url(images/pre_body_bg.png);
 	border: 1px solid #5A4220;
 }
 
@@ -1205,7 +1216,7 @@ body.de #play-now #play-now-button {
 }
 
 .buddies-search-banner {
-	background: url(images/buddysearch_title.gif) no-repeat 5px 0;
+	background: url(images/buddysearch_title.png) no-repeat 5px 0;
 	border: 0;
 	height: 111px;
 	margin: 5px 0 0 0;
@@ -1438,7 +1449,7 @@ ul.categories li a {
 
 ul.categories li.active a,
 ul.categories li a:hover {
-	background: url(images/bg_button_shopnav.gif) repeat-x;
+	background: url(images/bg_button_shopnav.png) repeat-x;
 }
 
 ul.categories li a span {
@@ -1484,7 +1495,7 @@ ul.categories li a span {
 
 #shop #items a:hover,
 #shop #items a.selected {
-	background: #fff url(images/bg_shop_item_hover.gif) no-repeat bottom right;
+	background: #fff url(images/bg_shop_item_hover.png) no-repeat bottom right;
 	border-right: none;
 	border-bottom: none;
 	padding-right: 1px;
@@ -1528,7 +1539,7 @@ ul.categories li a span {
 }
 
 /***************************
-* Who is at the table FIXME : where is that ?
+* Who is at the table/teasers @homepage
 ****************************/
 
 #table_users .list.splash {
@@ -1536,11 +1547,11 @@ ul.categories li a span {
 }
 
 #table_users .next {
-	background: transparent url(images/user-table-next.gif) no-repeat bottom right;
+	background: transparent url(images/user-table-next.png) no-repeat bottom right;
 }
 
 #table_users .previous {
-	background: transparent url(images/user-table-prev.gif) no-repeat bottom left;
+	background: transparent url(images/user-table-prev.png) no-repeat bottom left;
 }
 
 /***************************
@@ -1576,14 +1587,14 @@ ul.pager .pager-current {
 *************************************/
 
 .DailyBonusStep02 {
-	background: transparent url(images/bg_daily_bonus02.gif) no-repeat 0 0;
+	background: transparent url(images/bg_daily_bonus02.png) no-repeat 0 0;
 	height: 289px;
 	position: relative;
 	width: 282px;
 }
 
 body.de div.DailyBonusStep02 { /* FIXME: german */
-	background: transparent url(images/bg_daily_bonus02_de.jpg) no-repeat 0 0;
+	background: transparent url(images/bg_daily_bonus02_de.png) no-repeat 0 0;
 	height: 289px;
 	position: relative;
 	width: 282px;
@@ -1746,7 +1757,7 @@ p.Link a {
 }
 
 body.de div.DailyBonusStep02 { /* FIXME : german */
-	background-image: url(images/bg_daily_bonus02-de.gif);
+	background-image: url(images/bg_daily_bonus02-de.png);
 	background-position: 0px -28px;
 }
 
@@ -1800,7 +1811,7 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 .TableLeft th {
-	background: #030303 url(images/bg_titlebar.gif) repeat-x left top;
+	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
 	border-bottom: 1px solid #9F9B98;
 	border-right: 1px solid #9F9B98;
 	color: #FFFFFF;
@@ -1881,7 +1892,7 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 .TableRight th {
-	background: #030303 url(images/bg_titlebar.gif) repeat-x left top;
+	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
 	color: #FFFFFF;
 	height: 21px;
 	line-height: 16px;
@@ -1907,7 +1918,7 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 .TableRight div {
-	background: transparent url(images/bg_line_dotted.gif) repeat-x 0 0;
+	background: transparent url(images/bg_line_dotted.png) repeat-x 0 0;
 	height: 2px;
 	margin: 0;
 }
@@ -1958,7 +1969,7 @@ body.de p.Buddies { /* FIXME : german */
 
 #news .middle {
 	height: 76px;
-	background: transparent url(images/news_bg.gif) repeat-x 0 0;
+	background: transparent url(images/news_bg.png) repeat-x 0 0;
 	width: 300px;
 	font-weight: bold;
 	color: #fff;
@@ -2016,7 +2027,7 @@ body.de p.Buddies { /* FIXME : german */
 
 #home_promotion_1 .next,
 #home_promotion_2 .next {
-	background: transparent url(images/home_promotion_arrow_right.gif) no-repeat bottom right;
+	background: transparent url(images/home_promotion_arrow_right.png) no-repeat bottom right;
 	width: 15px;
 	height: 80px;
 	float: left;
@@ -2024,7 +2035,7 @@ body.de p.Buddies { /* FIXME : german */
 
 #home_promotion_1 .previous,
 #home_promotion_2 .previous {
-	background: transparent url(images/home_promotion_arrow_left.gif) no-repeat bottom left;
+	background: transparent url(images/home_promotion_arrow_left.png) no-repeat bottom left;
 	width: 13px;
 	height: 80px;
 	float: left;
@@ -2036,7 +2047,7 @@ body.de p.Buddies { /* FIXME : german */
 ****************************/
 
 #forgot-password {
-	background: url(images/pre_body_bg.gif);
+	background: url(images/pre_body_bg.png);
 	border-color: #5A4220;
 	border-style: solid;
 	border-width: 1px;
@@ -2051,7 +2062,7 @@ body.de p.Buddies { /* FIXME : german */
 /* FIXME : dont repeat that close thing everywhere */
 #forgot-password .LayerClose,
 #poker-first-profile a.LayerClose {
-	background-image: url(images/button_layerclose.gif);
+	background-image: url(images/button_layerclose.png);
 }
 
 #forgot-password .form-required {
@@ -2232,7 +2243,7 @@ body.de p.Buddies { /* FIXME : german */
 	position: absolute;
 	top: 0;
 	right: 0;
-	background: url(images/button_layerclose.gif) no-repeat center center;
+	background: url(images/button_layerclose.png) no-repeat center center;
 }
 
 .messages-popup div.messages.status {
@@ -2242,7 +2253,7 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.gif) no-repeat top left;
+    background: url(images/bg_no_result.png) no-repeat top left;
     width: 100%;
     height: 264px;
 }
@@ -2255,7 +2266,7 @@ body.iframe .messages-popup
 {
     height: 55px !important;
     padding: 12px 10px 9px !important;
-    background: #dfdfdf url(images/BG_message.jpg) top left repeat-x;
+    background: #dfdfdf url(images/BG_message.png) top left repeat-x;
     color: #6c6c6c;
     border: 1px solid #999999;
 	font-size: 85%;
@@ -2283,7 +2294,7 @@ body.iframe .messages-popup a.close
 	width: 409px;
 	height: 307px;
 	border: 1px solid #5b4321;
-	background: #251c0d url(images/bg_overlay.gif);
+	background: #251c0d url(images/bg_overlay.png);
 	padding: 15px;
 }
 
@@ -2291,7 +2302,7 @@ body.iframe .messages-popup a.close
 #os-poker-overlay a.closebutton {
 	text-indent: -10000px;
 	background-color: transparent;
-	background-image: url(images/button_layerclose.gif);
+	background-image: url(images/button_layerclose.png);
 	background-repeat: no-repeat;
 	background-position: center center;
 }
@@ -2369,7 +2380,7 @@ body.iframe .messages-popup a.close
 	width: 141px;
 	height: 28px;
 	padding-top: 7px;
-	background-image: url(images/button_welcome.gif);
+	background-image: url(images/button_welcome.png);
 	color: #fff;
 	font-size: 16px;
 	font-weight: bold;
@@ -2390,34 +2401,34 @@ body.de #welcome-splash ul.links a {
  ******************************/
 
 .poker-hand.royal-flush {
-	background: url(images/cards/hands/royal_flush.gif) no-repeat;
+	background: url(images/cards/hands/royal_flush.png) no-repeat;
 }
 .poker-hand.straight-flush {
-	background: url(images/cards/hands/straight_flush.gif) no-repeat;
+	background: url(images/cards/hands/straight_flush.png) no-repeat;
 }
 .poker-hand.four-of-a-kind {
-	background: url(images/cards/hands/4_of_a_kind.gif) no-repeat;
+	background: url(images/cards/hands/4_of_a_kind.png) no-repeat;
 }
 .poker-hand.full-house {
-	background: url(images/cards/hands/full_house.gif) no-repeat;
+	background: url(images/cards/hands/full_house.png) no-repeat;
 }
 .poker-hand.flush {
-	background: url(images/cards/hands/flush.gif) no-repeat;
+	background: url(images/cards/hands/flush.png) no-repeat;
 }
 .poker-hand.straight {
-	background: url(images/cards/hands/straight.gif) no-repeat;
+	background: url(images/cards/hands/straight.png) no-repeat;
 }
 .poker-hand.three-of-a-kind {
-	background: url(images/cards/hands/3_of_a_kind.gif) no-repeat;
+	background: url(images/cards/hands/3_of_a_kind.png) no-repeat;
 }
 .poker-hand.two-pairs {
-	background: url(images/cards/hands/2_pair.gif) no-repeat;
+	background: url(images/cards/hands/2_pair.png) no-repeat;
 }
 .poker-hand.one-pair {
-	background: url(images/cards/hands/one_pair.gif) no-repeat;
+	background: url(images/cards/hands/one_pair.png) no-repeat;
 }
 .poker-hand.high-card {
-	background: url(images/cards/hands/high_card.gif) no-repeat;
+	background: url(images/cards/hands/high_card.png) no-repeat;
 }
 
 /**********************************
@@ -2440,19 +2451,19 @@ body.poker-report-abuse #page {
 
 /*****************************
  * Tourney notification
- * FIXME : where is that?
+ * appears on top of pages
  * **************************/
 
 #tourney-notify-template {
-	display: none;
+	display: none; 
 }
 #tourney-notify {
 	width: 742px;
 	height: 24px;
 	margin-bottom: 11px;
-	background-image: url(images/tourney-notify.jpg);
-	background-repeat: no-repeat;
-	background-color: transparent;
+	background: #fff url(images/tourney-notify.png) repeat-x top left;
+	border: 1px solid #a7a7a7;
+	border-bottom: 0;
 	display: none;
 }
 
@@ -2604,7 +2615,7 @@ body.poker-tourneyinfo #middle-content-right {
 
 .user_relationships_ui_popup_form 
 {
-    background:#DDDDDD url(images/BG_message.jpg) repeat scroll 0 0;
+    background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;
     border:1px solid #999999;
     padding:10px;
 	height: 45px;

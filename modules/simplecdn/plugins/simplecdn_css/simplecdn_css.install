@@ -1,0 +1,10 @@
+<?php
+// $Id: simplecdn_css.install,v 1.1 2009/02/21 12:18:29 starnox Exp $
+
+function simplecdn_css_install() {
+  //Do Nothing
+}
+
+function simplecdn_css_uninstall() {
+  //Do Nothing
+}

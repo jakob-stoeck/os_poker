@@ -83,8 +83,7 @@
 <head>
   <title><?php print $head_title; ?></title>
   <?php print $head; ?>
-  <?php print $styles; ?>
-  <?php print $scripts; ?>
+  <?php print css_using_cdn($styles); ?>
 </head>
 
 <body class="<?php print $body_classes; ?>">
@@ -243,6 +242,7 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
-
+  <?php print $scripts; ?>
+  <?php print $footer_scripts; ?>
 </body>
 </html>

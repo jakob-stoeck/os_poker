@@ -181,6 +181,7 @@
 		</div>
 	</div> <!-- /#main-inner, /#main -->
 
+  <?php print $footer_scripts; ?>
 
 </body>
 </html>
