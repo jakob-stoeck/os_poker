@@ -325,10 +325,6 @@ body.iframe #main {
 	text-align: left;
 }
 
-#user_login .right_align {
-	/*margin: 28px 15px 0;*/
-}
-
 #user_login .fleft, #user_login .fright {
 	margin-top: 6px;
 }
@@ -456,6 +452,8 @@ body.iframe #main {
 	/*line-height: 13px;*/
 	/*padding: 2px;*/
 	width: 164px;
+	color: #474747;
+	text-transform: uppercase;
 }
 
 /************************
