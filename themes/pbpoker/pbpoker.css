@@ -141,7 +141,7 @@ ul.secondary li a.active {
 }
 
 #main {
-	background: url(images/pre_body_bg.png) repeat-x;
+	background: #252119 url(images/pre_body_bg.png) repeat-x;
 	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
@@ -2497,7 +2497,7 @@ body.poker-report-abuse #page {
  * Static page : tourney-info
  * ***************************/
 body.poker-tourneyinfo {
-	background: #141007 url(images/tourney_body_bg.png) repeat-x;
+	background: #28251a url(images/tourney_body_bg.png) repeat-x;
 }
 
 .poker-tourneyinfo #tourney-teaser {
