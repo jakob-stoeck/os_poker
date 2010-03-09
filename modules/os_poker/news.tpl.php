@@ -18,6 +18,22 @@
     
     		 swfobject.createSWF(att, par, id);
 		 });
+		function pb_open_tutorial() {
+		      if(typeof tb_show == 'function') {
+		        tb_show(undefined, '<?php print url('poker/help', array(
+		          'attributes' => array(
+        	          'class' => 'thickbox close',
+		        ),
+              'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE))) ?>', false);
+	        }
+	        $('#TB_iframeContent').one('load', function(){
+	          var iframeDocument = $(this).contents().get(0);
+	          var w = iframeDocument.parentWindow || iframeDocument.defaultView;
+	          if(typeof w == 'object' && typeof w.$ == 'function') {
+	            w.$('.tabs').tabs('select', 3);
+	          }	          
+          });
+		    }
       </script>
 
 		</div>
