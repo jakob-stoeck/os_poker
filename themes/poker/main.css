@@ -665,11 +665,12 @@ body.de #profile-medium .links .poker_submit {
 }
 
 #profile-medium .items #item_panel .list {
-	height: 50px;
-	width: 50px;
-	margin: 0 auto;
+	height: 47px;
+	width: 47px;
+	margin: 3px auto 0;
 	overflow: hidden;
 	border: 1px solid #CDCEC9;
+	position: relative;
 }
 
 #profile-medium .items .next, #profile-medium .items .next:hover,
