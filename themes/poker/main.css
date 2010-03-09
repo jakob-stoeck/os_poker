@@ -679,6 +679,7 @@ body.de #profile-medium .links .poker_submit {
 	margin: 0 auto;
 	overflow: hidden;
 	border: 1px solid #CDCEC9;
+	position: relative;
 }
 
 #profile-medium .items .next, #profile-medium .items .next:hover,
