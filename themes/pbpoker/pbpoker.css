@@ -505,7 +505,6 @@ div.poker_submit.big div.pre {
 
 div.poker_submit.big.disabled {
 	background: transparent url(images/bg_button_silverbig_right.png) no-repeat top right;
-	background-position: top left;
 }
 
 div.poker_submit.big.disabled div.label {
