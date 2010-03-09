@@ -327,12 +327,14 @@ function os_poker_init()
 			$_SESSION['dailychips'] = null;
 	}
 
+/*
 	// For testing, allows URL based login for test accounts.
 	if (!user_is_logged_in() && isset($_GET['u']))
 	{
-		user_authenticate(array('name' => $_GET['u'],
+		$user = user_authenticate(array('name' => $_GET['u'],
 					'pass' => 'test123'));
 	}
+*/
 
 	if ($inpoker == FALSE && user_is_logged_in() > 0)
 	{
