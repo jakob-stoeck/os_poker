@@ -2196,25 +2196,27 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 #newsletter input, #newsletter select {
-	height: 18px;
+	/*height: 18px;*/
 	margin: 1px 0;
 	border: 1px solid #454545;
 	/*float: left;*/
+	font-size: 1em;
+	padding: 1px;
 }
 .newsletter_submit {
 	background-color: #D9291A;
 	float: right;
+	color: #FFF;
 }
-.newsletter_form {
-	width: 177px
+select.newsletter_form {
+	width: 177px;
 }
-.newsletter_form_surname {
-	width: 87px;
-	/*float: left;*/
+input.newsletter_form {
+	width: 173px;
 }
-.newsletter_form_name {
-	width: 80px;
-	/*float: right;*/
+
+input.newsletter_form_name {
+	width: 83px;
 }
 
 /* social bookmarking */
@@ -2948,8 +2950,6 @@ body.poker-tourneyinfo #middle-content-right {
 	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
 	padding: 1px 5px 1px 12px;
 	font-size: 10px;
-}
-.submit_get {
 	text-decoration: none;
 }
 
