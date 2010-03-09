@@ -124,6 +124,9 @@ $cfg_theme_path = drupal_get_path("theme", "p4f")?>
 			<?php endif; ?>
 
 		</div>
+		<?php if ($logged_in) { ?>
+		<a id="radiobutton" href="http://newyorker.radio.de/micro/newyorker/index.jsp" onclick="window.open(this.href);return false;"><img src="<? print $cfg_theme_path; ?>/images/radio_button.png" alt="New Yorker Radio" title="New Yorker Radio"/></a>
+		<?php } ?>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
     <div id="main" <?php if ($logged_in) { print "class=\"logged_in\""; } ?> >

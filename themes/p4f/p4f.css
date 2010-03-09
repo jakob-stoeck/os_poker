@@ -654,6 +654,15 @@ div.poker_submit.big.disabled:hover div.label {
 	background: url(images/active-trail.jpg);
 }
 
+/* **************
+ * Radio button
+ * **************/
+
+#radiobutton {
+	position: absolute;
+	left: 764px;
+	top: 107px;
+}
 /*******************************
  * Content bottom : Buddy list
  ******************************/
