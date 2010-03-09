@@ -125,7 +125,10 @@ $cfg_theme_path = drupal_get_path("theme", "p4f")?>
 
 		</div>
 		<?php if ($logged_in) { ?>
-		<a id="radiobutton" href="http://newyorker.radio.de/micro/newyorker/index.jsp" onclick="window.open(this.href);return false;"><img src="<? print $cfg_theme_path; ?>/images/radio_button.png" alt="New Yorker Radio" title="New Yorker Radio"/></a>
+		<a id="radiobutton" title="New Yorker Radio" href="http://newyorker.radio.de/micro/newyorker/index.jsp" onclick="window.open(this.href);return false;">
+		<span>New Yorker Radio</span>
+		</a>
+
 		<?php } ?>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>

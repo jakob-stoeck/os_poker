@@ -659,10 +659,17 @@ div.poker_submit.big.disabled:hover div.label {
  * **************/
 
 #radiobutton {
+	background: url(images/radio_button.png) no-repeat;
 	position: absolute;
 	left: 764px;
 	top: 107px;
+	width: 198px;
+	height: 38px;
 }
+#radiobutton span {
+	display: none;
+}
+
 /*******************************
  * Content bottom : Buddy list
  ******************************/
