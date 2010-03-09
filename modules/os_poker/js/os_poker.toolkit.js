@@ -216,7 +216,7 @@ function	os_poker_start_challenge(player1, player2)
 
 function	os_poker_activate_item(elem)
 {
-	os_poker_send_message({type:"os_poker_activate_item", id_item:elem.id});
+	os_poker_send_message({type:"os_poker_activate_item", id_item:parseInt(elem.id)});
 	$(elem).parent().children().removeClass("active");
 	$(elem).addClass('active');
   if(typeof window.top.tb_remove === 'function') {
