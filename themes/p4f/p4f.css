@@ -64,6 +64,10 @@ tr.even a {
 	display: none;
 }
 
+.spacer {
+	margin-top: 10px;
+}
+
 /***************************
  * Resetting jquery tab CSS
  ***************************/
@@ -2147,6 +2151,123 @@ body.de p.Buddies { /* FIXME : german */
 #news .bottom {
 	width: 290px;
 	text-align: right;
+}
+
+/* new stuff for news page, because i'm not sure what the above is for */
+.news_content {
+	margin: 10px 5px;
+}
+#news_showroom {
+	width: 729px;
+	height: 410px;
+	overflow: hidden;
+}
+
+.news_block {
+	background: transparent url(images/news_block_bg.png) no-repeat;
+	height: 138px;
+	width: 201px;
+	float: left;
+	margin-right: 30px;
+	position: relative;
+}
+
+.news_block h2, #news_events h2 {
+	color: white;
+	text-transform: uppercase;
+	margin: 17px 0 0 11px;
+	font-size: 14px;
+}
+
+#news_events {
+	background: transparent url(images/news_events_bg.png) no-repeat;
+	height: 138px;
+	width: 268px;
+	float: right;
+}
+
+/* newsletter form !! */
+#newsletter {
+	width: 177px;
+	position: absolute;
+	top: 50px;
+	left: 13px;
+	z-index: 99;
+}
+
+#newsletter input, #newsletter select {
+	height: 18px;
+	margin: 1px 0;
+	border: 1px solid #454545;
+	/*float: left;*/
+}
+.newsletter_submit {
+	background-color: #D9291A;
+	float: right;
+}
+.newsletter_form {
+	width: 177px
+}
+.newsletter_form_surname {
+	width: 87px;
+	/*float: left;*/
+}
+.newsletter_form_name {
+	width: 80px;
+	/*float: right;*/
+}
+
+/* social bookmarking */
+
+#fbook a {
+	background: transparent url(images/news_facebook_icon.png) no-repeat;
+}
+
+#youtube a {
+	background: transparent url(images/news_youtube_icon.png) no-repeat;
+}
+#myspace a {
+	background: transparent url(images/news_myspace_icon.png) no-repeat;
+}
+#schuelervz a {
+	background: transparent url(images/news_schuelervz_icon.png) no-repeat;
+}
+#twitter a {
+	background: transparent url(images/news_twitter_icon.png) no-repeat;
+}
+.news_block ul {
+	margin: 15px 30px;
+	list-style: none;
+}
+
+.news_block li a {
+	display: block;
+	height: 36px;
+	width: 36px;
+	margin: 2px 5px;
+}
+
+.news_block li {
+	float: left;
+}
+
+.news_block li a span {
+	display: none;
+}
+
+/* EVENTS */
+#news_events_flash {
+	background-color: pink;
+	height: 55px;
+	width: 266px;
+	margin: 24px 1px;
+}
+
+/* Star news */
+#news_ny_and_stars {
+	background-color: dodgerBlue;
+	height: 322px;
+	width: 729px;
 }
 
 /****************************
