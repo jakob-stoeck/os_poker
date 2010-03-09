@@ -2895,7 +2895,9 @@ body.poker-tourneyinfo #middle-content-right {
   height: 162px;
 }
 
-/* Skyscraper advert */
+/* *****************
+ * Adverts
+ * ****************/
 
 #skyscraper {
 	position: absolute;
@@ -2906,3 +2908,23 @@ body.poker-tourneyinfo #middle-content-right {
 	height: 475px;
 }
 
+.ad-small {
+	width: 300px;
+	height: 100px;
+	background-color: pink;
+	overflow: hidden;
+}
+
+.ad-medium {
+	width: 300px;
+	height: 250px;
+	background-color: dodgerBlue;
+	overflow: hidden;
+}
+
+.ad-large {
+	width: 729px;
+	height: 90px;
+	background-color: orange;
+	overflow: hidden;
+}
