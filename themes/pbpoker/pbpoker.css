@@ -1833,7 +1833,7 @@ body.de p.Buddies { /* FIXME : german */
 	text-align: center;
 }
 
-.TableLeft td.Bgwhite {
+.TableLeft td.BgWhite {
 	background: #FFFFFF;
 	border-right: 1px solid #9F9B98;
 	overflow: hidden;
