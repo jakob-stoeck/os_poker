@@ -1358,10 +1358,10 @@ body.de #play-now #play-now-button {
 	padding-top: 5px;
 }
 
-/* should go with tabs-window config */
 #buddies-invited_list {
 	margin-top: 10px;
 	margin-left: 10px;
+	position: relative;
 }
 
 /********************************
@@ -1834,14 +1834,14 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 .TableLeft td.Bgwhite {
-	background: #FFFFFF none repeat 0 0;
+	background: #FFFFFF;
 	border-right: 1px solid #9F9B98;
 	overflow: hidden;
 	padding: 3px 3px 2px 6px;
 }
 
 .TableLeft td.BgGrey {
-	background: #ECECEC none repeat 0 0;
+	background: #ECECEC;
 	border-right: 1px solid #9F9B98;
 	color: #727272;
 	padding: 3px 3px 2px 6px;
@@ -1884,11 +1884,12 @@ body.de p.Buddies { /* FIXME : german */
 	float: left;
 }
 
-.TableRight {
+.TableRight { /* info on invitations */
 	border: 1px solid #DADADA;
 	position: absolute;
-	right: 20px;
+	right: 10px;
 	top: 0;
+	width: 140px;
 }
 
 .TableRight th {
