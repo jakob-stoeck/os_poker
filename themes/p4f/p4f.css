@@ -3032,6 +3032,54 @@ body.poker-tourneyinfo #middle-content-right {
   height: 162px;
 }
 
+/* *******
+ * Quiz
+ * ******/
+
+#quiz {
+	background: #FFF url(images/quiz_bg_image.png) no-repeat 10px 10px;
+	height: 370px;
+	width: 729px;
+	margin-top: 10px;
+}
+
+#quiz_games_teaser {
+	/*background-color: #FFF;*/
+	background: #FFF url(images/down_triangle.png) no-repeat 16px 29px;
+	width: 729px;
+	margin-top: 10px;
+	padding-top: 10px;
+}
+
+#quiz_games_teaser h2 {
+	margin: 0 8px;
+	/*height: 19px;*/
+	background-color: #D9291A;
+	border-right: 1px solid #FFF;
+	color: #FFF;
+	font-weight: normal;
+	font-size: 9px;
+	padding: 4px 8px;
+}
+
+#quiz_games_teaser_title {
+	background: #DA281A url(images/quiz_games_teaser_bg.png) repeat-x 0 0;
+	height: 19px;
+	margin: 0 8px;
+}
+
+#quiz_next {
+	border-top: 1px solid #BEBEBE;
+	margin: 0 8px;
+}
+#quiz_next a {
+	background: transparent url(images/quiz_next.png) no-repeat;
+	height: 19px;
+	width: 87px;
+	margin: 9px 0;
+}
+
+
 /* *****************
  * Adverts
  * ****************/

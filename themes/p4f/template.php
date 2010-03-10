@@ -70,6 +70,10 @@ function p4f_theme() {
 		'arguments' => array('active_tab' => NULL, 'content' => NULL),
 		'template' => 'shop_tabs',
 	),
+	'os_poker_footer' => array(
+		'arguments' => array(),
+		'template' => 'footer',
+    ),
 	/* end of added stuff */
   );
 }

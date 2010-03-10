@@ -157,7 +157,7 @@ $cfg_theme_path = drupal_get_path("theme", "p4f")?>
 				<?php if ($title || $tabs || $help): ?>
 					<div id="content-header">
 						<?php if ($title): ?>
-							<h1 class="title"><?php print $title; ?></h1>
+							<h1 class="title hidden"><?php print $title; ?></h1>
 						<?php endif; ?>
 						<?php if ($tabs): ?>
 							<div class="tabs">
