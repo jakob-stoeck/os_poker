@@ -505,7 +505,6 @@ div.poker_submit.big div.pre {
 
 div.poker_submit.big.disabled {
 	background: transparent url(images/bg_button_silverbig_right.png) no-repeat top right;
-	background-position: top left;
 }
 
 div.poker_submit.big.disabled div.label {
@@ -1021,7 +1020,7 @@ body.de #play-now #play-now-button {
 
 #profile-update .form-radios.custom_radio {
 	float: left;
-	margin: -7px 0 0;
+	margin: -10px 0 0;
 	width: 230px;
 }
 
@@ -1062,9 +1061,13 @@ body.de #play-now #play-now-button {
 }
 
 #profile-update .image_promo p.Dollar {
-	left: 45px;
-	top: 38px;
+	left: 47px;
+	top: 43px;
 	z-index: 3;
+}
+
+#profile-update select option {
+	padding: 0 5px !important;
 }
 
 /*******************************

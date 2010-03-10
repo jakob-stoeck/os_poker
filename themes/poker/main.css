@@ -184,8 +184,8 @@ div.tb-fix-margin a.LayerClose
 
 #profile-tabs .bottom .inner-item-list img.active
 {
-	width:48px;
-	height:48px;
+	width:45px;
+	height:45px;
 	border:1px solid #810E0B;
 }
 
@@ -372,7 +372,7 @@ div.tb-fix-margin a.LayerClose
 #shop .footer .left {
 	position: absolute;
 	left: 0;
-	bottom: 8px;
+	bottom: 46px;
 	width: 125px;
 }
 #shop .footer .right
