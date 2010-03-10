@@ -87,10 +87,14 @@
   <?php print $scripts; ?>
 </head>
 
+<?php // Added by n4mu to simplify (i hope)
+$cfg_theme_path = drupal_get_path("theme", "p4f")?>
+
 <body class="<?php print $body_classes; ?>">
   <div id="page">
 	<div id="page-inner">
 
+	<a id="sponsor" onclick="window.open(this.href); return false;" href="http://newyorker.de/"><img src="<? print $cfg_theme_path; ?>/images/logo_new-yorker.png" alt="Powered by New Yorker"></a>
     <div id="header">
 		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
@@ -109,16 +113,21 @@
 			<div class="clear"></div>
 		</div>
 	</div> <!-- /#header-inner, /#header -->
+
 	<?php if ($navbar): ?>
 	<div id="navbar">
 		<div id="navbar-inner" class="clear-block region region-navbar">
 			<a name="navigation" id="navigation"></a>
-
 			<?php if ($navbar): ?>
 				  <?php print $navbar; ?>
 			<?php endif; ?>
-
 		</div>
+
+		<?php if ($logged_in) { ?>
+		<a id="radiobutton" title="New Yorker Radio" href="http://newyorker.radio.de/micro/newyorker/index.jsp" onclick="window.open(this.href);return false;">
+		<span>New Yorker Radio</span>
+		</a>
+		<?php } ?>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
 
@@ -206,18 +215,24 @@
 
 			</div></div> <!-- /#content-inner, /#content -->
 		</div>
+
+		<div id="skyscraper">
+			<img src="<? print $cfg_theme_path; ?>/images/skyscraper_1.png"/>
+		</div>
+
 	</div> <!-- /#main-inner, /#main -->
 
     <?php if ($footer || $footer_message): ?>
       <div id="footer"><div id="footer-inner" class="region region-footer">
 
         <?php if ($footer_message): ?>
-          <div id="footer-message"><?php print $footer_message; ?></div>
+		<div id="footer-message"><?php print $footer_message; ?></div>
         <?php endif; ?>
 
         <?php print $footer; ?>
 
-      </div></div> <!-- /#footer-inner, /#footer -->
+			<div id="footer-powered">powered by New Yorker</div>
+		</div></div> <!-- /#footer-inner, /#footer -->
     <?php endif; ?>
 
 	<?php if ($left): ?>
