@@ -145,6 +145,7 @@ ul.secondary li a.active {
 	background: #646464 url(images/main_bg_color.png) repeat-x;
 	padding: 10px;
 	width: 740px;
+	clear: both;
 }
 
 #page {
@@ -611,11 +612,6 @@ div.poker_submit.big.disabled:hover div.label {
 	float: none;
 }
 
-#navbar ul.menu li:first-child {
-	/*border-left: 1px solid #000;*/
-	/*background: url(images/navbar_li_firstchild_bg.png) no-repeat left;*/
-	margin-left: O;
-}
 #navbar ul.menu li {
 	/*border-right: 1px solid #000;*/
 	/*border-left: 1px solid #4E4E4E;*/
@@ -646,16 +642,45 @@ div.poker_submit.big.disabled:hover div.label {
 	margin-left: 2px;
 }
 
-/*#navbar ul.menu li a:hover {*/
-	/*text-decoration: underline;*/
-/*}*/
 #navbar-bottom {
 	border-top: 1px solid #000;
 }
 
-/*#navbar ul.menu li.active-trail {*/
 #navbar ul.menu li.active-trail a.active, #navbar ul.menu a:hover {
 	background: url(images/active-trail.jpg);
+}
+
+/* drop down menu */
+.menu li {
+	position: relative;
+}
+
+#menu li ul, #menu li:hover ul ul {
+	display: none;
+}
+#navbar li:hover ul, #navbar li ul li:hover ul {
+	display: block;
+}
+
+#navbar ul ul {
+	display: none;
+	position: absolute;
+	width: 500px;
+	margin-left: -9px;
+}
+#navbar ul.menu ul li {
+	float: left;
+	background: #202020 url(images/navbar_submenu_bgleft.png) no-repeat left 4px;
+	margin-top: 1px;
+}
+#navbar ul.menu ul li:first-child {
+	background: #202020;
+}
+#navbar ul.menu ul li:first-child a:hover, #navbar ul.menu ul li:first-child a {
+	margin-left: 0;
+}
+#navbar ul.menu ul li a {
+	padding: 6px 13px 0;;
 }
 
 /* **************
