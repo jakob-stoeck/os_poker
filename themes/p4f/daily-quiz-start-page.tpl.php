@@ -31,15 +31,30 @@
 <?php else :?>
 	<h2 class="title_bar">Fashion Quiz</h2>
 	<div id="quiz" class="news_content">
+		<h3>Beschreibung:</h3>
 		<p><?php print $intro; ?></p>
 		<?php if ($time_limit): ?>
 			<p><?php print $time_limit; ?></p>
+
 			<?php if($price): ?>
-			<h2>TIME LIMITE</h2>
 				<p>Price: <?php print $price ?></p>
 			<?php endif; ?>
+
+			<div id="quiz_prize">
+				<p class="fleft">Einsatz</p>
+				<p class="fright">500 Coins</p>
+				<div class="clear"></div>
+			</div>
+
 		<?php endif; ?>
+
+		<?php // add class to link ?
+			$link = str_replace('<a', '<a id="quiz_play_now"', $link);
+			$link = str_replace('">', '"><span>', $link);
+			$link = str_replace('</a', '"</span></a', $link);
+		?>
 		<?php print $link; ?>
+
 	</div>
 <?php endif;?>
 

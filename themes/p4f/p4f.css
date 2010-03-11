@@ -3038,9 +3038,13 @@ body.poker-tourneyinfo #middle-content-right {
 
 #quiz {
 	background: #FFF url(images/quiz_bg_image.png) no-repeat 10px 10px;
-	height: 370px;
-	width: 729px;
+	/*height: 370px;*/
+	min-height: 320px;
+	/*width: 729px;*/
 	margin-top: 10px;
+	width: 439px;
+	padding: 50px 10px 10px 280px;
+	color: #000;
 }
 
 #quiz_games_teaser {
@@ -3077,6 +3081,39 @@ body.poker-tourneyinfo #middle-content-right {
 	height: 19px;
 	width: 87px;
 	margin: 9px 0;
+}
+
+#quiz_play_now {
+	background: transparent url(images/quiz_start_button.png) no-repeat;
+	height: 55px;
+	width: 176px;
+	display: block;
+	margin-left: 15px;
+}
+#quiz_play_now span {
+	display: none;
+}
+
+#quiz_prize {
+	border-top: 1px solid #B0B0B0;
+	border-bottom: 1px solid #B0B0B0;
+	margin: 18px 0;
+	padding: 7px 150px 7px 15px;
+	font-weight: bold;
+}
+
+#quiz .form-item {
+	background-color: black;
+	padding: 4px 5px;
+	color: white;
+}
+
+#quiz input.form-radio {
+	display: none;
+}
+
+#multichoice_answer_text {
+	color: red;
 }
 
 
