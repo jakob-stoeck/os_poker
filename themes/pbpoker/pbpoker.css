@@ -344,7 +344,8 @@ body.poker-profile #TB_window {
 * html #user_login .user_login_row {
 	display: inline;
 	width: 85px;
-	height: 50px;
+	margin: 0;
+	margin-right: 5px;
 	float: left;
 }
 
