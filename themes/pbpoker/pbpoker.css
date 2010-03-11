@@ -2136,6 +2136,7 @@ body.de p.Buddies { /* FIXME : german */
 #forgot-password .footer {
 	padding-right: 15px;
 	margin-top: 10px;
+	display: none !important;
 }
 
 #forgot-password .footer a {
