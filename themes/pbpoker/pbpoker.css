@@ -1420,11 +1420,15 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .bottom .item-list {
-   height: 65px;
+   height: 60px;
 }
 
 #profile-tabs .bottom .inner-item-list {
-   height: 70px;
+   height: 60px;
+}
+
+#profile-tabs .bottom .ajax-pager .item-list {
+	padding-top: 0 !important;
 }
 
 #profile-tabs .bottom .left {
