@@ -1020,16 +1020,27 @@ body.de #play-now #play-now-button {
 
 #profile-update .form-radios.custom_radio {
 	float: left;
-	margin: -10px 0 0;
+	margin: -5px 0 0;
 	width: 230px;
+}
+
+#profile-update .gender_container {
+	padding-top: 5px;
+	display: inline-block;
+}
+
+*:first-child+html #profile-update .gender_container {
+	padding-top: 7px;
 }
 
 #profile-update	input.custom_radio {
 	width: 10px;
+	vertical-align: middle;
 }
 
 #profile-update	.custom_radio label {
 	width: auto;
+	vertical-align: middle;
 }
 
 #profile-update .custom_radio .form-item {
