@@ -360,7 +360,9 @@ function os_poker_init()
 		 imagewidth : 100,
 		 width : 160
 		 });
+        $('input#edit-picture-upload').parent().addClass('picture_upload_button');
 	}
+
 
 	";
 

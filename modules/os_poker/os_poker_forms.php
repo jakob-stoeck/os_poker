@@ -617,9 +617,9 @@ function	os_poker_first_profile_form($form_state)
 	
 	$form['profile_gender'] =	array(
 										'#type' => 'radios',
-										'#title' => t('Gender'),
+										'#title' => '<span class="gender_container">' . t("Gender") . '</span>',
 										'#options' => $pfields['profile_gender'],
-										'#attributes' => array("class" => "custom_radio"),
+										'#attributes' => array("class" => "custom_radio gender_label"),
 										'#suffix' => '<div class="clear"></div>',
 										'#default_value' => $cuser->profile_gender,
 								);
