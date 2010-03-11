@@ -73,6 +73,26 @@ class OSPokerProfileTestCase extends OsPokerWebTestCase {
     foreach($edit as $key => $value) {
       $this->assertFieldByName($key, $value);
     }
+
+  	$newmail = $this->randomName() . "@email.com";
+    $edit = array(
+			'new_email' => $newmail,
+    );
+    $this->drupalPost('poker/profile/settings', $edit, 'Send');
+    $this->assertText(t('Personal Settings'));
+    $cuser = $this->userManager->User($this->user->uid, true);
+		$this->assertEqual($newmail, $cuser->mail, t('User email updated'));
+
+		$newpass = $this->randomString();
+    $edit = array(
+			'pass[pass1]' => $newpass,
+			'pass[pass2]' => $newpass,
+    );
+    $this->drupalPost('poker/profile/settings', $edit, t('Send'));
+    $this->assertText(t('Personal Settings'));
+    $cuser = $this->userManager->User($this->user->uid, true);
+		$this->assertEqual(md5($newpass), $cuser->pass, t('User pass updated'));
+
   }
 
 	function testBestHand() {
