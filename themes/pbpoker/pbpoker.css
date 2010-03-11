@@ -146,6 +146,10 @@ ul.secondary li a.active {
 	width: 745px;
 }
 
+* html #main {
+	overflow: hidden;
+} 
+
 #main.logged_in {
 	background: #141007 url(images/body_bg.png) repeat-x;
 }
@@ -809,6 +813,11 @@ div.poker_submit.big.disabled:hover div.label {
 	margin-right: 12px;
 	float: left;
 	/* FIXME : needs width */
+}
+
+* html #middle-content-left, 
+* html #middle-content-right { /* float => double margin bug */
+	display: inline;
 }
 
 #middle-content-left,
