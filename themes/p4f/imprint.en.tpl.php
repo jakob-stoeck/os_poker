@@ -4,6 +4,7 @@
 		<ul class="tabs primary">
 			<li><a href="#help-imprint">Imprint</a></li>
 			<li><a href="#help-terms-of-service">Terms of Service</a></li>
+			<li><a href="#privacy-policy">Privacy Policy</a></li>
 		</ul>
 	</div>
 
@@ -14,10 +15,10 @@
 		B 18 6EW, UK<br />
 		Director: André Pass</p>
 
-
 		<?php //print l(t("Sources"), "<front>"); ?>
 		<a style="color: #6C6C6C" href="#">Drupal source code</a>
 	</div>
+
 	<div id="help-terms-of-service" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Terms of service</h4>
 		<p>PLEASE  READ THIS TERMS OF USE POLICY CAREFULLY. WHEN YOU USE ANY ONLINE GAME,  SERVICE or WEBSITE FROM ADUNIQUE Interactive GmbH. YOU ACKNOWLEDGE THAT  YOU HAVE READ, UNDERSTOOD, AND AGREE TO BE BOUND BY THESE TERMS. </p>
@@ -105,4 +106,10 @@
 		<p><strong>Legally the German version of these terms and conditions are imperative.</strong></p>
 
 	</div>
+
+	<div id="privacy-policy" class="helpbox">
+		<h4 class="helpbox-title block_title_bar">Privacy Policy</h4>
+		<p>Privacy policy:</p>
+	</div>
+
 </div>
