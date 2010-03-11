@@ -1475,11 +1475,21 @@ function os_poker_preprocess_user_picture(&$variables) {
             'TB_iframe' => 'true'
           ),
           'html' => TRUE);
+				} else if (arg(1) == 'profile' && arg(2) == 'medium') {
+						$attributes = array(
+								'onclick' => 'javascript:parent.os_poker_trigger("os_poker_jump", {url:"' . url("poker/profile/profile/" . $account_uid, array("query" => array("height"=>442, "width"=>603))) . '", lightbox:true});'
+								);
+						
+						$variables['picture'] = '<div ' .drupal_attributes($attributes) . '>' . $variables['picture'] . '</div>';
+						$options = NULL;
+						
         } else {
-           $options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
-        }
-
-        $variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+					$options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
+				}
+				
+				if ($options) {
+						$variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+				}
       }
     }
   }
