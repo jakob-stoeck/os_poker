@@ -74,6 +74,9 @@ function p4f_theme() {
 		'arguments' => array(),
 		'template' => 'footer',
     ),
+    'os_poker_tos' => array(
+		'template' => 'imprint.en',
+    ),
 	/* end of added stuff */
   );
 }
