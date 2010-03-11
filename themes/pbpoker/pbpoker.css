@@ -341,6 +341,13 @@ body.poker-profile #TB_window {
 	font-size: 10px;
 }
 
+* html #user_login .user_login_row {
+	display: inline;
+	width: 85px;
+	height: 50px;
+	float: left;
+}
+
 /* dirty dirty ie7 fix */
 *:first-child+html #user_login #edit-remember-me-wrapper {
 	padding-top: 0 !important;
