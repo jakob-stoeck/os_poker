@@ -404,7 +404,6 @@ body.poker-profile #TB_window {
 	top: 1px;
 }
 
-/* FIXME */
 .custom_input {
 	background:  url(images/bg_input_signup.png) repeat-x;
 	border: 1px solid #D0D0CF;
@@ -413,6 +412,9 @@ body.poker-profile #TB_window {
 	padding: 2px;
 }
 
+.custom_input option {
+	background: #eee;
+}
 /************************
 * the buttons
 ************************/
