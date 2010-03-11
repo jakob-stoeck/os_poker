@@ -176,6 +176,19 @@ ul.secondary li a.active {
 	float: left;
 }
 
+* html #header #logo {
+	display: block;
+	width: 189px;
+	height: 70px;
+	margin-top: 10px;
+	margin-left: 5px;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop'); 
+}
+
+* html #header #logo img {
+	display: none;
+}
+
 /* We hide all block in header region, except the first two */
 #header-blocks .block {
 	float: right;
@@ -349,7 +362,13 @@ body.poker-profile #TB_window {
 	float: left;
 }
 
-/* dirty dirty ie7 fix */
+* html #edit-remembet-me-wrapper {
+	padding-top: 0 !important;
+	margin-top: -5px;
+	background: red;
+}
+
+/* dirty ie7 fix */
 *:first-child+html #user_login #edit-remember-me-wrapper {
 	padding-top: 0 !important;
 	margin-left: -5px;
