@@ -137,6 +137,7 @@ body.logged-in #middle-content-right {
 #page-front-banners a.banner {
 	display: block;
 	float: left;
+	display: inline; /* ie 6 */
 	width: 198px;
 	height: 162px;
 	margin: 7px 7px 0;
