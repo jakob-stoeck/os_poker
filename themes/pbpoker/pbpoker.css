@@ -362,10 +362,9 @@ body.poker-profile #TB_window {
 	float: left;
 }
 
-* html #edit-remembet-me-wrapper {
+* html #edit-remember-me-wrapper {
 	padding-top: 0 !important;
-	margin-top: -5px;
-	background: red;
+	margin-top: -6px;
 }
 
 /* dirty ie7 fix */
