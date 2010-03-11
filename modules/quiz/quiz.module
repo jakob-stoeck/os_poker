@@ -404,7 +404,7 @@ function quiz_insert($node) {
 
   $sql = "INSERT INTO {quiz_node_properties}
     (vid, nid, aid, number_of_random_questions, shuffle,
-      backwards_navigation, quiz_open, quiz_close, takes, time_limit, pass_rate, summary_pass, summary_default, quiz_always, feedback_time, tid, has_userpoints)
+      backwards_navigation, quiz_open, quiz_close, takes, time_limit, pass_rate, summary_pass, summary_default, quiz_always, feedback_time, has_userpoints, tid)
     VALUES(%d, %d, '%s', %d, %d, %d, %d, %d, %d, %d, %d, '%s', '%s', %d, %d, %d, %d)";
   db_query($sql, $node->vid, $node->nid, $node->aid, $node->number_of_random_questions, $node->shuffle, $node->backwards_navigation, $node->quiz_open, $node->quiz_close, $node->takes, $node->time_limit, $node->pass_rate, $node->summary_pass, $node->summary_default, $node->quiz_always, $node->feedback_time, $node->has_userpoints, $tid);
   _quiz_insert_resultoptions($node);
