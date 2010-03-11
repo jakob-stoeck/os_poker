@@ -1070,8 +1070,14 @@ body.de #play-now #play-now-button {
 	padding: 0 5px !important;
 }
 
+/* custom browse button */
+#profil-update .picture_upload_button {
+	background-position: left !important;
+	cursor: pointer;
+}
+
 /*******************************
-* FIXME : what is that ?
+* FIXME 
 *******************************/
 
 .TableRanking {
