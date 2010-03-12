@@ -74,15 +74,19 @@ class OSPokerProfileTestCase extends OsPokerWebTestCase {
       $this->assertFieldByName($key, $value);
     }
 
+		/* Test if we can update our email */
   	$newmail = $this->randomName() . "@email.com";
     $edit = array(
-			'new_email' => $newmail,
+				'mail' => $newmail,
     );
     $this->drupalPost('poker/profile/settings', $edit, 'Send');
     $this->assertText(t('Personal Settings'));
+    $this->assertText(t('Email successfully modified'));
+
     $cuser = $this->userManager->User($this->user->uid, true);
 		$this->assertEqual($newmail, $cuser->mail, t('User email updated'));
 
+		/* Test if we can update our password */
 		$newpass = $this->randomString();
     $edit = array(
 			'pass[pass1]' => $newpass,
@@ -90,10 +94,46 @@ class OSPokerProfileTestCase extends OsPokerWebTestCase {
     );
     $this->drupalPost('poker/profile/settings', $edit, t('Send'));
     $this->assertText(t('Personal Settings'));
+    $this->assertText(t('Password successfully modified'));
+
     $cuser = $this->userManager->User($this->user->uid, true);
 		$this->assertEqual(md5($newpass), $cuser->pass, t('User pass updated'));
-
   }
+
+	/*
+	 * Test handling error cases during email and password update
+	 */
+	function testSettingErrors() {
+    $first_user = $this->userManager->User($this->user->uid, true);
+    $testuser = $this->OsPokerCreateUserWithProfile();
+    $this->drupalLogin($testuser);
+			
+		/* Test if we can update our email */
+		$oldmail = $testuser->mail;
+  	$newmail = $first_user->mail;
+    $edit = array(
+				'mail' => $newmail,
+    );
+    $data = $this->drupalPost('poker/profile/settings', $edit, 'Send');
+    $this->assertText(t('Personal Settings'));
+    $cuser = $this->userManager->User($testuser->uid, true);
+		$this->assertEqual($oldmail, $cuser->mail, t('Duplicate email not updated'));
+
+		/* Test if we can update our password */
+		$oldpass = $testuser->pass;
+		$newpass1 = $this->randomString();
+		$newpass2 = $this->randomString();
+    $edit = array(
+			'pass[pass1]' => $newpass1,
+			'pass[pass2]' => $newpass2,
+    );
+    $this->drupalPost('poker/profile/settings', $edit, t('Send'));
+    $this->assertText(t('Personal Settings'));
+    $this->assertText(t('The specified passwords do not match.'));
+    $cuser = $this->userManager->User($testuser->uid, true);
+		$this->assertEqual($oldpass, $cuser->pass, t('Mismatched password not updated'));
+		
+	}
 
 	function testBestHand() {
     $this->drupalGet('poker/profile');
