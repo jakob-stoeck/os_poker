@@ -361,13 +361,6 @@ function os_poker_init()
 		 width : 160
 		 });
      $('input#edit-picture-upload').parent().addClass('picture_upload_button');
-     /* Hack to fix forgot password iframe in IE7 */
-     if ($.browser.msie && $.browser.version === '7.0') {
-       if ($('#forgot_password').length > 0) {
-         var href = $('#forgot_password').get(0).href;
-         $('#forgot_password').get(0).href = href.replace(/(165)/, '167');
-       }
-     }
 	}
 
 

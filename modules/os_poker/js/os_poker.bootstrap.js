@@ -22,6 +22,14 @@ if(window != window.top) {
 }
 
 Drupal.behaviors.os_poker = function(context) {
+  /* Hack to fix forgot password iframe in IE7 */
+  if ($.browser.msie && $.browser.version === '7.0') {
+	  if ($('#forgot_password').length > 0) {
+          var href = $('#forgot_password').get(0).href;
+          $('#forgot_password').get(0).href = href.replace(/(165)/, '167');
+      }
+  }
+
   //A counter incremented for each call of this function
   var call_counter = arguments.callee.call_counter ? arguments.callee.call_counter + 1 : 1;
   arguments.callee.call_counter = call_counter;
