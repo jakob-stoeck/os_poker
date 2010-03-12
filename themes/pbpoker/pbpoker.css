@@ -720,6 +720,7 @@ div.poker_submit.big.disabled:hover div.label {
 	text-align: center;
 	width: 15px;
 	height: 16px;
+	*float: left;
 }
 
 .buddy_list_number.golden {
