@@ -897,8 +897,7 @@ div.poker_error_message .msg
 {
 	font-weight:bold;
 	font-size:14px;
-	padding-left:172px;
-	padding-top:83px;
+	padding: 83px 100px 10px 172px;
 }
 
 div.poker_error_message .msg a
