@@ -738,9 +738,9 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .buddy_list_placeholder .title {
-	color: #A8904A;
+	color: #fbbe6b;
 	font-weight: bold;
-	left: 15px;
+	left: 7px;
 	position: absolute;
 	top: -19px;
 }
@@ -770,7 +770,6 @@ div.poker_submit.big.disabled:hover div.label {
 
 .buddy_list_name,
 .buddy_list_name a {
-	color: #A8904A;
 	font-weight: bold;
 	overflow: hidden;
 	padding-bottom: 5px;
@@ -779,13 +778,20 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .buddy_list_chips {
-	color: #A8904A;
 	padding-bottom: 10px;
 }
 
 .buddy_list_links a {
 	font-weight: bold;
 	white-space: nowrap;
+}
+
+.buddy_list_name, .buddy_list_name a, .buddy_list_chips {
+	color: #5f5e5a;
+}
+
+.buddy_list_links, .buddy_list_links a {
+	color: #8a753e;
 }
 
 #buddylist #today_gift {
