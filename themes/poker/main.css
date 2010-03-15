@@ -648,6 +648,10 @@ body.iframe #profile-medium a.LayerClose {
 	overflow: hidden;
 }
 
+*:first-child+html #profile-medium .links {
+	height: 123px;
+}
+
 #profile-medium .links .poker_submit {
 	margin-bottom: 5px;
 }
