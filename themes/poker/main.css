@@ -652,7 +652,9 @@ body.iframe #profile-medium a.LayerClose {
 	height: 123px;
 }
 
+
 #profile-medium .links .poker_submit {
+	margin-top: 0;
 	margin-bottom: 5px;
 }
 
