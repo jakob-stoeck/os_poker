@@ -75,6 +75,8 @@ Drupal.behaviors.os_poker = function(context) {
     }
   }).blur();
 
+  $('#home_signup_form input[name=pass]').val('');
+  
   //Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
