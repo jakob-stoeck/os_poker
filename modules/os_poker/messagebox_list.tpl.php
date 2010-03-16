@@ -38,3 +38,14 @@
 		}
 	?>
 </div>
+<?php
+			if (arg(0) == 'poker' && arg(1) == 'messagebox' && !empty($_GET['ajax'])) {
+?>
+<script type="text/javascript">
+Drupal.behaviors.os_poker_init_messagelist();
+</script>
+
+<?php
+					}
+?>
+
