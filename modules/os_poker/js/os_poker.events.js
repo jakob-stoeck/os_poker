@@ -2,7 +2,6 @@ var OsPoker = OsPoker || {};
 
 OsPoker.eventHandlers = {
   os_poker_table_selected: function(event, arg) {
-				   return;
     if(!isNaN(parseInt(arg.table, 10))) {
       $('#table_users .inner-list').load(Drupal.settings.basePath+'?q='+Drupal.encodeURIComponent('poker/table/'+arg.table.toString()+'/players'), function(responseText, textStatus, XMLHttpRequest){
         if(textStatus === 'success' && $(this).find('.user').length > 0) {
