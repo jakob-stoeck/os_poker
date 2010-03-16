@@ -2,17 +2,18 @@ var OsPoker = OsPoker || {};
 
 OsPoker.eventHandlers = {
   os_poker_table_selected: function(event, arg) {
+    var self = this;
     if(!isNaN(parseInt(arg.table, 10))) {
       $('#table_users .inner-list').load(Drupal.settings.basePath+'?q='+Drupal.encodeURIComponent('poker/table/'+arg.table.toString()+'/players'), function(responseText, textStatus, XMLHttpRequest){
-        if(textStatus === 'success' && $(this).find('.user').length > 0) {
+        if(textStatus === 'success' && $(self).find('.user').length > 0) {
           $('#table_users .header').show();
           $('#table_users #list-banner').hide();
           $('#table_users .list').removeClass('splash');
-          Drupal.attachBehaviors(this);
-          tb_init(this);
+          Drupal.attachBehaviors(self);
+          tb_init('#table_users a.thickbox');
         }
         else {
-          $(this).html('');
+          $(self).html('');
           $('#table_users .header').hide();
           $('#table_users #list-banner').show();
           $('#table_users .list').addClass('splash');

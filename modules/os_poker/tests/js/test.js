@@ -353,3 +353,27 @@ test('', function() {
 	
 });
 
+module('os_poker.table-users', {
+	setup: function(){
+		$(document.body).append('<div id="table_users"><div class="inner-list"></div></div>');
+  	  	window.saved_tb_init = window.tb_init;
+	 	window.tb_init = function(domChunk) {
+			$(domChunk).each(function() {
+				$(this).addClass('tb_init_called');
+			})
+  		  }
+    	},
+	teardown: function(){
+		$('#table_users').remove();
+		window.tb_init = window.saved_tb_init;
+ 	}
+});
+
+test('', function() {
+			expect(2);
+				$('#table_users .inner-list').html("<div class=\"userlist\"><div class='user'><div class=\"picture\">  <a href=\"/drupal6/?q=poker/profile/profile/366&amp;height=442&amp;width=603&amp;TB_iframe=true\" title=\"Spielerprofil ansehen.\" class=\"test_target thickbox\"><img src=\"http://drupal-demo1.pokersource.info/drupal6/?q=sites/default/files/imagecache/user_picture/pictures/playboy.jpg\" alt=\"Test3&#039;s Profilbild\" title=\"Test3&#039;s Profilbild\"  width=\"118\" height=\"118\" /></a></div><div class=\"name\"><a href=\"/drupal6/?q=poker/profile/profile/366&amp;height=442&amp;width=603&amp;TB_iframe=true\" class=\"thickbox\">Test3</a></div><div class=\"money\"> $4226</div></div></div>");
+	equals($(".test_target").is(".tb_init_called"), false, "Pre-condition");
+				tb_init('#table_users a.thickbox');
+	equals($(".test_target").is(".tb_init_called"), true, "tb_init called on the table player");
+				    });
+
