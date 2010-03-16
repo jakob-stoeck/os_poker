@@ -53,6 +53,10 @@
 <div id="quiz" class="news_content">
 
 	<div class="content">
+		<? // modify $content in this brutal way. cause: lack of flexibilty/clear_doc
+			$content = str_replace('<form id="multichoice', '<h3>Frage:</h3><form id="multichoice', $content);
+			$content = str_replace('<div class="form-radios">', '<h3>Antwort:</h3><div class="form-radios">', $content);
+		?>
 		<?php print $content; ?>
 	</div>
 
