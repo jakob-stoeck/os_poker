@@ -8,7 +8,7 @@ $(document).ready(function () {
 });
 
 Drupal.behaviors.os_poker_init_messagelist = function() {
-	$("#message-list .inner-item-list a").each(function() {
+	$('#message-list .inner-item-list a:not(.os-poker-messagelist-processed)').addClass('os-poker-messagelist-processed').each(function() {
 	
 		if ($(this).hasClass("user_relationships_popup_link") === false && $(this).hasClass("noreplace") === false)
 		{
