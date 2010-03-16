@@ -143,7 +143,7 @@ ul.secondary li a.active {
 ***************************/
 
 #main {
-	background: #646464 url(images/main_bg_color.png) repeat-x;
+	background: #676767;
 	padding: 10px;
 	width: 740px;
 	clear: both;
@@ -3025,6 +3025,63 @@ body.poker-tourneyinfo #middle-content-right {
 	color: red;
 }
 
+/* *****************
+ * Games Homepage
+ * ****************/
+#column-right, #column-left {
+	width: 360px;
+}
+#column-right {
+	float: right;
+}
+#column-left {
+	float: left;
+}
+.games-presentation-box {
+	background: #fff;
+	color: #000;
+	border: 10px solid #8f8b88;
+	margin-top: 10px;
+	padding-bottom: 5px;
+}
+
+.games-presentation-box a.teaser {
+	display: block;
+	height: 130px;
+}
+
+.games-presentation-box#poker-island .teaser {
+	background-image: url(images/games_island_teaser.png);
+}
+.games-presentation-box#fashion-air-hockey .teaser {
+	background-image: url(images/games_air_hockey_teaser.png);
+}
+.games-presentation-box#fashion-pinball .teaser {
+	background-image: url(images/games_pinball_teaser.png);
+}
+.games-presentation-box#fashion-quiz .teaser {
+	background-image: url(images/games_quiz_teaser.png);
+}
+.games-presentation-box#be-next-dj .teaser {
+	background-image: url(images/games_nextdj_teaser.png);
+}
+.games-presentation-box#chartingo .teaser {
+	background-image: url(images/games_chartingo_teaser.png);
+}
+
+.games-presentation-box .title_bar {
+	text-align: right;
+}
+.games-presentation-box .description {
+	margin: 5px;
+}
+.games-presentation-box .description strong {
+	display: block;
+}
+
+.games-presentation-box .submit_get {
+	margin-left: 5px;
+}
 
 /* *****************
  * Adverts
