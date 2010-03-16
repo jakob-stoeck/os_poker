@@ -26,6 +26,7 @@ tr.odd a {
 tr.even a {
 	color: #000;
 }
+
 /* FIXME */
 .yellow {
 	color: #A8904A;
@@ -94,7 +95,7 @@ tr.even a {
 }
 
 /**************************
-** Tabs
+*x* Tabs
 **************************/
 
 ul.primary {
@@ -398,35 +399,8 @@ body.iframe #main {
 	font-size: 10px;
 }
 
-#edit-name {
-	text-transform: uppercase;
-}
-
-/* FIXME */
-.small_white_text, .small_white_text a {
-	text-decoration: none;
-	color: #FFFFFF;
-	font-size: 10px;
-	line-height: 19px;
-	white-space: nowrap;
-	margin: 0;
-	padding: 0;
-}
-
-.small_white_text a:hover {
-	text-decoration: underline;
-}
-
-/* FIXME MAYBE - this stuff is in main.css */
-#logout a {
-	/*font-weight: normal !important;*/
-	/*z-index: 99;*/
-	/*position: relative;*/
-}
-
 #user_login .poker_submit {
 	margin-top: -2px;
-	/*padding-left: 10px;*/
 	font-size: 10px;
 }
 
@@ -437,28 +411,15 @@ body.iframe #main {
 
 .chips_count,
 .buddy_count {
-	/*padding: 0 0 0 15px;*/
-	/*margin: 4px 0 0 0;*/
 	width: 130px;
 	text-align: left !important;
 	white-space: normal;
 }
 
-/* FIXME */
-.right_align {
-	/*position: absolute;*/
-	/*right: 0px;*/
-	/*text-align: right;*/
-	/*top: 1px;*/
-}
-
-/* FIXME */
 .custom_input {
 	background:  url(images/bg_input_signup.gif) repeat 0 0;
 	border: 1px solid #D0D0CF;
 	font-size: 11px;
-	/*line-height: 13px;*/
-	/*padding: 2px;*/
 	width: 164px;
 	color: #474747;
 }
@@ -482,7 +443,6 @@ div.poker_submit {
 }
 
 div.poker_submit div.pre {
-	/*background: url(images/button_left.gif) no-repeat;*/
 	display: block;
 	float: left;
 	height: 16px;
@@ -490,12 +450,9 @@ div.poker_submit div.pre {
 }
 
 div.poker_submit div.label {
-	/*background: url(images/button_long_right.gif) no-repeat top right;*/
-    /*padding-right: 7px;*/
 	background: url(images/arrow_white.gif) no-repeat 3px center;
 	display: block;
 	float: left;
-	/*height: 16px;*/
 	text-align: center;
 	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
@@ -503,7 +460,7 @@ div.poker_submit div.label {
 	width: 60px;
 }
 
-/* FIXME */
+/* FIXME IE7 problem will occur here. */
 div.poker_submit div.label input {
 	border: 0;
 	background-color: transparent;
@@ -515,91 +472,12 @@ div.poker_submit div.label input {
 	cursor: inherit !important;
 }
 
-/*
-** The silver one
-*/
-
-div.poker_submit.silver div.pre {
-  background-image: url(images/silver_button_left.gif);
-  padding-top: 2px;
-}
-
-div.poker_submit.silver div.label {
-  background-image: url(images/silver_button_long_right.gif);
-  color: #313751;
-}
-
-/*
-** The big one
-*/
-
-div.poker_submit.big {
-	 background: transparent url(images/bg_button_goldbig_right.gif) no-repeat top right;
-	 padding-right: 12px;
-}
-
-/* FIXME */
-div.poker_submit.big div.label {
-	background: transparent url(images/bg_button_goldbig_middle.gif) repeat-x;
-	height: 26px;
-	padding-top: 8px;
-	padding-right: 0;
-	color: #6E4809;
-	font-weight: bold;
-}
-
-div.poker_submit.big div.pre {
-	background: transparent url(images/bg_button_goldbig_left.gif) no-repeat;
-	height: 34px;
-	width: 12px;
-}
-
-div.poker_submit.big.disabled {
-	background: transparent url(images/bg_button_silverbig_right.gif) no-repeat top right;
-}
-
-div.poker_submit.big.disabled div.label {
-	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
-	color: #8C8B89;
-}
-
-div.poker_submit.big.disabled div.pre {
-  background: transparent url(images/bg_button_silverbig_left.gif) no-repeat;
-}
-
-div.poker_submit.big:hover {
-  background: transparent url(images/bg_button_goldbig_right.gif) no-repeat top right;
-}
-
-div.poker_submit.big:hover div.pre {
-  background: transparent url(images/bg_button_goldbig_left.gif) no-repeat;
-}
-
-div.poker_submit.big:hover div.label {
-  background: transparent url(images/bg_button_goldbig_middle.gif) repeat-x;
-	text-decoration: underline;
-}
-
-div.poker_submit.big.disabled:hover {
-	background: transparent url(images/bg_button_silverbig_right.gif) no-repeat top right;
-}
-
-div.poker_submit.big.disabled:hover div.pre {
-  background: transparent url(images/bg_button_silverbig_left.gif) no-repeat;
-}
-
-div.poker_submit.big.disabled:hover div.label {
-	background: transparent url(images/bg_button_silverbig_middle.gif) repeat-x;
-}
-
 /*************************
 * Main menu
 *************************/
 
 #navbar {
 	height: 29px;
-	/*width: 760px;*/
-	/*background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;*/
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin-left: -2px;
@@ -613,14 +491,11 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #navbar ul.menu li {
-	/*border-right: 1px solid #000;*/
-	/*border-left: 1px solid #4E4E4E;*/
 	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
 	display: inline;
 	float: left;
 	text-align: center;
 	margin: 0;
-	/*padding: 6px 20px 0;*/
 	list-style-type: none;
 	padding-left: 2px;
 	list-style-image: none;
@@ -2952,6 +2827,15 @@ body.poker-tourneyinfo #middle-content-right {
 /*****************************
  * GAMES
  * ***************************/
+
+/* Games page */
+
+.games_box {
+	background: transparent url(images/games_box_bg.png) repeat-x;
+	width: 358px;
+	height: 250px;
+
+}
 
 /* Games on homepage (unlogged) */
 
