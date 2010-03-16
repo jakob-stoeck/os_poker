@@ -3037,19 +3037,24 @@ body.poker-tourneyinfo #middle-content-right {
 #column-left {
 	float: left;
 }
+
 .games-presentation-box {
 	background: #fff;
 	color: #000;
 	border: 10px solid #8f8b88;
 	margin-top: 10px;
 	padding-bottom: 5px;
+	height: 235px; /* not really necessary. */
 }
 
 .games-presentation-box a.teaser {
 	display: block;
-	height: 130px;
+	height: 160px;
 }
 
+.games-presentation-box#fashion-poker .teaser {
+	background-image: url(images/games_fashionpoker_teaser.png);
+}
 .games-presentation-box#poker-island .teaser {
 	background-image: url(images/games_island_teaser.png);
 }
@@ -3069,9 +3074,6 @@ body.poker-tourneyinfo #middle-content-right {
 	background-image: url(images/games_chartingo_teaser.png);
 }
 
-.games-presentation-box .title_bar {
-	text-align: right;
-}
 .games-presentation-box .description {
 	margin: 5px;
 }
