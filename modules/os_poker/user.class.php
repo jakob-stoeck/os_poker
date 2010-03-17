@@ -187,23 +187,7 @@ class CUser
 
 	public function	Online()
 	{
-		//Old version where online == logged on Drupal
-		$interval = time() - 60; // User logged in logged more than 1mn are considered as players.
-		$res = os_poker_db_query('SELECT 1
-						FROM `{users}` AS u
-						INNER JOIN `{sessions}` AS `s` USING (`uid`)
-						WHERE `u`.`uid` = %d AND s.timestamp >= %d
-						LIMIT 1', $this->uid, $interval);
-
-		if ($res)
-		{
-			return (bool)db_result($res);
-		}
-
-		return FALSE;
-
-		//New version where online == sat on a poker table
-		//return (bool)count($this->Tables());
+			return os_poker_user_online($this->uid);
 	}
 
 	public function	Chips($formated = FALSE, $locale = 'en_US')

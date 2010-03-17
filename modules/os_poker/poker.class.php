@@ -89,7 +89,24 @@ class CPoker
 
 		return $tables;
 	}
-	
+
+	// Return list of user ids for players that are sitting at a table
+	public static function PlayingUsers() {
+			$lastDb = db_set_active(self::$_pokerDB);
+
+			$sql = "SELECT distinct `user2table`.user_serial from `user2table`";
+			$res = db_query($sql);
+			$users = array();
+			if ($res) {
+					while ($ut = db_fetch_object($res)) {
+							$users[] = $ut->user_serial;
+					}
+			}
+
+			db_set_active($lastDb);
+			return $users;
+	}
+
 	public static function ActiveTourneysForUser($user_id) {
 		$lastDb = db_set_active(self::$_pokerDB);
 	
