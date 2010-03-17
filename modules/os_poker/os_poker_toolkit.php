@@ -86,9 +86,16 @@ function os_poker_set_application_default_settings() {
 **
 */
 
-function	os_poker_online_users($return_hash = false)
+function	os_poker_online_users($return_hash = FALSE, $refresh = FALSE)
 {
-	// From user.module, user_block (3)
+	static $user_hash;
+
+	if (!$refresh && is_array($user_hash)) {
+			return $return_hash ? $user_hash : count($user_hash);
+	}
+
+
+	// FROM modules/user.module, user_block (3)
 
 	// Count users active within the defined period.
 	$interval = time() - variable_get('user_block_seconds_online', 900);

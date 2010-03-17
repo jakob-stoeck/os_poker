@@ -66,18 +66,18 @@ class OSPokerOnlineCheck extends OsPokerWebTestCase
 	function testOnlineUsers() {
 			$this->drupalLogout();
 			/* When no one is online */
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 0, t("Online users is 0 to begin with"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 			$this->assertEqual($user_hash, array(), t("Online users is 0 to begin with"));
 
 			/* Login one user */
 			$time = array();
 			$time[0] = time();
 			$this->drupalLogin($this->online_users[0]);
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 1, t("Online users is 1"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 			$this->assertEqual(count($user_hash), 1, t("Online users returns 1 user id"));
 			$this->assertEqual(!empty($user_hash[$this->online_users[0]->uid]), TRUE, t("Online users returns 1 user id"));
 			
@@ -88,9 +88,9 @@ class OSPokerOnlineCheck extends OsPokerWebTestCase
 			$session_sql = "INSERT into {sessions} (`uid`, `timestamp`, `sid`) VALUES (%d, %d,'%s')";
 			db_query($session_sql, $this->online_users[0]->uid, $time[0], md5($time[0] . rand(1, 10000) ));
 
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 2, t("Online users is 2"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 			$this->assertEqual(count($user_hash), 2, t("Online users returns 2 user id"));
 			$this->assertEqual(os_poker_user_online($this->online_users[0]->uid), TRUE, t("Online users returns user id for user1"));
 			$this->assertEqual(os_poker_user_online($this->online_users[1]->uid), TRUE, t("Online users returns user id for user2"));
@@ -115,9 +115,9 @@ class OSPokerOnlineCheck extends OsPokerWebTestCase
 					db_query($session_sql, $this->online_users[$i-1]->uid, $time[$i-1], md5("user$i" . $time[$i-1] . rand(1, 10000) ));
 			}
 
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 5, t("Online users is 5"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 			$this->assertEqual(count($user_hash), 5, t("Online users returns 5 user ids"));
 			for ($i=0; $i<5; $i++) {
 					$this->assertEqual(os_poker_user_online($this->online_users[$i]->uid), TRUE, t("Online users returns user id for user " . ($i+1)));
@@ -128,9 +128,9 @@ class OSPokerOnlineCheck extends OsPokerWebTestCase
 			$update_sql = "UPDATE {sessions} set `timestamp` = `timestamp` - 1000 WHERE `uid` = %d";
 			db_query($update_sql, $this->online_users[$inactive_user]->uid);
 
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 4, t("Online users is only 4 now"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 			$this->assertEqual(count($user_hash), 4, t("Online users returns only 4 user ids"));
 			$this->assertEqual(os_poker_user_online($this->online_users[$inactive_user]->uid), FALSE, t("Online users does not return user 3 anymore "));
 
@@ -147,9 +147,9 @@ class OSPokerOnlineCheck extends OsPokerWebTestCase
 
 
 			// Make sure there is no double counting. Tehre should be 6 online users now 
-			$count = os_poker_online_users();
+			$count = os_poker_online_users(FALSE, TRUE);
 			$this->assertEqual($count, 5, t("Online users includes players"));
-			$user_hash = os_poker_online_users(TRUE);
+			$user_hash = os_poker_online_users(TRUE, TRUE);
 
 			$this->assertEqual(count($user_hash), 5, t("Online users returns only 6 user ids"));
 			$this->assertEqual(os_poker_user_online($this->online_users[$inactive_user]->uid), TRUE, t("Inactive user at table counted "));
