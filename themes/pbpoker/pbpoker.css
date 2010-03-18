@@ -2730,6 +2730,29 @@ body.poker-tourneyinfo #middle-content-right {
 	color: #810E0B;
 }
 
+#user-relationships-ui-pending-requested .container-inline .pre {
+	display: none;
+}
+
+*:first-child+html #user-relationships-ui-pending-requested .container-inline #edit-submit,
+*:first-child+html #user-relationships-ui-pending-requested .container-inline .label input {
+	width: auto;
+	float: left !important;
+}
+*:first-child+html #user-relationships-ui-pending-requested .container-inline .label input {
+	font-weight: normal !important;
+	color: #820f0a !important;
+	font-size: 11px !important;
+	margin-top: -2px;
+}
+
+*:first-child+html #user-relationships-ui-pending-requested .container-inline .label input:hover {
+	text-decoration: underline;
+}
+
+*:first-child+html #user-relationships-ui-pending-requested .user_login_clear {
+	clear: none;
+}
 
 /* quickfix z2#210 FIXME */
 #edit-picture-upload-wrapper div input.file {
