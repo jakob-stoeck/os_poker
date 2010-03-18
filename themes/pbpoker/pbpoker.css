@@ -737,26 +737,21 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .buddy_list_placeholder {
-	background: transparent url(images/buddy_invite.png) no-repeat;
-	height: 120px;
+	background: url(images/buddy_invite.png) no-repeat left 20px;
+	height: 130px;
 	width: 63px;
-	margin-top: 25px;
-	margin-left: 9px;
+	margin: 0 auto;
 	position: relative;
 }
 
 #buddylist .buddy_list_placeholder .title {
 	color: #fbbe6b;
 	font-weight: bold;
-	left: 7px;
-	position: absolute;
-	top: -19px;
 }
 
 #buddylist .buddy_list_placeholder .body {
-	position: absolute;
-	left: 0;
-	top: 79px;
+	margin-top: 87px;
+	line-height: 1.1em;
 }
 
 #buddylist .buddy_list_placeholder .body a {
