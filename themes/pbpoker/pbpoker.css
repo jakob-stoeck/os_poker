@@ -2730,7 +2730,7 @@ body.poker-tourneyinfo #middle-content-right {
 	color: #810E0B;
 }
 
-#user-relationships-ui-pending-requested .container-inline .pre {
+*:first-child+html #user-relationships-ui-pending-requested .container-inline .pre {
 	display: none;
 }
 
