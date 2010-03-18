@@ -1233,11 +1233,6 @@ body.de #play-now #play-now-button {
 	padding: 13px 0 0 58px;
 }
 
-#buddies-search .poker_submit .label {
-	color: #6E4809;
-	font-weight: bold;
-}
-
 .buddies-search-banner {
 	background: url(images/buddysearch_title.gif) no-repeat 5px 0;
 	border: 0;
@@ -1776,8 +1771,7 @@ p.Note {
 	width: 305px;
 }
 
-/* FIXME : too vague */
-div.num {
+#buddies-invite-right .num {
 	background-color: #CACACA;
 	font-weight: bold;
 	line-height: 23px;
@@ -1787,19 +1781,9 @@ div.num {
 	float: left;
 }
 
-div.TeaseMore {
-	background: transparent;
-	height: 31px;
-	text-align: right;
-}
-
-div.TeaseMore .poker_submit {
+#buddies-invite-right .TeaseMore .poker_submit {
 	float: right;
 	margin-right: 15px;
-}
-
-div.TeaseMore .poker_submit .label {
-	padding-top: 9px;
 }
 
 /* FIXME : too vague */
