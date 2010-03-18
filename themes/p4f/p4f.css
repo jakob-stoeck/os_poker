@@ -65,6 +65,7 @@ tr.even a {
 	display: none;
 }
 
+/* fixme */
 .spacer {
 	margin-top: 10px;
 }
@@ -2041,6 +2042,7 @@ body.de p.Buddies { /* FIXME : german */
 .news_content {
 	margin: 10px 5px;
 }
+
 #news_showroom {
 	width: 729px;
 	height: 410px;
@@ -2070,7 +2072,13 @@ body.de p.Buddies { /* FIXME : german */
 	float: right;
 }
 
-/* newsletter form !! */
+#more_news {
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+/* newsletter form */
+
 #newsletter {
 	width: 177px;
 	position: absolute;
@@ -2080,21 +2088,22 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 #newsletter input, #newsletter select {
-	/*height: 18px;*/
 	margin: 1px 0;
 	border: 1px solid #454545;
-	/*float: left;*/
 	font-size: 1em;
 	padding: 1px;
 }
+
 .newsletter_submit {
 	background-color: #D9291A;
 	float: right;
 	color: #FFF;
 }
+
 select.newsletter_form {
 	width: 177px;
 }
+
 input.newsletter_form {
 	width: 173px;
 }
