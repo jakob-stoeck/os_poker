@@ -612,7 +612,6 @@ body.iframe #messagebox a.LayerClose
 }
 
 #profile-medium  .panel {
-	border-top: 1px solid #CCCCCA;
 	padding-top: 5px;
 	padding-bottom: 20px; /* for absolute buttons */
 	position: relative;
@@ -664,11 +663,8 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .items {
 	width: 123px;
+	float: right !important;
 	overflow: hidden;
-}
-
-*:first-child+html #profile-medium .items {
-	margin-left: 50px;
 }
 
 #profile-medium .items #item_panel {
@@ -710,7 +706,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .info {
 	height: 110px;
-	width: 170px;
+	width: 118px;
 	margin-right: 5px;
 	overflow: hidden;
 	clear: both;
@@ -732,7 +728,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .poker_submit .label, #profile-medium .poker_submit .label a {
 	width:80px;
-	color:#6E4809;
+	color: #6E4809;
 	font-weight:bold;
 }
 
