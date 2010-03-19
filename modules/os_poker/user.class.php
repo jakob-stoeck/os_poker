@@ -392,6 +392,11 @@ class CUser
 
 	public function DailyGift()
 	{
+		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
+				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
+
+		$result = db_query($sql, $this->_user->uid);
+
 		$buddies = $this->Buddies(TRUE);
 
 		foreach($buddies as $buddy)
@@ -406,10 +411,7 @@ class CUser
 			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
 		}
 
-		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
-				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
-
-		return db_query($sql, $this->_user->uid);
+		return $result;
 	}
 
 	public function CompleteProfile()

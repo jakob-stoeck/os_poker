@@ -805,6 +805,7 @@ div.poker_submit.big.disabled:hover div.label {
 	text-align: center;
 	font-size: medium; /* FIXME */
 	font-weight: bold;
+	cursor: pointer;
 }
 
 #buddylist .next,

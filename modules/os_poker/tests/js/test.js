@@ -263,10 +263,14 @@ module('Drupal.behaviors.os_poker', {
   },
   teardown: function(){
     //delete mockup functions
-    delete tb_show;
-    delete os_poker_input_file_style;
-    delete tb_init;
-    delete tb_remove;
+    try {
+		// IE does not support delete
+		delete tb_show;
+		delete os_poker_input_file_style;
+		delete tb_init;
+		delete tb_remove;
+	} catch(e) {
+    }
   }
 });
 asyncTest('status messages are shown in a thickbox', 6, function(){
@@ -376,4 +380,35 @@ test('', function() {
 				tb_init('#table_users a.thickbox');
 	equals($(".test_target").is(".tb_init_called"), true, "tb_init called on the table player");
 				    });
+
+
+module('os_poker_daily_gift', {
+	setup: function(){
+		$(document.body).append('<div id="today_gift"></div>');
+		Drupal.behaviors.os_poker(document);
+		window.saved_os_poker_send_message = window.os_poker_send_message;
+    },
+	teardown: function(){
+		$("#today_gift").remove();
+		window.os_poker_send_message = window.saved_os_poker_send_message;
+    }
+});
+
+test('daily_gift_only_once', function() {
+	expect(2);
+	var message_sent = false;
+	window.os_poker_send_message = function(args) {
+		if (args.type == 'os_poker_daily_gift') {
+			message_sent = true;
+		}
+	}
+
+	$('#today_gift').trigger('click');
+	equals(message_sent, true, 'First daily gift sent successfully');
+
+	message_sent = false;
+	$('#today_gift').trigger('click');
+	equals(message_sent, false, 'Second daily gift not sent');
+});
+
 
