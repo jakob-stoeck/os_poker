@@ -2,95 +2,62 @@
  * Front page
  */
 
-body.not-logged-in #main {
-  /*width: 760px;*/
-  /*padding-left: 20px;*/
-  /*padding-right: 20px;*/
-  /*padding-top: 20px;*/
+body.not-logged-in #middle-content-left {
+    margin: 0;
 }
 
-body.not-logged-in #middle-content {
-  /*height: 432px;*/
-}
-
-body.not-logged-in #middle-content-left
-{
-  margin: 0;
-}
-
-body.not-logged-in #middle-content-right
-{
-  float: right;
+body.not-logged-in #middle-content-right {
+    float: right;
 }
 
 /**
- * Front page teaser
+ * Front page teaseir
+ * Was ist P4F?
  */
-#poker-teaser {
-  /*width: 411px;*/
-  /*height: 432px;*/
+
+#poker-teaser-table {
+    background-color:transparent;
+    background-image:url(images/teaser-table-shadow.gif);
+    background-position:right bottom;
+    background-repeat:no-repeat;
+    margin-left:7px;
+    margin-top:20px;
+    padding-bottom:8px;
+    padding-right:6px;
 }
 
-#poker-teaser-table
-{
-  background-color:transparent;
-  background-image:url(images/teaser-table-shadow.gif);
-  background-position:right bottom;
-  background-repeat:no-repeat;
-  margin-left:7px;
-  margin-top:20px;
-  padding-bottom:8px;
-  padding-right:6px;
+#poker-teaser-text {
+    font-size: 12px;
+    background-image: url(images/teaser-text.gif);
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 143px;
+    height: 75px;
+    padding: 8px 20px 5px 4px;
+    position: absolute;
+    right: -185px;
+    bottom: 120px;
+    color: white;
+    font-weight: bold;
+    z-index: 1;
+    text-align: center;
 }
 
-#poker-teaser-text
-{
-  font-size: 12px;
-  background-image: url(images/teaser-text.gif);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 143px;
-  height: 75px;
-  padding: 8px 20px 5px 4px;
-  position: absolute;
-  right: -185px;
-  bottom: 120px;
-  color: white;
-  font-weight: bold;
-  z-index: 1;
-  text-align: center;
-}
-
-#poker-teaser-text *
-{
-  font-size: 1em;
-  font-weight: inherit;
-}
 #poker-teaser-text h1,
-#poker-teaser-text a
-{
-  color: #A8904A !important;
-  display: block;
+#poker-teaser-text a {
+    color: #A8904A !important;
+    display: block;
 }
-
-#poker-teaser-girl
-{
-  position: absolute;
-  right: -320px;
-  bottom: 0;
-}
-
 
 /**************************
  * Home Signup
  * ***********************/
 
 #home_signup {
-	background: transparent url(images/register_bg.png) no-repeat scroll -3px 0;
+	background: transparent url(images/register_bg.png) no-repeat scroll -3px -3px;
 	height: 296px;
 	width: 353px;
-	/*padding: 76px 15px 0 110px !important;*/
 }
 
 #home_signup_form {
@@ -113,33 +80,30 @@ body.not-logged-in #middle-content-right
 }
 
 #os-poker-sign-up-form input {
-	/*height: 21px;*/
 	width: 176px !important;
-	background-image: none;
-	background-color: #000;
+	background: #000;
 	border: 1px solid #000;
 	color: #FFF;
 }
 
 #home_signup_form .form-item {
-  margin-top: 0;
+    margin-top: 0;
 }
 
-#home_signup_form .form-required
-{
-  display:none;
+#home_signup_form .form-required {
+    display:none;
 }
 
 #home_signup_form div.poker_submit {
 	margin-left: 223px;
 	font-size: 10px;
 }
+
 #home_signup_form .poker_submit {
 	color: #FFF;
 }
 
 #home_signup_form  .custom_input {
-  width:190px;
-  margin:0;
+    width: 190px;
+    padding: 1px;
 }
-
