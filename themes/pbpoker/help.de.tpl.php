@@ -62,7 +62,6 @@
 		<h4 class="helpbox-title block_title_bar">Hold'em Regeln</h4>
 			<p><em>Small Blind:</em> Kleiner Pflichteinsatz den der auf den Dealer folgende Spieler zu Beginn der ersten Wettrunde zu zahlen hat.</p>
 			<p><em>Big Blind:</em> Grosser Pflichteinsatz den der auf den Small Blind folgende Spieler zu Beginn der ersten Wettrunde zu zahlen hat.</p>
-In Texas Hold’em poker, each player is initially dealt two cards face down (known as hole cards) and five community cards are placed face down in the middle of the table. Hole cards and community cards can be used in any combination with a view to obtaining the best possible five-card hand from the available seven cards. </p>
 			<ul class="helpbox-list">
 				<li><strong>Erste Wettrunde – Hole Cards</strong><br />
 				Nachdem jeder Spieler 2 verdeckte Karten erhalten hat, beginnt der nächste Spieler nach dem Big Blind die 1. Wettrunde. Die Spieler haben folgende Möglichkeiten: Mitgehen (call), Erhöhen (raise) oder Passen (fold). Jeder Spieler muss denselben Betrag an Chips in den Pot zahlen. Erhöht ein Spieler den Einsatz müssen folglich die anderen Spieler entweder mitgehen oder passen oder wiederum den Einsatz erhöhen. Ein Spieler der passt, scheidet aus der Runde aus.</li>
@@ -103,6 +102,18 @@ In Texas Hold’em poker, each player is initially dealt two cards face down (kn
     <p>
       <a class="tab-iframe" href="<?php print $tutorial ?>" style="display: none"></a>
       <script language="javascript" type="text/javascript">
+/* Dirty hack to activate tutorial tab in help thickbox */
+function os_poker_show_tutorial_tab() {
+$("a[href=#help-pokerhands]").parent().removeClass('ui-state-active')
+$("div#help-pokerhands").addClass('ui-tabs-hide')
+$("a[href=#help-tutorial]").parent().addClass('ui-state-active')
+$("div#help-tutorial").removeClass('ui-tabs-hide')
+
+$('iframe.tutorial').remove();
+var href = $('.tab-iframe').attr('href');
+$('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+}
+
         $(document).ready(function(){
           $('#ContainerContentHelp .tabs').bind('tabsshow', function(event, ui){
             if(!$(ui.tab).hasClass('foo')) {

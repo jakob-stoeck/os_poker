@@ -20,8 +20,8 @@
 require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
 
 // interval between page loads that considered to be a new browser session
-define('NOTIFY_INTERVAL', 60*60);
-
+define('NOTIFY_INTERVAL', 0); // show notify everytime
+define('DEFAULT_JS_SCOPE', 'header');
 
 
 function os_poker_simple_payment_process(&$payment) {
@@ -241,6 +241,7 @@ function os_poker_preprocess_page(&$variables)
 		$variables['template_files'][] = 'page-ajax';
 	}
 
+
   $variables['closure'] .= theme('os_poker_overlay');
   $variables['styles'] = drupal_get_css();
   $variables['scripts'] = drupal_get_js();
@@ -304,37 +305,49 @@ function os_poker_init()
 	$inpoker = FALSE;
 	if (isset($_GET["q"]))
 	{
-		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker");
+		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker") && (substr($_GET["q"], 0, strlen("poker/pages")) != "poker/pages");
 	}
 
+  drupal_add_js('misc/jquery.js', 'core', 'special');
+  drupal_add_js('misc/drupal.js', 'core', 'special');
 
-  drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/jquery.filestyle.mini.js", "theme");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.toolkit.js", "theme");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messages.js", "theme");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.events.js", "theme");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.slider.js", "theme");
+  drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/jquery.filestyle.mini.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.toolkit.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messages.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.events.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.slider.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.tourney.js", "theme", DEFAULT_JS_SCOPE);
 	drupal_add_css(drupal_get_path('module', 'os_poker') . "/css/thickbox.css");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/swfobject.js");
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/json2.js", "module");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/thickbox-compressed.js", "theme", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/swfobject.js", DEFAULT_JS_SCOPE);
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/json2.js", "module", DEFAULT_JS_SCOPE);
 
 	if ($_SESSION['dailychips'] == 1) {
-			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.dailychips.js", "module");
+			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.dailychips.js", "module", DEFAULT_JS_SCOPE);
 			$_SESSION['dailychips'] = null;
 	}
 
+/*
+	// For testing, allows URL based login for test accounts.
+	if (!user_is_logged_in() && isset($_GET['u']))
+	{
+		$user = user_authenticate(array('name' => $_GET['u'],
+					'pass' => 'test123'));
+	}
+*/
+
 	if ($inpoker == FALSE && user_is_logged_in() > 0)
 	{
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme");
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.messagebox.js", "theme", DEFAULT_JS_SCOPE);
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.menu.js", "theme", DEFAULT_JS_SCOPE);
 	}
 	else
 	{
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.pager.js", "theme");
-		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.thickbox.bootstrap.js", "theme");
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.pager.js", "theme", DEFAULT_JS_SCOPE);
+		drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.thickbox.bootstrap.js", "theme", DEFAULT_JS_SCOPE);
 	}
 
-	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme");
+	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme", DEFAULT_JS_SCOPE);
 
 	/*$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";*/
 	$file_button = drupal_get_path('theme', 'pbpoker') . "/images/browse_button_de.png";
@@ -348,11 +361,13 @@ function os_poker_init()
 		 imagewidth : 100,
 		 width : 160
 		 });
+     $('input#edit-picture-upload').parent().addClass('picture_upload_button');
 	}
+
 
 	";
 
-	drupal_add_js($inline_js, 'inline');
+	drupal_add_js($inline_js, 'inline', DEFAULT_JS_SCOPE);
 
 	$inline_js = "
 
@@ -365,7 +380,7 @@ function os_poker_init()
 
 	";
 
-	drupal_add_js($inline_js, 'inline');
+	drupal_add_js($inline_js, 'inline', DEFAULT_JS_SCOPE);
 
 
 	if (user_is_logged_in())
@@ -388,7 +403,7 @@ window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
 
 						if ($last_notify === null || (time() - $last_notify > NOTIFY_INTERVAL)) {
 								$_SESSION['tourney_notify_' . $tourney_id] = time();
-								drupal_add_js($inline_js, 'inline');
+								drupal_add_js($inline_js, 'inline', DEFAULT_JS_SCOPE);
 						}
 
 				}
@@ -411,14 +426,14 @@ window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
 	}
 
   if(os_poker_inline_messages()) {
-    drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting');
+    drupal_add_js(array('os_poker' => array('inline_messages' => true)), 'setting', DEFAULT_JS_SCOPE);
   }
   drupal_add_js(array(
     'os_poker' => array(
       'user_picture_default' => variable_get('user_picture_default', ''),
       'language' => $language,
     ),
-  ), 'setting');
+  ), 'setting', DEFAULT_JS_SCOPE);
 }
 
 function os_poker_inline_messages(){
@@ -511,7 +526,7 @@ function 	os_poker_theme()
 												'template' => 'table_users',
 											),
 				'os_poker_profile_tabs' => array(
-												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE),
+												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE, "target_user" => NULL),
 												'template' => 'profile_tabs',
 											),
 				'os_poker_profile' => array(
@@ -565,6 +580,10 @@ function 	os_poker_theme()
 				'os_poker_message_list' => array(
 												'arguments' => array('messages' => NULL),
 												'template' => 'messagebox_list',
+											),
+				'os_poker_tourney_info' => array(
+												'arguments' => array(),
+												'template' => 'tourney_info',
 											),
     'os_poker_message' => array(
       'arguments' => array('message' => NULL),
@@ -657,6 +676,9 @@ function 	os_poker_theme()
     ),
     'os_poker_tos' => array(
       'template' => 'imprint.en',
+    ),
+    'os_poker_skin' => array(
+      'template' => 'skin',
     ),
   );
 }
@@ -925,7 +947,12 @@ function os_poker_menu()
 												'type'             => MENU_CALLBACK,
 												'access callback'  => 'user_is_anonymous',
 										),
-
+					'poker/pages/tourneyinfo' => array(
+							'page callback'  => 'os_poker_tourney_info_page',
+							'file'           => 'os_poker_pages.php',
+							'type'             => MENU_CALLBACK,
+							'access callback'   => TRUE,
+							),
     'poker/report_abuse/%user' => array(
       'title' => 'Report abuse',
       'page callback' => 'drupal_get_form',
@@ -983,7 +1010,14 @@ function os_poker_menu()
       'page arguments' => array(2),
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
-    )
+				),
+					'poker/skin' => array(
+							'title' => 'Skin',
+							'page callback' => 'os_poker_skin_page',
+							'file' 			   => 'os_poker_pages.php',
+							'access arguments' => array('administer os poker'),
+    ),
+							
   );
 	return $menu;
 }
@@ -1444,11 +1478,21 @@ function os_poker_preprocess_user_picture(&$variables) {
             'TB_iframe' => 'true'
           ),
           'html' => TRUE);
+				} else if (arg(1) == 'profile' && arg(2) == 'medium') {
+						$attributes = array(
+								'onclick' => 'javascript:parent.os_poker_trigger("os_poker_jump", {url:"' . url("poker/profile/profile/" . $account_uid, array("query" => array("height"=>442, "width"=>603))) . '", lightbox:true});'
+								);
+						
+						$variables['picture'] = '<div ' .drupal_attributes($attributes) . '>' . $variables['picture'] . '</div>';
+						$options = NULL;
+						
         } else {
-           $options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
-        }
-
-        $variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+					$options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
+				}
+				
+				if ($options) {
+						$variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+				}
       }
     }
   }
@@ -1668,8 +1712,10 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  */
 function os_poker_skin_css() {
   header('Content-type: text/css');
+/*
   $url = theme('poker_skin_css_url');
   print("@import url($url);\n");
+*/
   module_load_include('php', 'os_poker', 'shop.class');
   foreach(CShop::ListItems() as $item) {
     $class = os_poker_clean_css_identifier($item->name);
@@ -1764,7 +1810,7 @@ function theme_os_poker_overlay() {
   $overlay = os_poker_get_overlay();
   if($overlay) {
     drupal_add_css(drupal_get_path('module', 'os_poker').'/css/overlay.css', 'module');
-    drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module');
+    drupal_add_js(drupal_get_path('module', 'os_poker').'/js/os_poker.overlay.js', 'module', DEFAULT_JS_SCOPE);
     if($overlay['width']) {
       $overlay['attributes']['style'] .= ' width: ' . $overlay['width'] .';';
     }

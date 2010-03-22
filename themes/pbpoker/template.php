@@ -87,6 +87,10 @@ function pbpoker_preprocess_page(&$variables) {
   $variables['body_classes'] .= ' ' . $language->language;
   if (arg(0) == 'poker') {
     $variables['body_classes'] .= ' '. os_poker_clean_css_identifier(arg(0) .'-'. arg(1));
+    if (arg(1) == 'pages') {
+	/* handle static pages correcty */
+	$variables['body_classes'] .= ' '. os_poker_clean_css_identifier(arg(0) .'-'. arg(2));
+    }
   }
   $language_css = path_to_theme().'/pbpoker-' . $language->language . '.css';
   if(!file_exists($language_css)) {
@@ -109,13 +113,16 @@ function pbpoker_preprocess_page(&$variables) {
   if($variables['is_front'] && !$variables['logged_in']) {
     $variables['bottom_content'] = theme('page_front_banners');
   }
+
+  $variables['footer_scripts'] = drupal_get_js('footer');
+  $variables['special_scripts'] = drupal_get_js('special');
 }
 
 function pbpoker_preprocess_page_front_banners(&$variables)
 {
   $variables['banners'][] = theme('page_front_banner', 'banner-signup', t('Sign up now and get a bonus! <strong>$1000 Chips</strong>'), '');
   $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
+  $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), 'poker/pages/tourneyinfo');
 }
 
 function pbpoker_preprocess_block(&$variables) {
@@ -157,7 +164,7 @@ function pbpoker_poker_tutorial_link() {
   return l(t("Click here!"), '#TB_inline', array(
     'external' => TRUE,
     'attributes' => array(
-      'class' => 'yellow thickbox',
+      'class' => 'tutorial yellow thickbox',
     ),
     'query' => 'height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial&',
   ));
@@ -179,3 +186,17 @@ function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }
+
+function css_using_cdn($styles) {
+		$lines = preg_split('/[\r\n]+/', $styles);
+			$newlines = array();
+			foreach ($lines as $line) {
+						if (preg_match('/^(.*href=[\'"])([^\'"]+)([\'"].*)$/', $line, $m)) {
+										$line = $m[1] . simplecdn_rewrite_url($m[2], 'css') . $m[3];
+													$newlines[] = $line;
+												}
+							}
+
+				return join("\n", $newlines);
+}
+

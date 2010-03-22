@@ -735,9 +735,9 @@ function theme_add_gadget($app_id, $mod_id, $view, $owner_id) {
     $scrolling   = $gadget->scrolling ? 'yes':'no';
 
     drupal_add_css($path ."/css/jquery.css");
-    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/util.js?c=1");
-    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/json.js?c=1");
-    drupal_add_js($path ."/shindig/features/src/main/javascript/features/rpc/rpc.js?c=1");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/util.js");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/core/json.js");
+    drupal_add_js($path ."/shindig/features/src/main/javascript/features/rpc/rpc.js");
     drupal_add_js($path ."/js/jquery.all.js");
     drupal_add_js($path ."/js/container.js");
 

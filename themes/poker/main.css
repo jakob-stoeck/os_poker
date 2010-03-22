@@ -49,17 +49,6 @@ div.tb-fix-margin a.LayerClose
  */
 
 /*
-#buddies-tabs
-{
-	background-color: transparent;
-  background-image: url(images/bg_buddies.gif);
-  background-repeat: repeat-x;
-	height: 455px;
-	padding: 5px;
-	width: 622px;
-}
-*/
-/*
 ** Profile
 */
 
@@ -109,9 +98,10 @@ div.tb-fix-margin a.LayerClose
 	color:white;
 }
 
-#profile-tabs .poker_submit .label {
-	/*color:#6E4809;*/
-	/*font-weight:bold;*/
+#profile-tabs .poker_submit .label
+{
+	color:#6E4809;
+	font-weight:bold;
 }
 
 #profile-tabs #profile
@@ -199,9 +189,10 @@ div.tb-fix-margin a.LayerClose
 	border:1px solid #810E0B;
 }
 
-#profile-tabs .bottom .inner-item-list {
+#profile-tabs .bottom .inner-item-list
+{
 	height:120px;
-	/*border-bottom: 1px dotted #810E0B;*/
+	border-bottom: 1px dotted #810E0B;
 	padding-left:12px;
 	overflow:hidden;
 }
@@ -225,8 +216,9 @@ div.tb-fix-margin a.LayerClose
 	margin-left:15px;
 }
 
-#profile-settings .setting-subblock {
-	/*padding-bottom:10px;*/
+#profile-settings .setting-subblock
+{
+	padding-bottom:10px;
 }
 
 #profile-settings .setting-block .form-item
@@ -380,7 +372,7 @@ div.tb-fix-margin a.LayerClose
 #shop .footer .left {
 	position: absolute;
 	left: 0;
-	bottom: 8px;
+	bottom: 46px;
 	width: 125px;
 }
 #shop .footer .right
@@ -484,11 +476,28 @@ body.iframe #messagebox a.LayerClose
     opacity : 0.6;
 }
 
-/* Moving -> #poker-first-profile  and others TO pbpoker.css ~ Line 1022 */
+#poker-first-profile
+{
+	background:transparent url(images/pre_body_bg.gif) repeat scroll top left;
+	border:#501713 solid 1px;
+	width: 380px;
+	padding:15px;
+	margin-left:auto;
+	margin-right:auto;
+	z-index:1042;
+	position: relative;
+}
 
 #poker-first-profile fieldset
 {
 	border:0 none;
+}
+
+#poker-first-profile .title
+{
+	color:white;
+	border-bottom: 1px dotted white;
+	padding-bottom:5px;
 }
 
 #poker-first-profile .title h1
@@ -570,10 +579,10 @@ body.iframe #messagebox a.LayerClose
 
 
 #poker-first-profile div.poker_submit div.label {
-	/*color:#6f480a;*/
-	/*font-weight:bold;*/
+	color:#6f480a;
+	font-weight:bold;
 	text-align:center;
-	/*width:70px;*/
+	width:70px;
 }
 
 #poker-first-profile p
@@ -603,7 +612,6 @@ body.iframe #messagebox a.LayerClose
 }
 
 #profile-medium  .panel {
-	border-top: 1px solid #CCCCCA;
 	padding-top: 5px;
 	padding-bottom: 20px; /* for absolute buttons */
 	position: relative;
@@ -639,7 +647,13 @@ body.iframe #profile-medium a.LayerClose {
 	overflow: hidden;
 }
 
+*:first-child+html #profile-medium .links {
+	height: 123px;
+}
+
+
 #profile-medium .links .poker_submit {
+	margin-top: 0;
 	margin-bottom: 5px;
 }
 
@@ -649,11 +663,8 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .items {
 	width: 123px;
+	float: right !important;
 	overflow: hidden;
-}
-
-*:first-child+html #profile-medium .items {
-	margin-left: 50px;
 }
 
 #profile-medium .items #item_panel {
@@ -695,7 +706,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .info {
 	height: 110px;
-	width: 170px;
+	width: 118px;
 	margin-right: 5px;
 	overflow: hidden;
 	clear: both;
@@ -717,7 +728,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .poker_submit .label, #profile-medium .poker_submit .label a {
 	width:80px;
-	/*color:#6E4809;*/
+	color: #6E4809;
 	font-weight:bold;
 }
 
@@ -731,8 +742,8 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .cursor img.active
 {
-	width:48px;
-	height:48px;
+	width:45px;
+	height:45px;
 	border:1px solid #810E0B;
 }
 
@@ -774,10 +785,11 @@ body.de #profile-medium .abuse .poker_submit .label {
   display: none;
 }
 
-#table_users .list {
+#table_users .list
+{
 	height: 250px;
 	width: 300px;
-	/*background: url(images/bg_user_table.gif) repeat-x;*/
+	background: url(images/bg_user_table.gif) repeat-x;
 	float: left;
 	overflow: hidden;
 }
@@ -887,8 +899,7 @@ div.poker_error_message .msg
 {
 	font-weight:bold;
 	font-size:14px;
-	padding-left:172px;
-	padding-top:83px;
+	padding: 83px 115px 10px 172px;
 }
 
 div.poker_error_message .msg a
@@ -1125,10 +1136,10 @@ padding:10px 0 0 46px;
 /**
  * Buddy list
  */
-div#buddylist  #today_gift,
-div#buddylist  #today_gift_invite
-{
+div#buddylist #today_gift,
+div#buddylist #today_gift_invite {
 	float: left;
+	padding-top: 5px;
 }
 
 /**
@@ -1213,9 +1224,8 @@ div#buddylist  #today_gift_invite
 
 body.page-poker #content-header .title-wrapper a.LayerClose
 {
-  background-image: url(images/button_layerclose2.gif);
-  top: 1px;
-  right: 1px;
+  background-image: url(images/button_layerclose.gif);
+  top: 6px;
 }
 
 /*

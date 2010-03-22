@@ -187,23 +187,7 @@ class CUser
 
 	public function	Online()
 	{
-		//Old version where online == logged on Drupal
-		$interval = time() - 60; // User logged in logged more than 1mn are considered as players.
-		$res = os_poker_db_query('SELECT 1
-						FROM `{users}` AS u
-						INNER JOIN `{sessions}` AS `s` USING (`uid`)
-						WHERE `u`.`uid` = %d AND s.timestamp >= %d
-						LIMIT 1', $this->uid, $interval);
-
-		if ($res)
-		{
-			return (bool)db_result($res);
-		}
-
-		return FALSE;
-
-		//New version where online == sat on a poker table
-		//return (bool)count($this->Tables());
+			return os_poker_user_online($this->uid);
 	}
 
 	public function	Chips($formated = FALSE, $locale = 'en_US')
@@ -408,6 +392,11 @@ class CUser
 
 	public function DailyGift()
 	{
+		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
+				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
+
+		$result = db_query($sql, $this->_user->uid);
+
 		$buddies = $this->Buddies(TRUE);
 
 		foreach($buddies as $buddy)
@@ -422,10 +411,7 @@ class CUser
 			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
 		}
 
-		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
-				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
-
-		return db_query($sql, $this->_user->uid);
+		return $result;
 	}
 
 	public function CompleteProfile()
@@ -900,6 +886,29 @@ class CUpdateUserChipsCount extends CMessage {
 	public function MaxInstances() {
     return 1;
   }
+}
+
+class CTourneyNotificationMessage extends CMessage {
+		public function Run($context_user, $arguments) {
+				list($tourney_serial, $tourney_name, $table_serial) = $arguments;
+
+				//force reload of current user to ensure chips count is updated.
+				$context_user = CUserManager::instance()->User($context_user->uid, true);
+
+				$msg = array(
+						'type' => 'os_poker_tourney_start',
+						'body' => array(
+								'tourney_id' => $tourney_serial,
+								'tourney_name' => $tourney_name,
+								'table_id' => $table_serial,
+								)
+						);
+				parent::Run($context_user, $msg);
+		}
+
+		public function MaxInstances() {
+				return 1;
+		}
 }
 
 class CGiftNotificationMessage extends CMessage {

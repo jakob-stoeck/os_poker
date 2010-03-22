@@ -263,10 +263,14 @@ module('Drupal.behaviors.os_poker', {
   },
   teardown: function(){
     //delete mockup functions
-    delete tb_show;
-    delete os_poker_input_file_style;
-    delete tb_init;
-    delete tb_remove;
+    try {
+		// IE does not support delete
+		delete tb_show;
+		delete os_poker_input_file_style;
+		delete tb_init;
+		delete tb_remove;
+	} catch(e) {
+    }
   }
 });
 asyncTest('status messages are shown in a thickbox', 6, function(){
@@ -335,11 +339,15 @@ module('os_poker.tourney-notify', {
 test('', function() {
 	expect(7);
 	
-    	os_poker_init_tourney_notify();
+    os_poker_init_tourney();
 	equals($("#tourney-notify-template").length, 0, "Notify template is removed");
 	ok($("#tourney-notify").length, 'tourney notify popup is initialized');
 	ok($("#tourney-notify").is(":hidden"), 'tourney notify popup should be hidden by default');
-	window.top.os_poker_tourney_start_notify("My tourney", 100, true);
+
+	// Simulate the os_poker_tourney_start event
+	os_poker_trigger('os_poker_tourney_start', {'tourney_name' : "My tourney", 'table_id' : 100});
+
+	// Check that the notification was displayed
 	ok(!$("#tourney-notify").is(":hidden"), 'tourney notify popup should show when triggered');
 	$("#tourney-notify .close-button").trigger('click');
 	equals($("#tourney-notify .notify-text a").html(), "My tourney/100", "Tourney name and table should be displayed");
@@ -348,4 +356,59 @@ test('', function() {
 	ok($("#tourney-notify").is(":hidden"), 'tourney notify popup should be hidden when close button is clicked.');
 	
 });
+
+module('os_poker.table-users', {
+	setup: function(){
+		$(document.body).append('<div id="table_users"><div class="inner-list"></div></div>');
+  	  	window.saved_tb_init = window.tb_init;
+	 	window.tb_init = function(domChunk) {
+			$(domChunk).each(function() {
+				$(this).addClass('tb_init_called');
+			})
+  		  }
+    	},
+	teardown: function(){
+		$('#table_users').remove();
+		window.tb_init = window.saved_tb_init;
+ 	}
+});
+
+test('', function() {
+			expect(2);
+				$('#table_users .inner-list').html("<div class=\"userlist\"><div class='user'><div class=\"picture\">  <a href=\"/drupal6/?q=poker/profile/profile/366&amp;height=442&amp;width=603&amp;TB_iframe=true\" title=\"Spielerprofil ansehen.\" class=\"test_target thickbox\"><img src=\"http://drupal-demo1.pokersource.info/drupal6/?q=sites/default/files/imagecache/user_picture/pictures/playboy.jpg\" alt=\"Test3&#039;s Profilbild\" title=\"Test3&#039;s Profilbild\"  width=\"118\" height=\"118\" /></a></div><div class=\"name\"><a href=\"/drupal6/?q=poker/profile/profile/366&amp;height=442&amp;width=603&amp;TB_iframe=true\" class=\"thickbox\">Test3</a></div><div class=\"money\"> $4226</div></div></div>");
+	equals($(".test_target").is(".tb_init_called"), false, "Pre-condition");
+				tb_init('#table_users a.thickbox');
+	equals($(".test_target").is(".tb_init_called"), true, "tb_init called on the table player");
+				    });
+
+
+module('os_poker_daily_gift', {
+	setup: function(){
+		$(document.body).append('<div id="today_gift"></div>');
+		Drupal.behaviors.os_poker(document);
+		window.saved_os_poker_send_message = window.os_poker_send_message;
+    },
+	teardown: function(){
+		$("#today_gift").remove();
+		window.os_poker_send_message = window.saved_os_poker_send_message;
+    }
+});
+
+test('daily_gift_only_once', function() {
+	expect(2);
+	var message_sent = false;
+	window.os_poker_send_message = function(args) {
+		if (args.type == 'os_poker_daily_gift') {
+			message_sent = true;
+		}
+	}
+
+	$('#today_gift').trigger('click');
+	equals(message_sent, true, 'First daily gift sent successfully');
+
+	message_sent = false;
+	$('#today_gift').trigger('click');
+	equals(message_sent, false, 'Second daily gift not sent');
+});
+
 

@@ -9,7 +9,7 @@ OsPoker.eventHandlers = {
           $('#table_users #list-banner').hide();
           $('#table_users .list').removeClass('splash');
           Drupal.attachBehaviors(this);
-          tb_init(this);
+          tb_init('#table_users a.thickbox');
         }
         else {
           $(this).html('');

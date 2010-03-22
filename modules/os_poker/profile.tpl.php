@@ -172,8 +172,9 @@
 				  <td colspan="3"> 
 					<?php
 					   if ($next_tourney) {
-					       print t("Player is registered at") . ":";
-    					   print "<a href='#'>" . $next_tourney->description_short . "</a>";
+					       print t("Player is registered at") . ": ";
+					       print "<a target='_top' href='" . url("", array('query' => array('t' => time()), 'fragment' => "tourney_serial=" . $next_tourney->serial)) .
+						         "'>" . $next_tourney->description_short . "</a>";
                        } else {
                            print t("Player is not registered");
                        }

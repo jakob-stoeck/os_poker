@@ -318,7 +318,8 @@ class CScheduler
 					}
 					else if ($obj->instances > $task->MaxInstances())
 					{
-						throw new Exception(t('ERROR : there is more task (!task) than allowed for user !id',  array("!task" => $task->Type(), "!id" => $uid)));
+						return FALSE;
+						//throw new Exception(t('ERROR : there is more task (!task) than allowed for user !id',  array("!task" => $task->Type(), "!id" => $uid)));
 					}
 				}
 			

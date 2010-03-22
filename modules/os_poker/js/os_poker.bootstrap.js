@@ -22,11 +22,19 @@ if(window != window.top) {
 }
 
 Drupal.behaviors.os_poker = function(context) {
+  /* Hack to fix forgot password iframe in IE7 */
+  if ($.browser.msie && $.browser.version === '7.0') {
+	  if ($('#forgot_password').length > 0) {
+          var href = $('#forgot_password').get(0).href;
+          $('#forgot_password').get(0).href = href.replace(/(165)/, '167');
+      }
+  }
+
   //A counter incremented for each call of this function
   var call_counter = arguments.callee.call_counter ? arguments.callee.call_counter + 1 : 1;
   arguments.callee.call_counter = call_counter;
   
-  if(call_counter === 1 && !$(document.body).hasClass('page-poker')) {
+  if(call_counter === 1 && !$(document.body).hasClass('iframe')) {
       if(typeof os_poker_input_file_style === 'function') {os_poker_input_file_style();}
       if(typeof os_poker_message_start === 'function') {os_poker_message_start();}
       if(typeof os_poker_init_events === 'function') {os_poker_init_events();}
@@ -43,8 +51,12 @@ Drupal.behaviors.os_poker = function(context) {
   });
 
   //Register handler for Buddy List's "Today Gift" banner
+  var daily_gift_sent_once = false;
   $('#today_gift').click(function(){
-    os_poker_send_message({type: 'os_poker_daily_gift'});
+    if (!daily_gift_sent_once) {
+		daily_gift_sent_once = true;
+       os_poker_send_message({type: 'os_poker_daily_gift'});
+	}
   })
 
   //Display hint in form field
@@ -67,6 +79,8 @@ Drupal.behaviors.os_poker = function(context) {
     }
   }).blur();
 
+  $('#home_signup_form input[name=pass]').val('');
+  
   //Show status message in a thickbox when not on admin pages
   if (!(typeof Drupal.settings.os_poker === 'object' && Drupal.settings.os_poker.inline_messages)) {
     var $messages = $('.messages:not(.os-poker-processed)').addClass('os-poker-processed');
@@ -78,7 +92,8 @@ Drupal.behaviors.os_poker = function(context) {
   if (typeof $.fn.tabs == 'function') {
     $('#ContainerContentHelp div.tabs:not(.os-poker-processed)').addClass('os-poker-processed').tabs();
   }
-  os_poker_init_tourney_notify();
+  os_poker_init_tourney();
+  os_poker_init_router();
 };
 
 OsPoker.dialog = function(content) {

@@ -25,7 +25,7 @@ function	os_poker_goto_lobby()
 {
   var location = os_poker_site_root();
   if (typeof Drupal.settings.os_poker.language == 'object') {
-    location += '&q=' + Drupal.settings.os_poker.language.language;
+    location += '?q=' + Drupal.settings.os_poker.language.language;
   }
 	document.location = location;
 }
@@ -216,7 +216,7 @@ function	os_poker_start_challenge(player1, player2)
 
 function	os_poker_activate_item(elem)
 {
-	os_poker_send_message({type:"os_poker_activate_item", id_item:elem.id});
+	os_poker_send_message({type:"os_poker_activate_item", id_item:parseInt(elem.id)});
 	$(elem).parent().children().removeClass("active");
 	$(elem).addClass('active');
   if(typeof window.top.tb_remove === 'function') {
@@ -257,29 +257,35 @@ function os_poker_play_now_clicked()
 
 }
 
-function os_poker_init_tourney_notify() {
-  var tourney_notify_tpl = $("#tourney-notify-template");
-  tourney_notify_tpl.after($('<div id="tourney-notify"><a href="#" class="close-button"></a><div class="notify-text" align="center">' +
-	tourney_notify_tpl.html() + '</div></div>'));
-  $("#tourney-notify").hide();
-  tourney_notify_tpl.remove();
-  
-  $("#tourney-notify .close-button").click(function(e) {$("#tourney-notify").hide();});
-        // tourney-notify test
-        $("p.buddy_count").click(function(e) {
-                os_poker_tourney_start_notify("Test", 123, true);
-        });
+/**
+ * Router invokes JS functions based on the # anchor in the url.
+ * if the anchor is #load_xyz, it will invoke a function window.top.os_poker_load_xyz() if such
+ * a function exists.
+ */ 
+function os_poker_init_router() 
+{
+	if (window.top.location.href.match(/#(load_.+)/) ||
+		window.top.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
+                var route = 'os_poker_' + RegExp.$1;
+                if (window.top[route] && typeof(window.top[route]) == 'function') {
+                        setTimeout(function() {
+                                window.top[route]();
+                        }, 1000);
+ 		}
+	}
 
-  if (window.top.tourney_notify) {
-    os_poker_tourney_start_notify(window.top.tourney_notify.name, window.top.tourney_notify.table_id, true);
-  }
+	if (window.location.href.match(/#(load_.+)/) ||
+                window.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
+		var route = 'os_poker_' + RegExp.$1;
+		if (window[route] && typeof(window[route]) == 'function') {
+			setTimeout(function() {
+				window[route]();
+			}, 1000);
+        	}
+	}
 }
 
-function os_poker_tourney_start_notify(tourney_name, table_id, flag_in_progress) 
-{
-	var tUrl = os_poker_site_root() + "?view=table&game_id=" + table_id;
-	$("#tourney-notify .notify-text span").html("<a href='" + tUrl + "'>" + tourney_name + '/' + table_id + '</a>');
-	$("#tourney-notify").fadeIn('slow');
-	
+function os_poker_load_tutorial() {
+	$("a.tutorial").trigger('click');
 }
 

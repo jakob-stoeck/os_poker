@@ -1,0 +1,168 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+require_once(drupal_get_path('module', 'os_poker') . "/messages.class.php");
+
+
+class OSPokerOnlineCheck extends OsPokerWebTestCase
+{
+
+	private $_current_user = NULL;
+
+	/*
+	**
+	*/
+
+	function getInfo()
+	{
+		return 	array(
+						'name' => t('OS Poker Online class'),
+						'description' => t('Online check class tester'),
+						'group' => 'OS Poker',
+				);
+	}
+
+	/**
+	* Implementation of setUp().
+	*/
+	function setUp() {
+		// Enable required modules and set default site configuration.
+		parent::setUp();
+
+		// Create a bunch of users whose online status will be tested
+		$this->online_users = array();
+		for ($i=0; $i<10; $i++) {
+				$this->online_users[] = $this->drupalCreateUser();
+		}
+    require_once(drupal_get_path('module', 'os_poker') . "/os_poker_toolkit.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
+    require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+	}
+
+	/**
+	* Implementation of tearDown().
+	*/
+	function tearDown() {
+		parent::tearDown();
+	}
+
+	function testOnlineUsers() {
+			$this->drupalLogout();
+			/* When no one is online */
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 0, t("Online users is 0 to begin with"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+			$this->assertEqual($user_hash, array(), t("Online users is 0 to begin with"));
+
+			/* Login one user */
+			$time = array();
+			$time[0] = time();
+			$this->drupalLogin($this->online_users[0]);
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 1, t("Online users is 1"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+			$this->assertEqual(count($user_hash), 1, t("Online users returns 1 user id"));
+			$this->assertEqual(!empty($user_hash[$this->online_users[0]->uid]), TRUE, t("Online users returns 1 user id"));
+			
+			// Login another user keeping this one logged in ...
+			$time[1] = time();
+			$this->drupalLogin($this->online_users[1]);
+			// ... by add the old session back
+			$session_sql = "INSERT into {sessions} (`uid`, `timestamp`, `sid`) VALUES (%d, %d,'%s')";
+			db_query($session_sql, $this->online_users[0]->uid, $time[0], md5($time[0] . rand(1, 10000) ));
+
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 2, t("Online users is 2"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+			$this->assertEqual(count($user_hash), 2, t("Online users returns 2 user id"));
+			$this->assertEqual(os_poker_user_online($this->online_users[0]->uid), TRUE, t("Online users returns user id for user1"));
+			$this->assertEqual(os_poker_user_online($this->online_users[1]->uid), TRUE, t("Online users returns user id for user2"));
+
+			// Test User->Online()
+			$users = array();
+			for($i=0; $i<5; $i++) {
+					$users[$i] = CUserManager::User($this->online_users[$i]->uid);
+			}
+
+			$this->assertEqual($users[0]->Online(), TRUE, t("User::Online"));
+			$this->assertEqual($users[1]->Online(), TRUE, t("User::Online"));
+			$this->assertEqual($users[2]->Online(), FALSE, t("User::Online"));
+			$this->assertEqual($users[3]->Online(), FALSE, t("User::Online"));
+			$this->assertEqual($users[4]->Online(), FALSE, t("User::Online"));
+
+			// Login three more users
+			for ($i = 2; $i < 5; $i++) {
+					$time[$i] = time();
+					$this->drupalLogin($this->online_users[$i]);
+
+					db_query($session_sql, $this->online_users[$i-1]->uid, $time[$i-1], md5("user$i" . $time[$i-1] . rand(1, 10000) ));
+			}
+
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 5, t("Online users is 5"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+			$this->assertEqual(count($user_hash), 5, t("Online users returns 5 user ids"));
+			for ($i=0; $i<5; $i++) {
+					$this->assertEqual(os_poker_user_online($this->online_users[$i]->uid), TRUE, t("Online users returns user id for user " . ($i+1)));
+			}
+
+			// Change one of the users to have a session timestamp > 900 secs old
+			$inactive_user = 3;
+			$update_sql = "UPDATE {sessions} set `timestamp` = `timestamp` - 1000 WHERE `uid` = %d";
+			db_query($update_sql, $this->online_users[$inactive_user]->uid);
+
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 4, t("Online users is only 4 now"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+			$this->assertEqual(count($user_hash), 4, t("Online users returns only 4 user ids"));
+			$this->assertEqual(os_poker_user_online($this->online_users[$inactive_user]->uid), FALSE, t("Online users does not return user 3 anymore "));
+
+			// Add three users to sit at poker tables, one who is logged in and active, one who is inactive and one who is not logged n drupal to cover all cases
+			$active_user = 2;
+			$logged_out_user = $this->loggedInUser;
+
+			$table1 = $this->createPokerTable("table 1");
+			$table2 = $this->createPokerTable("table 2");
+			$this->joinPokerTable($this->online_users[$inactive_user], $table1, FALSE);
+			$this->joinPokerTable($this->online_users[$active_user], $table2, FALSE);
+			$this->joinPokerTable($logged_out_user, $table2, FALSE);
+			$this->drupalLogout();
+
+
+			// Make sure there is no double counting. Tehre should be 6 online users now 
+			$count = os_poker_online_users(FALSE, TRUE);
+			$this->assertEqual($count, 5, t("Online users includes players"));
+			$user_hash = os_poker_online_users(TRUE, TRUE);
+
+			$this->assertEqual(count($user_hash), 5, t("Online users returns only 6 user ids"));
+			$this->assertEqual(os_poker_user_online($this->online_users[$inactive_user]->uid), TRUE, t("Inactive user at table counted "));
+			$this->assertEqual(os_poker_user_online($this->online_users[$active_user]->uid), TRUE, t("Active user at table counted "));
+			$this->assertEqual(os_poker_user_online($logged_out_user->uid), TRUE, t("Logged out user at table counted "));
+
+			// Test Poker::PlayingUsers()
+			$players = CPoker::PlayingUsers();
+			$this->assertEqual(count($players), 3, t("Counted 3 players"));
+			$this->assertEqual(in_array($this->online_users[$inactive_user]->uid, $players), 3, t("First player"));
+			$this->assertEqual(in_array($this->online_users[$active_user]->uid, $players), 3, t("Second player"));
+			$this->assertEqual(in_array($logged_out_user->uid, $players), 3, t("Third player"));
+	}
+}
+
+?>

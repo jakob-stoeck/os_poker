@@ -1,0 +1,16 @@
+<?php
+// $Id: simplecdn_css.module,v 1.1 2009/02/21 12:18:29 starnox Exp $
+
+/**
+ * Implementation of hook_simplecdnapi().
+ */
+function simplecdn_css_simplecdnapi($op) {
+  switch ($op) {
+    case 'load':
+      return array(
+        'eid' => 'css',
+        'name' => 'CSS',
+      );
+      break;
+  }
+}

@@ -496,13 +496,46 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 		return $id;
   }
 
+ function createPokerTourney($state = 'registering') {
+    $previous_db = db_set_active($this->createPokerDatabase());
+		$name = $this->randomName();
+		$description_short = $name . " short";
+		$description_long = $name . " looooooooooooooooooong";
+
+    $sql = "INSERT INTO `tourneys` (`name`, `description_short`, `description_long`, `state`) VALUES ('%s', '%s', '%s', '%s')";
+    db_query($sql, $name, $description_short, $description_long, $state);
+		$id = db_last_insert_id("tourneys", "serial");
+
+		$sql = "SELECT * from tourneys WHERE serial = %d";
+		$res = db_query($sql, $id);
+		$tourney = db_fetch_object($res);
+
+    db_set_active($previous_db);
+		return $tourney;
+ }
+
+ function pokerTourneyRegister($tourney_serial, $user_serial, $table_serial = -1, $rank = null, $currency_serial = 1) {
+    $previous_db = db_set_active($this->createPokerDatabase());
+		 
+		$sql = "INSERT INTO `user2tourney` (`tourney_serial`, `user_serial`, `table_serial`, `rank`, `currency_serial`) VALUES (%d,%d, %d,%d,%d)";
+
+    db_query($sql, $tourney_serial, $user_serial, $table_serial, $rank, $currency_serial);
+
+		$sql = "SELECT * from `user2tourney` WHERE `user_serial` = %d and `tourney_serial` = %d";
+		$res = db_query($sql, $user_serial, $tourney_serial);
+		$info = db_fetch_object($res);
+ 
+    db_set_active($previous_db);
+		return $info;
+ }
+
   /**
    * Sit a user (player) at the given table.
    *
    * @param <object> $user The use to sit a the table
    * @param <string> $game_id The technical id of the table.
    */
-  function joinPokerTable($user, $game_id) {
+ function joinPokerTable($user, $game_id, $do_assert = TRUE) {
     $previous_db = db_set_active($this->createPokerDatabase());
     $sql = "INSERT INTO user2table VALUES (%d, %d, 0, 0)";
     db_query($sql, $user->uid, $game_id);
@@ -512,9 +545,11 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     foreach($tables as $k => $table) {
       $tables[$k] = $table->serial;
     }
-    $this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
-    $users_at_table = CPoker::UsersAtTable($game_id);
-    $this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+		if ($do_assert) {
+				$this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
+				$users_at_table = CPoker::UsersAtTable($game_id);
+				$this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+		}
  }
 
   function createJPokerApplication() {

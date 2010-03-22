@@ -1,4 +1,4 @@
-<div class="inner-item-list">
+<div class="inner-item-list messagebox-ajax-list">
 	<?php
 		$nmsg = 0;
 		$page = (isset($_GET["page"]) ? $_GET["page"] : 0);
@@ -38,3 +38,14 @@
 		}
 	?>
 </div>
+<?php
+			if (arg(0) == 'poker' && arg(1) == 'messagebox' && !empty($_GET['ajax'])) {
+?>
+<script type="text/javascript">
+Drupal.attachBehaviors($(".messagebox-ajax-list").get(0));
+</script>
+
+<?php
+					}
+?>
+

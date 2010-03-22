@@ -1,0 +1,48 @@
+<?php
+// $Id: simplecdn_imagecache.module,v 1.1 2009/02/21 12:18:30 starnox Exp $
+
+/**
+ * Implementation of hook_help().
+ */
+function simplecdn_imagecache_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#simplecdn_imagecache":
+      $output = '<p>'. t("Enable the use of images (via ImageCache) with Simple CDN.") .'</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_simplecdnapi().
+ */
+function simplecdn_imagecache_simplecdnapi($op) {
+  switch ($op) {
+    case 'load':
+      return array(
+        'eid' => 'imagecache',
+        'name' => 'ImageCache',
+      );
+      break;
+  }
+}
+
+/**
+ * Override Theme Function (ImageCache 6.x-2.0-beta8).
+ */
+function phptemplate_imagecache($namespace, $path, $alt = '', $title = '', $attributes = NULL) {
+  if ($image = image_get_info(imagecache_create_path($namespace, $path))) {
+    $attributes['width'] = $image['width'];
+    $attributes['height'] = $image['height'];
+  }
+  // check is_null so people can intentionally pass an empty array of attributes to override
+  // the defaults completely... if
+  if (is_null($attributes)) {
+    $attributes['class'] = 'imagecache imagecache-'. $namespace;
+  }
+  $attributes = drupal_attributes($attributes);
+  $imagecache_url = imagecache_create_url($namespace, $path);
+  $imagecache_url = simplecdn_rewrite_url($imagecache_url, 'imagecache'); // ADDED LINE
+  return '<img src="'. $imagecache_url .'" alt="'. check_plain($alt) .'" title="'. check_plain($title) .'" '. $attributes .' />';
+}

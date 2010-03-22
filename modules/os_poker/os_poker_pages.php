@@ -237,7 +237,7 @@ function	os_poker_profile_page($tab, $user_id = NULL, $game_id = NULL)
 		break;
 	}
 
-	return theme('os_poker_profile_tabs', $tab, $content, $external);
+	return theme('os_poker_profile_tabs', $tab, $content, $external, $target_user);
 }
 
 /*
@@ -522,4 +522,11 @@ foreach ($vcats as $catid)
  return $form;
 }
 
+function os_poker_tourney_info_page() {
+		return theme('os_poker_tourney_info');
+}
+
+function os_poker_skin_page() {
+		return theme('os_poker_skin');
+}
 ?>

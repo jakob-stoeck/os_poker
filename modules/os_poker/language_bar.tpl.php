@@ -9,6 +9,7 @@
 		$links = array();
 		$output = array();
 
+		/*
 		foreach ($languages[1] as $lang) 
 		{
 			$name = $lang->language;
@@ -38,6 +39,7 @@
 			
 			$output []= l($img, $links[$name]["href"], array("attributes" => $links[$name]["attributes"],	'language' => $links[$name]["language"], "html" => $icons)) ;
 		}
+		*/
 		
 		if ($icons == TRUE)
 		{
