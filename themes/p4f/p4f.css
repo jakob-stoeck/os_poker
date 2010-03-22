@@ -469,7 +469,6 @@ body.iframe #main {
 
 #user_login .poker_submit {
 	margin-top: -2px;
-	font-size: 10px;
 }
 
 
@@ -498,7 +497,7 @@ body.iframe #main {
 
 div.poker_submit {
 	color: #1b1401;
-	font: normal 12px Arial, sans-serif;
+	font: normal 10px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
 	margin-top: 2px;
@@ -2807,8 +2806,9 @@ body.poker-tourneyinfo #middle-content-right {
 	font-weight: bold;
 }
 
-/* This Part will need cleaning */
-
+/*********************************
+ * Homepage, not logged in
+ * ******************************/
 /* Override page-front.css */
 
 #page-front-banners {
@@ -2822,7 +2822,7 @@ body.poker-tourneyinfo #middle-content-right {
 	width: 365px;
 }
 #how_description {
-	padding: 76px 15px 0 110px;
+	padding: 76px 30px 0 100px;
 }
 #how_description p, #how_it_works p  {
 	margin-top: 10px;
@@ -2895,9 +2895,9 @@ body.poker-tourneyinfo #middle-content-right {
 	text-decoration: none;
 }
 
-/*******
- * SEO
- * *****/
+/********************************
+ * Homepage, SEO text
+ * ******************************/
 
 .seo_text {
 	color: #908F8F;

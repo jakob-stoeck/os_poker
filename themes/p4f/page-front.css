@@ -58,6 +58,7 @@ body.not-logged-in #middle-content-right {
 	background: transparent url(images/register_bg.png) no-repeat scroll -3px -3px;
 	height: 296px;
 	width: 353px;
+	position: relative;
 }
 
 #home_signup_form {
@@ -95,8 +96,8 @@ body.not-logged-in #middle-content-right {
 }
 
 #home_signup_form div.poker_submit {
-	margin-left: 223px;
-	font-size: 10px;
+	position: absolute;
+	right: 55px;
 }
 
 #home_signup_form .poker_submit {
