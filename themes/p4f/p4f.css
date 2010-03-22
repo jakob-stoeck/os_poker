@@ -43,6 +43,18 @@ label {
  * REset main.css
  * *********************/
 
+a.LayerClose, a.closebutton {
+	text-indent: -10000px;
+	background: url(images/button_layerclose.gif) center center no-repeat;
+	display: block;
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	width: 13px;
+	height: 13px;
+	z-index: 777;
+}
+
 .messages.error {
 	background: #fff;
 	color: #d5271e;
@@ -69,41 +81,6 @@ label {
 	right: 20px;
 }
 
-/************************
- * Overlays / dark thickboxes
- * *********************/
-
-#os-poker-overlay .content, #forgot-password {
-	width: 409px;
-	height: 307px;
-	background: #eee url(images/first_time_register_bg.png) bottom repeat-x;
-	padding: 10px;
-	color: #fff;
-}
-
-#os-poker-overlay h1 {
-	text-transform: uppercase;
-	font-size: 12px;
-}
-
-#os-poker-overlay a.closebutton {
-	text-indent: -10000px;
-	background-color: transparent;
-	background-image: url(images/button_layerclose.gif);
-	background-repeat: no-repeat;
-	background-position: center center;
-}
-
-/* FIXME */
-/*
-.yellow {
-	color: #A8904A;
-}
-
-.darkred {
-	color: #810E0B;
-}
-*/
 .clear {
 	display: block;
 	float: none;
@@ -324,6 +301,60 @@ ul.secondary li a.active {
 	background-color: gray;
 }
 
+/************************
+ * Overlays / dark thickboxes
+ * *********************/
+
+#os-poker-overlay .content, #forgot-password {
+	width: 392px;
+	background: #eee url(images/first_time_register_bg.png) bottom repeat-x;
+	padding: 10px;
+	color: #fff;
+}
+
+#forgot-password {
+	height: 165px; /* defined in poker/template.php */
+}
+
+#os-poker-overlay h1, #forgot-password h1 {
+	text-transform: uppercase;
+	font-size: 12px;
+	border-bottom: 1px dotted #A8A8A8;
+}
+
+#forgot-password .header p {
+	font-size: 11px;
+	font-size: 11px;
+	line-height: 17px;
+	margin: 5px 0 0;
+	padding-bottom: 10px;
+	padding-right: 15px;
+}
+
+#forgot-password label {
+	float: left;
+	margin-right: 5px;
+	text-align: right;
+	width: 95px;
+}
+
+#forgot-password #edit-name {
+	width: 150px;
+}
+
+#forgot-password .poker_submit {
+	margin-left: 100px;
+}
+
+/* not implemented */
+#forgot-password .footer {
+	display: none;
+}
+
+#forgot-password a, #os_poker_overlay a {
+	color: red;
+}
+
 /*************************
 * Thickboxes
 *************************/
@@ -415,25 +446,22 @@ body.iframe #main {
 	text-align: left;
 }
 
-#user_login #edit-remember-me-wrapper {
-	font-size: 10px;
-	margin-left: -1px;
+#user_login #edit-remember-me-wrapper label {
+	font-size: 10px !important;
 }
 
 #user_login #forgot_password {
 	text-transform: none;
-	margin-left: 3px;
+	margin-left: 5px;
 }
 
-/* dirty dirty ie7 fix */
 *:first-child+html #user_login #edit-remember-me-wrapper {
 	padding-top: 0 !important;
 	margin-left: -5px;
 }
 
-*:first-child+html #user_login #edit-remember-me-wrapper,
-*:first-child+html .small_white_text {
-	font-size: 9px !important;
+*:first-child+html #user_login #forgot_password {
+	padding-top: 5px !important;
 }
 
 #user_login #edit-remember-me {
@@ -2288,61 +2316,6 @@ input.newsletter_form_name {
 	float: left;
 }
 
-/****************************
-* Thickbox : Forgot password
-* from login/header
-****************************/
-
-#forgot-password .form-required {
-	display: none;
-}
-
-#forgot-password .header h1 {
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 20px;
-	margin: 0;
-}
-
-#forgot-password .header p {
-	font-size: 11px;
-	border-bottom: 1px dotted #A8A8A8;
-	font-size: 11px;
-	line-height: 17px;
-	margin: 5px 0 0;
-	padding-bottom: 10px;
-	padding-right: 15px;
-}
-
-#forgot-password label {
-	border: 0 none;
-	color: #C7C5C5;
-	float: left;
-	height: 19px;
-	line-height: 19px;
-	margin: 0;
-	text-align: right;
-	width: 95px;
-	padding: 0 5px 0 0;
-}
-
-#forgot-password #edit-name {
-	width: 150px;
-}
-
-#forgot-password .poker_submit {
-	margin-left: 100px;
-}
-
-#forgot-password .footer {
-	padding-right: 15px;
-	margin-top: 10px;
-}
-
-#forgot-password .footer a {
-	color: #A8904A;
-}
-
 /*******************************
 * Thickbox : shop => Get chips
 * *****************************/
@@ -2463,17 +2436,6 @@ input.newsletter_form_name {
 	position: relative;
 }
 
-.messages-popup a.close {
-	text-indent: -10000px;
-	display: block;
-	width: 20px;
-	height: 20px;
-	position: absolute;
-	top: 0;
-	right: 0;
-	background: url(images/button_layerclose.gif) no-repeat center center;
-}
-
 .messages-popup div.messages.status {
 	background-color: transparent !important;
 	background-image: none !important;
@@ -2490,7 +2452,6 @@ div.poker_error_message {
 	position: absolute;
 	left: 0;
 	top: 56px;
-	/*width: 100%;*/
 }
 #buddy_search_404_msg {
 	border-bottom: 1px dotted #D92322;
@@ -2814,9 +2775,15 @@ body.poker-tourneyinfo #middle-content-right {
 	height: 285px;
 	width: 365px;
 }
+
+#how_it_works h4 {
+	font-size: 1em;
+}
+
 #how_description {
 	padding: 76px 30px 0 100px;
 }
+
 #how_description p, #how_it_works p  {
 	margin-top: 10px;
 }
@@ -2875,6 +2842,10 @@ body.poker-tourneyinfo #middle-content-right {
 	overflow: none;
 	margin: 12px 8px;
 	float: left;
+}
+
+.games_hp h3 {
+	font-size: 1.1em;
 }
 
 .games_hp p {

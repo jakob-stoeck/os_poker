@@ -98,6 +98,7 @@ body.not-logged-in #middle-content-right {
 #home_signup_form div.poker_submit {
 	position: absolute;
 	right: 55px;
+	bottom: 145px;
 }
 
 #home_signup_form .poker_submit {

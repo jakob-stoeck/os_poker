@@ -11,6 +11,7 @@ html.framed body {
 /**
  * Thickboxes
  */
+	/*
 body.iframe a.LayerClose,
 #poker-first-profile a.LayerClose,
 div.tb-fix-margin a.LayerClose
@@ -34,7 +35,7 @@ div.tb-fix-margin a.LayerClose
    	top: 12px;
 	right: 42px;
 }
-
+*/
 .tabs-window {
 	background: #fff url(images/bg_buddies.gif) bottom left repeat-x;
 	width: 621px;
