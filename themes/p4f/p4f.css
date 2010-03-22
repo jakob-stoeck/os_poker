@@ -73,7 +73,7 @@ label {
  * Overlays / dark thickboxes
  * *********************/
 
-#os-poker-overlay .content {
+#os-poker-overlay .content, #forgot-password {
 	width: 409px;
 	height: 307px;
 	background: #eee url(images/first_time_register_bg.png) bottom repeat-x;
@@ -95,15 +95,15 @@ label {
 }
 
 /* FIXME */
+/*
 .yellow {
 	color: #A8904A;
 }
 
-/* FIXME */
 .darkred {
 	color: #810E0B;
 }
-
+*/
 .clear {
 	display: block;
 	float: none;
@@ -420,7 +420,7 @@ body.iframe #main {
 	margin-left: -1px;
 }
 
-#forgot_password {
+#user_login #forgot_password {
 	text-transform: none;
 	margin-left: 3px;
 }
@@ -445,12 +445,12 @@ body.iframe #main {
 	float: none;
 }
 
-#avatar img {
+#user_login #avatar img {
 	height: 40px;
 	width: 40px;
 }
 
-#avatar {
+#user_login #avatar {
 	padding-top: 6px;
 	margin-right: 6px;
 }
@@ -495,28 +495,36 @@ body.iframe #main {
 * the buttons
 ************************/
 
-div.poker_submit {
-	color: #1b1401;
+.poker_submit {
+	color: #fff;
 	font: normal 10px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
 	margin-top: 2px;
 	overflow: hidden;
 }
+
+.submit_get {
+	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
+	color: #fff;
+	font: normal 10px Arial, sans-serif;
+	padding: 1px 5px 1px 12px;
+	font-size: 10px;
+	text-decoration: none;
+}
+
 /* FIXME */
 .container-inline div.poker_submit {
 	display: inline-block;
 	vertical-align: middle;
 }
 
-div.poker_submit div.pre {
-	display: block;
-	float: left;
-	height: 16px;
-	width: 0;
+/* FIXME */
+.poker_submit div.pre {
+	display: none;
 }
 
-div.poker_submit div.label {
+.poker_submit div.label {
 	background: url(images/arrow_white.gif) no-repeat 3px center;
 	display: block;
 	float: left;
@@ -524,11 +532,15 @@ div.poker_submit div.label {
 	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
 	color: #FFF;
-	width: 60px;
+	width: 60px; /* fixme : use this only in places where it needs to be resized ? */
+}
+
+.poker_submit div.label:hover {
+	text-decoration: underline;
 }
 
 /* FIXME IE7 problem will occur here. */
-div.poker_submit div.label input {
+.poker_submit div.label input {
 	border: 0;
 	background-color: transparent;
 	color: inherit !important;
@@ -2281,25 +2293,6 @@ input.newsletter_form_name {
 * from login/header
 ****************************/
 
-#forgot-password {
-	background: url(images/pre_body_bg.gif);
-	border-color: #5A4220;
-	border-style: solid;
-	border-width: 1px;
-	float: none;
-	margin: 0;
-	overflow: hidden;
-	padding: 15px;
-	width: 379px;
-	color: #fff;
-}
-
-/* FIXME : dont repeat that close thing everywhere */
-#forgot-password .LayerClose,
-#poker-first-profile a.LayerClose {
-	background-image: url(images/button_layerclose.gif);
-}
-
 #forgot-password .form-required {
 	display: none;
 }
@@ -2331,7 +2324,7 @@ input.newsletter_form_name {
 	text-align: right;
 	width: 95px;
 	padding: 0 5px 0 0;
- }
+}
 
 #forgot-password #edit-name {
 	width: 150px;
@@ -2886,13 +2879,6 @@ body.poker-tourneyinfo #middle-content-right {
 
 .games_hp p {
 	margin: 2px 0 11px;
-}
-
-.submit_get {
-	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
-	padding: 1px 5px 1px 12px;
-	font-size: 10px;
-	text-decoration: none;
 }
 
 /********************************
