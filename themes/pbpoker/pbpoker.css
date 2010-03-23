@@ -231,19 +231,10 @@ ul.secondary li a.active {
 }
 
 #footer .language-bar a {
-	color: #000;
-}
-
-#footer .language-bar a.language-link {
 	color: #fff;
 }
 
-.footer-links {
-	color: #A8904A;
-	margin-right: 5px;
-}
-
-.footer-links a {
+.footer-links, .footer-links a {
 	color: #A8904A;
 }
 
