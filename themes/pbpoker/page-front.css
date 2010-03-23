@@ -167,3 +167,28 @@ body.logged-in #middle-content-right {
   background-image: url('images/front-banner-join.gif');
   width: 321px;
 }
+
+/***********************************
+ * search engine optimisation text
+ * ********************************/
+
+#seo {
+	background: #1d1d1d;
+	color: #797979;
+	font-size: 0.9em;
+	padding: 20px 15px;
+	border-top: 1px solid #353430;
+	border-bottom: 1px solid #353430;
+}
+
+#seo h2, #seo strong {
+	font-size: 1.1em;
+}
+
+#seo h2 {
+	margin-bottom: 0.5em;
+}
+
+#seo strong {
+	font-weight: normal;
+}
