@@ -212,9 +212,16 @@
 		</div>
 	</div> <!-- /#main-inner, /#main -->
 
+	<!-- seo text -->
+	<div id="seo">
+	<h2><?php print t("Play online poker at Playboy Poker"); ?></h2>
+		<p><strong><?php print t("If you are always playing online poker, or want to learn it, then Playboy Poker is the place for you. We not only offer exciting poker tournaments with hot prices, but also all information about the poker rules and poker strategies to be successful at the poker table."); ?> </strong></p>
+		<p><strong><?php print t("On our free poker site you will perhaps become the next star of the poker world and win a date with one of our Playmates. You play on our poker tables the most popular poker variant Texas Hold'em No Limit."); ?></strong></p>
+	</div>
+	<!-- end seo -->
+
     <?php if ($footer || $footer_message): ?>
       <div id="footer"><div id="footer-inner" class="region region-footer">
-
         <?php if ($footer_message): ?>
           <div id="footer-message"><?php print $footer_message; ?></div>
         <?php endif; ?>
