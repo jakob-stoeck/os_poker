@@ -147,7 +147,9 @@ Big Spender Player buys a gift for every player at the table, aggregate value mo
 
 
 /*TODO : Big Spender*/
+/* #238
 		$this->fail("TODO : Big Spender");
+*/
   }
 
 
