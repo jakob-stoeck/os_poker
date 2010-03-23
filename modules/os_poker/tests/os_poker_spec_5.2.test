@@ -73,7 +73,9 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 						 'pass[pass1]' => $password,
 						 'pass[pass2]' => $password,
 						 );
+/* #238
 		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+*/
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 		$this->drupalLogout();
 

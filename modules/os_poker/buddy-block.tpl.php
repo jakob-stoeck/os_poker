@@ -4,6 +4,8 @@
 		<?php print $buddyNumber; ?>
 	</div>
 
+	<div style="clear:both"></div>
+
 	<?php if ($buddy) { ?>
 
 		<div class="buddy_list_name <?php if ($buddy->Online()) { print "online"; } ?>">

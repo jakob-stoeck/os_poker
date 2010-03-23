@@ -240,6 +240,6 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
-
+  <?php print $footer_scripts; ?>
 </body>
 </html>

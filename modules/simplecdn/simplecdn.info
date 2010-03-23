@@ -1,0 +1,11 @@
+; $Id: simplecdn.info,v 1.1 2009/02/21 12:18:29 starnox Exp $
+name = Simple CDN
+description = Enable a mirror CDN on certain elements of your site.
+core = 6.x
+package = CDN
+; Information added by drupal.org packaging script on 2009-10-06
+version = "6.x-1.1"
+core = "6.x"
+project = "simplecdn"
+datestamp = "1254866168"
+

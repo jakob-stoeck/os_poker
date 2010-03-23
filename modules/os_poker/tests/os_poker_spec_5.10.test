@@ -109,14 +109,24 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$user = $this->drupalCreateUser();
 		$this->OsPokerLogin($user);
 
-		/* create 2 buddies and buddify them with user */
-    $this->buddies = array($this->drupalCreateUser(), $this->drupalCreateUser());
-    foreach(array_reverse($this->buddies) as $buddy) {
-      $this->OsPokerLogin($buddy, array('profile_nickname' => $buddy->name));
-			$this->OsPokerCreateBuddyRelationShip($user, $buddy);
-    }
+		/* create 10 buddies and buddify them with user */
+    $this->buddies = array();
+		for($i=0; $i<12; $i++) {
+				$this->buddies[] = $this->drupalCreateUser();
+		}
+
 		$buddy1 = $this->buddies[0];
 		$buddy2 = $this->buddies[1];
+
+		for ($i=0; $i < count($this->buddies); $i++) {
+			$buddy = $this->buddies[$i];			
+      $this->OsPokerLogin($buddy, array('profile_nickname' => $buddy->name));
+			$this->OsPokerCreateBuddyRelationShip($user, $buddy);
+
+			for ($j = $i+1; $j < count($this->buddies); $j++) {
+					$this->OsPokerCreateBuddyRelationShip($this->buddies[$j], $buddy);
+			}
+    		}
 
 
 		
@@ -128,7 +138,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$this->assertTrue(preg_match("/" . t('Invite Friends') . "/", $block["content"]) > 0, t("'Invite friend' Replace empty buddies"));
 
 		// The block is returned for the admin account 
-		$this->assertTrue(preg_match("/banner_free_gifts|banner_invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' is present on buddy list"));
+		$this->assertTrue(preg_match("/daily_gifts|invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' is present on buddy list"));
 		
 		/**
 		 * Go to Buddies
@@ -171,12 +181,16 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$nchips = $first_user->Chips();
 		
 		//Assert basic amount of chips
-		$this->drupalGet('');
+		$data = $this->drupalGet('');
+/* #238
+		$this->assertTrue(preg_match('/You have (.*?) Chips/', $data, $m) > 0, "Debug1");
+		$this->pass($m[1], "Debug Chips");
 		$this->assertText(
 					   t('You have $ 3,000 Chips'),
 					   t('User have 3000 Chips.')
 					);
-					
+*/
+				
 		//Perform daily gift
 		$this->assertTrue($first_user->CanDailyGift(), t('User can use daily gift'));
 		$first_user->DailyGift();
@@ -191,9 +205,11 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		/* reload first buddy and check its chips amount */
 		$first_buddy = CUserManager::instance()->User($buddy1->uid, TRUE);
 		$this->AssertTrue($first_chips + 100 == $first_buddy->Chips(), $first_buddy->Chips()." == ".$first_chips." + 100 => ".t('The process triggered by clicking the banner will send a certain amount of chips (e.g. 100 chips as found in a database record ) to all buddies of the acting player'), t('SpecPoker'));
+		$this->pass($first_buddy->Chips() - $first_chips, "Debug: Increment to first buddy chips after daily gift");
 
 		/* reload second buddy and check its chips amount */
 		$second_buddy = CUserManager::instance()->User($buddy2->uid, TRUE);
+		$this->pass($second_buddy->Chips() - $second_chips, "Debug: Increment to second buddy chips after daily gift");
 		$this->AssertTrue($second_chips + 100 == $second_buddy->Chips(), $second_buddy->Chips()." == ".$second_chips." + 100 => ".t("to all buddies of the acting player."), t("SpecPoker"));
 
 		/**
@@ -208,7 +224,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		$block = os_poker_block('view', 2);
 
 		// The block is returned for the admin account 
-		$this->assertTrue(preg_match("/banner_free_gifts|banner_invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' isn't present on buddy list anymore"));
+		$this->assertTrue(preg_match("/daily_gifts|invite_more_friends/", $block["content"]) > 0, t("'Gift of the Day' isn't present on buddy list anymore"));
 		
 		/**
 		 * Go to Buddies

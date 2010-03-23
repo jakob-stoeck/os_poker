@@ -3,7 +3,7 @@
 }
 
 div#user_login {
-	width: 400px;
+	width: 320px;
 }
 
 /* buy / invite buttons must have the same size in german */
@@ -52,5 +52,5 @@ div#user_login {
 
 #page-front-banners #banner-join
 {
-  background-image: url('images/front-banner-join-de.gif');
+  background-image: url('images/pb-tourney-banner-start.jpg');
 }

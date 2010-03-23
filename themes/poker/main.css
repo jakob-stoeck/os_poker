@@ -372,7 +372,7 @@ div.tb-fix-margin a.LayerClose
 #shop .footer .left {
 	position: absolute;
 	left: 0;
-	bottom: 8px;
+	bottom: 46px;
 	width: 125px;
 }
 #shop .footer .right
@@ -612,7 +612,6 @@ body.iframe #messagebox a.LayerClose
 }
 
 #profile-medium  .panel {
-	border-top: 1px solid #CCCCCA;
 	padding-top: 5px;
 	padding-bottom: 20px; /* for absolute buttons */
 	position: relative;
@@ -648,7 +647,13 @@ body.iframe #profile-medium a.LayerClose {
 	overflow: hidden;
 }
 
+*:first-child+html #profile-medium .links {
+	height: 123px;
+}
+
+
 #profile-medium .links .poker_submit {
+	margin-top: 0;
 	margin-bottom: 5px;
 }
 
@@ -658,11 +663,8 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .items {
 	width: 123px;
+	float: right !important;
 	overflow: hidden;
-}
-
-*:first-child+html #profile-medium .items {
-	margin-left: 50px;
 }
 
 #profile-medium .items #item_panel {
@@ -674,11 +676,12 @@ body.de #profile-medium .links .poker_submit {
 }
 
 #profile-medium .items #item_panel .list {
-	height: 50px;
-	width: 50px;
-	margin: 0 auto;
+	height: 47px;
+	width: 47px;
+	margin: 3px auto 0;
 	overflow: hidden;
 	border: 1px solid #CDCEC9;
+	position: relative;
 }
 
 #profile-medium .items .next, #profile-medium .items .next:hover,
@@ -703,7 +706,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .info {
 	height: 110px;
-	width: 170px;
+	width: 118px;
 	margin-right: 5px;
 	overflow: hidden;
 	clear: both;
@@ -725,7 +728,7 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .poker_submit .label, #profile-medium .poker_submit .label a {
 	width:80px;
-	color:#6E4809;
+	color: #6E4809;
 	font-weight:bold;
 }
 
@@ -739,8 +742,8 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .cursor img.active
 {
-	width:48px;
-	height:48px;
+	width:45px;
+	height:45px;
 	border:1px solid #810E0B;
 }
 
@@ -896,8 +899,7 @@ div.poker_error_message .msg
 {
 	font-weight:bold;
 	font-size:14px;
-	padding-left:172px;
-	padding-top:83px;
+	padding: 83px 115px 10px 172px;
 }
 
 div.poker_error_message .msg a

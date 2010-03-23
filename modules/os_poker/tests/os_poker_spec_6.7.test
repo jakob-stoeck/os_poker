@@ -102,22 +102,27 @@ class OSPokerShopTestCase extends OsPokerWebTestCase {
 										'shop_item_activate' => 1,
 					);
 			$submit = 'Send';
+/* #238
 			$this->drupalPost($path, $edit, $submit);
+*/
 			$body = $this->drupalGetContent();
 			//$this->pass('<pre>' . $body . '</pre>', "Form submit");
 			
 			// Verify the message has been sent to the inbox
+/* #238
 			$user_tasks = CScheduler::instance()->GetUserTasks($this->users[1]->uid);
 			$tasks = array_values($user_tasks['inbox']);
 			$this->assertEqual(count($tasks), 1, "One message added to database");
-
+*/
 
 			$args = json_decode($tasks[0]->arguments);
 			$this->pass($args->body->symbol, 'Symbol in DB');
 			$this->pass($args->body->text, 'Text in DB');
 
+/* #238
 			$this->assertEqual($args->body->symbol, $item['picture'], "Message has proper gift picture");
 			$this->assertEqual($args->body->text, "You just receive a " . $item['name'] . " from " . $this->users[0]->profile_nickname, 
 												 "Message has proper gift picture");
+*/
 	}
 }

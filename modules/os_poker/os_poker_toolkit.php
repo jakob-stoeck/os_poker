@@ -86,18 +86,59 @@ function os_poker_set_application_default_settings() {
 **
 */
 
-function	os_poker_online_users()
+function	os_poker_online_users($return_hash = FALSE, $refresh = FALSE)
 {
-	// FROM : light version of /modules/user/user.module : user_block : 3
-	$authenticated_count = 0;
+	static $user_hash;
 
-	if (user_access('access content'))
-	{
-		$interval = time() - 60; // User logged in logged more than 1mn are considered as players.
-		$authenticated_users = db_query('SELECT COUNT(DISTINCT u.uid) FROM {users} u INNER JOIN {sessions} s ON u.uid = s.uid WHERE s.timestamp >= %d AND s.uid > 0 ORDER BY s.timestamp DESC', $interval);
-		$authenticated_count = db_result($authenticated_users);
+	if (!$refresh && is_array($user_hash)) {
+			return $return_hash ? $user_hash : count($user_hash);
 	}
-	return $authenticated_count;}
+
+
+	// FROM modules/user.module, user_block (3)
+
+	// Count users active within the defined period.
+	$interval = time() - variable_get('user_block_seconds_online', 900);
+	
+	// Perform database queries to gather online user lists.  We use s.timestamp
+	// rather than u.access because it is much faster.
+	$anonymous_count = sess_count($interval);
+	$authenticated_users = db_query('SELECT DISTINCT u.uid, u.name, s.timestamp FROM {users} u INNER JOIN {sessions} s ON u.uid = s.uid WHERE s.timestamp >= %d AND s.uid > 0 ORDER BY s.timestamp DESC', $interval);
+	$authenticated_count = 0;
+	$items = array();
+	$user_hash = array();
+	while ($account = db_fetch_object($authenticated_users)) {
+			$user_hash[$account->uid] = 'drupal';
+			$authenticated_count++;
+	}
+
+	// We also check the users playing at table, since the drupal time out and jpoker timeout are different
+	$players = CPoker::PlayingUsers();
+	foreach ($players as $player_uid) {
+			if (!isset($user_hash[$player_uid])) {
+					$user_hash[$player_uid] = 'table';
+					$authenticated_count++;
+			}
+	}
+
+	// If the current user just logged in, he may not have a session entry. Check manually
+	$current_user = CUserManager::instance()->CurrentUser();
+	if (!empty($current_user->uid) && !isset($user_hash[$current_user->uid])) {
+			$user_has[$current_user->uid] = 'self';
+			$authenticated_count++;
+	}
+
+	if ($return_hash) {
+			return $user_hash;
+	}
+
+	return $authenticated_count;
+}
+
+function os_poker_user_online($uid) {
+		$online_users = os_poker_online_users(true);
+		return isset($online_users[$uid]);
+}
 
 /*
 **

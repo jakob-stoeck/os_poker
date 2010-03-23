@@ -535,7 +535,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
    * @param <object> $user The use to sit a the table
    * @param <string> $game_id The technical id of the table.
    */
-  function joinPokerTable($user, $game_id) {
+ function joinPokerTable($user, $game_id, $do_assert = TRUE) {
     $previous_db = db_set_active($this->createPokerDatabase());
     $sql = "INSERT INTO user2table VALUES (%d, %d, 0, 0)";
     db_query($sql, $user->uid, $game_id);
@@ -545,9 +545,11 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
     foreach($tables as $k => $table) {
       $tables[$k] = $table->serial;
     }
-    $this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
-    $users_at_table = CPoker::UsersAtTable($game_id);
-    $this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+		if ($do_assert) {
+				$this->assertTrue(in_array($game_id, $tables), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CUser::Tables')));
+				$users_at_table = CPoker::UsersAtTable($game_id);
+				$this->assertTrue(in_array($user->uid, $users_at_table), t('Player %name is sitting at table %game_id according to %function', array('%name' => $user->uid, '%game_id' => $game_id, '%function' => 'CPoker::UsersAtTable')));
+		}
  }
 
   function createJPokerApplication() {

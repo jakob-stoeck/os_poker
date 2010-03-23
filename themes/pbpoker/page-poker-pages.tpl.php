@@ -225,6 +225,7 @@
       </div></div> <!-- /#footer-inner, /#footer -->
     <?php endif; ?>
 
+  <?php print $footer_scripts; ?>
 
 </body>
 </html>

@@ -4,10 +4,10 @@
 				<div id="middle-content">
 					<div id="middle-content-left">
 						<div class="banner-box">
-							<a href="#" id="banner-tourney"><!-- --></a>
+							<a href="<?php print url("", array('fragment' => "tourney_serial=1388")); ?>" id="banner-tourney"><!-- --></a>
 						</div>
 						<div class="banner-box">
-							<a href="#" id="banner-millions"><!-- --></a>
+							<a href="<?php print url("", array('fragment' => "tourney_serial=1388")); ?>" id="banner-millions"><!-- --></a>
 						</div>
 						<div class="banner-box" id="become-member-box">
 							<h3><span>Noch kein Mitglied?</span></h3>

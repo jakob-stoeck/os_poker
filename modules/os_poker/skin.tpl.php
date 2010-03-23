@@ -2,9 +2,10 @@
 $params = "&height=442&width=603&keepThis=true&TB_iframe=true";
 ?>
 
-<?php print l(t("Self Profile"), "poker/profile/&" . $params, array('attributes' => array('class' => 'thickbox'))); ?>
+
+<?php print l("Self Profile", "poker/profile/&" . $params, array('attributes' => array('class' => 'thickbox'))); ?>
 <br/>
-<?php print l(t("Medium Profile"), "poker/profile/medium/100&" . $params, array('attributes' => array('class' => 'thickbox'))); ?>
+<?php print l("Medium Profile", "poker/profile/medium/100&" . $params, array('attributes' => array('class' => 'thickbox'))); ?>
 <br/>
 <?php
 print drupal_get_form('os_poker_add_buddy_button', 100);

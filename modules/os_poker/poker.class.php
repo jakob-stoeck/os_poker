@@ -89,7 +89,24 @@ class CPoker
 
 		return $tables;
 	}
-	
+
+	// Return list of user ids for players that are sitting at a table
+	public static function PlayingUsers() {
+			$lastDb = db_set_active(self::$_pokerDB);
+
+			$sql = "SELECT distinct `user2table`.user_serial from `user2table`";
+			$res = db_query($sql);
+			$users = array();
+			if ($res) {
+					while ($ut = db_fetch_object($res)) {
+							$users[] = $ut->user_serial;
+					}
+			}
+
+			db_set_active($lastDb);
+			return $users;
+	}
+
 	public static function ActiveTourneysForUser($user_id) {
 		$lastDb = db_set_active(self::$_pokerDB);
 	
@@ -306,81 +323,17 @@ class CPoker
 		$imagePath = file_directory_path() . "/poker_rewards/";
 		$defaultPicture = $imagePath ."reward_default.jpg";
 	
-		$rewards = 	array(
-							"reward1" => array("value" => 0, "name"	=> t("Newcomer"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" =>	t("Player sits down at the table for the first time")),
-							"reward2" => array("value" => 0, "name"	=> t("Blind Hen"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins his first hand")),
-							"reward3" => array("value" => 0, "name"	=> t("It's taking part that counts!"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player participates in a tourney/sng for the first time")),
-							"reward4" => array("value" => 0, "name"	=> t("Bullets"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with AA hole cards")),
-							"reward5" => array("value" => 0, "name"	=> t("Cowboys"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with KK hole cards")),
-							"reward6" => array("value" => 0, "name"	=> t("Jailhouse Rock"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with QQ hole cards")),
-							"reward7" => array("value" => 0, "name"	=> t("Fish-Hooks"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with JJ hole cards")),
-							"reward8" => array("value" => 0, "name"	=> t("Route 66"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with 66 hole cards")),
-							"reward9" => array("value" => 0, "name"	=> t("Sailboats"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with 44 hole cards")),
-							"reward10" => array("value" => 0, "name" => t("Big Slick"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with AK hole cards")),
-							"reward11" => array("value" => 0, "name" => t("Big Chick"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with AD hole cards")),
-							"reward12" => array("value" => 0, "name" => t("Dinner for two"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins with 69 hole cards")),
-							"reward13" => array("value" => 0, "name" => t("Valentines's"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Day Player wins with KQ hole cards, both heart")),
-							"reward14" => array("value" => 0, "name" => t("Big Bang 5.000"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins a big pot, more than 5.000 chips")),
-							"reward15" => array("value" => 0, "name" => t("No risk no fun"), "color" => "bronce", "points" => 100, "bonus" => 1000, "picture" => $defaultPicture, "desc" => t("Player wins an all-in")),
-							"reward16" => array("value" => 0, "name" => t("Be my Buddy I"), "color" => "bronce", "points" => 200, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player has at least 5 buddies")),
-							"reward17" => array("value" => 0, "name" => t("Follow me I"), "color" => "bronce", "points" => 200, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player has at least 2 successful invitations")),
-							"reward18" => array("value" => 0, "name" => t("Regular's Table"), "color" => "bronce", "points" => 200, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player sits down at the table with at least one buddy")),
-							"reward19" => array("value" => 0, "name" => t("It's my round!"), "color" => "bronce", "points" => 200, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player buys a gift for every player at the table, value doesn't matter")),
-							"reward20" => array("value" => 0, "name" => t("Challenger"), "color" => "bronce", "points" => 200, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player participates in a challenge")),
-							
-							"reward21" => array("value" => 0, "name" => t("Jackpot"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins with 777")),
-							"reward22" => array("value" => 0, "name" => t("Trips"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins with three of a kind")),
-							"reward23" => array("value" => 0, "name" => t("Ten Times Trips"), "color" => "silver", "points" => 250, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with three of a kind, 10 times")),
-							"reward24" => array("value" => 0, "name" => t("Road Testing"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins with a street")),
-							"reward25" => array("value" => 0, "name" => t("On The Road"), "color" => "silver", "points" => 250, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with a street, 10 times")),
-							"reward26" => array("value" => 0, "name" => t("Flush"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins with a flush")),
-							"reward27" => array("value" => 0, "name" => t("Flush 10x"), "color" => "silver", "points" => 250, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with a flush, 10 times")),
-							"reward28" => array("value" => 0, "name" => t("Full House"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins with a full house")),
-							"reward29" => array("value" => 0, "name" => t("Full House 10x"), "color" => "silver", "points" => 250, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with a full house, 10 times")),
-							"reward30" => array("value" => 0, "name" => t("Broadway"), "color" => "silver", "points" => 250, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player wins with AKQJT")),
-							"reward31" => array("value" => 0, "name" => t("The Bicycle"), "color" => "silver", "points" => 250, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player wins with A2345")),
-							"reward32" => array("value" => 0, "name" => t("Big Bang 10.000"), "color" => "silver", "points" => 250, "bonus" => 2000, "picture" => $defaultPicture, "desc" => t("Player wins a big pot, more than 10.000 chips")),
-							"reward33" => array("value" => 0, "name" => t("Big Bang 25.000"), "color" => "silver", "points" => 250, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player wins a big pot, more than 25.000 chips")),
-							"reward34" => array("value" => 0, "name" => t("Bad Beat Full House"), "color" => "silver", "points" => 250, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player holds a full house and looses his hand")),
-							"reward35" => array("value" => 0, "name" => t("Final Table"), "color" => "silver", "points" => 250, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player places top 9 in a tourney")),
-							"reward36" => array("value" => 0, "name" => t("Lounge Lizard"), "color" => "silver", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player has at least 10 buddies")),
-							"reward37" => array("value" => 0, "name" => t("Randy Dandy"), "color" => "silver", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player has at least 5 successful invitations")),
-							"reward38" => array("value" => 0, "name" => t("Regular's Table II"), "color" => "silver", "points" => 500, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player sits down at the table with at least three buddies")),
-							"reward39" => array("value" => 0, "name" => t("It's my round! II"), "color" => "silver", "points" => 500, "bonus" => 2500, "picture" => $defaultPicture, "desc" => t("Player buys a gift for every player at the table, aggregate value more than 1.000 Chips")),
-							
-							"reward40" => array("value" => 0, "name" => t("The Millionaires Club"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player has a peek chip count of 1.000.000 chips")),
-							"reward41" => array("value" => 0, "name" => t("On a Rush"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins 10 hands in a row during a session")),
-							"reward42" => array("value" => 0, "name" => t("Quads"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with four of a kind")),
-							"reward43" => array("value" => 0, "name" => t("Straight Flush"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with a straight flush")),
-							"reward44" => array("value" => 0, "name" => t("The Road to Success"), "color" => "gold", "points" => 500, "bonus" => 7500, "picture" => $defaultPicture, "desc" => t("Player wins with a street, 50 times")),
-							"reward45" => array("value" => 0, "name" => t("Flush Rush"), "color" => "gold", "points" => 500, "bonus" => 7500, "picture" => $defaultPicture, "desc" => t("Player wins with a flush, 50 times")),
-							"reward46" => array("value" => 0, "name" => t("House-Hunter"), "color" => "gold", "points" => 500, "bonus" => 7500, "picture" => $defaultPicture, "desc" => t("Player wins with a full house, 50 times")),
-							"reward47" => array("value" => 0, "name" => t("Big Bang 100.000"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins a big pot, more than 100.000 chips")),
-							"reward48" => array("value" => 0, "name" => t("Kamikaze"), "color" => "gold", "points" => 500, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player wins with 27 hole cards, any suit")),
-							"reward49" => array("value" => 0, "name" => t("Bad Beat Quads"), "color" => "gold", "points" => 500, "bonus" => 10000, "picture" => $defaultPicture, "desc" => t("Player holds four of a kind and looses his hand")),
-							"reward50" => array("value" => 0, "name" => t("Tournament Pro"), "color" => "gold", "points" => 500, "bonus" => 7500, "picture" => $defaultPicture, "desc" => t("Player wins a tourney")),
-							"reward51" => array("value" => 0, "name" => t("Cool Dude"), "color" => "gold", "points" => 1000, "bonus" => 7500, "picture" => $defaultPicture, "desc" => t("Player has at least 50 buddies")),
-							"reward52" => array("value" => 0, "name" => t("Party Animal"), "color" => "gold", "points" => 1000, "bonus" => 10000, "picture" => $defaultPicture, "desc" => t("Player has at least 25 successful invitations")),
-							"reward53" => array("value" => 0, "name" => t("Full table/Private"), "color" => "gold", "points" => 1000, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Table Player sits down at the table with 8 buddies")),
-							"reward54" => array("value" => 0, "name" => t("It's my round! III"), "color" => "gold", "points" => 1000, "bonus" => 5000, "picture" => $defaultPicture, "desc" => t("Player buys a gift for every player at the table, aggregate value more than 10.000 Chips")),
-							
-							"reward55" => array("value" => 0, "name" => t("Royal Family"), "color" => "platinum", "points" => 2000, "bonus" => 10000, "picture" => $defaultPicture, "desc" => t("Player wins with a royal flush")),
-							"reward56" => array("value" => 0, "name" => t("Marathon"), "color" => "platinum", "points" => 2000, "bonus" => 15000, "picture" => $defaultPicture, "desc" => t("at least 42 hours at the table within 8 days")),
-							"reward57" => array("value" => 0, "name" => t("Strike!"), "color" => "platinum", "points" => 2000, "bonus" => 20000, "picture" => $defaultPicture, "desc" => t("all bronze, silver and goild achievements complete")),
-							"reward58" => array("value" => 0, "name" => t("Milestone 10.000"), "color" => "platinum", "points" => 2000, "bonus" => 20000, "picture" => $defaultPicture, "desc" => t("hands played")),
-							"reward59" => array("value" => 0, "name" => t("Tournament Expert"), "color" => "platinum", "points" => 2000, "bonus" => 20000, "picture" => $defaultPicture, "desc" => t("Player wins at least 10 tourneys")),
-							"reward60" => array("value" => 0, "name" => t("Donald Trump"), "color" => "platinum", "points" => 5000, "bonus" => 25000, "picture" => $defaultPicture, "desc" => t("Player had more than 1 million chips, lost everything and has again > 1 million chips")),
-							"reward61" => array("value" => 0, "name" => t("Big Spender"), "color" => "platinum", "points" => 5000, "bonus" => 10000, "picture" => $defaultPicture, "desc" => t("Player buys a gift for every player at the table, aggregate value more than 100.000 Chips")),
-							"reward62" => array("value" => 0, "name" => t("Buddy King"), "color" => "platinum", "points" => 5000, "bonus" => 15000, "picture" => $defaultPicture, "desc" => t("Player has at least 100 buddies")),
-							"reward63" => array("value" => 0, "name" => t("Invitation King"), "color" => "platinum", "points" => 5000, "bonus" => 25000, "picture" => $defaultPicture, "desc" => t("Player has at least 50 successful invitations")),
-							"reward64" => array("value" => 0, "name" => t("Playboy"), "color" => "platinum", "points" => 5000, "bonus" => 25000, "picture" => $defaultPicture, "desc" => t("Player has spent at least 1.000.000 chips for gifts")),
-					);
+		include_once(drupal_get_path('module', 'os_poker') . "/rewards.lib.php");
+
+		$rewards = 	os_poker_get_all_rewards();
 					
 		foreach ($rewards as $name => $value)
 		{
 			if (file_exists($imagePath . $name . ".gif"))
 			{
 				$rewards[$name]["picture"] = $imagePath . $name . ".gif";
+			} else {
+					$rewards[$name]["picture"] = $defaultPicture;
 			}
 		}
 					

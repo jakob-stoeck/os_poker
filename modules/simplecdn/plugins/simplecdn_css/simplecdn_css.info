@@ -1,0 +1,12 @@
+; $Id: simplecdn_image.info,v 1.1 2009/02/21 12:18:29 starnox Exp $
+name = CSS
+description = Enable the use of CSS with Simple CDN.
+core = 6.x
+package = CDN
+dependencies[] = simplecdn
+; Information added by drupal.org packaging script on 2009-10-06
+version = "6.x-1.1"
+core = "6.x"
+project = "simplecdn"
+datestamp = "1254866168"
+

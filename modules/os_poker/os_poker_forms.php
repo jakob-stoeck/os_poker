@@ -98,6 +98,16 @@ function	os_poker_sign_up_form($form_state)
 							'#required' => TRUE,
 					);
 					
+	$form['profile_email_notify'] = array(
+			'#type' => 'hidden',
+			'#value' => 1,
+			);
+
+	$form['profile_newsletter'] = array(
+			'#type' => 'hidden',
+			'#value' => 1,
+			);
+
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
@@ -233,6 +243,60 @@ function	os_poker_profile_personal_settings_form($form_state)
 }
 
 
+/*
+ * WARNING - we are copying the _user_edit_validate() function from user.module to this file, since 
+ * in the version of drupal we are using, they dont seem to understand the concept of reuse.
+ * Ideally this should be done by calling user_module_invoke() but the user_user hook uses arg(1) to
+ * retreive the user ID which is very lame, because we dont pass the user ID in the URL.
+ *
+ * We could directly call _user_edit_validate() but it would break if that function changes in future.
+ * So the safest thing is to "borrow" code locally.
+ *
+ * We should upgrade the drupal version soon, and fix this code.
+ */
+function os_poker_user_edit_validate($uid, &$edit) {
+  $user = user_load(array('uid' => $uid));
+  // Validate the username:
+  if (user_access('change own username') || user_access('administer users') || !$user->uid) {
+    if ($error = user_validate_name($edit['name'])) {
+      form_set_error('name', $error);
+    }
+    else if (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE uid != %d AND LOWER(name) = LOWER('%s')", $uid, $edit['name'])) > 0) {
+      form_set_error('name', t('The name %name is already taken.', array('%name' => $edit['name'])));
+    }
+    else if (drupal_is_denied('user', $edit['name'])) {
+      form_set_error('name', t('The name %name has been denied access.', array('%name' => $edit['name'])));
+    }
+  }
+
+  // Validate the e-mail address:
+  if ($error = user_validate_mail($edit['mail'])) {
+    form_set_error('mail', $error);
+  }
+  else if (db_result(db_query("SELECT COUNT(*) FROM {users} WHERE uid != %d AND LOWER(mail) = LOWER('%s')", $uid, $edit['mail'])) > 0) {
+			form_set_error('mail', t('The e-mail address %email is already registered.', array('%email' => $edit['mail'])));
+  }
+  else if (drupal_is_denied('mail', $edit['mail'])) {
+    form_set_error('mail', t('The e-mail address %email has been denied access.', array('%email' => $edit['mail'])));
+  }
+}
+
+function os_poker_profile_email_settings_form_submit($form, &$form_state) 
+{
+	$cuser = CUserManager::instance()->CurrentUser();
+	$cuser->mail = $form_state['values']['mail'];
+	$cuser->Save();
+
+	drupal_set_message(t("Email successfully modified"));
+}
+
+function os_poker_profile_email_settings_form_validate($form, &$form_state) 
+{
+	$cuser = CUserManager::instance()->CurrentUser();
+	$edit = &$form_state['values'];
+	os_poker_user_edit_validate($cuser->uid, $edit);
+}
+
 
 function	os_poker_profile_email_settings_form($form_state)
 {
@@ -240,14 +304,19 @@ function	os_poker_profile_email_settings_form($form_state)
 	
 	$cuser = CUserManager::instance()->CurrentUser();
 	
-	$form['email'] = array(
+	$form['old_email'] = array(
 							'#type' => 'textfield',
 							'#title' => t("Your Email"),
 							'#value' => $cuser->mail,
 							'#disabled' => TRUE,
 					);	
+	$form['name'] = array(
+							'#type' => 'hidden',
+							'#title' => t("Your name"),
+							'#value' => $cuser->name,
+					);	
 					
-	$form['new_email'] = array(
+	$form['mail'] = array(
 							'#type' => 'textfield',
 							'#title' => t("New Email"),
 							'#required' => TRUE,
@@ -607,9 +676,9 @@ function	os_poker_first_profile_form($form_state)
 	
 	$form['profile_gender'] =	array(
 										'#type' => 'radios',
-										'#title' => t('Gender'),
+										'#title' => '<span class="gender_container">' . t("Gender") . '</span>',
 										'#options' => $pfields['profile_gender'],
-										'#attributes' => array("class" => "custom_radio"),
+										'#attributes' => array("class" => "custom_radio gender_label"),
 										'#suffix' => '<div class="clear"></div>',
 										'#default_value' => $cuser->profile_gender,
 								);

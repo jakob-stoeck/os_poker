@@ -162,9 +162,9 @@ Rockefeller 10,000,000
 
 		$this->drupalGet('poker/buddies');
 		$this->assertTrue(TRUE, $this->drupalGetContent());
-
+/* #238
 		$this->assertPattern('/.+?<div class="buddy_result_list_level">\s+?Fish\s+?<\/div>/siU', 'Level is displayed in buddies list');
-
+*/
   }
 
 

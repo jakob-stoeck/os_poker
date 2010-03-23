@@ -1,0 +1,419 @@
+<?php
+// $Id: simplecdn.module,v 1.1 2009/02/21 12:18:29 starnox Exp $
+
+/**
+ * Implementation of hook_help().
+ */
+function simplecdn_help($path, $arg) {
+  $output = '';
+  switch ($path) {
+    case "admin/help#simplecdn":
+      $output = '<p>'. t("Enable a mirror CDN on certain elements of your site.") .'</p>';
+      break;
+  }
+  return $output;
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function simplecdn_perm() {
+  return array('administer simplecdn');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function simplecdn_menu() {
+  $items = array();
+  $items['admin/settings/simplecdn'] = array(
+    'title' => 'Simple CDN',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('simplecdn_admin'),
+    'access arguments' => array('administer simplecdn')
+  );
+  $items['admin/settings/simplecdn/elements'] = array(
+    'title' => 'Elements',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['admin/settings/simplecdn/mirrors'] = array(
+    'title' => 'Mirrors',
+    'page callback' => 'simplecdn_mirror_list',
+    'page arguments' => array('simplecdn_mirror_list'),
+    'access arguments' => array('administer simplecdn'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  $items['admin/settings/simplecdn/add-new-mirror'] = array(
+    'title' => 'Add new mirror',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('simplecdn_mirror_add'),
+    'access arguments' => array('administer simplecdn'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10
+  );
+  $items['admin/settings/simplecdn/mirror/%'] = array(
+    'title callback' => 'simplecdn_title_callback',
+    'title arguments' => array('Edit mirror: !name', 4),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('simplecdn_mirror_edit', 4),
+    'access arguments' => array('administer simplecdn'),
+    'type' => MENU_CALLBACK,
+  );
+  $items['admin/settings/simplecdn/mirror/%/delete'] = array(
+    'title callback' => 'simplecdn_title_callback',
+    'title arguments' => array('Delete mirror: !name', 4),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('simplecdn_mirror_delete', 4),
+    'access arguments' => array('administer simplecdn'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * Custom titles for certain pages.
+ */
+function simplecdn_title_callback($title, $mid = 0) {
+  $replacements = array();
+  $mirror = simplecdn_mirrors($mid);
+  $replacements['!name'] = $mirror['name'];
+  return t($title, $replacements);
+}
+
+/**
+ * Return array of CDN mirrors.
+ */
+function simplecdn_mirrors($mid = NULL) {
+  //If cache isn't set, set it.
+  if(cache_get('simplecdn_mirrors') == '') {
+    simplecdn_rebuild_cache();
+  }
+  
+  $mirrors = cache_get('simplecdn_mirrors');
+  
+  if($mid != NULL && isset($mirrors->data[$mid])) {
+    return $mirrors->data[$mid];
+  }
+  else {
+    return $mirrors->data;
+  }
+}
+
+/**
+ * Rebuild mirror cache.
+ */
+function simplecdn_rebuild_cache() {
+  $mirrors = array();
+    $result = db_query('SELECT * FROM {simplecdn_mirrors} ORDER BY name');
+    while ($mirror = db_fetch_array($result)) {
+      $mirrors[$mirror['mid']] = $mirror;
+    }
+
+  cache_set('simplecdn_mirrors', $mirrors);
+
+  drupal_set_message(t('CDN Mirror cache updated.'));
+}
+
+/**
+ * Return formatted list of CDN mirrors.
+ */
+function simplecdn_mirror_list() {
+  $header = array(t('Mirror'), t('URL'), t('Actions'));
+  $rows = array();
+  foreach (simplecdn_mirrors() as $mirror) {
+    $row = array();
+    $row[] = l($mirror['name'], 'admin/settings/simplecdn/mirror/'. $mirror['mid']);
+    $row[] = $mirror['url'];
+      $links = array();
+      $links[] = l(t('Edit'), 'admin/settings/simplecdn/mirror/'. $mirror['mid']);
+      $links[] = l(t('Delete'), 'admin/settings/simplecdn/mirror/'. $mirror['mid'] .'/delete');
+    $row[] = implode('&nbsp;&nbsp;&nbsp;&nbsp;', $links);
+    $rows[] = $row;
+  }
+  $output = theme('table', $header, $rows);
+  return $output;
+}
+
+/**
+ * Form to add a new player.
+ */
+function simplecdn_mirror_add($form_state) {
+  if (user_access('administer simplecdn')) {
+    $form['mirror'] = array(
+      '#type' => 'fieldset', 
+      '#title' => t('CDN Mirror Details'), 
+      '#weight' => -2, 
+      '#collapsible' => FALSE, 
+      '#collapsed' => FALSE,
+    );
+    
+    $form['mirror']['name'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#default_value' => '',
+      '#required' => TRUE,
+      '#size' => '20',
+      '#description' => t('Unique name for the CDN mirror. Please only use alphanumeric characters, underscores (_), and hyphens (-) for mirror names.'),
+    );
+
+    $form['mirror']['url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Mirror URL'),
+      '#default_value' => '',
+      '#required' => TRUE,
+      '#size' => '60',
+      '#description' => t('The mirror URL to replace your current site URL with on enabled elements. e.g. http://www.example.com'),
+    );
+
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Add new mirror'),
+    );
+
+    $form['#validate'][]  = 'simplecdn_mirror_validate';
+    $form['#submit'][]    = 'simplecdn_mirror_submit';
+
+    return $form;
+  }
+}
+
+/**
+ * Custom validation function for a new CDN mirror.
+ */
+function simplecdn_mirror_validate($form, &$form_state) {
+  $mirrors = simplecdn_mirrors();
+  if(isset($form_state['values']['mid'])) {
+    unset($mirrors[$form_state['values']['mid']]);
+  }
+  foreach($mirrors as $mid => $mirror) {
+    if($mirror['name'] == $form_state['values']['name']) {
+      form_set_error('name', t('Mirror name has to be unique.'));
+    }
+  }
+
+  if (preg_match('/[^0-9a-zA-Z_-]/', $form_state['values']['name'])) {
+    form_set_error('name', t('Please only use alphanumeric characters, underscores (_), and hyphens (-) for player names.'));
+  }
+  if(strlen($form_state['values']['name']) > 20) {
+    form_set_error('name', t('Mirror name must be shorter than 20 characters.'));
+  }
+  if(strlen($form_state['values']['url']) > 256) {
+    form_set_error('name', t('Mirror URL must be shorter than 256 characters.'));
+  }
+}
+
+/**
+ * Add a new mirror.
+ */
+function simplecdn_mirror_submit($form, &$form_state) {
+  drupal_write_record('simplecdn_mirrors', $form_state['values']);
+  drupal_set_message(t("New CDN Mirror %name added.", array('%name' => $form_state['values']['name'])));
+  simplecdn_rebuild_cache();
+  $form_state['redirect'] = 'admin/settings/simplecdn/mirrors';
+}
+
+/**
+ * Form to edit a CDN mirror.
+ */
+function simplecdn_mirror_edit($form_state, $mid = 0) {
+  if (user_access('administer simplecdn')) {
+    $mirror = simplecdn_mirrors($mid);
+
+    $form['mirror'] = array(
+      '#type' => 'fieldset', 
+      '#title' => t('CDN Mirror Details'), 
+      '#weight' => -2, 
+      '#collapsible' => FALSE, 
+      '#collapsed' => FALSE,
+    );
+    
+    $form['mirror']['name'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Name'),
+      '#default_value' => $mirror['name'],
+      '#required' => TRUE,
+      '#size' => '20',
+      '#description' => t('Unique name for the CDN mirror. Please only use alphanumeric characters, underscores (_), and hyphens (-) for mirror names.'),
+    );
+
+    $form['mirror']['url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Mirror URL'),
+      '#default_value' => $mirror['url'],
+      '#required' => TRUE,
+      '#size' => '60',
+      '#description' => t('The mirror URL to replace your current site URL with on enabled elements. e.g. http://www.example.com'),
+    );
+
+    $form['mid'] = array(
+      '#type' => 'hidden',
+      '#value' => $mid,
+    );
+
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Save changes to mirror'),
+    );
+
+    $form['#validate'][]  = 'simplecdn_mirror_validate';
+    $form['#submit'][]    = 'simplecdn_mirror_edit_submit';
+
+    return $form;
+  }
+}
+
+/**
+ * Edit a mirror.
+ */
+function simplecdn_mirror_edit_submit($form, &$form_state) {
+  drupal_write_record('simplecdn_mirrors', $form_state['values'], 'mid');
+  drupal_set_message(t("CDN Mirror %name updated.", array('%name' => $form_state['values']['name'])));
+  simplecdn_rebuild_cache();
+  $form_state['redirect'] = 'admin/settings/simplecdn/mirrors';
+}
+
+/**
+ * Form to delete a mirror.
+ */
+function simplecdn_mirror_delete($form_state, $mid = NULL) {
+  $mirror = simplecdn_mirrors($mid);
+  if (empty($mirror)) {
+    drupal_set_message(t('The specified mirror was not found.'), 'error');
+    drupal_goto('admin/settings/simplecdn/mirrors');
+  }
+
+  $form = array();
+  $form['mid'] = array('#type' => 'value', '#value' => $mid);
+  return confirm_form(
+    $form,
+    t('Are you sure you want to delete the mirror %name?',
+      array('%name' => $mirror['name'])
+    ),
+    'admin/settings/simplecdn/mirrors',
+    t('This action cannot be undone.'),
+    t('Delete'),  t('Cancel')
+  );
+}
+
+/**
+ * Delete a mirror.
+ */
+function simplecdn_mirror_delete_submit($form, &$form_state) {
+  $mirror = simplecdn_mirrors($form_state['values']['mid']);
+  db_query('DELETE FROM {simplecdn_mirrors} where mid = %d', $mirror['mid']);
+  drupal_set_message(t('CDN Mirror %name was deleted.', array('%name' => $mirror['name'])));
+  simplecdn_rebuild_cache();
+  $form_state['redirect'] = 'admin/settings/simplecdn/mirrors';
+}
+
+
+/**
+ * Admin settings.
+ */
+function simplecdn_admin() {
+  $form = array();
+
+  $form['global'] = array(
+    '#type' => 'fieldset', 
+    '#title' => t('Global Settings'), 
+    '#weight' => -2, 
+    '#collapsible' => FALSE, 
+    '#collapsed' => FALSE,
+  );
+
+  $form['global']['simplecdn_site_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Website URL'),
+    '#default_value' => variable_get('simplecdn_site_url', 'http://'),
+    '#size' => 60,
+    '#maxlength' => 256,
+    '#required' => TRUE,
+    '#description' => t("Your website url e.g. http://www.example.com")
+  );
+
+  $form['elements'] = array(
+    '#type' => 'fieldset', 
+    '#title' => t('Elements'), 
+    '#weight' => -1, 
+    '#collapsible' => FALSE, 
+    '#collapsed' => FALSE,
+  );
+
+  $mirrors = simplecdn_mirrors();
+  $new_mirrors = array('none' => t("Don't use a CDN Mirror"));
+  foreach($mirrors as $mirror) {
+    $new_mirrors[$mirror['mid']] = t($mirror['name'].' ('.$mirror['url'].')');
+  }
+
+  foreach(simplecdn_elements() as $element) {
+    $form['elements']['simplecdn_element_'.$element['eid']] = array(
+      '#type' => 'select',
+      '#title' => t($element['name']),
+      '#default_value' => variable_get('simplecdn_element_'.$element['eid'], 'none'),
+      '#options' => $new_mirrors,
+    );
+  }
+
+  return system_settings_form($form);
+}
+
+/**
+ * Create new CDN Mirror URL.
+ */
+function simplecdn_rewrite_url($url = NULL, $eid = NULL) {
+  $mirror = simplecdn_mirrors(variable_get('simplecdn_element_'.$eid, NULL));
+
+  //Check URL isn't empty
+  if ($url == NULL) {
+    return NULL;
+  }
+
+  //If enough variables aren't available send it back untouched
+  if ($eid == NULL || $eid == 'none' || $mirror['url'] == '') {
+    return $url;
+  }
+
+  //Do the URL replace
+  $url = str_ireplace(variable_get('simplecdn_site_url', NULL), $mirror['url'], $url, $count);
+
+  //Adds the domain if needed
+  if($count == 0) {
+    $url = $mirror['url'].$url;
+  }
+
+  return $url;
+}
+
+
+/** ========================================
+ * PLUGINS
+ */
+
+
+/**
+ * Invoke a hook_simplecdnapi() operation in all modules.
+ *
+ * @param $op
+ *   A string containing the name of the simplecdnapi operation.
+ *    'load' is called when an element is loaded
+ *
+ * @return
+ *   The returned value of the invoked hooks.
+ */
+function simplecdn_invoke_simplecdnapi($op) {
+  $results = array();
+  foreach (module_implements('simplecdnapi') as $name) {
+    $function = $name .'_simplecdnapi';
+    $result = $function($op);
+    $results[] = $result;
+  }
+  return $results;
+}
+
+/**
+ * Return array of elements.
+ */
+function simplecdn_elements() {
+  return simplecdn_invoke_simplecdnapi('load');
+}
