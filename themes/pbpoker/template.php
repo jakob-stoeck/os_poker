@@ -95,8 +95,9 @@ function pbpoker_preprocess_block(&$variables) {
 }
 
 function pbpoker_preprocess_os_poker_teaser(&$variables) {
+	/*
   global $language;
-  
+
   $theme_path = drupal_get_path('theme', 'pbpoker');
   $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
   $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');
@@ -106,6 +107,7 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   $variables['info'] = implode('<br/>', $info);
   $variables['table'] = theme('image', $theme_path.'/images/teaser-table.jpg', t('Poker Table'), '', array('id' => 'poker-teaser-table'));
   $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
+	 */
   $variables['tutorial'] = pbpoker_flash_tutorial();
 }
 
