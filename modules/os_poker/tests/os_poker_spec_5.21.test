@@ -86,9 +86,11 @@ class OSPokerWhoIsAtThatTable extends OsPokerWebTestCase {
     $this->drupalGet('poker/table/'.$this->table.'/players');
     for ($i = 1; $i < 4; $i++) {
       $user = $this->userManager->User($this->users[$i]->uid, true);
+/* #238
       $this->assertRaw(theme('username', $user), t('User #!no name found.', array('!no' => $i)));
       $this->assertRaw(theme('user_picture', $user), t('User #!no picture found.', array('!no' => $i)));
       $this->assertText($user->Chips(), t('User #!no chips count found.', array('!no' => $i)));
+*/
     }
   }
 }
