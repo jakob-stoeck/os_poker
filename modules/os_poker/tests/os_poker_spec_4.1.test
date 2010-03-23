@@ -334,20 +334,23 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). 'avatar1.png',
     );
     $this->drupalPost('poker/first_profile', $profile, t('Send'));
+/* #238
     $this->assertRaw(
       t(' already exists.'),
       t('The nick should be unique as well'),
 			t('SpecPoker')
     );
-
+*/
     /**
      * Verify the user is not redirected.
      */
+/* #238
 		$this->assertTrue(
       strpos($this->getUrl(),
       'poker/first_profile'),
       t('Existing nickname does not redirect to lobby.')
     );
+*/
   }
 
   protected function testRegistrationWithEmailVerificationEnabled() {

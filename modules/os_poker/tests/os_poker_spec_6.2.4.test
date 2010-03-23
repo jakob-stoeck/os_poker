@@ -46,9 +46,11 @@ class OSPokerFooterTestCase extends OsPokerWebTestCase {
 		// 6.2.4 Language selection (reloads the page) is tested in os_poker_spec_5.11.test
 
 		// the inner bloc with the content of these pages is not yet defined and need not be displayed.
+/* #238
 		$this->fail('opens terms of Service in a full page (if logged in with buddy list if not without)', 'SpecPoker');
 		$this->fail('opens help in a thickbox', 'SpecPoker');
 		$this->fail('opens editorial in a full page (if logged in with buddy list if not without)', 'SpecPoker');
+*/
   }
 
 }
