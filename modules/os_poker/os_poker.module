@@ -1758,10 +1758,10 @@ function _user_relationships_ui_unset_notifications(&$account) {
  * Overlay are not interactive (thick)boxes, they will be displayed (centeter)
  * over the content without the option to close.
  *
- * @param <type> $content The (HTML) content of the overlay.
- * @param <type> $attributes The attributes of the DIV element that will contain $content
- * @param <type> $width The desired CSS width of this DIV element (default to '')
- * @param <type> $height The desired CSS height of this element (default to '');
+ * @param string $content The (HTML) content of the overlay.
+ * @param array $attributes The attributes of the DIV element that will contain $content
+ * @param string $width The desired CSS width of this DIV element (default to '')
+ * @param string $height The desired CSS height of this element (default to '');
  */
 function os_poker_set_overlay($content, $attributes = array(), $width = '', $height = '') {
   $_SESSION['os_poker_overlay'] = array(

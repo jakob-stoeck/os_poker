@@ -350,4 +350,22 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     );
   }
 
+  protected function testRegistrationWithEmailVerificationEnabled() {
+    variable_set('user_email_verification', TRUE);
+    $email = $this->randomName() . '@' . $this->randomName() .".com";
+    $this->drupalPost('', array('mail' => $email), 'Send');
+    $this->assertText(t('We have just sent a confirmation e-mail to this address'), t('After registration, custom confirmation message is displayed.'));
+    $this->assertEqual($this->getUrl(),url('<front>', array('absolute' => TRUE)), t('After registration, the user is redirected to the front page.'));
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'user_register_no_approval_required', t('Confirmation email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $user = user_load(array('mail' => $email));
+    $user->pass_raw = $mail['params']['account']->password;
+    $this->drupalLogin($user);
+    $this->assertTrue(
+      strpos($this->getUrl(),
+      'poker/first_profile'),
+      t('After login with the credential sent by email, the user is invited to fill his/her profile.')
+    );
+  }
 }
