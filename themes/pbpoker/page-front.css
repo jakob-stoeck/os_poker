@@ -87,14 +87,16 @@ body.logged-in #middle-content-right {
 #poker-teaser #explanations {
 	list-style: none;
 	display: block;
-	background: url();
+	background: url(images/home/goto.png) no-repeat top center;
 	position: absolute;
 	bottom: 30px;
 	right: 20px;
+	padding: 7px 25px;
+	text-align: center;
 }
 
 #poker-teaser #explanations li {
-	float: left;
+	display: inline;
 }
 
 #poker-teaser #explanations li a {
