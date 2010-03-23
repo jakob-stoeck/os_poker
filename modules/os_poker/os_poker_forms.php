@@ -881,6 +881,12 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	//Trigger the invitation bonus
 	CScheduler::instance()->Trigger('first_login');
 	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day");
+
+  //Send mail
+  if (variable_get('user_email_verification', TRUE)) {
+    $account = $cuser->DrupalUser();
+    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), array('account' => $account));
+  }
 }
 
 /*

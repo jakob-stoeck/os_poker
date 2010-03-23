@@ -1548,6 +1548,26 @@ function os_poker_mail($key, &$message, $params) {
       $message['body'][] = t('Culprit: !reported_profile',
 				array('!reported_profile' => url('poker/profile/profile/' . $reported->uid, array('absolute' => true))));
       break;
+    case 'profile':
+      //Re-use tokens avaiable in user mail.
+      $variables = user_mail_tokens($params['account'], $language);
+      //Add a support email address.
+      $variables['!support'] = variable_get('poker_support_mail', FALSE);
+      if (!$variables['!support']) {
+        //Not variable found for support email address, generate a new one using
+        //site URL
+        $host = @parse_url($variables['!uri'], 'host');
+        if ($host) {
+          $variables['!support'] = 'support@'. $host;
+        }
+        else {
+          //Site URL parsing failed, use user with uid 0 email address
+          $variables['!support'] = user_load(1)->mail;
+        }
+      }
+      $message['subject'] = t('Successful registration');
+      $message['body'][] = t("Hello !username,\nWelcome to !site'You can login at any time log in with the following e-mail: !mailto\nThis link takes you directly to the game: !uri\nIf you have questions or problems please turn to !support\nWe hope you'll enjoy this game!\nYour !site Team.", $variables, $language);
+      break;
   }
 }
 

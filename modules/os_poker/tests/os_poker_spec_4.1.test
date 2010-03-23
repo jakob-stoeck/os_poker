@@ -302,7 +302,9 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			t('SpecPoker')
     );
 
+
     $emails = $this->drupalGetMails();
+    $this->verbose('Mails: ' . highlight_string('<?php ' . var_export($emails, TRUE), TRUE));
     $this->assertEqual(
       count($emails),
       1,
@@ -370,5 +372,18 @@ class OSPokerSignUp extends OsPokerWebTestCase {
       'poker/first_profile'),
       t('After login with the credential sent by email, the user is invited to fill his/her profile.')
     );
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => t('Male'),
+      'profile_country'  => 'FR',
+      'profile_city'     => $this->randomName(),
+			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    $this->drupalPost(NULL, $profile, t('Send'));
+
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'os_poker_profile', t('After profile submission, a "Successful registration" email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $this->verbose('Mails: ' . highlight_string('<?php ' . var_export($this->drupalGetMails(), TRUE), TRUE));
   }
 }
