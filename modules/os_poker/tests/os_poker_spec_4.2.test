@@ -385,7 +385,7 @@ class OSPokerLogin extends OsPokerWebTestCase {
 /* #238
 		$this->drupalPost('poker/profile/update', $edit, t('Send'));
 
-		/* match the error string */
+		// match the error string
 		$this->assertText('Nickname '.$edit['profile_nickname'].' already exists.', 'Nick must be unique, if it is not or the uploaded picture is to big or wrong format an error must show up',
 								'SpecPoker');
 */
