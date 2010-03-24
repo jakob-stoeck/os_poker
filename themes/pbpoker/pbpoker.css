@@ -148,7 +148,7 @@ ul.secondary li a.active {
 
 * html #main {
 	overflow: hidden;
-} 
+}
 
 #main.logged_in {
 	background: #141007 url(images/body_bg.png) repeat-x;
@@ -182,7 +182,7 @@ ul.secondary li a.active {
 	height: 70px;
 	margin-top: 10px;
 	margin-left: 5px;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop'); 
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop');
 }
 
 * html #header #logo img {
@@ -226,24 +226,15 @@ ul.secondary li a.active {
 }
 
 #footer #footer-inner {
-	padding: 5px;
-	background-color: #CCD2D6;
+	padding: 10px;
+	background-color: #000;
 }
 
 #footer .language-bar a {
-	color: #000;
-}
-
-#footer .language-bar a.language-link {
 	color: #fff;
 }
 
-.footer-links {
-	color: #A8904A;
-	margin-right: 5px;
-}
-
-.footer-links a {
+.footer-links, .footer-links a {
 	color: #A8904A;
 }
 
@@ -852,7 +843,7 @@ div.poker_submit.big.disabled:hover div.label {
 	/* FIXME : needs width */
 }
 
-* html #middle-content-left, 
+* html #middle-content-left,
 * html #middle-content-right { /* float => double margin bug */
 	display: inline;
 }
@@ -1138,7 +1129,7 @@ body.de #play-now #play-now-button {
 }
 
 /*******************************
-* FIXME 
+* FIXME
 *******************************/
 
 .TableRanking {
@@ -2357,7 +2348,7 @@ body.iframe .messages-popup .content {
 	overflow: hidden !important;
 }
 
-body.iframe .messages-popup a.close 
+body.iframe .messages-popup a.close
 {
 	display: none !important;
 }
@@ -2531,7 +2522,7 @@ body.poker-report-abuse #page {
  * **************************/
 
 #tourney-notify-template {
-	display: none; 
+	display: none;
 }
 #tourney-notify {
 	width: 742px;
@@ -2689,7 +2680,7 @@ body.poker-tourneyinfo #middle-content-right {
  * ***************************/
 
 
-.user_relationships_ui_popup_form 
+.user_relationships_ui_popup_form
 {
     background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;
     border:1px solid #999999;
@@ -2708,7 +2699,7 @@ body.poker-tourneyinfo #middle-content-right {
 	/*margin-top: 0px;*/
 }
 
-#user-relationships-ui-pending-requested div.poker_submit div.pre 
+#user-relationships-ui-pending-requested div.poker_submit div.pre
 {
       	display: none;
 }
@@ -2721,7 +2712,7 @@ body.poker-tourneyinfo #middle-content-right {
 	top: -1.5px;
 }
 
-#user-relationships-ui-pending-requested .container-inline a 
+#user-relationships-ui-pending-requested .container-inline a
 {
 	color: #810E0B;
 }
