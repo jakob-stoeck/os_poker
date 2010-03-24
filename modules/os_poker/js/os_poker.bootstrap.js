@@ -117,13 +117,13 @@ OsPoker.dialog = function(content) {
   }, 0);
 }
 
-OsPoker.inlineThickbox = function(id) {
+OsPoker.inlineThickbox = function(id, modal) {
   //Bind the tb_remove function to the click event of any .close element in the
   //thickbexed element. First unbind to avoid multiple binding of the same
   //handler.
   $(id).find('.close').unbind('click', tb_remove).click(tb_remove).end();
   setTimeout(function(){
-    tb_show('', '#TB_inline?inlineId=' + id + '&modal=true', false);
+    tb_show('', '#TB_inline?inlineId=' + id + '&modal=' + (modal ? 'true' : 'false'), false);
   }, 0);
 }
 
