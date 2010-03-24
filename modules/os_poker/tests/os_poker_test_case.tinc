@@ -226,6 +226,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
    * @param array $profile information to be submitted.
    */
   function OsPokerProfileSubmit($profile = array()) {
+		variable_set('user_picture_path', '/tmp');
 
     $profile += array(
       'profile_nickname' => $this->randomName(),

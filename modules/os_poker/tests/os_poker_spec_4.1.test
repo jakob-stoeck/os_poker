@@ -223,64 +223,65 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 
     $user = $this->drupalCreateUser(array('access comments', 'access content', 'post comments', 'post comments without approval', 'administer users'), array(
       'profile_nickname' => $this->randomName(),
+			'picture' => NULL,
     ));
     $this->drupalLogin($user);
 
     /* Set default pictures */
-    $edit = array(
-      'user_picture_default' => drupal_get_path('theme', 'poker') . '/images/picture-default.png',
-      'user_picture_default_female' => drupal_get_path('theme', 'poker') . '/images/picture_default_female.jpg',
-      'user_picture_default_male' => drupal_get_path('theme', 'poker') . '/images/picture_default_male.jpg',
-    );
-    $this->drupalPost('admin/user/settings', $edit, 'Save configuration');
+		variable_set('user_picture_default', 'default_neutral');
+		variable_set('user_picture_default_male', 'default_male');
+		variable_set('user_picture_default_female', 'default_female');
 
     /* No Gender */
-    $this->drupalGet("poker/profile");
-/* supress failures (#238)
+		$this->drupalGet("poker/profile");
     $this->assertRaw(
-      t('picture-default'),
+      t('default_neutral'),
       t('Profile must display the default <em>unknow</em> picture for users with no custom picture selected and no gender.'),
 			t('SpecPoker')
     );
-*/
 
     /* Female */
-    $profile = array(
+    $user = $this->drupalCreateUser(array('access comments', 'access content', 'post comments', 'post comments without approval', 'administer users'), array(
+      'profile_nickname' => $this->randomName(),
       'profile_gender'   => 'Female',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+			'picture' => NULL,
+    ));
+    $this->drupalLogin($user);
 		$this->drupalGet("poker/profile");
-/* suppress failures (#238)
     $this->assertRaw(
-      t('picture_default_female'),
+      t('default_female'),
       t('Profile must display the default <em>female</em> picture for <em>female</em> users with no custom picture selected.'),
 			t('SpecPoker')
     );
-*/
-    $profile = array(
+
+		/* Male */
+    $user = $this->drupalCreateUser(array('access comments', 'access content', 'post comments', 'post comments without approval', 'administer users'), array(
+      'profile_nickname' => $this->randomName(),
       'profile_gender'   => 'Male',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+			'picture' => NULL,
+    ));
+    $this->drupalLogin($user);
+
 		$this->drupalGet("poker/profile");
-/* #238
     $this->assertRaw(
-      t('picture_default_male'),
+      t('default_male'),
       t('Profile must display the default <em>male</em> picture for <em>male</em> users with no custom picture selected.'),
 			t('SpecPoker')
     );
-*/
-    $profile = array(
+
+		/* Dont Display */
+    $user = $this->drupalCreateUser(array('access comments', 'access content', 'post comments', 'post comments without approval', 'administer users'), array(
+      'profile_nickname' => $this->randomName(),
       'profile_gender'   => 'Don\'t Display',
-    );
-    $this->drupalPost('poker/profile/update', $profile, t('Send'));
+			'picture' => NULL,
+    ));
+    $this->drupalLogin($user);
 		$this->drupalGet("poker/profile");
-/* #238
     $this->assertRaw(
-      t('picture-default'),
+      t('default_neutral'),
       t('Profile must display the default <em>no-gender</em> picture for users with no custom picture selected who have chosen to not display the gender.'),
 			t('SpecPoker')
     );
-*/
 	}
 
   function testCompleteProfileSignUp(){
@@ -289,13 +290,13 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $this->drupalGet('');
     $this->OsPokerSignUpUser();
     $this->OsPokerProfileSubmit();
-/* #238
+
 		$this->assertText(
       t('3,000 Chips'),
       t('If he filled in all profile data, he will receive a starting bonus of 3000 chips booked to his account'),
 			t('SpecPoker')
     );
-*/
+
     $this->assertNoRaw(
       'images/picture-default.png',
       t('Additionally you can upload a profile picture.'),
@@ -333,24 +334,22 @@ class OSPokerSignUp extends OsPokerWebTestCase {
       'profile_city'     => $this->randomName(),
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). 'avatar1.png',
     );
-    $this->drupalPost('poker/first_profile', $profile, t('Send'));
-/* #238
+		$this->drupalPost('poker/first_profile', $profile, t('Send'));
+
     $this->assertRaw(
       t(' already exists.'),
       t('The nick should be unique as well'),
 			t('SpecPoker')
     );
-*/
+
     /**
      * Verify the user is not redirected.
      */
-/* #238
 		$this->assertTrue(
       strpos($this->getUrl(),
       'poker/first_profile'),
       t('Existing nickname does not redirect to lobby.')
     );
-*/
   }
 
 }
