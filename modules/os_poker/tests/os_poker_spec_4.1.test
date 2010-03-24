@@ -303,7 +303,9 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			t('SpecPoker')
     );
 
+
     $emails = $this->drupalGetMails();
+    $this->verbose('Mails: ' . highlight_string('<?php ' . var_export($emails, TRUE), TRUE));
     $this->assertEqual(
       count($emails),
       1,
@@ -352,4 +354,81 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     );
   }
 
+  protected function testRegistrationWithEmailVerificationEnabled() {
+    variable_set('user_email_verification', TRUE);
+    $email = $this->randomName() . '@' . $this->randomName() .".com";
+    $this->drupalPost('', array('mail' => $email), 'Send');
+    $this->assertText(t('We have just sent a confirmation e-mail to this address'), t('After registration, custom confirmation message is displayed.'));
+    $this->assertEqual($this->getUrl(),url('<front>', array('absolute' => TRUE)), t('After registration, the user is redirected to the front page.'));
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'user_register_no_approval_required', t('Confirmation email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $user = user_load(array('mail' => $email));
+    $user->pass_raw = $mail['params']['account']->password;
+    $this->drupalLogin($user);
+    $this->assertTrue(
+      strpos($this->getUrl(),
+      'poker/first_profile'),
+      t('After login with the credential sent by email, the user is invited to fill his/her profile.')
+    );
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => t('Male'),
+      'profile_country'  => 'FR',
+      'profile_city'     => $this->randomName(),
+			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    $this->drupalPost(NULL, $profile, t('Send'));
+
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'os_poker_profile', t('After profile submission, a "Successful registration" email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $this->verbose('Mails: ' . highlight_string('<?php ' . var_export($this->drupalGetMails(), TRUE), TRUE));
+  }
+
+  protected function testRegistrationWithEmailVerificationEnabledUsingOneTimeLoginLink() {
+    //Disable the login block, otherwise its "Log In" button conflict with the one for the password reset page.
+    $root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+    $this->drupalLogin($root);
+    $this->drupalPost('admin/build/block',
+      array(
+        'user_0[region]' => -1,
+      ),
+      'Save blocks'
+    );
+    $this->drupalLogout();
+    variable_set('user_email_verification', TRUE);
+    $email = $this->randomName() . '@' . $this->randomName() .".com";
+    $this->drupalPost('', array('mail' => $email), 'Send');
+    $this->assertText(t('We have just sent a confirmation e-mail to this address'), t('After registration, custom confirmation message is displayed.'));
+    $this->assertEqual($this->getUrl(),url('<front>', array('absolute' => TRUE)), t('After registration, the user is redirected to the front page.'));
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'user_register_no_approval_required', t('Confirmation email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $matches = array();
+    $this->assertTrue(preg_match('-\?q=([^\s]*user/reset/[^\s]*)-', $mail['body'], $matches), 'One-time login found in mail body');
+    sleep(5);
+    $this->drupalGet($matches[1]);
+    $this->assertEqual($this->getUrl(), url('<front>', array('absolute' => true)), 'user/reset redirects to front page.');
+    $this->assertRaw('id="os-poker-pass-reset"', t('Password reset form found on page.'));
+    $this->drupalPost(NULL, array(), 'Log in');
+    $this->assertTrue(
+      strpos($this->getUrl(),
+      'poker/first_profile'),
+      t('After login with one-time login link from the email, the user is invited to fill his/her profile.')
+    );
+    $profile = array(
+      'profile_nickname' => $this->randomName(),
+      'profile_gender'   => t('Male'),
+      'profile_country'  => 'FR',
+      'profile_city'     => $this->randomName(),
+			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
+    );
+    $this->drupalPost(NULL, $profile, t('Send'));
+
+    $mail = end($this->drupalGetMails());
+    $this->assertMail('id', 'os_poker_profile', t('After profile submission, a "Successful registration" email has been sent to...'));
+    $this->assertMail('to', $email, '... the email address used to register');
+    $this->verbose('Mails: ' . highlight_string('<?php ' . var_export($this->drupalGetMails(), TRUE), TRUE));
+  }
 }

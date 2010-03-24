@@ -90,13 +90,14 @@ function	os_poker_sign_up_form($form_state)
 							'#required' => TRUE,
 
 					);
-
-	$form["pass"] = array(
-							'#type' => 'password',
-							'#attributes' => array("class" => "custom_input"),
-							'#title' => t("New Password"),
-							'#required' => TRUE,
-					);
+  if (!variable_get('user_email_verification', TRUE)) {
+    $form["pass"] = array(
+      '#type' => 'password',
+      '#attributes' => array("class" => "custom_input"),
+      '#title' => t("New Password"),
+      '#required' => TRUE,
+    );
+  }
 					
 	$form['profile_email_notify'] = array(
 			'#type' => 'hidden',
@@ -120,13 +121,20 @@ function	os_poker_sign_up_form($form_state)
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Sign Up") . "</div><div class='user_login_clear'></div></div>",
 							);
-										
-	$form['#redirect'] = array("poker/first_profile");
+
+  if (!variable_get('user_email_verification', TRUE)) {
+    $form['#redirect'] = array("poker/first_profile");
+  }
 	
 	
 	$uid = isset($form['#uid']) ? $form['#uid'] : NULL;
 
-	$policy = _password_policy_load_active_policy();
+  if (!variable_get('user_email_verification', TRUE)) {
+    $policy = _password_policy_load_active_policy();
+  }
+  else {
+    $policy = array();
+  }
   
 	$translate = array();
 	if (!empty($policy['policy']))
@@ -139,8 +147,13 @@ function	os_poker_sign_up_form($form_state)
 		}
 	}
 
-  $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
-  $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
+  $form['#submit'] = array('user_register_submit', 'os_poker_sign_up_form_submit');
+  $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
+
+  if (!variable_get('user_email_verification', TRUE)) {
+    array_unshift($form['#submit'], 'password_policy_password_submit');
+    array_unshift($form['#validate'], array_shift($form['#validate']), 'password_policy_password_validate');
+  }
 
 	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
@@ -155,6 +168,37 @@ function	os_poker_sign_up_form($form_state)
   } 
 
   return $form;
+}
+
+/**
+ * Submit handler for os_poker_sign_up_form, should be called after 
+ * password_policy_password_submit and user_register_submit.
+ *
+ * @see user_register_submit
+ */
+function	os_poker_sign_up_form_submit($form, &$form_state) {
+  $account = $form_state['user'];
+  if ($account && $account->status && variable_get('user_email_verification', TRUE) && !user_access('administer users')) {
+    //Active account created awaiting email verification and we are not admin.
+    //1. Remove standard message set by user_register_submit
+    $message = t('Your password and further instructions have been sent to your e-mail address.');
+    $notifications = drupal_get_messages('status', TRUE);
+    $notifications = $notifications['status'] ? $notifications['status'] : array();
+    foreach($notifications as $notification) {
+      if($notification != $message) {
+        drupal_set_message($notification);
+      }
+    }
+    //2. Set our confirmation message as overlay.
+    $overlay[] = t('Welcome,');
+    $overlay[] = t('We have just sent a confirmation e-mail to this address: !mail Look into your mailbox, simply click on the link in the e-mail to confirm your address. As a welcome gift, we have reserved !amount poker chips for you!', array(
+      '!mail' => '<span class="adress">'. check_plain($account->mail) . '</span>',
+      '!amount' => 1000,
+    ));
+    $overlay[] = t('If the address is not correct, then you can correct your e-mail address here.');
+    $overlay = '<p>'. implode('</p><p>', $overlay) . '</p>';
+    os_poker_set_overlay($overlay, array('style' => 'height: auto'));
+  }
 }
 
 /*
@@ -837,6 +881,12 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	//Trigger the invitation bonus
 	CScheduler::instance()->Trigger('first_login');
 	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day");
+
+  //Send mail
+  if (variable_get('user_email_verification', TRUE)) {
+    $account = $cuser->DrupalUser();
+    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), array('account' => $account));
+  }
 }
 
 /*
