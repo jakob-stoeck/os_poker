@@ -120,11 +120,8 @@ body.logged-in #middle-content-right {
 	font-size: 1em;
 }
 
-#home_signup {
-	display: none; /*#118*/
-}
-#messages {
-	display: none; /*#118*/
+#middle-content-right {
+  display: none; /*#118*/
 }
 
 /**

@@ -3,10 +3,10 @@
 <div id="poker-teaser">
 <h2><?php print t("Poker with your friends and our Bunnys"); ?></h2>
 	<h3><?php print t("Learn Texas Hold'em No Limit and win hot prizes!"); ?></h3>
-	<a id="register-now"><span><?php print t("Register now for free"); ?></span></a>
+	<a id="register-now" class="open-register-form"><span><?php print t("Register now for free"); ?></span></a>
 	<p class="register-description"><?php print t("Experience with us the exciting world of poker! Get your thrills in high stakes games and tournaments and play for millions without any risk."); ?> </p>
 	<p class="register-description"><?php print t("The better you play, the greater your chances for a date with a Playmate."); ?></p>
-	<a id="register-now-chips" rel="nofollow"><span><?php print t("$1.000 Start bonus"); ?></span></a>
+	<a id="register-now-chips" class="open-register-form" rel="nofollow"><span><?php print t("$1.000 Start bonus"); ?></span></a>
 	<ul id="explanations">
 		<li><a href=""><?php print t("Poker Tutorial"); ?></a></li>
 		<li><a href=""><?php print t("This is how it works"); ?></a></li>
