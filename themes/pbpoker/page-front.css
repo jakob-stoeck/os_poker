@@ -137,8 +137,7 @@ body.logged-in #middle-content-right {
 	left: -20px;
 }
 
-
-#page-front-banners a.banner {
+#page-front-banners .banner {
 	display: block;
 	float: left;
 	display: inline; /* ie 6 */
@@ -149,7 +148,7 @@ body.logged-in #middle-content-right {
 	background-repeat: no-repeat;
 }
 
-#page-front-banners a.banner span {
+#page-front-banners .banner span {
 	display: none;
 }
 
