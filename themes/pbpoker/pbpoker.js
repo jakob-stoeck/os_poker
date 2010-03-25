@@ -10,7 +10,7 @@ Drupal.behaviors.pbPoker = function(context) {
     }
 
     //Handle click on the video tutorial link
-    $('a#video-tutorial:not(.pb-poker-processed)').addClass('pb-poker-processed').click(function(){
+    $('a.open-video-tutorial:not(.pb-poker-processed)').addClass('pb-poker-processed').click(function(){
       //Wrap in a setTimeout to ensure thickbox handles the click before we do anything
       setTimeout(function(){
         //Once the thickbox iframe content is loaded, select the tutorial tab
