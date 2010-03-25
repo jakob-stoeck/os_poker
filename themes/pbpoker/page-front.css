@@ -200,6 +200,7 @@ body.logged-in #middle-content-right {
  * optin
  * *************************/
 
+/* FIXME */
 #TB_window {
 	color: #666;
 	background: #0e0e0e url(images/registerboxes-bg.png) repeat-x top left;
@@ -213,7 +214,6 @@ body.logged-in #middle-content-right {
 
 #home_signup .title {
 	display: block;
-	/*border-bottom: 1px dotted #fff;*/
 	background: url(images/signup-title-en.gif) no-repeat;
 	text-indent: -100000px;
 	overflow: hidden;
@@ -258,7 +258,7 @@ body.logged-in #middle-content-right {
 #terms {
 	margin-top: 2em;
 }
-
+/* FIXME : Add an ID before */
 #messages .messages.error {
 	position: absolute;
 	left: 10px;

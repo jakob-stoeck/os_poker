@@ -65,10 +65,9 @@ function pbpoker_preprocess_block(&$variables) {
 }
 
 function pbpoker_preprocess_os_poker_teaser(&$variables) {
-	/*
   global $language;
-
   $theme_path = drupal_get_path('theme', 'pbpoker');
+	/*
   $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
   $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');
   $info[] = t('<strong><span class="star">*</span> Become a high roller and win hot prizes</strong>');
@@ -90,7 +89,7 @@ function pbpoker_poker_tutorial_link() {
   return l(t("Click here!"), '#TB_inline', array(
     'external' => TRUE,
     'attributes' => array(
-      'class' => 'tutorial yellow thickbox',
+      'class' => 'tutorial thickbox',
     ),
     'query' => 'height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial&',
   ));
