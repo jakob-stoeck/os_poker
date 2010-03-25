@@ -82,6 +82,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'imageapi',
         'imageapi_gd',
         'imagecache',
+        'email_registration',
         'os_poker'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
