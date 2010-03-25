@@ -19,6 +19,7 @@ body.not-logged-in #middle-content-left {
 
 body.not-logged-in #middle-content-right {
 	float: right;
+	display: none;
 }
 
 body.logged-in #middle-content-right {
@@ -127,10 +128,6 @@ body.logged-in #middle-content-right {
 	bottom: 5px;
 	left: 275px;
 	font-size: 1em;
-}
-
-#middle-content-right {
-  display: none; /*#118*/
 }
 
 /**
