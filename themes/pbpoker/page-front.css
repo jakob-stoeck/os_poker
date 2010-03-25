@@ -78,6 +78,11 @@ body.logged-in #middle-content-right {
 	top: 90px;
 }
 
+* html #poker-teaser #register-now {
+	background: none;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/images/home/registernow.png',sizingMethod='crop');
+}
+
 #poker-teaser #register-now-chips {
 	background: url(images/home/startbonus.png) no-repeat;
 	width: 143px;
@@ -112,6 +117,10 @@ body.logged-in #middle-content-right {
 	margin-right: 25px;
 }
 
+* html #poker-teaser #explanations li a {
+	margin-right: 15px;
+}
+
 #poker-teaser .legal {
 	color: #504330;
 	position: absolute;
@@ -137,8 +146,7 @@ body.logged-in #middle-content-right {
 	left: -20px;
 }
 
-
-#page-front-banners a.banner {
+#page-front-banners .banner {
 	display: block;
 	float: left;
 	display: inline; /* ie 6 */
@@ -149,7 +157,7 @@ body.logged-in #middle-content-right {
 	background-repeat: no-repeat;
 }
 
-#page-front-banners a.banner span {
+#page-front-banners .banner span {
 	display: none;
 }
 

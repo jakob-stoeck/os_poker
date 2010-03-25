@@ -32,10 +32,6 @@ tr.odd a {
 tr.even a {
 	color: #000;
 }
-/* FIXME */
-.yellow {
-	color: #A8904A;
-}
 
 /* FIXME */
 .darkred {
@@ -2564,7 +2560,7 @@ body.poker-report-abuse #page {
  * Static page : tourney-info
  * ***************************/
 body.poker-tourneyinfo {
-	background: #28251a url(images/tourney_body_bg.png) repeat-x;
+	background: #151108 url(images/tourney_body_bg.png) repeat-x;
 }
 
 .poker-tourneyinfo #tourney-teaser {
