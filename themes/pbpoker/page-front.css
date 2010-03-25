@@ -112,6 +112,10 @@ body.logged-in #middle-content-right {
 	margin-right: 25px;
 }
 
+* html #poker-teaser #explanations li a {
+	margin-right: 15px;
+}
+
 #poker-teaser .legal {
 	color: #504330;
 	position: absolute;
