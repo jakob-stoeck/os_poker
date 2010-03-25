@@ -22,3 +22,7 @@ div#user_login {
 #page-front-banners #banner-join {
   background-image: url('images/pb-tourney-banner-start.jpg');
 }
+
+#home_signup .title {
+	background: url(images/signup-title-de.gif) no-repeat;
+}

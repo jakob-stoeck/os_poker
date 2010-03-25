@@ -195,3 +195,76 @@ body.logged-in #middle-content-right {
 #seo strong {
 	font-weight: normal;
 }
+
+/*****************************
+ * optin
+ * *************************/
+
+#TB_window {
+	color: #666;
+	background: #0e0e0e url(images/registerboxes-bg.png) repeat-x top left;
+	border: 1px solid #555;
+}
+
+/* FIXME */
+#TB_ajaxContent, #TB_window {
+	width: 400px !Important;
+}
+
+#home_signup .title {
+	display: block;
+	/*border-bottom: 1px dotted #fff;*/
+	background: url(images/signup-title-en.gif) no-repeat;
+	text-indent: -100000px;
+	overflow: hidden;
+	height: 55px;
+}
+
+#home_signup .form-item label {
+	float: left;
+	clear: left;
+	width: 150px;
+	margin-right: 10px;
+	font-weight: normal;
+	text-align: right;
+}
+
+#home_signup .form-text {
+	width: 190px;
+}
+
+#home_signup_teaser {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+
+#home_signup_teaser h4 {
+	font-size: 1.1em;
+	margin-top: 1em;
+	background: url(images/signupteaser.png) bottom left no-repeat;
+	padding-bottom: 55px;
+	color: #fff;
+}
+
+#messages a {
+	color: #fff !important;
+}
+
+#home_signup .poker_submit, #terms {
+	margin-left: 160px;
+}
+
+#terms {
+	margin-top: 2em;
+}
+
+#messages .messages.error {
+	position: absolute;
+	left: 10px;
+	bottom: 53px;
+	height: 75px;
+	width: 365px;
+	padding: 5px;
+	text-align: center;
+}

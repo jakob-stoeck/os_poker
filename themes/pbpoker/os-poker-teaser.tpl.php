@@ -12,7 +12,7 @@
 	    <li><a href="?height=<?php print ($tutorial['size'][1]+5)?>&width=<?php print ($tutorial['size'][0])?>&inlineId=poker-tutorial&#TB_inline" class="thickbox"><?php print t("This is how it works"); ?></a></li>
 	</ul>
 
-	<small class="legal">* <?php print t("You play in all games with virtual game money with no value."); ?></small>
+	<p><small class="legal">* <?php print t("You play in all games with virtual game money with no value."); ?></small></p>
 
     <div id="poker-tutorial">
         <div class="tb-fix-margin">
