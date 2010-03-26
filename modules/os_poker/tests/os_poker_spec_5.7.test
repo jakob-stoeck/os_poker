@@ -374,6 +374,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 
 		$this->drupalLogout($target_user);
     //Login as challenging user.
+    $this->skel_user->name = $this->skel_user->mail;
     $this->drupalLogin($this->skel_user);
     //Fetch pending ''live'' messages
     $this->drupalGet('poker/messages/receive');
@@ -443,6 +444,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     $this->drupalLogout($target_user);
 
     //Login as inviting user.
+    $this->skel_user->name = $this->skel_user->mail;
     $this->drupalLogin($this->skel_user);
     //Fetch pending ''live'' messages
     $this->drupalGet('poker/messages/receive');
@@ -547,9 +549,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 		  'pass[pass1]' => $password,
 		  'pass[pass2]' => $password,
 		);
-/* #238
 		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-*/
 		/**
 		 * completes the 'invited' profile
 		 */
@@ -573,6 +573,7 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     ** Login userB
     */
 
+    $user->name = $user->mail;
     $this->drupalLogin($user);
 
 
@@ -582,12 +583,12 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
 	$this->drupalGet('poker/messagebox');
 /* #238
 	$this->assertText(
-       "You just receive a gift from ",
+       t("You just receive a gift from "),
        t('Gift message received')
     );
 
 	$this->assertText(
-       "Send a gift in return",
+       t("Send a gift in return"),
        t('Link to react present in message')
     );
 */
