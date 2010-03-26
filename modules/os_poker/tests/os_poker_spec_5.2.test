@@ -35,6 +35,7 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
     parent::setUp();
     $this->skel_user = $this->drupalCreateUser();
     $this->OsPokerLogin($this->skel_user, array('profile_nickname' => 'skel_user'));
+    $this->skel_user->name = $this->skel_user->mail;
   }
 
   function tearDown() {
@@ -73,9 +74,7 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 						 'pass[pass1]' => $password,
 						 'pass[pass2]' => $password,
 						 );
-/* #238
 		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-*/
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 		$this->drupalLogout();
 
