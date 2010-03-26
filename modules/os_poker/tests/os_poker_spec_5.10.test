@@ -217,6 +217,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		 * Assert image in page changes after daily gift
 		 */
 		$first_user = CUserManager::instance()->User($user->uid, TRUE);
+		$user->name = $user->mail;
 		$this->drupalLogin($user);
 		/**
 		 * Go to Buddy-List
