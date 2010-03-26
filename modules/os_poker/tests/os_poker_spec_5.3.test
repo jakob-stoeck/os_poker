@@ -135,6 +135,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
 		$test_buddies = $test_user->Buddies(TRUE, TRUE);
 
+		$this->main_user->name = $this->main_user->mail; 
 		$this->drupalLogin($this->main_user);
 
 		$buddylist_content = $this->drupalGet("<front>");
