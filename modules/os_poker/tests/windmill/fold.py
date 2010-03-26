@@ -2,7 +2,7 @@
 from windmill.authoring import WindmillTestClient
 from signup import signup
 
-def test_os_poker_fold():
+def test_fold():
     client = WindmillTestClient(__name__)
     signup(client)
     client.click(id=u'play-now-button')

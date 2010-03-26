@@ -2,7 +2,7 @@ from windmill.authoring import WindmillTestClient
 from login import login
 import functest
 
-def test_os_poker_fold():
+def test_fold():
     client = WindmillTestClient(__name__)
     username = functest.registry.get('username')
     password = functest.registry.get('password', username)
