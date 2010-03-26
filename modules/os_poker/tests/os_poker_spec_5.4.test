@@ -137,6 +137,7 @@ Rockefeller 10,000,000
 	/* verify level display in buddies list */
 	/* need a buddy */
 
+     $this->skel_user->name = $this->skel_user->mail;
      $this->drupalLogin($this->skel_user);
 
 		$name = $this->randomName();
