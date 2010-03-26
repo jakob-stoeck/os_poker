@@ -130,6 +130,7 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		$this->OsPokerLogin($user2, array('profile_nickname' => 'user2'));
 		$this->drupalLogout($user2);
 		
+		$this->skel_user->name = $this->skel_user->mail;
 		$this->drupalLogin($this->skel_user);
 		
 		$this->_checkInformation($user2->uid);
@@ -154,9 +155,7 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		  'pass[pass1]' => $password,
 		  'pass[pass2]' => $password,
 		);
-/* #238
 		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
-*/
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 		$this->drupalLogout();
 		
@@ -168,6 +167,7 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		$this->assertEqual(count($fresult), 1,  "1 invited user found");
 */	
 		//Check information on buddy view
+		$this->skel_user->name = $this->skel_user->mail;
 		$this->drupalLogin($this->skel_user);
 		
 		$this->_checkInformation($fresult[0]);
