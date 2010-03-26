@@ -2,12 +2,12 @@ from windmill.authoring import WindmillTestClient
 from login import login
 import functest
 
-def test_fold():
+def test_tourney_join_fold():
     client = WindmillTestClient(__name__)
     username = functest.registry.get('username')
     password = functest.registry.get('password', username)
     login(client, username, password)
-    client.click(classname=u'close')
+    #client.click(classname=u'close')
     client.waits.forElement(jquery=u'(".notify-text a")[0]')
     client.click(jquery=u'(".notify-text a")[0]')
     client.waits.forElement(classname=u'jpoker_table')
