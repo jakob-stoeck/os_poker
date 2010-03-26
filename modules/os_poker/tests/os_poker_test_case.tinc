@@ -215,9 +215,10 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
     // First login using the login form.
     $result = $this->drupalLogin($user);
-
+    
     // Fill the user profile.
     $this->OsPokerProfileSubmit($profile);
+    $user->name = $user->mail;
   }
 
   /**
