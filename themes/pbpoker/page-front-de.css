@@ -23,6 +23,6 @@ div#user_login {
   background-image: url('images/pb-tourney-banner-start.jpg');
 }
 
-#home_signup .title {
+#registration-window #home_signup .title {
 	background: url(images/register/register-title.png) no-repeat 15px 0;
 }
