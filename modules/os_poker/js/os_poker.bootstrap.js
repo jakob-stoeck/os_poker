@@ -117,6 +117,16 @@ OsPoker.dialog = function(content) {
   }, 0);
 }
 
+OsPoker.inlineThickbox = function(id, modal) {
+  //Bind the tb_remove function to the click event of any .close element in the
+  //thickbexed element. First unbind to avoid multiple binding of the same
+  //handler.
+  $(id).find('.close').unbind('click', tb_remove).click(tb_remove).end();
+  setTimeout(function(){
+    tb_show('', '#TB_inline?inlineId=' + id + '&modal=' + (modal ? 'true' : 'false'), false);
+  }, 0);
+}
+
 Drupal.theme.os_poker_link = function() { 
   var base = Drupal.settings.basePath + '?q=';
   if (typeof Drupal.settings.os_poker.language == 'object') {
