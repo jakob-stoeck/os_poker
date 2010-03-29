@@ -87,15 +87,12 @@ class OSPokerMessageboxTestCase extends OsPokerWebTestCase {
 										'shop_item_activate' => 1,
 					);
 			$submit = 'Send';
-// #238
-//			$this->drupalPost($path, $edit, $submit);
+			$this->drupalPost($path, $edit, $submit);
 			
 			// Verify the message has been sent to the inbox and is unread
 			$user_tasks = CScheduler::instance()->GetUserTasks($this->users[1]->uid);
-/* #238
 			$tasks = array_values($user_tasks['inbox']);
 			$this->assertEqual(count($tasks), 1, "One message added to database");
-*/
 			$this->assertEqual($tasks[0]->is_read, 0, "Message is unread");
 
 			// Now open the messagebox as user[1]
@@ -104,49 +101,42 @@ class OSPokerMessageboxTestCase extends OsPokerWebTestCase {
 			
 			// Verify the message is now unread
 			$user_tasks = CScheduler::instance()->GetUserTasks($this->users[1]->uid);
-/* #238
 			$tasks = array_values($user_tasks['inbox']);
 			$this->assertEqual(count($tasks), 1, "Still only one message added to database");
 			$this->assertEqual($tasks[0]->is_read, 1, "Message is now read");
-*/
+
 			// verify that the os_poker_load_messagebox returns correctly
 			$response_json = $this->drupalGet('poker/messages/send', array('query' => 'type=os_poker_load_messagebox&msgcount=0&ajax=1'));
 			$this->pass($response_json, 'Response JSON1');
 			$response = json_decode($response_json);
-// #238
-//			$this->assertEqual(count($response->messages), 1, "One ajax response");
+			$this->assertEqual(count($response->messages), 1, "One ajax response");
 			$msg = end($response->messages);
 			$this->assertEqual($msg->type, 'noop', 'Ajax returns 0 unread messages');
 			
 			// Now send another message
 	    $this->drupalLogin($this->users[0]);
-// #238
-//			$this->drupalPost($path, $edit, $submit);
+			$this->drupalPost($path, $edit, $submit);
+
 			// Verify that one message is now unread
 	    $this->drupalLogin($this->users[1]);
 			$user_tasks = CScheduler::instance()->GetUserTasks($this->users[1]->uid);
-/* #238
 			$tasks = array_values($user_tasks['inbox']);
 			$this->assertEqual(count($tasks), 2, "Two messages added to database");
-*/
 			$unread_count = 0;
 			foreach ($tasks as $task) {
 					if (!$task->is_read) {
 							$unread_count++;
 					}
 			}
-// #238
-//			$this->assertEqual($unread_count, 1, "One messages is unread");
+			$this->assertEqual($unread_count, 1, "One messages is unread");
 			
 			// verify that the os_poker_load_messagebox returns 1 unread message
 			$response_json = $this->drupalGet('poker/messages/send', array('query' => 'type=os_poker_load_messagebox&msgcount=0&ajax=1'));
 			$this->pass($response_json, 'Response JSON');
 			$response = json_decode($response_json);
-/* #238
 			$this->assertEqual(count($response->messages), 1, "One ajax response");
 			$msg = end($response->messages);
 			$this->assertEqual($msg->type, 'os_poker_messagebox', 'Ajax updates unread message count correctly');
 			$this->assertEqual($msg->body->inbox, 1, 'Ajax updates unread message count correctly');
-*/
 	}
 }

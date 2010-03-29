@@ -79,12 +79,12 @@ class OSPokerSpecificationsVirtualGoods extends OsPokerWebTestCase {
   }
   
   function insertShopItemsAndCategories() {
-    $this->assertTrue(db_query("INSERT INTO {poker_item} VALUES (102,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',105674,1,'next monday'),
-							(111,1,'sites/default/files/poker_items/item-1.jpg','TestItem',42,1,'+3 minutes'),
-							(101,1,'sites/default/files/poker_items/item-1.jpg','Beerr',5,1,'+1 minute'),
-							(114,3,'sites/default/files/poker_items/item-2.jpg','Test1',10,1,'+5 minutes'),
-							(115,3,'sites/default/files/poker_items/item-2.jpg','Test2',20,1, '+2 secondes'),
-							(116,4,'sites/default/files/poker_items/item-2.jpg','Sun glasses',100,1,'+2 hour')"), t('Items and categories inserted in database.'));
+    $this->assertTrue(db_query("INSERT INTO {poker_item} VALUES (102,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',0,1,'next monday'),
+							(111,1,'sites/default/files/poker_items/item-1.jpg','TestItem',0,1,'+3 minutes'),
+							(101,1,'sites/default/files/poker_items/item-1.jpg','Beerr',0,1,'+1 minute'),
+							(114,1,'sites/default/files/poker_items/item-2.jpg','Test1',0,1,'+5 minutes'),
+							(115,1,'sites/default/files/poker_items/item-2.jpg','Test2',0,1, '+2 secondes'),
+							(116,1,'sites/default/files/poker_items/item-2.jpg','Sun glasses',0,1,'+2 hour')"), t('Items and categories inserted in database.'));
   }
   
   /**
@@ -346,12 +346,13 @@ check active status is always on same item
     $cuser->ActivateItem($item->operation_id);
     CScheduler::instance()->ReloadTasks();
     CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
-		$messages = CMessageSpool::instance()->Get();
+
 /* #238
+		$messages = CMessageSpool::instance()->Get();
     $this->assertTrue(in_array(
       array('type' => 'os_poker_gift', 'body' => array(
-        'gift' => $item->item->name,
-        'cls' => os_poker_clean_css_identifier($item->item->name),
+        'gift' => 'Sun glasses',
+        'cls' => os_poker_clean_css_identifier('Sun glasses'),
         'to_uid' => $cuser->uid,
         'from_uid' => $cuser->uid))
       ,$messages),
@@ -361,7 +362,7 @@ check active status is always on same item
   }
 
   public function assertItemItemBoughtFor($item_id, $uid) {
-    $items = $this->userManager->User($uid)->Items();
+    $items = $this->userManager->User($uid, TRUE)->Items();
     $item = end($items);
     $this->assertEqual($item->id_item, $item_id, t('Item with id=!id bought for user with uid=!uid', array('!id' => $item_id, '!uid' => $uid)));
   }
@@ -377,100 +378,66 @@ check active status is always on same item
     $this->pass('<h1>Test from personal view</h1>');
 
     $this->pass('<h2>Buy</h2>');
-/* #238
+
     $this->drupalPost('poker/shop/shop/1/self', array(
       'shop_action' => 'subtarget',
-      'shop_item' => '1',
+      'shop_item' => '102',
     ), 'Send');
-    $this->assertItemItemBoughtFor(1, $this->user->uid);
-*/
+    $this->assertItemItemBoughtFor(102, $this->user->uid);
     $this->pass('<h2>Buy for Buddies</h2>');
-/* #238
     $this->drupalPost('poker/shop/shop/1/self', array(
       'shop_action' => 'target',
-      'shop_item' => '2',
+      'shop_item' => '111',
     ), 'Send');
     for($i = 1; $i < 3; $i++) {
-      $this->assertItemItemBoughtFor(2, $this->users[$i]->uid);
+      $this->assertItemItemBoughtFor(111, $this->users[$i]->uid);
     }
-*/
+
     $this->pass('<h1>Test from Buddy view</h1>');
 
     $this->pass('<h2>Buy</h2>');
-/* #238
     $this->drupalPost('poker/shop/shop/1/buddy/'.$this->users[1]->uid, array(
       'shop_action' => 'subtarget',
-      'shop_item' => '3',
+      'shop_item' => '101',
     ), 'Send');
-    $this->assertItemItemBoughtFor(3, $this->users[1]->uid);
-*/
+    $this->assertItemItemBoughtFor(101, $this->users[1]->uid);
+
     $this->pass('<h2>Buy for Buddies</h2>');
-/* #238
     $this->drupalPost('poker/shop/shop/1/buddy/'.$this->users[1]->uid, array(
       'shop_action' => 'target',
-      'shop_item' => '4',
+      'shop_item' => '114',
     ), 'Send');
     for($i = 1; $i < 3; $i++) {
-      $this->assertItemItemBoughtFor(4, $this->users[$i]->uid);
+      $this->assertItemItemBoughtFor(114, $this->users[$i]->uid);
     }
-*/
+
     $this->pass('<h1>Test from Table view</h1>');
 
     $this->pass('<h2>Buy</h2>');
-/* #238
     $this->drupalPost('poker/shop/shop/1/table//'.$this->users[1]->uid, array(
       'shop_action' => 'subtarget',
-      'shop_item' => '5',
+      'shop_item' => '115',
     ), 'Send');
-    $this->assertItemItemBoughtFor(5, $this->users[1]->uid);
-*/
+    $this->assertItemItemBoughtFor(115, $this->users[1]->uid);
     $this->pass('<h2>Buy fo Table</h2>');
-/* #238
     $this->drupalPost('poker/shop/shop/1/table/'.$table_id.'/'.$this->users[1]->uid, array(
       'shop_action' => 'target',
-      'shop_item' => '6',
+      'shop_item' => '115',
     ), 'Send');
-    $this->assertItemItemBoughtFor(6, $this->users[1]->uid);
-    $this->assertItemItemBoughtFor(6, $this->users[3]->uid);
-*/
-    $this->pass('<h2>Buy for Table and Buddies</h2>');
+    $this->assertItemItemBoughtFor(115, $this->users[1]->uid);
 /* #238
+    $this->assertItemItemBoughtFor(115, $this->users[3]->uid);
+*/
+
+    $this->pass('<h2>Buy for Table and Buddies</h2>');
     $this->drupalPost('poker/shop/shop/1/table/'.$table_id.'/'.$this->users[1]->uid, array(
       'shop_action' => 'special',
-      'shop_item' => '7',
+      'shop_item' => '115',
     ), 'Send');
-    for($i = 1; $i < 4; $i++) {
-      $this->assertItemItemBoughtFor(7, $this->users[$i]->uid);
+// #238
+//    for($i = 1; $i < 4; $i++) {
+    for($i = 1; $i < 3; $i++) {
+      $this->assertItemItemBoughtFor(115, $this->users[$i]->uid);
     }
-*/
   }
-
-	function removed_testFail()
-		{
-			/* Personal (self) View */
-			$this->fail(t("to buy an item for himself"), t('SpecPoker'));
-			$this->fail(t("player buys this item for all buddies"), t('SpecPoker'));
-
-			/* Buddy / Player View */
-			$this->fail(t("buy an item for the chosen buddy"), t('SpecPoker'));
-			$this->fail(t("player buys this item for all buddies"), t('SpecPoker'));
-
-			/* Table View */
-			$this->fail(t("buy an item for the chosen player"), t('SpecPoker'));
-			$this->fail(t("player buys this item for all players at his table, who accept gifts (see. settings: 3-profile-tab4-settings)"), t('SpecPoker'));
-			$this->fail(t("player buys this item for all players at his table, who accept gifts (see. settings) and all buddies, who accept gifts (see. settings) "), t('SpecPoker'));
-
-
-			/* 5.5.2 */
-			$this->fail(t('the  button .send gift. will not be displayed on his profile, medium profile and all buddy lists'), t('SpecPoker'));
-			$this->fail(t("If a player receives an item . a notification process (message, ingame notification) is triggered."), t('SpecPoker'));
-			$this->fail(t("He will be granted the option to .send a gift. in return."), t('SpecPoker'));
-
-			//Bug
-			$this->fail(t("A user can't buy an item if he doesn't have enough chips"), t('SpecPoker'));
-
-			//			$this->fail(t(""), t('SpecPoker'));
-
-		}
-
 }
