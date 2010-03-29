@@ -204,33 +204,28 @@ body.logged-in #middle-content-right {
 	color: #666;
 	background: #0e0e0e url(images/registerboxes-bg.png) repeat-x top left;
 	border: 1px solid #555;
-  /* Negate Thickbox's padding */
-  margin: -15px;
-  margin-top: -2px;
-  /* Fill thickbox */
-  height: 100%;
-  width: 100%;
+    /* Negate Thickbox's padding */
+    margin: -15px;
+    margin-top: -2px;
+    /* Fill thickbox */
+    height: 100%;
+    width: 100%;
 }
 
-/* FIXME : necessary or not ? */
 #registration-window a.closebutton {
 	text-indent: -10000px;
 	background-color: transparent;
 	background-image: url(images/button_layerclose.png);
 	background-repeat: no-repeat;
 	background-position: center center;
-  display: block;
+    display: block;
 	width: 20px;
 	height: 20px;
 	position: absolute;
-	top: 0;
-	right: 30px;
+	top: 5px;
+	right: 35px;
+	cursor: pointer;
 }
-
-/* FIXME 
-#TB_ajaxContent, #TB_window {
-	width: 400px !Important;
-}*/
 
 #home_signup .title {
 	display: block;
