@@ -222,10 +222,6 @@ body.logged-in #middle-content-right {
 	height: 380px !important;
 }
 
-*:first-child+html #registration-successful {
-	margin-top: 60px;
-}
-
 #registration-successful p:first-child {
 	font-weight: bold;
 	margin-bottom: 1em;
