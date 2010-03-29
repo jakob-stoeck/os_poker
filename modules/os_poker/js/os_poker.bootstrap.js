@@ -21,6 +21,29 @@ if(window != window.top) {
   })(jQuery);
 }
 
+/**
+ * Add event on $(document) before/after tb_show.
+ */
+if(typeof window.tb_show == 'function') {
+  var original = window.tb_show;
+  window.tb_show = function() {
+    $(document).trigger('thickbox_show', arguments);
+    original.apply(this, arguments);
+    $(document).trigger('thickbox_show_after', arguments);
+  }
+}
+
+//This should fix #187
+$(document).bind('thickbox_show', function(event, caption, url, imageGroup) {
+  if(url.indexOf('TB_iframe') != -1) {
+    $('#TB_window').unload();
+    $("#TB_ajaxContent").remove();
+  }
+  else {
+    //$("#TB_iframeContent").remove();
+  }
+});
+
 Drupal.behaviors.os_poker = function(context) {
   /* Hack to fix forgot password iframe in IE7 */
   if ($.browser.msie && $.browser.version === '7.0') {
