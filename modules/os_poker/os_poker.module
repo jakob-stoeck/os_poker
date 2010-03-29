@@ -1004,7 +1004,7 @@ function os_poker_menu()
 							'file' 			   => 'os_poker_pages.php',
 							'access arguments' => array('administer os poker'),
     ),
-							
+
   );
 	return $menu;
 }
@@ -1400,7 +1400,7 @@ function os_poker_preprocess_os_poker_message(&$variables) {
 
 function os_poker_preprocess_os_poker_first_profile(&$variables) {
   $variables['title'] = t("Create your Profile");
-  $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
+//  $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
   $variables['find_new_buddies'] = t("Find new Poker Buddies!");
   $variables['footer'] = t("The text that shows at the bottom of the first profile page and that has yet to be defined.");
   foreach($variables['userlist'] as $uid) {
@@ -1421,7 +1421,7 @@ function os_poker_preprocess_os_poker_buddylist(&$variables) {
 function os_poker_preprocess_os_poker_profile(&$variables) {
 		$target_user = $variables['target_user'];
 		$variables['tourney_results'] = CPoker::BestRankingsForUser($target_user->uid, 5);
-		
+
 		$registered = CPoker::RegisteredTourneysForUser($target_user->uid);
 		if ($registered && count($registered) > 0) {
 				$variables['next_tourney'] = $registered[0];

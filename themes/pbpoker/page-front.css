@@ -202,7 +202,7 @@ body.logged-in #middle-content-right {
 
 #registration-window, #registration-successful {
 	color: #666;
-	background: #0e0e0e url(images/registerboxes-bg.png) repeat-x top left !important;
+	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
 	border: 1px solid #555 !important;
     /* Negate Thickbox's padding */
     margin: -15px;
@@ -247,10 +247,10 @@ body.logged-in #middle-content-right {
 
 #home_signup .title {
 	display: block;
-	background: url(images/signup-title-en.gif) no-repeat;
+	background: url(images/register/signup-title-en.png) no-repeat 15px 0;
 	text-indent: -100000px;
 	overflow: hidden;
-	height: 55px;
+	height: 56px;
 }
 
 #home_signup .form-item label {
@@ -276,7 +276,7 @@ body.logged-in #middle-content-right {
 #home_signup_teaser h4 {
 	font-size: 1.1em;
 	margin-top: 1em;
-	background: url(images/signupteaser.png) bottom left no-repeat;
+	background: url(images/register/signupteaser.png) bottom left no-repeat;
 	padding-bottom: 55px;
 	color: #fff;
 }
