@@ -18,7 +18,7 @@
 			<dt>Royal Flush
 				<span class="poker-hand royal-flush" title="Royal Flush">A,K,Q,J,10</span>
 			</dt>
-			<dd>A, K, Q, J, 10 all of the same suit.</dt>
+			<dd>A, K, Q, J, 10 all of the same suit.</dd>
 			<dt>Straight Flush
 				<span class="poker-hand straight-flush" title="Straight Flush">4,5,6,7,8</span>
 			</dt>
@@ -100,19 +100,32 @@ The winner with the best five-card hand is now determined from among the remaini
 		</ol>
 	</div>
 
-	<div id="help-tutorial" class="helpbox">
+	<div id="help-tutorial" class="helpbox"  style="overflow: hidden">
     <p style="text-align: center;">
-      <script src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js" type="text/javascript"></script>
-      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="<?php print $tutorial['size'][0]?>" height="<?php print $tutorial['size'][1]?>">
-        <param name="movie" value="<?php print $tutorial['file']?>" />
-        <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="<?php print $tutorial['file']?>" width="<?php print $tutorial['size'][0]?>" height="<?php print $tutorial['size'][1]?>">
-        <!--<![endif]-->
-          <p></p>
-        <!--[if !IE]>-->
-        </object>
-        <!--<![endif]-->
-      </object>
+      <a class="tab-iframe" href="<?php print $tutorial ?>" style="display: none"></a>
+      <script language="javascript" type="text/javascript">
+/* Dirty hack to activate tutorial tab in help thickbox */
+function os_poker_show_tutorial_tab() {
+$("a[href=#help-pokerhands]").parent().removeClass('ui-state-active')
+$("div#help-pokerhands").addClass('ui-tabs-hide')
+$("a[href=#help-tutorial]").parent().addClass('ui-state-active')
+$("div#help-tutorial").removeClass('ui-tabs-hide')
+
+$('iframe.tutorial').remove();
+var href = $('.tab-iframe').attr('href');
+$('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+}
+
+        $(document).ready(function(){
+          $('#ContainerContentHelp .tabs').bind('tabsshow', function(event, ui){
+            if(!$(ui.tab).hasClass('foo')) {
+              $('iframe.tutorial').remove();
+              var href = $('.tab-iframe').attr('href');
+              $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+            }
+          });
+        });
+      </script>
     </p>
 	</div>
 
