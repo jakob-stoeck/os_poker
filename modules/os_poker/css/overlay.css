@@ -23,6 +23,7 @@ html, body {
 #os-poker-overlay .floater {
   float: left;
   height: 50%;
+  width: 1px;
 }
 
 #os-poker-overlay .content {
