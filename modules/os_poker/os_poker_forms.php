@@ -197,7 +197,7 @@ function	os_poker_sign_up_form_submit($form, &$form_state) {
     ));
     $overlay[] = t('If the address is not correct, then you can correct your e-mail address here.');
     $overlay = '<p>'. implode('</p><p>', $overlay) . '</p>';
-    os_poker_set_overlay($overlay, array('style' => 'height: auto'));
+    os_poker_set_overlay($overlay, array('id' => 'registration-successful'));
   }
 }
 
