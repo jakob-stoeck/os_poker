@@ -97,7 +97,11 @@ function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
   }
   return array('file' => $file, 'size' => $size, 'alt' => t('Sorry, your browser does not support Flash.'));
 }
-
+function pbpoker_preprocess_os_poker_first_profile(&$variables) {
+  $variables['subtitle'] = t("Full player data will also be rewarded with 2,000 poker chips!");
+  $variables['footertitle'] = t("Our tip:");
+  $variables['footer'] = t("For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
+}
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }
