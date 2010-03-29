@@ -284,6 +284,10 @@ body.logged-in #middle-content-right {
 	color: #fff;
 }
 
+#registration-window #home_signup_teaser p {
+	line-height: 1.2em;
+}
+
 #registration-window #messages a {
 	color: #fff !important;
 }
@@ -301,7 +305,7 @@ body.logged-in #middle-content-right {
 #registration-window  .messages.error {
 	position: absolute;
 	left: 10px;
-	bottom: 58px;
+	bottom: 55px;
 	height: 75px;
 	width: 365px;
 	padding: 5px;
