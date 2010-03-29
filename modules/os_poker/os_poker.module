@@ -1402,7 +1402,8 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   $variables['title'] = t("Create your Profile");
 //  $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
   $variables['find_new_buddies'] = t("Find new Poker Buddies!");
-  $variables['footer'] = t("The text that shows at the bottom of the first profile page and that has yet to be defined.");
+  $variables['fulldatareward'] = t("Full player data will also be rewarded with 2,000 poker chips!");
+  $variables['footer'] = t("Our tip: For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {

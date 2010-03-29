@@ -970,7 +970,7 @@ body.de #play-now #play-now-button {
 ********************************/
 
 #poker-first-profile {
-	background: #202020 url(images/register/registerboxes_bg.png) repeat-x top left;
+	background: #0c0c0c url(images/register/registerboxes_bg.png) repeat-x top left;
 	border: 1px solid #555;
 }
 
@@ -981,6 +981,8 @@ body.de #play-now #play-now-button {
 #poker-first-profile .title {
 	background: url(images/register/create-profile-title.png) no-repeat top left;
 	height: 56px;
+	padding: 0;
+	margin-top: -10px;
 }
 
 /******************************
