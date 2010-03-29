@@ -2127,13 +2127,12 @@ body.de p.Buddies { /* FIXME : german */
 /****************************
 * Thickbox : Forgot password
 * from login/header
+* or from whithin the new optin process
 ****************************/
 
 #forgot-password {
-	background: url(images/pre_body_bg.png);
-	border-color: #5A4220;
-	border-style: solid;
-	border-width: 1px;
+	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
+	border: 1px solid #555 !important;
 	float: none;
 	margin: 0;
 	overflow: hidden;
