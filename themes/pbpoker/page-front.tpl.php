@@ -181,8 +181,10 @@
 					<?php endif; ?>
 					<?php if ($pokerview != "table" && ($middle_content_right || (!$logged_in && $messages))) : ?>
 					<div id="middle-content-right">
-            <div id="registration-window">
+            <?php if(!$logged_in) :?>
+              <div id="registration-window">
               <a class="close closebutton">X</a>
+            <?php endif; ?>
               <?php print $middle_content_right; ?>
               <?php if (!$logged_in) : ?>
                 <?php if ($messages || $signup_terms) : ?>
@@ -195,7 +197,7 @@
                   </div>
                 <?php endif; ?>
               <?php endif; ?>
-            </div>
+            <?php if(!$logged_in) :?></div><?php endif; ?>
 					</div>
 					<div class="clear"></div>
 					<?php endif; ?>
