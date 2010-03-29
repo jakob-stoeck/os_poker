@@ -498,7 +498,7 @@ function	os_poker_forgot_password_form($form_state)
  */
 function os_poker_pass_reset_page($uid, $timestamp, $hashed_pass, $action = NULL) {
   module_load_include('php', 'os_poker', 'os_poker_forms');
-  os_poker_set_overlay('<h1>'.drupal_get_title()."</h1>\n".drupal_get_form('os_poker_pass_reset', $uid, $timestamp, $hashed_pass, $action));
+  os_poker_set_overlay('<h1>'.drupal_get_title()."</h1>\n".drupal_get_form('os_poker_pass_reset', $uid, $timestamp, $hashed_pass, $action), array('id' => 'password-reset'));
   drupal_goto('<front>');
 }
 
