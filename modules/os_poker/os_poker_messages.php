@@ -165,7 +165,6 @@ function	_os_poker_process_message_unsafe()
 	}
 
 	if ($current_user && $current_user->uid != 0) {
-		fwrite($fd, "Current User: {$current_user->uid} {$current_user->mail}\n");
 		switch($message_type)
 		{
 		case "os_poker_sit_down":
@@ -250,6 +249,7 @@ function	_os_poker_process_message_unsafe()
 			if (isset($_GET["target"]))
 			{
 				$target_user = CUserManager::instance()->User($_GET["target"]);
+
 				if ($target_user && $target_user->uid != 0 && $current_user->uid != $target_user->uid)
 				{
 					$tables = $current_user->Tables();
@@ -330,10 +330,9 @@ function	_os_poker_process_message_unsafe()
 		}
 
 	}
-	else if (!$rest["messages"]){
+	else if (!$resp["messages"]){
 		$resp["messages"][] = array("type" => "noop", "body" => NULL);
 	}
-	fclose($fd);
 
 	_os_poker_process_message_set_header();
 	print json_encode($resp);
