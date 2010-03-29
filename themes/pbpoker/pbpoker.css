@@ -985,6 +985,17 @@ body.de #play-now #play-now-button {
 	margin-top: -10px;
 }
 
+#poker-first-profile .body h5,
+#poker-first-profile .footer,
+#poker-first-profile .footer h5 {
+	color: #fff;
+	font-size: 1em;
+}
+
+#poker-first-profile .footer h5 {
+	font-weight: bold;
+}
+
 /******************************
 * Thickbox : Profile => Ranking
 *******************************/
