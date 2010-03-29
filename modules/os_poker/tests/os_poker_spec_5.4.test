@@ -150,11 +150,10 @@ Rockefeller 10,000,000
 		$this->drupalGet('invite/accept/'. $code);
 		$password = $this->randomName();
 		$options = array(
-		  'name'        => $name,
-		  'pass[pass1]' => $password,
-		  'pass[pass2]' => $password,
+		  'mail' => $email,
+		  'pass' => $password,
 		);
-		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerSignUpUser($options);
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
      $this->drupalLogout();
 
@@ -163,9 +162,7 @@ Rockefeller 10,000,000
 
 		$this->drupalGet('poker/buddies');
 		$this->assertTrue(TRUE, $this->drupalGetContent());
-/* #238
 		$this->assertPattern('/.+?<div class="buddy_result_list_level">\s+?Fish\s+?<\/div>/siU', 'Level is displayed in buddies list');
-*/
   }
 
 
