@@ -200,8 +200,8 @@ body.logged-in #middle-content-right {
  * optin
  * *************************/
 
-#registration-window, #registration-successful {
-	color: #666;
+#registration-window, #registration-successful, #password-reset {
+	color: #fff;
 	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
 	border: 1px solid #555 !important;
     /* Negate Thickbox's padding */
@@ -212,8 +212,11 @@ body.logged-in #middle-content-right {
     width: 100%;
 }
 
+#registration-window {
+	color: #666;
+}
+
 #registration-successful {
-	color: #fff;
 	background: #0e0e0e url(images/register/registration-successful.png) no-repeat center bottom !important;
 	width: 379px !important;
 	height: 380px !important;
@@ -245,7 +248,7 @@ body.logged-in #middle-content-right {
 	cursor: pointer;
 }
 
-#home_signup .title {
+#registration-window #home_signup .title {
 	display: block;
 	background: url(images/register/signup-title-en.png) no-repeat 15px 0;
 	text-indent: -100000px;
@@ -253,7 +256,7 @@ body.logged-in #middle-content-right {
 	height: 56px;
 }
 
-#home_signup .form-item label {
+#registration-window #home_signup .form-item label {
 	float: left;
 	clear: left;
 	width: 150px;
@@ -262,18 +265,18 @@ body.logged-in #middle-content-right {
 	text-align: right;
 }
 
-#home_signup .form-text {
+#registration-window #home_signup .form-text {
 	width: 190px;
 }
 
-#home_signup_teaser {
+#registration-window #home_signup_teaser {
 	position: absolute;
 	bottom: 20px;
 	left: 10px;
     width: 390px;
 }
 
-#home_signup_teaser h4 {
+#registration-window #home_signup_teaser h4 {
 	font-size: 1.1em;
 	margin-top: 1em;
 	background: url(images/register/signupteaser.png) bottom left no-repeat;
@@ -281,22 +284,23 @@ body.logged-in #middle-content-right {
 	color: #fff;
 }
 
-#messages a {
+#registration-window #messages a {
 	color: #fff !important;
 }
 
-#home_signup .poker_submit, #terms {
+#registration-window #home_signup .poker_submit,
+#registration-window #terms {
 	margin-left: 160px;
 }
 
-#terms {
+#registration-window #terms {
 	margin-top: 2em;
 }
 /* FIXME : Add an ID before */
-#messages .messages.error {
+#registration-window  .messages.error {
 	position: absolute;
 	left: 10px;
-	bottom: 53px;
+	bottom: 58px;
 	height: 75px;
 	width: 365px;
 	padding: 5px;
