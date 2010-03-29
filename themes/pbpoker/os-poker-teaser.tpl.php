@@ -9,7 +9,7 @@
 	<a id="register-now-chips" class="open-register-form" rel="nofollow"><span><?php print t("$1.000 Start bonus"); ?></span></a>
 	<ul id="explanations">
 		<li><a href="<?php print url('poker/help', array('query' => 'height=442&width=603&keepThis=true&TB_iframe=true&'))?>" class="thickbox open-video-tutorial"><?php print t("Poker Tutorial"); ?></a></li>
-	    <li><a href="?height=<?php print ($tutorial['size'][1]+5)?>&width=<?php print ($tutorial['size'][0])?>&inlineId=poker-tutorial&#TB_inline" class="thickbox"><?php print t("This is how it works"); ?></a></li>
+	    <li><a href="?height=<?php print ($tutorial['size'][1]+10)?>&width=<?php print ($tutorial['size'][0]+10)?>&inlineId=poker-tutorial&#TB_inline" class="thickbox"><?php print t("This is how it works"); ?></a></li>
 	</ul>
 
 	<p><small class="legal">* <?php print t("You play in all games with virtual game money with no value."); ?></small></p>

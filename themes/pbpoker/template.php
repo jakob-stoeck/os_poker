@@ -67,16 +67,6 @@ function pbpoker_preprocess_block(&$variables) {
 function pbpoker_preprocess_os_poker_teaser(&$variables) {
   global $language;
   $theme_path = drupal_get_path('theme', 'pbpoker');
-	/*
-  $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
-  $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');
-  $info[] = t('<strong><span class="star">*</span> Become a high roller and win hot prizes</strong>');
-  $info[] = t('Experience with us the exciting world of poker!');
-  $info[] = t('Get your thrills in high-stakes games and tournaments, playing for millions, without any risk. All stakes are just virtual game money with no value.');
-  $variables['info'] = implode('<br/>', $info);
-  $variables['table'] = theme('image', $theme_path.'/images/teaser-table.jpg', t('Poker Table'), '', array('id' => 'poker-teaser-table'));
-  $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
-	 */
   $variables['tutorial'] = pbpoker_flash_tutorial();
 }
 
