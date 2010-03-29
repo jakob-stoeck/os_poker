@@ -11,46 +11,18 @@ div#user_login {
 	width: 60px !important;
 }
 
-#poker-teaser .title
-{
-  text-indent: -10000px;
-  display: block;
-  width: 411px;
-  height: 55px;
-  background-image: url(images/teaser-title-de.gif);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center center;
+#page-front-banners #banner-signup {
+  background-image: url('images/front-banner-signup-de.png');
 }
 
-#home_signup .title
-{
-  text-indent: -10000px;
-  display: block;
-  width: 300px;
-  height: 55px;
-  background-image: url(images/signup-title-de.gif);
-  background-color: transparent;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-
-#poker-teaser .subtitle
-{
-  display: none;
-}
-
-#page-front-banners #banner-signup
-{
-  background-image: url('images/front-banner-signup-de.gif');
-}
-
-#page-front-banners #banner-tournament
-{
+#page-front-banners #banner-tournament {
   background-image: url('images/front-banner-tournament-de.gif');
 }
 
-#page-front-banners #banner-join
-{
+#page-front-banners #banner-join {
   background-image: url('images/pb-tourney-banner-start.jpg');
+}
+
+#home_signup .title {
+	background: url(images/signup-title-de.gif) no-repeat;
 }

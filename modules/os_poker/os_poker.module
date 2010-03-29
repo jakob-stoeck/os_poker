@@ -418,6 +418,7 @@ window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
     'os_poker' => array(
       'user_picture_default' => variable_get('user_picture_default', ''),
       'language' => $language,
+      'invite' => isset($_SESSION[INVITE_SESSION]),
     ),
   ), 'setting');
 }
