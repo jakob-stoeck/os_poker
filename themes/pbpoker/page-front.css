@@ -295,8 +295,9 @@ body.logged-in #middle-content-right {
 
 #registration-window #terms {
 	margin-top: 2em;
+	margin-right: 1em;
 }
-/* FIXME : Add an ID before */
+
 #registration-window  .messages.error {
 	position: absolute;
 	left: 10px;
