@@ -65,22 +65,22 @@ function poker_preprocess_user_login_block(&$variables)
 {
 	$class = "";
 	$attr = & $variables['form']['pass']['#attributes'];
-	
+
 	if (isset($attr) && isset($attr["class"]))
 		$class = $attr["class"];
-		
+
 	$attr["class"] = $class . " custom_input";
 	$variables['form']['pass']['#title'] = '';
-	
+
 	$class = "";
 	$attr = & $variables['form']['name']['#attributes'];
-	
+
 	if (isset($attr) && isset($attr["class"]))
 		$class = $attr["class"];
-		
+
 	$attr["class"] = $class . " custom_input";
 	$variables['form']['name']['#title'] = '';
-	
+
 	$variables['f_name'] = drupal_render($variables['form']['name']);
 	$variables['f_pass'] = drupal_render($variables['form']['pass']);
 	$variables['f_links'] = l(t("Forgot your Password ?"), "poker/forgot-password", array(	"attributes" => array(
@@ -89,19 +89,19 @@ function poker_preprocess_user_login_block(&$variables)
 																													"class" => "thickbox",
 																												),
 																								"query" => array(
-																												"height" => "165",
+																												"height" => "148",
 																												"width" => "382",
 																												"keepThis" => "true",
 																												"TB_iframe" => "true",
 																										),
 																						));
-	
+
 	if (isset($variables['form']['remember_me']))
 	{
 		$variables['f_remember_me'] = drupal_render($variables['form']['remember_me']);
 		unset($variables['form']['remember_me']);
 	}
-	
+
 	unset($variables['form']['name']);
 	unset($variables['form']['links']);
 	unset($variables['form']['pass']);
@@ -132,7 +132,7 @@ function poker_status_messages($display = NULL) {
     else {
       $output .= $messages[0];
     }
-    
+
     $output .= "</div>\n";
   }
   return $output;
