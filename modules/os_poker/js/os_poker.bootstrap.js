@@ -117,13 +117,25 @@ OsPoker.dialog = function(content) {
   }, 0);
 }
 
-OsPoker.inlineThickbox = function(id, modal) {
+/**
+ * Open a thickbox using content from a inline element.
+ *
+ * @param id string The ID the element that contains the content you would like
+ *   to show in a ThickBox
+ * @param options An object A ''map'' of otpions for thickbox (height, width,
+ *   modal, etc.)
+ **/
+OsPoker.inlineThickbox = function(id, options) {
   //Bind the tb_remove function to the click event of any .close element in the
   //thickbexed element. First unbind to avoid multiple binding of the same
   //handler.
-  $(id).find('.close').unbind('click', tb_remove).click(tb_remove).end();
+  if(typeof options != 'object') {
+   options = {modal: options ? true : false};
+  }
+  var params = $.extend({inlineId: id}, options);
+  $('#' + id).find('.close').unbind('click', tb_remove).click(tb_remove).end();
   setTimeout(function(){
-    tb_show('', '#TB_inline?inlineId=' + id + '&modal=' + (modal ? 'true' : 'false'), false);
+    tb_show('', '#TB_inline?' + $.param(params), false);
   }, 0);
 }
 

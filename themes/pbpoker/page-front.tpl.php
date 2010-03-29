@@ -181,18 +181,21 @@
 					<?php endif; ?>
 					<?php if ($pokerview != "table" && ($middle_content_right || (!$logged_in && $messages))) : ?>
 					<div id="middle-content-right">
-						<?php print $middle_content_right; ?>
-						<?php if (!$logged_in) : ?>
-							<?php if ($messages || $signup_terms) : ?>
-								<div id="messages">
-									<?php if ($messages) : ?>
-										<?php print $messages; ?>
-									<?php elseif ($signup_terms) : ?>
-										<?php print $signup_terms; ?>
-									<?php endif; ?>
-								</div>
-							<?php endif; ?>
-						<?php endif; ?>
+            <div id="registration-window">
+              <a class="close closebutton">X</a>
+              <?php print $middle_content_right; ?>
+              <?php if (!$logged_in) : ?>
+                <?php if ($messages || $signup_terms) : ?>
+                  <div id="messages">
+                    <?php if ($messages) : ?>
+                      <?php print $messages; ?>
+                    <?php elseif ($signup_terms) : ?>
+                      <?php print $signup_terms; ?>
+                    <?php endif; ?>
+                  </div>
+                <?php endif; ?>
+              <?php endif; ?>
+            </div>
 					</div>
 					<div class="clear"></div>
 					<?php endif; ?>
