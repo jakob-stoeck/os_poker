@@ -2136,9 +2136,14 @@ body.de p.Buddies { /* FIXME : german */
 	float: none;
 	margin: 0;
 	overflow: hidden;
+	color: #fff;
 	padding: 15px;
 	width: 379px;
-	color: #fff;
+	height: 145px; /* fixed height in all languages */
+}
+
+*:first-child+html #forgot-password {
+	height: 147px; /* fixed height in all languages */
 }
 
 /* FIXME : dont repeat that close thing everywhere */
