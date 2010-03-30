@@ -645,7 +645,7 @@ body.iframe #profile-medium a.LayerClose {
 	overflow: hidden;
 	position: absolute;
 	right: 0;
-	top: 10px;
+	top: 5px;
 }
 
 *:first-child+html #profile-medium .links {
