@@ -309,6 +309,8 @@ function os_poker_init()
 		$inpoker = (substr($_GET["q"], 0, strlen("poker")) === "poker") && (substr($_GET["q"], 0, strlen("poker/pages")) != "poker/pages");
 	}
 
+  drupal_add_js('misc/jquery.js', 'core', 'special');
+  drupal_add_js('misc/drupal.js', 'core', 'special');
 
   drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/jquery.filestyle.mini.js", "theme", DEFAULT_JS_SCOPE);
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.toolkit.js", "theme", DEFAULT_JS_SCOPE);
@@ -325,6 +327,15 @@ function os_poker_init()
 			drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.dailychips.js", "module", DEFAULT_JS_SCOPE);
 			$_SESSION['dailychips'] = null;
 	}
+
+/*
+	// For testing, allows URL based login for test accounts.
+	if (!user_is_logged_in() && isset($_GET['u']))
+	{
+		$user = user_authenticate(array('name' => $_GET['u'],
+					'pass' => 'test123'));
+	}
+*/
 
 	if ($inpoker == FALSE && user_is_logged_in() > 0)
 	{
@@ -1719,8 +1730,14 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  */
 function os_poker_skin_css() {
   header('Content-type: text/css');
+<<<<<<< local
+/*
+  $url = theme('poker_skin_css_url');
+=======
   /*
+>>>>>>> other
   print("@import url($url);\n");
+*/
   module_load_include('php', 'os_poker', 'shop.class');
   */
   foreach(CShop::ListItems() as $item) {
