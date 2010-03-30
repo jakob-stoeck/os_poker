@@ -82,23 +82,31 @@ tr.even a {
 }
 
 /**************************
-** Tabs
+* Tabs
+* => FIXME : if this appears only in the tabs-window, prefix the css selector
 **************************/
+div.tabs, ul.tabs {
+	height: 24px;
+}
+
+div.tabs {
+	border-bottom: 1px solid #666;
+}
 
 ul.primary {
 	font-size: 12px;
 	font-weight: bold;
-	height: 24px;
 	margin: 5px 7px 0;
-	overflow: hidden; /* lazy clear */
+	border: none;
+	margin-top: 1px;
 }
 
 ul.primary li a {
 	font-weight: bold;
-	border: 1px solid #CBCBC9;
-	border-bottom: none;
-	background: #DFDFDF url(images/bg_layernavbutton.png) repeat-x 0 0;
-	color: #6C6C6C;
+	border: 1px solid #666 !important;
+	border-bottom: none !important;
+	background: #DFDFDF url(images/thickboxes/tab.png) repeat-x 0 0;
+	color: #666;
 	height: 18px;
 	display: block;
 	float: left;
@@ -106,15 +114,16 @@ ul.primary li a {
 }
 
 ul.primary li.active a, li.ui-state-active a {
-	color: #810E0B !important;
-	background: #FFFFFF !important;
+	color: #fff !important;
+	background: #111 !important;
+	/* overlapping illusion : */
+	padding-bottom: 1px;
+	position: relative;
+	z-index: 2;
 }
 
 ul.primary li a:hover {
-	text-decoration: underline;
-	border-left: 1px solid #CBCBC9;
-	border-right: 1px solid #CBCBC9;
-	border-top: 1px solid #CBCBC9;
+	color: #fff;
 }
 
 ul.secondary a {
@@ -241,9 +250,15 @@ ul.secondary li a.active {
 }
 
 /*************************
+* Thickboxes - reset main
+*************************/
+.tabs-window {
+	background: url(images/thickboxes/thickbox.png) repeat-x;
+}
+
+/*************************
 * Thickboxes
 *************************/
-
 body.iframe,
 body.iframe #page,
 body.iframe #main {
@@ -488,7 +503,7 @@ div.poker_submit div.label input {
 /*
 ** The silver one
 */
-
+/*
 div.poker_submit.silver div.pre {
   background-image: url(images/silver_button_left.png);
   background-position: left top;
@@ -500,7 +515,7 @@ div.poker_submit.silver div.label {
   background-position: right top;
   color: #313751;
 }
-
+*/
 /*
 ** The big one
 */
