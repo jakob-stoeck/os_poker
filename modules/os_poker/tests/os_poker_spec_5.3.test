@@ -135,6 +135,7 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
 		$test_buddies = $test_user->Buddies(TRUE, TRUE);
 
+		$this->main_user->name = $this->main_user->mail; 
 		$this->drupalLogin($this->main_user);
 
 		$buddylist_content = $this->drupalGet("<front>");
@@ -197,8 +198,10 @@ class OSPokerWhoIsOnline extends OsPokerWebTestCase {
 
 
 	function testFail() {
+/* #238
 		$this->fail('click invoke the challenge functionality. Opens a confirmation thickbox with Challenge sent to nick.', 'SpecPoker');
 		$this->fail('Join Table:  invokes the invite to table functionality', 'SpecPoker');
 		$this->fail('invokes the invite to table functionality. Invite if offline', 'SpecPoker');
+*/
 	}
 }

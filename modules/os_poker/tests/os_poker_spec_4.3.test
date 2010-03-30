@@ -33,8 +33,6 @@
  * <dachary> I suppose we can say it's done the drupal way...
  * <dachary> (sent a mail asking for a change on 4.3, thanks)
  *
- * @TODO: Due to previous note, this file provides no tests. Leaving as a
- *        placeholder for other test implementations regarding this workflow.
  */
 
 /**
@@ -47,18 +45,11 @@ require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
  *
  * Verifies password recovery workflow is working according to specifications.
  *
- * @TODO: Rename this class to OsPokerSpecificationForgotPassword once proppy's
- *        code gets migrated.
  */
-class OSPokerPasswordRecovery extends OsPokerWebTestCase {
+class OsPokerSpecificationForgotPassword extends OsPokerWebTestCase {
 
   /**
-   * @var user object created and logged in during setUp process.
-   */
-  protected $skel_user;
-
-  /**
-   * Implementation of hook_info().
+   * Implementation of gInfo().
    */
   public static function getInfo() {
     return array(
@@ -77,11 +68,11 @@ class OSPokerPasswordRecovery extends OsPokerWebTestCase {
 
     /**
      * Register an 'invitee' account and complete its profile.
-     * This user has 'skel_user' for nickname.
      */
     $this->user = $this->drupalCreateUser();
     // Login the user, complete profile form
     $this->OsPokerLogin($this->user, array('profile_nickname' => $this->randomString()));
+    $this->drupalLogout();
   }
 
   /**
@@ -96,17 +87,45 @@ class OSPokerPasswordRecovery extends OsPokerWebTestCase {
    * Test that the user/reset page redirects to the front page with its form
    * overlayed t
    */
-  function testThatUserResetRedirectsToFrontWithOverflow() {
+  function testThatUserResetLink() {
+    //Disable the login block, otherwise its "Log In" button conflict with the one for the password reset page.
+    $root = $this->drupalCreateUser(array('administer blocks', 'administer users', 'administer site configuration'));
+    $this->drupalLogin($root);
+    $this->drupalPost('admin/build/block',
+      array(
+        'user_0[region]' => -1,
+      ),
+      'Save blocks'
+    );
     $this->drupalLogout();
-    $account = $this->user = user_load($this->user->uid);
+    $account = user_load($this->user->uid);
+    $timestamp = $account->login + 1;
+    sleep(5);
+    $link = "user/reset/$account->uid/$timestamp/". user_pass_rehash($account->pass, $timestamp, $account->login);
+    $this->drupalGet($link);
+    $this->assertEqual($this->getUrl(), url('<front>', array('absolute' => true)), 'user/reset redirects to front page.');
+    $this->assertRaw('id="os-poker-pass-reset"', t('Password reset form found on page.'));
+    $this->drupalPost(NULL, array(), 'Log in');
+    $this->assertText(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
+    $this->drupalGet($link);
+    $this->assertText(t('You have already used this one-time login link. It is not necessary to use this link to login anymore. You are already logged in.'));
+    $this->drupalLogout();
+    $this->drupalGet($link);
+    $this->assertEqual($this->getUrl(), url('poker/forgot-password', array('absolute' => true)), 'After login, the one-time login link redirects to the forgot password page.');
+    $this->assertText(t('You have tried to use a one-time login link which has either been used or is no longer valid. Please request a new one using the form below'));
+
+    $account = user_load($this->user->uid);
+    $timestamp = $timestamp - 86400; //24 hours = 86400 seconds.
+    $this->drupalGet("user/reset/$account->uid/$timestamp/". user_pass_rehash($account->pass, $timestamp, $account->login));
+    $this->assertEqual($this->getUrl(), url('poker/forgot-password', array('absolute' => true)), 'Expired one-time login link redirects to the forgot password page.');
+    $this->assertText(t('You have tried to use a one-time login link that has expired. Please request a new one using the form below.'));
+    
+    //Block user
+    db_query("INSERT INTO {access} (type, mask, status) VALUES ('user', '%s',  0)", $account->name);
+    $account = user_load($this->user->uid);
     $timestamp = $account->login + 1;
     sleep(5);
     $this->drupalGet("user/reset/$account->uid/$timestamp/". user_pass_rehash($account->pass, $timestamp, $account->login));
-    $this->assertEqual($this->getUrl(), url('<front>', array('absolute' => true)), 'user/reset redirects to front page.');
-    $this->assertRaw('id="os-poker-pass-reset"', t('Password reset form found on page.'));
-    //TODO: This doesn't work because SimpleTest submit the Sign Up form
-    //$this->drupalPost(NULL, array(), 'Log in');
-    //$this->assertText(t('You have just used your one-time login link. It is no longer necessary to use this link to login. Please change your password.'));
+    $this->assertText(t('You have tried to use a one-time login for an account which has been blocked.'));
   }
-
 }

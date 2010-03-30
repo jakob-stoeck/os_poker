@@ -46,7 +46,7 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
             "class" => "thickbox",
           ),
           "query" => array(
-            "height" => "187",
+            "height" => "148",
             "width" => "382",
             "keepThis" => "true",
             "TB_iframe" => "true",
@@ -64,7 +64,7 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
 function	os_poker_sign_up_form($form_state)
 {
 	require_once(drupal_get_path('module', 'password_policy') . "/password_policy.module");
-	
+
 	$form = array();
 	$account = array(); // not used, but needed by the hook
 
@@ -78,11 +78,11 @@ function	os_poker_sign_up_form($form_state)
 		$form = array();
 	}
 
-				
+
 	$form["name"] = array(
 							'#type' => 'hidden',
 					);
-					
+
 	$form["mail"] = array(
 							'#type' => 'textfield',
 							'#title' => t("Your Email"),
@@ -90,14 +90,15 @@ function	os_poker_sign_up_form($form_state)
 							'#required' => TRUE,
 
 					);
+  if (!variable_get('user_email_verification', TRUE)) {
+    $form["pass"] = array(
+      '#type' => 'password',
+      '#attributes' => array("class" => "custom_input"),
+      '#title' => t("New Password"),
+      '#required' => TRUE,
+    );
+  }
 
-	$form["pass"] = array(
-							'#type' => 'password',
-							'#attributes' => array("class" => "custom_input"),
-							'#title' => t("New Password"),
-							'#required' => TRUE,
-					);
-					
 	$form['profile_email_notify'] = array(
 			'#type' => 'hidden',
 			'#value' => 1,
@@ -113,21 +114,28 @@ function	os_poker_sign_up_form($form_state)
 								'#value' => t('Send'),
 								'#attributes' => array("style" => "display:none;"),
 						);
-	
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-sign-up-form\');" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Sign Up") . "</div><div class='user_login_clear'></div></div>",
 							);
-										
-	$form['#redirect'] = array("poker/first_profile");
-	
-	
+
+  if (!variable_get('user_email_verification', TRUE)) {
+    $form['#redirect'] = array("poker/first_profile");
+  }
+
+
 	$uid = isset($form['#uid']) ? $form['#uid'] : NULL;
 
-	$policy = _password_policy_load_active_policy();
-  
+  if (!variable_get('user_email_verification', TRUE)) {
+    $policy = _password_policy_load_active_policy();
+  }
+  else {
+    $policy = array();
+  }
+
 	$translate = array();
 	if (!empty($policy['policy']))
 	{
@@ -139,8 +147,13 @@ function	os_poker_sign_up_form($form_state)
 		}
 	}
 
-  $form['#submit'] = array('password_policy_password_submit', 'user_register_submit');
-  $form['#validate'] = array('os_poker_sign_up_form_validate', 'password_policy_password_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
+  $form['#submit'] = array('user_register_submit', 'os_poker_sign_up_form_submit');
+  $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
+
+  if (!variable_get('user_email_verification', TRUE)) {
+    array_unshift($form['#submit'], 'password_policy_password_submit');
+    array_unshift($form['#validate'], array_shift($form['#validate']), 'password_policy_password_validate');
+  }
 
 	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
@@ -152,9 +165,40 @@ function	os_poker_sign_up_form($form_state)
   if (($code = $_SESSION[INVITE_SESSION]))
   {
     $form['poker_invite'] = array('#type' => 'value', '#value' => TRUE);
-  } 
+  }
 
   return $form;
+}
+
+/**
+ * Submit handler for os_poker_sign_up_form, should be called after
+ * password_policy_password_submit and user_register_submit.
+ *
+ * @see user_register_submit
+ */
+function	os_poker_sign_up_form_submit($form, &$form_state) {
+  $account = $form_state['user'];
+  if ($account && $account->status && variable_get('user_email_verification', TRUE) && !user_access('administer users')) {
+    //Active account created awaiting email verification and we are not admin.
+    //1. Remove standard message set by user_register_submit
+    $message = t('Your password and further instructions have been sent to your e-mail address.');
+    $notifications = drupal_get_messages('status', TRUE);
+    $notifications = $notifications['status'] ? $notifications['status'] : array();
+    foreach($notifications as $notification) {
+      if($notification != $message) {
+        drupal_set_message($notification);
+      }
+    }
+    //2. Set our confirmation message as overlay.
+    $overlay[] = t('Welcome,');
+    $overlay[] = t('We have just sent a confirmation e-mail to this address: !mail Look into your mailbox, simply click on the link in the e-mail to confirm your address. As a welcome gift, we have reserved !amount poker chips for you!', array(
+      '!mail' => '<span class="adress">'. check_plain($account->mail) . '</span>',
+      '!amount' => 1000,
+    ));
+    $overlay[] = t('If the address is not correct, then you can correct your e-mail address here.');
+    $overlay = '<p>'. implode('</p><p>', $overlay) . '</p>';
+    os_poker_set_overlay($overlay, array('id' => 'registration-successful'));
+  }
 }
 
 /*
@@ -164,25 +208,25 @@ function	os_poker_sign_up_form($form_state)
 function	os_poker_profile_personal_settings_form_submit($form, &$form_state)
 {
 	$cuser = CUserManager::instance()->CurrentUser();
-	
+
 	$profile_accept_gifts = (isset($form_state["values"]['profile_options']["profile_accept_gifts"]) && $form_state["values"]['profile_options']["profile_accept_gifts"] != FALSE);
 	$profile_ignore_buddy = (isset($form_state["values"]['profile_options']["profile_ignore_buddy"]) && $form_state["values"]['profile_options']["profile_ignore_buddy"] != FALSE);
 	$profile_email_notify = (isset($form_state["values"]['profile_options']["profile_email_notify"]) && $form_state["values"]['profile_options']["profile_email_notify"] != FALSE);
 	$profile_newsletter = (isset($form_state["values"]['profile_options']["profile_newsletter"]) && $form_state["values"]['profile_options']["profile_newsletter"] != FALSE);
 	$profile_html_email = (isset($form_state["values"]['profile_options']["profile_html_email"]) && $form_state["values"]['profile_options']["profile_html_email"] != FALSE);
-	
+
 	if ($cuser->profile_accept_gifts != $profile_accept_gifts)
 	{
 		$cuser->profile_accept_gifts = $profile_accept_gifts;
-	}	
+	}
 	if ($cuser->profile_ignore_buddy != $profile_ignore_buddy)
 	{
 		$cuser->profile_ignore_buddy = $profile_ignore_buddy;
-	}	
+	}
 	if ($cuser->profile_email_notify != $profile_email_notify)
 	{
 		$cuser->profile_email_notify = $profile_email_notify;
-	}	
+	}
 	if ($cuser->profile_newsletter != $profile_newsletter)
 	{
 		$cuser->profile_newsletter = $profile_newsletter;
@@ -191,29 +235,29 @@ function	os_poker_profile_personal_settings_form_submit($form, &$form_state)
 	{
 		$cuser->profile_html_email = $profile_html_email;
 	}
-	
+
 	$cuser->Save();
 }
 
 function	os_poker_profile_personal_settings_form($form_state)
 {
 	$form = array();
-	
+
 	$cuser = CUserManager::instance()->CurrentUser();
-	
+
 	$defaults = array();
-	
+
 	if ($cuser->profile_accept_gifts)
-		$defaults[] = "profile_accept_gifts";	
+		$defaults[] = "profile_accept_gifts";
 	if ($cuser->profile_ignore_buddy)
-		$defaults[] = "profile_ignore_buddy";	
+		$defaults[] = "profile_ignore_buddy";
 	if ($cuser->profile_email_notify)
-		$defaults[] = "profile_email_notify";	
+		$defaults[] = "profile_email_notify";
 	if ($cuser->profile_newsletter)
-		$defaults[] = "profile_newsletter";	
+		$defaults[] = "profile_newsletter";
 	if ($cuser->profile_html_email)
 		$defaults[] = "profile_html_email";
-	
+
 	$form['profile_options'] = array(
 										'#type' => 'checkboxes',
 										'#default_value' => $defaults,
@@ -225,13 +269,13 @@ function	os_poker_profile_personal_settings_form($form_state)
 															'profile_html_email' => t('I wish to receive emails in HTML-format'),
 														),
 									);
-							
+
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
 								'#attributes' => array("style" => "display:none;"),
 						);
-	
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-profile-personal-settings-form\');" ' .
@@ -244,7 +288,7 @@ function	os_poker_profile_personal_settings_form($form_state)
 
 
 /*
- * WARNING - we are copying the _user_edit_validate() function from user.module to this file, since 
+ * WARNING - we are copying the _user_edit_validate() function from user.module to this file, since
  * in the version of drupal we are using, they dont seem to understand the concept of reuse.
  * Ideally this should be done by calling user_module_invoke() but the user_user hook uses arg(1) to
  * retreive the user ID which is very lame, because we dont pass the user ID in the URL.
@@ -281,7 +325,7 @@ function os_poker_user_edit_validate($uid, &$edit) {
   }
 }
 
-function os_poker_profile_email_settings_form_submit($form, &$form_state) 
+function os_poker_profile_email_settings_form_submit($form, &$form_state)
 {
 	$cuser = CUserManager::instance()->CurrentUser();
 	$cuser->mail = $form_state['values']['mail'];
@@ -290,7 +334,7 @@ function os_poker_profile_email_settings_form_submit($form, &$form_state)
 	drupal_set_message(t("Email successfully modified"));
 }
 
-function os_poker_profile_email_settings_form_validate($form, &$form_state) 
+function os_poker_profile_email_settings_form_validate($form, &$form_state)
 {
 	$cuser = CUserManager::instance()->CurrentUser();
 	$edit = &$form_state['values'];
@@ -301,34 +345,34 @@ function os_poker_profile_email_settings_form_validate($form, &$form_state)
 function	os_poker_profile_email_settings_form($form_state)
 {
 	$form = array();
-	
+
 	$cuser = CUserManager::instance()->CurrentUser();
-	
+
 	$form['old_email'] = array(
 							'#type' => 'textfield',
 							'#title' => t("Your Email"),
 							'#value' => $cuser->mail,
 							'#disabled' => TRUE,
-					);	
+					);
 	$form['name'] = array(
 							'#type' => 'hidden',
 							'#title' => t("Your name"),
 							'#value' => $cuser->name,
-					);	
-					
+					);
+
 	$form['mail'] = array(
 							'#type' => 'textfield',
 							'#title' => t("New Email"),
 							'#required' => TRUE,
 					);
-					
+
 	$form['submit'] =	array(
 							'#type' => 'submit',
 							'#value' => t('Send'),
 							'#attributes' => array("style" => "display:none;"),
 					);
-	
-	
+
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-profile-email-settings-form\');" ' .
@@ -349,51 +393,51 @@ function	os_poker_profile_password_settings_form_submit($form, &$form_state)
 	$cuser = CUserManager::instance()->CurrentUser();
 
 	password_policy_password_submit($form, $form_state);
-	
-	$cuser->pass = $form_state["values"]["pass"];
-	
-	$cuser->Save();
-	
 
-	
+	$cuser->pass = $form_state["values"]["pass"];
+
+	$cuser->Save();
+
+
+
 	drupal_set_message(t("Password successfully modified"));
 }
 
 function	os_poker_profile_password_settings_form($form_state)
 {
 	$form = array();
-	
+
 	$cuser = CUserManager::instance()->CurrentUser();
-	
+
 	$form["pass"] = array(
 							'#type' => 'password_confirm',
 							'#required' => TRUE,
 					);
-	
+
 	$form['submit'] =	array(
 							'#type' => 'submit',
 							'#value' => t('Send'),
 							'#attributes' => array("style" => "display:none;"),
 					);
-					
+
 	$form['_account'] =	array(
 							'#type' => 'hidden',
 							'#value' => $cuser->uid,
 					);
 
-	
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-profile-password-settings-form\');" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("OK") . "</div><div class='user_login_clear'></div></div>",
 							);
-							
-	
+
+
 	$uid = isset($form['#uid']) ? $form['#uid'] : NULL;
 
 	$policy = _password_policy_load_active_policy();
-  
+
 	$translate = array();
 	if (!empty($policy['policy']))
 	{
@@ -432,20 +476,20 @@ function	os_poker_forgot_password_form($form_state)
 						'#maxlength' => max(USERNAME_MAX_LENGTH, EMAIL_MAX_LENGTH),
 						'#required' => TRUE,
 					);
-	
+
 	$form['submit'] = array(
 							'#type' => 'submit',
 							'#value' => t('Send'),
 							'#attributes' => array("style" => "display:none;"),
 						);
-						
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-forgot-password-form\', null, true);" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Send") . "</div><div class='user_login_clear'></div></div>",
 							);
-							
+
 	return $form;
 }
 
@@ -454,7 +498,7 @@ function	os_poker_forgot_password_form($form_state)
  */
 function os_poker_pass_reset_page($uid, $timestamp, $hashed_pass, $action = NULL) {
   module_load_include('php', 'os_poker', 'os_poker_forms');
-  os_poker_set_overlay('<h1>'.drupal_get_title()."</h1>\n".drupal_get_form('os_poker_pass_reset', $uid, $timestamp, $hashed_pass, $action));
+  os_poker_set_overlay('<h1>'.drupal_get_title()."</h1>\n".drupal_get_form('os_poker_pass_reset', $uid, $timestamp, $hashed_pass, $action), array('id' => 'password-reset'));
   drupal_goto('<front>');
 }
 
@@ -463,7 +507,7 @@ function os_poker_pass_reset_page($uid, $timestamp, $hashed_pass, $action = NULL
  */
 function os_poker_pass_reset(&$form_state, $uid, $timestamp, $hashed_pass, $action = NULL) {
   global $user;
-  
+
   // Check if the user is already logged in. The back button is often the culprit here.
   if ($user->uid)
   {
@@ -545,27 +589,27 @@ function	os_poker_buddy_search_form($form_state)
 														'#title' => t('Search Online player only!'),
 														'#default_value' => variable_get('online_only', 0),
 												);
-												
+
 	$form['profile_nickname'] =	array(
 															'#type' => 'textfield',
 															'#title' => t('Nickname'),
 															'#size' => 30,
 															'#maxlength' => 64,
 													);
-													
+
 	$form['mail'] =	array(
 												'#type' => 'textfield',
 												'#title' => t('E-mail'),
 												'#size' => 30,
 												'#maxlength' => 64,
 										);
-										
+
 	$sex_options =	array(
 							NULL => "--",
 							"Male" => t("Male"),
 							"Female" => t("Female"),
 					);
-	
+
 	$form['profile_gender'] =	array(
 														'#type' => 'select',
 														'#title' => t('Gender'),
@@ -579,27 +623,27 @@ function	os_poker_buddy_search_form($form_state)
       '#options' => $level_options,
       '#default_value' => -1,
   );
-	
+
 	$form['profile_city'] =	array(
 														'#type' => 'textfield',
 														'#title' => t('City'),
 														'#size' => 30,
 														'#maxlength' => 64,
 												);
-  
+
 	$form['profile_country'] =	array(
 															'#type' => 'select',
 															'#title' => t('Country'),
                               '#multiple' => false,
                               '#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
 													);
-						
+
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
 								'#attributes' => array("style" => "display:none;"),
 						);
-	
+
 	$form['f_submit'] = array(
 								'#type' => 'markup',
 								'#value' => '<div class="clear"></div><div onclick="javascript:os_poker_submit(this, \'os-poker-buddy-search-form\');" ' .
@@ -624,15 +668,15 @@ function	os_poker_first_profile_form($form_state)
 {
 	$form = array();
 	$pfields = array();
-							
+
 	$sql = "SELECT `name`, `options` FROM `{profile_fields}` WHERE `category` LIKE '%s'";
-	
+
 	$res = db_query($sql, PROFILE_CATEGORY);
-	
+
 	while (($obj = db_fetch_object($res)))
 	{
 		$formatv = array();
-		
+
         $lines = split("[\n\r]", $obj->options);
         foreach ($lines as $line)
 		{
@@ -641,10 +685,10 @@ function	os_poker_first_profile_form($form_state)
 				$formatv[$line] = t($line);
 			}
 		}
-		
+
 		$pfields[$obj->name] = $formatv;
 	}
-	
+
 	$cuser = CUserManager::instance()->CurrentUser();
 	$nick = $cuser->profile_nickname;
 
@@ -654,15 +698,15 @@ function	os_poker_first_profile_form($form_state)
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_nickname,
 								);
-								
+
 	/*if (!empty($nick) && $cuser->picture && strlen($cuser->picture) > 0)
-	{							
+	{
 		$form['picture_view'] = array(
 											'#type' => 'markup',
 											'#value' => "<img src='" . $cuser->picture . "' alt='Picture' style='width:50px;height:50px'/>",
 									);
 	}*/
-								
+
 	$form['picture_upload'] = 	array(
 										'#type' => 'file',
 										'#title' => t('Profile photo'),
@@ -673,7 +717,7 @@ function	os_poker_first_profile_form($form_state)
 															) .' '. variable_get('user_picture_guidelines', ''),
 										'#attributes' => array("class" => "custom_input"),
 								);
-	
+
 	$form['profile_gender'] =	array(
 										'#type' => 'radios',
 										'#title' => '<span class="gender_container">' . t("Gender") . '</span>',
@@ -682,9 +726,9 @@ function	os_poker_first_profile_form($form_state)
 										'#suffix' => '<div class="clear"></div>',
 										'#default_value' => $cuser->profile_gender,
 								);
-	
-	
-	
+
+
+
 	$form["profile_dob"] =	array(
 									'#type' => 'date',
 									'#title' => t('Birthday'),
@@ -712,44 +756,44 @@ function	os_poker_first_profile_form($form_state)
 										'#attributes' => array("class" => "custom_input"),
 										'#default_value' => $cuser->profile_city,
 								);
-  
+
 	$form['submit'] =	array(
 								'#type' => 'submit',
 								'#value' => t('Send'),
 								'#attributes' => array("style" => "display:none;"),
 						);
-						
+
 	if (!empty($nick))
-	{							
+	{
 		$form['picture_view'] = array(
 											'#type' => 'markup',
 											'#value' => "<div class='separator'>&nbsp;</div>",
 									);
 	}
-	
+
 	$form['f_submit'] = array(
 								'#type' => 'markup',
 								'#value' => '<div onclick="javascript:os_poker_submit(this, \'os-poker-first-profile-form\');" ' .
 											" class='poker_submit'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . ((empty($nick)) ? t("Join") : t("Save Profile")) . "</div><div class='user_login_clear'></div></div>",
 							);
-					
+
 	if (empty($nick))
 	{
 		$form["skip"] = array(
 								'#value' => "<div class=\"skip_form\">" .t("Skip this step") . " " . "<a class=\"yellow\" href=\"javascript:void(0);\" onclick=\"javascript:os_poker_submit(this, 'os-poker-first-profile-form');\">" . t("Here") . "</a></div>",
 						);
-						
+
 		$form['#redirect'] = '<front>';
-		
+
 		$form['first_profile'] = array(
 								'#type' => 'hidden',
 								'#value' => TRUE,
 							);
 	}
-					
-	$form['#attributes'] = array('enctype' => "multipart/form-data");	
-	
+
+	$form['#attributes'] = array('enctype' => "multipart/form-data");
+
 	return $form;
 }
 
@@ -761,11 +805,11 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 {
 	$cuser = CUserManager::instance()->CurrentUser();
 	$edit = & $form_state['values'];
-	
+
 	$f = array("#uid" => $cuser->uid);
-	
+
 	user_validate_picture($f, $form_state);
-	
+
 	if (!empty($edit["profile_nickname"]) && _os_poker_nickname_exists($edit["profile_nickname"], $cuser->uid) == TRUE)
 	{
 		form_set_error('profile_nickname', t('Nickname') . " " . $edit["profile_nickname"] . " " . t("already exists."));
@@ -790,7 +834,7 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	$cuser = CUserManager::instance()->CurrentUser(TRUE);
 	$edit = & $form_state['values'];
 	$profileComplete = TRUE;
-	
+
 	if (empty($edit["profile_nickname"]))
 	{
 		$cuser->profile_nickname = _os_poker_rand_player();
@@ -798,9 +842,9 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	}
 	else
 	{
-		$cuser->profile_nickname = $edit["profile_nickname"];	
+		$cuser->profile_nickname = $edit["profile_nickname"];
 	}
-	
+
 	$cuser->name = $cuser->profile_nickname;
 
 	if (!empty($edit["profile_dob"])) { $cuser->profile_dob = $edit["profile_dob"]; } else { $profileComplete &= FALSE; }
@@ -815,7 +859,7 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 		$nchip = $cuser->Chips();
 		$cuser->chips = $nchip +2000;
 		$cuser->SetProfileComplete();
-		
+
 		if (isset($edit["first_profile"]))
 		{
 			CScheduler::instance()->RegisterTask(new CDelayMessage(), $cuser->uid, 'login', "-1 Day", array("type" => "os_poker_jump",
@@ -828,15 +872,21 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 		CScheduler::instance()->RegisterTask(new CDelayMessage(), $cuser->uid, 'login', "-1 Day", array("type" => "os_poker_jump",
 																									"body" => array("lightbox" => TRUE,
 																													"url" => url("poker/profile/update", array("query" => array("height" => 442, "width" => 603), "absolute" => TRUE)))));
-																													
-																													
+
+
 	}
 
 	$cuser->Save();
-	
+
 	//Trigger the invitation bonus
 	CScheduler::instance()->Trigger('first_login');
 	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day");
+
+  //Send mail
+  if (variable_get('user_email_verification', TRUE)) {
+    $account = $cuser->DrupalUser();
+    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), array('account' => $account));
+  }
 }
 
 /*
@@ -873,7 +923,7 @@ function	os_poker_buddies_invite_form_submit($form, &$form_state)
 function	os_poker_buddies_invite_form($form_state)
 {
 	$form = array();
-		
+
 	for ($i = 0; $i < 5; $i++)
 	{
 		$nb = $i+1;
@@ -892,13 +942,13 @@ function	os_poker_buddies_invite_form($form_state)
 													),
 							);
 	}
-					
+
 	$form["message"] = array(
 							'#type' => 'textarea',
 							'#title' => "Message",
 							'#resizable' => FALSE,
 					);
-					
+
 	$form["email"] = array(
 							'#type' => 'hidden',
 							'#default_value' => '',
@@ -909,18 +959,18 @@ function	os_poker_buddies_invite_form($form_state)
 								'#value' => t('Send invite'),
 								'#attributes' => array("style" => "display:none;"),
 						);
-	
+
 	$form['f_submit'] = 	array(
 								'#type' => 'markup',
 								'#value' => '<div class="clear"></div><div class="TeaseMore"><div onclick="javascript:os_poker_submit(this, \'os-poker-buddies-invite-form\');" ' .
 											" class='poker_submit big'" .
 											" ><div class='pre'>&nbsp;</div><div class='label'>" . t("Send") . "</div></div></div>",
 							);
-										
+
 	$cuser = CUserManager::instance()->CurrentUser();
-	
+
 	//invite stuff :
-	
+
 	$remaining_invites = invite_get_remaining_invites($cuser->DrupalUser());
 
 	if ($remaining_invites == 0)
@@ -929,7 +979,7 @@ function	os_poker_buddies_invite_form($form_state)
 		  drupal_set_message(t("Sorry, you've reached the maximum number of invitations."), 'error');
 		  drupal_goto(referer_uri());
 	}
-	
+
 	$form['resent'] = array(
 		'#type' => 'value',
 		'#value' => 0,
@@ -938,7 +988,7 @@ function	os_poker_buddies_invite_form($form_state)
 		'#type' => 'value',
 		'#value' => NULL,
 	);
-	
+
 	if ($remaining_invites != INVITE_UNLIMITED)
 	{
 		$form['remaining_invites'] = array(
@@ -946,7 +996,7 @@ function	os_poker_buddies_invite_form($form_state)
 											'#value' => $remaining_invites,
 									);
 	}
-  
+
     // Sender e-mail address.
 	if ($user->uid && variable_get('invite_use_users_email', 0)) {
 		$from = $user->mail;
@@ -963,23 +1013,23 @@ function	os_poker_buddies_invite_form($form_state)
 							'#type' => 'hidden',
 							'#value' => check_plain($from),
 					);
-					
+
 	$allow_multiple = user_access('send mass invitations');
-	
+
 	if (!$allow_multiple)
 		drupal_set_message(t("'send mass invitations' permission must be set !"), 'error');
-		
-	
-  
+
+
+
 	//user_relationship stuff :
-	
+
 	$new_user = drupal_anonymous_user();
 	module_load_include('inc', 'user_relationships_ui', 'user_relationships_ui.forms');
 	$form += user_relationships_ui_request_form($cuser->uid, $new_user->uid, $form);
 	$form['rtid']['#weight'] = 0;
-										
+
 	$form['#redirect'] = array("poker/buddies/invitedlist");
-	
+
 	return $form;
 }
 

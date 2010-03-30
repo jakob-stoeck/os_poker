@@ -150,11 +150,10 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 		$this->drupalGet('invite/accept/'. $code);
 		$password = $this->randomName();
 		$options = array(
-		  'name'        => $name,
-		  'pass[pass1]' => $password,
-		  'pass[pass2]' => $password,
+		  'mail'        => $email,
+		  'pass' => $password,
 		);
-		$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+		$this->OsPokerSignUpUser($options);
 		$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 		$this->drupalLogout();
 		
@@ -178,11 +177,11 @@ class OSPokerMediumProfile extends OsPokerWebTestCase {
 
 	function	_checkInformation($uid)
 	{
-		$cuser = CUserManager::instance()->User($uid);
+		$cuser = CUserManager::instance()->User($uid, TRUE);
 		
 		$this->drupalGet("poker/profile/medium/{$uid}");
-		
-		$this->assertRaw("src=\"" . $cuser->picture . "\"", "User picture is present");
+
+		$this->assertRaw($cuser->picture, "User picture is present");
 		$this->assertText($cuser->profile_nickname, "User nickname is present");
 		$this->assertText($cuser->Status(), "User status is present");
 		$this->assertText($cuser->Chips(TRUE), "User amount of chips is present");

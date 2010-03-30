@@ -24,6 +24,7 @@ define('NOTIFY_INTERVAL', 0); // show notify everytime
 define('DEFAULT_JS_SCOPE', 'header');
 
 
+
 function os_poker_simple_payment_process(&$payment) {
   $save = FALSE;
 
@@ -228,13 +229,13 @@ function os_poker_preprocess_page(&$variables)
 		}
 	}
 
-	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " " .  l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
+	$variables["signup_terms"] = "<div id=\"terms\">" .  l(t("I have read the Terms and Conditions and acknowledge them."), 'poker/tos', array(
     'attributes' => array(
       'class' => 'thickbox',
     ),
     'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
     'fragment' => 'help-terms-of-service',
-  )) . "</a></div>";
+  )) . "</a> ". t("I agree to receive informations from your company. I can cancel this service at any time.")."</div>";
 
 	if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] && !empty($_GET['ajax']))
 	{
@@ -364,7 +365,6 @@ function os_poker_init()
      $('input#edit-picture-upload').parent().addClass('picture_upload_button');
 	}
 
-
 	";
 
 	drupal_add_js($inline_js, 'inline', DEFAULT_JS_SCOPE);
@@ -432,6 +432,7 @@ window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
     'os_poker' => array(
       'user_picture_default' => variable_get('user_picture_default', ''),
       'language' => $language,
+      'invite' => isset($_SESSION[INVITE_SESSION]),
     ),
   ), 'setting', DEFAULT_JS_SCOPE);
 }
@@ -475,115 +476,115 @@ function 	os_poker_theme()
   return array(
 				'os_poker_header_user_brief' => array(
 											  'arguments' => array('os_user' => NULL),
-											  'template' => 'user_header_brief',
+											  'template' => 'os-poker-header-user-brief',
 											),
 				'os_poker_user_brief' => array(
 											  'arguments' => array('os_user' => NULL),
-											  'template' => 'user_brief',
+											  'template' => 'os-poker-user-brief',
 											),
 				'os_poker_buddylist' => array(
 											  'arguments' => array('current_user' => NULL, 'relId' => NULL, 'title' => NULL, 'filter_form' => NULL),
-											  'template' => 'buddy_list',
+											  'template' => 'os-poker-buddylist',
 											),
 				'os_poker_play_now' => array(
 												'arguments' => array('online' => 0),
-												'template' => 'play_now',
+												'template' => 'os-poker-play-now',
 											),
 				'os_poker_teaser' => array(
 												'arguments' => array('text' => ""),
-												'template' => 'teaser',
+												'template' => 'os-poker-teaser',
 											),
 				'os_poker_home_signup' => array(
 												'arguments' => array('form' => NULL),
-												'template' => 'home_signup',
+												'template' => 'os-poker-home-signup',
 											),
 				'os_poker_first_profile' => array(
 												'arguments' => array('form' => NULL, 'userlist' => NULL),
-												'template' => 'first_profile',
+												'template' => 'os-poker-first-profile',
 											),
 				'os_poker_shop_tabs' => array(
 												'arguments' => array('active_tab' => NULL, 'content' => NULL),
-												'template' => 'shop_tabs',
+												'template' => 'os-poker-shop-tabs',
 											),
 				'os_poker_shop' => array(
 												'arguments' => array('params' => NULL),
-												'template' => 'shop',
+												'template' => 'os-poker-shop',
 											),
 				'os_poker_shop_get_chips' => array(
 												'arguments' => array('form' => NULL, 'params' => NULL),
-												'template' => 'shop_get_chips',
+												'template' => 'os-poker-shop-get-chips',
 											),
 				'os_poker_item' => array(
 												'arguments' => array('item' => NULL, 'selected' => FALSE),
-												'template' => 'shop_item',
+												'template' => 'os-poker-item',
 											),
 				'os_poker_item_list' => array(
 												'arguments' => array('items' => NULL),
-												'template' => 'shop_item_list',
+												'template' => 'os-poker-item-list',
 											),
 				'os_poker_table_users' => array(
 												'arguments' => array('item' => NULL, 'selected' => FALSE),
-												'template' => 'table_users',
+												'template' => 'os-poker-table-users',
 											),
 				'os_poker_profile_tabs' => array(
-												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE, "target_user" => NULL),
-												'template' => 'profile_tabs',
+                        'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE, "target_user" => NULL),
+												'template' => 'os-poker-profile-tabs',
 											),
 				'os_poker_profile' => array(
 						            'arguments' => array('target_user' => NULL, "external" => TRUE, 'next_tourney' => NULL, 'tourney_results' => array()),
-												'template' => 'profile',
+												'template' => 'os-poker-profile',
 											),
 				'os_poker_medium_profile' => array(
 												'arguments' => array('target_user' => NULL, "external" => TRUE, 'current_user' => NULL, "game_id" => NULL),
-												'template' => 'profile_medium',
+												'template' => 'os-poker-profile-medium',
 											),
 				'os_poker_reward_minilist' => array(
 												'arguments' => array('target_user' => NULL),
-												'template' => 'reward_minilist',
+												'template' => 'os-poker-reward-minilist',
 											),
 				'os_poker_reward_fulllist' => array(
 												'arguments' => array('rewards' => NULL),
-												'template' => 'reward_fulllist',
+												'template' => 'os-poker-reward-fulllist',
 											),
 				'os_poker_item_minilist' => array(
 												'arguments' => array('target_user' => NULL),
-												'template' => 'item_minilist',
+												'template' => 'os-poker-item-minilist',
 											),
 				'os_poker_profile_update' => array(
 												'arguments' => array('target_user' => NULL, 'form' => NULL),
-												'template' => 'profile_update',
+												'template' => 'os-poker-profile-update',
 											),
 				'os_poker_profile_settings' => array(
 												'arguments' => array('personal_form' => NULL, 'email_form' => NULL, 'password_form' => NULL),
-												'template' => 'profile_settings',
+												'template' => 'os-poker-profile-settings',
 											),
 				'os_poker_rewards' => array(
 												'arguments' => array('target_user' => NULL, "external" => TRUE),
-												'template' => 'rewards',
+												'template' => 'os-poker-rewards',
 											),
 				'os_poker_ranking' => array(
 												'arguments' => array('target_user' => NULL, 'user_rank' => NULL, "sorted_users" => NULL),
-												'template' => 'ranking',
+												'template' => 'os-poker-ranking',
 											),
 				'os_poker_ranking_list' => array(
 												'arguments' => array("sorted_users" => NULL),
-												'template' => 'ranking_list',
+												'template' => 'os-poker-ranking-list',
 											),
 				'os_poker_messages_popup' => array(
 												'arguments' => array(),
-												'template' => 'messages_popup',
+												'template' => 'os-poker-messages-popup',
 											),
 				'os_poker_messagebox' => array(
 												'arguments' => array('messages' => NULL),
-												'template' => 'messagebox',
+												'template' => 'os-poker-messagebox',
 											),
 				'os_poker_message_list' => array(
 												'arguments' => array('messages' => NULL),
-												'template' => 'messagebox_list',
+												'template' => 'os-poker-messagebox-list',
 											),
 				'os_poker_tourney_info' => array(
 												'arguments' => array(),
-												'template' => 'tourney_info',
+												'template' => 'os-poker-tourney-info',
 											),
     'os_poker_message' => array(
       'arguments' => array('message' => NULL),
@@ -598,15 +599,15 @@ function 	os_poker_theme()
     ),
     'os_poker_home_promotion' => array(
       //'arguments' => array('message' => NULL),
-      'template' => 'home_promotion',
+      'template' => 'os-poker-home-promotion',
     ),
     'os_poker_forgot_password' => array(
       'arguments' => array('form' => NULL),
-      'template' => 'forgot_password',
+      'template' => 'os-poker-forgot-password',
     ),
     'os_poker_languages' => array(
       'arguments' => array('icons' => FALSE),
-      'template' => 'language_bar',
+      'template' => 'os-poker-language-bar',
     ),
     'os_poker_footer' => array(
       'arguments' => array(),
@@ -1017,7 +1018,7 @@ function os_poker_menu()
 							'file' 			   => 'os_poker_pages.php',
 							'access arguments' => array('administer os poker'),
     ),
-							
+
   );
 	return $menu;
 }
@@ -1415,7 +1416,7 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   $variables['title'] = t("Create your Profile");
   $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
   $variables['find_new_buddies'] = t("Find new Poker Buddies!");
-  $variables['footer'] = t("The text that shows at the bottom of the first profile page and that has yet to be defined.");
+  $variables['footer'] = t("Our tip: For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {
@@ -1478,21 +1479,19 @@ function os_poker_preprocess_user_picture(&$variables) {
             'TB_iframe' => 'true'
           ),
           'html' => TRUE);
-				} else if (arg(1) == 'profile' && arg(2) == 'medium') {
-						$attributes = array(
-								'onclick' => 'javascript:parent.os_poker_trigger("os_poker_jump", {url:"' . url("poker/profile/profile/" . $account_uid, array("query" => array("height"=>442, "width"=>603))) . '", lightbox:true});'
-								);
-						
-						$variables['picture'] = '<div ' .drupal_attributes($attributes) . '>' . $variables['picture'] . '</div>';
-						$options = NULL;
-						
-        } else {
-					$options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
-				}
-				
-				if ($options) {
-						$variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
-				}
+
+        }
+        else if (arg(1) == 'profile' && arg(2) == 'medium') {
+          $attributes = array('onclick' => 'javascript:parent.os_poker_trigger("os_poker_jump", {url:"' . url("poker/profile/profile/" . $account_uid, array("query" => array("height"=>442, "width"=>603))) . '", lightbox:true});' );
+	 	      $variables['picture'] = '<div ' .drupal_attributes($attributes) . '>' . $variables['picture'] . '</div>';
+	 	      $options = NULL;
+        }
+        else {
+           $options = array('attributes' => array('title' => t('View user profile.')), 'html' => TRUE);
+        }
+        if ($options) {
+          $variables['picture'] = l($variables['picture'], "poker/profile/profile/$account_uid", $options);
+        }
       }
     }
   }
@@ -1571,6 +1570,26 @@ function os_poker_mail($key, &$message, $params) {
 				array('!reporter_profile' => url('poker/profile/profile/' . $reporter->uid, array('absolute' => true))));
       $message['body'][] = t('Culprit: !reported_profile',
 				array('!reported_profile' => url('poker/profile/profile/' . $reported->uid, array('absolute' => true))));
+      break;
+    case 'profile':
+      //Re-use tokens avaiable in user mail.
+      $variables = user_mail_tokens($params['account'], $language);
+      //Add a support email address.
+      $variables['!support'] = variable_get('poker_support_mail', FALSE);
+      if (!$variables['!support']) {
+        //Not variable found for support email address, generate a new one using
+        //site URL
+        $host = @parse_url($variables['!uri'], 'host');
+        if ($host) {
+          $variables['!support'] = 'support@'. $host;
+        }
+        else {
+          //Site URL parsing failed, use user with uid 0 email address
+          $variables['!support'] = user_load(1)->mail;
+        }
+      }
+      $message['subject'] = t('Successful registration');
+      $message['body'][] = t("Hello !username,\nWelcome to !site'You can login at any time log in with the following e-mail: !mailto\nThis link takes you directly to the game: !uri\nIf you have questions or problems please turn to !support\nWe hope you'll enjoy this game!\nYour !site Team.", $variables, $language);
       break;
   }
 }
@@ -1784,10 +1803,10 @@ function _user_relationships_ui_unset_notifications(&$account) {
  * Overlay are not interactive (thick)boxes, they will be displayed (centeter)
  * over the content without the option to close.
  *
- * @param <type> $content The (HTML) content of the overlay.
- * @param <type> $attributes The attributes of the DIV element that will contain $content
- * @param <type> $width The desired CSS width of this DIV element (default to '')
- * @param <type> $height The desired CSS height of this element (default to '');
+ * @param string $content The (HTML) content of the overlay.
+ * @param array $attributes The attributes of the DIV element that will contain $content
+ * @param string $width The desired CSS width of this DIV element (default to '')
+ * @param string $height The desired CSS height of this element (default to '');
  */
 function os_poker_set_overlay($content, $attributes = array(), $width = '', $height = '') {
   $_SESSION['os_poker_overlay'] = array(

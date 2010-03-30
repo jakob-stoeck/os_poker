@@ -18,7 +18,7 @@
 			<dt>Royal Flush
 				<span class="poker-hand royal-flush" title="Royal Flush">A,K,Q,J,10</span>
 			</dt>
-			<dd>Ein Royal Flush ist ein Straight Flush mit einem Ass als höchstem Kartenwert: Zehn, Bube, Dame, König, Ass – alle Karten in Pik oder alle Karten in Kreuz usw.</dt>
+			<dd>Ein Royal Flush ist ein Straight Flush mit einem Ass als höchstem Kartenwert: Zehn, Bube, Dame, König, Ass – alle Karten in Pik oder alle Karten in Kreuz usw.</dd>
 			<dt>Straight Flush
 				<span class="poker-hand straight-flush" title="Straight Flush">4,5,6,7,8</span>
 			</dt>

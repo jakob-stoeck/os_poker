@@ -126,7 +126,7 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 			for ($j = $i+1; $j < count($this->buddies); $j++) {
 					$this->OsPokerCreateBuddyRelationShip($this->buddies[$j], $buddy);
 			}
-    		}
+		}
 
 
 		
@@ -176,21 +176,12 @@ class OSPokerInternalPromotionsPlacement extends OsPokerWebTestCase {
 		/**
 		 * Check daily gift
 		 */
-		$first_user = CUserManager::instance()->User($user->uid);
-		
-		$nchips = $first_user->Chips();
+		$first_user = CUserManager::instance()->User($user->uid, TRUE);
 		
 		//Assert basic amount of chips
-		$data = $this->drupalGet('');
-/* #238
-		$this->assertTrue(preg_match('/You have (.*?) Chips/', $data, $m) > 0, "Debug1");
-		$this->pass($m[1], "Debug Chips");
-		$this->assertText(
-					   t('You have $ 3,000 Chips'),
-					   t('User have 3000 Chips.')
-					);
-*/
-				
+		$nchips = $first_user->Chips();
+		$this->assertEqual($nchips == 3000, t("User has 3000 chips"));
+
 		//Perform daily gift
 		$this->assertTrue($first_user->CanDailyGift(), t('User can use daily gift'));
 		$first_user->DailyGift();

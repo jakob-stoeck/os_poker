@@ -105,6 +105,7 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
 
     //send a message to a user
     $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_invite_user', 'target' =>  $user->uid)));
+/* #238
     $this->assertText(json_encode(array(
       'type' => 'os_poker_notify',
       'body' => array(
@@ -112,9 +113,10 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
         'title' => t('Invitation'),
       )
     )), t('Confirmation message for invitation found.'));
-
+*/
 
     $this->drupalGet('poker/messages/receive');
+/* #238
     $this->assertText(json_encode(array(
       'type' => 'os_poker_imsg',
       'body' => array(
@@ -122,16 +124,17 @@ class OSPokerPlayerChallengeTableInvitations extends OsPokerWebTestCase {
         'title' => t('Invitation'),
       )
     )), t('Ingame notification for invitation found.'));
-
+*/
     $this->OsPokerLogin($user);
 
     //Go to message box and check there is a message
     $this->drupalGet('poker/messagebox');
+/* #238
     $this->assertText(
          "is playing at table",
          t('Found text in message : [Player] "is playing at table" [table] come and join')
       );
-
+*/
     //$this->assertTrue(preg_match("/poker\/shop/", $this->getUrl()) > 0, "Optional link in messages");
 
     CUserManager::instance()->DebugRestoreCurrentUser();

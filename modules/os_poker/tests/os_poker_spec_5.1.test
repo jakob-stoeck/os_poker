@@ -47,10 +47,12 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 	{
 		//Check task
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
-		
+
+		print_r($rawtask);
+
 		// There must be also a CDelayMessage for redirection on login
 		$this->assertTrue(count($rawtask["login"]) > 0 &&
-		count($rawtask["live"]) == 1,
+		count($rawtask["live"]) > 1,
 		t("After profile submission a task is registered for login and live events"));
 		
 		$is_daily_chips = FALSE;
@@ -64,10 +66,18 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 			}
 		}
 
-		$t2 = array_pop($rawtask["live"]);
+		$t2 = null;
+		foreach ($rawtask["live"] as $msg) {
+				if ($t1->id_task == $msg->id_task) {
+						$t2 = $msg;
+				}
+		}
+
+		$this->assertTrue($t2 != null,
+											"Found live task with same id as login task");
 		
 		$this->assertTrue($t1->id_task == $t2->id_task && $t1->type == 'CDailyChips',
-		"Task's type is CDailyChips");
+											"Task's type is CDailyChips");
 		$tstamp = strtotime($t1->moment);
 		$this->assertTrue(($tstamp - time()) > 86390, "Task will run in ~ 24h");
 		
@@ -182,11 +192,10 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 			$this->drupalGet('invite/accept/'. $code);
 			$password = $this->randomName();
 			$options = array(
-			'name'        => $name,
-			'pass[pass1]' => $password,
-			'pass[pass2]' => $password,
+			'mail'        => $email,
+			'pass' => $password,
 			);
-			$this->drupalPost($this->getUrl(), $options, t('Create new account'));
+			$this->OsPokerSignUpUser($options);
 			$this->OsPokerProfileSubmit(array('profile_nickname' => $name));
 
 			//Logout

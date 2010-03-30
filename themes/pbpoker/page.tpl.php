@@ -117,7 +117,7 @@
 			<?php if ($navbar): ?>
 				  <?php print $navbar; ?>
 			<?php endif; ?>
-
+	
 		</div>
 	</div> <!-- /#navbar-inner, /#navbar -->
 	<?php endif; ?>
@@ -136,7 +136,7 @@
 					<?php print $top_content; ?>
 					</div> <!-- /#content-top -->
 				<?php endif; ?>
-
+				
 				<?php if (($logged_in || !$is_front) && $messages) : ?>
 				<div id="messages">
 					<?php print $messages; ?>
@@ -144,7 +144,7 @@
 				<?php endif; ?>
 
 			<?php if (!$is_front) : ?>
-
+			
 				<?php if ($title || $tabs || $help): ?>
 					<div id="content-header">
 						<?php if ($title): ?>
@@ -166,9 +166,9 @@
 				<?php if ($feed_icons): ?>
 				<div class="feed-icons"><?php print $feed_icons; ?></div>
 				<?php endif; ?>
-
+				
 			<?php else : ?>
-
+			
 				<?php if ($middle_content_left || $middle_content_right || (!$logged_in && $messages)) : ?>
 				<div id="middle-content">
 					<?php if ($middle_content_left) : ?>
@@ -195,13 +195,13 @@
 					<?php endif; ?>
 				</div>
 				<?php endif; ?>
-
+				
 				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
 				<?php print $bottom_content; ?>
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>
-
+				
 			<?php endif; ?>
 
 			</div></div> <!-- /#content-inner, /#content -->
@@ -219,7 +219,7 @@
 
       </div></div> <!-- /#footer-inner, /#footer -->
     <?php endif; ?>
-
+	
 	<?php if ($left): ?>
 		<div id="sidebar-left"><div id="sidebar-left-inner" class="region region-left">
 			<?php print $left; ?>

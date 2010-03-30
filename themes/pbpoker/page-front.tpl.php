@@ -85,16 +85,13 @@
   <?php print $head; ?>
   <?php print css_using_cdn($styles); ?>
   <?php print $special_scripts; ?>
+  <?php print $scripts; ?>
 </head>
 
 <body class="<?php print $body_classes; ?>">
   <div id="page">
 	<div id="page-inner">
 
-<?php // Added by n4mu to simplify (i hope)
-$cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
-
-<a id="sponsor"i onclick="window.open(this.href); return false;" href="http://newyorker.de/" <img src="<? print $cfg_theme_path; ?>/images/logo_new-yorker.png" alt="Powered by New Yorker"></a>
     <div id="header">
 		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
@@ -185,18 +182,23 @@ $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
 					<?php endif; ?>
 					<?php if ($pokerview != "table" && ($middle_content_right || (!$logged_in && $messages))) : ?>
 					<div id="middle-content-right">
-						<?php print $middle_content_right; ?>
-						<?php if (!$logged_in) : ?>
-							<?php if ($messages || $signup_terms) : ?>
-								<div id="messages">
-									<?php if ($messages) : ?>
-										<?php print $messages; ?>
-									<?php elseif ($signup_terms) : ?>
-										<?php print $signup_terms; ?>
-									<?php endif; ?>
-								</div>
-							<?php endif; ?>
-						<?php endif; ?>
+            <?php if(!$logged_in) :?>
+              <div id="registration-window">
+              <a class="close closebutton">X</a>
+            <?php endif; ?>
+              <?php print $middle_content_right; ?>
+              <?php if (!$logged_in) : ?>
+                <?php if ($messages || $signup_terms) : ?>
+                  <div id="messages">
+                    <?php if ($messages) : ?>
+                      <?php print $messages; ?>
+                    <?php elseif ($signup_terms) : ?>
+                      <?php print $signup_terms; ?>
+                    <?php endif; ?>
+                  </div>
+                <?php endif; ?>
+              <?php endif; ?>
+            <?php if(!$logged_in) :?></div><?php endif; ?>
 					</div>
 					<div class="clear"></div>
 					<?php endif; ?>
@@ -206,6 +208,7 @@ $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
 				<?php if ($bottom_content): ?>
 				<div id="content-bottom" class="region region-content_bottom">
 				<?php print $bottom_content; ?>
+
 				</div> <!-- /#content-bottom -->
 				<?php endif; ?>
 
@@ -213,23 +216,24 @@ $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
 
 			</div></div> <!-- /#content-inner, /#content -->
 		</div>
-
-		<div id="skyscraper">
-			<img src="<? print $cfg_theme_path; ?>/images/skyscraper_1.png"/>
-		</div>
-
 	</div> <!-- /#main-inner, /#main -->
+
+	<!-- seo text -->
+	<div id="seo">
+	<h2><?php print t("Play online poker at Playboy Poker"); ?></h2>
+		<p><strong><?php print t("If you are always playing online poker, or want to learn it, then Playboy Poker is the place for you. We not only offer exciting poker tournaments with hot prices, but also all information about the poker rules and poker strategies to be successful at the poker table."); ?> </strong></p>
+		<p><strong><?php print t("On our free poker site you will perhaps become the next star of the poker world and win a date with one of our Playmates. You play on our poker tables the most popular poker variant Texas Hold'em No Limit."); ?></strong></p>
+	</div>
+	<!-- end seo -->
 
     <?php if ($footer || $footer_message): ?>
       <div id="footer"><div id="footer-inner" class="region region-footer">
-
         <?php if ($footer_message): ?>
           <div id="footer-message"><?php print $footer_message; ?></div>
         <?php endif; ?>
 
         <?php print $footer; ?>
 
-		<div id="footer-powered">powered by New Yorker</div>
       </div></div> <!-- /#footer-inner, /#footer -->
     <?php endif; ?>
 
@@ -252,7 +256,6 @@ $cfg_theme_path = drupal_get_path("theme", "pbpoker")?>
   <?php endif; ?>
 
   <?php print $closure; ?>
-  <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
 </body>
 </html>

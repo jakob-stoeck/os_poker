@@ -21,6 +21,29 @@ if(window != window.top) {
   })(jQuery);
 }
 
+/**
+ * Add event on $(document) before/after tb_show.
+ */
+if(typeof window.tb_show == 'function') {
+  var original = window.tb_show;
+  window.tb_show = function() {
+    $(document).trigger('thickbox_show', arguments);
+    original.apply(this, arguments);
+    $(document).trigger('thickbox_show_after', arguments);
+  }
+}
+
+//This should fix #187
+$(document).bind('thickbox_show', function(event, caption, url, imageGroup) {
+  if(url.indexOf('TB_iframe') != -1) {
+    $('#TB_window').unload();
+    $("#TB_ajaxContent").remove();
+  }
+  else {
+    //$("#TB_iframeContent").remove();
+  }
+});
+
 Drupal.behaviors.os_poker = function(context) {
   /* Hack to fix forgot password iframe in IE7 */
   if ($.browser.msie && $.browser.version === '7.0') {
@@ -114,6 +137,28 @@ OsPoker.dialog = function(content) {
     tb_show('', '#TB_inline?height=' + $popup.outerHeight() + '&width=' + $popup.outerWidth() + '&inlineId=' + id + '&modal=true', false);
     //Copy the classes from the container to the TB_ajaxContent wrapper
     $("#TB_ajaxContent").addClass($popup.attr('class'));
+  }, 0);
+}
+
+/**
+ * Open a thickbox using content from a inline element.
+ *
+ * @param id string The ID the element that contains the content you would like
+ *   to show in a ThickBox
+ * @param options An object A ''map'' of otpions for thickbox (height, width,
+ *   modal, etc.)
+ **/
+OsPoker.inlineThickbox = function(id, options) {
+  //Bind the tb_remove function to the click event of any .close element in the
+  //thickbexed element. First unbind to avoid multiple binding of the same
+  //handler.
+  if(typeof options != 'object') {
+   options = {modal: options ? true : false};
+  }
+  var params = $.extend({inlineId: id}, options);
+  $('#' + id).find('.close').unbind('click', tb_remove).click(tb_remove).end();
+  setTimeout(function(){
+    tb_show('', '#TB_inline?' + $.param(params), false);
   }, 0);
 }
 

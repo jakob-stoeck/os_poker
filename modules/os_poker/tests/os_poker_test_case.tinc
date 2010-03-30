@@ -82,6 +82,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
         'imageapi',
         'imageapi_gd',
         'imagecache',
+        'email_registration',
         'os_poker'
       );
       call_user_func_array(array('parent', 'setUp'), $args);
@@ -214,9 +215,10 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 
     // First login using the login form.
     $result = $this->drupalLogin($user);
-
+    
     // Fill the user profile.
     $this->OsPokerProfileSubmit($profile);
+    $user->name = $user->mail;
   }
 
   /**
@@ -226,6 +228,7 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
    * @param array $profile information to be submitted.
    */
   function OsPokerProfileSubmit($profile = array()) {
+		variable_set('user_picture_path', '/tmp');
 
     $profile += array(
       'profile_nickname' => $this->randomName(),
@@ -569,6 +572,16 @@ class OsPokerWebTestCase extends DrupalWebTestCase {
 	* This function alters the drupalPost() to disregard submit button match if $submit is passed as NULL
 	*/
  function handleForm(&$post, &$edit, &$upload, $submit, $form) {
+		 $elements = $form->xpath('.//input|.//textarea|.//select');
+		 // Workaround a bug in the version of simpletest that we are using that ignored 'hidden' fields.
+		 // This seems to have been fixed in newer version of simpletest.
+		 // Until we upgrade, fix it with a dirty hack.
+		 foreach ($elements as &$element) {
+				 if ((string)$element['type'] == 'hidden') {
+						 $element['type'] = 'text';
+				 }
+		 }
+
 		 $submit_matches = parent::handleForm($post, $edit, $upload, $submit, $form);
 		 if (!$submit)
 				 $submit_matches = true;
