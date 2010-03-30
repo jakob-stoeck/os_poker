@@ -85,6 +85,7 @@
   <?php print $head; ?>
   <?php print css_using_cdn($styles); ?>
   <?php print $special_scripts; ?>
+  <?php print $analytic_scripts; ?>
 </head>
 
 <body class="<?php print $body_classes; ?>">
