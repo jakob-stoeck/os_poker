@@ -66,12 +66,12 @@ pageTracker._trackPageview();
 	<!--
 	if(typeof agof === 'undefined'){
 		var agof = 10342;
-	}  
-	document.write('<img id=\"ivwpx1\" SRC=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/' + agof + ';?r=' + escape(document.referrer) + '&d=' + (Math.random() * 100000) + '\" width=\"1\" height=\"1\" border=\"0\" alt=\"\" />');
+	}
+	document.write('<img id=\"ivwpx1\" SRC=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/' + agof + ';?r=' + escape(document.referrer) + '&d=' + (Math.random() * 100000) + '\" width=\"1\" height=\"1\" border=\"0\" alt=\"\" style=\"display: none;\" />');
 	// -->
 </script>
 <noscript>
-	<img src=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/10342\" width=\"1\" height=\"1\" alt=\"\" />
+	<img src=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/10342\" width=\"1\" height=\"1\" alt=\"\" style=\"display: none;\" />
 </noscript>
 ";
 }
