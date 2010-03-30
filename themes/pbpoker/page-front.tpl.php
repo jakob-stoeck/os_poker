@@ -85,7 +85,6 @@
   <?php print $head; ?>
   <?php print css_using_cdn($styles); ?>
   <?php print $special_scripts; ?>
-  <?php print $scripts; ?>
 </head>
 
 <body class="<?php print $body_classes; ?>">
@@ -256,6 +255,7 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
+  <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
 </body>
 </html>
