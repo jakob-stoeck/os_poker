@@ -1973,7 +1973,10 @@ body.de p.Buddies { /* FIXME : german */
 	float: left;
 }
 
-.TableRight { /* info on invitations */
+/* Info on sent invitations in invitations thickbox */
+/* FIXME : better selector */
+
+.TableRight {
 	border: 1px solid #DADADA;
 	position: absolute;
 	right: 10px;
@@ -1994,7 +1997,7 @@ body.de p.Buddies { /* FIXME : german */
 .TableRight td {
 	font-weight: bold;
 	overflow: hidden;
-	padding: 10px;
+	padding: 6px;
 }
 
 .TableRight td span {
