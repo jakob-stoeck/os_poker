@@ -302,6 +302,11 @@ body.logged-in #middle-content-right {
 	margin-right: 1em;
 }
 
+#registration-window  .messages.status,
+#registration-window  .messages.warning {
+	display: none;
+}
+
 #registration-window  .messages.error {
 	position: absolute;
 	left: 10px;
