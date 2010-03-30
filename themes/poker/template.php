@@ -89,7 +89,7 @@ function poker_preprocess_user_login_block(&$variables)
 																													"class" => "thickbox",
 																												),
 																								"query" => array(
-																												"height" => "148",
+																												"height" => "165",
 																												"width" => "382",
 																												"keepThis" => "true",
 																												"TB_iframe" => "true",
