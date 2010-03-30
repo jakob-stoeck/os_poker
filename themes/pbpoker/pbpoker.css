@@ -2403,6 +2403,7 @@ body.iframe .messages-popup a.close
 #poker-teaser {
 	position: relative;
 }
+
 #poker-teaser .info {
 	color: #fff;
 	margin: 15px 80px 15px 15px;
@@ -2417,7 +2418,8 @@ body.iframe .messages-popup a.close
 }
 
 #poker-teaser #poker-tutorial #TB_ajaxContent .tb-fix-margin {
-	margin: -2px -15px -15px;
+	/*margin: -2px -13px -15px;*/
+	/*margin-right: -5px;*/
 }
 
 /**********************************
