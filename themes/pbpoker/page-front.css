@@ -307,8 +307,8 @@ body.logged-in #middle-content-right {
 	position: absolute;
 	left: 10px;
 	bottom: 55px;
-	height: 75px;
-	width: 365px;
-	padding: 5px;
+	height: 50px;
+	width: 380px;
+	padding: 25px 5px 5px;
 	text-align: center;
 }
