@@ -46,7 +46,7 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
             "class" => "thickbox",
           ),
           "query" => array(
-            "height" => "148",
+            "height" => "165",
             "width" => "382",
             "keepThis" => "true",
             "TB_iframe" => "true",

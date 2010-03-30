@@ -726,7 +726,7 @@ div.poker_submit.big.disabled:hover div.label {
 	background: url(images/buddy_invite.png) no-repeat left 20px;
 	height: 130px;
 	width: 63px;
-	margin: 0 auto;
+	margin: 6px auto 0;
 	position: relative;
 }
 
@@ -1801,8 +1801,15 @@ p.Note {
 	width: 126px;
 }
 
+*:first-child+html .buddies-invite-right .form-text {
+	padding: 3px 4px;
+}
+
 .buddies-invite-right .form-textarea {
 	width: 305px;
+	border: 1px solid #C9C8C4;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
 }
 
 /* FIXME : too vague */
@@ -1966,7 +1973,10 @@ body.de p.Buddies { /* FIXME : german */
 	float: left;
 }
 
-.TableRight { /* info on invitations */
+/* Info on sent invitations in invitations thickbox */
+/* FIXME : better selector */
+
+.TableRight {
 	border: 1px solid #DADADA;
 	position: absolute;
 	right: 10px;
@@ -1987,7 +1997,7 @@ body.de p.Buddies { /* FIXME : german */
 .TableRight td {
 	font-weight: bold;
 	overflow: hidden;
-	padding: 10px;
+	padding: 6px;
 }
 
 .TableRight td span {
@@ -2136,9 +2146,14 @@ body.de p.Buddies { /* FIXME : german */
 	float: none;
 	margin: 0;
 	overflow: hidden;
+	color: #fff;
 	padding: 15px;
 	width: 379px;
-	color: #fff;
+	height: 145px; /* fixed height in all languages */
+}
+
+*:first-child+html #forgot-password {
+	height: 147px; /* fixed height in all languages */
 }
 
 /* FIXME : dont repeat that close thing everywhere */
@@ -2198,6 +2213,19 @@ body.de p.Buddies { /* FIXME : german */
 	color: #A8904A;
 }
 
+/* confirmation or error message within the forgot password overlay */
+#messages .forgot_password_message {
+	position: absolute;
+	bottom: 5px;
+	left: 15px;
+	width: 380px;
+	text-align: center;
+	/*  mabe we could overlay the text too */
+	/*
+	top: 40px;
+	height: 45px;
+	*/
+}
 /*******************************
 * Thickbox : shop => Get chips
 * *****************************/
@@ -2398,6 +2426,7 @@ body.iframe .messages-popup a.close
 #poker-teaser {
 	position: relative;
 }
+
 #poker-teaser .info {
 	color: #fff;
 	margin: 15px 80px 15px 15px;
@@ -2412,7 +2441,8 @@ body.iframe .messages-popup a.close
 }
 
 #poker-teaser #poker-tutorial #TB_ajaxContent .tb-fix-margin {
-	margin: -2px -15px -15px;
+	/*margin: -2px -13px -15px;*/
+	/*margin-right: -5px;*/
 }
 
 /**********************************

@@ -1730,11 +1730,16 @@ function os_poker_clean_css_identifier($identifier, $filter = array(' ' => '-', 
  */
 function os_poker_skin_css() {
   header('Content-type: text/css');
+<<<<<<< local
 /*
   $url = theme('poker_skin_css_url');
+=======
+  /*
+>>>>>>> other
   print("@import url($url);\n");
 */
   module_load_include('php', 'os_poker', 'shop.class');
+  */
   foreach(CShop::ListItems() as $item) {
     $class = os_poker_clean_css_identifier($item->name);
     $img_url = file_create_url($item->picture);
