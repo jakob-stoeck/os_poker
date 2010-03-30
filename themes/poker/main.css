@@ -642,16 +642,15 @@ body.iframe #profile-medium a.LayerClose {
 
 #profile-medium .links {
 	height: 118px;
-	width: auto;
 	overflow: hidden;
-	float: right;
+	position: absolute;
+	right: 0;
+	top: 10px;
 }
 
 *:first-child+html #profile-medium .links {
-	height: 123px;
-	width: 180px;
+	float: none;
 }
-
 
 #profile-medium .links .poker_submit {
 	margin-top: 0;
@@ -660,8 +659,10 @@ body.iframe #profile-medium a.LayerClose {
 
 #profile-medium .items {
 	width: 123px;
-	float: right !important;
 	overflow: hidden;
+	position: absolute;
+	bottom: 20px;
+	right: 0;
 }
 
 #profile-medium .items #item_panel {
