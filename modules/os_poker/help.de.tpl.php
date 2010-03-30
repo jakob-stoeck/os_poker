@@ -60,6 +60,9 @@
 
 	<div id="help-rules" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Hold'em Regeln</h4>
+			<p>Bei Texas Hold’em Poker erhält jeder Spieler zunächst 2 Karten verdeckt, die so genannten <em>hole cards</em>. Weitere 5 Gemeinschaftskarten (<em>Community Cards</em>) werden in der Tischmitte aufgedeckt. <em>Hole cards</em> und Gemeinschaftskarten können in beliebiger Kombination verwendet werden um das beste 5-Karten-Blatt aus insgesamt 7 Karten zu bilden.</p>
+
+			<p><em>Dealer Button:</em> Markiert die Position wo das Austeilen der Karten beginnt. Auf der Position nach dem Dealer Button beginnt immer die Wettrunde. Nach jeder gespielten Hand wandert der Dealer Button eine Position weiter nach links.</p>
 			<p><em>Small Blind:</em> Kleiner Pflichteinsatz den der auf den Dealer folgende Spieler zu Beginn der ersten Wettrunde zu zahlen hat.</p>
 			<p><em>Big Blind:</em> Grosser Pflichteinsatz den der auf den Small Blind folgende Spieler zu Beginn der ersten Wettrunde zu zahlen hat.</p>
 			<ul class="helpbox-list">
