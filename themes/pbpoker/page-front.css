@@ -312,3 +312,7 @@ body.logged-in #middle-content-right {
 	padding: 25px 5px 5px;
 	text-align: center;
 }
+
+#registration-window  .messages.error a {
+	display: block;
+}
