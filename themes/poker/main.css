@@ -642,8 +642,10 @@ body.iframe #profile-medium a.LayerClose {
 
 #profile-medium .links {
 	height: 118px;
-	width: 180px;
+	/*width: 180px;*/
+	width: auto;
 	overflow: hidden;
+	float: right;
 }
 
 *:first-child+html #profile-medium .links {
@@ -720,8 +722,9 @@ body.de #profile-medium .links .poker_submit {
 
 #profile-medium .activate {
 	position: absolute;
-	right: 0;
+	right: 15px;
 	bottom: 0;
+	float: none; /* remove fleft */
 	clear: right; /* IE */
 }
 
