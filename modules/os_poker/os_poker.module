@@ -513,7 +513,7 @@ function 	os_poker_theme()
 												'template' => 'os-poker-table-users',
 											),
 				'os_poker_profile_tabs' => array(
-												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE),
+                        'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE, "target_user" => NULL),
 												'template' => 'os-poker-profile-tabs',
 											),
 				'os_poker_profile' => array(
