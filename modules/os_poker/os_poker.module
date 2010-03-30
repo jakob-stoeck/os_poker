@@ -350,7 +350,8 @@ function os_poker_init()
 
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme", DEFAULT_JS_SCOPE);
 
-	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";
+	/*$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";*/
+	$file_button = drupal_get_path('theme', 'pbpoker') . "/images/browse_button_de.png";
 	$inline_js = "
 
 	function	os_poker_input_file_style()
@@ -1889,7 +1890,8 @@ function theme_daily_gift($amount = 100) {
     $output .= ' style="display: none;"';
   }
   $output .= '>';
-  $output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  //$output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  $output .= theme('poker_image', 'free_gift.png', t('Invite more friends'));
   $output .= '</div>';
   return $output;
 }

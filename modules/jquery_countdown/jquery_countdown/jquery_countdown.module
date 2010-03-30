@@ -1,0 +1,135 @@
+<?php
+// $Id: jquery_countdown.module,v 1.1.2.9 2009/09/08 18:30:43 robloach Exp $
+
+/**
+ * Implementation of hook_help().
+ */
+function jquery_countdown_help($path, $args) {
+  switch ($path) {
+    case 'admin/help#jquery_countdown':
+      $output = '<p>'. t('The <a href="@jquerycountdown">jQuery Countdown</a> plugin provides a live countdown timer. The following are some examples of it in use...', array('@jquerycountdown' => 'http://keith-wood.name/countdown.html')) .'</p>';
+
+      // In this example, we use the theme function.
+      $output .= '<p>' . theme('jquery_countdown', array(
+        'since' => 'January 1, 2009',
+        'format' => 'YOWDHMS',
+        'description' => t('Since New Year'),
+      )) . '</p>';
+
+      // Provide the div and add the countdown timer to count from 10.
+      $output .= '<h3>'. t('Blast off in 10 seconds') .'</h3><div id="countdownfrom20"></div>';
+      jquery_countdown_add('#countdownfrom20', array(
+        'until' => 10, // Numbers are counted as seconds.
+        'format' => 'S', // Just display seconds.
+        'expiryText' => t('<h1>Blast Off!</h1>'),
+      ));
+
+      // Provide the div and add the countdown timer to count until February 12th, 2020.
+      $output .= '<h3>'. t('Countdown to February 12th, 2020') .'</h3><div id="countdownto2020"></div>';
+      jquery_countdown_add('#countdownto2020', array(
+        'until' => 'February 12, 2020', // Strings can be used to create the date.
+      ));
+
+      // Provide the div and add the countdown timer to count until 2010.
+      $output .= '<h3>'. t('Countdown to 2030') .'</h3><div id="countdownto2030"></div>';
+      jquery_countdown_add('#countdownto2030', array(
+        'until' => array(2030, 0, 0), // Arrays are passed to the JavaScript date object as parameters.
+      ));
+
+      return $output;
+    break;
+  }
+}
+
+/**
+ * Adds a jQuery Countdown JavaScript element to the page.
+ *
+ * @param $selector
+ *   (optional) The jQuery selector to apply the countdown to. If a
+ *   selector isn't provided, the jQuery Countdown plugin will just be
+ *   added to the page.
+ * @param $options
+ *   (optional) The jQuery Countdown parameters to pass to the creation
+ *   of the element. The available parameters can be found at:
+ *   http://keith-wood.name/countdown.html#quick
+ *   
+ *   The date arguments (until or since), can either be a number
+ *   representing the number of seconds, a string used to construct
+ *   the JavaScript Date object, or the argument list passed to the
+ *   JavaScript Date object.
+ *
+ *   The onExpiry and onTick arguments is JavaScript that will be
+ *   passed through "eval()" when the events are called.
+ */
+function jquery_countdown_add($selector = NULL, $options = array()) {
+  // Add jQuery Countdown only if it hasn't been added yet.
+  static $jquery_countdown_added = FALSE;
+  if ($jquery_countdown_added == FALSE) {
+    // Add the stylesheet and the plugin depending on if we wanted the compressed one of not.
+    drupal_add_css(drupal_get_path('module', 'jquery_countdown') .'/jquery_countdown/jquery.countdown.css');
+
+    // Add the minified version of JavaScript preprocessing is enabled.
+    if (variable_get('preprocess_js', 0)) {
+      drupal_add_js(drupal_get_path('module', 'jquery_countdown') .'/jquery_countdown/jquery.countdown.min.js');
+    }
+    else {
+      drupal_add_js(drupal_get_path('module', 'jquery_countdown') .'/jquery_countdown/jquery.countdown.js');
+    }
+
+    // Enable localization if available.
+    global $language;
+    if (isset($language->language)) {
+      $localization = drupal_get_path('module', 'jquery_countdown') .'/jquery_countdown/jquery.countdown-'. $language->language .'.js';
+      if (file_exists($localization)) {
+        drupal_add_js($localization);
+      }
+    }
+
+    // Register the jQuery Countdown behaviour.
+    drupal_add_js(drupal_get_path('module', 'jquery_countdown') .'/jquery_countdown.js');
+    $jquery_countdown_added = TRUE;
+  }
+
+  // Make sure to only add the same selector once.
+  static $added_selectors = array();
+  if (!empty($selector) && !isset($added_selectors[$selector])) {
+    $added_selectors[$selector] = $options;
+
+    // Add the countdown element to the settings so that it's processed by the behaviours.
+    drupal_add_js(array('jquery_countdown' => array($selector => $options)), 'setting');
+  }
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function jquery_countdown_theme($existing, $type, $theme, $path) {
+  return array(
+    'jquery_countdown' => array(
+      'arguments' => array(
+        'options' => NULL,
+        'topics' => NULL,
+        'id' => NULL,
+      ),
+    ),
+  );
+}
+
+/**
+ * Constructs a jQuery Countdown element and adds the required JavaScript.
+ *
+ * @param $content
+ *   (optional) The initial content to put in the countdown. This is what is shown
+ *   when JavaScript is not available.
+ * @param $options
+ *   (optional) The options to apply to the element.
+ * @param $id
+ *   (optional) The name of the element.
+ */
+function theme_jquery_countdown($options = array(), $content = '', $id = 'jquery-countdown') {
+  // Construct the ID name and add the JavaScript.
+  $id = form_clean_id($id);
+  jquery_countdown_add('#'. $id, $options);
+  // Construct the HTML.
+  return "<div id='$id' class='jquery-countdown'>$content</div>";
+}
