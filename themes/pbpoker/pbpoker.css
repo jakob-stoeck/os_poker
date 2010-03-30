@@ -2216,15 +2216,11 @@ body.de p.Buddies { /* FIXME : german */
 /* confirmation or error message within the forgot password overlay */
 #messages .forgot_password_message {
 	position: absolute;
-	bottom: 5px;
 	left: 15px;
 	width: 380px;
 	text-align: center;
-	/*  mabe we could overlay the text too */
-	/*
 	top: 40px;
 	height: 45px;
-	*/
 }
 /*******************************
 * Thickbox : shop => Get chips
