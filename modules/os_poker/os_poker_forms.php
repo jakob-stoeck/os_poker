@@ -167,7 +167,41 @@ function	os_poker_sign_up_form($form_state)
     $form['poker_invite'] = array('#type' => 'value', '#value' => TRUE);
   }
 
+  /* A form element to display form error inside the form */
+  $form['errors'] = array(
+    '#type' => 'markup',
+    '#pre_render' => array('os_poker_sign_up_form_errors'),
+  );
+
   return $form;
+}
+
+/**
+ * Pre_render handler for os_poker_sign_up_form errors element.
+ */
+function os_poker_sign_up_form_errors($element) {
+  if ($messages = form_get_errors()) {
+    //Render the form errors (except those for the 'name' field) as an ul inside
+    //a div.messages.errors
+    unset($messages['name']);
+    $output .= "<div class=\"messages error\">\n";
+    $output .= " <ul>\n";
+    foreach ($messages as $message) {
+      $output .= '  <li>'. $message ."</li>\n";
+    }
+    $output .= " </ul>\n";
+    //Remove form erros from status messages (to avoid duplicate messages).
+    $status_messages = drupal_get_messages('error', TRUE);
+    foreach($status_messages['error'] as $error) {
+      if(!in_array($error, $messages)) {
+        drupal_set_message($error, 'error');
+      }
+    }
+
+    $output .= "</div>\n";
+    $element['#value'] = $output;
+  }
+  return $element;
 }
 
 /**

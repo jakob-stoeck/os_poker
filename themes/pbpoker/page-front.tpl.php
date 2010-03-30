@@ -141,7 +141,7 @@
 					</div> <!-- /#content-top -->
 				<?php endif; ?>
 
-				<?php if (($logged_in || !$is_front) && $messages) : ?>
+				<?php if ($messages) : ?>
 				<div id="messages">
 					<?php print $messages; ?>
 				</div>
@@ -188,17 +188,15 @@
             <?php endif; ?>
               <?php print $middle_content_right; ?>
               <?php if (!$logged_in) : ?>
-                <?php if ($messages || $signup_terms) : ?>
+                <?php if ($signup_terms) : ?>
                   <div id="messages">
-                    <?php if ($messages) : ?>
-                      <?php print $messages; ?>
-                    <?php elseif ($signup_terms) : ?>
-                      <?php print $signup_terms; ?>
-                    <?php endif; ?>
+                    <?php print $signup_terms; ?>
                   </div>
                 <?php endif; ?>
               <?php endif; ?>
-            <?php if(!$logged_in) :?></div><?php endif; ?>
+            <?php if(!$logged_in) :?>
+              </div>
+            <?php endif; ?>
 					</div>
 					<div class="clear"></div>
 					<?php endif; ?>

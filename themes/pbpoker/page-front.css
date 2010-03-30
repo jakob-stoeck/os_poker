@@ -302,11 +302,6 @@ body.logged-in #middle-content-right {
 	margin-right: 1em;
 }
 
-#registration-window  .messages.status,
-#registration-window  .messages.warning {
-	display: none;
-}
-
 #registration-window  .messages.error {
 	position: absolute;
 	left: 10px;
@@ -315,4 +310,10 @@ body.logged-in #middle-content-right {
 	width: 365px;
 	padding: 5px;
 	text-align: center;
+  z-index: 1;
+  display: block;
+}
+
+.not-logged-in .messages {
+  display: none;
 }
