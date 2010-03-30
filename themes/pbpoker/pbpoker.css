@@ -1801,8 +1801,15 @@ p.Note {
 	width: 126px;
 }
 
+*:first-child+html .buddies-invite-right .form-text {
+	padding: 3px 4px;
+}
+
 .buddies-invite-right .form-textarea {
 	width: 305px;
+	border: 1px solid #C9C8C4;
+	font-family: Arial, sans-serif;
+	font-size: 11px;
 }
 
 /* FIXME : too vague */
