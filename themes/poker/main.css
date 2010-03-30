@@ -642,7 +642,6 @@ body.iframe #profile-medium a.LayerClose {
 
 #profile-medium .links {
 	height: 118px;
-	/*width: 180px;*/
 	width: auto;
 	overflow: hidden;
 	float: right;
@@ -650,6 +649,7 @@ body.iframe #profile-medium a.LayerClose {
 
 *:first-child+html #profile-medium .links {
 	height: 123px;
+	width: 180px;
 }
 
 
