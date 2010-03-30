@@ -726,7 +726,7 @@ div.poker_submit.big.disabled:hover div.label {
 	background: url(images/buddy_invite.png) no-repeat left 20px;
 	height: 130px;
 	width: 63px;
-	margin: 0 auto;
+	margin: 6px auto 0;
 	position: relative;
 }
 
