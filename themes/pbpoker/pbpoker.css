@@ -3,8 +3,7 @@
  * @ http://playboy.de/poker
  * ********************************/
 
-body,
-body.poker-first-profile {
+body {
 	margin: 0;
 	border: 0;
 	background: #000 url(images/bg.jpg) no-repeat fixed top center;
@@ -31,10 +30,6 @@ tr.odd a {
 
 tr.even a {
 	color: #000;
-}
-/* FIXME */
-.yellow {
-	color: #A8904A;
 }
 
 /* FIXME */
@@ -141,14 +136,14 @@ ul.secondary li a.active {
 }
 
 #main {
-	background: #252119 url(images/pre_body_bg.png) repeat-x;
+	background: #100B05 url(images/pre_body_bg.png) repeat-x;
 	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
 
 * html #main {
 	overflow: hidden;
-} 
+}
 
 #main.logged_in {
 	background: #141007 url(images/body_bg.png) repeat-x;
@@ -182,7 +177,7 @@ ul.secondary li a.active {
 	height: 70px;
 	margin-top: 10px;
 	margin-left: 5px;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop'); 
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop');
 }
 
 * html #header #logo img {
@@ -226,24 +221,15 @@ ul.secondary li a.active {
 }
 
 #footer #footer-inner {
-	padding: 5px;
-	background-color: #CCD2D6;
+	padding: 10px;
+	background-color: #000;
 }
 
 #footer .language-bar a {
-	color: #000;
-}
-
-#footer .language-bar a.language-link {
 	color: #fff;
 }
 
-.footer-links {
-	color: #A8904A;
-	margin-right: 5px;
-}
-
-.footer-links a {
+.footer-links, .footer-links a {
 	color: #A8904A;
 }
 
@@ -852,7 +838,7 @@ div.poker_submit.big.disabled:hover div.label {
 	/* FIXME : needs width */
 }
 
-* html #middle-content-left, 
+* html #middle-content-left,
 * html #middle-content-right { /* float => double margin bug */
 	display: inline;
 }
@@ -984,8 +970,30 @@ body.de #play-now #play-now-button {
 ********************************/
 
 #poker-first-profile {
-	background: url(images/pre_body_bg.png);
-	border: 1px solid #5A4220;
+	background: #0c0c0c url(images/register/registerboxes_bg.png) repeat-x top left;
+	border: 1px solid #555;
+}
+
+#poker-first-profile .title h1 {
+	text-indent: -100000px;
+}
+
+#poker-first-profile .title {
+	background: url(images/register/create-profile-title.png) no-repeat top left;
+	height: 56px;
+	padding: 0;
+	margin-top: -10px;
+}
+
+#poker-first-profile .body h5,
+#poker-first-profile .footer,
+#poker-first-profile .footer h5 {
+	color: #fff;
+	font-size: 1em;
+}
+
+#poker-first-profile .footer h5 {
+	font-weight: bold;
 }
 
 /******************************
@@ -1138,7 +1146,7 @@ body.de #play-now #play-now-button {
 }
 
 /*******************************
-* FIXME 
+* FIXME
 *******************************/
 
 .TableRanking {
@@ -2119,13 +2127,12 @@ body.de p.Buddies { /* FIXME : german */
 /****************************
 * Thickbox : Forgot password
 * from login/header
+* or from whithin the new optin process
 ****************************/
 
 #forgot-password {
-	background: url(images/pre_body_bg.png);
-	border-color: #5A4220;
-	border-style: solid;
-	border-width: 1px;
+	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
+	border: 1px solid #555 !important;
 	float: none;
 	margin: 0;
 	overflow: hidden;
@@ -2357,7 +2364,7 @@ body.iframe .messages-popup .content {
 	overflow: hidden !important;
 }
 
-body.iframe .messages-popup a.close 
+body.iframe .messages-popup a.close
 {
 	display: none !important;
 }
@@ -2531,7 +2538,7 @@ body.poker-report-abuse #page {
  * **************************/
 
 #tourney-notify-template {
-	display: none; 
+	display: none;
 }
 #tourney-notify {
 	width: 742px;
@@ -2573,7 +2580,7 @@ body.poker-report-abuse #page {
  * Static page : tourney-info
  * ***************************/
 body.poker-tourneyinfo {
-	background: #28251a url(images/tourney_body_bg.png) repeat-x;
+	background: #141007 url(images/tourney_body_bg.png) repeat-x;
 }
 
 .poker-tourneyinfo #tourney-teaser {
@@ -2689,7 +2696,7 @@ body.poker-tourneyinfo #middle-content-right {
  * ***************************/
 
 
-.user_relationships_ui_popup_form 
+.user_relationships_ui_popup_form
 {
     background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;
     border:1px solid #999999;
@@ -2708,7 +2715,7 @@ body.poker-tourneyinfo #middle-content-right {
 	/*margin-top: 0px;*/
 }
 
-#user-relationships-ui-pending-requested div.poker_submit div.pre 
+#user-relationships-ui-pending-requested div.poker_submit div.pre
 {
       	display: none;
 }
@@ -2721,7 +2728,7 @@ body.poker-tourneyinfo #middle-content-right {
 	top: -1.5px;
 }
 
-#user-relationships-ui-pending-requested .container-inline a 
+#user-relationships-ui-pending-requested .container-inline a
 {
 	color: #810E0B;
 }

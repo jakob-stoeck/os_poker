@@ -228,13 +228,13 @@ function os_poker_preprocess_page(&$variables)
 		}
 	}
 
-	$variables["signup_terms"] = "<div id=\"terms\">" . t("By signing up, you agree to the") . " " .  l(t("Terms of Service and Privacy Policy."), 'poker/tos', array(
+	$variables["signup_terms"] = "<div id=\"terms\">" .  l(t("I have read the Terms and Conditions and acknowledge them."), 'poker/tos', array(
     'attributes' => array(
       'class' => 'thickbox',
     ),
     'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
     'fragment' => 'help-terms-of-service',
-  )) . "</a></div>";
+  )) . "</a> ". t("I agree to receive informations from your company. I can cancel this service at any time.")."</div>";
 
 	if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 'XMLHttpRequest' == $_SERVER['HTTP_X_REQUESTED_WITH'] && !empty($_GET['ajax']))
 	{
@@ -418,6 +418,7 @@ window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
     'os_poker' => array(
       'user_picture_default' => variable_get('user_picture_default', ''),
       'language' => $language,
+      'invite' => isset($_SESSION[INVITE_SESSION]),
     ),
   ), 'setting');
 }
@@ -512,7 +513,7 @@ function 	os_poker_theme()
 												'template' => 'os-poker-table-users',
 											),
 				'os_poker_profile_tabs' => array(
-												'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE),
+                        'arguments' => array('active_tab' => NULL, 'content' => NULL, "external" => TRUE, "target_user" => NULL),
 												'template' => 'os-poker-profile-tabs',
 											),
 				'os_poker_profile' => array(
@@ -1003,7 +1004,7 @@ function os_poker_menu()
 							'file' 			   => 'os_poker_pages.php',
 							'access arguments' => array('administer os poker'),
     ),
-							
+
   );
 	return $menu;
 }
@@ -1401,7 +1402,7 @@ function os_poker_preprocess_os_poker_first_profile(&$variables) {
   $variables['title'] = t("Create your Profile");
   $variables['subtitle'] = t("One last step to discover the fun, excitement and challenge of poker.");
   $variables['find_new_buddies'] = t("Find new Poker Buddies!");
-  $variables['footer'] = t("The text that shows at the bottom of the first profile page and that has yet to be defined.");
+  $variables['footer'] = t("Our tip: For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
   foreach($variables['userlist'] as $uid) {
     $avatar = "sites/default/files/pictures/picture-".$uid.".png";
     if (!file_exists($avatar)) {
@@ -1420,7 +1421,7 @@ function os_poker_preprocess_os_poker_buddylist(&$variables) {
 function os_poker_preprocess_os_poker_profile(&$variables) {
 		$target_user = $variables['target_user'];
 		$variables['tourney_results'] = CPoker::BestRankingsForUser($target_user->uid, 5);
-		
+
 		$registered = CPoker::RegisteredTourneysForUser($target_user->uid);
 		if ($registered && count($registered) > 0) {
 				$variables['next_tourney'] = $registered[0];

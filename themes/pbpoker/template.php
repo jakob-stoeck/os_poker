@@ -18,24 +18,8 @@ function pbpoker_theme() {
     'os_poker_help' => array(
       'template' => 'help.en',
     ),
-    'page_front_banner' => array(
-      'arguments' => array('id' => NULL, 'text' => NULL, 'href' => NULL)
-    ),
-    'page_front_banners' => array(
-      'arguments' => array(),
-      'template' => 'page-front-banners',
-    ),
   );
 }
-
-function pbpoker_page_front_banner($id, $text, $href) {
-  return l(
-    '<span class="banner-inner">'.$text.'</span>',
-    $href,
-    array('html' => TRUE, 'attributes' => array('class' => 'banner', 'id' => $id, 'title' => $text))
-  );
-}
-
 function pbpoker_preprocess_page(&$variables) {
   $language = $variables['language'];
   $variables['body_classes'] .= ' ' . $language->language;
@@ -62,23 +46,9 @@ function pbpoker_preprocess_page(&$variables) {
     }
   }
   $variables['styles'] = drupal_get_css();
-
-  //Add front page banners
-  if($variables['is_front'] && !$variables['logged_in']) {
-    $variables['bottom_content'] = theme('page_front_banners');
-  }
-
   $variables['footer_scripts'] = drupal_get_js('footer');
   $variables['special_scripts'] = drupal_get_js('special');
 }
-
-function pbpoker_preprocess_page_front_banners(&$variables)
-{
-  $variables['banners'][] = theme('page_front_banner', 'banner-signup', t('Sign up now and get a bonus! <strong>$1000 Chips</strong>'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), 'poker/pages/tourneyinfo');
-}
-
 function pbpoker_preprocess_block(&$variables) {
   $block =& $variables['block'];
   $classes = $variables['classes'];
@@ -96,16 +66,7 @@ function pbpoker_preprocess_block(&$variables) {
 
 function pbpoker_preprocess_os_poker_teaser(&$variables) {
   global $language;
-  
   $theme_path = drupal_get_path('theme', 'pbpoker');
-  $variables['title'] = t('Play Texas Hold\'em Poker with your Fiends.');
-  $variables['subtitle'] = t('Get <strong>free</strong> Pokerchips every day that you play!');
-  $info[] = t('<strong><span class="star">*</span> Become a high roller and win hot prizes</strong>');
-  $info[] = t('Experience with us the exciting world of poker!');
-  $info[] = t('Get your thrills in high-stakes games and tournaments, playing for millions, without any risk. All stakes are just virtual game money with no value.');
-  $variables['info'] = implode('<br/>', $info);
-  $variables['table'] = theme('image', $theme_path.'/images/teaser-table.jpg', t('Poker Table'), '', array('id' => 'poker-teaser-table'));
-  $variables['girl'] = theme('image', $theme_path.'/images/teaser-girl.gif', '', '', array('id' => 'poker-teaser-girl'));
   $variables['tutorial'] = pbpoker_flash_tutorial();
 }
 
@@ -118,7 +79,7 @@ function pbpoker_poker_tutorial_link() {
   return l(t("Click here!"), '#TB_inline', array(
     'external' => TRUE,
     'attributes' => array(
-      'class' => 'tutorial yellow thickbox',
+      'class' => 'tutorial thickbox',
     ),
     'query' => 'height='. ($tutorial['size'][1]+5) .'&width='. ($tutorial['size'][0]) .'&inlineId=poker-tutorial&',
   ));
@@ -136,7 +97,11 @@ function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
   }
   return array('file' => $file, 'size' => $size, 'alt' => t('Sorry, your browser does not support Flash.'));
 }
-
+function pbpoker_preprocess_os_poker_first_profile(&$variables) {
+  $variables['subtitle'] = t("Full player data will also be rewarded with 2,000 poker chips!");
+  $variables['footertitle'] = t("Our tip:");
+  $variables['footer'] = t("For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
+}
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }
