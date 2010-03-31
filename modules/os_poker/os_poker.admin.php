@@ -20,6 +20,23 @@ function os_poker_admin_form($form_state) {
         '#default_value' => isset($form_state['values']['os_poker_abuse_mail_to']) ? $form_state['values']['os_poker_abuse_mail_to'] : $os_poker_abuse_mail_to,
       ),
     ),
+    'welcome_email' => array(
+      '#type' => 'fieldset',
+      '#title' => t('Welome Email'),
+      '#description' => t('Welcome email sent to user after first profile'),
+      'os_poker_mail_welcome_subject' => array(
+        '#type' => 'textfield',
+        '#title' => t('Email Subject'),
+        '#description' => t(''),
+        '#default_value' => _os_poker_mail_text('welcome_subject'),
+      ),
+      'os_poker_mail_welcome_body' => array(
+        '#type' => 'textarea',
+        '#title' => t('Email Body'),
+        '#description' => t(''),
+        '#default_value' => _os_poker_mail_text('welcome_body'),
+      ),
+	),
   );
   return system_settings_form($form);
 }

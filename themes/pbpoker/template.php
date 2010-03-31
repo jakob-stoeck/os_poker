@@ -48,6 +48,32 @@ function pbpoker_preprocess_page(&$variables) {
   $variables['styles'] = drupal_get_css();
   $variables['footer_scripts'] = drupal_get_js('footer');
   $variables['special_scripts'] = drupal_get_js('special');
+// Picked up from http://drupal-dev.pokersource.info/z2/attachment/ticket/71/Playboy_IVW_Script.txt
+// and http://drupal-dev.pokersource.info/z2/ticket/180
+  $variables['analytic_scripts'] = "
+<script type=\"text/javascript\">
+var gaJsHost = ((\"https:\" == document.location.protocol) ? \"https://ssl.\" : \"http://www.\");
+document.write(unescape(\"%3Cscript src='\" + gaJsHost + \"google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E\"));
+</script>
+<script type=\"text/javascript\">
+try {
+var pageTracker = _gat._getTracker(\"UA-15325887-1\");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+<script type=\"text/javascript\"><!--var agof = '10342';//--></script><!-- SZM VERSION=\"1.5\" -->
+<script type=\"text/javascript\">
+	<!--
+	if(typeof agof === 'undefined'){
+		var agof = 10342;
+	}
+	document.write('<img id=\"ivwpx1\" SRC=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/' + agof + ';?r=' + escape(document.referrer) + '&d=' + (Math.random() * 100000) + '\" width=\"1\" height=\"1\" border=\"0\" alt=\"\" style=\"display: none;\" />');
+	// -->
+</script>
+<noscript>
+	<img src=\"http://playboy.ivwbox.de/cgi-bin/ivw/CP/10342\" width=\"1\" height=\"1\" alt=\"\" style=\"display: none;\" />
+</noscript>
+";
 }
 function pbpoker_preprocess_block(&$variables) {
   $block =& $variables['block'];

@@ -24,6 +24,14 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
  */
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
+  if (variable_get('user_email_verification', TRUE)) {
+		if (!$form_state['values']["pass"]) {
+				form_set_error('pass', t("You must enter a valid password to proceed."));
+		} else if ($form_state['values']["pass"] != $form_state['values']["pass2"]) {
+				form_set_error('pass2', t("The two passwords do not match."));
+		}
+	}
+		
 	$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
 }
 
@@ -46,7 +54,7 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
             "class" => "thickbox",
           ),
           "query" => array(
-            "height" => "148",
+            "height" => "165",
             "width" => "382",
             "keepThis" => "true",
             "TB_iframe" => "true",
@@ -97,7 +105,21 @@ function	os_poker_sign_up_form($form_state)
       '#title' => t("New Password"),
       '#required' => TRUE,
     );
-  }
+  } else {
+    $form["pass"] = array(
+      '#type' => 'password',
+      '#attributes' => array("class" => "custom_input"),
+      '#title' => t("Password"),
+      '#required' => TRUE,
+    );
+    $form["pass2"] = array(
+      '#type' => 'password',
+      '#attributes' => array("class" => "custom_input"),
+      '#title' => t("Confirm password"),
+      '#required' => TRUE,
+    );
+	}
+
 
 	$form['profile_email_notify'] = array(
 			'#type' => 'hidden',
@@ -150,10 +172,8 @@ function	os_poker_sign_up_form($form_state)
   $form['#submit'] = array('user_register_submit', 'os_poker_sign_up_form_submit');
   $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
 
-  if (!variable_get('user_email_verification', TRUE)) {
-    array_unshift($form['#submit'], 'password_policy_password_submit');
-    array_unshift($form['#validate'], array_shift($form['#validate']), 'password_policy_password_validate');
-  }
+	array_unshift($form['#submit'], 'password_policy_password_submit');
+	array_unshift($form['#validate'], 'password_policy_password_validate');
 
 	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
@@ -531,6 +551,18 @@ function	os_poker_forgot_password_form($form_state)
  * Pahe callback replacement for user/reset
  */
 function os_poker_pass_reset_page($uid, $timestamp, $hashed_pass, $action = NULL) {
+	/*
+   * Password reset link is used even during the registration time as the first login link.
+   * In this case we should not show password reset tickbox, instead just login to the account
+   * and display first profile as per specs.
+   * So if we determine that the user has never logged in, we force skipping the reset password form.
+	 * Note: We dont need to do any security checks since the checks are still made in os_poker_pass_reset()
+   */
+	$account = user_load(array('uid' => $uid, 'status' => 1));
+	if ($account && !$account->login) {
+		$action = 'login'; // force skipping reset password form.
+	}
+
   module_load_include('php', 'os_poker', 'os_poker_forms');
   os_poker_set_overlay('<h1>'.drupal_get_title()."</h1>\n".drupal_get_form('os_poker_pass_reset', $uid, $timestamp, $hashed_pass, $action), array('id' => 'password-reset'));
   drupal_goto('<front>');
@@ -880,6 +912,12 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	}
 
 	$cuser->name = $cuser->profile_nickname;
+	if (variable_get('user_email_verification', TRUE)) {
+			$raw_password = $cuser->pass2;
+			$cuser->pass = $raw_password;
+			$cuser->pass2 = NULL;
+	}
+					
 
 	if (!empty($edit["profile_dob"])) { $cuser->profile_dob = $edit["profile_dob"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_gender"])) { $cuser->profile_gender = $edit["profile_gender"]; } else { $profileComplete &= FALSE; }
@@ -919,7 +957,9 @@ function os_poker_first_profile_form_submit($form, &$form_state)
   //Send mail
   if (variable_get('user_email_verification', TRUE)) {
     $account = $cuser->DrupalUser();
-    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), array('account' => $account));
+    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), 
+								array('account' => $account,
+											'raw_password' => $raw_password));
   }
 }
 

@@ -85,6 +85,7 @@
   <?php print $head; ?>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+  <?php print $analytic_scripts; ?>
 </head>
 
 <body class="<?php print $body_classes; ?>">
