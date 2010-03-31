@@ -347,7 +347,7 @@ check active status is always on same item
     CScheduler::instance()->ReloadTasks();
     CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
 
-/* #238
+/* #238 
 		$messages = CMessageSpool::instance()->Get();
     $this->assertTrue(in_array(
       array('type' => 'os_poker_gift', 'body' => array(
@@ -425,18 +425,14 @@ check active status is always on same item
       'shop_item' => '115',
     ), 'Send');
     $this->assertItemItemBoughtFor(115, $this->users[1]->uid);
-/* #238
     $this->assertItemItemBoughtFor(115, $this->users[3]->uid);
-*/
 
     $this->pass('<h2>Buy for Table and Buddies</h2>');
     $this->drupalPost('poker/shop/shop/1/table/'.$table_id.'/'.$this->users[1]->uid, array(
       'shop_action' => 'special',
       'shop_item' => '115',
     ), 'Send');
-// #238
-//    for($i = 1; $i < 4; $i++) {
-    for($i = 1; $i < 3; $i++) {
+    for($i = 1; $i < 4; $i++) {
       $this->assertItemItemBoughtFor(115, $this->users[$i]->uid);
     }
   }

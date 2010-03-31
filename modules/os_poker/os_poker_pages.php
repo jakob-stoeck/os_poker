@@ -350,7 +350,7 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				if ($subtarget_id)
 					$subtarget = CUserManager::instance()->User($subtarget_id);
 
-				$merge = $target + $buddies;
+				$merge = array_merge(array(), $target, $buddies);
 				$special = array();
 				foreach($merge as $u)
 				{
