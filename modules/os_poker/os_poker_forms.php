@@ -878,6 +878,12 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	}
 
 	$cuser->name = $cuser->profile_nickname;
+	if (variable_get('user_email_verification', TRUE)) {
+			$raw_password = $cuser->pass2;
+			$cuser->pass = $raw_password;
+			$cuser->pass2 = NULL;
+	}
+					
 
 	if (!empty($edit["profile_dob"])) { $cuser->profile_dob = $edit["profile_dob"]; } else { $profileComplete &= FALSE; }
 	if (!empty($edit["profile_gender"])) { $cuser->profile_gender = $edit["profile_gender"]; } else { $profileComplete &= FALSE; }
@@ -917,7 +923,9 @@ function os_poker_first_profile_form_submit($form, &$form_state)
   //Send mail
   if (variable_get('user_email_verification', TRUE)) {
     $account = $cuser->DrupalUser();
-    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), array('account' => $account));
+    drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), 
+								array('account' => $account,
+											'raw_password' => $raw_password));
   }
 }
 

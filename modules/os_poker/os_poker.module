@@ -1573,6 +1573,9 @@ function os_poker_mail($key, &$message, $params) {
     case 'profile':
       //Re-use tokens avaiable in user mail.
       $variables = user_mail_tokens($params['account'], $language);
+			if (!empty($params['raw_password'])) {
+					$variables['!password'] = $params['raw_password'];
+			}
       //Add a support email address.
       $variables['!support'] = variable_get('poker_support_mail', FALSE);
       if (!$variables['!support']) {

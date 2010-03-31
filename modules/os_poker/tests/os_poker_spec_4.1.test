@@ -370,11 +370,8 @@ class OSPokerSignUp extends OsPokerWebTestCase {
     $this->assertMail('id', 'user_register_no_approval_required', t('Confirmation email has been sent to...'));
     $this->assertMail('to', $email, '... the email address used to register');
 
-		$this->assertEqual($mail['params']['account']->password, $pass, t("Registered with the password passed in signup form"));
-
     $user = user_load(array('mail' => $email));
     $user->pass_raw = $mail['params']['account']->password;
-		$this->assertEqual($user->pass, md5($pass), t("And md5 of the password matches DB record"));
 
     $this->drupalLogin($user);
     $this->assertTrue(
@@ -390,6 +387,9 @@ class OSPokerSignUp extends OsPokerWebTestCase {
 			'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png',
     );
     $this->drupalPost(NULL, $profile, t('Send'));
+
+    $user = user_load(array('mail' => $email));
+		$this->assertEqual($user->pass, md5($pass), t("And md5 of the password matches DB record after profile update"));
 
     $mail = end($this->drupalGetMails());
     $this->assertMail('id', 'os_poker_profile', t('After profile submission, a "Successful registration" email has been sent to...'));
