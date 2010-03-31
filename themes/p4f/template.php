@@ -186,3 +186,20 @@ function p4f_flash_tutorial($filename = 'PokerTutorial') {
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }
+
+/**
+ * Override theme_menu_item_link().
+ *
+ * Allow non-link menu entries (using http://none has href).
+ */
+function p4f_menu_item_link($link) {
+  if (empty($link['localized_options'])) {
+    $link['localized_options'] = array();
+  }
+  if ($link['href'] == "http://none") {
+    return "<a href=\"#\">$link[title]</a>";
+  }
+  else {
+    return l($link['title'], $link['href'], $link['localized_options']);
+  }
+}

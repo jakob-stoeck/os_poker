@@ -640,12 +640,15 @@ body.iframe #main {
 #menu li ul, #menu li:hover ul ul {
 	display: none;
 }
-#navbar li:hover ul, #navbar li ul li:hover ul {
+#navbar li:hover ul.menu, #navbar li ul.menu li:hover ul.menu {
 	display: block;
 }
 
-#navbar ul ul {
-	display: none;
+#navbar li ul.menu, #navbar li ul.menu li ul.menu {
+  display: none;
+}
+
+#navbar ul ul {	
 	position: absolute;
 	width: 500px;
 	margin-left: -9px;

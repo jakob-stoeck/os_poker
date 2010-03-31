@@ -3,7 +3,7 @@ var	_os_poker_mbox_count = 0;
 
 function os_poker_init_messagebox()
 {
-	var mbox_container = $("#block-menu-menu-messages-links a");
+	var mbox_container = $(".menu-block a[href*=poker/messagebox]");
 
 	mbox_container.append("<span id='mbox_count'></span><span><img id='mbox_pix' src='' alt='Msg' style='display:none;'/></span>");
 
