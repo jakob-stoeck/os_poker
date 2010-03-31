@@ -24,13 +24,15 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
  */
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
+  if (variable_get('user_email_verification', TRUE)) {
 		if (!$form_state['values']["pass"]) {
 				form_set_error('pass', t("You must enter a valid password to proceed."));
 		} else if ($form_state['values']["pass"] != $form_state['values']["pass2"]) {
 				form_set_error('pass2', t("The two passwords do not match."));
 		}
+	}
 		
-		$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
+	$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
 }
 
 /**
