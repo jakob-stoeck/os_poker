@@ -1,0 +1,3219 @@
+* {
+	margin: 0;
+	border: 0;
+}
+
+body {
+	background: #303030 url(images/navbar_bg_body.jpg) repeat-x left 99px;
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 11px;
+	color: #000;
+	text-align: left;
+}
+
+a {
+	text-decoration: none;
+	font-weight: normal;
+	outline: none; /* FF */
+	color: #fff;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+tr.odd a {
+	color: #000;
+}
+
+tr.even a {
+	color: #000;
+}
+
+label, input, select {
+	vertical-align: middle;
+	font-size: 11px;
+}
+
+label {
+	cursor: pointer;
+}
+
+/************************
+ * REset main.css
+ * *********************/
+
+a.LayerClose, a.closebutton {
+	text-indent: -10000px;
+	background: url(images/button_layerclose.gif) center center no-repeat;
+	display: block;
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	width: 13px;
+	height: 13px;
+	z-index: 777;
+}
+
+.messages.error {
+	background: #fff;
+	color: #d5271e;
+	padding: 0.5em;
+	background: #eee;
+	padding: 0.3em 0.5em;
+	font-size: 1.1em;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+
+}
+
+.messages.error li {
+	margin: 0.1em 0;
+}
+
+#middle-content-right {
+	position: relative;
+}
+
+#middle-content-right .messages.error {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+}
+
+.clear {
+	display: block;
+	float: none;
+	clear: both;
+}
+
+.fleft {
+	display: block;
+	float: left;
+}
+
+.fright {
+	float: right;
+}
+
+.right-aligned {
+	right: 0;
+	position: absolute;
+}
+
+.next, .previous {
+	cursor: pointer;
+}
+
+.hidden {
+	display: none;
+}
+
+/* fixme */
+.spacer {
+	margin-top: 10px;
+}
+
+/***************************
+ * Resetting jquery tab CSS
+ ***************************/
+
+.ui-widget-content {
+	border: none;
+	background: none;
+	color: #6c6c6c;
+}
+
+.ui-widget-header,
+.ui-state-active, .ui-widget-content .ui-state-active {
+	background: none;
+	border: none;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+	background: none;
+	border: none;
+}
+
+.ui-tabs-nav li {
+	margin-right: 0;
+}
+
+/**************************
+*x* Tabs
+**************************/
+
+ul.primary {
+	font-size: 12px;
+	font-weight: bold;
+	height: 24px;
+	margin: 5px 7px 0;
+	overflow: hidden; /* lazy clear */
+}
+
+ul.primary li a {
+	font-weight: bold;
+	border: 1px solid #CBCBC9;
+	border-bottom: none;
+	background: transparent url(images/thickboxes_tab_bg.png) repeat-x;
+	color: #6C6C6C;
+	height: 18px;
+	display: block;
+	float: left;
+	padding: 5px 10px 0;
+}
+
+ul.primary li.active a, li.ui-state-active a {
+	color: #810E0B !important;
+	background: #FFFFFF !important;
+}
+
+ul.primary li a:hover {
+	text-decoration: underline;
+	border-left: 1px solid #CBCBC9;
+	border-right: 1px solid #CBCBC9;
+	border-top: 1px solid #CBCBC9;
+}
+
+ul.secondary a {
+	color: gray;
+}
+
+ul.secondary li a.active {
+	color: #fff;
+}
+
+/***************************
+* Structure
+***************************/
+
+#main {
+	background: #676767;
+	padding: 10px;
+	width: 740px;
+	clear: both;
+}
+
+#page {
+	background: url(images/header_bg_color.png) repeat-x;
+}
+
+#page-inner {
+	position: relative;
+}
+
+#page-inner #sponsor {
+	position: absolute;
+	top: 0;
+	right: -180px;
+}
+
+#page-inner, #header-inner, #navbar-inner {
+	width: 760px;
+	margin: 0 auto;
+}
+
+#content-bottom #buddylist {
+	margin-top: 10px;
+}
+
+#header {
+	height: 99px;
+	overflow: hidden;
+	border-bottom: 1px solid #4E4E4E;
+	position: relative;
+}
+
+#header #logo {
+	/*float: left;*/
+	width: 760px;
+}
+
+#header-blocks {
+	position: absolute;
+	top: 0;
+	right: -6px;
+	width: 292px;
+	height: 97px;
+	background: transparent url(images/login_bg.png) top right no-repeat;
+}
+
+#header .language-bar {
+	position: absolute;
+	top: 0;
+	right: 15px;
+}
+#header .language-bar a.language-link {
+	display: none;
+}
+
+#footer {
+	text-align: right;
+	border-bottom: 2px solid #980E1D;
+	margin-bottom: 2em;
+	position: relative;
+}
+#footer-inner {
+	background: transparent url(images/footer_color.gif);
+	border-bottom: 1px solid #E0B1B1;
+	height: 97px;
+}
+#footer-logo {
+	background: transparent url(images/footer_logo_new_yorker.gif) no-repeat right;
+}
+
+#footer .language-bar a {
+	color: #000;
+}
+
+#footer .language-bar a.language-link {
+	color: #fff;
+}
+
+.footer-links {
+	color: #A8904A;
+	margin-left: 10px;
+	text-align: left;
+	bottom: -75px;
+	float: left;
+}
+
+.footer-links a, #footer-powered a {
+	color: #6D6D6D;
+}
+
+#poker-footer {
+	left: 5px;
+	bottom: 10px;
+	position: absolute;
+}
+
+#footer-powered {
+	right: 10px;
+	bottom: 10px;
+	position: absolute;
+}
+#sidebar-left,
+#sidebar-right {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: gray;
+}
+
+/************************
+ * Overlays / dark thickboxes
+ * *********************/
+
+#os-poker-overlay .content, #forgot-password {
+	width: 392px;
+	background: #eee url(images/first_time_register_bg.png) bottom repeat-x;
+	padding: 10px;
+	color: #fff;
+}
+
+#forgot-password {
+	height: 165px; /* defined in poker/template.php */
+}
+
+#os-poker-overlay h1, #forgot-password h1 {
+	text-transform: uppercase;
+	font-size: 12px;
+	border-bottom: 1px dotted #A8A8A8;
+}
+
+#forgot-password .header p {
+	font-size: 11px;
+	font-size: 11px;
+	line-height: 17px;
+	margin: 5px 0 0;
+	padding-bottom: 10px;
+	padding-right: 15px;
+}
+
+#forgot-password label {
+	float: left;
+	margin-right: 5px;
+	text-align: right;
+	width: 95px;
+}
+
+#forgot-password #edit-name {
+	width: 150px;
+}
+
+#forgot-password .poker_submit {
+	margin-left: 100px;
+}
+
+/* not implemented */
+#forgot-password .footer {
+	display: none;
+}
+
+#forgot-password a, #os_poker_overlay a {
+	color: red;
+}
+
+/*************************
+* Thickboxes
+*************************/
+
+body.iframe,
+body.iframe #page,
+body.iframe #main {
+	width: auto;
+	height: auto;
+	margin: 0;
+	padding: 0;
+}
+
+body.iframe #main {
+	background: transparent;
+}
+
+#TB_title {
+	display: none;
+}
+
+#TB_iframeContent {
+	margin: 0 0 -3px;
+	padding: 0;
+	overflow: hidden;
+}
+
+#TB_window {
+	background-color: transparent;
+	border: 0 hidden #525252;
+}
+
+/* FIXME : rgba */
+.TB_overlayBG {
+	background-color: #000000;
+	filter: alpha(opacity=50);
+    -moz-opacity : 0.5;
+    opacity : 0.5;
+}
+
+.tabs-window .block_title_bar {
+	background: transparent url(images/titlebar_js_bg.png) repeat-x;
+}
+
+/************************
+* Login Block => Header
+*************************/
+
+#user-login-form {
+	overflow: hidden;
+}
+
+#user_login {
+	color: #FFFFFF;
+	height: 97px;
+	overflow: hidden;
+	text-decoration: none;
+	font-size: 10px !important;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 5px;
+	text-align: left;
+}
+
+#login_title {
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#user_login p {
+	color: #FFF;
+	font-size: 11px;
+	text-align: left;
+}
+
+#user_login .fleft, #user_login .fright {
+	margin-top: 6px;
+}
+
+#user_login .user_login_brief_row {
+	display: block;
+	float: right;
+	white-space: nowrap;
+}
+
+#user_login .form-item {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+#user_login #edit-remember-me-wrapper label {
+	font-size: 10px !important;
+}
+
+#user_login #forgot_password {
+	text-transform: none;
+	margin-left: 5px;
+}
+
+*:first-child+html #user_login #edit-remember-me-wrapper {
+	padding-top: 0 !important;
+	margin-left: -5px;
+}
+
+*:first-child+html #user_login #forgot_password {
+	padding-top: 5px !important;
+}
+
+#user_login #edit-remember-me {
+	vertical-align: middle;
+}
+
+#user_login .user_login_clear {
+	clear: both;
+	float: none;
+}
+
+#user_login #avatar img {
+	height: 40px;
+	width: 40px;
+}
+
+#user_login #avatar {
+	padding-top: 6px;
+	margin-right: 6px;
+}
+
+#user_info_box .fleft, #user_info_box .fright {
+	margin: 0;
+}
+
+#user_info_box {
+	margin-top: 12px;
+}
+
+#user_info_box p {
+	font-size: 10px;
+}
+
+#user_login .poker_submit {
+	margin-top: -2px;
+}
+
+
+/******************************
+* Header infos when logged in
+*******************************/
+
+.chips_count,
+.buddy_count {
+	width: 130px;
+	text-align: left !important;
+	white-space: normal;
+}
+
+.custom_input {
+	background:  url(images/bg_input_signup.gif) repeat 0 0;
+	border: 1px solid #D0D0CF;
+	font-size: 11px;
+	width: 164px;
+	color: #474747;
+}
+
+/************************
+* the buttons
+************************/
+
+.poker_submit {
+	color: #fff;
+	font: normal 10px Arial, sans-serif;
+	text-decoration: none;
+	cursor: pointer;
+	margin-top: 2px;
+	overflow: hidden;
+}
+
+.submit_get {
+	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
+	color: #fff;
+	font: normal 10px Arial, sans-serif;
+	padding: 1px 5px 1px 12px;
+	font-size: 10px;
+	text-decoration: none;
+}
+
+/* FIXME */
+.container-inline div.poker_submit {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+/* FIXME */
+.poker_submit div.pre {
+	display: none;
+}
+
+.poker_submit div.label {
+	background: url(images/arrow_white.gif) no-repeat 3px center;
+	display: block;
+	float: left;
+	text-align: center;
+	padding: 2px 6px 2px 9px;
+	background-color: #D9291A;
+	color: #FFF;
+	width: 60px; /* fixme : use this only in places where it needs to be resized ? */
+}
+
+.poker_submit div.label:hover {
+	text-decoration: underline;
+}
+
+/* FIXME IE7 problem will occur here. */
+.poker_submit div.label input {
+	border: 0;
+	background-color: transparent;
+	color: inherit !important;
+	font-family: inherit !important;
+	font-size: inherit !important;
+	font-weight: inherit !important;
+	text-decoration: inherit !important;
+	cursor: inherit !important;
+}
+
+/*************************
+* Main menu
+*************************/
+
+#navbar {
+	height: 29px;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	margin-left: -2px;
+}
+
+#navbar ul.menu {
+	margin: 0;
+	padding: 0;
+	display: block;
+	float: none;
+}
+
+#navbar ul.menu li {
+	background: url(images/navbar_li_bgleft_2px.png) no-repeat left top;
+	display: inline;
+	float: left;
+	text-align: center;
+	margin: 0;
+	list-style-type: none;
+	padding-left: 2px;
+	list-style-image: none;
+	padding-left: 2px;
+	padding: 0;
+}
+
+#navbar ul.menu li a {
+	display: block;
+	color: #fff;
+	font-family: arial; /* FIXME */
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+	text-transform: capitalize;
+	margin: 0;
+	padding: 6px 20px 0;
+	height: 22px;
+	margin-left: 2px;
+}
+
+#navbar-bottom {
+	border-top: 1px solid #000;
+}
+
+#navbar ul.menu li.active-trail a.active, #navbar ul.menu a:hover {
+	background: url(images/active-trail.jpg);
+}
+
+/* drop down menu */
+.menu li {
+	position: relative;
+}
+
+#menu li ul, #menu li:hover ul ul {
+	display: none;
+}
+#navbar li:hover ul, #navbar li ul li:hover ul {
+	display: block;
+}
+
+#navbar ul ul {
+	display: none;
+	position: absolute;
+	width: 500px;
+	margin-left: -9px;
+}
+#navbar ul.menu ul li {
+	float: left;
+	background: #202020 url(images/navbar_submenu_bgleft.png) no-repeat left 4px;
+	margin-top: 1px;
+}
+#navbar ul.menu ul li:first-child {
+	background: #202020;
+}
+#navbar ul.menu ul li:first-child a:hover, #navbar ul.menu ul li:first-child a {
+	margin-left: 0;
+}
+#navbar ul.menu ul li a {
+	padding: 6px 13px 0;;
+}
+
+/* **************
+ * Radio button
+ * **************/
+
+#radiobutton {
+	background: url(images/radio_button.png) no-repeat;
+	position: absolute;
+	left: 764px;
+	top: 107px;
+	width: 198px;
+	height: 38px;
+}
+#radiobutton span {
+	display: none;
+}
+
+/*******************************
+ * Content bottom : Buddy list
+ ******************************/
+
+#buddylist : : selection,
+#buddylist : : -moz-selection {
+	background: transparent;
+}
+
+#buddylist .form-item {
+	margin: 0;
+	padding: 0;
+	text-align: right;
+}
+
+#buddylist .header {
+	width: 726px;
+	padding-left: 8px;
+	padding-right: 8px;
+	overflow: hidden;
+	border-top: 1px solid #000;
+}
+
+#buddylist .header .fleft {
+	width: 50%;
+}
+
+#buddylist .header label {
+	/*color: #E9DFD1;*/
+	font-size: 11px;
+	font-weight: bold;
+	vertical-align: middle;
+}
+
+/* FIXME : this is a general element */
+.block_title_bar {
+	background: url(images/titlebar_background_color.gif) repeat-x top left;
+	height: 20px;
+	padding-top: 3px;
+	font-size: 12px;
+}
+
+.block_title_text {
+	color: #FFF;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+#buddylist #buddy_panel {
+	background-color: #FFF;
+	/*background-image: url(images/bg_buddy_panel.png);*/
+	width: 740px;
+	height: 182px;
+	padding-top: 5px;
+	padding-left: 2px;
+}
+
+#buddylist .list {
+	border-left: 1px solid #C9C9C9;
+	float: left;
+	height: 172px;
+	/*margin-top: -5px;*/
+	overflow: hidden;
+	padding-left: 1px;
+	width: 559px;
+	position: relative;
+}
+
+#buddylist .cursor {
+	float: none;
+	width: auto;
+	height: auto;
+	position: absolute;
+}
+
+.first_buddy {
+	border-left: 1px solid #C9C9C9;
+}
+.buddy_list_block {
+	background: #D3D2D0 url(images/friend_box_bg_color.png) repeat-x;
+	border-bottom: 1px dotted #8C8C8C;
+	border-right: 1px solid #C9C9C9;
+	height: 167px;
+	padding-top: 4px;
+	width: 79px;
+	float: left;
+	text-align: center;
+	position: relative;
+}
+
+.buddy_list_number {
+	background: url(images/buddy_number_bg.gif) no-repeat scroll 0 0;
+	color: #fff;
+	margin-left: 10px;
+	text-align: center;
+	width: 15px;
+	height: 16px;
+}
+
+.buddy_list_number.golden {
+	background: url(images/buddy_first_number_bg.png) no-repeat;
+}
+.buddy_list_invite {
+	/*width: 100px;*/
+	/*display: inline;*/
+	text-align: left;
+}
+.buddy_arrow {
+	height: 27px;
+	padding: 0 5px;
+	float: left;
+	color: #FFF;
+}
+
+#buddylist .buddy_list_placeholder {
+	background: transparent url(images/buddy_invite.png) no-repeat;
+	height: 120px;
+	width: 63px;
+	margin-top: 25px;
+	margin-left: 9px;
+}
+
+#buddylist .buddy_list_placeholder .title {
+	color: #D9291A;
+	font-weight: bold;
+	left: 15px;
+	position: absolute;
+	top: -19px;
+}
+
+#buddylist .buddy_list_placeholder .body {
+	position: absolute;
+	left: 0;
+	top: 110px;
+	margin: 10px;
+	padding: 3px 3px 3px 15px;
+	background: #D9291A url(images/arrow_white.gif) no-repeat 5px 6px;
+	text-align: left;
+}
+
+#buddylist .buddy_list_placeholder .body a {
+	/*color: #000;*/
+	/*font-weight: bold;*/
+}
+
+.buddy_list_name {
+	margin-left: 4px;
+	padding-left: 12px;
+	padding-top: 5px;
+	text-align: left;
+	background: url(images/buddy_offline.png) no-repeat left center;
+}
+
+.buddy_list_name.online {
+	background: url(images/buddy_online.png) no-repeat left center;
+}
+
+.buddy_list_name,
+.buddy_list_name a {
+	color: #635E58;
+	font-weight: bold;
+	overflow: hidden;
+	padding-bottom: 5px;
+	width: 60px;
+	white-space: nowrap;
+}
+
+.buddy_list_chips {
+	color: #A8904A;
+	padding-bottom: 10px;
+}
+
+.buddy_list_links a {
+	font-weight: bold;
+	white-space: nowrap;
+	color: #646464;
+}
+
+#buddylist #today_gift {
+	background: #000 url(images/bg_today_gift.jpg) no-repeat center center;
+	width: 87px;
+	height: 170px;
+	color: #fff;
+	text-align: center;
+	font-size: medium; /* FIXME */
+	font-weight: bold;
+}
+
+#buddylist .next,
+#buddylist .next:hover {
+	float: left;
+	background: url(images/buddy_next.png) no-repeat top center;
+	width: 25px;
+	height: 150px;
+	margin-top: 20px;
+	margin-left: 2px;
+	text-decoration: none;
+	outline: none;
+}
+
+#buddylist .previous,
+#buddylist .previous:hover {
+	float: left;
+	background: transparent url(images/buddy_prev.png) no-repeat top center;
+	width: 25px;
+	height: 150px;
+	margin-top: 20px;
+	text-decoration: none;
+	outline: 0 none;
+}
+
+/*
+**
+*/
+
+#middle-content {
+	display: block;
+	float: none;
+	width: 100%;
+}
+
+#middle-content-right {
+	display: block;
+	float: left;
+}
+
+#middle-content-left {
+	margin-right: 7px;
+	float: left;
+	/* FIXME : needs width */
+}
+
+#middle-content-left,
+#middle-content-left-table {
+	display: block;
+}
+
+#middle-content-left .iframe_div {
+	height: 489px;
+	padding: 0 !important;
+	width: 405px;
+	overflow: hidden;
+}
+
+#middle-content-left-table .iframe_div {
+	height: 600px;
+	margin-top: -15px;
+	margin-left: -10px;
+	margin-bottom: -10px;
+	padding: 0 !important;
+	width: 760px;
+}
+
+#remote_iframe_os_poker {
+	background-color: transparent;
+}
+
+#remote_iframe_os_poker_title {
+	display: none;
+}
+
+/***************************
+* Homepage : user brief (top)
+***************************/
+
+.info1 {
+	background: url(images/user_brief_refresh.png) no-repeat;
+	top: 26px;
+	left: 12px;
+	height: 41px;
+}
+#user-brief {
+	background: #fff url(images/user_brief_bg.png) repeat-x;
+	color: #635E58;
+	font-weight: bold;
+	height: 72px;
+	width: 395px;
+	padding: 5px;
+	margin-bottom: 4px;
+}
+
+#user-brief .info1 {
+	width: 140px;
+	/*padding-left: 8px;*/
+	padding-left: 55px;
+	position: relative;
+}
+
+#user-brief p {
+	margin: 0;
+	/*padding-top: 5px;*/
+	white-space: nowrap;
+}
+
+#user-brief p.info, #user-brief div.reward_status, .reward_icon {
+	padding-top: 7px;
+}
+
+#user-brief p.info b {
+	color: #D9291A;
+}
+
+.reward_title {
+	color: #FFF;
+}
+
+/*
+** User Brief REWARDS
+*/
+
+.reward_separator {
+	width: 10px;
+	padding-top: 16px;
+}
+
+.reward_icon {
+	float: left;
+	margin: 10px 10px 0 0;
+}
+
+.reward_picture {
+	width: 32px;
+	height: 32px;
+}
+
+.reward_status {
+	margin: 8px 0 0;
+	white-space: nowrap;
+}
+
+/*************************
+* Homepage : Play now
+*************************/
+
+#play-now  {
+	height: 81px;
+	width: 320px;
+	margin-bottom: 5px;
+}
+
+#play-now p.text {
+	font-weight:bold;
+	text-align: center;
+	/*margin-top: 10px;*/
+	color: #B3B3B3;
+}
+
+#play-now #play-now-button {
+    display: block;
+	background: url(images/play_now.png) no-repeat top center;
+	height: 46px;
+	width: 320px;
+	margin-top: 10px;
+}
+
+#play-now-inner {
+	/*position: absolute;*/
+	/*top: -30px;*/
+}
+
+/* FIXME : this part should go to a specific german CSS ie p4f-de.css */
+body.de #play-now #play-now-button {
+	background-image: url(images/play_now-de.png);
+}
+
+/********************************
+* Create account => First profile
+********************************/
+
+#poker-first-profile {
+	background:transparent url(images/first_time_register_bg.png) repeat scroll top left;
+	border: 1px solid #767676;
+	width: 380px;
+	padding:15px;
+	margin-left:auto;
+	margin-right:auto;
+	z-index:1042;
+	position: relative;
+}
+
+#poker-first-profile .title {
+	color:white;
+	border-bottom: 1px dotted #A8A8A8;
+	padding-bottom:5px;
+}
+
+/******************************
+* Thickbox : Profile => Ranking
+*******************************/
+
+#ranking {
+	padding-left: 17px;
+}
+
+#ranking .panel .right {
+	padding-left: 15px;
+}
+
+*:first-child+html #ranking .panel .left .block_title_bar {
+	width: 115px;
+	margin-top: 5px;
+}
+
+*:first-child+html #ranking .panel .right .block_title_bar {
+	width: 450px;
+}
+
+#ranking .inner-item-list {
+	height: 308px;
+	padding-left: 15px;
+	width: 445px;
+}
+
+#ranking .ajax-pager {
+	padding-top: 5px;
+}
+
+#ranking .buddy_list_block {
+	border: 1px solid #c7c5c6;
+	background: #fff none;
+	width: 72px;
+	height: 118px;
+	margin-top: 20px;
+	margin-right: 15px;
+}
+
+#ranking .buddy_list_name, #ranking .buddy_list_name a {
+	color: #343434;
+	width: 50px;
+}
+
+#ranking .buddy_list_chips {
+	color: #343434;
+}
+
+/*******************************
+* Thickbox : Profile => Update profile
+********************************/
+
+#profile .poker_submit label {
+	width: 80px;
+	font-size: 10px;
+}
+#profile-update {
+	padding-left: 17px;
+}
+
+#profile-update .form-item {
+	margin: 0;
+	padding-top: 10px;
+	padding-right: 10px;
+	height: 22px;
+}
+
+#profile-update .form-item label {
+	float: left;
+	width: 110px;
+	text-align: right;
+	padding-right: 3px;
+	padding-top: 3px;
+	height: 19px;
+	white-space: nowrap;
+}
+
+#profile-update .form-item input {
+	width: 150px;
+}
+
+#profile-update .form-radios.custom_radio {
+	float: left;
+	margin: -7px 0 0;
+	width: 230px;
+}
+
+#profile-update	input.custom_radio {
+	width: 10px;
+}
+
+#profile-update	.custom_radio label {
+	width: auto;
+}
+
+#profile-update .custom_radio .form-item {
+	float: left;
+}
+
+#profile-update .separator {
+	float: none;
+	clear: both;
+	height: 50px;
+	margin-bottom: 10px;
+}
+
+#profile-update .poker_submit {
+	margin-left: 355px;
+}
+
+#profile-update .image_promo {
+	position: relative;
+	width: 147px;
+	height: 133px;
+	margin-top: 10px;
+}
+
+#profile-update .image_promo img,
+#profile-update .image_promo p.Dollar {
+	position: absolute;
+	top: 0;
+}
+
+#profile-update .image_promo p.Dollar {
+	left: 45px;
+	top: 38px;
+	z-index: 3;
+}
+
+/*******************************
+* FIXME : what is that ?
+*******************************/
+
+.TableRanking {
+	margin: 0 0 16px;
+	width: 441px;
+	border-collapse: separate;
+}
+
+.TableRanking td {
+	padding: 3px 4px 3px 16px;
+}
+
+.TableRanking tr {
+	background-color: #fff;
+	color: #727272;
+}
+
+.TableRanking tr.BgGrey {
+	background: #ECECEC none repeat 0 0;
+}
+
+.TableRanking td.Column01 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 60px;
+}
+
+.TableRanking td.Column02 {
+	border-right: 8px solid #FFFFFF;
+	width: 70px;
+}
+
+.TableRanking td.Column03 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 110px;
+}
+
+.TableRanking td.Column04 {
+	white-space: nowrap;
+}
+
+/*****************************
+ * Thickbox : Profile
+ * with tab-based navigation
+ * ***************************/
+
+#profile-tabs .profile_tourney_info {
+	width: 292px;
+	border: 1px solid #999999;
+	height: 198px;
+	overflow: hidden;
+}
+
+.TourneyInfo {
+	width: 293px;
+}
+
+.TourneyInfo tr {
+	height: 16px;
+}
+
+.TourneyInfo tr.table_header td {
+	color: #810E0B;
+	font-weight: bold;
+}
+
+.TourneyInfo tr td.bold {
+	font-weight: bold;
+}
+
+.TourneyInfo tr td a ,
+.TourneyInfo tr td a:hover {
+	font-weight: bold;
+	color: #810E0B;
+}
+
+/*******************************
+* Thickbox : Profile => Rewards
+*******************************/
+
+#rewards {
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+#rewards .inner-item-list {
+	height: 320px;
+	overflow: hidden;
+	padding-top: 15px;
+	padding-left: 25px;
+	margin-bottom: 5px;
+}
+
+#rewards .reward {
+	background-color: #fff;
+	float: left;
+	font-weight: bold;
+	height: 84px;
+	margin-bottom: 15px;
+	margin-right: 20px;
+	padding-top: 7px;
+	position: relative;
+	text-align: center;
+	width: 90px;
+}
+
+#rewards .reward .text {
+	padding-left: 1px;
+	white-space: normal;
+	width: 89px;
+}
+
+#rewards .mask {
+	position: absolute;
+	background-color: transparent;
+	width: 90px;
+	height: 90px;
+	left: 0;
+	top: 0;
+	border: 1px solid #cdcec9;
+}
+
+/* FIXME : rgba */
+#rewards .mask.disabled {
+	background-color: #FFFFFF;
+	filter: alpha(opacity=60);
+	-moz-opacity : 0.6;
+	opacity : 0.6;
+}
+
+/******************************
+* Thickbox : Buddies => Search
+******************************/
+
+#buddies-search {
+	color: rgb(108, 108, 108);
+	overflow: hidden;
+	padding: 13px 0 0 58px;
+}
+
+.buddies-search-banner {
+	background: url(images/buddysearch_title.gif) no-repeat 5px 0;
+	border: 0;
+	height: 111px;
+	margin: 5px 0 0 0;
+	padding: 6px 0 0 131px;
+	width: 300px;
+}
+
+#buddies-search h2 {
+	border: 0;
+	font-size: 11px;
+	line-height: 17px;
+	margin: 0;
+	padding: 0;
+}
+
+#buddies-search p {
+	border: 0;
+	line-height: 17px;
+	margin: 10px 0 0 0;
+	padding: 0;
+}
+
+#buddies-search #edit-online-only-wrapper {
+	border-top: 1px dotted #a8a8a8;
+	border-bottom: 1px dotted #a8a8a8;
+	font-weight: bold;
+	margin: 0;
+	overflow: hidden;
+	height: 15px;
+	padding: 8px;
+	width: 480px;
+}
+
+#buddies-search .form-item {
+	width: 245px;
+	float: left;
+	margin: 5px 6px 5px 0;
+}
+
+*:first-child+html #buddies-search form div { /* IE7 */
+	position:relative;
+	z-index: 2;
+	overflow: hidden;
+}
+
+/* due to poor markup its better to clear here */
+#edit-profile-nickname-wrapper,
+#edit-profile-gender-wrapper,
+#edit-profile-city-wrapper {
+	clear: left;
+}
+
+#buddies-search .form-text, #buddies-search .form-select {
+	border: 1px solid #C9C8C4;
+	font-size: 11px;
+	line-height: 13px;
+	margin: 0;
+	padding: 4px;
+	width: 235px;
+}
+
+#buddies-search .form-select {
+	width: 245px;
+}
+
+#buddies-search .clear {
+	height: 10px;
+}
+
+.buddies-search-infos {
+	color: #646464;
+	font-size: 11px;
+	line-height: 17px;
+	margin: 20px 0 0 -40px;
+	width: 320px;
+}
+
+
+#buddies-list {
+	width: 632px;
+	position: relative;
+}
+
+#buddies-list .buddy_result_list_entry {
+	float: left;
+	width: 230px;
+	height: 70px;
+	background-color: #FFFFFF;
+	border: 1px solid #c9c9c7;
+	margin: 10px 0 0 10px;
+	padding: 10px 0 0 10px;
+}
+
+#buddies-list .buddy_result_list_picture {
+	float: left;
+	width: 58px;
+}
+
+#buddies-list .buddy_result_list_infos {
+	float: left;
+	width: 87px;
+	margin-left: 10px;
+	color: #525252;
+}
+
+#buddies-list .buddy_result_list_infos a {
+	color: #525252;
+	font-weight: bold;
+}
+
+#buddies-list .buddy_result_list_name {
+	background: transparent url(images/buddy_offline.png) no-repeat left center;
+	padding-left: 12px;
+	padding-bottom: 3px;
+	padding-top: 1px;
+}
+
+#buddies-list .buddy_result_list_name.online {
+	background: transparent url(images/buddy_online.png) no-repeat left center;
+}
+
+#buddies-list .buddy_result_list_links {
+	float: left;
+	width: 75px;
+}
+
+#buddies-list .buddy_result_list_links .poker_submit {
+	font-size: 11px;
+	margin-bottom: 2px;
+	overflow: hidden;
+}
+
+#buddies-list .buddy_result_list_picture img {
+	height: 58px;
+	width: 58px;
+}
+
+#buddies-list .footer {
+	padding-right: 125px;
+	padding-top: 5px;
+}
+
+/* should go with tabs-window config */
+#buddies-invited_list {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+/* this might be messy because of templates */
+#buddies-tabs {
+	background: transparent url(images/buddies_bg_girl.png) no-repeat;
+}
+
+/*#buddy_search_404 {*/
+	/*margin-left: -217px;*/
+	/*margin-top: -202px;*/
+	/*background: transparent url(images/buddies_sorry_not_found.png) no-repeat;*/
+/*}*/
+
+div.poker_error_message .msg {
+	/*padding-left: 215 !important;*/
+	/*padding-top: 83px;*/
+	/*width: 315px;*/
+}
+
+/********************************
+ * FIXME : what is that?
+ * *****************************/
+
+.BannerTop,
+.BannerBottom {
+	height: 169px;
+	overflow: hidden;
+	position: absolute;
+	right: 22px;
+	width: 86px;
+}
+
+.BannerTop {
+	top: 10px;
+}
+
+.BannerBottom {
+	height: 170px;
+	top: 195px;
+}
+
+/********************************
+ * Thickbox : Profile => Settings
+ * ******************************/
+
+#user-profile-form .description {
+  color: #FFFFFF;
+  padding: 5px 0 0 105px;
+}
+
+#profile-tabs .bottom {
+  height: 212px;
+  margin-top: 40px;
+}
+
+#profile-tabs .bottom .item-list {
+   height: 65px;
+}
+
+#profile-tabs .bottom .inner-item-list {
+   /*height: 70px;*/
+}
+
+#profile-tabs .bottom .left {
+  margin-right: 15px;
+}
+
+#profile-tabs .bottom .right {
+  width: 294px;
+}
+
+#profile-tabs .middle {
+  margin-bottom: 10px;
+}
+
+#profile-tabs #profile-last-rewards {
+  margin-bottom: 15px;
+}
+
+#profile-tabs .poker_submit .label {
+	font-size: 10px;
+}
+
+/*#profile-tabs*/
+#os-poker-profile-password-settings-form .label, #os-poker-profile-email-settings-form .label {
+	width: 26px;
+}
+
+#profile-tabs .profile-up-submit .label {
+	position: absolute;
+	left: 30px;
+	top: 210px;
+	width: 86px;
+}
+
+/************************************
+* Thickbox : Shop
+************************************/
+/* FIXME : too vague */
+ul.categories {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 138px;
+}
+
+ul.categories li a {
+	border: 1px solid #CCCBC9;
+	border-right: none;
+	color: #CE9900;
+	display: block;
+	font-weight: bold;
+	height: 23px;
+	line-height: 17px;
+	margin: 5px 0 0;
+	padding: 4px 0 0 7px;
+	text-decoration: none;
+}
+
+ul.categories li.active a,
+ul.categories li a:hover {
+	background: url(images/bg_button_shopnav.gif) repeat-x;
+}
+
+ul.categories li a span {
+	color: #65605A;
+	font-size: 14px;
+	padding: 0 2px 0 0;
+}
+
+#shop {
+	position: relative;
+}
+
+#shop #items {
+	border: 1px dotted #a8a8a8;
+	padding-top: 5px;
+	height: 320px;
+}
+
+#shop #items .ajax-pager {
+	height: 14px;
+	position: absolute;
+	bottom: 0;
+	right: 10px;
+}
+
+#shop #items .shop-item {
+	float: left;
+}
+
+#shop #items .inner-item-list a {
+	background: url(images/bg_shop_item.gif) no-repeat;
+	height: 95px;
+	margin: 5px 0 0 19px;
+	width: 72px;
+	color: #727272;
+	text-decoration: none;
+	display: block;
+	padding-top: 2px;
+}
+
+#shop #items a:hover,
+#shop #items a.selected {
+	background: url(images/bg_shop_item_hover.gif) no-repeat;
+}
+
+#shop #items a span {
+	cursor: pointer;
+	display: block;
+	height: 50px;
+	margin: 5px 0 4px 8px;
+	overflow: hidden;
+	width: 50px;
+}
+
+#shop #items a span.Text {
+	cursor: pointer;
+	display: block;
+	font-weight: bold;
+	height: 12px;
+	margin: 0 0 0 2px;
+	overflow: hidden;
+	padding: 0;
+	text-align: center;
+	width: 64px;
+}
+
+#shop .bcontainer {
+	float: right;
+	margin-left: 10px;
+}
+
+#shop div.poker_submit .label {
+	height: 31px;
+	padding-top: 3px;
+}
+
+#shop div.poker_submit.disabled:hover div.label {
+	text-decoration: none;
+}
+
+/***************************
+* Who is at the table FIXME : where is that ?
+****************************/
+
+#table_users .list.splash {
+	/*background: transparent url(images/user_table_splash.jpg) no-repeat;*/
+}
+
+#table_users .next {
+	background: transparent url(images/user-table-next.gif) no-repeat bottom right;
+}
+
+#table_users .previous {
+	background: transparent url(images/user-table-prev.gif) no-repeat bottom left;
+}
+.splash {
+	float: left;
+}
+
+/***************************
+* Pager : general pagination
+***************************/
+
+ul.pager a {
+	background: none !important;
+}
+
+ul.pager a.active {
+	color: #727272;
+	font-weight: bold;
+}
+
+ul.pager .pager-current {
+	color: #D42918;
+}
+
+.item-list ul.pager {
+	text-align: right;
+}
+
+.item-list ul li { /* FIXME selector */
+	margin: 0 0 0.25em 0.25em;
+}
+.item-list .pager li {
+	padding: 0;
+}
+
+/*************************************
+* Thickbox: Buddies => Invite Friends
+*************************************/
+
+.DailyBonusStep02 {
+	background: transparent url(images/bg_daily_bonus02.gif) no-repeat 0 0;
+	height: 289px;
+	position: relative;
+	width: 282px;
+}
+
+body.de div.DailyBonusStep02 { /* FIXME: german */
+	background: transparent url(images/bg_daily_bonus02_de.jpg) no-repeat 0 0;
+	height: 289px;
+	position: relative;
+	width: 282px;
+}
+
+p.Dollar1 {
+	color: #6F1E1E;
+	font-family: helvetica; /* FIXME */
+	font-size: 18px;
+	font-weight: bold;
+	left: 61px;
+	letter-spacing: -1px;
+	line-height: 26px;
+	margin: 0;
+	position: absolute;
+	top: 2px;
+}
+
+body.de p.Dollar1 { /* FIXME: german */
+	position: absolute;
+	top: 42px;
+	left: 45px;
+	font-size: 24px;
+}
+
+p.Dollar2 {
+	color: #585858;
+	font-family: arial,helvetica; /* FIXME */
+	font-size: 15px;
+	font-weight: bold;
+	left: 89px;
+	line-height: 19px;
+	margin: 0;
+	overflow: hidden;
+	position: absolute;
+	text-align: center;
+	top: 140px;
+	width: 34px;
+}
+
+body.de p.Dollar2 {
+	top: 158px;
+	left: 95px;
+}
+
+p.Dollar3 {
+	color: #FFFFFF;
+	font-family: arial,helvetica; /* FIXME */
+	font-size: 21px;
+	font-weight: bold;
+	left: 181px;
+	line-height: 22px;
+	margin: 0;
+	overflow: hidden;
+	position: absolute;
+	text-align: left;
+	top: 177px;
+	width: 51px;
+}
+
+body.de p.Dollar3 { /* FIXME : german */
+	top: 187px;
+	left: 164px;
+}
+
+p.Buddies {
+	color: #FFFFFF;
+	font-family: arial,helvetica; /* FIXME */
+	font-size: 14px;
+	font-weight: bold;
+	left: 169px;
+	line-height: 19px;
+	margin: 0;
+	overflow: hidden;
+	position: absolute;
+	text-align: center;
+	top: 220px;
+	width: 20px;
+}
+
+body.de p.Buddies { /* FIXME : german */
+   top: 239px;
+   left: 218px;
+}
+
+p.Note {
+	margin: 0;
+	margin-top: 50px;
+}
+
+.buddies-invite-left {
+	border: 0 none;
+	float: left;
+	margin: 0;
+	overflow: hidden;
+	padding: 16px 0 0;
+	text-align: left;
+	width: 282px;
+}
+
+.buddies-invite-right {
+	border: 0 none;
+	float: right;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	text-align: left;
+	width: 324px;
+}
+
+.buddies-invite-right .form-item {
+	float: left;
+	margin: 0 6px 10px 0;
+}
+
+.buddies-invite-right .form-text {
+	border: 1px solid #C9C8C4;
+	font-size: 11px;
+	line-height: 13px;
+	margin: 0;
+	padding: 4px;
+	width: 126px;
+}
+
+.buddies-invite-right .form-textarea {
+	width: 305px;
+}
+
+#buddies-invite-right .num {
+	background-color: #CACACA;
+	font-weight: bold;
+	line-height: 23px;
+	text-align: center;
+	vertical-align: middle;
+	width: 23px;
+	float: left;
+}
+
+#buddies-invite-right .TeaseMore .poker_submit {
+	float: right;
+	margin-right: 15px;
+}
+
+/* FIXME : too vague */
+p.Link a {
+	color: #7A1C1C;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+body.de div.DailyBonusStep02 { /* FIXME : german */
+	background-image: url(images/bg_daily_bonus02-de.gif);
+	background-position: 0px -28px;
+}
+
+body.de p.Dollar1 { /* FIXME : german */
+	top: 13px;
+	left: 47px;
+	font-size: 23px;
+}
+
+body.de p.Dollar2 { /* FIXME : german */
+  top: 130px;
+  left: 96px;
+}
+
+body.de p.Dollar3 { /* FIXME : german */
+  top: 158px;
+  left: 164px;
+}
+
+body.de p.Buddies { /* FIXME : german */
+  top: 211px;
+  left: 218px;
+}
+
+/****************************************
+* Thickbox : Buddies => Invite => Invited
+****************************************/
+
+.TableLeft {
+	border: 1px solid #DADADA;
+	width: 452px;
+}
+
+.TableLeft th.Column01 {
+	width: 105px;
+}
+
+.TableLeft th.Column02	{
+	width: 82px;
+}
+
+.TableLeft th.Column03	{
+	width: 68px;
+}
+
+.TableLeft th.Column04 {
+	width: 63px;
+}
+.TableLeft th.Column05 {
+	width: 66px;
+}
+
+.TableLeft th {
+	background: #030303 url(images/bg_titlebar.gif) repeat-x left top;
+	border-bottom: 1px solid #9F9B98;
+	border-right: 1px solid #9F9B98;
+	color: #FFFFFF;
+	height: 21px;
+	line-height: 16px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 6px;
+}
+
+.TableLeft p {
+	margin: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	width: 132px;
+}
+
+.TableLeft td.Center {
+	text-align: center;
+}
+
+.TableLeft td.Bgwhite {
+	background: #FFFFFF none repeat 0 0;
+	border-right: 1px solid #9F9B98;
+	overflow: hidden;
+	padding: 3px 3px 2px 6px;
+}
+
+.TableLeft td.BgGrey {
+	background: #ECECEC none repeat 0 0;
+	border-right: 1px solid #9F9B98;
+	color: #727272;
+	padding: 3px 3px 2px 6px;
+}
+
+/* FIXME: too vague */
+.PageNavPosition {
+	width: 385px;
+}
+
+.PageNavPosition .PageNav {
+	float: right;
+	margin: 0 -65px 0 0;
+}
+
+.PageNav {
+	clear: both;
+	color: #727272;
+	font-weight: bold;
+	margin: 6px 0 0;
+	padding: 0;
+	text-align: right;
+}
+
+.PageNavPosition .Legend {
+	font-weight: bold;
+	margin: 5px 0 0;
+}
+
+.PageNavPosition .Legend div {
+	float: left;
+}
+#ContainerContentInvite .PageNavPosition .Legend p {
+	float: left;
+	margin: 0;
+	padding: 1px 0 0;
+}
+
+.PageNavPosition .Legend div {
+	float: left;
+}
+
+.TableRight {
+	border: 1px solid #DADADA;
+	/*position: absolute;*/
+	/*right: 20px;*/
+	/*top: 0;*/
+	float: right;
+	margin-top: -26px;
+}
+
+.TableRight th {
+	background: #030303 url(images/bg_titlebar.gif) repeat-x left top;
+	color: #FFFFFF;
+	height: 21px;
+	line-height: 16px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0 6px 1px 10px;
+}
+
+.TableRight td {
+	font-weight: bold;
+	overflow: hidden;
+	padding: 10px;
+}
+
+.TableRight td span {
+	color: #D70504;
+}
+
+.TableRight td.Dotted {
+	font-size: 1px;
+	margin: 0;
+	padding: 0 6px;
+}
+
+.TableRight div {
+	background: transparent url(images/bg_line_dotted.gif) repeat-x 0 0;
+	height: 2px;
+	margin: 0;
+}
+
+.InviteMore {
+	height: 170px;
+	/*left: 515px;*/
+	/*position: absolute;*/
+	/*top: 180px;*/
+	width: 87px;
+	clear: both;
+	float: right;
+}
+
+/*************************
+* FIXME : Where is that ?
+* News
+**************************/
+
+#news {
+	margin-top: 15px;
+}
+
+#news .header {
+	margin-left: 13px;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 284px;
+}
+
+#news .header p {
+	display: inline;
+}
+
+#news .header img {
+	vertical-align: top;
+}
+
+#news .next {
+	background: transparent url(images/news_next.png) no-repeat top right;
+	width: 15px;
+	height: 76px;
+}
+
+#news .previous {
+	background: transparent url(images/news_prev.png) no-repeat top left;
+	width: 13px;
+	height: 76px;
+}
+
+#news .middle {
+	height: 76px;
+	background: transparent url(images/news_bg.gif) repeat-x 0 0;
+	width: 300px;
+	font-weight: bold;
+	color: #fff;
+}
+
+#news .middle a {
+	font-weight: bold;
+}
+
+#news .container {
+	height: 50px;
+	overflow: hidden;
+	padding: 5px 10px 2px;
+	width: 280px;
+}
+
+#news .container p {
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+#news .bottom {
+	width: 290px;
+	text-align: right;
+}
+
+/* new stuff for news page, because i'm not sure what the above is for */
+.news_content {
+	margin: 10px 5px;
+}
+
+#news_showroom {
+	width: 729px;
+	height: 410px;
+	overflow: hidden;
+}
+
+.news_block {
+	background: transparent url(images/news_block_bg.png) no-repeat;
+	height: 138px;
+	width: 201px;
+	float: left;
+	margin-right: 30px;
+	position: relative;
+}
+
+.news_block h2, #news_events h2 {
+	color: white;
+	text-transform: uppercase;
+	margin: 17px 0 0 11px;
+	font-size: 14px;
+}
+
+#news_events {
+	background: transparent url(images/news_events_bg.png) no-repeat;
+	height: 138px;
+	width: 268px;
+	float: right;
+}
+
+#more_news {
+	overflow: hidden;
+	margin-top: 10px;
+}
+
+/* newsletter form */
+
+#newsletter {
+	width: 177px;
+	position: absolute;
+	top: 50px;
+	left: 13px;
+	z-index: 99;
+}
+
+#newsletter input, #newsletter select {
+	margin: 1px 0;
+	border: 1px solid #454545;
+	font-size: 1em;
+	padding: 1px;
+}
+
+.newsletter_submit {
+	background-color: #D9291A;
+	float: right;
+	color: #FFF;
+}
+
+select.newsletter_form {
+	width: 177px;
+}
+
+input.newsletter_form {
+	width: 173px;
+}
+
+input.newsletter_form_name {
+	width: 83px;
+}
+
+/* social bookmarking */
+
+#fbook a {
+	background: transparent url(images/news_facebook_icon.png) no-repeat;
+}
+
+#youtube a {
+	background: transparent url(images/news_youtube_icon.png) no-repeat;
+}
+#myspace a {
+	background: transparent url(images/news_myspace_icon.png) no-repeat;
+}
+#schuelervz a {
+	background: transparent url(images/news_schuelervz_icon.png) no-repeat;
+}
+#twitter a {
+	background: transparent url(images/news_twitter_icon.png) no-repeat;
+}
+.news_block ul {
+	margin: 15px 30px;
+	list-style: none;
+}
+
+.news_block li a {
+	display: block;
+	height: 36px;
+	width: 36px;
+	margin: 2px 5px;
+}
+
+.news_block li {
+	float: left;
+}
+
+.news_block li a span {
+	display: none;
+}
+
+/* EVENTS */
+#news_events_flash {
+	background-color: pink;
+	height: 55px;
+	width: 266px;
+	margin: 24px 1px;
+}
+
+/* Star news */
+#news_ny_and_stars {
+	background-color: dodgerBlue;
+	height: 322px;
+	width: 729px;
+}
+
+/****************************
+* Homepage : Promotions/Ads
+****************************/
+
+#home_promotion_1 {
+	margin-top: 10px;
+}
+
+#home_promotion_2 {
+	margin-top: 15px;
+}
+
+#home_promotion_1 .list,
+#home_promotion_2 .list {
+	height: 100px;
+	width: 300px;
+	background-color: transparent;
+	float: left;
+	overflow: hidden;
+}
+
+#home_promotion_1 .list {
+	background-image: url(images/home_promotion_1.jpg);
+}
+
+#home_promotion_2 .list {
+	background-image: url(images/home_promotion_2.jpg);
+}
+
+#home_promotion_1 .next,
+#home_promotion_2 .next {
+	background: transparent url(images/home_promotion_arrow_right.gif) no-repeat bottom right;
+	width: 15px;
+	height: 80px;
+	float: left;
+}
+
+#home_promotion_1 .previous,
+#home_promotion_2 .previous {
+	background: transparent url(images/home_promotion_arrow_left.gif) no-repeat bottom left;
+	width: 13px;
+	height: 80px;
+	float: left;
+}
+
+/*******************************
+* Thickbox : shop => Get chips
+* *****************************/
+
+#shop-tabs .block_title_bar {
+	padding-left: 5px;
+}
+
+/* FIXME : too vague */
+.choose_package {
+	width: 600px;
+	height: 230px;
+	background: transparent url(images/bg_chips_package.png) bottom left repeat-x;
+	border: 1px solid #d7d7d7;
+}
+.choose_package .form-radios {
+	position: relative;
+}
+.chips_icon {
+	width: 35px;
+	height: 63px;
+	background: transparent url(images/chips_icon.png) top left no-repeat;
+	margin: 10px 5px 0 20px;
+}
+.chips_text {
+	padding: 15px 10px 0 10px;
+}
+.chips_title {
+	font-size: 13px;
+	font-weight: bold;
+	color: #000;
+}
+
+.chips_desc {
+	line-height: 20px;
+}
+
+#chips-paypal-form .form-item {
+	position: absolute;
+	color: #000;
+}
+#chips-paypal-form .form-item label {
+	font-weight: bold;
+}
+#chips-paypal-form #edit-amount-5-wrapper {
+	top: 0;
+	left: 80px;
+}
+
+#chips-paypal-form #edit-amount-10-wrapper {
+	top: 25px;
+	left: 80px;
+}
+
+#chips-paypal-form #edit-amount-20-wrapper	{
+	top: 50px;
+	left: 80px;
+}
+#chips-paypal-form #edit-amount-50-wrapper {
+	top: 0;
+	left: 350px;
+}
+#chips-paypal-form #edit-amount-100-wrapper {
+	top: 25px;
+	left: 350px;
+}
+#chips-paypal-form #edit-amount-150-wrapper {
+	top: 50px;
+	left: 350px;
+}
+
+.choose_payment {
+	width: 600px;
+	height: 146px;
+	background: transparent url(images/bg_chips_payment.png) bottom left repeat-x;
+	border: 1px solid #d7d7d7;
+	margin-top: 12px;
+}
+
+.choose_payment .poker_submit .label {
+	width: 150px;
+}
+
+.button_paypal	{
+	width: 165px;
+	height: 101px;
+	margin: 10px;
+	background: url(images/chips_buy_button.png) top left no-repeat;
+	cursor: pointer;
+	padding: 5px 10px;
+	text-align: center;
+}
+.button_paypal .poker_submit {
+	margin 0 auto;
+}
+.button_text {
+	width: 370px;
+	height: 70px;
+	margin: 10px 0;
+	padding: 5px 0;
+	color: #313131;
+}
+
+.logo_paypal {
+	width: 130px;
+	height: 49px;
+	background: transparent url(images/logo_paypal.png) top left no-repeat;
+	margin: 8px auto;
+}
+
+/*****************************
+ * General popup for messages
+ * sent out by Drupal
+ * ***************************/
+.messages-popup {
+	height: 300px;
+	width: 600px;
+	position: relative;
+}
+
+.messages-popup div.messages.status {
+	background-color: transparent !important;
+	background-image: none !important;
+	border: 0 !important;
+}
+
+div.poker_error_message {
+    /*background: url(images/bg_no_result.gif) no-repeat top left;*/
+    background: none;
+}
+#buddy_search_404 {
+	background: transparent url(images/buddies_sorry_not_found.png) no-repeat 0 0;
+	height: 363px;
+	position: absolute;
+	left: 0;
+	top: 56px;
+}
+#buddy_search_404_msg {
+	border-bottom: 1px dotted #D92322;
+	margin-left: 208px;
+	padding: 100px 0 20px 20px;
+	width: 254px;
+}
+
+/***********************************
+ * Homepage: Poker teaser
+ * image & flash tutorial
+ * ********************************/
+
+#poker-teaser .info {
+	color: #fff;
+	margin: 15px 80px 15px 15px;
+}
+
+#poker-teaser .info strong {
+	color: #A8904A;
+}
+
+#poker-teaser #poker-tutorial {
+	display: none;
+}
+
+#poker-teaser #poker-tutorial #TB_ajaxContent .tb-fix-margin {
+	margin: -2px -15px -15px;
+}
+
+/**********************************
+ * Welcome splash = overlay after
+ * account creation
+ *********************************/
+
+#os-poker-overlay .welcome-splash {
+	background-image: url(images/bg_welcome.jpg);
+	padding: 0;
+	height: 366px;
+	width: 566px;
+	margin-top: 100px !important; /* this overrides the overlay behaviour. */
+}
+
+#welcome-splash h1 {
+	display: none;
+}
+
+#welcome-splash .text {
+	color: #fff;
+	font-size: larger;
+	margin-left: 85px;
+	margin-top: 113px;
+	width: 335px;
+}
+
+#welcome-splash .text p {
+	margin-bottom: 1em;
+}
+
+#welcome-splash .text strong {
+	font-size: larger;
+}
+
+#welcome-splash ul.links {
+	margin-left: 146px;
+	/*width: 141px;*/
+	margin-top: 185px;
+	position: absolute;
+}
+
+#welcome-splash ul.links li {
+	margin-top: 5px;
+	display: block !important;
+}
+
+#welcome-splash ul.links a {
+	display: block;
+	width: 150px;
+	height: 30px;
+	padding-top: 7px;
+	background-image: url(images/button_welcome.gif);
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none !important;
+}
+
+/* FIXME : german */
+body.de #welcome-splash ul.links a {
+    font-size: 13px;
+	padding-top: 11px;
+	height: 24px;
+}
+
+/*******************************
+ * Thickbox Help => Poker hands
+ ******************************/
+
+.poker-hand.royal-flush {
+	background: url(images/cards/hands/royal_flush.gif) no-repeat;
+}
+.poker-hand.straight-flush {
+	background: url(images/cards/hands/straight_flush.gif) no-repeat;
+}
+.poker-hand.four-of-a-kind {
+	background: url(images/cards/hands/4_of_a_kind.gif) no-repeat;
+}
+.poker-hand.full-house {
+	background: url(images/cards/hands/full_house.gif) no-repeat;
+}
+.poker-hand.flush {
+	background: url(images/cards/hands/flush.gif) no-repeat;
+}
+.poker-hand.straight {
+	background: url(images/cards/hands/straight.gif) no-repeat;
+}
+.poker-hand.three-of-a-kind {
+	background: url(images/cards/hands/3_of_a_kind.gif) no-repeat;
+}
+.poker-hand.two-pairs {
+	background: url(images/cards/hands/2_pair.gif) no-repeat;
+}
+.poker-hand.one-pair {
+	background: url(images/cards/hands/one_pair.gif) no-repeat;
+}
+.poker-hand.high-card {
+	background: url(images/cards/hands/high_card.gif) no-repeat;
+}
+
+/**********************************
+ * Report abuse
+ * FIXME : where ist that ?
+ *********************************/
+
+body.poker-report-abuse #page {
+	padding-top: 1px;
+	background: #dedfe1 url(images/bg_report_abuse.png) repeat-x;
+}
+
+#os-poker-report-abuse-form label.option {
+	font-weight: bold;
+}
+
+#os-poker-report-abuse-form #edit-details-wrapper label {
+	margin-bottom: 10px;
+}
+
+/*****************************
+ * Tourney notification
+ * FIXME : where is that?
+ * **************************/
+
+#tourney-notify-template {
+	display: none;
+}
+#tourney-notify {
+	width: 742px;
+	height: 24px;
+	margin-bottom: 11px;
+	background-image: url(images/tourney-notify.jpg);
+	background-repeat: no-repeat;
+	background-color: transparent;
+	display: none;
+}
+
+#tourney-notify .notify-text {
+	padding-top: 6px;
+	text-align: center;
+	color: #65605c;
+}
+
+#tourney-notify a,
+#tourney-notify a:hover {
+	color: #65605c;
+	font-weight: bold;
+	font-decoration: none;
+}
+
+#tourney-notify a.close-button {
+	float: right;
+	display: block;
+	position: relative;
+	width: 19px;
+	height: 20px;
+	margin: 2px 4px 0px 0px;
+	background-image: url(images/close.png);
+	background-repeat: no-repeat;
+	background-color: transparent;
+	pointer: cursor;
+}
+
+/*****************************
+ * Static page : tourney-info
+ * ***************************/
+body.poker-tourneyinfo {
+	background: #141007 url(images/tourney_body_bg.png) repeat-x;
+}
+
+.poker-tourneyinfo #tourney-teaser {
+	width: 742px;
+	height: 208px;
+	display: block;
+	margin-bottom: 1em;
+	background: url(images/teaser-head.jpg) no-repeat center top;
+}
+.poker-tourneyinfo #tourney-teaser h2 {
+	display: none;
+}
+body.poker-tourneyinfo #middle-content-left {
+	width: 319px;
+	margin-right: 20px;
+}
+
+body.poker-tourneyinfo #middle-content-right {
+	width: 400px;
+}
+
+.poker-tourneyinfo .banner-box {
+	color: #fae991;
+	background: #000;
+	margin-bottom: 1.5em;
+}
+
+.poker-tourneyinfo .banner-box#become-member-box {
+	padding-bottom: 0.2em;
+}
+.poker-tourneyinfo .banner-box#become-member-box h3 {
+	background: url(images/member_banner_background_only.jpg) no-repeat -1px top;
+	height: 48px;
+	margin-bottom: 0.5em;
+}
+
+.poker-tourneyinfo .banner-box#become-member-box h3 span {
+	display: none;
+}
+
+.poker-tourneyinfo .banner-box#become-member-box .poker_submit {
+	margin: 1em 1em 0.3em 30px;
+	width: 110px;
+}
+
+.poker-tourneyinfo .banner-box p {
+	padding-left: 30px;
+	padding-right: 10px;
+	line-height: 1.4em;
+}
+
+.poker-tourneyinfo a#banner-tourney {
+	background: url(images/pb_tourney_banner.jpg);
+	display: block;
+	width: 322px;
+	height: 210px;
+}
+
+.poker-tourneyinfo a#banner-millions {
+	background: url(images/millions.jpg);
+	display: block;
+	width: 322px;
+	height: 162px;
+}
+
+.poker-tourneyinfo .tourney-infobox {
+	background: #333;
+	color: #e3e3e3;
+	padding-bottom: 0.3em;
+	margin-bottom: 1em;
+}
+.poker-tourneyinfo .tourney-infobox h3 {
+	color: #c4a13d;
+	background: #000 url(images/headlines_background.jpg) repeat-x top left;
+	padding: 4px 6px;
+	font-size: 1em;
+}
+
+.poker-tourneyinfo .tourney-infobox p,
+.poker-tourneyinfo .tourney-infobox ul,
+.poker-tourneyinfo .tourney-infobox ol {
+	margin: 1em;
+}
+
+.poker-tourneyinfo .tourney-infobox ul,
+.poker-tourneyinfo .tourney-infobox ol {
+	margin-left: 1.5em;
+	line-height: 1.4em;
+}
+
+.poker-tourneyinfo .tourney-infobox ul {
+	list-style: none;
+}
+
+.poker-tourneyinfo .tourney-infobox li {
+	margin-bottom: 0.3em;
+}
+
+.poker-tourneyinfo .tourney-infobox a {
+	color: #c4a13d;
+	text-decoration: underline;
+}
+.poker-tourneyinfo .tourney-infobox#tos-box a {
+	color: #e7e7e7;
+}
+
+.poker-tourneyinfo .tourney-infobox#prize-box ul {
+	font-weight: bold;
+}
+
+/*********************************
+ * Homepage, not logged in
+ * ******************************/
+/* Override page-front.css */
+
+#page-front-banners {
+	background: none !important;
+}
+
+/* Front page elements */
+#how_it_works {
+	background: transparent url(images/how_it_works_bg.png) no-repeat scroll -6px 0;
+	height: 285px;
+	width: 365px;
+}
+
+#how_it_works h4 {
+	font-size: 1em;
+}
+
+#how_description {
+	padding: 76px 30px 0 100px;
+}
+
+#how_description p, #how_it_works p  {
+	margin-top: 10px;
+}
+
+.white_boxes {
+	background-color: #FFF;
+	padding: 5px 6px;
+	margin-bottom: 10px;
+}
+
+.prize_box {
+	color: #000;
+	margin: 8px 10px;
+	overflow: hidden;
+	height: 113px;
+	background: transparent url(images/prize_box.gif) no-repeat scroll top right;
+	width: 344px;
+}
+
+.prize_txt {
+	padding: 13px 10px 10px 144px;
+}
+
+.prize_txt h3 {
+	text-transform: uppercase;
+	font-size: 11px;
+}
+
+.title_bar {
+	background-color: #000;
+	color: #FFF;
+	padding: 7px 9px;
+	text-transform: uppercase;
+	letter-spacing: -0.06em;
+	font-size: 13px;
+}
+
+/*****************************
+ * GAMES
+ * ***************************/
+
+/* Games page */
+
+.games_box {
+	background: transparent url(images/games_box_bg.png) repeat-x;
+	width: 358px;
+	height: 250px;
+
+}
+
+/* Games on homepage (unlogged) */
+
+.games_hp {
+	width: 166px;
+	color: #000;
+	overflow: none;
+	margin: 12px 8px;
+	float: left;
+}
+
+.games_hp h3 {
+	font-size: 1.1em;
+}
+
+.games_hp p {
+	margin: 2px 0 11px;
+}
+
+/********************************
+ * Homepage, SEO text
+ * ******************************/
+
+.seo_text {
+	color: #908F8F;
+}
+
+/**************
+ * Things from page-front.css that are not yet properly arranged
+ * *************************************************************/
+
+#messages {
+	color: #000;
+	font-size: 10px;
+	width: 295px;
+}
+
+#messages #terms {
+	margin-left: 116px;
+	position: absolute;
+	top: 305px;
+	width: 187px;
+}
+
+#terms a {
+	color: black;
+}
+
+/**
+ * Front page banners
+ */
+
+#page-front-banners {
+	padding: 0;
+	height: 175px;
+	width: 760px;
+	margin-left: -20px;
+	margin-bottom: -10px;
+	text-align: center;
+	position: relative; /* IE */
+}
+
+#page-front-banners a.banner {
+	display: inline-block;
+	height: 165px;
+	width: 0px;
+	margin-top: 7px;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-color: transparent;
+	background-position: center center;
+	background-repeat: no-repeat;
+	vertical-align: middle;
+}
+
+#page-front-banners a.banner span {
+	display: none;
+}
+
+#page-front-banners #banner-signup {
+  background-image: url('images/front-banner-signup.gif');
+  width: 198px;
+  height: 162px;
+}
+
+#page-front-banners #banner-tournament {
+  background-image: url('images/front-banner-tournament.gif');
+  width: 198px;
+  height: 162px;
+}
+
+#page-front-banners #banner-join {
+  background-image: url('images/front-banner-join.gif');
+  width: 321px;
+  height: 162px;
+}
+
+/* *******
+ * Quiz
+ * ******/
+
+#quiz {
+	background: #FFF url(images/quiz_bg_image.png) no-repeat 10px 10px;
+	min-height: 320px;
+	margin-top: 10px;
+	width: 439px;
+	padding: 50px 10px 10px 280px;
+	color: #000;
+}
+
+#quiz_play_now {
+	background: transparent url(images/quiz_start_button.png) no-repeat;
+	height: 55px;
+	width: 176px;
+	display: block;
+	margin-left: 15px;
+}
+#quiz_play_now span {
+	display: none;
+}
+
+#quiz_prize {
+	border-top: 1px solid #B0B0B0;
+	border-bottom: 1px solid #B0B0B0;
+	margin: 18px 0;
+	padding: 7px 150px 7px 15px;
+	font-weight: bold;
+}
+
+#quiz .form-item {
+	background-color: black;
+	padding: 4px 5px;
+	color: white;
+}
+
+#quiz input.form-radio {
+	display: none;
+}
+
+#multichoice_answer_text {
+	color: red;
+}
+
+/* *****************
+ * Games recurring elements : games & quiz HP
+ * ****************/
+
+#game_smallteaser_list {
+	background: url(images/quiz_games_teaser_bg.png) repeat-x 0 0;
+	margin-top: 10px;
+	padding-top: 19px;
+	position: relative;
+}
+
+#game_smallteaser_list h2 {
+	background: url(images/down_triangle.png) no-repeat center bottom;
+	color: #FFF;
+	font-weight: normal;
+	font-size: 9px;
+	position: absolute;
+	top: 4px;
+	left: 0;
+	padding-bottom: 8px;
+}
+
+#game_smallteaser_list h2 span {
+	background: #D9291A;
+	padding: 4px 8px;
+	border-right: 1px solid #FFF;
+}
+
+#moregames {
+	border-top: 1px solid #BEBEBE;
+	margin: 0 8px;
+	overflow: hidden;
+}
+#moregames a {
+	background: url(images/quiz_next.png) no-repeat;
+	height: 19px;
+	width: 87px;
+	margin: 9px 0;
+	display: block;
+	float: right;
+}
+#moregames span {
+	display: none;
+}
+
+/* *****************
+ * Games Homepage
+ * ****************/
+
+#column-right, #column-left {
+	width: 360px;
+}
+#column-right {
+	float: right;
+}
+#column-left {
+	float: left;
+}
+
+.games-presentation-box {
+	background: #fff;
+	color: #000;
+	border: 10px solid #8f8b88;
+	margin-top: 10px;
+	padding-bottom: 5px;
+	height: 235px; /* not really necessary. */
+}
+
+.games-presentation-box a.teaser {
+	display: block;
+	height: 160px;
+}
+
+.games-presentation-box#fashion-poker .teaser {
+	background-image: url(images/games_fashionpoker_teaser.png);
+}
+.games-presentation-box#poker-island .teaser {
+	background-image: url(images/games_island_teaser.png);
+}
+.games-presentation-box#fashion-air-hockey .teaser {
+	background-image: url(images/games_air_hockey_teaser.png);
+}
+.games-presentation-box#fashion-pinball .teaser {
+	background-image: url(images/games_pinball_teaser.png);
+}
+.games-presentation-box#fashion-quiz .teaser {
+	background-image: url(images/games_quiz_teaser.png);
+}
+.games-presentation-box#be-next-dj .teaser {
+	background-image: url(images/games_nextdj_teaser.png);
+}
+.games-presentation-box#chartingo .teaser {
+	background-image: url(images/games_chartingo_teaser.png);
+}
+
+.games-presentation-box .description {
+	margin: 5px;
+}
+.games-presentation-box .description strong {
+	display: block;
+}
+
+.games-presentation-box .submit_get {
+	margin-left: 5px;
+}
+
+/* *****************
+ * Games - Detail page
+ * ****************/
+
+.title_bar#pagetitle {
+	margin-bottom: 10px;
+}
+
+#game_illustration {
+	background: #edd3ae;
+	padding: 5px;
+	margin-bottom: 10px;
+}
+
+#game_description {
+	overflow: hidden;
+	padding-bottom: 20px;
+	margin-right: 10px;
+	margin-bottom: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+#startgame {
+	background: url(images/quiz_start_button.png) no-repeat;
+	width: 176px;
+	height: 44px;
+	display: block;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+#startgame span {
+	display: none;
+}
+
+#game_highscore_day, #game_helpful_links {
+	margin-right: 20px;
+	margin-left: 10px;
+	float: left;
+}
+
+#game_highscore_day {
+	background: url(images/games_detail_highscore_bg.png) no-repeat;
+	display: block;
+	width: 200px;
+	height: 111px;
+	padding: 10px;
+	overflow: hidden;
+	color: #fff;
+	margin-bottom: 40px;
+}
+
+#game_highscore_day h4 {
+	font-size: 13px;
+	margin: 3px 0 18px 0;
+	text-transform: uppercase;
+}
+
+#game_highscore_day p.score strong  {
+	display: block;
+}
+
+#game_highscore_day p.player-profile {
+	margin-top: 8px;
+}
+
+#game_highscore_day p.player-profile span {
+	padding-top: 7px;
+	display: block;
+}
+
+#game_highscore_day p.player-profile a {
+	display: block;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+#game_highscore_day p.player-profile img.avatar  {
+	display: block;
+	float: left;
+	margin-right: 10px;
+	width: 40px;
+	height: 40px;
+background: #fff; /*tmp*/
+}
+
+#game_helpful_links {
+	line-height: 1.4em;
+	clear: left;
+}
+
+#game_helpful_links a {
+	color: #d51e18;
+	text-decoration: underline;
+	display: block;
+	margin-bottom: 2em;
+}
+
+#game_smallteaser_list {
+	clear: both;
+}
+
+/* *****************
+ * Advertisments
+ * ****************/
+
+#skyscraper {
+	position: absolute;
+	left: 775px;
+	top: 152px;
+	overflow: hidden;
+	width: 180px;
+	height: 475px;
+}
+
+.ad-small {
+	width: 300px;
+	height: 100px;
+	background-color: pink;
+	overflow: hidden;
+}
+
+.ad-medium {
+	width: 300px;
+	height: 250px;
+	background-color: dodgerBlue;
+	overflow: hidden;
+}
+
+.ad-large {
+	width: 729px;
+	height: 90px;
+	background-color: orange;
+	overflow: hidden;
+}
