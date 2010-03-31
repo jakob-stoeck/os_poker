@@ -118,13 +118,6 @@ function p4f_preprocess_page(&$variables) {
   }
 }
 
-function p4f_preprocess_page_front_banners(&$variables)
-{
-  $variables['banners'][] = theme('page_front_banner', 'banner-signup', t('Sign up now and get a bonus! <strong>$1000 Chips</strong>'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-tournament',  t('$1Mio. chips tournament!'), '');
-  $variables['banners'][] = theme('page_front_banner', 'banner-join', t('Join the world\'s <strong>sexiest poker!</strong>'), '');
-}
-
 function p4f_preprocess_block(&$variables) {
   $block =& $variables['block'];
   $classes = $variables['classes'];
