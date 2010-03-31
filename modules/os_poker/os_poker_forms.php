@@ -190,7 +190,7 @@ function	os_poker_sign_up_form($form_state)
   /* A form element to display form error inside the form */
   $form['errors'] = array(
     '#type' => 'markup',
-    '#pre_render' => array('os_poker_sign_up_form_errors'),
+    '#pre_render' => array('os_poker_sign_up_form_pre_render_errors'),
   );
 
   return $form;
@@ -199,8 +199,9 @@ function	os_poker_sign_up_form($form_state)
 /**
  * Pre_render handler for os_poker_sign_up_form errors element.
  */
-function os_poker_sign_up_form_errors($element) {
-  if ($messages = form_get_errors()) {
+function os_poker_sign_up_form_pre_render_errors($element) {
+
+  if (isset($_POST['form_id']) && $_POST['form_id'] == 'os_poker_sign_up_form' && $messages = form_get_errors()) {
     //Render the form errors (except those for the 'name' field) as an ul inside
     //a div.messages.errors
     unset($messages['name']);
