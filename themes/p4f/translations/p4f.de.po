@@ -1,48 +1,29 @@
-# $Id$
-#
-# LANGUAGE translation of Drupal (general)
-# Copyright YEAR NAME <EMAIL@ADDRESS>
-# Generated from files:
-#  buddies-list.tpl.php: n/a
-#  buddy-block.tpl.php: n/a
-#  profile.tpl.php: n/a
-#  comment-wrapper.tpl.php,v 1.2 2008/09/14 12:12:38 johnalbin
-#  comment.tpl.php,v 1.3 2008/09/14 12:09:37 johnalbin
-#  node.tpl.php,v 1.4 2008/09/15 08:11:49 johnalbin
-#  footer.tpl.php: n/a
-#  maintenance-page.tpl.php,v 1.1.2.1 2009/02/13 18:17:08 johnalbin
-#  page.tpl.php,v 1.14.2.6 2009/02/13 16:28:33 johnalbin
-#  os-poker-teaser.tpl.php: n/a
-#  page-front-banners.tpl.php: n/a
-#  user_brief.tpl.php: n/a
-#  shop_tabs.tpl.php: n/a
-#  table_users.tpl.php: n/a
-#  template.php: n/a
-#  user_header_brief.tpl.php: n/a
-#  p4f.info: n/a
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: P4F Poker Integration\n"
 "POT-Creation-Date: 2010-03-31 18:28+0200\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
 
-#: buddies-list.tpl.php:51 buddy-block.tpl.php:34;39 profile.tpl.php:132
+#: buddies-list.tpl.php:51
+#: buddy-block.tpl.php:34;39
+#: profile.tpl.php:132
 msgid "Challenge"
 msgstr ""
 
-#: buddies-list.tpl.php:57 buddy-block.tpl.php:47
+#: buddies-list.tpl.php:57
+#: buddy-block.tpl.php:47
 msgid "Join table"
 msgstr ""
 
-#: buddies-list.tpl.php:60 buddy-block.tpl.php:53
+#: buddies-list.tpl.php:60
+#: buddy-block.tpl.php:53
 msgid "Invite now"
 msgstr ""
 
@@ -58,7 +39,8 @@ msgstr ""
 msgid "Invite a buddy"
 msgstr ""
 
-#: buddy-block.tpl.php:60 profile.tpl.php:127
+#: buddy-block.tpl.php:60
+#: profile.tpl.php:127
 msgid "Send Gifts"
 msgstr ""
 
@@ -74,7 +56,8 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: comment.tpl.php:48 node.tpl.php:62
+#: comment.tpl.php:48
+#: node.tpl.php:62
 msgid "Unpublished"
 msgstr ""
 
@@ -102,7 +85,10 @@ msgstr ""
 msgid "Skip to Navigation"
 msgstr ""
 
-#: maintenance-page.tpl.php:41;41;46 page-front.tpl.php:102;103 page-poker-first_profile.tpl.php:98;99 page.tpl.php:102;103
+#: maintenance-page.tpl.php:41;41;46
+#: page-front.tpl.php:102;103
+#: page-poker-first_profile.tpl.php:98;99
+#: page.tpl.php:102;103
 msgid "Home"
 msgstr ""
 
@@ -190,11 +176,13 @@ msgstr ""
 msgid "Player since"
 msgstr ""
 
-#: profile.tpl.php:15 user_brief.tpl.php:8
+#: profile.tpl.php:15
+#: user_brief.tpl.php:8
 msgid "Status"
 msgstr ""
 
-#: profile.tpl.php:15 user_brief.tpl.php:6
+#: profile.tpl.php:15
+#: user_brief.tpl.php:6
 msgid "Chips"
 msgstr ""
 
