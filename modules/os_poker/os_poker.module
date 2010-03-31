@@ -1587,8 +1587,8 @@ function os_poker_mail($key, &$message, $params) {
           $variables['!support'] = user_load(1)->mail;
         }
       }
-      $message['subject'] = t('Successful registration');
-      $message['body'][] = t("Hello !username,\nWelcome to !site'You can login at any time log in with the following e-mail: !mailto\nThis link takes you directly to the game: !uri\nIf you have questions or problems please turn to !support\nWe hope you'll enjoy this game!\nYour !site Team.", $variables, $language);
+      $message['subject'] = _os_poker_mail_text('welcome_subject', $language, $variables);
+      $message['body'][] = _os_poker_mail_text('welcome_body', $language, $variables);
       break;
   }
 }
@@ -1942,4 +1942,27 @@ function os_poker_format_date($timestamp) {
 		}
 
 		return $day . " at " .  date("h:i", $timestamp);
+}
+
+// Returns mail subject and body
+// TODO: All emails sent by os_poker should be included here.
+function _os_poker_mail_text($key, $language = NULL, $variables = array()) {
+  $langcode = isset($language) ? $language->language : 'en';
+
+  if ($admin_setting = variable_get('os_poker_mail_'. $key, FALSE)) {
+    // An admin setting overrides the default string.
+    return strtr($admin_setting, $variables);
+  }
+  else {
+    // No override, return default string.
+    switch ($key) {
+	case 'welcome_subject':
+		return t("Successful registration", $variables, $langcode);
+		break;
+
+	case 'welcome_body':
+		return t("Registration successful!", $variables, $langcode);
+		break;
+	}
+  }
 }
