@@ -1961,7 +1961,22 @@ function _os_poker_mail_text($key, $language = NULL, $variables = array()) {
 		break;
 
 	case 'welcome_body':
-		return t("Registration successful!", $variables, $langcode);
+			$text = '
+Hello !username,
+
+Welcome to !site
+
+You can login at any time log in with the following data: E-mail: !mailto
+
+This link takes you directly to the game: !uri
+
+If you have questions or problems please turn to !support
+
+We hope you\'ll enjoy this game!
+
+Your !site Team
+';
+		return t($text, $variables, $langcode);
 		break;
 	}
   }
