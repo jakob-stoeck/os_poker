@@ -170,10 +170,8 @@ function	os_poker_sign_up_form($form_state)
   $form['#submit'] = array('user_register_submit', 'os_poker_sign_up_form_submit');
   $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
 
-  if (!variable_get('user_email_verification', TRUE)) {
-    array_unshift($form['#submit'], 'password_policy_password_submit');
-    array_unshift($form['#validate'], array_shift($form['#validate']), 'password_policy_password_validate');
-  }
+	array_unshift($form['#submit'], 'password_policy_password_submit');
+	array_unshift($form['#validate'], 'password_policy_password_validate');
 
 	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
