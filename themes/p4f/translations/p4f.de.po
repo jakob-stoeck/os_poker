@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: P4F Poker Integration\n"
-"POT-Creation-Date: 2010-03-31 18:28+0200\n"
+"POT-Creation-Date: 2010-04-01 14:30+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Lord Byron <Akrostichon.Maniac@web.de>\n"
+"Last-Translator: Egge\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,6 +89,7 @@ msgstr "Zur Navigation"
 #: page-front.tpl.php:102;103
 #: page-poker-first_profile.tpl.php:98;99
 #: page.tpl.php:102;103
+#: translations/menu.php:2
 msgid "Home"
 msgstr "Home"
 
@@ -380,39 +381,39 @@ msgstr ""
 
 #: translations/menu.php:3
 msgid "Games"
-msgstr ""
+msgstr "Spiele"
 
 #: translations/menu.php:4
 msgid "Poker"
-msgstr ""
+msgstr "Poker"
 
 #: translations/menu.php:5
 msgid "Quiz"
-msgstr ""
+msgstr "Quiz"
 
 #: translations/menu.php:6
 msgid "Flashgames"
-msgstr ""
+msgstr "Spiele"
 
 #: translations/menu.php:7
 msgid "Prizes"
-msgstr ""
+msgstr "Preise"
 
 #: translations/menu.php:8
 msgid "Reload Account"
-msgstr ""
+msgstr "Coins aufladen"
 
 #: translations/menu.php:9
 msgid "News"
-msgstr ""
+msgstr "News"
 
 #: translations/menu.php:10
 msgid "My Play4Fashion"
-msgstr ""
+msgstr "Mein Play4Fashion"
 
 #: translations/menu.php:11
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: translations/menu.php:12
 msgid "Messages"
@@ -424,12 +425,13 @@ msgstr "Freunde"
 
 #: translations/menu.php:14
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: translations/menu.php:15
 msgid "Coins"
-msgstr ""
+msgstr "Coins"
 
 #: translations/menu.php:16
 msgid "Help"
 msgstr "Hilfe"
+
