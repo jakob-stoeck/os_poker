@@ -1,0 +1,56 @@
+#user-login-form {
+	width: 330px; /* only used when not logged in */
+}
+
+div#user_login {
+	width: 400px;
+}
+
+/* buy / invite buttons must have the same size in german */
+#user_login .poker_submit .label {
+	width: 60px !important;
+}
+
+#poker-teaser .title
+{
+  text-indent: -10000px;
+  display: block;
+  width: 411px;
+  height: 55px;
+  background-image: url(images/teaser-title-de.gif);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#home_signup .title
+{
+  text-indent: -10000px;
+  display: block;
+  width: 300px;
+  height: 55px;
+  background-image: url(images/signup-title-de.gif);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#poker-teaser .subtitle
+{
+  display: none;
+}
+
+#page-front-banners #banner-signup
+{
+  background-image: url('images/front-banner-signup-de.gif');
+}
+
+#page-front-banners #banner-tournament
+{
+  background-image: url('images/front-banner-tournament-de.gif');
+}
+
+#page-front-banners #banner-join
+{
+  background-image: url('images/front-banner-join-de.gif');
+}

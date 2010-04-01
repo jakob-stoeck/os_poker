@@ -8,18 +8,18 @@
 				<?php print t("Welcome") . ",<br/>" . ucfirst($os_user->profile_nickname); ?>
 			</p>
 			<p class="info">
-				<?php 
+				<?php
 					print t("Chips") . ": <b class='chips'>" . $os_user->Chips(TRUE) . "</b><br/>";
-					
+
 					$s = $os_user->StatusEx($level, $maxl);
-					
+
 					print t("Status") . ": {$s} ({$level}/{$maxl})";
 				?>
 			</p>
 		</div>
 
-		<?php 
-													 //			if (($num_rewards = $os_user->GetNumRewards())) 
+		<?php
+													 //			if (($num_rewards = $os_user->GetNumRewards()))
 			 if (1)
 			{
 			  $num_rewards = $os_user->GetNumRewards();
@@ -30,7 +30,7 @@
 			  $defaultPicture = $imagePath ."reward_default.gif";
 
 		?>
-	
+
 			<div class="fleft reward_separator">
 				<img src="<?php print drupal_get_path("theme", "poker") . "/images/brief_separator.png"; ?>" alt="avatar"/>
 			</div>
@@ -57,9 +57,9 @@
 			      <?php print($num_rewards." / ".count($rewards)); ?>
 			    </p></div>
 			</div>
-			
+
 		<?php } ?>
-		
+
 		<div class="clear"></div>
 	</div>
 </div>
