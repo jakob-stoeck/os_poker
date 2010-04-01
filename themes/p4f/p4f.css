@@ -79,6 +79,7 @@ a.LayerClose, a.closebutton {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+	width: 305px;
 }
 
 .clear {
