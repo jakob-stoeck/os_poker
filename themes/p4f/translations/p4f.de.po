@@ -378,3 +378,58 @@ msgstr ""
 msgid "footer"
 msgstr ""
 
+#: translations/menu.php:3
+msgid "Games"
+msgstr ""
+
+#: translations/menu.php:4
+msgid "Poker"
+msgstr ""
+
+#: translations/menu.php:5
+msgid "Quiz"
+msgstr ""
+
+#: translations/menu.php:6
+msgid "Flashgames"
+msgstr ""
+
+#: translations/menu.php:7
+msgid "Prizes"
+msgstr ""
+
+#: translations/menu.php:8
+msgid "Reload Account"
+msgstr ""
+
+#: translations/menu.php:9
+msgid "News"
+msgstr ""
+
+#: translations/menu.php:10
+msgid "My Play4Fashion"
+msgstr ""
+
+#: translations/menu.php:11
+msgid "Profile"
+msgstr ""
+
+#: translations/menu.php:12
+msgid "Messages"
+msgstr "Nachrichten"
+
+#: translations/menu.php:13
+msgid "Friends"
+msgstr "Freunde"
+
+#: translations/menu.php:14
+msgid "Settings"
+msgstr ""
+
+#: translations/menu.php:15
+msgid "Coins"
+msgstr ""
+
+#: translations/menu.php:16
+msgid "Help"
+msgstr "Hilfe"

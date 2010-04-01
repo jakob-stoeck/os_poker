@@ -174,10 +174,13 @@ function p4f_menu_item_link($link) {
   if (empty($link['localized_options'])) {
     $link['localized_options'] = array();
   }
+  //FIXME: This shouldn't be used. Please fix #179 and do proper menu items
+  //transation as documented on http://drupal.org/node/313302
+  $title = $link[title] ? t($link[title]) : $link[title];
   if ($link['href'] == "http://none") {
-    return "<a href=\"#\">$link[title]</a>";
+    return "<a href=\"#\">$title</a>";
   }
   else {
-    return l($link['title'], $link['href'], $link['localized_options']);
+    return l($title, $link['href'], $link['localized_options']);
   }
 }
