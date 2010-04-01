@@ -19,7 +19,7 @@
 	 });
       </script>
 
-		</div>		
+		</div>
 		<div class="next"></div>
 		<div class="clear"></div>
 	</div>
