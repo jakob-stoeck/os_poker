@@ -524,7 +524,7 @@ body.iframe #main {
 ************************/
 
 .poker_submit {
-	color: #fff;
+	color: #fff !important;
 	font: normal 10px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -534,7 +534,7 @@ body.iframe #main {
 
 .submit_get {
 	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
-	color: #fff;
+	color: #fff !important;
 	font: normal 10px Arial, sans-serif;
 	padding: 1px 5px 1px 12px;
 	font-size: 10px;
@@ -648,7 +648,7 @@ body.iframe #main {
   display: none;
 }
 
-#navbar ul ul {	
+#navbar ul ul {
 	position: absolute;
 	width: 500px;
 	margin-left: -9px;

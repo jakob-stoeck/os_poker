@@ -97,6 +97,8 @@ div.tb-fix-margin a.LayerClose {
 	color:white;
 }
 
+/* FIXME : this should not be here it is too specific */
+
 #profile-tabs .poker_submit .label
 {
 	color:#6E4809;
