@@ -38,10 +38,8 @@ function	os_poker_brutal_logout()
 function	os_poker_init_menu()
 {
 	//Prepare menu for Thickbox
-	$("#block-menu-secondary-links a, a#forgot_password, #block-menu-menu-messages-links a, #block-menu-menu-end-links .first a").each(function() {
+	$(".menu-block a[href*=TB_iframe=true]:not(.thickbox), a#forgot_password, #block-menu-menu-messages-links a, #block-menu-menu-end-links .first a").each(function() {
 		var tg = $(this).attr("href");
-		
-		$(this).attr("href", tg + "&keepThis=true&TB_iframe=true");
 		$(this).attr("class", "thickbox");
 	});
 
