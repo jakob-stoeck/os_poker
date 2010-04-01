@@ -109,3 +109,16 @@ body.not-logged-in #middle-content-right {
     width: 190px;
     padding: 1px;
 }
+
+/*****************************
+ * optin
+ * *************************/
+
+#registration-window, #registration-successful, #password-reset {
+	color: #fff;
+	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
+}
+
+#registration-successful {
+	width: 379px !important;
+}
