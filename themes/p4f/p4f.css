@@ -452,9 +452,10 @@ body.iframe #main {
 	font-size: 10px !important;
 }
 
-#user_login #forgot_password {
+#user_login #open-forgot-password {
 	text-transform: none;
 	margin-left: 5px;
+	margin-top: 7px;
 }
 
 *:first-child+html #user_login #edit-remember-me-wrapper {
@@ -462,8 +463,9 @@ body.iframe #main {
 	margin-left: -5px;
 }
 
-*:first-child+html #user_login #forgot_password {
+*:first-child+html #user_login #open-forgot-password {
 	padding-top: 5px !important;
+	margin-top: 6px;
 }
 
 #user_login #edit-remember-me {

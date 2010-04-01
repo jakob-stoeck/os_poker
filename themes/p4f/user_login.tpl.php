@@ -6,6 +6,6 @@
 	<div class="fright"><?php print $rendered; ?></div>
 	<div class="clear"></div>
 	<div class="fleft"><?php print $f_remember_me ?></div>
-	<div class="fleft"> &raquo; <?php  print $f_links; ?></div>
+	<div class="fleft" id="open-forgot-password"> &raquo; <?php  print $f_links; ?></div>
 	<div class="usr_login_clear"></div>
 </div>
