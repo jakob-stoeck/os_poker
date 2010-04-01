@@ -14,12 +14,12 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-02-08 16:28+0100\n"
-"PO-Revision-Date: 2010-02-09 01:25+0100\n"
+"POT-Creation-Date: 2010-03-30 16:03+0200\n"
+"PO-Revision-Date: 2010-03-30 22:15+0100\n"
 "Last-Translator: Lord Byron <Akrostichon.Maniac@web.de>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
@@ -32,13 +32,27 @@ msgstr "Comments"
 msgid "Unpublished"
 msgstr "Unpublished"
 
+#: home_signup.tpl.php:3
+msgid "SIGN UP : It's free and anyone can join !"
+msgstr "REGISTRIEREN: Kostenlos anmelden und mitmachen!"
+
+#: home_signup.tpl.php:9
+msgid "Play poker with your friends and our bunnys!"
+msgstr "Spiele Poker mit Deinen Freunden und unseren Bunnies!"
+
+#: home_signup.tpl.php:10
+msgid "Sex is like a poker game. If you do not have a good partner, you at least have to have a damn good hand."
+msgstr "Sex ist wie ein Pokerspiel. Wenn Du keinen guten Partner hast, musst Du wenigstens eine verdammt gute Hand haben."
+
 #: maintenance-page.tpl.php:32
 msgid "Skip to Navigation"
 msgstr "Skip to Navigation"
 
 #: maintenance-page.tpl.php:41;41;46
-#: page-front.tpl.php:98;99
-#: page-poker-first_profile.tpl.php:98;99
+#: page-front.tpl.php:99;100
+#: page-poker-first_profile.tpl.php:99;100
+#: page-poker-pages.tpl.php:99;100
+#: page-poker-skin.tpl.php:98;99
 #: page.tpl.php:98;99
 msgid "Home"
 msgstr "Home"
@@ -47,49 +61,86 @@ msgstr "Home"
 msgid " in "
 msgstr " in "
 
-#: template.php:60
-msgid "Sign up now and get a bonus! <strong>$1000 Chips</strong>"
-msgstr "Jetzt Anmelden und Startguthaben sichern! <strong>$1000 Chips</strong>"
+#: os-poker-teaser.tpl.php:4
+msgid "Poker with your friends and our Bunnys"
+msgstr "Poker mit Deinen Freunden und unseren Bunnies"
 
-#: template.php:61
-msgid "$1Mio. chips tournament!"
-msgstr "Poker mit unseren Bunnys!"
+#: os-poker-teaser.tpl.php:5
+msgid "Learn Texas Hold'em No Limit and win hot prizes!"
+msgstr "Lerne Texas Hold’em No Limit und gewinne heiße Preise!"
 
-#: template.php:62
-msgid "Join the world's <strong>sexiest poker!</strong>"
-msgstr "Monthly Millions! Spiele jeden Monat das PlayboyPoker Turnier um <strong>$1 Million Chips</strong>*"
+#: os-poker-teaser.tpl.php:6
+msgid "Register now for free"
+msgstr "Jetzt kostenlos anmelden"
 
-#: template.php:84
-msgid "Play Texas Hold'em Poker with your Fiends."
-msgstr "Lust auf eine Partie Poker?"
+#: os-poker-teaser.tpl.php:7
+msgid "Experience with us the exciting world of poker! Get your thrills in high stakes games and tournaments and play for millions without any risk."
+msgstr "Erlebe bei uns die spannende Welt des Pokerspiels! Hol Dir den Nervenkitzel, in High Stakes Partien und Turnieren um Millionen zu zocken, völlig ohne Risiko."
 
-#: template.php:85
-msgid "Get <strong>free</strong> Pokerchips every day that you play!"
-msgstr "Poker mit deinen Freunden und unseren Bunnys!"
+#: os-poker-teaser.tpl.php:8
+msgid "The better you play, the greater your chances for a date with a Playmate."
+msgstr "Je besser Du spielst, desto größer wird Deine Chancen auf ein Date mit einer Playmate."
 
-#: template.php:86
-msgid "<strong><span class=\"star\">*</span> Become a high roller and win hot prizes</strong>"
-msgstr "<strong><span class=\"star\">*</span> Werde zum Highroller und gewinne heiße Preise!</strong>"
+#: os-poker-teaser.tpl.php:9
+msgid "$1.000 Start bonus"
+msgstr "$1.000 Chips Startbonus"
 
-#: template.php:87
-msgid "Experience with us the exciting world of poker!"
-msgstr "Erlebe bei uns die spannende Welt des Pokerspiels!"
+#: os-poker-teaser.tpl.php:11
+msgid "Poker Tutorial"
+msgstr "Poker Tutorial"
 
-#: template.php:88
-msgid "Get your thrills in high-stakes games and tournaments, playing for millions, without any risk. All stakes are just virtual game money with no value."
-msgstr "Hol Dir den Nervenkitzel, in High Stakes Partien und Turnieren um Millionen zu zocken, völlig ohne Risiko. Bei sämtlichen Einsätzen handelt es sich um virtuelles Spielgeld ohne Gegenwert."
+#: os-poker-teaser.tpl.php:12;34;34
+msgid "This is how it works"
+msgstr "So funktioniert's"
 
-#: template.php:90
-msgid "Poker Table"
-msgstr "Poker Table"
+#: os-poker-teaser.tpl.php:15
+msgid "You play in all games with virtual game money with no value."
+msgstr "Bei sämtlichen Einsätzen handelt es sich um virtuelles Spielgeld ohne Gegenwert."
 
-#: template.php:98
+#: os-poker-teaser.tpl.php:35
+msgid "Poker with our Bunnies"
+msgstr "Poker mit unseren Bunnies!"
+
+#: os-poker-teaser.tpl.php:36
+msgid "Join the world&#039;s sexiest poker!"
+msgstr "Spiele Poker mit Deinen Freunden und unseren Bunnies!"
+
+#: page-front.tpl.php:128
+#: page-poker-skin.tpl.php:127
+msgid "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
+msgstr "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
+
+#: page-front.tpl.php:223
+msgid "Play online poker at Playboy Poker"
+msgstr "Online Poker spielen bei Playboy Poker"
+
+#: page-front.tpl.php:224
+msgid "If you are always playing online poker, or want to learn it, then Playboy Poker is the place for you. We not only offer exciting poker tournaments with hot prices, but also all information about the poker rules and poker strategies to be successful at the poker table."
+msgstr "Falls Du schon immer online Poker spielen oder es lernen möchtest, dann ist Playboy Poker der richtige Ort für Dich. Wir bieten nicht nur spannende Poker Turniere mit heissen Preisen, sondern auch alle Informationen über die Poker Regeln und Poker Strategien, um am Pokertisch erfolgreich zu sein."
+
+#: page-front.tpl.php:225
+msgid "On our free poker site you will perhaps become the next star of the poker world and win a date with one of our Playmates. You play on our poker tables the most popular poker variant Texas Hold'em No Limit."
+msgstr "Auf unserer kostenlosen Pokerseite wirst Du vielleicht der nächste Star der Pokerwelt und gewinnst ein Date mit einem unserer Playmates. Bei uns spielst Du die zur Zeit beliebteste Poker-Variante Texas Hold‘em No Limit."
+
+#: template.php:105
 msgid "Click here!"
 msgstr "Klick hier!"
 
-#: template.php:115
+#: template.php:124
 msgid "Sorry, your browser does not support Flash."
 msgstr "Sorry, your browser does not support Flash."
+
+#: template.php:127
+msgid "Full player data will also be rewarded with 2,000 poker chips!"
+msgstr "Vollständige Spielerdaten werden zusätzlich mit 2.000 Pokerchips belohnt!"
+
+#: template.php:128
+msgid "Our tip:"
+msgstr "Unser Tipp:"
+
+#: template.php:129
+msgid "For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips."
+msgstr "Für jeden Freund, den Du erfolgreich zu Playboy Poker einlädst,kassieren Du und Dein Freund zusätzliche Pokerchips."
 
 #: pbpoker.info:0
 msgid "Playboy Poker"
@@ -138,4 +189,22 @@ msgstr "bottom content"
 #: pbpoker.info:0
 msgid "footer"
 msgstr "footer"
+
+#~ msgid "Sign up now and get a bonus! <strong>$1000 Chips</strong>"
+#~ msgstr ""
+#~ "Jetzt Anmelden und Startguthaben sichern! <strong>$1000 Chips</strong>"
+#~ msgid "$1Mio. chips tournament!"
+#~ msgstr "Poker mit unseren Bunnys!"
+#~ msgid "Play Texas Hold'em Poker with your Fiends."
+#~ msgstr "Lust auf eine Partie Poker?"
+#~ msgid "Get <strong>free</strong> Pokerchips every day that you play!"
+#~ msgstr "Poker mit deinen Freunden und unseren Bunnys!"
+#~ msgid ""
+#~ "<strong><span class=\"star\">*</span> Become a high roller and win hot "
+#~ "prizes</strong>"
+#~ msgstr ""
+#~ "<strong><span class=\"star\">*</span> Werde zum Highroller und gewinne "
+#~ "heiße Preise!</strong>"
+#~ msgid "Experience with us the exciting world of poker!"
+#~ msgstr "Erlebe bei uns die spannende Welt des Pokerspiels!"
 
