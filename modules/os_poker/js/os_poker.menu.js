@@ -38,13 +38,17 @@ function	os_poker_brutal_logout()
 function	os_poker_init_menu()
 {
 	//Prepare menu for Thickbox
-	$(".menu-block a[href*=TB_iframe=true]:not(.thickbox), a#forgot_password, #block-menu-menu-messages-links a, #block-menu-menu-end-links .first a").each(function() {
-		var tg = $(this).attr("href");
-		$(this).attr("class", "thickbox");
-	});
-
-  //Add thickboxing to links to poker/help
-  $('a[href*=poker/help]:not(.thickbox)').addClass('thickbox');
+  //Backward compatibility code to provide thickboxing of menu enries without
+  //TB_iframe=true in their hrefs.
+  $("#block-menu-secondary-links a, #block-menu-menu-messages-links a, #block-menu-menu-end-links .first a").each(function() {
+    var $this = $(this);
+    var href = $this.attr('href');
+    if(href.indexOf('keepThis=true&TB_iframe=true') < 0) {
+      $(this).attr("href", href + "&keepThis=true&TB_iframe=true");
+    }
+  });
+  //Add thickbox class to menu entries, help links and the forgot password link.
+  $(".menu-block a[href*=TB_iframe=true]:not(.thickbox), .menu-block a[href*=#TB_inline]:not(.thickbox), a[href*=poker/help]:not(.thickbox), a#forgot_password:not(.thickbox)").addClass('thickbox');
 
 	//Messagebox item
 	os_poker_init_messagebox();
