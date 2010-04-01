@@ -62,12 +62,17 @@ body.not-logged-in #middle-content-right {
 }
 
 #home_signup_form {
-	padding-top: 20px;
+	padding-top: 10px;
+}
+
+#home_signup_form .form-item {
+    margin-top: 0;
+    margin-bottom: 0.5em;
 }
 
 #home_signup_form .form-item label {
 	float: left;
-	width: 90px;
+	width: 100px;
 	text-align: right;
 	color: #000;
 	font-weight: normal;
@@ -81,14 +86,9 @@ body.not-logged-in #middle-content-right {
 }
 
 #os-poker-sign-up-form input {
-	width: 176px !important;
 	background: #000;
 	border: 1px solid #000;
 	color: #FFF;
-}
-
-#home_signup_form .form-item {
-    margin-top: 0;
 }
 
 #home_signup_form .form-required {
@@ -97,8 +97,8 @@ body.not-logged-in #middle-content-right {
 
 #home_signup_form div.poker_submit {
 	position: absolute;
-	right: 55px;
-	bottom: 145px;
+	right: 31px;
+	bottom: 143px;
 }
 
 #home_signup_form .poker_submit {

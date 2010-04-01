@@ -79,6 +79,7 @@ a.LayerClose, a.closebutton {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
+	width: 305px;
 }
 
 .clear {
@@ -417,6 +418,7 @@ body.iframe #main {
 	margin-right: 20px;
 	margin-top: 5px;
 	text-align: left;
+	width: 255px; /* override page-front-de.css */
 }
 
 #login_title {
@@ -524,7 +526,7 @@ body.iframe #main {
 ************************/
 
 .poker_submit {
-	color: #fff;
+	color: #fff !important;
 	font: normal 10px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -534,7 +536,7 @@ body.iframe #main {
 
 .submit_get {
 	background: #D9291A url(images/arrow_white.gif) no-repeat 6px center;
-	color: #fff;
+	color: #fff !important;
 	font: normal 10px Arial, sans-serif;
 	padding: 1px 5px 1px 12px;
 	font-size: 10px;
@@ -552,14 +554,15 @@ body.iframe #main {
 	display: none;
 }
 
-.poker_submit div.label {
+.poker_submit .label {
 	background: url(images/arrow_white.gif) no-repeat 3px center;
 	display: block;
 	float: left;
 	text-align: center;
 	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
-	color: #FFF;
+	color: #FFF !important;
+	font-weight: normal !important;
 	width: 60px; /* fixme : use this only in places where it needs to be resized ? */
 }
 
@@ -648,7 +651,7 @@ body.iframe #main {
   display: none;
 }
 
-#navbar ul ul {	
+#navbar ul ul {
 	position: absolute;
 	width: 500px;
 	margin-left: -9px;
@@ -1037,16 +1040,6 @@ body.iframe #main {
 	height: 46px;
 	width: 320px;
 	margin-top: 10px;
-}
-
-#play-now-inner {
-	/*position: absolute;*/
-	/*top: -30px;*/
-}
-
-/* FIXME : this part should go to a specific german CSS ie p4f-de.css */
-body.de #play-now #play-now-button {
-	background-image: url(images/play_now-de.png);
 }
 
 /********************************
@@ -2874,10 +2867,11 @@ body.poker-tourneyinfo #middle-content-right {
 }
 
 #messages #terms {
-	margin-left: 116px;
+	margin-left: 125px;
 	position: absolute;
 	top: 155px;
-	width: 187px;
+	width: 205px;
+	line-height: 1em;
 }
 
 #terms a {
