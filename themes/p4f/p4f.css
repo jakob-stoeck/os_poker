@@ -417,6 +417,7 @@ body.iframe #main {
 	margin-right: 20px;
 	margin-top: 5px;
 	text-align: left;
+	width: 255px; /* override page-front-de.css */
 }
 
 #login_title {
