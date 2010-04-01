@@ -552,14 +552,15 @@ body.iframe #main {
 	display: none;
 }
 
-.poker_submit div.label {
+.poker_submit .label {
 	background: url(images/arrow_white.gif) no-repeat 3px center;
 	display: block;
 	float: left;
 	text-align: center;
 	padding: 2px 6px 2px 9px;
 	background-color: #D9291A;
-	color: #FFF;
+	color: #FFF !important;
+	font-weight: normal !important;
 	width: 60px; /* fixme : use this only in places where it needs to be resized ? */
 }
 
