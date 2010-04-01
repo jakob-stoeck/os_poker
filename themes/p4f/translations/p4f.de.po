@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: P4F Poker Integration\n"
 "POT-Creation-Date: 2010-03-31 18:28+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: \n"
+"Last-Translator: Lord Byron <Akrostichon.Maniac@web.de>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -15,328 +15,328 @@ msgstr ""
 #: buddy-block.tpl.php:34;39
 #: profile.tpl.php:132
 msgid "Challenge"
-msgstr ""
+msgstr "Fordern"
 
 #: buddies-list.tpl.php:57
 #: buddy-block.tpl.php:47
 msgid "Join table"
-msgstr ""
+msgstr "Zum Tisch"
 
 #: buddies-list.tpl.php:60
 #: buddy-block.tpl.php:53
 msgid "Invite now"
-msgstr ""
+msgstr "Jetzt einladen"
 
 #: buddies-list.tpl.php:76
 msgid "Send gifts"
-msgstr ""
+msgstr "Geschenk schicken"
 
 #: buddies-list.tpl.php:128
 msgid "You don't have any buddy."
-msgstr ""
+msgstr "Du hast keine Freunde :-("
 
 #: buddies-list.tpl.php:128
 msgid "Invite a buddy"
-msgstr ""
+msgstr "Freund einladen"
 
 #: buddy-block.tpl.php:60
 #: profile.tpl.php:127
 msgid "Send Gifts"
-msgstr ""
+msgstr "Beschenken"
 
 #: buddy-block.tpl.php:72
 msgid "Invite"
-msgstr ""
+msgstr "Einladen"
 
 #: buddy-block.tpl.php:75
 msgid "Invite Friends"
-msgstr ""
+msgstr "Freunde einladen"
 
 #: comment-wrapper.tpl.php:37
 msgid "Comments"
-msgstr ""
+msgstr "Kommentare"
 
 #: comment.tpl.php:48
 #: node.tpl.php:62
 msgid "Unpublished"
-msgstr ""
+msgstr "Vorschau"
 
 #: footer.tpl.php:7
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "AGB"
 
 #: footer.tpl.php:12
 msgid "Imprint"
-msgstr ""
+msgstr "Impressum"
 
 #: footer.tpl.php:14
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: footer.tpl.php:16
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: footer.tpl.php:18
 msgid "Game Rules"
-msgstr ""
+msgstr "Spielregeln"
 
 #: maintenance-page.tpl.php:32
 msgid "Skip to Navigation"
-msgstr ""
+msgstr "Zur Navigation"
 
 #: maintenance-page.tpl.php:41;41;46
 #: page-front.tpl.php:102;103
 #: page-poker-first_profile.tpl.php:98;99
 #: page.tpl.php:102;103
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: node.tpl.php:74
 msgid " in "
-msgstr ""
+msgstr "in"
 
 #: os-poker-teaser.tpl.php:7
 msgid "Play and Win"
-msgstr ""
+msgstr "Spielen und Gewinnen"
 
 #: os-poker-teaser.tpl.php:9
 msgid "Welcome to Play4fashion - your portal for online games and super profits from New Yorker! Just register, start playing and win. It costs nothing, it's fun and you can be sure to wear the coolest outfits. Let's go!"
-msgstr ""
+msgstr "Willkommen bei Play4fashion - Deinem Portal für online Games und super Gewinne von New Yorker! Einfach anmelden, losspielen, und gewinnen. Das kostet nix, macht Spaß und sorgt dafür, dass Du die coolsten Outfits tragen kannst. Los geht's!"
 
 #: page-front-banners.tpl.php:10
 msgid "Daily Prize"
-msgstr ""
+msgstr "Tagespreis"
 
 #: page-front-banners.tpl.php:11
 msgid "Description of the Daily Prize for front page."
-msgstr ""
+msgstr "Einmal am Tag verlosen wir unter den Quiz-Gewinnern einen New Yorker Shoppinggutschein im Wert von 10 EUR."
 
 #: page-front-banners.tpl.php:19
 msgid "Weekly Prize"
-msgstr ""
+msgstr "Wochenpreis"
 
 #: page-front-banners.tpl.php:20
 msgid "Description of the Weekly Prize for front page."
-msgstr ""
+msgstr "Jede Woche krönen wir die beiden besten Spieler der Woche und vergeben 2 New Yorker Shoppinggutscheine im Wert von 50 EUR."
 
 #: page-front-banners.tpl.php:28
 msgid "Monthly Prize"
-msgstr ""
+msgstr "Monatspreis"
 
 #: page-front-banners.tpl.php:29
 msgid "Description of the Monthly Prize for front page."
-msgstr ""
+msgstr "Einmal im Monat belohnen wir die beiden besten Spieler mit 2 New Yorker Shoppinggutscheinen im Wert von 100 EUR."
 
 #: page-front-banners.tpl.php:37
 msgid "Yearly Prize"
-msgstr ""
+msgstr "Jahrespreis"
 
 #: page-front-banners.tpl.php:38
 msgid "Description of the Yearly Prize for front page."
-msgstr ""
+msgstr "New Yorker schickt Dich nach New York. Einmal im Jahr gibt es eine Reise nach New York für 2 Personen inkl. Taschengeld zu gewinnen!"
 
 #: page-front-banners.tpl.php:49
 msgid "Fashion Poker"
-msgstr ""
+msgstr "Fashion Poker"
 
 #: page-front-banners.tpl.php:50
 msgid "Description of the Fashion Poker game for front page."
-msgstr ""
+msgstr "Spiel mit, an unserem gratis Online Pokertischen. Setz Dein Pokerface auf und geh 'all in'!"
 
 #: page-front-banners.tpl.php:56
 msgid "Cartingo"
-msgstr ""
+msgstr "Chartingo"
 
 #: page-front-banners.tpl.php:57
 msgid "Description the Cartingo game for front page."
-msgstr ""
+msgstr "Spieglein, Spieglein an der Wand, wie heißt die Nummer 1 von morgen in diesem Land?"
 
 #: page-front-banners.tpl.php:63
 msgid "Be the next DJ"
-msgstr ""
+msgstr "Be the next DJ"
 
 #: page-front-banners.tpl.php:64
 msgid "Description of the Be the next DJ game for front page."
-msgstr ""
+msgstr "Es liegt allein in deinen Händen, ob du die Party rockst und die Tanzfläche füllst."
 
 #: page-front-banners.tpl.php:70
 msgid "Fashion Quiz"
-msgstr ""
+msgstr "Fashion Quiz"
 
 #: page-front-banners.tpl.php:71
 msgid "Description of the Fashion Quiz game for front page."
-msgstr ""
+msgstr "Der Schlüssel zum Tagesgewinn. Sobald Du alle Fragen richtig hast, nimmst Du an der Verlosung teil!"
 
 #: page-front.tpl.php:137
 msgid "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
-msgstr ""
+msgstr "Dein Turnier, für das du dich angemeldet hast, hat begonnen. Platz nehmen. <span></span>. Viel Glück!"
 
 #: profile.tpl.php:15
 msgid "Player since"
-msgstr ""
+msgstr "Spieler seit"
 
 #: profile.tpl.php:15
 #: user_brief.tpl.php:8
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: profile.tpl.php:15
 #: user_brief.tpl.php:6
 msgid "Chips"
-msgstr ""
+msgstr "Coins"
 
 #: profile.tpl.php:44
 msgid "City"
-msgstr ""
+msgstr "Stadt"
 
 #: profile.tpl.php:46
 msgid "Highest Chip Level"
-msgstr ""
+msgstr "Höchster Coin Level"
 
 #: profile.tpl.php:50
 msgid "Country"
-msgstr ""
+msgstr "Land"
 
 #: profile.tpl.php:52
 msgid "Biggest Pot Won"
-msgstr ""
+msgstr "Größter Gewinn"
 
 #: profile.tpl.php:67
 msgid "Age"
-msgstr ""
+msgstr "Alter"
 
 #: profile.tpl.php:75
 msgid "Best Hand"
-msgstr ""
+msgstr "Beste Hand"
 
 #: profile.tpl.php:105
 msgid "Gender"
-msgstr ""
+msgstr "Geschlecht"
 
 #: profile.tpl.php:107
 msgid "Hands Played/won"
-msgstr ""
+msgstr "gesp./gew. Hände"
 
 #: profile.tpl.php:118
 msgid "Update Profile"
-msgstr ""
+msgstr "Profil aktualisieren"
 
 #: profile.tpl.php:137
 msgid "Join Table"
-msgstr ""
+msgstr "Platz nehmen"
 
 #: profile.tpl.php:142
 msgid "Report Abuse"
-msgstr ""
+msgstr "Missbrauch melden"
 
 #: profile.tpl.php:155
 msgid "Recent Rewards"
-msgstr ""
+msgstr "Letzte Rewards"
 
 #: profile.tpl.php:164
 msgid "Recent Gifts"
-msgstr ""
+msgstr "Letzte Geschenke"
 
 #: profile.tpl.php:174
 msgid "Tournaments"
-msgstr ""
+msgstr "Turniere"
 
 #: profile.tpl.php:179
 msgid "Next Tournament"
-msgstr ""
+msgstr "Nächstes Turnier"
 
 #: profile.tpl.php:186
 msgid "Player is registered at"
-msgstr ""
+msgstr "Spieler ist registriert für"
 
 #: profile.tpl.php:189
 msgid "Player is not registered"
-msgstr ""
+msgstr "Spieler nicht registriert"
 
 #: profile.tpl.php:200
 msgid "Best Tournament Results"
-msgstr ""
+msgstr "Beste Turnier-Ergebnisse"
 
 #: profile.tpl.php:207
 msgid "Rank"
-msgstr ""
+msgstr "Level"
 
 #: profile.tpl.php:208
 msgid "Tourney"
-msgstr ""
+msgstr "Turnier"
 
 #: profile.tpl.php:209
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: profile.tpl.php:215
 msgid "No results"
-msgstr ""
+msgstr "Keine Ergebnisse"
 
 #: shop_tabs.tpl.php:5
 msgid "Chop Shop"
-msgstr ""
+msgstr "Coin Shop"
 
 #: shop_tabs.tpl.php:6
 msgid "Get Chips"
-msgstr ""
+msgstr "Coins kaufen"
 
 #: table_users.tpl.php:3
 msgid "At this table"
-msgstr ""
+msgstr "An diesem Tisch"
 
 #: template.php:142
 msgid "Click here!"
-msgstr ""
+msgstr "Hier klicken!"
 
 #: template.php:161
 msgid "Sorry, your browser does not support Flash."
-msgstr ""
+msgstr "Sorry, Dein Browser unterstützt kein Flash."
 
 #: user_brief.tpl.php:31
 msgid "Your rewards"
-msgstr ""
+msgstr "Deine Rewards"
 
 #: user_brief.tpl.php:45
 msgid "no rewards achieved"
-msgstr ""
+msgstr "Keine Rewards erspielt"
 
 #: user_header_brief.tpl.php:2
 msgid "Welcome"
-msgstr ""
+msgstr "Willkommen"
 
 #: user_header_brief.tpl.php:3
 msgid "Logout"
-msgstr ""
+msgstr "Logout"
 
 #: user_header_brief.tpl.php:12
 msgid "You have @buddies Friends"
-msgstr ""
+msgstr "Du hast @buddies Freunde"
 
 #: user_header_brief.tpl.php:19
 msgid "@buddies Online"
-msgstr ""
+msgstr "@buddies Online"
 
 #: user_header_brief.tpl.php:27
 msgid "Invite more"
-msgstr ""
+msgstr "Mehr einladen"
 
 #: user_header_brief.tpl.php:33
 msgid "You have !chips Coins"
-msgstr ""
+msgstr "Du hast !chips Coins"
 
 #: user_header_brief.tpl.php:38
 msgid "Get more"
-msgstr ""
+msgstr "Mehr holen"
 
 #: p4f.info:0
 msgid "Play 4 Fashion Poker"
-msgstr ""
+msgstr "play4fashion Poker"
 
 #: p4f.info:0
 msgid "Theme for playforfashion.de"
-msgstr ""
+msgstr "Theme für play4fashion.com"
 
 #: p4f.info:0
 msgid "header"
