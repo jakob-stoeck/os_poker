@@ -1040,16 +1040,6 @@ body.iframe #main {
 	margin-top: 10px;
 }
 
-#play-now-inner {
-	/*position: absolute;*/
-	/*top: -30px;*/
-}
-
-/* FIXME : this part should go to a specific german CSS ie p4f-de.css */
-body.de #play-now #play-now-button {
-	background-image: url(images/play_now-de.png);
-}
-
 /********************************
 * Create account => First profile
 ********************************/
