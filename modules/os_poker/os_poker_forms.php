@@ -24,14 +24,6 @@ require_once(drupal_get_path('module', 'os_poker') . "/user.class.php");
  */
 function	os_poker_sign_up_form_validate($form, &$form_state)
 {
-  if (variable_get('user_email_verification', TRUE)) {
-		if (!$form_state['values']["pass"]) {
-				form_set_error('pass', t("You must enter a valid password to proceed."));
-		} else if ($form_state['values']["pass"] != $form_state['values']["pass2"]) {
-				form_set_error('pass2', t("The two passwords do not match."));
-		}
-	}
-		
 	$form_state['values']["name"] = $form_state['values']["username"] = $form_state['values']["mail"];
 }
 
@@ -40,6 +32,14 @@ function	os_poker_sign_up_form_validate($form, &$form_state)
  * name is always equals to email (@see os_poker_sign_up_form_validate).
  */
 function os_poker_sign_up_form_final_validate($form, &$form_state) {
+  if (variable_get('user_email_verification', TRUE)) {
+		if ($form_state['values']["pass"] != $form_state['values']["pass2"]) {
+			form_set_error('pass2', t("The two passwords do not match."));
+		}
+	}
+
+	// Replace the form errors and drupal messages with os_poker specific customizations
+	$form_errors = form_get_errors();
   $messages = drupal_get_messages('error', TRUE);
   $errors = $messages['error'] ? $messages['error'] : array();
   $replacements = array(
@@ -67,6 +67,16 @@ function os_poker_sign_up_form_final_validate($form, &$form_state) {
       drupal_set_message($replacement ? $replacement : $error, 'error');
     }
   }
+
+	if ($form_errors && count($form_errors) > 0) {
+			form_set_error(NULL, '', TRUE); // Clear the existing form errors
+			foreach ($form_errors as $field => $error) {
+					$replacement = isset($replacements[$error])?$replacements[$error]: $error;
+					if($replacement !== FALSE) {
+							form_set_error($field, $replacement);
+					}
+			}
+	}
 }
 
 function	os_poker_sign_up_form($form_state)
@@ -169,11 +179,8 @@ function	os_poker_sign_up_form($form_state)
 		}
 	}
 
-  $form['#submit'] = array('user_register_submit', 'os_poker_sign_up_form_submit');
-  $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'os_poker_sign_up_form_final_validate');
-
-	array_unshift($form['#submit'], 'password_policy_password_submit');
-	array_unshift($form['#validate'], 'password_policy_password_validate');
+  $form['#submit'] = array('user_register_submit', 'password_policy_password_submit', 'os_poker_sign_up_form_submit');
+  $form['#validate'] = array('os_poker_sign_up_form_validate', 'user_register_validate', 'password_policy_password_validate', 'os_poker_sign_up_form_final_validate');
 
 	/* Manually trigger the invite_form_alter hook */
   invite_form_alter($form, $form_state, 'user_register');
@@ -207,8 +214,13 @@ function os_poker_sign_up_form_pre_render_errors($element) {
     unset($messages['name']);
     $output .= "<div class=\"messages error\">\n";
     $output .= " <ul>\n";
+		
+		$count = 0;
     foreach ($messages as $message) {
-      $output .= '  <li>'. $message ."</li>\n";
+			// Dont overflow with too many messages, otherwise the UI will be broken.
+			if ($count++ < 2) {
+					$output .= '  <li>'. $message ."</li>\n";
+			}
     }
     $output .= " </ul>\n";
     //Remove form erros from status messages (to avoid duplicate messages).
