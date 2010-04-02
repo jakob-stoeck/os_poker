@@ -13,7 +13,7 @@
   		<?php $swf = drupal_get_path("theme", "pbpoker"). '/swf/promotion/poker_300x250.swf'; ?>
         <script type="text/javascript">
     	 $(window).ready(function() {
-		swfobject.embedSWF('<?php print $swf?>', "list-banner", "300", "250", "9.0.0", undefined, {'clickTag' : '<?php print url("poker/pages/tourneyinfo", array('absolute' => TRUE)); ?>'}, {
+		swfobject.embedSWF('<?php print $swf?>', "list-banner", "300", "250", "9.0.0", undefined, {'clickTag' : 'http://www.playboy.de/cyberclub'}, {
 	          'wmode': 'transparent'
         	});
 	 });

@@ -21,6 +21,7 @@ div#user_login {
 
 #page-front-banners #banner-join {
   background-image: url('images/pb-tourney-banner-start.jpg');
+  cursor: pointer;
 }
 
 #registration-window #home_signup .title {
