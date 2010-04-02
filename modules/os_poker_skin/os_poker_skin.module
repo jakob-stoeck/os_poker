@@ -37,7 +37,7 @@ function os_poker_skin_index() {
 
 function os_poker_skin_gadget() {
   global $user;
-  $result    = db_query("SELECT * FROM {applications} WHERE title = 'jpoker-skin2'");
+  $result    = db_query("SELECT * FROM {applications} WHERE title = 'jpoker-skin'");
   $app = db_fetch_object($result);
 	if (!$app) {
     return "Please install jpoker-opensocial-skin.xml";
