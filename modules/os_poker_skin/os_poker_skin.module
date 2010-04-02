@@ -37,10 +37,10 @@ function os_poker_skin_index() {
 
 function os_poker_skin_gadget() {
   global $user;
-  $result    = db_query("SELECT * FROM {applications} WHERE title = 'jpoker-skin'");
-  if (!$result) {
-    return "Please install jpoker-opensocial-skin.xml";
-  }
+  $result    = db_query("SELECT * FROM {applications} WHERE title = 'jpoker-skin2'");
   $app = db_fetch_object($result);
+	if (!$app) {
+    return "Please install jpoker-opensocial-skin.xml";
+	}
   return theme('add_gadget', $app->id, 0, "canvas", $user->uid);
 }
