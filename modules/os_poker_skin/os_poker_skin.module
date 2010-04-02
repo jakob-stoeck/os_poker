@@ -19,13 +19,14 @@
 function os_poker_skin_menu() {
   return array(
     'skin' => array(
+      'title' => 'Skin Gallery',
       'page callback' => 'os_poker_skin_index',
       'access arguments' => array('access content'),
     ),
     'skin/gadget' => array(
+      'title' => 'Gadget',
       'page callback' => 'os_poker_skin_gadget',
       'access arguments' => array('access content'),
-      'type' => MENU_LOCAL_TASK,
     ),
   );
 }
