@@ -1,0 +1,7 @@
+; $Id$
+name = Open Social Poker Skin
+description = Open Social Poker Skin plugin
+dependencies[] = os_poker
+package = Other
+version = 0.1
+core = 6.x

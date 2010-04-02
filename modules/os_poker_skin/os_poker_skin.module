@@ -1,0 +1,45 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2010 Johan Euphrosine
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+function os_poker_skin_menu() {
+  return array(
+    'skin' => array(
+      'page callback' => 'os_poker_skin_index',
+      'access arguments' => array('access content'),
+    ),
+    'skin/gadget' => array(
+      'page callback' => 'os_poker_skin_gadget',
+      'access arguments' => array('access content'),
+      'type' => MENU_LOCAL_TASK,
+    ),
+  );
+}
+
+function os_poker_skin_index() {
+  return 'Skin Gallery';
+}
+
+function os_poker_skin_gadget() {
+  global $user;
+  $result    = db_query("SELECT * FROM {applications} WHERE title = 'jpoker-skin'");
+  if (!$result) {
+    return "Please install jpoker-opensocial-skin.xml";
+  }
+  $app = db_fetch_object($result);
+  return theme('add_gadget', $app->id, 0, "canvas", $user->uid);
+}
