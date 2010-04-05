@@ -54,7 +54,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-03-30 16:02+0200\n"
+"POT-Creation-Date: 2010-04-05 09:40+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -75,7 +75,7 @@ msgstr ""
 msgid "* Please note that just new player are getting this bonus."
 msgstr ""
 
-#: buddies-invitedlist.tpl.php:17 os_poker_forms.php:938 os_poker.module:94;166
+#: buddies-invitedlist.tpl.php:17 os_poker_forms.php:1025 os_poker.module:94;166
 msgid "E-Mail"
 msgstr ""
 
@@ -187,7 +187,7 @@ msgstr ""
 msgid "Buddies"
 msgstr ""
 
-#: buddies-tabs.tpl.php:5 os_poker_forms.php:651
+#: buddies-tabs.tpl.php:5 os_poker_forms.php:730
 msgid "Search"
 msgstr ""
 
@@ -367,7 +367,7 @@ msgstr ""
 msgid "For a complete Profile you'll get $2.000 Chips for free!"
 msgstr ""
 
-#: os-poker-profile.tpl.php:38 os_poker_forms.php:629;755
+#: os-poker-profile.tpl.php:38 os_poker_forms.php:708;834
 msgid "City"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Highest Chip Level"
 msgstr ""
 
-#: os-poker-profile.tpl.php:44 os_poker_forms.php:636;744
+#: os-poker-profile.tpl.php:44 os_poker_forms.php:715;823
 msgid "Country"
 msgstr ""
 
@@ -391,7 +391,7 @@ msgstr ""
 msgid "Best Hand"
 msgstr ""
 
-#: os-poker-profile.tpl.php:99 os_poker_forms.php:615;723
+#: os-poker-profile.tpl.php:99 os_poker_forms.php:694;802
 msgid "Gender"
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Players poker play cheating"
 msgstr ""
 
-#: os_poker.abuse.php:29;43 os_poker_forms.php:114;275;371;419;482;490;643;762;967 os_poker_admin.inc:102
+#: os_poker.abuse.php:29;43 os_poker_forms.php:146;342;438;486;549;557;722;841;1054 os_poker_admin.inc:102
 msgid "Send"
 msgstr ""
 
@@ -563,243 +563,271 @@ msgstr ""
 msgid "The email address abuse reports are sent to."
 msgstr ""
 
+#: os_poker.admin.php:25
+msgid "Welome Email"
+msgstr ""
+
+#: os_poker.admin.php:26
+msgid "Welcome email sent to user after first profile"
+msgstr ""
+
 #: os_poker.admin.php:29
+msgid "Email Subject"
+msgstr ""
+
+#: os_poker.admin.php:35
+msgid "Email Body"
+msgstr ""
+
+#: os_poker.admin.php:46
 msgid "Reset to defaults"
 msgstr ""
 
-#: os_poker.admin.php:31
+#: os_poker.admin.php:48
 msgid "The e-mail address you specified is not valid."
 msgstr ""
 
-#: os_poker_forms.php:38
+#: os_poker_forms.php:37
+msgid "The two passwords do not match."
+msgstr ""
+
+#: os_poker_forms.php:46
 msgid "You must enter a username."
 msgstr ""
 
-#: os_poker_forms.php:39;309
+#: os_poker_forms.php:47;376
 msgid "The name %name is already taken."
 msgstr ""
 
-#: os_poker_forms.php:40
+#: os_poker_forms.php:48
 msgid "The e-mail address %email is already registered. <a href=\"@password\">Have you forgotten your password?</a>"
 msgstr ""
 
-#: os_poker_forms.php:41
+#: os_poker_forms.php:49
 msgid "The e-mail address %email is already registered. !password"
 msgstr ""
 
-#: os_poker_forms.php:42
+#: os_poker_forms.php:50
 msgid "Have you forgotten your password?"
 msgstr ""
 
-#: os_poker_forms.php:45 os_poker.module:179
+#: os_poker_forms.php:53 os_poker.module:179
 msgid "Request new password via e-mail"
 msgstr ""
 
-#: os_poker_forms.php:88;353
+#: os_poker_forms.php:106;420
 msgid "Your Email"
 msgstr ""
 
-#: os_poker_forms.php:97
+#: os_poker_forms.php:115
 msgid "New Password"
 msgstr ""
 
 #: os_poker_forms.php:122
+msgid "Password"
+msgstr ""
+
+#: os_poker_forms.php:128
+msgid "Confirm password"
+msgstr ""
+
+#: os_poker_forms.php:154
 msgid "Sign Up"
 msgstr ""
 
-#: os_poker_forms.php:184
+#: os_poker_forms.php:251
 msgid "Your password and further instructions have been sent to your e-mail address."
 msgstr ""
 
-#: os_poker_forms.php:193
+#: os_poker_forms.php:260
 msgid "Welcome,"
 msgstr ""
 
-#: os_poker_forms.php:194
+#: os_poker_forms.php:261
 msgid "We have just sent a confirmation e-mail to this address: !mail Look into your mailbox, simply click on the link in the e-mail to confirm your address. As a welcome gift, we have reserved !amount poker chips for you!"
 msgstr ""
 
-#: os_poker_forms.php:198
+#: os_poker_forms.php:265
 msgid "If the address is not correct, then you can correct your e-mail address here."
 msgstr ""
 
-#: os_poker_forms.php:265
+#: os_poker_forms.php:332
 msgid "Ignore all new buddy request"
 msgstr ""
 
-#: os_poker_forms.php:266
+#: os_poker_forms.php:333
 msgid "Please notify me by email whenever I receive a message"
 msgstr ""
 
-#: os_poker_forms.php:267
+#: os_poker_forms.php:334
 msgid "I don't accept any gift"
 msgstr ""
 
-#: os_poker_forms.php:268
+#: os_poker_forms.php:335
 msgid "I wish to receive the weekly email newsletter (recommended)"
 msgstr ""
 
-#: os_poker_forms.php:269
+#: os_poker_forms.php:336
 msgid "I wish to receive emails in HTML-format"
 msgstr ""
 
-#: os_poker_forms.php:283
+#: os_poker_forms.php:350
 msgid "Save"
 msgstr ""
 
-#: os_poker_forms.php:312
+#: os_poker_forms.php:379
 msgid "The name %name has been denied access."
 msgstr ""
 
-#: os_poker_forms.php:321
+#: os_poker_forms.php:388
 msgid "The e-mail address %email is already registered."
 msgstr ""
 
-#: os_poker_forms.php:324
+#: os_poker_forms.php:391
 msgid "The e-mail address %email has been denied access."
 msgstr ""
 
-#: os_poker_forms.php:334
+#: os_poker_forms.php:401
 msgid "Email successfully modified"
 msgstr ""
 
-#: os_poker_forms.php:359
+#: os_poker_forms.php:426
 msgid "Your name"
 msgstr ""
 
-#: os_poker_forms.php:365
+#: os_poker_forms.php:432
 msgid "New Email"
 msgstr ""
 
-#: os_poker_forms.php:380;433
+#: os_poker_forms.php:447;500
 msgid "OK"
 msgstr ""
 
-#: os_poker_forms.php:403
+#: os_poker_forms.php:470
 msgid "Password successfully modified"
 msgstr ""
 
-#: os_poker_forms.php:474;602
+#: os_poker_forms.php:541;681
 msgid "E-mail"
 msgstr ""
 
-#: os_poker_forms.php:514
+#: os_poker_forms.php:593
 msgid "You have already used this one-time login link. It is not necessary to use this link to login anymore. You are already logged in."
 msgstr ""
 
-#: os_poker_forms.php:526
+#: os_poker_forms.php:605
 msgid "You have tried to use a one-time login for an account which has been blocked."
 msgstr ""
 
-#: os_poker_forms.php:532
+#: os_poker_forms.php:611
 msgid "You have tried to use a one-time login link that has expired. Please request a new one using the form below."
 msgstr ""
 
-#: os_poker_forms.php:544
+#: os_poker_forms.php:623
 msgid "You have just used your one-time login link. It is no longer necessary to use this link to login. !settings-page."
 msgstr ""
 
-#: os_poker_forms.php:560
+#: os_poker_forms.php:639
 msgid "<p>This is a one-time login for %user_name and will expire on %expiration_date.</p><p>Click on this button to login to the site and change your password.</p>"
 msgstr ""
 
-#: os_poker_forms.php:561
+#: os_poker_forms.php:640
 msgid "This login can be used only once."
 msgstr ""
 
-#: os_poker_forms.php:562
+#: os_poker_forms.php:641
 msgid "Log in"
 msgstr ""
 
-#: os_poker_forms.php:568
+#: os_poker_forms.php:647
 msgid "You have tried to use a one-time login link which has either been used or is no longer valid. Please request a new one using the form below."
 msgstr ""
 
-#: os_poker_forms.php:589
+#: os_poker_forms.php:668
 msgid "Search Online player only!"
 msgstr ""
 
-#: os_poker_forms.php:595;697;815
+#: os_poker_forms.php:674;776;894
 msgid "Nickname"
 msgstr ""
 
-#: os_poker_forms.php:609
+#: os_poker_forms.php:688
 msgid "Male"
 msgstr ""
 
-#: os_poker_forms.php:610
+#: os_poker_forms.php:689
 msgid "Female"
 msgstr ""
 
-#: os_poker_forms.php:622 user.class.php:226
+#: os_poker_forms.php:701 user.class.php:226
 msgid "Level"
 msgstr ""
 
-#: os_poker_forms.php:638;745
+#: os_poker_forms.php:717;824
 msgid "--"
 msgstr ""
 
-#: os_poker_forms.php:712
+#: os_poker_forms.php:791
 msgid "Profile photo"
 msgstr ""
 
-#: os_poker_forms.php:714
+#: os_poker_forms.php:793
 msgid "Upload a photo. Max : %dimensions and %size kB."
 msgstr ""
 
-#: os_poker_forms.php:734
+#: os_poker_forms.php:813
 msgid "Birthday"
 msgstr ""
 
-#: os_poker_forms.php:778
+#: os_poker_forms.php:857
 msgid "Join"
 msgstr ""
 
-#: os_poker_forms.php:778
+#: os_poker_forms.php:857
 msgid "Save Profile"
 msgstr ""
 
-#: os_poker_forms.php:784
+#: os_poker_forms.php:863
 msgid "Skip this step"
 msgstr ""
 
-#: os_poker_forms.php:784
+#: os_poker_forms.php:863
 msgid "Here"
 msgstr ""
 
-#: os_poker_forms.php:815
+#: os_poker_forms.php:894
 msgid "already exists."
 msgstr ""
 
-#: os_poker_forms.php:822
+#: os_poker_forms.php:901
 msgid "Thank you for updating your profile."
 msgstr ""
 
-#: os_poker_forms.php:906
+#: os_poker_forms.php:993
 msgid "The entered e-mail address is invalid. Please correct it."
 msgstr ""
 
-#: os_poker_forms.php:932
+#: os_poker_forms.php:1019
 msgid "Name"
 msgstr ""
 
-#: os_poker_forms.php:959
+#: os_poker_forms.php:1046
 msgid "Send invite"
 msgstr ""
 
-#: os_poker_forms.php:979
+#: os_poker_forms.php:1066
 msgid "Sorry, you've reached the maximum number of invitations."
 msgstr ""
 
-#: os_poker_forms.php:1020
+#: os_poker_forms.php:1107
 msgid "'send mass invitations' permission must be set !"
 msgstr ""
 
-#: os_poker_forms.php:538 os_poker.module:144
+#: os_poker_forms.php:617 os_poker.module:144
 msgid "user"
 msgstr ""
 
-#: os_poker_forms.php:538
+#: os_poker_forms.php:617
 msgid "User %name used one-time login link at time %timestamp."
 msgstr ""
 
@@ -823,7 +851,7 @@ msgstr ""
 msgid "You just challenged !user"
 msgstr ""
 
-#: os_poker_messages.php:229;266 os_poker.module:753;1465;1702
+#: os_poker_messages.php:229;266 os_poker.module:753;1465;1705
 msgid "Anonymous"
 msgstr ""
 
@@ -1843,52 +1871,48 @@ msgstr ""
 msgid "Culprit: !reported_profile"
 msgstr ""
 
-#: os_poker.module:1590
-msgid "Successful registration"
-msgstr ""
-
-#: os_poker.module:1591
-msgid "Hello !username,\nWelcome to !site'You can login at any time log in with the following e-mail: !mailto\nThis link takes you directly to the game: !uri\nIf you have questions or problems please turn to !support\nWe hope you'll enjoy this game!\nYour !site Team."
-msgstr ""
-
-#: os_poker.module:1685
+#: os_poker.module:1688
 msgid "Add Buddy"
 msgstr ""
 
-#: os_poker.module:1701
+#: os_poker.module:1704
 msgid "Buddy request sent to !user"
 msgstr ""
 
-#: os_poker.module:1704
+#: os_poker.module:1707
 msgid "Buddy Request"
 msgstr ""
 
-#: os_poker.module:1783
+#: os_poker.module:1786
 msgid "pending relationship requests"
 msgstr ""
 
-#: os_poker.module:1882
+#: os_poker.module:1885
 msgid "Today's free gift"
 msgstr ""
 
-#: os_poker.module:1882
+#: os_poker.module:1885
 msgid "Send $!amount chips to your poker buddies!"
 msgstr ""
 
-#: os_poker.module:1892
+#: os_poker.module:1895
 msgid "Invite more friends"
 msgstr ""
 
-#: os_poker.module:1912
+#: os_poker.module:1915
 msgid "Click here!"
 msgstr ""
 
-#: os_poker.module:1937
+#: os_poker.module:1940
 msgid "Today"
 msgstr ""
 
-#: os_poker.module:1939
+#: os_poker.module:1942
 msgid "Yesterday"
+msgstr ""
+
+#: os_poker.module:1963
+msgid "Successful registration"
 msgstr ""
 
 #: os_poker.module:144
