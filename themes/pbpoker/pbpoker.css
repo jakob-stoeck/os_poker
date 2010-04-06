@@ -1910,34 +1910,39 @@ body.de p.Buddies { /* FIXME : german */
 * Thickbox : Buddies => Invite => Invited
 ****************************************/
 
-.TableLeft {
-	border: 1px solid #DADADA;
+#buddies-invited_list .TableLeft {
+	border: 1px dotted #DADADA;
 	width: 452px;
 }
 
-.TableLeft th.Column01 {
+#buddies-invited_list .TableLeft th.Column01 {
 	width: 105px;
 }
 
-.TableLeft th.Column02	{
+#buddies-invited_list .TableLeft th.Column02	{
 	width: 82px;
 }
 
-.TableLeft th.Column03	{
+#buddies-invited_list .TableLeft th.Column03	{
 	width: 68px;
 }
 
-.TableLeft th.Column04 {
+#buddies-invited_list .TableLeft th.Column04 {
 	width: 63px;
 }
-.TableLeft th.Column05 {
+
+#buddies-invited_list .TableLeft th.Column05 {
 	width: 66px;
 }
 
-.TableLeft th {
+#buddies-invited_list .TableLeft tbody {
+	border: none;
+}
+
+#buddies-invited_list .TableLeft th {
 	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
-	border-bottom: 1px solid #9F9B98;
-	border-right: 1px solid #9F9B98;
+	border: none;
+	border-right: 1px solid #292929;
 	color: #FFFFFF;
 	height: 21px;
 	line-height: 16px;
@@ -1946,42 +1951,42 @@ body.de p.Buddies { /* FIXME : german */
 	padding: 0 6px;
 }
 
-.TableLeft p {
+#buddies-invited_list .TableLeft p {
 	margin: 0;
 	overflow: hidden;
 	white-space: nowrap;
 	width: 132px;
 }
 
-.TableLeft td.Center {
+#buddies-invited_list .TableLeft td {
+	border-right: 1px solid #282828;
+	padding: 3px 3px 2px 6px;
+	overflow: hidden;
+	color: #fff;
+}
+
+#buddies-invited_list .TableLeft td.Center {
 	text-align: center;
 }
 
-.TableLeft td.BgWhite {
-	background: #FFFFFF;
-	border-right: 1px solid #9F9B98;
-	overflow: hidden;
-	padding: 3px 3px 2px 6px;
+#buddies-invited_list .TableLeft td.BgWhite { /* its not white, its black. */
+	background: #1a1a1a;
 }
 
-.TableLeft td.BgGrey {
-	background: #ECECEC;
-	border-right: 1px solid #9F9B98;
-	color: #727272;
-	padding: 3px 3px 2px 6px;
+#buddies-invited_list .TableLeft td.BgGrey {
+	background: #515151;
 }
 
-/* FIXME: too vague */
-.PageNavPosition {
+#buddies-invited_list .PageNavPosition {
 	width: 385px;
 }
 
-.PageNavPosition .PageNav {
+#buddies-invited_list .PageNavPosition .PageNav {
 	float: right;
 	margin: 0 -65px 0 0;
 }
 
-.PageNav {
+#buddies-invited_list .PageNav {
 	clear: both;
 	color: #727272;
 	font-weight: bold;
@@ -1990,37 +1995,42 @@ body.de p.Buddies { /* FIXME : german */
 	text-align: right;
 }
 
-.PageNavPosition .Legend {
+#buddies-invited_list .PageNavPosition .Legend {
 	font-weight: bold;
 	margin: 5px 0 0;
+	color: #fbfbfb;
 }
 
-.PageNavPosition .Legend div {
+#buddies-invited_list .PageNavPosition .Legend div {
 	float: left;
 }
-#ContainerContentInvite .PageNavPosition .Legend p {
+
+#buddies-invited_list .PageNavPosition .Legend div img {
+	margin-left: 5px;
+}
+
+#buddies-invited_list #ContainerContentInvite .PageNavPosition .Legend p {
 	float: left;
 	margin: 0;
 	padding: 1px 0 0;
 }
 
-.PageNavPosition .Legend div {
-	float: left;
-}
-
-/* Info on sent invitations in invitations thickbox */
-/* FIXME : better selector */
-
-.TableRight {
-	border: 1px solid #DADADA;
+#buddies-invited_list .TableRight {
+	border: 1px solid #111;
 	position: absolute;
 	right: 10px;
 	top: 0;
 	width: 140px;
 }
 
-.TableRight th {
+#buddies-invited_list .TableRight tbody {
+	border: none;
+	background: #fff; /* fixme degrade */
+}
+
+#buddies-invited_list .TableRight th {
 	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
+	border: none;
 	color: #FFFFFF;
 	height: 21px;
 	line-height: 16px;
@@ -2029,29 +2039,29 @@ body.de p.Buddies { /* FIXME : german */
 	padding: 0 6px 1px 10px;
 }
 
-.TableRight td {
+#buddies-invited_list .TableRight td {
 	font-weight: bold;
 	overflow: hidden;
 	padding: 6px;
 }
 
-.TableRight td span {
+#buddies-invited_list .TableRight td span {
 	color: #D70504;
 }
 
-.TableRight td.Dotted {
+#buddies-invited_list .TableRight td.Dotted {
 	font-size: 1px;
 	margin: 0;
 	padding: 0 6px;
 }
 
-.TableRight div {
+#buddies-invited_list .TableRight div {
 	background: transparent url(images/bg_line_dotted.png) repeat-x 0 0;
 	height: 2px;
 	margin: 0;
 }
 
-.InviteMore {
+#buddies-invited_list .InviteMore {
 	height: 170px;
 	left: 515px;
 	position: absolute;
@@ -2821,4 +2831,12 @@ body.poker-tourneyinfo #middle-content-right {
 /* quickfix z2#210 FIXME */
 #edit-picture-upload-wrapper div input.file {
 	display: none !important;
+}
+
+/* ********************
+ * Help thickboxes
+ * ********************/
+
+.helpcontent {
+	background: #fbfbfb;
 }
