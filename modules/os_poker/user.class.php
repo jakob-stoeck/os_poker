@@ -286,21 +286,22 @@ class CUser
 
 		$res = db_query($sql, $this->_user->uid);
 
-		if ($res)
-		{
+		if ($res) {
 			$this->_activeItem = -1;
 
-			while (($obj = db_fetch_object($res)))
-			{
-				if ($obj->active == 1)
-				{
+			while (($obj = db_fetch_object($res))) {
+				if ($obj->active == 1) {
 					$this->_activeItem = $obj->id_operation;
 				}
-				$obj->item = new CItem($obj->id_item);
-				$inventory[] = $obj;
+        try {
+          $obj->item = new CItem($obj->id_item);
+          $inventory[] = $obj;
+        }
+        catch (Exception $e) {
+          watchdog('OS Poker Shop', 'Error while loading item: "!msg"', array('!msg' => $e->getMessage()), WATCHDOG_ERROR);
+        }
 			}
 		}
-
 		return $inventory;
 	}
 
