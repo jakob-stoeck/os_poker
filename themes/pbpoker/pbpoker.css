@@ -560,7 +560,7 @@ div.poker_submit.big.disabled {
 div.poker_submit.big.disabled div.label {
 	background: transparent url(images/bg_button_silverbig_middle.png) repeat-x;
 	background-position: top left;
-	color: #8C8B89;
+	color: #666;
 }
 
 div.poker_submit.big.disabled div.pre {
@@ -1532,18 +1532,17 @@ body.de #play-now #play-now-button {
 /************************************
 * Thickbox : Shop
 ************************************/
-/* FIXME : too vague */
-ul.categories {
+#shop ul.categories {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	width: 138px;
 }
 
-ul.categories li a {
-	border: 1px solid #CCCBC9;
+#shop ul.categories li a {
+	border: 1px solid #6a6a6a;
 	border-right: none;
-	color: #CE9900;
+	color: #6c6c6c;
 	display: block;
 	font-weight: bold;
 	height: 23px;
@@ -1551,14 +1550,16 @@ ul.categories li a {
 	margin: 5px 0 0;
 	padding: 4px 0 0 7px;
 	text-decoration: none;
+	background: #fff url(images/bg_button_shopnav.png) repeat-x top left;
 }
 
-ul.categories li.active a,
-ul.categories li a:hover {
-	background: url(images/bg_button_shopnav.png) repeat-x;
+#shop ul.categories li.active a,
+#shop ul.categories li a:hover {
+	background: #454545 url(images/bg_button_shopnav_active.png) repeat-x top left;
+	color: #e2c87b;
 }
 
-ul.categories li a span {
+#shop ul.categories li a span {
 	color: #65605A;
 	font-size: 14px;
 	padding: 0 2px 0 0;
@@ -1566,6 +1567,10 @@ ul.categories li a span {
 
 #shop {
 	position: relative;
+}
+
+#shop .shop_user {
+	color: #e3e3e3;
 }
 
 #shop #items {
@@ -1601,6 +1606,7 @@ ul.categories li a span {
 
 #shop #items a:hover,
 #shop #items a.selected {
+	/*
 	background: #fff url(images/bg_shop_item_hover.png) no-repeat bottom right;
 	border-right: none;
 	border-bottom: none;
@@ -1608,6 +1614,11 @@ ul.categories li a span {
 	padding-bottom: 1px;
 	height: 99px;
 	margin-bottom: 0;
+	*/
+	-moz-box-shadow: 1px 1px 1px #CCCCCC;
+	-box-shadow: 1px 1px 1px #CCCCCC;
+	border-color: #eee;
+	font-size: 1.1em;
 }
 
 #shop #items a span img {
