@@ -131,7 +131,7 @@
 				  <div class="label"><?php print t("Join Table"); ?></div>
 				  <div class="user_login_clear"></div>
 				</div>
-				<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/report_abuse/" . $target_user->uid,  array('query' => array("height"=>442, "width"=>603))); ?>", lightbox:true});' class="poker_submit fleft" style="margin-left:5px;">
+				<div onclick='javascript:parent.os_poker_trigger("os_poker_jump", {url:"<?php print url("poker/report_abuse/" . $target_user->uid,  array('query' => array("height"=>352, "width"=>300))); ?>", lightbox:true});' class="poker_submit fleft" style="margin-left:5px;">
 				  <div class="pre">&nbsp;</div>
 				  <div class="label"><?php print t("Report Abuse"); ?></div>
 				  <div class="user_login_clear"></div>

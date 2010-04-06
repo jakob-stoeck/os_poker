@@ -43,6 +43,10 @@ $(document).bind('thickbox_show', function(event, caption, url, imageGroup) {
     //$("#TB_iframeContent").remove();
   }
 });
+//Fix transparent background for Thickbox's iframe in IE
+$(document).bind('thickbox_show_after', function(even, caption, url, imageGroup) {
+  $('#TB_iframeContent').attr('allowTransparency', 'allowTransparency');
+});
 
 Drupal.behaviors.os_poker = function(context) {
   /* Hack to fix forgot password iframe in IE7 */

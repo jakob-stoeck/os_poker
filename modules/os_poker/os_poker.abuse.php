@@ -22,7 +22,7 @@ function os_poker_report_abuse_form($form_state, $reported) {
       '#title' => 'Your Message',
       '#description' => '',
       '#resizable' => FALSE,
-      '#cols' => 40
+      '#cols' => 36
     ),
     'submit' => array(
       '#type' => 'submit',
