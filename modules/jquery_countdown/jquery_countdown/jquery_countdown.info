@@ -1,0 +1,12 @@
+; $Id: jquery_countdown.info,v 1.1.2.1 2009/07/16 16:55:45 robloach Exp $
+name = jQuery Countdown
+description = Provides the jQuery Countdown plugin by Keith Wood.
+core = 6.x
+package = User interface
+
+; Information added by drupal.org packaging script on 2009-11-28
+version = "6.x-1.5"
+core = "6.x"
+project = "jquery_countdown"
+datestamp = "1259438763"
+
