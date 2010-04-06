@@ -56,6 +56,10 @@ tr.even a {
 	cursor: pointer;
 }
 
+body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose {
+	background-image: url(images/button_layerclose.png);
+}
+
 /***************************
  * Resetting jquery tab CSS
  ***************************/
@@ -1313,7 +1317,7 @@ body.de #play-now #play-now-button {
 ******************************/
 
 #buddies-search {
-	color: rgb(108, 108, 108);
+	color: #ddd;
 	overflow: hidden;
 	padding: 13px 0 0 58px;
 }
@@ -1883,6 +1887,7 @@ div.num {
 	vertical-align: middle;
 	width: 23px;
 	float: left;
+	border-right:1px solid #666666;
 }
 
 div.TeaseMore {
@@ -1900,9 +1905,8 @@ div.TeaseMore .poker_submit .label {
 	padding-top: 9px;
 }
 
-/* FIXME : too vague */
-p.Link a {
-	color: #7A1C1C;
+#buddies-invite p.Link a {
+	color: #666;
 	font-weight: bold;
 	text-decoration: underline;
 }
