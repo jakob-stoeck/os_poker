@@ -1169,75 +1169,74 @@ body.de #play-now #play-now-button {
 	margin-left: 3px;
 }
 
-/*******************************
-* FIXME
-*******************************/
-
-.TableRanking {
-	margin: 0 0 16px;
-	width: 441px;
-	border-collapse: separate;
-}
-
-.TableRanking td {
-	padding: 3px 4px 3px 16px;
-}
-
-.TableRanking tr {
-	background-color: #fff;
-	color: #727272;
-}
-
-.TableRanking tr.BgGrey {
-	background: #ECECEC none repeat 0 0;
-}
-
-.TableRanking td.Column01 {
-	font-weight: bold;
-	white-space: nowrap;
-	width: 60px;
-}
-
-.TableRanking td.Column02 {
-	border-right: 1px solid #FFFFFF;
-	width: 70px;
-}
-
-.TableRanking td.Column03 {
-	font-weight: bold;
-	white-space: nowrap;
-	width: 110px;
-}
-
-.TableRanking td.Column04 {
-	white-space: nowrap;
-}
-
 /*****************************
  * Thickbox : Profile
  * with tab-based navigation
  * ***************************/
 
+#profile-tabs .TableRanking {
+	margin: 0 0 16px;
+	width: 441px;
+	border-collapse: separate;
+}
+
+#profile-tabs .TableRanking td {
+	padding: 3px 4px 3px 16px;
+}
+
+#profile-tabs .TableRanking tr {
+	background: #1a1a1a;
+	color: #fff;
+}
+
+#profile-tabs .TableRanking tr.BgGrey {
+	background: #515151;
+}
+
+#profile-tabs .TableRanking td.Column01 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 60px;
+}
+
+#profile-tabs .TableRanking td.Column02 {
+	border-right: 1px solid #282828;
+	width: 70px;
+}
+
+#profile-tabs .TableRanking td.Column03 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 110px;
+}
+
+#profile-tabs .TableRanking td.Column04 {
+	white-space: nowrap;
+}
+
 #profile-tabs .profile_tourney_info {
 	width: 292px;
-	border: 1px solid #999999;
 	height: 198px;
 	overflow: hidden;
+	background: #eee;
 }
 
-.TourneyInfo {
+#profile-tabs table.TourneyInfo {
 	width: 293px;
+	color: #6c6c6c;
 }
 
-.TourneyInfo tr {
+#profile-tabs table.TourneyInfo tr {
 	height: 16px;
+	color: #6c6c6c !important;
+	background: #fff;
 }
 
-.TourneyInfo tr.table_header td {
-	color: #810E0B;
-	font-weight: bold;
+#profile-tabs table.TourneyInfo tr.BgGrey {
+	background: #eee;
 }
 
+.TourneyInfo tr.table_header td,
 .TourneyInfo tr td.bold {
 	font-weight: bold;
 }
@@ -1495,6 +1494,16 @@ body.de #play-now #play-now-button {
 #user-profile-form .description {
   color: #FFFFFF;
   padding: 5px 0 0 105px;
+}
+
+#profile-tabs .header .right {
+	color: #fff;
+	font-weight: bold;
+}
+
+#profile-tabs .header .right .darkred {
+	color: #666;
+	font-weight: normal;
 }
 
 #profile-tabs .bottom {
