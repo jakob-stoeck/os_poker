@@ -113,6 +113,16 @@ ul.primary li a {
 	padding: 5px 10px 0;
 }
 
+*:first-child+html ul.primary li a {
+	border: 1px solid #666 !important;
+	padding-top:4px;
+}
+
+*:first-child+html ul.primary li.active a,
+*:first-child+html li.ui-state-active a {
+	border-bottom: none !important;;
+}
+
 ul.primary li.active a, li.ui-state-active a {
 	color: #fff !important;
 	background: #111 !important;
@@ -450,7 +460,7 @@ body.poker-profile #TB_window {
 ************************/
 
 div.poker_submit {
-	color: #1b1401;
+	color: #603c08;
 	font: normal 12px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -1395,8 +1405,8 @@ body.de #play-now #play-now-button {
 	float: left;
 	width: 230px;
 	height: 70px;
-	background-color: #FFFFFF;
-	border: 1px solid #c9c9c7;
+	background: #fff url(images/buddies-bg.png) bottom left repeat-x;
+	border: 1px solid #696969;
 	margin: 10px 0 0 10px;
 	padding: 10px 0 0 10px;
 }
@@ -1659,12 +1669,12 @@ ul.pager a {
 }
 
 ul.pager a.active {
-	color: #727272;
+	color: #e1c77c;
 	font-weight: bold;
 }
 
 ul.pager .pager-current {
-	color: #A8904A;
+	color: #fff;
 }
 
 .item-list ul.pager {
