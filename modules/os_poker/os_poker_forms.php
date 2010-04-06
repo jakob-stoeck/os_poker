@@ -965,7 +965,7 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 
 	//Trigger the invitation bonus
 	CScheduler::instance()->Trigger('first_login');
-	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day");
+	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day 00:00");
 
   //Send mail
   if (variable_get('user_email_verification', TRUE)) {

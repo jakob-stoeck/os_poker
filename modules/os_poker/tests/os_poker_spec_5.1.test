@@ -48,8 +48,6 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		//Check task
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
 
-		print_r($rawtask);
-
 		// There must be also a CDelayMessage for redirection on login
 		$this->assertTrue(count($rawtask["login"]) > 0 &&
 		count($rawtask["live"]) > 1,
@@ -78,8 +76,7 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		
 		$this->assertTrue($t1->id_task == $t2->id_task && $t1->type == 'CDailyChips',
 											"Task's type is CDailyChips");
-		$tstamp = strtotime($t1->moment);
-		$this->assertTrue(($tstamp - time()) > 86390, "Task will run in ~ 24h");
+		$this->assertEqual(strtotime($t1->moment), strtotime('+1 day 00:00'), "Task will run tomorrow at 00:00");
 		
 		//Run task
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
@@ -91,9 +88,7 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		
 		$newchips = $su->Chips();
 		
-		$this->assertTrue($newchips > $chips,
-											t("Once a day every registered player receives a pre-defined number of chips when logging in (1)", array("!before" => $chips, "!after" => $newchips)),
-											'SpecPoker');
+		$this->assertTrue($newchips > $chips, t("Once a day every registered player receives a pre-defined number of chips when logging in (1)"), 'SpecPoker');
 		
 		$rawtask = CScheduler::GetRawUserTasks($this->skel_user->uid);
 		
@@ -103,12 +98,9 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		
 		$t3 = array_pop($rawtask["login"]);
 		$this->assertTrue($t1->id_task != $t3->id_task && $t3->type == 'CDailyChips',
-											"Task's is a new CDailyChips that will give the user new chips in 24h");
+											"Task's is a new CDailyChips that will give the user new chips ...");
 		
-		$tstamp = strtotime($t3->moment);
-		$this->assertTrue(($tstamp - time()) > 86399,
-											"Once a day every registered player receives a pre-defined number of chips when logging in (2)",
-											'SpecPoker');
+		$this->assertEqual(strtotime($t3->moment), strtotime('+1 day 00:00'), "...tomorrow at 00:00", 'SpecPoker');
 	}
 
 	function testBookingDailyChipsOnlyOnceADay() {
@@ -124,7 +116,7 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
 
 		//Create an immediate daily chips task
-		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
+		CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day 00:00");
 		$test_user = CUserManager::instance()->User($this->skel_user->uid, TRUE);
 
 		$this->assertTrue($test_user->Chips() == $chips_amount + 500, $chips_amount." + 500 == ".$test_user->Chips()."User gets his daily chips allocation at first login");
@@ -210,7 +202,7 @@ class OSPokerSpecificationsBooking extends OsPokerWebTestCase {
 			CScheduler::TaskFlush(new CDailyChips(), $this->skel_user->uid);
 			
 			//Create an immediate daily chips task
-			CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day");
+			CScheduler::instance()->RegisterTask(new CDailyChips(), $this->skel_user->uid, array('login', "live"), "-1 Day 00");
 
 
 			/*
