@@ -1290,7 +1290,6 @@ body.de #play-now #play-now-button {
 	height: 90px;
 	left: 0;
 	top: 0;
-	border: 1px solid #cdcec9;
 }
 
 /* FIXME : rgba */
@@ -1538,6 +1537,15 @@ body.de #play-now #play-now-button {
 
 #profile-tabs #profile-last-rewards {
   margin-bottom: 15px;
+}
+
+/************************************
+* Thickbox : Profile => Ranking
+************************************/
+
+#profile-ranking .inner-item-list {
+	border: 1px dotted #6c6c6c;
+	border-top: none;
 }
 
 /************************************
