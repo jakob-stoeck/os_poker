@@ -1512,10 +1512,12 @@ body.de #play-now #play-now-button {
 
 #profile-tabs .bottom .item-list {
    height: 60px;
+   background: #eee;
 }
 
 #profile-tabs .bottom .inner-item-list {
    height: 60px;
+   border: none;
 }
 
 #profile-tabs .bottom .ajax-pager .item-list {
