@@ -1185,12 +1185,12 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .TableRanking tr {
-	background: #1a1a1a;
+	background: #515151;
 	color: #fff;
 }
 
 #profile-tabs .TableRanking tr.BgGrey {
-	background: #515151;
+	background: #1a1a1a;
 }
 
 #profile-tabs .TableRanking td.Column01 {
