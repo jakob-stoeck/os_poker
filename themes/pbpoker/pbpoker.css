@@ -78,9 +78,17 @@ tr.even a {
 }
 
 .ui-tabs-nav li {
-	margin-right: 0;
+	margin: 0 !Important;
 }
 
+.ui-tabs-nav li.ui-state-active a {
+	height: 20px;
+}
+
+.ui-tabs-panel {
+	padding-top: 0;
+	margin-top: 1em;
+}
 /**************************
 * Tabs
 * => FIXME : if this appears only in the tabs-window, prefix the css selector
@@ -2294,25 +2302,27 @@ body.de p.Buddies { /* FIXME : german */
 	padding-left: 5px;
 }
 
-/* FIXME : too vague */
 .choose_package {
 	width: 600px;
 	height: 230px;
 	background: transparent url(images/bg_chips_package.png) bottom left repeat-x;
-	border: 1px solid #d7d7d7;
 }
+
 .choose_package .form-radios {
 	position: relative;
 }
+
 .chips_icon {
 	width: 35px;
 	height: 63px;
 	background: transparent url(images/chips_icon.png) top left no-repeat;
 	margin: 10px 5px 0 20px;
 }
+
 .chips_text {
 	padding: 15px 10px 0 10px;
 }
+
 .chips_title {
 	font-size: 13px;
 	font-weight: bold;
@@ -2602,6 +2612,17 @@ body.de #welcome-splash ul.links a {
 }
 .poker-hand.high-card {
 	background: url(images/cards/hands/high_card.png) no-repeat;
+}
+
+.helpbox { /* jquery tabs menu slightly different */
+	clear: both;
+}
+
+.helpbox .content {
+	background: #cbcbcb url(images/bg_help.png) top left repeat-x;
+	padding: 0.5em;
+	border: 1px dotted #666;
+	border-top: none;
 }
 
 /**********************************
