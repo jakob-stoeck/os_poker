@@ -91,7 +91,9 @@ for ($i = 0; $i < $items_per_page; $i++)
   }
 ?>
 <div class="BannerTop">
+ <a title="" href="?q=poker/shop/get_chips">
     <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt="" />
+ </a>
 </div>
 <div class="BannerBottom">
  <a title="" href="?q=poker/buddies/invite">
@@ -126,21 +128,17 @@ print theme('pager', NULL, $items_per_page);
 	?>
 
 <div class="BannerTop">
-  <?php if ($current_user->CanDailyGift()) { ?>
-								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
-		     <?php } else { ?>
-			       <img src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
-		     <?php } ?>
-
+ <a title="" href="?q=poker/buddies/invite">
+	<img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt=""/>
+ </a>
 </div>
 <div class="BannerBottom">
- <a title="" href="?q=poker/buddies/invite">
-  <img alt="" src="sites/all/themes/poker/images/banner_invite_more_friends.jpg"/>
+ <a title="" href="?q=poker/shop/get_chips">
+	<img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt=""/>
  </a>
 </div>
 
 <div class="clear"></div>
 
 <?php endif; ?>
-
 </div>

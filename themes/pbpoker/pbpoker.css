@@ -2434,9 +2434,16 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.png) no-repeat top left;
+    background: url(images/bg_no_result.png) no-repeat left 40px;
     width: 100%;
     height: 264px;
+	color: #fff;
+}
+
+div.poker_error_message .msg a {
+	color: #70480b;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 /*****************************
