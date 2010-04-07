@@ -1034,6 +1034,7 @@ function	os_poker_buddies_invite_form($form_state)
 							'#type' => 'textarea',
 							'#title' => "Message",
 							'#resizable' => FALSE,
+              '#default_value' => isset($form_state['values']['message']) ? $form_state['values']['message'] : t('I just forked out 5.000 chips for you, so we can play together on !site_name ;-). Just click on the link in this e-mail and register!', array('!site_name' => variable_get('site_name', 'Drupal'))),
 					);
 
 	$form["email"] = array(
