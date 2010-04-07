@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-03-30 16:03+0200\n"
+"POT-Creation-Date: 2010-04-07 17:24+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -106,15 +106,27 @@ msgstr ""
 msgid "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
 msgstr ""
 
-#: page-front.tpl.php:223
+#: page-front.tpl.php:146
+msgid "Attention to be able to play playboy poker you need to enable javascript!"
+msgstr ""
+
+#: page-front.tpl.php:147
+msgid "Internet Explorer: Go up in the browser menu: \"Tools\" then \"Internet Options\" - \"Security\". Set the security level for \"Internet\" to the default \"Medium\"."
+msgstr ""
+
+#: page-front.tpl.php:148
+msgid "How it works on in Firefox: Go up in the browser menu: \"Tools,\" then to \"Settings\" - \"content\" - \"Enable Javascript\" (must be ticked)."
+msgstr ""
+
+#: page-front.tpl.php:230
 msgid "Play online poker at Playboy Poker"
 msgstr ""
 
-#: page-front.tpl.php:224
+#: page-front.tpl.php:231
 msgid "If you are always playing online poker, or want to learn it, then Playboy Poker is the place for you. We not only offer exciting poker tournaments with hot prices, but also all information about the poker rules and poker strategies to be successful at the poker table."
 msgstr ""
 
-#: page-front.tpl.php:225
+#: page-front.tpl.php:232
 msgid "On our free poker site you will perhaps become the next star of the poker world and win a date with one of our Playmates. You play on our poker tables the most popular poker variant Texas Hold'em No Limit."
 msgstr ""
 

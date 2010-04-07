@@ -141,6 +141,14 @@
 					</div> <!-- /#content-top -->
 				<?php endif; ?>
 
+        <noscript>
+          <div class="messages error">
+            <p><?php print t('Attention to be able to play Playboy Poker you need to enable JavaScript!') ?></p>
+            <p><?php print t('Internet Explorer: Go up in the browser menu: "Tools" then "Internet Options" - "Security". Set the security level for "Internet" to the default "Medium".') ?></p>
+            <p><?php print t('How it works on in Firefox: Go up in the browser menu: "Tools," then to "Settings" - "content" - "Enable Javascript" (must be ticked).') ?></p>
+          </div>
+        </noscript>
+
 				<?php if ($messages) : ?>
 				<div id="messages">
 					<?php print $messages; ?>
