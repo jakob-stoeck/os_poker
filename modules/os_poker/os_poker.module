@@ -680,6 +680,12 @@ function 	os_poker_theme()
     'os_poker_skin' => array(
       'template' => 'skin',
     ),
+    'os_poker_school' => array(
+      'template' => 'os-poker-school',
+    ),
+    'os_poker_promotion_and_events' => array(
+      'template' => 'os-poker-promotion-and-events',
+    ),
   );
 }
 
@@ -865,94 +871,92 @@ function _os_poker_no_profil()
 */
 
 
-function os_poker_menu()
-{
+function os_poker_menu() {
 	$menu = array(
-					'poker/first_profile' => array(
-													'title'            => '',
-													'access callback'  => '_os_poker_no_profil',
-													'page callback'    => 'os_poker_first_profile_page',
-													'file' 			   => 'os_poker_pages.php',
-													'type'             => MENU_CALLBACK,
-													),
-					'poker/logout' => array(
-													'title'            => '',
-													'access callback'  => 'user_is_logged_in',
-													'page callback'    => 'os_poker_logout',
-													'type'             => MENU_CALLBACK,
-													),
-					'poker/buddies' => array(
-												'title'            => '',
-												'access callback'  => 'user_is_logged_in',
-												'page arguments'   => array(2, 3),
-												'page callback'    => 'os_poker_buddies_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												),
-					'poker/shop' => array(
-												'title'            => '',
-												'access callback'  => 'user_is_logged_in',
-												'page arguments'   => array(2, 3, 4, 5, 6), //tab/category_id/target_type/target_id/subtarget_id
-												'page callback'    => 'os_poker_shop_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												),
-					'admin/poker/shop' => 	array(
-												'title'            => t('Shop administration'),
-												'access arguments' => array('administer users'),
-												'page callback'    => 'os_poker_shop_admin_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-											),
-
-					'poker/messages/send' => array(
-												'page callback'    => 'os_poker_process_message',
-												'file' 			   => 'os_poker_messages.php',
-												'access callback'  => MENU_FOUND,
-												'type'             => MENU_CALLBACK,
-										),
-
-					'poker/messages/receive' => array(
-												'page callback'    => 'os_poker_poll_messages',
-												'file' 			   => 'os_poker_messages.php',
-												'access callback'  => MENU_FOUND,
-												'type'             => MENU_CALLBACK,
-										),
-
-					'poker/messages_popup' => array(
-												'page callback'    => 'os_poker_messages_popup_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												'access callback'  => MENU_FOUND,
-										),
-
-					'poker/messagebox' => array(
-												'page callback'    => 'os_poker_messagebox_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												'access callback'  => MENU_FOUND,
-										),
-
-					'poker/profile' => array(
-												'page arguments'   => array(2, 3, 4),
-												'page callback'    => 'os_poker_profile_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												'access callback'  => 'user_is_logged_in',
-										),
-
-					'poker/forgot-password' => array(
-												'page callback'    => 'os_poker_forgot_password_page',
-												'file' 			   => 'os_poker_pages.php',
-												'type'             => MENU_CALLBACK,
-												'access callback'  => 'user_is_anonymous',
-										),
-					'poker/pages/tourneyinfo' => array(
-							'page callback'  => 'os_poker_tourney_info_page',
-							'file'           => 'os_poker_pages.php',
-							'type'             => MENU_CALLBACK,
-							'access callback'   => TRUE,
-							),
+    'poker/first_profile' => array(
+      'title'            => '',
+      'access callback'  => '_os_poker_no_profil',
+      'page callback'    => 'os_poker_first_profile_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/logout' => array(
+      'title'            => '',
+      'access callback'  => 'user_is_logged_in',
+      'page callback'    => 'os_poker_logout',
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/buddies' => array(
+      'title'            => '',
+      'access callback'  => 'user_is_logged_in',
+      'page arguments'   => array(2, 3),
+      'page callback'    => 'os_poker_buddies_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/shop' => array(
+      'title'            => '',
+      'access callback'  => 'user_is_logged_in',
+      'page arguments'   => array(2, 3, 4, 5, 6), //tab/category_id/target_type/target_id/subtarget_id
+      'page callback'    => 'os_poker_shop_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/messages/send' => array(
+      'page callback'    => 'os_poker_process_message',
+      'file' 			   => 'os_poker_messages.php',
+      'access callback'  => MENU_FOUND,
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/messages/receive' => array(
+      'page callback'    => 'os_poker_poll_messages',
+      'file' 			   => 'os_poker_messages.php',
+      'access callback'  => MENU_FOUND,
+      'type'             => MENU_CALLBACK,
+    ),
+    'poker/messages_popup' => array(
+      'page callback'    => 'os_poker_messages_popup_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'  => MENU_FOUND,
+    ),
+    'poker/messagebox' => array(
+      'page callback'    => 'os_poker_messagebox_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'  => MENU_FOUND,
+    ),
+    'poker/profile' => array(
+      'page arguments'   => array(2, 3, 4),
+      'page callback'    => 'os_poker_profile_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'  => 'user_is_logged_in',
+    ),
+    'poker/forgot-password' => array(
+      'page callback'    => 'os_poker_forgot_password_page',
+      'file' 			   => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'  => 'user_is_anonymous',
+    ),
+    'poker/pages/tourneyinfo' => array(
+      'page callback'  => 'os_poker_tourney_info_page',
+      'file'           => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'   => TRUE,
+    ),
+    'poker/pages/school' => array(
+      'page callback'  => 'os_poker_school_page',
+      'file'           => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'   => TRUE,
+    ),
+    'poker/pages/promotion_and_events' => array(
+      'page callback'  => 'os_poker_promotion_and_events_page',
+      'file'           => 'os_poker_pages.php',
+      'type'             => MENU_CALLBACK,
+      'access callback'   => TRUE,
+    ),
     'poker/report_abuse/%user' => array(
       'title' => 'Report abuse',
       'page callback' => 'drupal_get_form',
@@ -968,6 +972,19 @@ function os_poker_menu()
       'page arguments' => array('os_poker_admin_form'),
       'file' => 'os_poker.admin.php',
       'access arguments' => array('administer os poker'),
+    ),
+    'admin/settings/ospoker/config' => array(
+      'title' => 'Config',
+      'type' => MENU_DEFAULT_LOCAL_TASK,
+      'weight' => -10
+    ),
+    'admin/settings/ospoker/shop' => 	array(
+      'title' => t('Shop Items'),
+      'description' => 'Configure OS Poker shop items',
+      'access arguments' => array('administer os poker'),
+      'page callback' => 'os_poker_shop_admin_page',
+      'file' => 'os_poker_pages.php',
+      'type' => MENU_LOCAL_TASK,
     ),
     'poker/closebox' => array(
       'title' => '',
@@ -1010,12 +1027,12 @@ function os_poker_menu()
       'page arguments' => array(2),
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
-				),
-					'poker/skin' => array(
-							'title' => 'Skin',
-							'page callback' => 'os_poker_skin_page',
-							'file' 			   => 'os_poker_pages.php',
-							'access arguments' => array('administer os poker'),
+    ),
+    'poker/skin' => array(
+      'title' => 'Skin',
+      'page callback' => 'os_poker_skin_page',
+      'file' 			   => 'os_poker_pages.php',
+      'access arguments' => array('administer os poker'),
     ),
 
   );

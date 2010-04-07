@@ -43,9 +43,21 @@ $(document).bind('thickbox_show', function(event, caption, url, imageGroup) {
     //$("#TB_iframeContent").remove();
   }
 });
-//Fix transparent background for Thickbox's iframe in IE
+
 $(document).bind('thickbox_show_after', function(even, caption, url, imageGroup) {
+  //Fix transparent background for Thickbox's iframe in IE
   $('#TB_iframeContent').attr('allowTransparency', 'allowTransparency');
+  //Fix opening an jQuery UI Tabs's tab using fragment in a thickbox.
+  var hash = url.split('#', 2)[1];
+  if(hash) {
+    $('#TB_iframeContent').one('load', function(){
+      var iframeDocument = $(this).contents().get(0);
+      var w = iframeDocument.parentWindow || iframeDocument.defaultView;
+      if(typeof w == 'object' && typeof w.$ == 'function' && typeof w.$.fn.tabs == 'function') {
+        w.$('.tabs').tabs('select', '#'+hash);
+      }
+    });
+  }
 });
 
 Drupal.behaviors.os_poker = function(context) {

@@ -497,6 +497,8 @@ function	os_poker_shop_admin_page()
 
 require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
 
+drupal_set_message(t('Usage of this interface is discouraged as it has not been thougfully designed or tested.'), 'warning');
+
 $cats = CShop::ListCategories();
 $vcats = array_keys($cats);
 
@@ -523,10 +525,18 @@ foreach ($vcats as $catid)
 }
 
 function os_poker_tourney_info_page() {
-		return theme('os_poker_tourney_info');
+  return theme('os_poker_tourney_info');
 }
 
 function os_poker_skin_page() {
-		return theme('os_poker_skin');
+  return theme('os_poker_skin');
+}
+
+function os_poker_school_page() {
+  return theme('os_poker_school');
+}
+
+function os_poker_promotion_and_events_page() {
+  return theme('os_poker_promotion_and_events');
 }
 ?>
