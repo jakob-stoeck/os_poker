@@ -1,0 +1,27 @@
+#poker-teaser .title
+{
+  text-indent: -10000px;
+  display: block;
+  width: 411px;
+  height: 55px;
+  background-image: url(images/teaser-title-en.gif);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#home_signup .title {
+  text-indent: -10000px;
+  display: block;
+  width: 300px;
+  height: 55px;
+  /*background-image: url(images/signup-title-en.gif);*/
+  /*background-color: transparent;*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center center;*/
+}
+
+#poker-teaser .subtitle
+{
+  display: none;
+}

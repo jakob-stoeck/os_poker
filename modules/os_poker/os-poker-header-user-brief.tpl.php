@@ -9,13 +9,13 @@
 		</div>
 		<div class="user_login_brief_row">
 			<p class="buddy_count">
-				<?php 
+				<?php
 					$buddies = $os_user->Buddies(TRUE);
-				
+
 					$status_string = t("You have @buddies Pokerbuddies", array("@buddies" => count($buddies))) . " (<b><u>";
-					
+
 					$onl = 0;
-					
+
 					foreach($buddies as $buddy)
 					{
 						if ($buddy->Online())
@@ -23,9 +23,9 @@
 							++$onl;
 						}
 					}
-					
+
 					$status_string .= t("@buddies Online", array("@buddies" => $onl)) . "</u></b>)";
-					
+
 					print $status_string;
 				?>
 			</p>

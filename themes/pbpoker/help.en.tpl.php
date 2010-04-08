@@ -60,6 +60,7 @@
 
 	<div id="help-rules" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Hold'em Rules</h4>
+		<div class="content">
 			<p>In Texas Hold’em poker, each player is initially dealt two cards face down (known as hole cards) and five community cards are placed face down in the middle of the table. Hole cards and community cards can be used in any combination with a view to obtaining the best possible five-card hand from the available seven cards. </p>
 			<p><em>Dealer button</em>: The dealer button is the position from which the cards are dealt. Each round of poker begins at the dealer button, which shifts one position to the left after each hand. </p>
 			<p><em>Small blind</em>: Refers to a small bet that the player immediately following the dealer is required to place at the beginning of the first round. </p>
@@ -76,10 +77,12 @@
   				<li><strong>Showdown</strong><br />
 The winner with the best five-card hand is now determined from among the remaining players who have not folded. The number of hole cards a player has used has no bearing on whether they win the round. Also see: Poker hand rankings </li>
 			</ul>
+		</div>
 	</div>
 
 	<div id="help-tips" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Tips</h4>
+		<div class="content">
 		<ol class="helpbox-list">
 			<li><strong>Choose the hands you play wisely</strong><br />
 			Patience is the key to success in poker. Poker professionals only look at the flop in 20 to 30 percent of cases. You will (and should!) increase your chances of getting a good hand by waiting until you get one. </li>
@@ -98,6 +101,7 @@ The winner with the best five-card hand is now determined from among the remaini
 			<li><strong>The poker learning curve never ends </strong><br />
 			Since poker rules are easy to learn, even total novices can prevail against highly experienced players. However, it’s also a lot of fun to improve your game based on experience. So the most important poker tip of all is to keep playing.</li>
 		</ol>
+		</div>
 	</div>
 
 	<div id="help-tutorial" class="helpbox"  style="overflow: hidden">
@@ -131,6 +135,7 @@ $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder
 
 	<div id="help-guidelines" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Guidelines</h4>
+		<div class="content">
 		<p>Fairness and mutual respect at the poker table are of supreme importance to us. We ask that you observe the following rules and regulations so as to ensure that all concerned derive maximum enjoyment from playing: </p>
 		<ul class="helpbox-list">
 			<li>Spamming is strictly prohibited, as is posting of affiliate codes and/or links from other Web sites. </li>
@@ -143,10 +148,12 @@ $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder
 		<p>
 		Playboypoker.de reserves the right to delete any content that violates any of the aforementioned rules and regulations. Any such violation will result in a warning, and in a serious case to immediate deactivation of the relevant user account without prior warning.</p>
 		<p>For reporting a breach of the rules, please use the "Report abuse" function, which can be found in every player profile. Simply click on the name or profile image of the player you want to report. There you'll find the "Report abuse" button.</p>
+		</div>
 	</div>
 
 	<div id="help-security" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Security Advice</h4>
+		<div class="content">
 		<h5>Don’t give Hackers, Spammers and Scammers a chance</h5>
 		<p>We will never ask you for sensitive information via e-mail or in game chat, like</p>
 		<ul>
@@ -171,5 +178,6 @@ $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder
 			<li>No dictionary words in any language</li>
 			<li>Don't use only one password for all your accounts</li>
 		</ul>
+		</div>
 	</div>
 </div>

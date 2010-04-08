@@ -56,6 +56,10 @@ tr.even a {
 	cursor: pointer;
 }
 
+body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose {
+	background-image: url(images/button_layerclose.png);
+}
+
 /***************************
  * Resetting jquery tab CSS
  ***************************/
@@ -78,43 +82,70 @@ tr.even a {
 }
 
 .ui-tabs-nav li {
-	margin-right: 0;
+	margin: 0 !Important;
 }
 
+.ui-tabs-nav li.ui-state-active a {
+	height: 20px;
+}
+
+.ui-tabs-panel {
+	padding-top: 0;
+	margin-top: 1em;
+}
 /**************************
-** Tabs
+* Tabs
+* => FIXME : if this appears only in the tabs-window, prefix the css selector
 **************************/
+div.tabs, ul.tabs {
+	height: 24px;
+}
+
+div.tabs {
+	border-bottom: 1px solid #666;
+}
 
 ul.primary {
 	font-size: 12px;
 	font-weight: bold;
-	height: 24px;
 	margin: 5px 7px 0;
-	overflow: hidden; /* lazy clear */
+	border: none;
+	margin-top: 1px;
 }
 
 ul.primary li a {
 	font-weight: bold;
-	border: 1px solid #CBCBC9;
-	border-bottom: none;
-	background: #DFDFDF url(images/bg_layernavbutton.png) repeat-x 0 0;
-	color: #6C6C6C;
+	border: 1px solid #666 !important;
+	border-bottom: none !important;
+	background: #DFDFDF url(images/thickboxes/tab.png) repeat-x 0 0;
+	color: #666;
 	height: 18px;
 	display: block;
 	float: left;
 	padding: 5px 10px 0;
 }
 
+*:first-child+html ul.primary li a {
+	border: 1px solid #666 !important;
+	padding-top:4px;
+}
+
+*:first-child+html ul.primary li.active a,
+*:first-child+html li.ui-state-active a {
+	border-bottom: none !important;;
+}
+
 ul.primary li.active a, li.ui-state-active a {
-	color: #810E0B !important;
-	background: #FFFFFF !important;
+	color: #fff !important;
+	background: #111 !important;
+	/* overlapping illusion : */
+	padding-bottom: 1px;
+	position: relative;
+	z-index: 2;
 }
 
 ul.primary li a:hover {
-	text-decoration: underline;
-	border-left: 1px solid #CBCBC9;
-	border-right: 1px solid #CBCBC9;
-	border-top: 1px solid #CBCBC9;
+	color: #fff;
 }
 
 ul.secondary a {
@@ -241,9 +272,15 @@ ul.secondary li a.active {
 }
 
 /*************************
+* Thickboxes - reset main
+*************************/
+.tabs-window {
+	background: url(images/thickboxes/thickbox.png) repeat-x;
+}
+
+/*************************
 * Thickboxes
 *************************/
-
 body.iframe,
 body.iframe #page,
 body.iframe #main {
@@ -435,7 +472,7 @@ body.poker-profile #TB_window {
 ************************/
 
 div.poker_submit {
-	color: #1b1401;
+	color: #603c08;
 	font: normal 12px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -489,7 +526,7 @@ div.poker_submit div.label input {
 /*
 ** The silver one
 */
-
+/*
 div.poker_submit.silver div.pre {
   background-image: url(images/silver_button_left.png);
   background-position: left top;
@@ -501,7 +538,7 @@ div.poker_submit.silver div.label {
   background-position: right top;
   color: #313751;
 }
-
+*/
 /*
 ** The big one
 */
@@ -536,7 +573,7 @@ div.poker_submit.big.disabled {
 div.poker_submit.big.disabled div.label {
 	background: transparent url(images/bg_button_silverbig_middle.png) repeat-x;
 	background-position: top left;
-	color: #8C8B89;
+	color: #666;
 }
 
 div.poker_submit.big.disabled div.pre {
@@ -1171,75 +1208,74 @@ body.de #play-now #play-now-button {
 	margin-left: 3px;
 }
 
-/*******************************
-* FIXME
-*******************************/
-
-.TableRanking {
-	margin: 0 0 16px;
-	width: 441px;
-	border-collapse: separate;
-}
-
-.TableRanking td {
-	padding: 3px 4px 3px 16px;
-}
-
-.TableRanking tr {
-	background-color: #fff;
-	color: #727272;
-}
-
-.TableRanking tr.BgGrey {
-	background: #ECECEC none repeat 0 0;
-}
-
-.TableRanking td.Column01 {
-	font-weight: bold;
-	white-space: nowrap;
-	width: 60px;
-}
-
-.TableRanking td.Column02 {
-	border-right: 1px solid #FFFFFF;
-	width: 70px;
-}
-
-.TableRanking td.Column03 {
-	font-weight: bold;
-	white-space: nowrap;
-	width: 110px;
-}
-
-.TableRanking td.Column04 {
-	white-space: nowrap;
-}
-
 /*****************************
  * Thickbox : Profile
  * with tab-based navigation
  * ***************************/
 
+#profile-tabs .TableRanking {
+	margin: 0 0 16px;
+	width: 441px;
+	border-collapse: separate;
+}
+
+#profile-tabs .TableRanking td {
+	padding: 3px 4px 3px 16px;
+}
+
+#profile-tabs .TableRanking tr {
+	background: #515151;
+	color: #fff;
+}
+
+#profile-tabs .TableRanking tr.BgGrey {
+	background: #1a1a1a;
+}
+
+#profile-tabs .TableRanking td.Column01 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 60px;
+}
+
+#profile-tabs .TableRanking td.Column02 {
+	border-right: 1px solid #282828;
+	width: 70px;
+}
+
+#profile-tabs .TableRanking td.Column03 {
+	font-weight: bold;
+	white-space: nowrap;
+	width: 110px;
+}
+
+#profile-tabs .TableRanking td.Column04 {
+	white-space: nowrap;
+}
+
 #profile-tabs .profile_tourney_info {
 	width: 292px;
-	border: 1px solid #999999;
 	height: 198px;
 	overflow: hidden;
+	background: #eee;
 }
 
-.TourneyInfo {
+#profile-tabs table.TourneyInfo {
 	width: 293px;
+	color: #6c6c6c;
 }
 
-.TourneyInfo tr {
+#profile-tabs table.TourneyInfo tr {
 	height: 16px;
+	color: #6c6c6c !important;
+	background: #fff;
 }
 
-.TourneyInfo tr.table_header td {
-	color: #810E0B;
-	font-weight: bold;
+#profile-tabs table.TourneyInfo tr.BgGrey {
+	background: #eee;
 }
 
+.TourneyInfo tr.table_header td,
 .TourneyInfo tr td.bold {
 	font-weight: bold;
 }
@@ -1293,7 +1329,6 @@ body.de #play-now #play-now-button {
 	height: 90px;
 	left: 0;
 	top: 0;
-	border: 1px solid #cdcec9;
 }
 
 /* FIXME : rgba */
@@ -1309,7 +1344,7 @@ body.de #play-now #play-now-button {
 ******************************/
 
 #buddies-search {
-	color: rgb(108, 108, 108);
+	color: #ddd;
 	overflow: hidden;
 	padding: 13px 0 0 58px;
 }
@@ -1407,8 +1442,8 @@ body.de #play-now #play-now-button {
 	float: left;
 	width: 230px;
 	height: 70px;
-	background-color: #FFFFFF;
-	border: 1px solid #c9c9c7;
+	background: #fff url(images/buddies-bg.png) bottom left repeat-x;
+	border: 1px solid #696969;
 	margin: 10px 0 0 10px;
 	padding: 10px 0 0 10px;
 }
@@ -1448,7 +1483,7 @@ body.de #play-now #play-now-button {
 
 #buddies-list .buddy_result_list_links .poker_submit {
 	font-size: 11px;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
 	overflow: hidden;
 }
 
@@ -1499,16 +1534,28 @@ body.de #play-now #play-now-button {
   padding: 5px 0 0 105px;
 }
 
+#profile-tabs .header .right {
+	color: #fff;
+	font-weight: bold;
+}
+
+#profile-tabs .header .right .darkred {
+	color: #666;
+	font-weight: normal;
+}
+
 #profile-tabs .bottom {
   height: 300px;
 }
 
 #profile-tabs .bottom .item-list {
    height: 60px;
+   background: #eee;
 }
 
 #profile-tabs .bottom .inner-item-list {
    height: 60px;
+   border: none;
 }
 
 #profile-tabs .bottom .ajax-pager .item-list {
@@ -1532,20 +1579,28 @@ body.de #play-now #play-now-button {
 }
 
 /************************************
+* Thickbox : Profile => Ranking
+************************************/
+
+#profile-ranking .inner-item-list {
+	border: 1px dotted #6c6c6c;
+	border-top: none;
+}
+
+/************************************
 * Thickbox : Shop
 ************************************/
-/* FIXME : too vague */
-ul.categories {
+#shop ul.categories {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	width: 138px;
 }
 
-ul.categories li a {
-	border: 1px solid #CCCBC9;
+#shop ul.categories li a {
+	border: 1px solid #6a6a6a;
 	border-right: none;
-	color: #CE9900;
+	color: #6c6c6c;
 	display: block;
 	font-weight: bold;
 	height: 23px;
@@ -1553,14 +1608,16 @@ ul.categories li a {
 	margin: 5px 0 0;
 	padding: 4px 0 0 7px;
 	text-decoration: none;
+	background: #fff url(images/bg_button_shopnav.png) repeat-x top left;
 }
 
-ul.categories li.active a,
-ul.categories li a:hover {
-	background: url(images/bg_button_shopnav.png) repeat-x;
+#shop ul.categories li.active a,
+#shop ul.categories li a:hover {
+	background: #454545 url(images/bg_button_shopnav_active.png) repeat-x top left;
+	color: #e2c87b;
 }
 
-ul.categories li a span {
+#shop ul.categories li a span {
 	color: #65605A;
 	font-size: 14px;
 	padding: 0 2px 0 0;
@@ -1568,6 +1625,10 @@ ul.categories li a span {
 
 #shop {
 	position: relative;
+}
+
+#shop .shop_user {
+	color: #e3e3e3;
 }
 
 #shop #items {
@@ -1603,6 +1664,7 @@ ul.categories li a span {
 
 #shop #items a:hover,
 #shop #items a.selected {
+	/*
 	background: #fff url(images/bg_shop_item_hover.png) no-repeat bottom right;
 	border-right: none;
 	border-bottom: none;
@@ -1610,6 +1672,11 @@ ul.categories li a span {
 	padding-bottom: 1px;
 	height: 99px;
 	margin-bottom: 0;
+	*/
+	-moz-box-shadow: 1px 1px 1px #CCCCCC;
+	-box-shadow: 1px 1px 1px #CCCCCC;
+	border-color: #eee;
+	font-size: 1.1em;
 }
 
 #shop #items a span img {
@@ -1671,12 +1738,12 @@ ul.pager a {
 }
 
 ul.pager a.active {
-	color: #727272;
+	color: #e1c77c;
 	font-weight: bold;
 }
 
 ul.pager .pager-current {
-	color: #A8904A;
+	color: #fff;
 }
 
 .item-list ul.pager {
@@ -1847,6 +1914,7 @@ div.num {
 	vertical-align: middle;
 	width: 23px;
 	float: left;
+	border-right:1px solid #666666;
 }
 
 div.TeaseMore {
@@ -1864,9 +1932,8 @@ div.TeaseMore .poker_submit .label {
 	padding-top: 9px;
 }
 
-/* FIXME : too vague */
-p.Link a {
-	color: #7A1C1C;
+#buddies-invite p.Link a {
+	color: #666;
 	font-weight: bold;
 	text-decoration: underline;
 }
@@ -1901,34 +1968,39 @@ body.de p.Buddies { /* FIXME : german */
 * Thickbox : Buddies => Invite => Invited
 ****************************************/
 
-.TableLeft {
-	border: 1px solid #DADADA;
+#buddies-invited_list .TableLeft {
+	border: 1px dotted #DADADA;
 	width: 452px;
 }
 
-.TableLeft th.Column01 {
+#buddies-invited_list .TableLeft th.Column01 {
 	width: 105px;
 }
 
-.TableLeft th.Column02	{
+#buddies-invited_list .TableLeft th.Column02	{
 	width: 82px;
 }
 
-.TableLeft th.Column03	{
+#buddies-invited_list .TableLeft th.Column03	{
 	width: 68px;
 }
 
-.TableLeft th.Column04 {
+#buddies-invited_list .TableLeft th.Column04 {
 	width: 63px;
 }
-.TableLeft th.Column05 {
+
+#buddies-invited_list .TableLeft th.Column05 {
 	width: 66px;
 }
 
-.TableLeft th {
+#buddies-invited_list .TableLeft tbody {
+	border: none;
+}
+
+#buddies-invited_list .TableLeft th {
 	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
-	border-bottom: 1px solid #9F9B98;
-	border-right: 1px solid #9F9B98;
+	border: none;
+	border-right: 1px solid #292929;
 	color: #FFFFFF;
 	height: 21px;
 	line-height: 16px;
@@ -1937,42 +2009,42 @@ body.de p.Buddies { /* FIXME : german */
 	padding: 0 6px;
 }
 
-.TableLeft p {
+#buddies-invited_list .TableLeft p {
 	margin: 0;
 	overflow: hidden;
 	white-space: nowrap;
 	width: 132px;
 }
 
-.TableLeft td.Center {
+#buddies-invited_list .TableLeft td {
+	border-right: 1px solid #282828;
+	padding: 3px 3px 2px 6px;
+	overflow: hidden;
+	color: #fff;
+}
+
+#buddies-invited_list .TableLeft td.Center {
 	text-align: center;
 }
 
-.TableLeft td.BgWhite {
-	background: #FFFFFF;
-	border-right: 1px solid #9F9B98;
-	overflow: hidden;
-	padding: 3px 3px 2px 6px;
+#buddies-invited_list .TableLeft td.BgWhite { /* its not white, its black. */
+	background: #1a1a1a;
 }
 
-.TableLeft td.BgGrey {
-	background: #ECECEC;
-	border-right: 1px solid #9F9B98;
-	color: #727272;
-	padding: 3px 3px 2px 6px;
+#buddies-invited_list .TableLeft td.BgGrey {
+	background: #515151;
 }
 
-/* FIXME: too vague */
-.PageNavPosition {
+#buddies-invited_list .PageNavPosition {
 	width: 385px;
 }
 
-.PageNavPosition .PageNav {
+#buddies-invited_list .PageNavPosition .PageNav {
 	float: right;
 	margin: 0 -65px 0 0;
 }
 
-.PageNav {
+#buddies-invited_list .PageNav {
 	clear: both;
 	color: #727272;
 	font-weight: bold;
@@ -1981,37 +2053,42 @@ body.de p.Buddies { /* FIXME : german */
 	text-align: right;
 }
 
-.PageNavPosition .Legend {
+#buddies-invited_list .PageNavPosition .Legend {
 	font-weight: bold;
 	margin: 5px 0 0;
+	color: #fbfbfb;
 }
 
-.PageNavPosition .Legend div {
+#buddies-invited_list .PageNavPosition .Legend div {
 	float: left;
 }
-#ContainerContentInvite .PageNavPosition .Legend p {
+
+#buddies-invited_list .PageNavPosition .Legend div img {
+	margin-left: 5px;
+}
+
+#buddies-invited_list #ContainerContentInvite .PageNavPosition .Legend p {
 	float: left;
 	margin: 0;
 	padding: 1px 0 0;
 }
 
-.PageNavPosition .Legend div {
-	float: left;
-}
-
-/* Info on sent invitations in invitations thickbox */
-/* FIXME : better selector */
-
-.TableRight {
-	border: 1px solid #DADADA;
+#buddies-invited_list .TableRight {
+	border: 1px solid #111;
 	position: absolute;
 	right: 10px;
 	top: 0;
 	width: 140px;
 }
 
-.TableRight th {
+#buddies-invited_list .TableRight tbody {
+	border: none;
+	background: #fff; /* fixme degrade */
+}
+
+#buddies-invited_list .TableRight th {
 	background: #030303 url(images/bg_titlebar.png) repeat-x left top;
+	border: none;
 	color: #FFFFFF;
 	height: 21px;
 	line-height: 16px;
@@ -2020,29 +2097,29 @@ body.de p.Buddies { /* FIXME : german */
 	padding: 0 6px 1px 10px;
 }
 
-.TableRight td {
+#buddies-invited_list .TableRight td {
 	font-weight: bold;
 	overflow: hidden;
 	padding: 6px;
 }
 
-.TableRight td span {
+#buddies-invited_list .TableRight td span {
 	color: #D70504;
 }
 
-.TableRight td.Dotted {
+#buddies-invited_list .TableRight td.Dotted {
 	font-size: 1px;
 	margin: 0;
 	padding: 0 6px;
 }
 
-.TableRight div {
+#buddies-invited_list .TableRight div {
 	background: transparent url(images/bg_line_dotted.png) repeat-x 0 0;
 	height: 2px;
 	margin: 0;
 }
 
-.InviteMore {
+#buddies-invited_list .InviteMore {
 	height: 170px;
 	left: 515px;
 	position: absolute;
@@ -2256,25 +2333,27 @@ body.de p.Buddies { /* FIXME : german */
 	padding-left: 5px;
 }
 
-/* FIXME : too vague */
 .choose_package {
 	width: 600px;
 	height: 230px;
 	background: transparent url(images/bg_chips_package.png) bottom left repeat-x;
-	border: 1px solid #d7d7d7;
 }
+
 .choose_package .form-radios {
 	position: relative;
 }
+
 .chips_icon {
 	width: 35px;
 	height: 63px;
 	background: transparent url(images/chips_icon.png) top left no-repeat;
 	margin: 10px 5px 0 20px;
 }
+
 .chips_text {
 	padding: 15px 10px 0 10px;
 }
+
 .chips_title {
 	font-size: 13px;
 	font-weight: bold;
@@ -2386,9 +2465,16 @@ body.de p.Buddies { /* FIXME : german */
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.png) no-repeat top left;
+    background: url(images/bg_no_result.png) no-repeat left 40px;
     width: 100%;
     height: 264px;
+	color: #fff;
+}
+
+div.poker_error_message .msg a {
+	color: #70480b;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 /*****************************
@@ -2564,6 +2650,17 @@ body.de #welcome-splash ul.links a {
 }
 .poker-hand.high-card {
 	background: url(images/cards/hands/high_card.png) no-repeat;
+}
+
+.helpbox { /* jquery tabs menu slightly different */
+	clear: both;
+}
+
+.helpbox .content {
+	background: #cbcbcb url(images/bg_help.png) top left repeat-x;
+	padding: 0.5em;
+	border: 1px dotted #666;
+	border-top: none;
 }
 
 /**********************************
@@ -2818,4 +2915,12 @@ body.poker-tourneyinfo #middle-content-right {
 /* quickfix z2#210 FIXME */
 #edit-picture-upload-wrapper div input.file {
 	display: none !important;
+}
+
+/* ********************
+ * Help thickboxes
+ * ********************/
+
+.helpcontent {
+	background: #fbfbfb;
 }
