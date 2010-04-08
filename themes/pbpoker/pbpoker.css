@@ -1823,6 +1823,18 @@ ul.pager .pager-current {
 	margin: 0 0 5px;
 }
 
+#buddies-invite #chipsoninvitemore h5 {
+	font-size: 1.4em;
+}
+
+#buddies-invite #chipsoninvitemore h5 strong {
+	font-size: 1.3em;
+}
+
+#buddies-invite #chipsoninvitemore p {
+	margin-top: 0.7em;
+}
+
 #buddies-invite p.Note {
 	position: absolute;
 	bottom: 5px;
