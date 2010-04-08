@@ -480,7 +480,7 @@ div.poker_submit div.label input {
 *:first-child+html div.poker_submit div.label input {
 	color: #6E4809 !important;
 	font-weight: bold !important;
-	font-size: 12px !important;  
+	font-size: 12px !important;
 	cursor: pointer !important;
   text-decoration: none !important;
 	width: 125px; /* occurs in profile-medium */
@@ -791,6 +791,33 @@ div.poker_submit.big.disabled:hover div.label {
 	text-align: center;
 	font-size: small; /* FIXME */
 	cursor: pointer;
+}
+
+/* this button uses a particular css, so it can be centered without having a fixed width */
+#buddylist #today_gift .pre,
+#buddylist #today_gift .label {
+	float: none;
+	display: inline-block;
+	height: 16px;
+	line-height: 16px;
+	vertical-align: middle;
+}
+
+*:first-child+html #buddylist #today_gift .pre,
+*:first-child+html #buddylist #today_gift .label {
+	display: inline;
+}
+
+*:first-child+html #buddylist #today_gift .label {
+	margin-left: 0;
+}
+
+*:first-child+html #buddylist #today_gift input {
+	width: auto;
+}
+
+#buddylist #today_gift .label {
+	margin-left: -3px;
 }
 
 #buddylist .next,
