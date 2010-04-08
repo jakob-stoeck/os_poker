@@ -1186,20 +1186,17 @@ body.de #play-now #play-now-button {
 
 #profile-update .image_promo {
 	position: relative;
-	width: 147px;
+	width: 113px;
 	height: 197px;
 	margin-top: 10px;
 	background: url(images/thickboxes/profilebunny.png) bottom left no-repeat;
-}
-
-#profile-update .image_promo img { /* fixme */
-	display: none;
 }
 
 #profile-update .image_promo p.Dollar {
 	position: absolute;
 	left: 10px;
 	bottom: 5px;
+	padding: 15px 10px 5px;
 }
 
 #profile-update select option {
