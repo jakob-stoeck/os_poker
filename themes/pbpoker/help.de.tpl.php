@@ -2,10 +2,10 @@
 	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
 	<div class="tabs">
 		<ul class="tabs primary">
-			<li><a href="#help-pokerhands">Pokerblätter</a></li>
+      <li><a href="#help-tutorial">Tutorial</a></li>
 			<li><a href="#help-rules">Hold'Em Regeln</a></li>
 			<li><a href="#help-tips">Tipps</a></li>
-			<li><a href="#help-tutorial">Tutorial</a></li>
+      <li><a href="#help-pokerhands">Pokerblätter</a></li>
 			<li><a href="#help-guidelines">Richtlinien</a></li>
 			<li><a href="#help-security">Sicherheitshinweis</a></li>
 		</ul>
@@ -105,24 +105,30 @@
     <p>
       <a class="tab-iframe" href="<?php print $tutorial ?>" style="display: none"></a>
       <script language="javascript" type="text/javascript">
-/* Dirty hack to activate tutorial tab in help thickbox */
-function os_poker_show_tutorial_tab() {
-$("a[href=#help-pokerhands]").parent().removeClass('ui-state-active')
-$("div#help-pokerhands").addClass('ui-tabs-hide')
-$("a[href=#help-tutorial]").parent().addClass('ui-state-active')
-$("div#help-tutorial").removeClass('ui-tabs-hide')
-
-$('iframe.tutorial').remove();
-var href = $('.tab-iframe').attr('href');
-$('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
-}
-
+        /* Dirty hack to activate tutorial tab in help thickbox */
+        function os_poker_show_tutorial_tab() {
+          $('#ContainerContentHelp .tabs').tabs('select', '#help-tutorial');
+        }
         $(document).ready(function(){
-          $('#ContainerContentHelp .tabs').bind('tabsshow', function(event, ui){
-            if(!$(ui.tab).hasClass('foo')) {
-              $('iframe.tutorial').remove();
-              var href = $('.tab-iframe').attr('href');
-              $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+          //Function to add the video iframe
+          var href = $('.tab-iframe').attr('href');
+          function tutorial_iframe() {
+            $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+          }
+          var $tabs = $('#ContainerContentHelp .tabs');
+          //Delay to let jQuery UI Tabs initilize itself
+          setTimeout(function(){
+            //If the selected tab is the tutorial one, add the video iframe
+            if($tabs.tabs('option', 'selected') == 0) {
+              tutorial_iframe();
+            }
+          }, 0);
+          //When a tab is show, remove the video iframe
+          $tabs.bind('tabsshow', function(event, ui){
+            $('iframe.tutorial').remove();
+            //Add the shown tab is the tutorial, add the the video iframe
+            if($(ui.tab).attr('hash') == '#help-tutorial') {
+              tutorial_iframe();
             }
           });
         });
