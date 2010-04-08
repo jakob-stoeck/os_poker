@@ -133,7 +133,7 @@ ul.primary li a {
 
 *:first-child+html ul.primary li.active a,
 *:first-child+html li.ui-state-active a {
-	border-bottom: none !important;;
+	border-bottom: none !important;
 }
 
 ul.primary li.active a, li.ui-state-active a {
