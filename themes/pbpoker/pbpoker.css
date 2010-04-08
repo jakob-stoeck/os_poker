@@ -58,6 +58,7 @@ tr.even a {
 
 body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose {
 	background-image: url(images/button_layerclose.png);
+	top: 5px;
 }
 
 /***************************
