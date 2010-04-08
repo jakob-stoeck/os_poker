@@ -1355,11 +1355,11 @@ body.de #play-now #play-now-button {
 }
 
 .buddies-search-banner {
-	background: url(images/buddysearch_title.png) no-repeat 5px 0;
+	background: url(images/thickboxes/searchbunny.png) no-repeat left bottom;
 	border: 0;
 	height: 111px;
 	margin: 5px 0 0 0;
-	padding: 6px 0 0 131px;
+	padding: 6px 0 0 155px;
 	width: 300px;
 }
 
