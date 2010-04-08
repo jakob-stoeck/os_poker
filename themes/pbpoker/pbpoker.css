@@ -1220,6 +1220,10 @@ body.de #play-now #play-now-button {
  * with tab-based navigation
  * ***************************/
 
+#profile-tabs .bottom .ajax-pager .item-list {
+	background: none !important;
+}
+
 #profile-tabs .TableRanking {
 	margin: 0 0 16px;
 	width: 441px;
