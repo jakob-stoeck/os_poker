@@ -594,7 +594,7 @@ function 	os_poker_theme()
     ),
     'os_poker_home_news' => array(
       'arguments' => array('news' => NULL),
-      'template' => 'news',
+      'template' => 'os-poker-home-news',
     ),
     'os_poker_home_promotion' => array(
       //'arguments' => array('message' => NULL),

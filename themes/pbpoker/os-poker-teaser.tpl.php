@@ -5,7 +5,7 @@
 	<h3><?php print t("Learn Texas Hold'em No Limit and win hot prizes!"); ?></h3>
 	<div id="register-now" class="open-register-form">
     <div style="margin: -10px">
-      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="196" height="235">
+      <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="<?php print $card['size'][0]?>" height="<?php print $card['size'][1]?>">
         <param name="movie" value="<?php print $card['file']?>" />
         <param name="flashvars" value="link=<?php print url("", array('fragment' => 'registration-window')); ?>"/>
         <param name="quality" value="high" />
@@ -17,7 +17,7 @@
         <param name="bgcolor" value="#00ff00"/>
         <param name="allowFullScreen" value="false"/>
         <!--[if !IE]>-->
-        <object type="application/x-shockwave-flash" data="<?php print $card['file']?>" width="196" height="235">
+        <object type="application/x-shockwave-flash" data="<?php print $card['file']?>" width="<?php print $card['size'][0]?>" height="<?php print $card['size'][1]?>">
           <param name="flashvars" value="link=<?php print url("", array('fragment' => 'registration-window')); ?>"/>
           <param name="quality" value="high" />
           <param name="align" value="middle" />
