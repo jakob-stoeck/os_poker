@@ -904,6 +904,12 @@ div.poker_submit.big.disabled:hover div.label {
 	padding-top: 5px;
 }
 
+#user-brief p.welcome {
+  font-size: 1.2em;
+  height: 2.25em;
+  overflow: hidden;
+}
+
 #user-brief p.info {
 	padding-top: 10px;
 }
@@ -2104,17 +2110,44 @@ body.de p.Buddies { /* FIXME : german */
 #home_promotion_2 .list {
 	height: 100px;
 	width: 300px;
-	background-color: transparent;
+	background-color: white;
+  background-position: bottom center;
+  background-repeat: repeat-x;
+  background-image: url(images/bg_home_promotion.png);
+  color: #6c6c6c;
 	float: left;
 	overflow: hidden;
+  position: relative;
 }
 
-#home_promotion_1 .list {
-	background-image: url(images/home_promotion_1.jpg);
+#home_promotion_1 .list .header,
+#home_promotion_2 .list .header {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
 }
 
-#home_promotion_2 .list {
-	background-image: url(images/home_promotion_2.jpg);
+#home_promotion_1 .list img,
+#home_promotion_2 .list img {
+  float:left;
+  margin:3px 10px 10px;
+}
+
+#home_promotion_1 .list .poker_submit,
+#home_promotion_2 .list .poker_submit {
+  margin-top: 5px;
+  color: #6F490A;
+  font-weight: bold;
+  position: absolute;
+  left: 135px;
+  bottom: 10px;
+}
+
+#home_promotion_1 .list .poker_submit a,
+#home_promotion_2 .list .poker_submit a {
+  color: #6F490A;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 #home_promotion_1 .next,
