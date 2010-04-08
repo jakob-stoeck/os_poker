@@ -94,6 +94,7 @@ function pbpoker_preprocess_os_poker_teaser(&$variables) {
   global $language;
   $theme_path = drupal_get_path('theme', 'pbpoker');
   $variables['tutorial'] = pbpoker_flash_tutorial();
+  $variables['card'] = pbpoker_flash_tutorial('SignUP');
 }
 
 function pbpoker_preprocess_os_poker_help(&$variables) {
@@ -113,15 +114,15 @@ function pbpoker_poker_tutorial_link() {
 
 function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
   global $language;
-  static $file, $size;
-  if(!isset($file)) {
-      $file = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.'. $language->language .'.swf';
-    if(!file_exists($file)) {
-      $file = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.en.swf';
+  static $file = array(), $size = array();
+  if(!isset($file[$filename])) {
+      $file[$filename] = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.'. $language->language .'.swf';
+    if(!file_exists($file[$filename])) {
+      $file[$filename] = drupal_get_path('theme', 'pbpoker') .'/swf/'. $filename .'.en.swf';
     }
-    $size = @getimagesize($file);
+    $size[$filename] = @getimagesize($file[$filename]);
   }
-  return array('file' => $file, 'size' => $size, 'alt' => t('Sorry, your browser does not support Flash.'));
+  return array('file' => $file[$filename], 'size' => $size[$filename], 'alt' => t('Sorry, your browser does not support Flash.'));
 }
 
 function pbpoker_preprocess_os_poker_first_profile(&$variables) {
