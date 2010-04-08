@@ -1916,32 +1916,6 @@ div.TeaseMore .poker_submit .label {
 	padding-top: 9px;
 }
 
-body.de div.DailyBonusStep02 { /* FIXME : german */
-	background-image: url(images/bg_daily_bonus02-de.png);
-	background-position: 0px -28px;
-}
-
-body.de p.Dollar1 { /* FIXME : german */
-	top: 13px;
-	left: 47px;
-	font-size: 23px;
-}
-
-body.de p.Dollar2 { /* FIXME : german */
-  top: 130px;
-  left: 96px;
-}
-
-body.de p.Dollar3 { /* FIXME : german */
-  top: 158px;
-  left: 164px;
-}
-
-body.de p.Buddies { /* FIXME : german */
-  top: 211px;
-  left: 218px;
-}
-
 /****************************************
 * Thickbox : Buddies => Invite => Invited
 ****************************************/
