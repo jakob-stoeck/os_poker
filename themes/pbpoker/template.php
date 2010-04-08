@@ -123,11 +123,38 @@ function pbpoker_flash_tutorial($filename = 'PokerTutorial') {
   }
   return array('file' => $file, 'size' => $size, 'alt' => t('Sorry, your browser does not support Flash.'));
 }
+
 function pbpoker_preprocess_os_poker_first_profile(&$variables) {
   $variables['subtitle'] = t("Full player data will also be rewarded with 2,000 poker chips!");
   $variables['footertitle'] = t("Our tip:");
   $variables['footer'] = t("For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips.");
 }
+
+function pbpoker_daily_gift($amount = 100) {
+  $current_user = CUserManager::instance()->CurrentUser();
+
+  $enable = $current_user && $current_user->CanDailyGift();
+  $output = '';
+  if ($enable) {
+    $output .= '<div id="today_gift">';
+    $output .= t('Send <strong> !amount free chips</strong> to your poker buddies!', array('!amount' => $amount,));
+    $output .= theme('button', array(
+      '#button_type' => 'button',
+      '#id' => 'today-gift-button',
+      '#value' => t('Send'),
+    ));
+    $output .= '</div>';
+  }
+  $output .= '<div id="today_gift_invite"';
+  if($enable) {
+    $output .= ' style="display: none;"';
+  }
+  $output .= '>';
+  $output .= theme('poker_image', 'invite_more_friends.jpg', t('Invite more friends'));
+  $output .= '</div>';
+  return $output;
+}
+
 function css_class($string) {
   return str_replace(array(' ', '_'), '-', $string);
 }

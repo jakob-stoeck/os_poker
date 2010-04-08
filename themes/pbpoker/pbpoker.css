@@ -784,13 +784,12 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist #today_gift {
-	background: url(images/bg_today_gift.png) no-repeat center center;
+	background: url(images/bg_today_gift.png) no-repeat center bottom;
 	width: 87px;
 	height: 170px;
-	color: #fff;
+	color: #6b6b6b;
 	text-align: center;
-	font-size: medium; /* FIXME */
-	font-weight: bold;
+	font-size: small; /* FIXME */
 	cursor: pointer;
 }
 

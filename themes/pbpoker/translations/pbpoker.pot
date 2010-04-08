@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-07 17:24+0200\n"
+"POT-Creation-Date: 2010-04-08 10:31+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -107,7 +107,7 @@ msgid "The tournament, to which you have signed up, has begun. Go to the Table <
 msgstr ""
 
 #: page-front.tpl.php:146
-msgid "Attention to be able to play playboy poker you need to enable javascript!"
+msgid "Attention to be able to play Playboy Poker you need to enable JavaScript!"
 msgstr ""
 
 #: page-front.tpl.php:147
@@ -138,16 +138,28 @@ msgstr ""
 msgid "Sorry, your browser does not support Flash."
 msgstr ""
 
-#: template.php:127
+#: template.php:128
 msgid "Full player data will also be rewarded with 2,000 poker chips!"
 msgstr ""
 
-#: template.php:128
+#: template.php:129
 msgid "Our tip:"
 msgstr ""
 
-#: template.php:129
+#: template.php:130
 msgid "For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips."
+msgstr ""
+
+#: template.php:140
+msgid "Send <strong> !amount free chips</strong> to your poker buddies!"
+msgstr ""
+
+#: template.php:144
+msgid "Send"
+msgstr ""
+
+#: template.php:153
+msgid "Invite more friends"
 msgstr ""
 
 #: pbpoker.info:0
