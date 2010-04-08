@@ -60,6 +60,7 @@
 
 	<div id="help-rules" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Hold'em Regeln</h4>
+		<div class="content">
 			<p>Bei Texas Hold’em Poker erhält jeder Spieler zunächst 2 Karten verdeckt, die so genannten <em>hole cards</em>. Weitere 5 Gemeinschaftskarten (<em>Community Cards</em>) werden in der Tischmitte aufgedeckt. <em>Hole cards</em> und Gemeinschaftskarten können in beliebiger Kombination verwendet werden um das beste 5-Karten-Blatt aus insgesamt 7 Karten zu bilden.</p>
 
 			<p><em>Dealer Button:</em> Markiert die Position wo das Austeilen der Karten beginnt. Auf der Position nach dem Dealer Button beginnt immer die Wettrunde. Nach jeder gespielten Hand wandert der Dealer Button eine Position weiter nach links.</p>
@@ -77,10 +78,12 @@
   				<li><strong>Showdown</strong><br />
 				Unter den verbleibenden Spielern, die nicht gefoldet haben wird der Gewinner mit dem besten Blatt aus 5 Karten ermittelt. Dabei spielt es keine Rolle wie viele Karten er von seinen hole cards dafür verwendet hat.</li>
 			</ul>
+		</div>
 	</div>
 
 	<div id="help-tips" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Tipps</h4>
+		<div class="content">
 		<ol class="helpbox-list">
 			<li><strong>Spiele ausgewählte Hände</strong><br />
 			Geduld führt zu erfolgreichem Spiel. Poker-Profis schauen sich nur in 20-30% der Fälle den Flop an. Es lohnt sich, auf gute Starthände zu warten, um den Glücksfaktor zu minimieren.</li>
@@ -99,6 +102,7 @@
 			<li><strong>Man lernt nie aus</strong><br />
 			Die Poker-Regeln sind schnell gelernt und Spaß macht es von Anfang an, da auch der absolute Anfänger gegen einen Profi gewinnen kann. Spannend bleibt es aber immer, da man beim Poker durch Erfahrung ständig sein Spiel verbessert. Daher der beste Tipp: spielen, spielen, spielen!</li>
 		</ol>
+		</div>
 	</div>
 
 	<div id="help-tutorial" class="helpbox" style="overflow: hidden">
@@ -138,6 +142,7 @@
 
 	<div id="help-guidelines" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Richtlinien</h4>
+		<div class="content">
 		<p>Fairness am Spieltisch und gegenseitiger Respekt sind unsere wichtigsten Grundsätze. Um den Spaß am Spiel zu gewährleisten bitten wir euch folgende Regeln zu beachten:</p>
 		<ul class="helpbox-list">
 			<li>Kein Spamming! Bitte keine Veröffentlichung von Affiliate Codes und/oder Links zu anderen Websites.</li>
@@ -149,10 +154,12 @@
 		</ul>
 		<p>Playboypoker.de behält sich vor, jeglichen Inhalt, welcher gegen die oben genannten Regeln verstößt ohne Vorwarnung zu löschen. Verstöße gegen diese Regeln führen zu einer Verwarnung und in schweren Fällen zu sofortiger Deaktivierung des User-Accounts ohne Vorwarnung.</p>
 		<p>Wer einen Regelverstoß melden möchte, kann hierfür die "Missbrauch melden" Funktion nutzen, die in jedem Spielerprofil zu finden ist. Klicke einfach auf den Namen oder das Profilbild des Spielers, den Du melden möchtest und dann auf den "Missbrauch melden" Button.</p>
+		</div>
 	</div>
 
 	<div id="help-security" class="helpbox">
 		<h4 class="helpbox-title block_title_bar">Sicherheitshinweis</h4>
+		<div class="content">
 		<h5>Gib Hackern, Spammern und Betrügern keine Chance</h5>
 		<p>Wir werden dich niemals per E-Mail oder im Spieler-Chat nach vertraulichen Informationen fragen, wie</p>
 		<ul>
@@ -177,5 +184,6 @@
 			<li>Keine Wörter gleich welcher Sprache, die in Wörterbüchern zu finden sind</li>
 			<li>Benutze nicht dasselbe Passwort wie bei anderen Accounts</li>
 		</ul>
+		</div>
 	</div>
 </div>
