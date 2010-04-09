@@ -74,8 +74,6 @@
 				<?php print t("Invite"); ?>
 			</div>
 			<div class="body">
-				<div class="buddy_arrow">
-				></div>
 				<div class="buddy_list_invite">
 				<?php print l(t("Invite Friends"), "poker/buddies/invite", array("query" => array(	"height" => 442,
 																									"width" => 603,
