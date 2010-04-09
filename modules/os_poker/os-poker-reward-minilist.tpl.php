@@ -2,7 +2,7 @@
 	<?php
 		$nreward = 0;
 		$page = (isset($_GET["page"]) ? $_GET["page"] : 0);
-		$perPage = 8;
+		$perPage = 4;
 		
 		if ($target_user)
 		{
@@ -10,7 +10,6 @@
 			usort($rewards, "_os_poker_sort_rewards");
 			$begin = $page * $perPage;
 			$end = $begin + $perPage;
-
 			foreach($rewards as $key => $value)
 			{
 				if ($value["value"] != 0)
@@ -26,7 +25,7 @@
 	?>
 </div>
 <div class="ajax-pager">
-	<?php 
+	<?php
 		if ($nreward > $perPage)
 		{
 			$GLOBALS['pager_page_array'][0] = $page; //what page you are on

@@ -2,7 +2,7 @@
 <?php
 	$nitem = 0;
 	$page = (isset($_GET["page"]) ? $_GET["page"] : 0);
-	$perPage = 8;
+	$perPage = 4;
 	$nPages = 0;
 	
 	if ($target_user)
