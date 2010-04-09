@@ -1,13 +1,13 @@
 <div id="ContainerContentHelp" class="tabs-window">
 	<a href="javascript:void(0);" onclick="javascript:parent.tb_remove();" class="LayerClose">&nbsp;</a>
-	<div class="tabs">
-		<ul class="tabs primary">
-      <li><a href="#help-tutorial">Tutorial</a></li>
-			<li><a href="#help-rules">Hold'Em Rules</a></li>
-			<li><a href="#help-tips">Tips</a></li>
-			<li><a href="#help-pokerhands">Poker Hands</a></li>
-			<li><a href="#help-guidelines">Guidelines</a></li>
-			<li><a href="#help-security">Security Advice</a></li>
+	<div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<ul class="tabs primary ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+      <li class="ui-state-default ui-state-active ui-corner-top"><a href="#help-tutorial">Tutorial</a></li>
+			<li class="ui-state-default ui-corner-top"><a class="" href="#help-rules">Hold'Em Rules</a></li>
+			<li class="ui-state-default ui-corner-top"><a class="" href="#help-tips">Tips</a></li>
+			<li class="ui-state-default ui-corner-top"><a class="" href="#help-pokerhands">Poker Hands</a></li>
+			<li class="ui-state-default ui-corner-top"><a class="" href="#help-guidelines">Guidelines</a></li>
+			<li class="ui-state-default ui-corner-top"><a class="" href="#help-security">Security Advice</a></li>
 		</ul>
 	</div>
 
@@ -117,7 +117,7 @@ The winner with the best five-card hand is now determined from among the remaini
           var href = $('.tab-iframe').attr('href');
           function tutorial_iframe() {
             if(!$('iframe.tutorial').length) {
-              $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+              $('<iframe class="tutorial" allowTransparency="allowTransparency" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
             }
           }
           var $tabs = $('#ContainerContentHelp .tabs');

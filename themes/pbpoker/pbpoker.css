@@ -80,6 +80,11 @@ body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a
 .ui-state-default, .ui-widget-content .ui-state-default {
 	background: none;
 	border: none;
+  border-top: solid 1px transparent;
+}
+
+.ui-tabs-nav {
+  margin-top: 2px !important;
 }
 
 .ui-tabs-nav li {
@@ -88,6 +93,15 @@ body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a
 
 .ui-tabs-nav li.ui-state-active a {
 	height: 20px;
+}
+
+*:first-child+html .ui-tabs-nav li.ui-state-default a {
+	margin-top: 2px;
+}
+
+*:first-child+html .ui-tabs-nav li.ui-state-active a {
+	margin-top: 1px;
+  border-bottom: solid 1px #111111 !important;
 }
 
 .ui-tabs-panel {

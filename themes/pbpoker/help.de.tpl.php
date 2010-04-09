@@ -118,7 +118,7 @@
           var href = $('.tab-iframe').attr('href');
           function tutorial_iframe() {
             if(!$('iframe.tutorial').length) {
-              $('<iframe class="tutorial" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
+              $('<iframe class="tutorial" allowTransparency="allowTransparency" width="100%" scrolling="no" height="330" frameborder="no"/>').insertAfter('.tab-iframe').attr('src', href);
             }
           }
           var $tabs = $('#ContainerContentHelp .tabs');
