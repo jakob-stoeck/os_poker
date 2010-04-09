@@ -421,7 +421,7 @@ msgstr "Geschlecht"
 
 #: os-poker-profile.tpl.php:101
 msgid "Hands Played/won"
-msgstr "Gesp./gew. Hände:"
+msgstr "Gesp./gew. Hände"
 
 #: os-poker-profile.tpl.php:112
 msgid "Update Profile"
