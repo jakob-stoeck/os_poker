@@ -1961,7 +1961,7 @@ function os_poker_format_date($timestamp) {
 				$day = date("d.m.Y", $timestamp);
 		}
 
-		return $day . " at " .  date("h:i", $timestamp);
+		return t('!day at !time', array('!day' => $day, '!time' => date("h:i", $timestamp)));
 }
 
 // Returns mail subject and body

@@ -1877,6 +1877,10 @@ msgstr "Reporter: !reporter_profile"
 msgid "Culprit: !reported_profile"
 msgstr "Beschuldigter: !reported_profile"
 
+#: os_poker.module:1964
+msgid "!day at !time"
+msgstr "!day um !time"
+
 #: os_poker.module:1590
 msgid "Successful registration"
 msgstr "Erfolgreiche Registrierung"

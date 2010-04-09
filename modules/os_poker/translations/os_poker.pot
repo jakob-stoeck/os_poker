@@ -54,7 +54,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-09 10:52+0200\n"
+"POT-Creation-Date: 2010-04-09 11:19+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -1925,6 +1925,10 @@ msgstr ""
 
 #: os_poker.module:1959
 msgid "Yesterday"
+msgstr ""
+
+#: os_poker.module:1964
+msgid "!day at !time"
 msgstr ""
 
 #: os_poker.module:1980
