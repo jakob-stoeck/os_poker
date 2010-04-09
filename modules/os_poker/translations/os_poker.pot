@@ -49,12 +49,13 @@
 #  os_poker.install: n/a
 #  os_poker.info: n/a
 #  translations/country.php: n/a
+#  translations/dummy.php: n/a
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-09 11:19+0200\n"
+"POT-Creation-Date: 2010-04-09 11:39+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -2981,5 +2982,9 @@ msgstr ""
 
 #: translations/country.php:241
 msgid "Zimbabwe"
+msgstr ""
+
+#: translations/dummy.php:2
+msgid "Don't Display"
 msgstr ""
 

@@ -2985,6 +2985,10 @@ msgstr "Sambia"
 msgid "Zimbabwe"
 msgstr "Simbabwe"
 
+translations/dummy.php:2
+msgid "Don't Display"
+msgstr "nicht anzeigen"
+
 #~ msgid "By signing up, you agree to the"
 #~ msgstr "Durch Deine Anmeldung erklärst Du Dich einverstanden mit den "
 #~ msgid "Terms of Service and Privacy Policy."
