@@ -1196,7 +1196,7 @@ body.de #play-now #play-now-button {
 	position: absolute;
 	left: 10px;
 	bottom: 5px;
-	padding: 15px 10px 5px;
+	padding: 15px 10px 5px 0px;
 }
 
 #profile-update select option {
