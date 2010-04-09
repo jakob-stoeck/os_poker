@@ -2839,11 +2839,6 @@ body.poker-tourneyinfo #middle-content-right {
 	font-weight: bold;
 }
 
-#user-relationships-ui-pending-requested div.poker_submit
-{
-	margin-top: 0px;
-}
-
 #user-relationships-ui-pending-requested div.poker_submit div.pre
 {
   display: none;
@@ -2862,6 +2857,12 @@ body.poker-tourneyinfo #middle-content-right {
 	color: #810E0B;
   font-size: 12px;
   text-decoration: none !important;
+}
+
+#user-relationships-ui-pending-requested div.poker_submit
+{
+  /* Only IE */
+	margin-top: 0px\9;
 }
 
 *:first-child+html #user-relationships-ui-pending-requested .container-inline .pre {
