@@ -20,9 +20,9 @@
 #  buddies-tabs.tpl.php: n/a
 #  footer.tpl.php: n/a
 #  messages.class.php: n/a
-#  news.tpl.php: n/a
 #  os-poker-forgot-password.tpl.php: n/a
 #  os-poker-header-user-brief.tpl.php: n/a
+#  os-poker-home-news.tpl.php: n/a
 #  os-poker-home-signup.tpl.php: n/a
 #  os-poker-language-bar.tpl.php: n/a
 #  os-poker-messagebox-list.tpl.php: n/a
@@ -54,7 +54,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-05 09:40+0200\n"
+"POT-Creation-Date: 2010-04-09 10:52+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -191,7 +191,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: buddies-tabs.tpl.php:6 buddy-block.tpl.php:77
+#: buddies-tabs.tpl.php:6 buddy-block.tpl.php:80
 msgid "Invite Friends"
 msgstr ""
 
@@ -207,7 +207,7 @@ msgstr ""
 msgid "Terms of service"
 msgstr ""
 
-#: footer.tpl.php:14 os_poker.module:997;1003
+#: footer.tpl.php:14 os_poker.module:1014;1020
 msgid "Help"
 msgstr ""
 
@@ -225,14 +225,6 @@ msgstr ""
 
 #: messages.class.php:214
 msgid "Notification"
-msgstr ""
-
-#: news.tpl.php:64
-msgid "read more"
-msgstr ""
-
-#: news.tpl.php:70
-msgid "more"
 msgstr ""
 
 #: os-poker-forgot-password.tpl.php:4
@@ -269,6 +261,14 @@ msgstr ""
 
 #: os-poker-header-user-brief.tpl.php:43
 msgid "You have !chips Chips"
+msgstr ""
+
+#: os-poker-home-news.tpl.php:64
+msgid "read more"
+msgstr ""
+
+#: os-poker-home-news.tpl.php:70
+msgid "more"
 msgstr ""
 
 #: os-poker-home-signup.tpl.php:3
@@ -363,7 +363,7 @@ msgstr ""
 msgid "filled!"
 msgstr ""
 
-#: os-poker-profile-update.tpl.php:45
+#: os-poker-profile-update.tpl.php:40;46
 msgid "For a complete Profile you'll get $2.000 Chips for free!"
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Players poker play cheating"
 msgstr ""
 
-#: os_poker.abuse.php:29;43 os_poker_forms.php:146;342;438;486;549;557;722;841;1054 os_poker_admin.inc:102
+#: os_poker.abuse.php:29;43 os_poker_forms.php:146;342;438;486;549;557;722;841;1055 os_poker_admin.inc:102
 msgid "Send"
 msgstr ""
 
@@ -811,15 +811,19 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: os_poker_forms.php:1046
+#: os_poker_forms.php:1037
+msgid "I just forked out 5.000 chips for you, so we can play together on !site_name ;-). Just click on the link in this e-mail and register!"
+msgstr ""
+
+#: os_poker_forms.php:1047
 msgid "Send invite"
 msgstr ""
 
-#: os_poker_forms.php:1066
+#: os_poker_forms.php:1067
 msgid "Sorry, you've reached the maximum number of invitations."
 msgstr ""
 
-#: os_poker_forms.php:1107
+#: os_poker_forms.php:1108
 msgid "'send mass invitations' permission must be set !"
 msgstr ""
 
@@ -839,11 +843,11 @@ msgstr ""
 msgid "You just receive a headsup challenge from !user"
 msgstr ""
 
-#: os_poker_messages.php:224 os_poker.module:706
+#: os_poker_messages.php:224 os_poker.module:712
 msgid "Accept"
 msgstr ""
 
-#: os_poker_messages.php:224 os_poker.module:708
+#: os_poker_messages.php:224 os_poker.module:714
 msgid "Refuse"
 msgstr ""
 
@@ -851,7 +855,7 @@ msgstr ""
 msgid "You just challenged !user"
 msgstr ""
 
-#: os_poker_messages.php:229;266 os_poker.module:753;1465;1705
+#: os_poker_messages.php:229;266 os_poker.module:759;1482;1722
 msgid "Anonymous"
 msgstr ""
 
@@ -921,6 +925,10 @@ msgstr ""
 
 #: os_poker_pages.php:458
 msgid "5.000.000 Chips for €150"
+msgstr ""
+
+#: os_poker_pages.php:500
+msgid "Usage of this interface is discouraged as it has not been thougfully designed or tested."
 msgstr ""
 
 #: os_poker_toolkit.php:75
@@ -1515,7 +1523,7 @@ msgstr ""
 msgid "CScheduler::Trigger"
 msgstr ""
 
-#: scheduler.class.php:242 os_poker.module:818
+#: scheduler.class.php:242 os_poker.module:824
 msgid "%uid : %sess"
 msgstr ""
 
@@ -1571,20 +1579,28 @@ msgstr ""
 msgid "Your level changed to !level !"
 msgstr ""
 
-#: user.class.php:409
+#: user.class.php:410
 msgid "You just receive a daily gift from !user"
 msgstr ""
 
-#: user.class.php:657;658;659;660
+#: user.class.php:658;659;660;661
 msgid "N/A"
 msgstr ""
 
-#: user.class.php:810
+#: user.class.php:811
 msgid "Requested user is not a uid or a CUser"
 msgstr ""
 
-#: user.class.php:919
+#: user.class.php:920
 msgid "Unknown"
+msgstr ""
+
+#: user.class.php:301
+msgid "OS Poker Shop"
+msgstr ""
+
+#: user.class.php:301
+msgid "Error while loading item: \"!msg\""
 msgstr ""
 
 #: os_poker_admin.inc:54
@@ -1647,271 +1663,271 @@ msgstr ""
 msgid "Show online Poker Buddies only."
 msgstr ""
 
-#: os_poker.module:705
+#: os_poker.module:711
 msgid "!user wants to be your buddy"
 msgstr ""
 
-#: os_poker.module:752
+#: os_poker.module:758
 msgid "Your buddy !user is online."
 msgstr ""
 
-#: os_poker.module:755
+#: os_poker.module:761
 msgid "Buddy Online"
 msgstr ""
 
-#: os_poker.module:814
+#: os_poker.module:820
 msgid "Session logout askedfor %name."
 msgstr ""
 
-#: os_poker.module:835
+#: os_poker.module:841
 msgid "DEL %sess from table sessions"
 msgstr ""
 
-#: os_poker.module:901
-msgid "Shop administration"
+#: os_poker.module:982
+msgid "Shop Items"
 msgstr ""
 
-#: os_poker.module:1037
+#: os_poker.module:1054
 msgid "%player is not at a table."
 msgstr ""
 
-#: os_poker.module:1098
+#: os_poker.module:1115
 msgid "Poker : Open Social header user brief"
 msgstr ""
 
-#: os_poker.module:1104
+#: os_poker.module:1121
 msgid "Poker : Footer information"
 msgstr ""
 
-#: os_poker.module:1110
+#: os_poker.module:1127
 msgid "Poker : Buddylist"
 msgstr ""
 
-#: os_poker.module:1116
+#: os_poker.module:1133
 msgid "Poker : Gadjet"
 msgstr ""
 
-#: os_poker.module:1122
+#: os_poker.module:1139
 msgid "Poker : Who is at that Table"
 msgstr ""
 
-#: os_poker.module:1128
+#: os_poker.module:1145
 msgid "Poker : Open Social user brief"
 msgstr ""
 
-#: os_poker.module:1134
+#: os_poker.module:1151
 msgid "Poker : Play now !"
 msgstr ""
 
-#: os_poker.module:1140
+#: os_poker.module:1157
 msgid "Poker : Home Teaser"
 msgstr ""
 
-#: os_poker.module:1146
+#: os_poker.module:1163
 msgid "Poker : Home Signup"
 msgstr ""
 
-#: os_poker.module:1152
+#: os_poker.module:1169
 msgid "Poker : News"
 msgstr ""
 
-#: os_poker.module:1158
+#: os_poker.module:1175
 msgid "Poker : Home Promotions"
 msgstr ""
 
-#: os_poker.module:1164
+#: os_poker.module:1181
 msgid "Poker : Language bar"
 msgstr ""
 
-#: os_poker.module:1228
+#: os_poker.module:1245
 msgid "OS header user brief"
 msgstr ""
 
-#: os_poker.module:1233
+#: os_poker.module:1250
 msgid "Footer information"
 msgstr ""
 
-#: os_poker.module:1238
+#: os_poker.module:1255
 msgid "Buddylist"
 msgstr ""
 
-#: os_poker.module:1247
+#: os_poker.module:1264
 msgid "Poker Gadjet"
 msgstr ""
 
-#: os_poker.module:1254
+#: os_poker.module:1271
 msgid "Who is at that Table"
 msgstr ""
 
-#: os_poker.module:1262
+#: os_poker.module:1279
 msgid "OS user brief"
 msgstr ""
 
-#: os_poker.module:1270
+#: os_poker.module:1287
 msgid "Play now !"
 msgstr ""
 
-#: os_poker.module:1277
+#: os_poker.module:1294
 msgid "WANT SOME HELP GETTING STARTED"
 msgstr ""
 
-#: os_poker.module:1278
+#: os_poker.module:1295
 msgid "We show you how to play poker in just one minute !tutorial."
 msgstr ""
 
-#: os_poker.module:1280
+#: os_poker.module:1297
 msgid "Teaser"
 msgstr ""
 
-#: os_poker.module:1285
+#: os_poker.module:1302
 msgid "Home sign up"
 msgstr ""
 
-#: os_poker.module:1291;1292;1293
+#: os_poker.module:1308;1309;1310
 msgid "Westspieler Poker Tour: Toller..."
 msgstr ""
 
-#: os_poker.module:1296
+#: os_poker.module:1313
 msgid "Home News"
 msgstr ""
 
-#: os_poker.module:1301
+#: os_poker.module:1318
 msgid "Home Promotion"
 msgstr ""
 
-#: os_poker.module:1306
+#: os_poker.module:1323
 msgid "Language bar"
 msgstr ""
 
-#: os_poker.module:1372
+#: os_poker.module:1389
 msgid "!time ago"
 msgstr ""
 
-#: os_poker.module:1398
+#: os_poker.module:1415
 msgid "Accepted"
 msgstr ""
 
-#: os_poker.module:1401
+#: os_poker.module:1418
 msgid "Refused"
 msgstr ""
 
-#: os_poker.module:1415
+#: os_poker.module:1432
 msgid "Create your Profile"
 msgstr ""
 
-#: os_poker.module:1416
+#: os_poker.module:1433
 msgid "One last step to discover the fun, excitement and challenge of poker."
 msgstr ""
 
-#: os_poker.module:1417
+#: os_poker.module:1434
 msgid "Find new Poker Buddies!"
 msgstr ""
 
-#: os_poker.module:1418
+#: os_poker.module:1435
 msgid "Our tip: For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips."
 msgstr ""
 
-#: os_poker.module:1465
+#: os_poker.module:1482
 msgid "@user's picture"
 msgstr ""
 
-#: os_poker.module:1472;1489
+#: os_poker.module:1489;1506
 msgid "View user profile."
 msgstr ""
 
-#: os_poker.module:1502
+#: os_poker.module:1519
 msgid "Welcome to  !site-name"
 msgstr ""
 
-#: os_poker.module:1503
+#: os_poker.module:1520
 msgid "To start we've given you $ !amount chips."
 msgstr ""
 
-#: os_poker.module:1504
+#: os_poker.module:1521
 msgid "The more friends you have playing !site-name, the more free chips you get every day !"
 msgstr ""
 
-#: os_poker.module:1507
+#: os_poker.module:1524
 msgid "Go to lobby"
 msgstr ""
 
-#: os_poker.module:1514
+#: os_poker.module:1531
 msgid "Learn to play"
 msgstr ""
 
-#: os_poker.module:1522
+#: os_poker.module:1539
 msgid "Invite friends"
 msgstr ""
 
-#: os_poker.module:1556
+#: os_poker.module:1573
 msgid "[!site_name] Abuse by !reported"
 msgstr ""
 
-#: os_poker.module:1557
+#: os_poker.module:1574
 msgid "Hi,"
 msgstr ""
 
-#: os_poker.module:1558
+#: os_poker.module:1575
 msgid "!reporter reported abuse by !reported on !site_name."
 msgstr ""
 
-#: os_poker.module:1563
+#: os_poker.module:1580
 msgid "He/she gave the following reason: !reason"
 msgstr ""
 
-#: os_poker.module:1565
+#: os_poker.module:1582
 msgid "He/she also provided the following details:"
 msgstr ""
 
-#: os_poker.module:1568
+#: os_poker.module:1585
 msgid "Reporter: !reporter_profile"
 msgstr ""
 
-#: os_poker.module:1570
+#: os_poker.module:1587
 msgid "Culprit: !reported_profile"
 msgstr ""
 
-#: os_poker.module:1688
+#: os_poker.module:1705
 msgid "Add Buddy"
 msgstr ""
 
-#: os_poker.module:1704
+#: os_poker.module:1721
 msgid "Buddy request sent to !user"
 msgstr ""
 
-#: os_poker.module:1707
+#: os_poker.module:1724
 msgid "Buddy Request"
 msgstr ""
 
-#: os_poker.module:1786
+#: os_poker.module:1803
 msgid "pending relationship requests"
 msgstr ""
 
-#: os_poker.module:1885
+#: os_poker.module:1902
 msgid "Today's free gift"
 msgstr ""
 
-#: os_poker.module:1885
+#: os_poker.module:1902
 msgid "Send $!amount chips to your poker buddies!"
 msgstr ""
 
-#: os_poker.module:1895
+#: os_poker.module:1912
 msgid "Invite more friends"
 msgstr ""
 
-#: os_poker.module:1915
+#: os_poker.module:1932
 msgid "Click here!"
 msgstr ""
 
-#: os_poker.module:1940
+#: os_poker.module:1957
 msgid "Today"
 msgstr ""
 
-#: os_poker.module:1942
+#: os_poker.module:1959
 msgid "Yesterday"
 msgstr ""
 
-#: os_poker.module:1963
+#: os_poker.module:1980
 msgid "Successful registration"
 msgstr ""
 
@@ -1919,47 +1935,55 @@ msgstr ""
 msgid "Login attempt failed for %user."
 msgstr ""
 
-#: os_poker.module:806;818
+#: os_poker.module:812;824
 msgid "os_poker_logout"
 msgstr ""
 
-#: os_poker.module:806
+#: os_poker.module:812
 msgid "Trigger"
 msgstr ""
 
-#: os_poker.module:1358
+#: os_poker.module:1375
 msgid "OS Poker"
 msgstr ""
 
-#: os_poker.module:1358
+#: os_poker.module:1375
 msgid "Unknow symbol used in message: %symbol."
 msgstr ""
 
-#: os_poker.module:1082
+#: os_poker.module:1099
 msgid "administer os poker"
 msgstr ""
 
-#: os_poker.module:957
+#: os_poker.module:961
 msgid "Report abuse"
 msgstr ""
 
-#: os_poker.module:965
+#: os_poker.module:969
 msgid "Os Poker"
 msgstr ""
 
-#: os_poker.module:966
+#: os_poker.module:970
 msgid "Configure OS Poker features"
 msgstr ""
 
-#: os_poker.module:985
+#: os_poker.module:977
+msgid "Config"
+msgstr ""
+
+#: os_poker.module:983
+msgid "Configure OS Poker shop items"
+msgstr ""
+
+#: os_poker.module:1002
 msgid "Players at table"
 msgstr ""
 
-#: os_poker.module:991
+#: os_poker.module:1008
 msgid "Poker table"
 msgstr ""
 
-#: os_poker.module:1015
+#: os_poker.module:1032
 msgid "Skin"
 msgstr ""
 
