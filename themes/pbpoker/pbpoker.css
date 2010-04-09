@@ -1225,6 +1225,10 @@ body.de #play-now #play-now-button {
 	margin-left: 3px;
 }
 
+#profile-update #edit-picture-upload-wrapper label{
+  height: 22px;
+}
+
 /*****************************
  * Thickbox : Profile
  * with tab-based navigation
