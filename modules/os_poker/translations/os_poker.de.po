@@ -421,7 +421,7 @@ msgstr "Geschlecht"
 
 #: os-poker-profile.tpl.php:101
 msgid "Hands Played/won"
-msgstr "Gesp./gew. Hände:"
+msgstr "Gesp./gew. Hände"
 
 #: os-poker-profile.tpl.php:112
 msgid "Update Profile"
@@ -1877,6 +1877,10 @@ msgstr "Reporter: !reporter_profile"
 msgid "Culprit: !reported_profile"
 msgstr "Beschuldigter: !reported_profile"
 
+#: os_poker.module:1964
+msgid "!day at !time"
+msgstr "!day um !time"
+
 #: os_poker.module:1590
 msgid "Successful registration"
 msgstr "Erfolgreiche Registrierung"
@@ -2980,6 +2984,10 @@ msgstr "Sambia"
 #: translations/country.php:241
 msgid "Zimbabwe"
 msgstr "Simbabwe"
+
+translations/dummy.php:2
+msgid "Don't Display"
+msgstr "nicht anzeigen"
 
 #~ msgid "By signing up, you agree to the"
 #~ msgstr "Durch Deine Anmeldung erklärst Du Dich einverstanden mit den "

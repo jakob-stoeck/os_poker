@@ -13,7 +13,7 @@
 				if ($target_user)
 				{
 					print t("Player since") . ": <span class='darkred'>" . date("d.m.Y", $target_user->created) . "&nbsp;&nbsp;|&nbsp;&nbsp;</span>" . t("Chips") . ": <span class='darkred'>" . $target_user->Chips(TRUE) . "&nbsp;&nbsp;|&nbsp;&nbsp;</span>" . t("Status") . ": <span class='darkred'>" . $target_user->Status() . "</span>";
-					
+
 				}
 			?>
 		</div>
@@ -36,8 +36,9 @@
 			 <div class="image_promo">
 			 <?php
 global $language;
-				 print '<p class="Dollar">2.000</p>';
-				 print '<img src="' . drupal_get_path("theme", "poker") . "/images/bg_update_profile_" . $language->language . ".gif" . '" alt="promo"/>';
+				 print '<p class="Dollar">';
+				 print t("For a complete Profile you'll get $2.000 Chips for free!");
+				 print '</p>';
 			?>
 			</div>
 		</div>

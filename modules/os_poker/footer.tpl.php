@@ -11,7 +11,7 @@
           'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
           'fragment' => 'help-terms-of-service',
         )) . " - " .
-				l(t("Help"), "poker/help/&height=442&width=603&keepThis=true&TB_iframe=true", array('attributes' => array('class' => 'thickbox'))) . " - " .
+				l(t("Help"), "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => 'help-rules')) . " - " .
 				l(t("Imprint"), 'poker/tos', array(
           'attributes' => array(
             'class' => 'thickbox',
