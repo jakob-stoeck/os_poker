@@ -1647,7 +1647,7 @@ body.de #play-now #play-now-button {
 #shop #items .ajax-pager {
 	height: 14px;
 	position: absolute;
-	bottom: 0;
+	top: 1.5em;
 	right: 10px;
 }
 
@@ -1669,8 +1669,8 @@ body.de #play-now #play-now-button {
 	/*line-height: 1em;*/
 }
 
-#shop #items a:hover,
-#shop #items a.selected {
+#shop #items .shop-item a:hover,
+#shop #items .shop-item a.selected {
 	/*
 	background: #fff url(images/bg_shop_item_hover.png) no-repeat bottom right;
 	border-right: none;
