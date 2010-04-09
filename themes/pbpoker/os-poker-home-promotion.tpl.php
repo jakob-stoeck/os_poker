@@ -5,7 +5,7 @@
         <div id="home_promotion_2-banner">
           <div class="header block_title_bar block_title_text">Video Tutorial</div>
           <?php print theme('image', drupal_get_path('theme', 'pbpoker') .'/images/home_promotion_2.jpg'); ?>
-          Noch nie gepokert? Wir zeigen Dir in wenigen Schritten wie es geht!
+          <p>Noch nie gepokert? Wir zeigen Dir in wenigen Schritten wie es geht!</p>
           <div id="home_promotion_2-button" class="poker_submit">
             <div class="pre">&nbsp;</div>
             <div class="label">

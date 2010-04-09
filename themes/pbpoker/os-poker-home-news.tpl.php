@@ -5,7 +5,7 @@
         <div id="home_promotion_1-banner">
           <div class="header block_title_bar block_title_text">Freunde einladen</div>
           <?php print theme('image', drupal_get_path('theme', 'pbpoker') .'/images/home_promotion_1.jpg'); ?>
-          Je mehr Freunde Du einlädst, umso mehr Chips bekommst Du von uns geschenkt!
+          <p>Je mehr Freunde Du einlädst, umso mehr Chips bekommst Du von uns geschenkt!</p>
           <div id="home_promotion_1-button" class="poker_submit">
             <div class="pre">&nbsp;</div>
             <div class="label">

@@ -2208,6 +2208,11 @@ div.TeaseMore .poker_submit .label {
   margin:3px 10px 10px;
 }
 
+#home_promotion_1 .list p,
+#home_promotion_2 .list p {
+  padding-right: 5px;
+}
+
 #home_promotion_1 .list .poker_submit,
 #home_promotion_2 .list .poker_submit {
   margin-top: 5px;
