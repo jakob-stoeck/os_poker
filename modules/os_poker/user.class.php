@@ -215,7 +215,7 @@ class CUser
 		if (is_numeric($value))
 		{
       $level = $this->Status();
-		  $this->_vars["money"] = array("1" => (float)bcmul($value, 100));
+		  $this->_vars["money"] = array("1" => bcmul($value, 100));
 			$this->_OSDirty[] = "money";
 			CPoker::CheckRewards("chips", $this->_user->uid, array("chips" => $value));
       if($level != $this->Status()) {
@@ -227,6 +227,16 @@ class CUser
         ), $this->uid);
       }
 		}
+	}
+
+	public function AddChips($value) {
+			$nchips = $this->Chips();
+			$this->chips = bcadd($nchips, $value);
+	}
+
+	public function SubChips($value) {
+			$nchips = $this->Chips();
+			$this->chips = bcsub($nchips, $value);
 	}
 
 	public function Invites($forceReload = FALSE)
@@ -402,8 +412,7 @@ class CUser
 
 		foreach($buddies as $buddy)
 		{
-			$bchips = $buddy->Chips();
-			$buddy->chips = $bchips + 100;
+			$buddy->AddChips(100);
 			$buddy->Save();
 
 			$args["symbol"] = 'chips';
@@ -507,7 +516,7 @@ class CUser
     $status = CPoker::GetStatus();
     $chips = $this->Chips();
     foreach($status as $value => $name) {
-      if($chips >= $value) {
+			if(bccomp($chips, $value) >= 0) {
         return $name;
       }
     }
@@ -516,16 +525,16 @@ class CUser
 
 	public function StatusEx(&$level, &$maxlevel)
 	{
-            $status = CPoker::GetStatus();
-            $chips = $this->Chips();
+			$status = CPoker::GetStatus();
+			$chips = $this->Chips();
 	    $level = $maxlevel = count(array_keys($status));
-            foreach($status as $value => $name) {
-               if($chips >= $value) {
-                 return $name;
-               }
-	       $level--;
-            }
-            return $status[0];
+			foreach($status as $value => $name) {
+					if(bccomp($chips, $value) >= 0) {
+							return $name;
+					}
+					$level--;
+			}
+			return $status[0];
 	}
 
 

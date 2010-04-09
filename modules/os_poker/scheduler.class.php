@@ -50,9 +50,8 @@ class CBonusInviteChips implements ITask
 {
 	public function Run($context_user, $arguments)
 	{   
-		$nchips = $context_user->Chips();
 		$allocation = 5000;
-		$context_user->chips = $nchips + $allocation;
+		$context_user->AddChips($allocation);
 		$context_user->Save();
 		drupal_set_message(t("Invitation Bonus : 5000 Chips"));
 	}
@@ -121,7 +120,7 @@ class CDailyChips implements ITask
 
 		$allocation = $this->GetChipsAttributions($nInvites);
 						
-		$context_user->chips = $nchips + $allocation;
+		$context_user->AddChips($allocation);
 
 		$context_user->Save();
 		CScheduler::instance()->RegisterTask($this, $context_user->uid, array('login', 'live'), "+1 day 00:00");

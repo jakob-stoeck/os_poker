@@ -1,0 +1,540 @@
+<?php
+// -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+/**
+ * @file
+ * Poker Gadget test case
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+require_once(drupal_get_path('module', 'os_poker') . "/shop.class.php");
+require_once(drupal_get_path('module', 'os_poker') . "/os_poker_toolkit.php");
+
+function dosub($chips, $amount) {
+	return bcsub($chips, $amount);
+}
+
+function doadd($chips, $amount) {
+	return bcadd($chips, $amount);
+}
+
+/**
+ *
+ */
+class OSPokerChipsTestCase extends OsPokerWebTestCase {
+  public function getInfo() {
+    return array(
+      'name' => 'OS Poker Chips',
+      'description' => 'Chips handling tests',
+      'group' => 'OS Poker',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp();
+	$this->user = $this->drupalCreateUser();
+	$this->OsPokerLogin($this->user, array('profile_nickname' => 'skel_user'));
+	$this->insertShopItemsAndCategories();
+
+	$this->status_list[bcmul(PHP_INT_MAX, 1)] = 'Rockefeller'; 
+	$this->status_list[bcmul(PHP_INT_MAX,10)] = 'Rockefeller';
+	$this->status_list[bcmul(PHP_INT_MAX,100)] = 'Rockefeller';
+
+	$this->level_list[bcmul(PHP_INT_MAX, 1)] = 10; 
+	$this->level_list[bcmul(PHP_INT_MAX,10)] = 10;
+	$this->level_list[bcmul(PHP_INT_MAX,100)] = 10;
+  }
+
+  public function testSortBuddies() {
+	  $data = array(
+		  array("78000", "78001", 1),
+		  array("4000000", "380000000000000000", 1),
+		  array("40000000000000000000000001", "4000000000000000000000000", -1),
+		  array("40000000000000000000000001", "40000000000000000000000001", 0),
+		  array("39999999999999999999999999", "40000000000000000000000000", 1),
+		  );
+	  $user1 = $this->drupalCreateUser();
+	  $user2 = $this->drupalCreateUser();
+
+	  $i = 0;
+	  foreach ($data as $row) {
+		  list($left, $right, $result) = $row;
+		  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+		  $cuser2 = CUserManager::instance()->User($user2->uid, TRUE);
+		  $cuser1->chips = $left;
+		  $cuser1->Save();
+		  $cuser2->chips = $right;
+		  $cuser2->Save();
+
+		  // reload for caching
+		  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+		  $cuser2 = CUserManager::instance()->User($user2->uid, TRUE);
+
+		  $outcome = _os_poker_sort_buddies($cuser1, $cuser2);
+		  $this->assertEqual($result, $outcome, "Buddy comparision data $i ($outcome)");
+		  $this->pass($cuser1->Chips(), "LEFT CHIPS");
+		  $this->pass($cuser2->Chips(), "RIGHT CHIPS");
+		  $i++;
+	  }
+  }
+
+  public function testFloatEncoding() {
+
+	  $error_amounts = array(7800000, 
+							 "10000", // arbitrary precision small number
+							 "6100000", "1900000", // numbers encoded exponentially
+							 23000,
+							 1, 1000, 10001, 1000001, 7800001,// normal numbers
+							 "40500000", 
+							 bcmul(PHP_INT_MAX, 1), bcmul(PHP_INT_MAX,10), bcmul(PHP_INT_MAX,100), // numbers > INT_MAX
+							 "10000000000000", // 100 billion chips as arbitrary precision numbers
+							 "10000000000001", // 100 billion chips + 1 to test rounding
+							 "40000000000000000000000000000000000000000000",
+		  );
+
+	  foreach ($error_amounts as $chip_amount) {
+		  $this->verifyChipAmount($chip_amount);
+		  $this->verifyProfileComplete($chip_amount);
+		  $this->verifyProfileComplete(dosub($chip_amount, 2000));
+		  $this->verifyGiveReward($chip_amount);
+		  $this->verifyGiveReward(dosub($chip_amount, 5000));
+		  $this->verifyDailyChips($chip_amount);
+		  $this->verifyDailyChips(dosub($chip_amount, 500));
+		  $this->verifyBonusInvite($chip_amount);
+		  $this->verifyBonusInvite(dosub($chip_amount, 5000));
+		  $this->verifyShopBuy($chip_amount);
+		  $this->verifyShopBuy(doadd($chip_amount, 1500));
+		  $this->verifyShopSend($chip_amount);
+		  $this->verifyShopSend(doadd($chip_amount, 1500));
+		  $this->verifyDailyGift($chip_amount);
+		  $this->verifyDailyGift(dosub($chip_amount, 100));
+		  $this->verifyReward40($chip_amount);
+		  $this->verifyStatus($chip_amount);
+	  }
+  }
+
+
+  /*
+   * Chip test #1 : set the user's chip amount and retreive it back
+   */
+  public function verifyChipAmount($chip_amount) {
+	  $user = CUserManager::instance()->User($this->user->uid, TRUE);
+	  $user->chips = $chip_amount;
+	  $user->Save();
+		  
+	  $chips = $user->Chips();
+	  $this->assertEqual($chips, $chip_amount, "Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT1");
+	  $this->pass($chips, "ACTUAL1");
+  }
+
+  /*
+   * Chip test #2 : Check profile complete resulting in the chip amount
+   */
+  public function verifyProfileComplete($chip_amount) {
+	  $end_amount = doadd($chip_amount, 2000);
+	  $user1 = $this->drupalCreateUser(NULL, array('profile_nickname' => NULL));
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  // assert things are progressing correctly
+	  $this->assertText(
+		  t('Create your Profile'),
+		  t('After first login the profile page is shown to the user.')
+		  );
+	  //In order to get a complete profile, we need to set a nickname and a user picture
+	  variable_set('user_picture_path', '/tmp'); // needed for picture upload
+	  $this->drupalPost('poker/first_profile', array(
+							'profile_nickname' => $this->randomString(),
+							'files[picture_upload]' => drupal_get_path('module', 'os_poker'). '/avatar1.png'
+							), t('Send'));
+	  $this->drupalLogout();
+	  $user1->name = $user1->mail;
+	  $this->drupalLogin($user1);
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+	  $this->assertEqual($chips, $end_amount, "Profile Complete Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT2");
+	  $this->pass($chips, "ACTUAL2");
+	  $this->pass($end_amount, "END2");
+  }
+
+  /*
+   * Chip test #3 : Check chip addition when giving reward
+   */
+  public function verifyGiveReward($chip_amount) {
+	  $end_amount = doadd($chip_amount, 5000);
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $rew = $cuser1->Rewards();
+	  $result = CPoker::GiveReward('reward25', $cuser1, $rew);
+	  
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+	  $sql = "select * from {application_settings} where user_id = %d";
+	  $row = db_fetch_object(db_query($sql, $user1->uid));
+
+	  $this->assertEqual($chips, $end_amount, "Give Reward Chip Amount $chip_amount");
+	  $this->pass($rew['reward25']['value'], 'VALUE3');
+	  $this->pass($rew['reward25']['bonus'], 'BONUS3');
+	  $this->pass($chip_amount, "AMOUNT3");
+	  $this->pass($chips, "ACTUAL3");
+	  $this->pass($end_amount, "END3");
+	  $this->pass($result, "RESULT3");
+  }
+
+  /*
+   * Chip test #4 : Check chip addition for daily chips
+   */
+  public function verifyDailyChips($chip_amount) {
+	  $end_amount = doadd($chip_amount, 500);
+	  $user1 = $this->drupalCreateUser();
+	  $this->drupalLogin($user1);
+	  $this->drupalLogout();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+
+	  CScheduler::instance()->RegisterTask(new CDailyChips(), $user1->uid, array('login', 'live'), "-1 day 00:00");
+	  $this->drupalLogin($user1);
+	  
+	  $rawtask = CScheduler::GetRawUserTasks($user1->uid);
+	  CScheduler::TriggerHelper("login", $cuser1, $rawtask);
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+
+	  $this->assertEqual($chips, $end_amount, "Daily Gift Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT4");
+	  $this->pass($chips, "ACTUAL4");
+	  $this->pass($end_amount, "END4");
+  }
+
+  /*
+   * Chip test #5 : Check chip addition for daily chips
+   */
+  public function verifyBonusInvite($chip_amount) {
+	  $end_amount = doadd($chip_amount, 5000);
+	  $user1 = $this->drupalCreateUser();
+	  $this->drupalLogin($user1);
+	  $this->drupalLogout();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+
+	  CScheduler::instance()->RegisterTask(new CBonusInviteChips(), $user1->uid, array('login', 'live'), "-1 day 00:00");
+	  $this->drupalLogin($user1);
+	  
+	  $rawtask = CScheduler::GetRawUserTasks($user1->uid);
+	  CScheduler::TriggerHelper("login", $cuser1, $rawtask);
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+
+	  $this->assertEqual($chips, $end_amount, "Bonus Invite Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT5");
+	  $this->pass($chips, "ACTUAL5");
+	  $this->pass($end_amount, "END5");
+  }
+
+  /*
+   * Chip test #6 : Buy shop item 
+   */
+  public function verifyShopBuy($chip_amount) {
+	  $end_amount = dosub($chip_amount, 1500);
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  CUserManager::instance()->DebugForceCurrentUser($user1->uid);
+	  CShop::BuyItem(103);
+
+	  // now check the final balance
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+
+	  if (bccomp($end_amount, 0) < 0) {
+		  // If the chips is less than the price, trannsaction is not completed 
+		  // and the chip count should not change.
+		  $end_amount = $chip_amount;
+	  }
+
+	  $this->assertEqual($chips, $end_amount, "Shop Buy Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT6");
+	  $this->pass($chips, "ACTUAL6");
+	  $this->pass($end_amount, "END6");
+  }
+
+  /*
+   * Chip test #7 : Send shop item 
+   */
+  public function verifyShopSend($chip_amount) {
+	  $end_amount = dosub($chip_amount, 1500);
+
+	  $user0 = $this->drupalCreateUser();
+
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  CUserManager::instance()->DebugForceCurrentUser($user1->uid);
+	  CShop::GiveItem(103, array($user0->uid));
+
+	  // now check the final balance
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $chips = $cuser1->Chips();
+
+	  if (bccomp($end_amount, 0) < 0) {
+		  // If the chips is less than the price, trannsaction is not completed 
+		  // and the chip count should not change.
+		  $end_amount = $chip_amount;
+	  }
+
+	  $this->assertEqual($chips, $end_amount, "Shop Send Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT7");
+	  $this->pass($chips, "ACTUAL7");
+	  $this->pass($end_amount, "END7");
+  }
+
+  /*
+   * Chip test #8 : Daily gift
+   */
+  public function verifyDailyGift($chip_amount) {
+	  $end_amount = doadd($chip_amount, 100);
+
+	  $user0 = $this->drupalCreateUser();
+	  $this->drupalLogin($user0);
+	  
+	  // Invitation workflow to another user
+	  $name = $this->randomName();
+	  $email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+	  $this->OsPokerSendInvites(array($name => $email));
+	  $this->assertInviteMail(
+		  $email,
+		  t('Invitation email message sent for !name.', array('!name' => $name))
+		  );
+	  $this->drupalLogout();
+
+
+	  $mail_queue = end($this->drupalGetMails());
+	  $code = $mail_queue['params']['invite']->code;
+
+	  // Registration workflow via invite link
+	  $this->drupalGet('invite/accept/'. $code);
+	  $this->assertEqual($this->getUrl(), $this->getAbsoluteUrl(''), 'Invite accept redirects to start page');
+	  $this->assertFieldByName(
+		  'mail',
+		  $email,
+		  t('Invitation verified, invited email found in registration form.')
+		  );
+	  $this->assertRaw('home_signup_form', 'Verify start page', 'SpecPoker');
+	  $this->assertRaw('id="os-poker-sign-up-form"', 'Verify start page', 'SpecPoker');
+	  // Complete the fields and submit the registration form.
+	  $password = $this->randomName();
+	  $options = array(
+ 		  'mail'        => $email,
+		  'pass' => $password,
+		  );
+	  $this->drupalPost($this->getAbsoluteUrl(''), $options, null);
+	  $this->drupalLogout();
+
+	  // create a structure for login later
+	  $user1 = new stdClass;
+	  $user1->name = $email;
+	  $user1->pass_raw = $password;
+
+	  // Now we should find out the UID of the newly created invitee
+	  $sql = "select * from {users} where mail='%s'";
+	  $row = db_fetch_object(db_query($sql, $email));
+	  $this->assertEqual($row->mail, $email, "Found the invitee uid");
+	  $uid = $row->uid;
+
+	  // Set chip amount for testcase
+	  $cuser1 = CUserManager::instance()->User($uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user0);
+
+	  // Need to reload this to avoid caching ....
+	  $cuser1 = CUserManager::instance()->User($uid, TRUE);
+
+	  // Login as inviter and send daily gift
+	  $cuser0 = CUserManager::instance()->User($user0->uid, TRUE);
+	  $cuser0->DailyGift();
+	  $buddies = $cuser0->Buddies(TRUE, TRUE);
+
+	  // Login back as the invitee to trigger the daily chips
+	  $this->drupalLogin($user1);
+
+	  // Verify the daily gift added
+	  $sql = "SELECT user_id, value from {application_settings} where user_id=%d and name='money'";
+	  $row = db_fetch_object(db_query($sql, $uid));
+	  $cuser1 = CUserManager::instance()->User($uid, TRUE);
+
+	  $chips = $cuser1->Chips();
+
+	  $this->assertEqual($chips, $end_amount, "DailyGift Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT8");
+	  $this->pass($chips, "ACTUAL8");
+	  $this->pass($end_amount, "END8");
+  }
+
+  /*
+   * Chip test #9 : Verify the comparision of chips for reward40 
+   */
+  public function verifyReward40($chip_amount) {
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  if (bccomp($chip_amount, "1000000") >= 0) {
+		  $check_reward = TRUE;
+	  } else {
+		  $check_reward = FALSE;
+	  }
+
+	  // refresh to avoid cache
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  CPoker::CheckRewards("chips", $user1->uid, array());
+
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $rew = $cuser1->GetLastReward();
+
+	  $this->assertEqual($rew == 'reward40', $check_reward, "Reward40 Chip Amount $chip_amount");
+	  $this->pass($chip_amount, "AMOUNT9");
+	  $this->pass($rew, "LASTREW9");
+  }
+
+  /*
+   * Chip test #10 : Verify the Status and StatusEx functions return correctly
+   */
+  public function verifyStatus($chip_amount) {
+	  $end_amount = doadd($chip_amount, 5000);
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  if (!isset($this->status_list[$chip_amount])) {
+		  $this->fail("Testcase error. Populate status_list for chips {$chip_amount}");
+	  }
+	  if (!isset($this->level_list[$chip_amount])) {
+		  $this->fail("Testcase error. Populate level_list for chips {$chip_amount}");
+	  }
+
+	  $status_check = $this->status_list[$chip_amount];
+	  $level_check = $this->level_list[$chip_amount];
+	  $status = $cuser1->Status();
+	  $statusex = $cuser1->StatusEx($level, $maxlevel);
+	  $chips = $cuser1->Chips();
+
+	  $this->assertEqual($status, $status_check, "Status Check Chip Amount $chip_amount");
+	  $this->assertEqual($statusex, $status_check, "StatusEx Check Chip Amount $chip_amount");
+	  $this->assertEqual($level, $level_check, "Level Check Chip Amount $chip_amount");
+
+	  $this->pass($chip_amount, "AMOUNT10");
+	  $this->pass($chips, "ACTUAL10");
+	  $this->pass($status, "STATUS10");
+	  $this->pass($status_check, "STCHECK10");
+	  $this->pass($level, "LEVEL10");
+	  $this->pass($level_check, "LEVCHECK10");
+  }
+
+  var $level_list = array(
+	  "7800000" => 9, 
+	  "10000"   => 2, 
+	  "6100000" => 9, 
+	  "1900000" => 7, 
+	  "23000"   => 2,
+	  "1"       => 1, 
+	  "1000"    => 1, 
+	  "10001"   => 2, 
+	  "1000001" => 7, 
+	  "7800001" => 9,
+	  "40500000"=> 10, 
+	  "10000000000000" => 10,
+	  "10000000000001" => 10,
+	  "40000000000000000000000000000000000000000000" => 10,
+	  );
+
+  var $status_list = array(
+	  "7800000" => "Highroller", 
+	  "10000"   => "Chippy", 
+	  "6100000" => "Highroller", 
+	  "1900000" => "Big Rock", 
+	  "23000"   => "Chippy",
+	  "1"       => "Fish", 
+	  "1000"    => "Fish", 
+	  "10001"   => "Chippy", 
+	  "1000001" => "Big Rock", 
+	  "7800001" => "Highroller",
+	  "40500000"=> 'Rockefeller', 
+	  "10000000000000" => 'Rockefeller',
+	  "10000000000001" => 'Rockefeller',
+	  "40000000000000000000000000000000000000000000" => 'Rockefeller',
+	  );
+  /*
+   * Chip test # : 
+   */
+/* template for more tests
+  public function verify($chip_amount) {
+	  $end_amount = doadd($chip_amount, 5000);
+	  $user1 = $this->drupalCreateUser();
+	  $cuser1 = CUserManager::instance()->User($user1->uid, TRUE);
+	  $cuser1->chips = $chip_amount;
+	  $cuser1->Save();
+	  $this->drupalLogin($user1);
+
+	  $this->assertEqual($chips, $end_amount);
+	  $this->pass($chip_amount, "AMOUNT3");
+	  $this->pass($chips, "ACTUAL3");
+	  $this->pass($end_amount, "END3");
+  }
+*/
+
+  function insertShopItemsAndCategories() {
+    $this->assertTrue(db_query("INSERT INTO {poker_item} VALUES (101,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',500,1,'next monday'),
+							(102,1,'sites/default/files/poker_items/item-1.jpg','TestItem',1000,1,'+3 minutes'),
+							(103,1,'sites/default/files/poker_items/item-1.jpg','Beer',1500,1,'+1 minute')"), t('Items and categories inserted in database.'));
+  }
+
+}
+
+
+

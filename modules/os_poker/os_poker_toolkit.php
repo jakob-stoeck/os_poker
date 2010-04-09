@@ -185,11 +185,8 @@ function	_os_poker_sort_buddies($a, $b)
 	$aChips = $a->Chips();
 	$bChips = $b->Chips();
 
-	if ($aChips == $bChips)
-	{
-        return 0; }
-	
-    return ($aChips < $bChips) ? 1 : -1;
+	// We are reversing the order as we need sorting from highest to lowest
+	return bccomp($bChips, $aChips);
 }
 
 /*

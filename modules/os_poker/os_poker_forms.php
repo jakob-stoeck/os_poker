@@ -941,8 +941,7 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	//Check Profile complete
 	if ($profileComplete && $cuser->CompleteProfile() == FALSE)
 	{
-		$nchip = $cuser->Chips();
-		$cuser->chips = $nchip +2000;
+		$cuser->AddChips(2000);
 		$cuser->SetProfileComplete();
 
 		if (isset($edit["first_profile"]))

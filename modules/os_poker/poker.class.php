@@ -259,10 +259,10 @@ class CPoker
 				break;
 			
 				case "chips":
-				
 					$chips = $player->Chips();
-					
-					if ($chips >= 1000000 || $targets['chips'] >= 1000000)
+
+					if (bccomp($chips, "1000000") >= 0 ||
+							bccomp($targets['chips'], "1000000") >= 0) 
 					{
 						CPoker::GiveReward("reward40", $player, $rew);
 					}
@@ -283,8 +283,7 @@ class CPoker
 	public static function	GiveReward($name, $player, $prewards) {
 		if ($prewards[$name]["value"] == 0) {
 			$player->{$name} = time();
-			$nChips = $player->Chips();
-			$player->chips = $nChips + $prewards[$name]["bonus"];
+			$player->AddChips($prewards[$name]["bonus"]);
 			$player->Save();
 
 			$args["symbol"] = $prewards[$name]["picture"];

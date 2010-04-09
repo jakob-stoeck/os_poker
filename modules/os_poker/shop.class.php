@@ -237,10 +237,9 @@ class CShop
       /*
 			** User must pay !
 			*/
-
 			$nchips = $user->Chips();
 
-			if ($nchips < $item->price)
+			if (bccomp($nchips, $item->price) < 0)
 				throw new Exception(t('User doesn\'t have enough money.'));
 
 			$sql = "INSERT INTO `{poker_operation}`
@@ -272,7 +271,7 @@ class CShop
 			** User must pay !
 			*/
 
-			$user->chips = $nchips - $item->price;
+			$user->SubChips($item->price);
 			$user->Save();
 		}
 		catch (Exception $e)
@@ -309,11 +308,10 @@ class CShop
 			/*
 			** User must pay !
 			*/
-
 			$nchips = $user->Chips();
 			$price = ($item->price * $ntargets);
 
-			if ($nchips < $price)
+			if (bccomp($nchips , $price) < 0)
 				throw new Exception(t('User doesn\'t have enough money (!uc vs !cn needed).', array('!uc' => $nchips, '!cn' => $price)));
 
 
@@ -390,7 +388,7 @@ class CShop
 			** User must pay !
 			*/
 
-			$user->chips = $nchips - $price;
+			$user->SubChips($price);
 			$user->Save();
 		}
 		catch (Exception $e)
