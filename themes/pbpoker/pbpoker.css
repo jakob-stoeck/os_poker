@@ -1612,6 +1612,10 @@ body.de #play-now #play-now-button {
 	border-top: none;
 }
 
+#profile-tabs #ranking .right .block_title_bar {
+  width: 457px;
+}
+
 /************************************
 * Thickbox : Shop
 ************************************/
