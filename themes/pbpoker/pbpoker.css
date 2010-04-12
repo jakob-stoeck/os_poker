@@ -205,6 +205,25 @@ ul.secondary li a.active {
 	margin-top: 10px;
 }
 
+#content-bottom #buddylist .block_title_bar {
+	position: relative;
+}
+
+#content-bottom #buddylist .block_title_bar #edit-online-wrapper label {
+	position: absolute;
+	top: 3px;
+	right: 10px;
+}
+
+#content-bottom #buddylist .block_title_bar #edit-online-wrapper #edit-online {
+	margin-right: 5px;
+	float: left;
+}
+
+*:first-child+html #content-bottom #buddylist .block_title_bar #edit-online-wrapper #edit-online {
+	margin-top: -3px;
+}
+
 #header {
 	background: #000 url(images/bg_footer.png) repeat;
 	width: 760px;
