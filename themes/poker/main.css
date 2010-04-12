@@ -288,6 +288,11 @@ div.tb-fix-margin a.LayerClose {
 	padding:2px;
 }
 
+#profile-settings .setting-block .form-checkboxes .form-item input {
+	padding: 0;
+	margin-right: 3px;
+}
+
 #profile-settings .setting-block  .form-required
 {
 	display:none;
