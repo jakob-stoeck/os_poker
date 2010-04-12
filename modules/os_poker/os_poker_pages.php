@@ -53,7 +53,9 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 					$page = $_REQUEST["page"];
 					$offset = $page * $limit;
 				}*/
-
+        if($_REQUEST['profile_country'] == '00') {
+          unset($_REQUEST['profile_country']);
+        }
 				$lsr = CUserManager::instance()->SearchUsers($_REQUEST);
 			}
 
