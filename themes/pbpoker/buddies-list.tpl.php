@@ -121,7 +121,7 @@ print theme('pager', NULL, $items_per_page);
 		}
 		else
 		{
-			$error_message = t("You don't have any buddy.") . "<br/><div class='poker_submit'><div class='pre'>&nbsp;</div><div class='label'>". l(t("Invite a buddy"), 'poker/buddies/invite') . "</div></div>";
+			$error_message = t("You don't have any buddy.") . "<br/><div class='poker_submit'><div class='pre'>&nbsp;</div><div class='label'>". l(t("English for Jetzt Freunde Einladen"), 'poker/buddies/invite') . "</div></div>";
 		}
 
 		print theme('poker_error_message', $error_message);

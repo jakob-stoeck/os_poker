@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-09 10:52+0200\n"
+"POT-Creation-Date: 2010-04-12 15:40+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -159,7 +159,7 @@ msgid "You don't have any buddy."
 msgstr ""
 
 #: buddies-list.tpl.php:124
-msgid "Invite a buddy"
+msgid "English for Jetzt Freunde Einladen"
 msgstr ""
 
 #: comment-wrapper.tpl.php:37
