@@ -315,15 +315,15 @@ ul.secondary li a.active {
 /*************************
 * Thickboxes - reset main
 *************************/
-.tabs-window, #profile-medium {
+.tabs-window, #profile-medium, #messagebox {
 	background: url(images/thickboxes/thickbox.png) repeat-x;
 }
 
-#profile-medium {
+#profile-medium, #messagebox {
 	color: #fbfbfb;
 }
 
-#profile-medium .darkred {
+#profile-medium .darkred, #messagebox a, #messagebox .poker_submit input {
 	color: #efc57b;
 }
 /*************************
