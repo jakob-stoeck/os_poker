@@ -56,8 +56,8 @@ tr.even a {
 	cursor: pointer;
 }
 
-body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose {
-	background-image: url(images/button_layerclose.png);
+body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose, body.iframe #profile-medium a.LayerClose {
+	background-image: url(images/button_layerclose.png) !important;
 	top: 5px;
 }
 
@@ -315,10 +315,17 @@ ul.secondary li a.active {
 /*************************
 * Thickboxes - reset main
 *************************/
-.tabs-window {
+.tabs-window, #profile-medium {
 	background: url(images/thickboxes/thickbox.png) repeat-x;
 }
 
+#profile-medium {
+	color: #fbfbfb;
+}
+
+#profile-medium .darkred {
+	color: #efc57b;
+}
 /*************************
 * Thickboxes
 *************************/
@@ -2551,11 +2558,10 @@ body.iframe .messages-popup a.close
 	padding: 15px;
 }
 
-/* FIXME : necessary or not ? */
 #os-poker-overlay a.closebutton {
 	text-indent: -10000px;
 	background-color: transparent;
-	background-image: url(images/button_layerclose.png);
+	background-image: url(images/button_layerclose.png) !important;
 	background-repeat: no-repeat;
 	background-position: center center;
 }
