@@ -324,7 +324,7 @@ ul.secondary li a.active {
 }
 
 #profile-medium .darkred, #messagebox a, #messagebox .poker_submit input {
-	color: #efc57b;
+	color: #efc57b !important;
 }
 /*************************
 * Thickboxes
