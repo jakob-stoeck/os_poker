@@ -410,15 +410,18 @@ class CUser
 
 		$buddies = $this->Buddies(TRUE);
 
+    $amount = 100;
 		foreach($buddies as $buddy)
 		{
-			$buddy->AddChips(100);
+			$buddy->AddChips($amount);
 			$buddy->Save();
 
 			$args["symbol"] = 'chips';
 			$args["text"] = t("You just receive a daily gift from !user", array("!user", $this->profile_nickname));
 
 			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
+
+      drupal_mail('os_poker', 'daily_gift', $buddy->mail, user_preferred_language($buddy->DrupalUser()), array('amount' => $amount, 'sender' => $this->DrupalUser(), 'account' => $buddy->DrupalUser()));
 		}
 
 		return $result;

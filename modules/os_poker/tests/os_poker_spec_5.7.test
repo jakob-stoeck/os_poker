@@ -460,6 +460,52 @@ class OSPokerSpecificationsNotifications extends OsPokerWebTestCase {
     )), t('Ingame notification for invitation found.'));
   }
 
+  /**
+   * Verify Messages when a user sent the daily gift to a buddy
+   *
+   * The verification is done through these steps:
+   * - Create a user, login and complete the profile.
+   * - Trigger the send daily gift by first user
+   * - verify that receiving user has received a message
+   * - verify that receiving user has received an email
+   */
+  function testMessageAndNotificationOnDailyGift(){
+	require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/poker.class.php");
+	require_once(drupal_get_path('module', 'os_poker') . "/os_poker_messages.php");
+
+		//logout skel_user
+		$this->drupalLogout($this->skel_user);
+
+		//Create a user to challenge
+		$target_user = $this->drupalCreateUser(NULL, array('profile_nickname' => 'target_user'));
+
+		$this->drupalLogin($target_user);
+
+    $this->OsPokerCreateBuddyRelationShip($this->skel_user, $target_user);
+
+		/*
+		* Simulate daily gift sent by $this->skel_user
+		*/
+
+    $this->drupalLogout($target_user);
+    $this->drupalLogin($this->skel_user);
+    $this->drupalGet('poker/messages/send', array('query' => array('type' => 'os_poker_daily_gift')));
+    $this->drupalLogout($this->skel_user);
+    $this->drupalLogin($target_user);
+    /*
+     * Go to message box and check there is a message
+     */
+		$this->drupalGet('poker/messagebox');
+		$this->assertText("You just receive a daily gift from skel_user", 'Notification message received');
+    $email = end($this->drupalGetMails());
+    $this->verbose('Last sent mail: '. highlight_string('<?php ' . var_export($email , TRUE), TRUE) .'<hr />');
+    $this->assertEqual($email['id'], 'os_poker_daily_gift', 'Email notification for he received gift has been sent.');
+    $this->assertEqual($email['to'], $target_user->mail, 'Email notification is sent to buddy.');
+    $this->assertTrue(strpos($email['body'], $target_user->profile_nickname) !== FALSE, "Email notification contains receiver's nickname.");
+    $this->assertTrue(strpos($email['body'], 'skel_user') !== FALSE, "Email notification contains sender's nickname.");
+    $this->drupalLogout($target_user);
+  }
 
   /**
    * Verify Message on Gift
