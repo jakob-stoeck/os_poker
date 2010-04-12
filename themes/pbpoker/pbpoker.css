@@ -2499,7 +2499,7 @@ div.TeaseMore .poker_submit .label {
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.png) no-repeat left 40px;
+    background: url(images/bg_no_result.png?X) no-repeat left 40px;
     width: 100%;
     height: 264px;
 	color: #fff;
