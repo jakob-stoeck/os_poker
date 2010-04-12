@@ -56,8 +56,8 @@ tr.even a {
 	cursor: pointer;
 }
 
-body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose {
-	background-image: url(images/button_layerclose.png);
+body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose, body.iframe #profile-medium a.LayerClose {
+	background-image: url(images/button_layerclose.png) !important;
 	top: 5px;
 }
 
@@ -142,9 +142,14 @@ ul.primary li a {
 	padding: 5px 10px 0;
 }
 
+ul.primary.ui-tabs-nav li a {
+	padding-top: 4px;
+	padding-top: 5px\9;
+}
+
 *:first-child+html ul.primary li a {
 	border: 1px solid #666 !important;
-	padding-top:4px;
+	padding-top: 4px;
 }
 
 *:first-child+html ul.primary li.active a,
@@ -198,6 +203,25 @@ ul.secondary li a.active {
 
 #content-bottom #buddylist {
 	margin-top: 10px;
+}
+
+#content-bottom #buddylist .block_title_bar {
+	position: relative;
+}
+
+#content-bottom #buddylist .block_title_bar #edit-online-wrapper label {
+	position: absolute;
+	top: 3px;
+	right: 10px;
+}
+
+#content-bottom #buddylist .block_title_bar #edit-online-wrapper #edit-online {
+	margin-right: 5px;
+	float: left;
+}
+
+*:first-child+html #content-bottom #buddylist .block_title_bar #edit-online-wrapper #edit-online {
+	margin-top: -3px;
 }
 
 #header {
@@ -291,10 +315,17 @@ ul.secondary li a.active {
 /*************************
 * Thickboxes - reset main
 *************************/
-.tabs-window {
+.tabs-window, #profile-medium, #messagebox {
 	background: url(images/thickboxes/thickbox.png) repeat-x;
 }
 
+#profile-medium, #messagebox {
+	color: #fbfbfb;
+}
+
+#profile-medium .darkred, #messagebox a, #messagebox .poker_submit input {
+	color: #efc57b !important;
+}
 /*************************
 * Thickboxes
 *************************/
@@ -1251,12 +1282,12 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .TableRanking tr {
-	background: #515151;
+	background: #1a1a1a;
 	color: #fff;
 }
 
 #profile-tabs .TableRanking tr.BgGrey {
-	background: #1a1a1a;
+	background: #9a9a9a;
 }
 
 #profile-tabs .TableRanking td.Column01 {
@@ -1916,14 +1947,15 @@ ul.pager .pager-current {
 
 /* FIXME : too vague */
 div.num {
-	background-color: #CACACA;
 	font-weight: bold;
 	line-height: 23px;
 	text-align: center;
 	vertical-align: middle;
 	width: 23px;
 	float: left;
-	border-right:1px solid #666666;
+	color: #6c6c6c !important;
+	border-right: 1px solid #666666;
+	background-color: #CACACA;
 }
 
 div.TeaseMore {
@@ -2474,7 +2506,7 @@ div.TeaseMore .poker_submit .label {
 }
 
 div.poker_error_message {
-    background: url(images/bg_no_result.png) no-repeat left 40px;
+    background: url(images/bg_no_result.png?X) no-repeat left 40px;
     width: 100%;
     height: 264px;
 	color: #fff;
@@ -2526,11 +2558,10 @@ body.iframe .messages-popup a.close
 	padding: 15px;
 }
 
-/* FIXME : necessary or not ? */
 #os-poker-overlay a.closebutton {
 	text-indent: -10000px;
 	background-color: transparent;
-	background-image: url(images/button_layerclose.png);
+	background-image: url(images/button_layerclose.png) !important;
 	background-repeat: no-repeat;
 	background-position: center center;
 }

@@ -91,13 +91,13 @@ for ($i = 0; $i < $items_per_page; $i++)
   }
 ?>
 <div class="BannerTop">
- <a title="" href="?q=poker/shop/get_chips">
-    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt="" />
+ <a title="" href="?q=poker/buddies/invite">
+    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
  </a>
 </div>
 <div class="BannerBottom">
- <a title="" href="?q=poker/buddies/invite">
-    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
+ <a title="" href="?q=poker/shop/get_chips">
+    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt="" />
  </a>
 </div>
 
@@ -121,7 +121,7 @@ print theme('pager', NULL, $items_per_page);
 		}
 		else
 		{
-			$error_message = t("You don't have any buddy.") . "<br/>". l(t("Invite a buddy"), 'poker/buddies/invite');
+			$error_message = t("You don't have any buddy.") . "<br/><div class='poker_submit'><div class='pre'>&nbsp;</div><div class='label'>". l(t("English for Jetzt Freunde Einladen"), 'poker/buddies/invite') . "</div></div>";
 		}
 
 		print theme('poker_error_message', $error_message);
