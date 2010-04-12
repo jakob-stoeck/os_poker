@@ -65,12 +65,12 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
       5 => array('profile_country'=>'FR', 'profile_city'=>'Nantes', 'profile_gender'=>'Female'),
     );
     $chips = array(
-      5 => 1000000,
-      4 => 500000,
-      3 => 250000,
-      2 => 100000,
-      1 => 50000,
-      0 => 10000,
+      5 => "1000000",
+      4 => "500000",
+      3 => "250000",
+      2 => "100000",
+      1 => "50000",
+      0 => "10000",
     );
     $users = array();
     foreach($profiles as $key => $profile) {
@@ -133,6 +133,7 @@ class OSPokerUserSearch extends OsPokerWebTestCase {
     }
     foreach($chips as $key => $value) {
       $this->drupalPost('poker/buddies/search', array('level' => $value), t("Send"));
+
       foreach($users as $uk => $user) {
         if($key <= $uk) {
           $this->assertRaw(theme('username', $user), t('User %nickname found is search results', array('%nickname' => $user->profile_nickname)));

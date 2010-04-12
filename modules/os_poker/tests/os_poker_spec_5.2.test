@@ -84,9 +84,10 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 	$previous_max_chips = 0;
 	foreach ($test_buddies as $buddy)
 	  {
-		$buddy->chips += rand(1000, 5000);
+		$nchips = rand(15000, 50000);
+		$buddy->AddChips($nchips);
 		$buddy->Save();
-		if ($buddy->Chips() > $previous_max_chips)
+		if (bccomp($buddy->Chips(), $previous_max_chips) > 0)
 		  $previous_max_chips = $buddy->Chips();
 	  }
 
@@ -96,7 +97,7 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 
 	foreach ($test_buddies as $buddy)
 	  {
-		$this->assertTrue($buddy->Chips() <= $previous_max_chips, "Sort OK : ".$buddy->Chips());
+				$this->assertTrue(bccomp($buddy->Chips(), $previous_max_chips) <= 0, "Sort OK : ".$buddy->Chips());
 		$previous_max_chips = $buddy->Chips();
 	  }
 
