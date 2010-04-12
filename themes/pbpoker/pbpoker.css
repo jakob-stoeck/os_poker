@@ -1916,14 +1916,15 @@ ul.pager .pager-current {
 
 /* FIXME : too vague */
 div.num {
-	background-color: #CACACA;
 	font-weight: bold;
 	line-height: 23px;
 	text-align: center;
 	vertical-align: middle;
 	width: 23px;
 	float: left;
-	border-right:1px solid #666666;
+	color: #6c6c6c !important;
+	border-right: 1px solid #666666;
+	background-color: #CACACA;
 }
 
 div.TeaseMore {
