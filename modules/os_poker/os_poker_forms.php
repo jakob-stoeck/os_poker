@@ -714,7 +714,7 @@ function	os_poker_buddy_search_form($form_state)
 															'#type' => 'select',
 															'#title' => t('Country'),
                               '#multiple' => false,
-                              '#options' => array_map(get_t(), countries_api_get_options_array($first_element = array(NULL => t('--')))),
+                              '#options' => _os_poker_country_options(),
 													);
 
 	$form['submit'] =	array(
@@ -815,13 +815,10 @@ function	os_poker_first_profile_form($form_state)
 									'#default_value' => $cuser->profile_dob ? $cuser->profile_dob : array('month' => 1, 'day' => 1, 'year' => 1990),
 							);
 
-	$countries_list = array_map(get_t(), countries_api_get_array('iso2', 'printable_name'));
-	uasort($countries_list, "strnatcmp");
-
 	$form['profile_country'] =	array(
 										'#type' => 'select',
 										'#title' => t('Country'),
-										'#options' => array_merge(array(NULL => t('--')), $countries_list),
+										'#options' => _os_poker_country_options(),
 
 
 
@@ -886,6 +883,10 @@ function os_poker_first_profile_form_validate($form, &$form_state)
 	$edit = & $form_state['values'];
 
 	$f = array("#uid" => $cuser->uid);
+
+  if ($form_state['values']['profile_country'] == '00') {
+    unset($form_state['values']['profile_country']);
+  }
 
 	user_validate_picture($f, $form_state);
 
@@ -995,7 +996,6 @@ function	os_poker_buddies_invite_form_validate(&$form, &$form_state)
   }
 
   $form_state['values']['email'] = implode(',', $emails);
-
 
 	user_relationship_invites_invite_form_validate($form, $form_state);
 	invite_form_validate($form, $form_state);
@@ -1126,5 +1126,23 @@ function	os_poker_buddies_invite_form($form_state)
 */
 
 include_once("os_poker_admin.inc");
+
+function _os_poker_country_options() {
+  $countries_list = array_map(get_t(), countries_api_get_array('iso2', 'printable_name'));
+  uasort($countries_list, "strnatcmp");
+
+  $head = array(
+    NULL => '--',
+    'DE' => $countries_list['DE'],
+    'AT' => $countries_list['AT'],
+    'CH' => $countries_list['CH'],
+    '00' => '----',
+  );
+  foreach(array_keys($head) as $code) {
+    unset($countries_list[$code]);
+  }
+
+  return  array_merge($head, $countries_list);
+}
 
 ?>
