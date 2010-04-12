@@ -139,12 +139,12 @@ ul.primary li a {
 	height: 18px;
 	display: block;
 	float: left;
-	padding: 5px 10px 0;
+	padding: 4px 10px 0;
 }
 
 *:first-child+html ul.primary li a {
 	border: 1px solid #666 !important;
-	padding-top:4px;
+	/*padding-top: 4px;*/
 }
 
 *:first-child+html ul.primary li.active a,
