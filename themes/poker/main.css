@@ -1255,6 +1255,10 @@ body.page-poker #content-header .title-wrapper a.LayerClose
   width: 300px;
 }
 
+*:first-child+html #os-poker-report-abuse-form .poker_submit input {
+	width: 60px;
+}
+
 
 /*
  *  Helpbox
