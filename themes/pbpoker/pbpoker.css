@@ -526,7 +526,7 @@ body.poker-profile #TB_window {
 * the buttons
 ************************/
 
-div.poker_submit {
+.poker_submit {
 	color: #603c08;
 	font: normal 12px Arial, sans-serif;
 	text-decoration: none;
@@ -2813,52 +2813,15 @@ body.poker-tourneyinfo #middle-content-left {
 body.poker-tourneyinfo #middle-content-right {
 	width: 240px;
 }
-/*
-.poker-tourneyinfo .banner-box {
-	color: #fae991;
-	background: #000;
-	margin-bottom: 1.5em;
+
+.poker-tourneyinfo .tourney-infobox .poker_submit {
+	margin: 0.5em 1em;
+}
+.poker-tourneyinfo .tourney-infobox .poker_submit a {
+	color: #603C08;
+	text-decoration: none;
 }
 
-.poker-tourneyinfo .banner-box#become-member-box {
-	padding-bottom: 0.2em;
-}
-
-.poker-tourneyinfo .banner-box#become-member-box h3 {
-	background: url(images/member_banner_background_only.jpg) no-repeat -1px top;
-	height: 48px;
-	margin-bottom: 0.5em;
-}
-
-.poker-tourneyinfo .banner-box#become-member-box h3 span {
-	display: none;
-}
-
-.poker-tourneyinfo .banner-box#become-member-box .poker_submit {
-	margin: 1em 1em 0.3em 30px;
-	width: 110px;
-}
-
-.poker-tourneyinfo .banner-box p {
-	padding-left: 30px;
-	padding-right: 10px;
-	line-height: 1.4em;
-}
-
-.poker-tourneyinfo a#banner-tourney {
-	background: url(images/pb_tourney_banner.jpg);
-	display: block;
-	width: 322px;
-	height: 210px;
-}
-
-.poker-tourneyinfo a#banner-millions {
-	background: url(images/millions.jpg);
-	display: block;
-	width: 322px;
-	height: 162px;
-}
-*/
 .poker-tourneyinfo .tourney-infobox {
 	background: #1e1e1e;
 	background-repeat: no-repeat;

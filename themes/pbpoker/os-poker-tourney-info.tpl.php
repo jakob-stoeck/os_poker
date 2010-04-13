@@ -47,7 +47,8 @@ Nervenkitzel garantiert! Los geht's um 19:00 Uhr.</p>
 						</div>
 						<div class="tourney-infobox" id="participation-box">
 							<h3>Wie kann ich teilnehmen?</h3>
-							<p>Jetzt kostenlos anmelden und <strong>$1.000 Chips</strong> Startguthaben sichern. Nur noch Dein Profil ausfüllen und fertig! So einfach ist das... Die Turniere findest du in der Lobby unter "Turniere", hier kannst du dich registrieren.</p>
+							<p>Jetzt kostenlos anmelden und <strong>$1.000 Chips</strong> Startguthaben sichern. Nur noch Dein Profil ausfüllen und fertig! So einfach ist das...<br/>Die Turniere findest du in der Lobby unter "Turniere", hier kannst du dich registrieren.</p>
+							<div class="poker_submit"><div class="pre"></div><div class="label"><a href="<?php print url("", array('fragment' => 'registration-window')); ?>"><?php print t('Register now'); ?></a></div></div>
 						</div>
 						<div class="tourney-infobox" id="video-box">
 							<h3>Noch nie gepokert?</h3>
