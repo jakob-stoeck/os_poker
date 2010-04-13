@@ -322,11 +322,11 @@ ul.secondary li a.active {
 /*************************
 * Thickboxes - reset main
 *************************/
-.tabs-window, #profile-medium, #messagebox, #user_relationships_ui_popup_form {
+.tabs-window, #profile-medium, #messagebox, .user_relationships_ui_popup_form {
 	background: url(images/thickboxes/thickbox.png) repeat-x;
 }
 
-#profile-medium, #messagebox, #user_relationships_ui_popup_form {
+#profile-medium, #messagebox, .user_relationships_ui_popup_form {
 	color: #fbfbfb;
 }
 
