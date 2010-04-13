@@ -151,7 +151,6 @@
         </noscript>
         <!--[if lt IE 7]>
           <div class="messages error">
-            <p>Wie wäre dies als Text auf einer simplen Auffangseite:</p>
             <p>Du verwendest eine veraltete Version des Internet Explorers. Dieser Browser wird von Playboy Poker nicht unterstützt. Um Playboy Poker nutzen zu können aktualisiere dein System bitte auf einen modernen Browser, wie z.B.:</p>
             <p>Internet Explorer 8, Safari 4, Firefox 3.6, Google Chrome</p>
           </div>
