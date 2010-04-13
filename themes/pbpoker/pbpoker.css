@@ -1782,6 +1782,11 @@ body.de #play-now #play-now-button {
 	margin-top: 29px;
 }
 
+*:first-child+html #table_users {
+	overflow: hidden;
+	margin-top: 39px;
+}
+
 #table_users .list.splash {
 	background: transparent url(images/user_table_splash.jpg) no-repeat;
 }
@@ -2210,6 +2215,7 @@ div.TeaseMore .poker_submit .label {
 
 #home_promotion_1, #home_promotion_2 {
 	margin-top: 8px;
+	overflow: hidden; /* IE7 */
 }
 
 #home_promotion_1 .list,
