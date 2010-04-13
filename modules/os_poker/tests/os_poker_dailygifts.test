@@ -1,0 +1,198 @@
+<?php // -*- mode: php; tab-width: 2 -*-
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+
+
+/**
+ * @file
+ * Poker 5.10 specification test case: Internal Promotions
+ *
+ */
+
+/**
+ * Includes the custom test case class with basic site configuration.
+ */
+require_once(dirname(__FILE__) .'/os_poker_test_case.tinc');
+
+/**
+ * Spec: 5.10: Internal Promotions placement
+ *
+ * Verifies Internal Promotion workflow is working according to specifications.
+ *
+ * @assert: Advertising placement
+ *
+ */
+class OSPokerDailyGift extends OsPokerWebTestCase {
+
+  /**
+   * @var user object created and logged in during setUp process.
+   */
+	protected $user, $buddy;
+
+  /**
+   * Implementation of hook_info().
+   */
+  public static function getInfo() {
+    return array(
+      'name'        => 'Test daily_gift interaction with activate item',
+      'description' => 'Test daily_gift interaction with activate item',
+      'group'       => 'OS Poker',
+    );
+  }
+
+  /**
+   * Implementation of setUp().
+   */
+  function setUp() {
+    // Enable required modules and set default site configuration.
+    parent::setUp();
+	$this->insertShopItemsAndCategories();
+
+    /**
+     * Register an 'skel_user' account and complete its profile.
+     * This user has 'skel_user' for nickname.
+     */
+    $this->user = $this->drupalCreateUser();
+    // Login the user, complete profile form
+    $this->drupalLogin($this->user);
+
+	// Invitation workflow to another user
+	$name = $this->randomName();
+	$email = $email = $this->randomName() . '@' . $this->randomName() . ".com";
+	$this->OsPokerSendInvites(array($name => $email));
+	$this->assertInviteMail(
+		$email,
+		t('Invitation email message sent for !name.', array('!name' => $name))
+		);
+	$this->drupalLogout();
+
+
+	$mail_queue = end($this->drupalGetMails());
+	$code = $mail_queue['params']['invite']->code;
+
+	// Registration workflow via invite link
+	$this->drupalGet('invite/accept/'. $code);
+	$this->assertEqual($this->getUrl(), $this->getAbsoluteUrl(''), 'Invite accept redirects to start page');
+	$this->assertFieldByName(
+		'mail',
+		$email,
+		t('Invitation verified, invited email found in registration form.')
+		);
+	$this->assertRaw('home_signup_form', 'Verify start page', 'SpecPoker');
+	$this->assertRaw('id="os-poker-sign-up-form"', 'Verify start page', 'SpecPoker');
+	// Complete the fields and submit the registration form.
+	$password = $this->randomName();
+	$options = array(
+		'mail'        => $email,
+		'pass' => $password,
+		);
+	$this->drupalPost($this->getAbsoluteUrl(''), $options, null);
+	$this->drupalLogout();
+
+	// create a structure for login later
+	$this->buddy = new stdClass;
+	$this->buddy->name = $email;
+	$this->buddy->pass_raw = $password;
+
+	// Now we should find out the UID of the newly created invitee
+	$sql = "select * from {users} where mail='%s'";
+	$row = db_fetch_object(db_query($sql, $email));
+	$this->assertEqual($row->mail, $email, "Found the invitee uid");
+	$this->buddy->uid = $row->uid;
+  }
+
+  /**
+   * Implementation of tearDown().
+   */
+  function tearDown() {
+    parent::tearDown();
+  }
+
+  function testDailyGiftBug() {
+    $this->drupalLogin($this->user);
+	$cuser = CUserManager::instance()->User($this->user->uid, TRUE);
+	$cuser->chips = 100000; // enough chips to buy stuff
+	$cuser->Save();
+
+	// refresh cuser
+	$cuser = CUserManager::instance()->User($this->user->uid, TRUE);
+
+	// Can he send daily gift ?
+	$can_gift = $cuser->CanDailyGift();
+	$this->assertTrue($can_gift, t("User can send daily gift in the beginning"));
+
+	// Debug
+	$sql = "SELECT * from {poker_user_ext} WHERE uid = %d";
+	$sql1 = "SELECT * FROM `{poker_operation}`";
+
+	$row = db_fetch_object(db_query($sql, $this->user->uid));
+	$this->pass(print_r($row, TRUE), "POKER_USER_EXT1");
+
+	// Send the daily gift
+	$cuser->DailyGift();
+	$can_gift = $cuser->CanDailyGift();
+	$this->assertTrue(!$can_gift, t("User can send daily gift only once each day"));
+
+	// Debug
+	$row = db_fetch_object(db_query($sql, $this->user->uid));
+	$this->pass(print_r($row, TRUE), "POKER_USER_EXT1");
+
+	// Now buy an item
+	CUserManager::instance()->DebugForceCurrentUser($this->user->uid);
+	CShop::BuyItem(103);
+
+	//Debug
+	$row = db_fetch_object(db_query($sql1, $this->user->uid));
+	$this->pass(print_r($row, TRUE), "POKER_OPERS");
+
+	$id_operation = $row->id_operation;
+    $cuser->ActivateItem($id_operation);
+	$this->pass($id_operation, "OPER_ID");
+
+    CScheduler::instance()->ReloadTasks();
+    CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
+
+	// Debug
+	$row = db_fetch_object(db_query($sql, $this->user->uid));
+	$this->pass(print_r($row, TRUE), "POKER_USER_EXT1");
+
+	// Simulate item expiry
+	$this->drupalLogout();
+	CScheduler::instance()->RegisterTask(new CItemExpiry(), $this->user->uid, array('login', 'live'), "-1 day 00:00",
+										 array("id_operation" => $id_operation));
+	$this->drupalLogin($this->user);
+	$cuser = CUserManager::instance()->User($this->user->uid, TRUE);
+
+	$rawtask = CScheduler::GetRawUserTasks($this->user->uid);
+	CScheduler::TriggerHelper("login", $cuser, $rawtask);
+
+	// Debug
+	$row = db_fetch_object(db_query($sql, $this->user->uid));
+	$this->pass(print_r($row, TRUE), "POKER_USER_EXT1");
+
+	// Make sure we can still not send daily gift
+	$can_gift = $cuser->CanDailyGift();
+	$this->assertTrue(!$can_gift, t("User cannot send daily gift even after item activation & expiry"));
+  }
+
+  function insertShopItemsAndCategories() {
+    $this->assertTrue(db_query("INSERT INTO {poker_item} VALUES (101,2,'sites/default/files/poker_items/item-2.jpg','Cocktail',500,1,'next monday'),
+							(102,1,'sites/default/files/poker_items/item-1.jpg','TestItem',1000,1,'+3 minutes'),
+							(103,1,'sites/default/files/poker_items/item-1.jpg','Beer',1500,1,'+1 minute')"), t('Items and categories inserted in database.'));
+  }
+}
+
