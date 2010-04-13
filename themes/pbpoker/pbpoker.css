@@ -2787,23 +2787,33 @@ body.poker-tourneyinfo {
 
 .poker-tourneyinfo #tourney-teaser {
 	width: 742px;
-	height: 208px;
+	height: 194px;
 	display: block;
 	margin-bottom: 1em;
-	background: url(images/teaser-head.jpg) no-repeat center top;
+	background: url(images/tourney/teaser-head.jpg) no-repeat center top;
+	position: relative;
 }
-.poker-tourneyinfo #tourney-teaser h2 {
-	display: none;
+
+.poker-tourneyinfo #tourney-teaser h2 a {
+	position: absolute;
+	bottom: 35px;
+	left: 20px;
+	background: url(images/tourney/register.gif) no-repeat;
+	display: block;
+	width: 146px;
+	height: 28px;
+	text-indent: -20000px;
 }
+
 body.poker-tourneyinfo #middle-content-left {
-	width: 319px;
-	margin-right: 20px;
+	width: 498px;
+	margin-right: 5px;
 }
 
 body.poker-tourneyinfo #middle-content-right {
-	width: 400px;
+	width: 240px;
 }
-
+/*
 .poker-tourneyinfo .banner-box {
 	color: #fae991;
 	background: #000;
@@ -2813,6 +2823,7 @@ body.poker-tourneyinfo #middle-content-right {
 .poker-tourneyinfo .banner-box#become-member-box {
 	padding-bottom: 0.2em;
 }
+
 .poker-tourneyinfo .banner-box#become-member-box h3 {
 	background: url(images/member_banner_background_only.jpg) no-repeat -1px top;
 	height: 48px;
@@ -2847,15 +2858,15 @@ body.poker-tourneyinfo #middle-content-right {
 	width: 322px;
 	height: 162px;
 }
-
+*/
 .poker-tourneyinfo .tourney-infobox {
-	background: #333;
+	background: #1e1e1e;
 	color: #e3e3e3;
 	padding-bottom: 0.3em;
 	margin-bottom: 1em;
 }
 .poker-tourneyinfo .tourney-infobox h3 {
-	color: #c4a13d;
+	color: #fff;
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
 	font-size: 1em;

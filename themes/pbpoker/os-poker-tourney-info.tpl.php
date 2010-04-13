@@ -1,5 +1,7 @@
 				<div id="tourney-teaser">
-					<h2><span>Spielen Sie mit unseren Playmates</span></h2>
+					<?php if (!$logged_in) {  ?>
+					<h2><a href=""><?php print t('Register now'); ?></a></h2>
+					<?} ?>
 				</div>
 				<div id="middle-content">
 					<div id="middle-content-left">
