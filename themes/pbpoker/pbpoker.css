@@ -1050,7 +1050,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 .reward_status {
 	margin: 8px 0 0;
-	white-space: nowrap;
+	width: 115px;
 }
 
 /*************************
