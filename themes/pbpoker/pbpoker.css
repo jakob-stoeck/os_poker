@@ -2900,7 +2900,6 @@ body.poker-tourneyinfo #middle-content-right {
 
 .user_relationships_ui_popup_form
 {
-    /*background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;*/
     border:1px solid #999999;
     padding:10px;
 	height: 45px;
@@ -2910,6 +2909,10 @@ body.poker-tourneyinfo #middle-content-right {
 {
 	color: #727272;
 	font-weight: bold;
+}
+
+#user-relationships-ui-pending-requested .poker_submit {
+	margin-top: 0;
 }
 
 #user-relationships-ui-pending-requested div.poker_submit div.pre
