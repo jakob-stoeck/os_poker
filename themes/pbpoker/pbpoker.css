@@ -322,11 +322,11 @@ ul.secondary li a.active {
 /*************************
 * Thickboxes - reset main
 *************************/
-.tabs-window, #profile-medium, #messagebox {
+.tabs-window, #profile-medium, #messagebox, #user_relationships_ui_popup_form {
 	background: url(images/thickboxes/thickbox.png) repeat-x;
 }
 
-#profile-medium, #messagebox {
+#profile-medium, #messagebox, #user_relationships_ui_popup_form {
 	color: #fbfbfb;
 }
 
@@ -2900,7 +2900,7 @@ body.poker-tourneyinfo #middle-content-right {
 
 .user_relationships_ui_popup_form
 {
-    background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;
+    /*background:#DDDDDD url(images/BG_message.png) repeat-x scroll 0 0;*/
     border:1px solid #999999;
     padding:10px;
 	height: 45px;
