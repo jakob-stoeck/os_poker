@@ -2889,6 +2889,20 @@ body.poker-tourneyinfo #middle-content-right {
 	background-image: url(images/tourney/teaser_club.jpg);
 }
 
+#prize-box ul {
+	background: url(images/tourney/teaser_prices.jpg) top center no-repeat;
+	padding-top: 110px;
+}
+
+#participation-box p {
+	background: url(images/tourney/teaser_participate.jpg) top center no-repeat;
+	padding-top: 110px;
+}
+#video-box #gototuto {
+	background: url(images/tourney/teaser_videotut.jpg) top center no-repeat;
+	padding-top: 130px;
+}
+
 .poker-tourneyinfo .tourney-infobox h3 {
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
