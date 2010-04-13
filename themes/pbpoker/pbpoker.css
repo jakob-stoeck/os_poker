@@ -1778,6 +1778,9 @@ body.de #play-now #play-now-button {
 /***************************
 * Who is at the table/teasers @homepage
 ****************************/
+#table_users {
+	margin-top: 28px;
+}
 
 #table_users .list.splash {
 	background: transparent url(images/user_table_splash.jpg) no-repeat;
