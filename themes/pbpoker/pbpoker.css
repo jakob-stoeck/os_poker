@@ -1779,7 +1779,7 @@ body.de #play-now #play-now-button {
 * Who is at the table/teasers @homepage
 ****************************/
 #table_users {
-	margin-top: 28px;
+	margin-top: 29px;
 }
 
 #table_users .list.splash {
@@ -2208,12 +2208,8 @@ div.TeaseMore .poker_submit .label {
 * Homepage : Promotions/Ads
 ****************************/
 
-#home_promotion_1 {
-	margin-top: 10px;
-}
-
-#home_promotion_2 {
-	margin-top: 15px;
+#home_promotion_1, #home_promotion_2 {
+	margin-top: 8px;
 }
 
 #home_promotion_1 .list,
