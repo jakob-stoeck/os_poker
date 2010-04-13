@@ -59,6 +59,13 @@ tr.even a {
 body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose, body.iframe #profile-medium a.LayerClose {
 	background-image: url(images/button_layerclose.png) !important;
 	top: 5px;
+	width: 15px;
+	height: 15px;
+}
+
+body.iframe #profile-medium a.LayerClose {
+	right: 14px;
+	top: 9px;
 }
 
 /***************************
