@@ -1,32 +1,43 @@
 				<div id="tourney-teaser">
-					<?php if (!$logged_in) {  ?>
-					<h2><a href=""><?php print t('Register now'); ?></a></h2>
-					<?} ?>
+					<?php if (!user_is_logged_in()): ?>
+					<h2><a href="<?php print url("", array('fragment' => 'registration-window')); ?>"><?php print t('Register now'); ?></a></h2>
+					<?php endif; ?>
 				</div>
 				<div id="middle-content">
 					<div id="middle-content-left">
-						<div class="banner-box">
-							<a href="<?php print url("", array('fragment' => "tourney_serial=1388")); ?>" id="banner-tourney"><!-- --></a>
+						<div class="tourney-infobox" id="poker-masters">
+							<h3>Playboy Poker Masters</h3>
+							<h4>Playboy Poker Masters</h4>
+							<p>Das grosse Playboypoker Turnier um wechselnde Sachpreise.<br />
+							   Dieses Turnier hat kein Buy-in und findet alle 2 Monate zu festgelegten Terminen statt.</p>
 						</div>
-						<div class="banner-box">
-							<a href="<?php print url("", array('fragment' => "tourney_serial=1388")); ?>" id="banner-millions"><!-- --></a>
+						<div class="tourney-infobox" id="bunny-hunter">
+							<h3>Bunny Hunter</h3>
+							<h4>Bunny Hunter</h4>
+							<p>Die Hasen-Jagd-Saison ist eröffnet!<br />
+							Die Besten teilen sich den Preispool aber wer dem Bunny den letzten Chip aus der Tasche zieht, kann den Bunny Hunter Special Preis als Trophäe mit nach Hause nehmen.</p>
 						</div>
-						<div class="banner-box" id="become-member-box">
-							<h3><span>Noch kein Mitglied?</span></h3>
-							<p>Hol dir jetzt den Nervenkitzel, in High Stakes Partien und Turnieren um Millionen zu zocken, völlig ohne Risiko. Melde dich jetzt kostenlos an und sichere Dir $ 1.000 Chips Startguthaben!</p>
-							<?php if (!user_is_logged_in()): ?>
-              <a href="<?php print url("", array('fragment' => 'registration-window')); ?>">
-                <div class="poker_submit big"><div class="pre"></div><div class="label">Jetzt registrieren</div></div>
-							</a>
-              <?php endif; ?>
+						<div class="tourney-infobox" id="millions">
+							<h3>Monthly Millions</h3>
+							<h4>Monthly Millions</h4>
+							<p>Jeden ersten Sonntag im Monat ein Preispool mit 1 Million Chips,
+Nervenkitzel garantiert! Los geht's um 19:00 Uhr.</p>
 						</div>
-            <div class="banner-box">
+						<div class="tourney-infobox" id="after-work">
+							<h3>After Work Poker</h3>
+							<h4>After Work Poker</h4>
+							<p>Spät ins Bett gehen nur weil man ein Pokerturnier spielen will, muss unter der Woche niemand mehr. Auf Playboy Poker jeden Donnerstag um 18:30 Uhr ganz entspannt Afterwork Poker spielen!</p>
+						</div>
+						<div class="tourney-infobox" id="gentlemen">
+							<h3>Gentleman's Pokerclub</h3>
+							<h4>Gentleman's Pokerclub</h4>
+							<p>Hier trennt sich die Spreu vom Weizen, denn wer kann sich schon ein Buy-in von 10.000 Chips leisten? Die Turniere des Gentleman‘s Pokerclub finden alle 2 Wochen Sonntags um 19:00 Uhr statt. </p>
+						</div>
+					</div>
+
               <a class="thickbox" href="<?php print url("poker/help", array('query' => 'height=442&width=603&keepThis=true&TB_iframe=true&', 'fragment' => 'help-tutorial')); ?>">
                 Tutorial
               </a>
-            </div>
-					</div>
-
 					<div id="middle-content-right">
 						<div class="tourney-infobox" id="prize-box">
 							<h3>Die Gewinne:</h3>

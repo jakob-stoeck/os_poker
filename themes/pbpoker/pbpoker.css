@@ -2861,15 +2861,48 @@ body.poker-tourneyinfo #middle-content-right {
 */
 .poker-tourneyinfo .tourney-infobox {
 	background: #1e1e1e;
-	color: #e3e3e3;
+	background-repeat: no-repeat;
+	background-position: 10px 25px;
+	color: #fff;
 	padding-bottom: 0.3em;
 	margin-bottom: 1em;
 }
+
+.poker-tourneyinfo #middle-content-left .tourney-infobox {
+	height: 135px;
+}
+
+#poker-masters {
+	background-image: url(images/tourney/teaser_master.jpg);
+}
+
+#bunny-hunter {
+	background-image: url(images/tourney/teaser_bunnyhunter.jpg);
+}
+#millions {
+	background-image: url(images/tourney/teaser_club.jpg);
+}
+#after-work {
+	background-image: url(images/tourney/teaser_afterwork.jpg);
+}
+#gentlemen {
+	background-image: url(images/tourney/teaser_club.jpg);
+}
+
 .poker-tourneyinfo .tourney-infobox h3 {
-	color: #fff;
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
 	font-size: 1em;
+}
+
+.poker-tourneyinfo .tourney-infobox h4,
+.poker-tourneyinfo #middle-content-left .tourney-infobox p {
+	margin-left: 140px;
+}
+
+.poker-tourneyinfo .tourney-infobox h4 {
+	margin-top: 0.5em;
+	font-size: 1.2em;
 }
 
 .poker-tourneyinfo .tourney-infobox p,
