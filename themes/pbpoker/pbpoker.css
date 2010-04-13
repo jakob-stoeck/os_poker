@@ -2806,8 +2806,8 @@ body.poker-tourneyinfo {
 }
 
 body.poker-tourneyinfo #middle-content-left {
-	width: 498px;
-	margin-right: 5px;
+	width: 493px;
+	margin-right: 10px;
 }
 
 body.poker-tourneyinfo #middle-content-right {
@@ -2815,7 +2815,7 @@ body.poker-tourneyinfo #middle-content-right {
 }
 
 .poker-tourneyinfo .tourney-infobox .poker_submit {
-	margin: 0.5em 1em;
+	margin: 0.9em 1em;
 }
 .poker-tourneyinfo .tourney-infobox .poker_submit a {
 	color: #603C08;
@@ -2829,6 +2829,10 @@ body.poker-tourneyinfo #middle-content-right {
 	color: #fff;
 	padding-bottom: 0.3em;
 	margin-bottom: 1em;
+}
+
+*:first-child+html .poker-tourneyinfo #middle-content-right .tourney-infobox {
+	padding-bottom: 0.65em;
 }
 
 .poker-tourneyinfo #middle-content-left .tourney-infobox {
@@ -2854,7 +2858,7 @@ body.poker-tourneyinfo #middle-content-right {
 
 #prize-box ul {
 	background: url(images/tourney/teaser_prices.jpg) top center no-repeat;
-	padding-top: 110px;
+	padding-top: 100px;
 }
 
 #participation-box p {
