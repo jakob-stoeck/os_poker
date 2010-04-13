@@ -82,6 +82,9 @@
 
 <head>
   <title><?php print $head_title; ?></title>
+  <!--[if lt IE 7]>
+    <script type="text/javascript">window.location = '<?php print url('<front>', array('absolute' => TRUE));?>'</script>
+  <![endif]-->
   <?php print $head; ?>
   <?php print $styles; ?>
   <?php print $scripts; ?>

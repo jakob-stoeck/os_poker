@@ -128,6 +128,7 @@
 		<?php print(t("The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!")); ?>
 		</div>
 		<div id="main-inner" class="clear-block<?php if ($navbar) { print ' with-navbar'; } ?>">
+
 			<div id="content">
 				<div id="content-inner">
 
@@ -148,6 +149,12 @@
             <p><?php print t('How it works on in Firefox: Go up in the browser menu: "Tools," then to "Settings" - "content" - "Enable Javascript" (must be ticked).') ?></p>
           </div>
         </noscript>
+        <!--[if lt IE 7]>
+          <div class="messages error">
+            <p>Du verwendest eine veraltete Version des Internet Explorers. Dieser Browser wird von Playboy Poker nicht unterstützt. Um Playboy Poker nutzen zu können aktualisiere dein System bitte auf einen modernen Browser, wie z.B.:</p>
+            <p>Internet Explorer 8, Safari 4, Firefox 3.6, Google Chrome</p>
+          </div>
+        <![endif]-->
 
 				<?php if ($messages) : ?>
 				<div id="messages">
