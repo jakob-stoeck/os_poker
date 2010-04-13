@@ -63,7 +63,7 @@ body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a
 	height: 15px;
 }
 
-body.iframe #profile-medium a.LayerClose, body.iframe #messagebox a.LayerClose {
+body.iframe #profile-medium a.LayerClose, body.iframe #messagebox a.LayerClose, body.page-poker #content-header .title-wrapper a.LayerClose {
 	right: 14px;
 	top: 9px;
 }
