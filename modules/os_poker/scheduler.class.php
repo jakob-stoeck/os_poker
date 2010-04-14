@@ -156,7 +156,7 @@ class CItemExpiry implements ITask
 		{
 			$sql = "DELETE FROM `{poker_operation}` WHERE `uid` = %d AND `id_operation` = %d";
 			$res = db_query($sql, $context_user->uid, $arguments["id_operation"]);
-			$sql = "DELETE FROM `{poker_user_ext}` WHERE `uid` = %d AND `id_operation` = %d";
+			$sql = "UPDATE `{poker_user_ext}` SET `id_operation` = NULL WHERE `uid` = %d AND `id_operation` = %d";
 			$res = db_query($sql, $context_user->uid, $arguments["id_operation"]);
 			
 			//drupal_set_message(t("Item instance !id has expired", array("!id" => $arguments["id_operation"])));
