@@ -2897,32 +2897,41 @@ body.poker-school #middle-content-right {
 	margin-left: 140px;
 }
 
-.poker-tourneyinfo .infobox h4 {
+.poker-tourneyinfo .infobox h4,
+.poker-school .infobox h4 {
 	margin-top: 0.5em;
 	font-size: 1.2em;
 }
 
 .poker-tourneyinfo .infobox p,
 .poker-tourneyinfo .infobox ul,
-.poker-tourneyinfo .infobox ol {
+.poker-tourneyinfo .infobox ol,
+.poker-school .infobox p,
+.poker-school .infobox ul,
+.poker-school .infobox ol {
 	margin: 1em;
 }
 
 .poker-tourneyinfo .infobox ul,
-.poker-tourneyinfo .infobox ol {
+.poker-tourneyinfo .infobox ol,
+.poker-school .infobox ul,
+.poker-school .infobox ol {
 	margin-left: 1.5em;
 	line-height: 1.4em;
 }
 
-.poker-tourneyinfo .infobox ul {
+.poker-tourneyinfo .infobox ul,
+.poker-school .infobox ul {
 	list-style: none;
 }
 
-.poker-tourneyinfo .infobox li {
+.poker-tourneyinfo .infobox li,
+.poker-school .infobox li {
 	margin-bottom: 0.3em;
 }
 
-.poker-tourneyinfo .infobox a {
+.poker-tourneyinfo .infobox a,
+.poker-school .infobox a {
 	color: #c4a13d;
 }
 
