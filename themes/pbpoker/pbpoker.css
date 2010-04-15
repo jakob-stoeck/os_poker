@@ -2904,13 +2904,19 @@ body.poker-school #middle-content-right {
 #promos-and-events {
 	background: url(images/tourney/teaser_promos-wbtn.jpg) top left no-repeat;
 }
+#tourneyteaser {
+	background: url(images/pokerschool/teaser_tourneys.jpg) top left no-repeat;
+}
 
-#promos-and-events a {
+#promos-and-events a, #tourneyteaser a {
 	display: block;
 	width: 242px;
-	height: 100px;
-	padding-top: 143px;
+	height: 230px;
 	text-indent: -10000px;
+}
+
+#tourneyteaser a {
+	height: 158px;
 }
 
 .poker-tourneyinfo .infobox h3,
@@ -2980,7 +2986,7 @@ body.poker-school #middle-content-right {
 
 .poker-school #quicklinks ul li {
 	border-bottom: 1px dotted #fff;
-	padding: 0.4em 0;
+	padding: 0.5em 0;
 }
 
 .poker-school #quicklinks ul li:last-child {

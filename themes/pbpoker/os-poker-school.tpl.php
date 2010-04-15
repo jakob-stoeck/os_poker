@@ -48,7 +48,8 @@
 								<li>» <a href="">Tipps</a></li>
 							</ul>
 						</div>
-						<div class="teaser" id="tourneys">
+						<div class="teaser" id="tourneyteaser">
+							<?php print l("Zu den Turnieren", "poker/pages/tourneyinfo"); ?>
 						</div>
 					</div>
 				</div>
