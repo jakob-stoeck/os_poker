@@ -30,7 +30,7 @@
 						<div class="infobox" id="guidelines">
 							<h3>Richtlininien</h3>
 							<p>Fairness am Spieltisch und gegenseitiger Respekt sind unsere wichtigsten Grundsätze. Um den Spass am Spiel zu gewährleisten, bitten wir Euch, einige Regeln zu beachten...</p>
-							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/?true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
+							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 					</div>
 					<div id="middle-content-right">
