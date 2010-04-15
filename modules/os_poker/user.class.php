@@ -421,7 +421,7 @@ class CUser
 
 			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
 
-      drupal_mail('os_poker', 'daily_gift', $buddy->mail, user_preferred_language($buddy->DrupalUser()), array('amount' => $amount, 'sender' => $this->DrupalUser(), 'account' => $buddy->DrupalUser()));
+      //drupal_mail('os_poker', 'daily_gift', $buddy->mail, user_preferred_language($buddy->DrupalUser()), array('amount' => $amount, 'sender' => $this->DrupalUser(), 'account' => $buddy->DrupalUser()));
 		}
 
 		return $result;
