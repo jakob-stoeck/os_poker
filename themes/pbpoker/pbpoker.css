@@ -2787,7 +2787,7 @@ body.poker-report-abuse #page {
  * ***************************/
 body.poker-tourneyinfo,
 body.poker-school {
-	background: #141007 url(images/tourney_body_bg.png) repeat-x;
+	background: #000000 url(images/bg.jpg) no-repeat fixed center top;
 }
 
 body.poker-tourneyinfo #middle-content-left,
@@ -2844,20 +2844,20 @@ body.poker-school #middle-content-right {
 .poker-school .infobox {
 	background: #1e1e1e;
 	background-repeat: no-repeat;
-	background-position: 10px 25px;
+	background-position: 10px 27px;
 	color: #fff;
 	padding-bottom: 0.3em;
 	margin-bottom: 1em;
 }
 
-*:first-child+html .poker-tourneyinfo #middle-content-right .infobox,
-*:first-child+html .poker-school #middle-content-right .infobox {
-	padding-bottom: 0.65em;
-}
-
 .poker-tourneyinfo #middle-content-left .infobox,
 .poker-school #middle-content-left .infobox {
 	height: 135px;
+}
+
+*:first-child+html .poker-tourneyinfo #middle-content-right .infobox,
+*:first-child+html .poker-school #middle-content-right .infobox {
+	padding-bottom: 0.65em;
 }
 
 #poker-masters {
@@ -2877,6 +2877,9 @@ body.poker-school #middle-content-right {
 	background-image: url(images/tourney/teaser_club.jpg);
 }
 
+#participation-box {
+	height: 239px;
+}
 #participation-box p {
 	background: url(images/tourney/teaser_participate.jpg) top center no-repeat;
 	padding-top: 110px;
@@ -2914,7 +2917,7 @@ body.poker-school #middle-content-right {
 .poker-tourneyinfo .infobox h4,
 .poker-school .infobox h4 {
 	margin-top: 0.5em;
-	font-size: 1.2em;
+	font-size: 1em;
 }
 
 .poker-tourneyinfo .infobox p,
