@@ -3,11 +3,11 @@
 	<div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
 		<ul class="tabs primary ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
       <li><a href="#help-tutorial">Tutorial</a></li>
-			<li><a href="#help-rules">Hold'Em Rules</a></li>
-			<li><a href="#help-tips">Tips</a></li>
-			<li><a href="#help-pokerhands">Poker Hands</a></li>
-			<li><a href="#help-guidelines">Guidelines</a></li>
-			<li><a href="#help-security">Security Advice</a></li>
+			<li><a href="#help-rules">Hold'Em Regeln</a></li>
+			<li><a href="#help-tips">Tipps</a></li>
+			<li><a href="#help-pokerhands">Pokerblätter</a></li>
+			<li><a href="#help-guidelines">Richtlinien</a></li>
+			<li><a href="#help-security">Sicherheitshinweis</a></li>
 		</ul>
 	</div>
 
