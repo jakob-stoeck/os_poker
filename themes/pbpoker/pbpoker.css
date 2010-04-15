@@ -2821,8 +2821,8 @@ body.poker-school #middle-content-right {
 .poker-tourneyinfo .main-teaser h2 a,
 .poker-school .main-teaser h2 a {
 	position: absolute;
-	bottom: 35px;
-	left: 20px;
+	bottom: 25px;
+	left: 100px;
 	background: url(images/tourney/register.gif) no-repeat;
 	display: block;
 	width: 146px;
@@ -2830,14 +2830,9 @@ body.poker-school #middle-content-right {
 	text-indent: -20000px;
 }
 
-.poker-tourneyinfo .infobox .poker_submit,
-.poker-school .infobox .poker_submit {
-	margin: 0.9em 1em;
-}
-.poker-tourneyinfo .infobox .poker_submit a,
-.poker-school .infobox .poker_submit a {
-	color: #603C08;
-	text-decoration: none;
+.poker-school .main-teaser h2 a {
+	bottom: 25px;
+	left: 25px;
 }
 
 .poker-tourneyinfo .infobox,
@@ -2847,12 +2842,13 @@ body.poker-school #middle-content-right {
 	background-position: 10px 27px;
 	color: #fff;
 	padding-bottom: 0.3em;
-	margin-bottom: 1em;
+	margin-bottom: 1.3em;
 }
 
 .poker-tourneyinfo #middle-content-left .infobox,
 .poker-school #middle-content-left .infobox {
-	height: 135px;
+	height: 134px;
+	margin-bottom: 1em;
 }
 
 *:first-child+html .poker-tourneyinfo #middle-content-right .infobox,
@@ -2950,6 +2946,16 @@ body.poker-school #middle-content-right {
 .poker-tourneyinfo .infobox a,
 .poker-school .infobox a {
 	color: #c4a13d;
+}
+
+.poker-tourneyinfo .infobox .poker_submit,
+.poker-school .infobox .poker_submit {
+	margin: 0.9em 1em;
+}
+.poker-tourneyinfo .infobox .poker_submit a,
+.poker-school .infobox .poker_submit a {
+	color: #603C08;
+	text-decoration: none;
 }
 
 .poker-school #quicklinks ul li {
