@@ -19,7 +19,7 @@
 						</div>
 						<div class="infobox" id="rules">
 							<h3>Hold'Em Regeln</h3>
-							<p></p>
+							<p>Die Pokerregeln sind schnell gelernt und Spass macht es von Anfang an, da auch der absolute Anfänger gegen einen Profi gewinnen kann. Spannend bleibt es aber immer, da man beim Poker ständig durch Erfahrung sein Spiel verbessert.</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/?true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 						<div class="infobox" id="tips">

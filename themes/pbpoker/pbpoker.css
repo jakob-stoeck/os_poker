@@ -2955,7 +2955,8 @@ body.poker-school #middle-content-right {
 }
 .poker-tourneyinfo .infobox .poker_submit a,
 .poker-school .infobox .poker_submit a {
-	color: #603C08;
+/*	color: #603C08; */
+	color: #000;
 	text-decoration: none;
 }
 
