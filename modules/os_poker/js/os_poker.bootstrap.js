@@ -89,13 +89,9 @@ Drupal.behaviors.os_poker = function(context) {
     os_poker_slider_reset($('#buddy_panel .cursor'));
   });
 
-  //Register handler for Buddy List's "Today Gift" banner
-  var daily_gift_sent_once = false;
-  $('#today_gift').click(function(){
-    if (!daily_gift_sent_once) {
-		daily_gift_sent_once = true;
-       os_poker_send_message({type: 'os_poker_daily_gift'});
-	}
+  //Register handler for Buddy List's "Today Gift" banner (only for first click)
+  $('#today_gift').one('click', function(){
+    os_poker_send_message({type: 'os_poker_daily_gift'});
   })
 
   //Display hint in form field
