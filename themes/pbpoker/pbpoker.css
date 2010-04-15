@@ -2785,20 +2785,26 @@ body.poker-report-abuse #page {
 /*****************************
  * Static page : tourney-info
  * ***************************/
-body.poker-tourneyinfo {
+body.poker-tourneyinfo,
+body.poker-school {
 	background: #141007 url(images/tourney_body_bg.png) repeat-x;
 }
 
-.poker-tourneyinfo #tourney-teaser {
+.poker-tourneyinfo .main-teaser,
+.poker-school .main-teaser {
 	width: 742px;
 	height: 194px;
 	display: block;
 	margin-bottom: 1em;
-	background: url(images/tourney/teaser-head.jpg) no-repeat center top;
 	position: relative;
 }
 
-.poker-tourneyinfo #tourney-teaser h2 a {
+.poker-tourneyinfo #tourney-teaser {
+	background: url(images/tourney/teaser-head.jpg) no-repeat center top;
+}
+
+.poker-tourneyinfo .main-teaser h2 a,
+.poker-school .main-teaser h2 a {
 	position: absolute;
 	bottom: 35px;
 	left: 20px;
@@ -2809,24 +2815,29 @@ body.poker-tourneyinfo {
 	text-indent: -20000px;
 }
 
-body.poker-tourneyinfo #middle-content-left {
+body.poker-tourneyinfo #middle-content-left,
+body.poker-school #middle-content-left {
 	width: 493px;
 	margin-right: 10px;
 }
 
-body.poker-tourneyinfo #middle-content-right {
+body.poker-tourneyinfo #middle-content-right,
+body.poker-school #middle-content-right {
 	width: 240px;
 }
 
-.poker-tourneyinfo .tourney-infobox .poker_submit {
+.poker-tourneyinfo .infobox .poker_submit,
+.poker-school .infobox .poker_submit {
 	margin: 0.9em 1em;
 }
-.poker-tourneyinfo .tourney-infobox .poker_submit a {
+.poker-tourneyinfo .infobox .poker_submit a,
+.poker-school .infobox .poker_submit a {
 	color: #603C08;
 	text-decoration: none;
 }
 
-.poker-tourneyinfo .tourney-infobox {
+.poker-tourneyinfo .infobox,
+.poker-school .infobox {
 	background: #1e1e1e;
 	background-repeat: no-repeat;
 	background-position: 10px 25px;
@@ -2835,11 +2846,13 @@ body.poker-tourneyinfo #middle-content-right {
 	margin-bottom: 1em;
 }
 
-*:first-child+html .poker-tourneyinfo #middle-content-right .tourney-infobox {
+*:first-child+html .poker-tourneyinfo #middle-content-right .infobox,
+*:first-child+html .poker-school #middle-content-right .infobox {
 	padding-bottom: 0.65em;
 }
 
-.poker-tourneyinfo #middle-content-left .tourney-infobox {
+.poker-tourneyinfo #middle-content-left .infobox,
+.poker-school #middle-content-left .infobox {
 	height: 135px;
 }
 
@@ -2874,52 +2887,56 @@ body.poker-tourneyinfo #middle-content-right {
 	padding-top: 130px;
 }
 
-.poker-tourneyinfo .tourney-infobox h3 {
+.poker-tourneyinfo .infobox h3,
+.poker-school .infobox h3 {
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
 	font-size: 1em;
 }
 
-.poker-tourneyinfo .tourney-infobox h4,
-.poker-tourneyinfo #middle-content-left .tourney-infobox p {
+.poker-tourneyinfo .infobox h4,
+.poker-school .infobox h4,
+.poker-tourneyinfo #middle-content-left .infobox p,
+.poker-school #middle-content-left .infobox p {
 	margin-left: 140px;
 }
 
-.poker-tourneyinfo .tourney-infobox h4 {
+.poker-tourneyinfo .infobox h4,
+.poker-school .infobox h4 {
 	margin-top: 0.5em;
 	font-size: 1.2em;
 }
 
-.poker-tourneyinfo .tourney-infobox p,
-.poker-tourneyinfo .tourney-infobox ul,
-.poker-tourneyinfo .tourney-infobox ol {
+.poker-tourneyinfo .infobox p,
+.poker-tourneyinfo .infobox ul,
+.poker-tourneyinfo .infobox ol,
+.poker-school .infobox p,
+.poker-school .infobox ul,
+.poker-school .infobox ol {
 	margin: 1em;
 }
 
-.poker-tourneyinfo .tourney-infobox ul,
-.poker-tourneyinfo .tourney-infobox ol {
+.poker-tourneyinfo .infobox ul,
+.poker-tourneyinfo .infobox ol,
+.poker-school .infobox ul,
+.poker-school .infobox ol {
 	margin-left: 1.5em;
 	line-height: 1.4em;
 }
 
-.poker-tourneyinfo .tourney-infobox ul {
+.poker-tourneyinfo .infobox ul,
+.poker-school .infobox ul {
 	list-style: none;
 }
 
-.poker-tourneyinfo .tourney-infobox li {
+.poker-tourneyinfo .infobox li,
+.poker-school .infobox li {
 	margin-bottom: 0.3em;
 }
 
-.poker-tourneyinfo .tourney-infobox a {
+.poker-tourneyinfo .infobox a,
+.poker-school .infobox a {
 	color: #c4a13d;
-	text-decoration: underline;
-}
-.poker-tourneyinfo .tourney-infobox#tos-box a {
-	color: #e7e7e7;
-}
-
-.poker-tourneyinfo .tourney-infobox#prize-box ul {
-	font-weight: bold;
 }
 
 /*****************************
