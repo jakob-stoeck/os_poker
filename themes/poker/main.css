@@ -783,10 +783,10 @@ body.de #profile-medium .abuse .poker_submit .label {
 
 #table_users .header
 {
-	margin-left:13px;
-	padding-left:8px;
-	padding-right:8px;
-	width:284px;
+	margin-left: 0px;
+	padding-left: 8px;
+	padding-right: 8px;
+	width: 284px;
   display: none;
 }
 

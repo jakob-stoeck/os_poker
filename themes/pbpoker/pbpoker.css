@@ -1066,7 +1066,7 @@ div.poker_submit.big.disabled:hover div.label {
 *************************/
 
 #play-now  {
-	height: 64px;
+	height: 63px;
 	width: 320px;
 	margin-bottom: 5px;
 }
@@ -2222,8 +2222,12 @@ div.TeaseMore .poker_submit .label {
 ****************************/
 
 #home_promotion_1, #home_promotion_2 {
-	margin-top: 16px;
+	margin-top: 18px;
 	overflow: hidden; /* IE7 */
+}
+
+#home_promotion_2 {
+	margin-top: 19px;
 }
 
 #home_promotion_1 .list,
