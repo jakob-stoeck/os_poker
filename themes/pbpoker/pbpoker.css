@@ -2790,6 +2790,17 @@ body.poker-school {
 	background: #141007 url(images/tourney_body_bg.png) repeat-x;
 }
 
+body.poker-tourneyinfo #middle-content-left,
+body.poker-school #middle-content-left {
+	width: 490px;
+	margin-right: 10px;
+}
+
+body.poker-tourneyinfo #middle-content-right,
+body.poker-school #middle-content-right {
+	width: 242px;
+}
+
 .poker-tourneyinfo .main-teaser,
 .poker-school .main-teaser {
 	width: 742px;
@@ -2817,17 +2828,6 @@ body.poker-school {
 	width: 146px;
 	height: 28px;
 	text-indent: -20000px;
-}
-
-body.poker-tourneyinfo #middle-content-left,
-body.poker-school #middle-content-left {
-	width: 493px;
-	margin-right: 10px;
-}
-
-body.poker-tourneyinfo #middle-content-right,
-body.poker-school #middle-content-right {
-	width: 240px;
 }
 
 .poker-tourneyinfo .infobox .poker_submit,
@@ -2877,11 +2877,6 @@ body.poker-school #middle-content-right {
 	background-image: url(images/tourney/teaser_club.jpg);
 }
 
-#prize-box ul {
-	background: url(images/tourney/teaser_prices.jpg) top center no-repeat;
-	padding-top: 100px;
-}
-
 #participation-box p {
 	background: url(images/tourney/teaser_participate.jpg) top center no-repeat;
 	padding-top: 110px;
@@ -2889,6 +2884,11 @@ body.poker-school #middle-content-right {
 #video-box #gototuto {
 	background: url(images/tourney/teaser_videotut.jpg) top center no-repeat;
 	padding-top: 130px;
+}
+#promos-and-events {
+	background: url(images/tourney/teaser_promos.jpg) top left no-repeat;
+	height: 100px;
+	padding-top: 143px;
 }
 
 .poker-tourneyinfo .infobox h3,
