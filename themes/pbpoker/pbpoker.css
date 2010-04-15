@@ -2222,7 +2222,7 @@ div.TeaseMore .poker_submit .label {
 ****************************/
 
 #home_promotion_1, #home_promotion_2 {
-	margin-top: 8px;
+	margin-top: 16px;
 	overflow: hidden; /* IE7 */
 }
 
