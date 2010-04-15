@@ -2843,6 +2843,7 @@ body.poker-school #middle-content-right {
 	color: #fff;
 	padding-bottom: 0.3em;
 	margin-bottom: 1.3em;
+	position: relative;
 }
 
 .poker-school .infobox {
@@ -2924,9 +2925,15 @@ body.poker-school #middle-content-right {
 	margin-left: 140px;
 }
 .poker-school .infobox h4,
-.poker-school #middle-content-left .infobox p,
-.poker-school #middle-content-left .infobox .poker_submit {
+.poker-school #middle-content-left .infobox p {
 	margin-left: 115px;
+}
+
+.poker-school #middle-content-left .infobox .poker_submit {
+	position: absolute;
+	bottom: 13px;
+	left: 115px;
+	margin: 0;
 }
 
 .poker-tourneyinfo .infobox h4,
