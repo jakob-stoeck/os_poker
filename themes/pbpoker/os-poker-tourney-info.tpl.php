@@ -51,7 +51,7 @@
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/&initcall_show_tutorial_tab=true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 						<div class="infobox" id="promos-and-events">
-							<a href="poker/pages/promotion_and_events"); ?></a>
+							<?php print l("Zu den Promotions", "poker/pages/promotion_and_events"); ?>
 						</div>
 						</div>
 				    </div>
