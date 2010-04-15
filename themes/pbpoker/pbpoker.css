@@ -2786,22 +2786,26 @@ body.poker-report-abuse #page {
  * Static page : tourney-info
  * ***************************/
 body.poker-tourneyinfo,
+body.poker-promotion-and-events,
 body.poker-school {
 	background: #000000 url(images/bg.jpg) no-repeat fixed center top;
 }
 
 body.poker-tourneyinfo #middle-content-left,
+body.poker-promotion-and-events #middle-content-left,
 body.poker-school #middle-content-left {
 	width: 490px;
 	margin-right: 10px;
 }
 
 body.poker-tourneyinfo #middle-content-right,
+body.poker-promotion-and-events #middle-content-right,
 body.poker-school #middle-content-right {
 	width: 242px;
 }
 
 .poker-tourneyinfo .main-teaser,
+.poker-promotion-and-events .main-teaser,
 .poker-school .main-teaser {
 	width: 742px;
 	height: 194px;
@@ -2814,15 +2818,20 @@ body.poker-school #middle-content-right {
 	background: url(images/tourney/teaser-head.jpg) no-repeat center top;
 }
 
+.poker-promotion-and-events #events-teaser {
+	background: url(images/promos-events/teaser-head.jpg) no-repeat center top;
+}
+
 .poker-school #school-teaser {
 	background: url(images/pokerschool/teaser.jpg) no-repeat center top;
 }
 
 .poker-tourneyinfo .main-teaser h2 a,
+.poker-promotion-and-events .main-teaser h2 a,
 .poker-school .main-teaser h2 a {
 	position: absolute;
-	bottom: 25px;
-	left: 100px;
+	bottom: 37px;
+	left: 18px;
 	background: url(images/tourney/register.gif) no-repeat;
 	display: block;
 	width: 146px;
@@ -2830,12 +2839,13 @@ body.poker-school #middle-content-right {
 	text-indent: -20000px;
 }
 
-.poker-school .main-teaser h2 a {
-	bottom: 37px;
-	left: 18px;
+.poker-tourneyinfo .main-teaser h2 a {
+	bottom: 25px;
+	left: 100px;
 }
 
 .poker-tourneyinfo .infobox,
+.poker-promotion-and-events .infobox,
 .poker-school .infobox {
 	background: #1e1e1e;
 	background-repeat: no-repeat;
@@ -2851,12 +2861,14 @@ body.poker-school #middle-content-right {
 }
 
 .poker-tourneyinfo #middle-content-left .infobox,
+.poker-promotion-and-events #middle-content-left .infobox,
 .poker-school #middle-content-left .infobox {
 	height: 134px;
 	margin-bottom: 1em;
 }
 
 *:first-child+html .poker-tourneyinfo #middle-content-right .infobox,
+*:first-child+html .poker-promotion-and-events #middle-content-left .infobox,
 *:first-child+html .poker-school #middle-content-right .infobox {
 	padding-bottom: 0.65em;
 }
@@ -2920,13 +2932,15 @@ body.poker-school #middle-content-right {
 }
 
 .poker-tourneyinfo .infobox h3,
+.poker-promotion-and-events .infobox h3,
 .poker-school .infobox h3 {
 	background: #000 url(images/headlines_background.jpg) repeat-x top left;
 	padding: 4px 6px;
 	font-size: 1em;
 }
 
-.poker-tourneyinfo #middle-content-left .infobox p {
+.poker-tourneyinfo #middle-content-left .infobox p,
+.poker-promotion-and-events #middle-content-left .infobox p {
 	margin-left: 140px;
 }
 
@@ -2941,24 +2955,21 @@ body.poker-school #middle-content-right {
 	margin: 0;
 }
 
-.poker-tourneyinfo .infobox p,
-.poker-tourneyinfo .infobox ul,
-.poker-tourneyinfo .infobox ol,
-.poker-school .infobox p,
-.poker-school .infobox ul,
-.poker-school .infobox ol {
+.poker-tourneyinfo .infobox p, .poker-tourneyinfo .infobox ul, .poker-tourneyinfo .infobox ol,
+.poker-promotion-and-events .infobox p, .poker-promotion-and-events .infobox ul, .poker-promotion-and-events .infobox ol,
+.poker-school .infobox p, .poker-school .infobox ul, .poker-school .infobox ol {
 	margin: 1em;
 }
 
-.poker-tourneyinfo .infobox ul,
-.poker-tourneyinfo .infobox ol,
-.poker-school .infobox ul,
-.poker-school .infobox ol {
+.poker-tourneyinfo .infobox ul, .poker-tourneyinfo .infobox ol,
+.poker-promotion-and.events .infobox ul, .poker-promotion-and-events .infobox ol,
+.poker-school .infobox ul, .poker-school .infobox ol {
 	margin-left: 1.5em;
 	line-height: 1.4em;
 }
 
 .poker-tourneyinfo .infobox ul,
+.poker-promotion-and-events .infobox ul,
 .poker-school .infobox ul {
 	list-style: none;
 }
@@ -2969,6 +2980,7 @@ body.poker-school #middle-content-right {
 }
 
 .poker-tourneyinfo .infobox a,
+.poker-promotion-and-events .infobox a,
 .poker-school .infobox a {
 	color: #c4a13d;
 }
