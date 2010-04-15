@@ -1,10 +1,10 @@
 <div id="table_users">
-	<div class="header block_title_bar block_title_text">
-		<?php print t("At this table"); ?>
-	</div>
 	<div class="panel">
 		<div class="previous"></div>
 		<div class="list splash">
+      <div class="header block_title_bar block_title_text">
+        <?php print t("At this table"); ?>
+      </div>
 			<div class="inner-list">
 			</div>
       <div id="list-banner">
