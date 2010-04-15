@@ -2901,7 +2901,8 @@ body.poker-school #middle-content-right {
 .poker-tourneyinfo .infobox h4,
 .poker-school .infobox h4,
 .poker-tourneyinfo #middle-content-left .infobox p,
-.poker-school #middle-content-left .infobox p {
+.poker-school #middle-content-left .infobox p,
+.poker-school #middle-content-left .infobox .poker_submit {
 	margin-left: 140px;
 }
 
@@ -2943,6 +2944,18 @@ body.poker-school #middle-content-right {
 	color: #c4a13d;
 }
 
+.poker-school #quicklinks ul li {
+	border-bottom: 1px dotted #fff;
+	padding: 0.4em 0;
+}
+
+.poker-school #quicklinks ul li:last-child {
+	border: none;
+}
+
+.poker-school #quicklinks ul li a {
+	color: #fff;
+}
 /*****************************
  * Overrides: user_relationships
  * ***************************/
