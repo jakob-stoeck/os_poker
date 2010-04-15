@@ -19,7 +19,6 @@
 						</div>
 						<div class="infobox" id="millions">
 							<h3>Monthly Millions</h3>
-							<p><strong>Monthly Millions</strong></p>
 							<p>Der Sonntag ist auf Playboy Poker garantiert kein Ruhetag!</p>
 							<p>Jeden ersten Sonntag im Monat ein Preispool mit <strong>1 Million Chips</strong>, Nervenkitzel garantiert bei den <strong>Monthly Millions</strong>!</p>
 							<p>Los geht's immer <strong>um 19:00 Uhr.</strong></p>
