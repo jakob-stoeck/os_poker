@@ -2920,11 +2920,10 @@ body.poker-school #middle-content-right {
 	font-size: 1em;
 }
 
-.poker-tourneyinfo .infobox h4,
 .poker-tourneyinfo #middle-content-left .infobox p {
 	margin-left: 140px;
 }
-.poker-school .infobox h4,
+
 .poker-school #middle-content-left .infobox p {
 	margin-left: 115px;
 }
@@ -2934,12 +2933,6 @@ body.poker-school #middle-content-right {
 	bottom: 13px;
 	left: 115px;
 	margin: 0;
-}
-
-.poker-tourneyinfo .infobox h4,
-.poker-school .infobox h4 {
-	margin-top: 0.5em;
-	font-size: 1em;
 }
 
 .poker-tourneyinfo .infobox p,
