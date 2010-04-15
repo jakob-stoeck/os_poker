@@ -2886,7 +2886,12 @@ body.poker-school #middle-content-right {
 	padding-top: 130px;
 }
 #promos-and-events {
-	background: url(images/tourney/teaser_promos.jpg) top left no-repeat;
+	background: url(images/tourney/teaser_promos-wbtn.jpg) top left no-repeat;
+}
+
+#promos-and-events a {
+	display: block;
+	width: 242px;
 	height: 100px;
 	padding-top: 143px;
 }

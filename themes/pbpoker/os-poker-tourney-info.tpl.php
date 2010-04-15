@@ -48,7 +48,7 @@ Nervenkitzel garantiert! Los geht's um 19:00 Uhr.</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/&initcall_show_tutorial_tab=true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 						<div class="infobox" id="promos-and-events">
-							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("Zu den Promotions", "poker/pages/promotion_and_events"); ?></div></div>
+							<a href="poker/pages/promotion_and_events"); ?></a>
 						</div>
 						</div>
 				    </div>
