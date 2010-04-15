@@ -24,12 +24,12 @@
 						</div>
 						<div class="infobox" id="tips">
 							<h3>Tips</h3>
-							<p></p>
+							<p><strong>Spiele ausgewählte Hände.</strong><br /> Geduld führt zu erfolgreichem Spiel. Poker-Profis schauen sich nur in 20-30% der Fälle den Flop an. Es lohnt sich, auf gute Starthände zu warten, um den Glücksfaktor zu minimieren.</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/?true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 						<div class="infobox" id="guidelines">
 							<h3>Richtlininien</h3>
-							<p></p>
+							<p>Fairness am Spieltisch und gegenseitiger Respekt sind unsere wichtigsten Grundsätze. Um den Spass am Spiel zu gewährleisten, bitten wir Euch, einige Regeln zu beachten...</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/?true&height=442&width=603&keepThis=true&TB_iframe=true"); ?></div></div>
 						</div>
 					</div>
