@@ -53,6 +53,5 @@
 						<div class="infobox" id="promos-and-events">
 							<?php print l("Zu den Promotions", "poker/pages/promotion_and_events"); ?>
 						</div>
-						</div>
 				    </div>
 				  </div>

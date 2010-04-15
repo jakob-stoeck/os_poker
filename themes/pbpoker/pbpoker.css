@@ -2926,9 +2926,11 @@ body.poker-school #middle-content-right {
 	padding-top: 130px;
 }
 #spender-box {
-	background-image: url(images/promos-events/teaser_spender.jpg);
-	background-position: center 30px;
 	height: 279px;
+}
+#spender-box p {
+	background: url(images/promos-events/teaser_spender.jpg) top center no-repeat;
+	padding-top: 120px;
 }
 
 #promos-and-events {
@@ -2964,9 +2966,12 @@ body.poker-school #middle-content-right {
 	font-size: 1em;
 }
 
-.poker-tourneyinfo #middle-content-left .infobox p,
-.poker-promotion-and-events #middle-content-left .infobox p {
+.poker-tourneyinfo #middle-content-left .infobox p {
 	margin-left: 140px;
+}
+
+.poker-promotion-and-events #middle-content-left .infobox p {
+	margin-left: 170px;
 }
 
 .poker-school #middle-content-left .infobox p {
@@ -2984,6 +2989,7 @@ body.poker-school #middle-content-right {
 .poker-promotion-and-events .infobox p, .poker-promotion-and-events .infobox ul, .poker-promotion-and-events .infobox ol,
 .poker-school .infobox p, .poker-school .infobox ul, .poker-school .infobox ol {
 	margin: 1em;
+	line-height: 1.3em;
 }
 
 .poker-tourneyinfo .infobox ul, .poker-tourneyinfo .infobox ol,
