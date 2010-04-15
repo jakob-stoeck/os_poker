@@ -113,7 +113,7 @@ class OSPokerRankingSystem extends OsPokerWebTestCase {
 	$i = 1; // first index appearing in top 10 listing
 	foreach ($test_buddies as $buddy)
 	  {
-		$regexp = $regexp.".+?<div class=\"buddy_list_number.+?\">\s+?".$i."\s+?<\/div>.+?<div class=\"buddy_list_chips\">\s+?\\".$buddy->Chips(TRUE);
+		$regexp = $regexp.".+?<div class=\"buddy_list_number.+?\">\s+?<span>".$i."<\/span>\s+?<\/div>.+?<div class=\"buddy_list_chips\">\s+?\\".$buddy->Chips(TRUE);
 		$this->assertTrue(preg_match("/".$regexp."/siU", $ranking_content) > 0, "intermediate ranking magic regexp checking for ".$i." / ".$buddy->Chips(TRUE));
 		$i++;
 	  }
