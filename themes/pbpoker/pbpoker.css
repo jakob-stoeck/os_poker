@@ -2831,8 +2831,8 @@ body.poker-school #middle-content-right {
 }
 
 .poker-school .main-teaser h2 a {
-	bottom: 25px;
-	left: 25px;
+	bottom: 37px;
+	left: 18px;
 }
 
 .poker-tourneyinfo .infobox,
@@ -2871,6 +2871,18 @@ body.poker-school #middle-content-right {
 }
 #gentlemen {
 	background-image: url(images/tourney/teaser_club.jpg);
+}
+#cards {
+	background-image: url(images/pokerschool/teaser_cards.jpg);
+}
+#rules {
+	background-image: url(images/pokerschool/teaser_chips.jpg);
+}
+#tips {
+	background-image: url(images/pokerschool/teaser_tips.jpg);
+}
+#guidelines {
+	background-image: url(images/pokerschool/teaser_tos.jpg);
 }
 
 #participation-box {
