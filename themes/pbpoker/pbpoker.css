@@ -2901,6 +2901,18 @@ body.poker-school #middle-content-right {
 #guidelines {
 	background-image: url(images/pokerschool/teaser_tos.jpg);
 }
+#randy {
+	background-image: url(images/promos-events/teaser_randy.jpg);
+}
+#party {
+	background-image: url(images/promos-events/teaser_party.jpg);
+}
+#sitngochamp {
+	background-image: url(images/promos-events/teaser_sitngo.jpg);
+}
+#limo {
+	background-image: url(images/promos-events/teaser_limo.jpg);
+}
 
 #participation-box {
 	height: 239px;
@@ -2913,14 +2925,23 @@ body.poker-school #middle-content-right {
 	background: url(images/tourney/teaser_videotut.jpg) top center no-repeat;
 	padding-top: 130px;
 }
+#spender-box {
+	background-image: url(images/promos-events/teaser_spender.jpg);
+	background-position: center 30px;
+	height: 279px;
+}
+
 #promos-and-events {
 	background: url(images/tourney/teaser_promos-wbtn.jpg) top left no-repeat;
 }
 #tourneyteaser {
 	background: url(images/pokerschool/teaser_tourneys.jpg) top left no-repeat;
 }
+#schoolteaser {
+	background: url(images/promos-events/teaser_school.jpg) top left no-repeat;
+}
 
-#promos-and-events a, #tourneyteaser a {
+#promos-and-events a, #tourneyteaser a, #schoolteaser a {
 	display: block;
 	width: 242px;
 	height: 230px;
@@ -2929,6 +2950,10 @@ body.poker-school #middle-content-right {
 
 #tourneyteaser a {
 	height: 158px;
+}
+
+#schoolteaser a {
+	height: 285px;
 }
 
 .poker-tourneyinfo .infobox h3,
