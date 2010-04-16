@@ -47,7 +47,7 @@
 						<div class="infobox" id="video-box">
 							<h3>Noch nie gepokert?</h3>
 							<p id="gototuto">Hier geht's zum Videotutorial mit Bunny Michaela.</p>
-					 <div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => '#help-tutorial')); ?></div></div>
+					 <div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => 'help-tutorial')); ?></div></div>
 						</div>
 						<div class="infobox" id="promos-and-events">
 							<?php print l("Zu den Promotions", "poker/pages/promotion_and_events"); ?>
