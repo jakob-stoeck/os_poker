@@ -18,13 +18,13 @@
 							<p>Unter allen Mitspielern, die mindestens 5 Freunde erfolgreich eingeladen haben, verlosen wir jeden Monat eine von dem aktuellen Cover-Girl signierte Ausgabe des Playboys.</p>
 						</div>
 						<div class="infobox" id="party">
-							<h3>Bunny für Deine Party - das Playboy Poker Ranking</h3>
-							<p>Je besser Du spielst, je höher Du aufsteigst in der Poker-Hierarchie, desto grösser werden Deine Chancen auf ein Treffen mit einem echten Playboy Bunny. </p>
-							<p>Der Gewinner wird am Jahresende ermittelt.</p>
+							<h3>Playboy Club-Tour 2009 - Party, Spass und Playmates</h3>
+							<p>Je besser du spielst, je höher du aufsteigst in der Poker-Hierarchie, desto grösser werden deine Chancen auf ein Treffen mit einem echten Playboy Bunny bei der Playboy Club-Tour 2009. </p>
+							<p>Der Gewinner wird Anfang November ermittelt.</p>
 						</div>
 						<div class="infobox" id="sitngochamp">
 							<h3>Sit & Go's Champion</h3>
-							<p>Lade Deine Freunde ein und spiele mit Ihnen die <strong>Playboy Poker Mini Turniere</strong>. Unter allen Spielern, die den Tisch regelmässig vollmachen, verlosen wir limitierte Bunny Pokerkoffer.</p>
+							<p>Lade deine Freunde ein und spiele mit ihnen die <strong>Playboy Poker Mini Turniere</strong>. Unter allen Spielern, die den Tisch regelmässig vollmachen, verlosen wir Bunny Pokerkoffer.</p>
 						</div>
 						<div class="infobox" id="limo">
 							<h3>Playboy Poker Stretchlimo</h3>

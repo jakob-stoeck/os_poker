@@ -14,7 +14,7 @@
 					<div id="middle-content-left">
 						<div class="infobox" id="cards">
 							<h3>Pokerblätter</h3>
-							<p>Vom Paar bis zum Royal Flush, gewinnen kann man mit jedem Blatt. Um zu wissen, wie gut Deine Karten wirklich sind, musst du nur 9 Pokerblätter kennen. Klicke auf "weiter" um mehr kennenzulernen.</p>
+							<p>Vom Paar bis zum Royal Flush, gewinnen kann man mit jedem Blatt. Um zu wissen, wie gut deine Karten wirklich sind, musst du nur 9 Pokerblätter kennen. Klicke auf "weiter" um mehr kennenzulernen.</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => 'help-pokerhands')); ?></div></div>
 						</div>
 						<div class="infobox" id="rules">
@@ -29,7 +29,7 @@
 						</div>
 						<div class="infobox" id="guidelines">
 							<h3>Richtlininien</h3>
-							<p>Fairness am Spieltisch und gegenseitiger Respekt sind unsere wichtigsten Grundsätze. Um den Spass am Spiel zu gewährleisten, bitten wir Euch, einige Regeln zu beachten...</p>
+							<p>Fairness am Spieltisch und gegenseitiger Respekt sind unsere wichtigsten Grundsätze. Um den Spass am Spiel zu gewährleisten, bitten wir euch, einige Regeln zu beachten...</p>
 							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("weiter", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => 'help-guidelines')); ?></div></div>
 						</div>
 					</div>
