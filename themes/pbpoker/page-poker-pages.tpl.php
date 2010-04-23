@@ -1,6 +1,19 @@
 <?php
 // $Id: page.tpl.php,v 1.14.2.6 2009/02/13 16:28:33 johnalbin Exp $
 
+//    Copyright (C) 2009, 2010 Pokermania
+//    Copyright (C) 2010 OutFlop
+//
+//    All Drupal code is Copyright 2001 - 2009 by the original authors.
+//
+//    This program is distributed in the hope that it will be useful, but
+//    WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+//    or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+//    for more details.
+//    
+//    You should have received a copy of the GNU General Public License
+//    along with this program as the file LICENSE.txt; if not, please see
+//    http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
 /**
  * @file page.tpl.php
  *
