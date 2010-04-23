@@ -63,4 +63,3 @@
 63	Invitation King	Player has at least 50 successful invitations	SN	invitation_king.gif	Platinum
 64	Playboy	Player has spent at least 1.000.000 chips for gifts	SN	playboy.gif	Platinum
 
-
