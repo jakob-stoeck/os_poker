@@ -424,17 +424,17 @@ class CScheduler
 			}
 	}
 
-	private	function	ClearNewTask()
+	private	function	ClearNewTask($uid = NULL)
 	{
-		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `dirty_flags`) VALUES (%d, 0) ON DUPLICATE KEY UPDATE `dirty_flags`= (`dirty_flags` & %d)";
+    static $sql = "INSERT INTO `{poker_user_ext}` (`uid`, `dirty_flags`) VALUES (%d, 0) ON DUPLICATE KEY UPDATE `dirty_flags`= (`dirty_flags` & %d)";
 
-		if (!db_query($sql, $this->_user->uid, ~SCHEDULER_DIRTY))
+		if (!db_query($sql, $uid === NULL ? $this->_user->uid : $uid, ~SCHEDULER_DIRTY))
 			throw new Exception(t('Failed to clear scheduler dirty flag'));
 	}
 	
 	private function	SetNewTask($uid)
 	{
-		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `dirty_flags`) VALUES (%d, %d) ON DUPLICATE KEY UPDATE `dirty_flags`= (`dirty_flags` | %d)";
+		static $sql = "INSERT INTO `{poker_user_ext}` (`uid`, `dirty_flags`) VALUES (%d, %d) ON DUPLICATE KEY UPDATE `dirty_flags`= (`dirty_flags` | %d)";
 		
 		if (!db_query($sql, $uid, SCHEDULER_DIRTY, SCHEDULER_DIRTY))
 			throw new Exception(t('Failed to set scheduler dirty flag'));
@@ -442,7 +442,7 @@ class CScheduler
 	
 	public	function	IsNewTask()
 	{
-		$sql = "SELECT `dirty_flags` FROM `{poker_user_ext}` WHERE `uid` = %d LIMIT 1";
+		static $sql = "SELECT `dirty_flags` FROM `{poker_user_ext}` WHERE `uid` = %d LIMIT 1";
 		$res = db_query($sql, $this->_user->uid);
 		
 		if ($res)
@@ -617,6 +617,44 @@ class CScheduler
 		
 		return db_query($sql, $user, $task->Type());
 	}
-	
+
+  public function ProcessLiveEvents() {
+    static $sql = "SELECT *, (moment <= NOW()) AS active FROM {poker_scheduler} WHERE uid IN (SELECT uid FROM {polling_users}) AND uid IN (SELECT uid FROM {poker_user_ext} WHERE dirty_flags) AND (`moment` <= NOW() OR `visible` = 1) AND (`trigger` like '%\"live\"%' OR (`trigger` like '%\"inbox\"%' AND NOT is_read)) ORDER BY moment ASC EOQ";
+
+    //Gather all pending live events and unread ibox messages tasks
+    $results = db_query($sql);
+    $tasks = array();
+    while ($task = db_fetch_object($result)) {
+      $triggers = json_decode($task->trigger);
+      if (is_array($triggers))
+      {
+        $task->trigger = $triggers;
+        foreach($triggers as $trigger)
+        {
+          $tasks[$task->uid][$trigger][$task->id_task] = $task;
+        }
+      }
+    }
+    //Process all tasks for each user
+    foreach($tasks as $uid => $user_tasks) {
+      $this->ClearNewTask($uid);
+      $user = CUserManager::instance()->User($uid, TRUE);
+      //Trigger 'live' and 'inbox'
+      $this->TriggerHelper('live', $user, $user_tasks);
+      $this->TriggerHelper('inbox', $user, $user_tasks);
+      //Check for unread inbox messages
+      $mboxsize = count($user_tasks['inbox']);
+      if ($mboxsize) {
+        //Add messages if there is unread messages
+        CMessageSpool::instance()->PushMsg($user, array(
+          "type" => "os_poker_messagebox",
+          "body" => array(
+            "inbox" => $mboxsize,
+            "picture" => drupal_get_path('module', 'os_poker') . "/images/mailbox.png"
+          )
+        ));
+      }
+    }
+  }
 	
 }

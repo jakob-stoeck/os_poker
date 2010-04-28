@@ -99,14 +99,13 @@ class CUser
 
 	private function 	Load( $uid )
 	{
+    static $sql = "SELECT `name`, `value` FROM `{application_settings}` WHERE `application_id`=%d AND `user_id`=%d";
 		$this->_user = user_load(array('uid' => $uid));
 
 		if ($this->_user != FALSE)
 		{
 			$this->SetUpProfile();
 			profile_load_profile($this->_user);
-
-			$sql = "SELECT `name`, `value` FROM `{application_settings}` WHERE `application_id`=%d AND `user_id`=%d";
 
 			$res = db_query($sql, os_poker_get_poker_app_id(), $uid);
 

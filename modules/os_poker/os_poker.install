@@ -209,7 +209,45 @@ function os_poker_schema()
 														),
 											'primary key' => array('uid'),
 										);
-	
+
+  $schema['polling_users'] = array(
+    'description' => t('Actively polling users'),
+    'fields' => array(
+      'uid' => 	array(
+        'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('uid'),
+  );
+  $schema['polling_messages'] = array(
+    'description' => t('Message to be dispatched to polling users'),
+    'fields' => array(
+      'mid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => 	array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'serialized' => TRUE
+      )
+    ),
+    'primary key' => array('mid'),
+  );
+
 	return $schema;
 }
 
@@ -305,4 +343,48 @@ function os_poker_update_3() {
 		db_add_field($result, "poker_scheduler", "is_read", $spec);
 		
 		return array();
+}
+
+function os_poker_update_4() {
+  $ret = array();
+  $schema['polling_users'] = array(
+    'description' => t('Actively polling users'),
+    'fields' => array(
+      'uid' => 	array(
+        'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => TRUE,
+      ),
+      'timestamp' => array(
+        'description' => 'The Unix timestamp when the node was created.',
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('uid'),
+  );
+  $schema['polling_messages'] = array(
+    'description' => t('Message to be dispatched to polling users'),
+    'fields' => array(
+      'mid' => array(
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE
+      ),
+      'uid' => 	array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+      'message' => array(
+        'type' => 'text',
+        'not null' => TRUE,
+        'serialized' => TRUE
+      )
+    ),
+    'primary key' => array('mid'),
+  );
+  db_create_table($ret, 'polling_messages', $schema['polling_messages']);
+  db_create_table($ret, 'polling_users', $schema['polling_users']);
+  return $ret;
 }

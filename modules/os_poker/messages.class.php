@@ -35,7 +35,7 @@ class CMessage implements ITask
 	{   
 		if ($arguments)
 		{
-			CMessageSpool::instance()->PushMsg($arguments);
+			CMessageSpool::instance()->PushMsg($context_user, $arguments);
 		}
 	}
 	
@@ -123,22 +123,38 @@ class CMessageSpool
 	**
 	*/
 	
-	public function PushMsg($msg)
+	public function PushMsg($user, $msg)
 	{
-		if (is_array($msg))
-		{
-			$this->_messages []= $msg;
+    static $sql = "INSERT INTO {polling_messages} (uid, message) VALUES (%d, '%s')";
+    $uid = $user->uid;
+		if (is_numeric($uid) && is_array($msg)) {
+      $this->_messages[$uid][] = $msg;
+      db_query($sql, $uid, serialize($msg));
 		}
 	}
 	
 	public function Get()
 	{
-		return $this->_messages;
+    static $sql = "SELECT message FROM {polling_messages} WHERE uid = %d";
+    $current_user = CUserManager::instance()->CurrentUser();
+    if (!isset($this->_messages[$current_user->uid])) {
+      $result = db_query($sql, $current_user->uid);
+      while ($message = db_result($result)) {
+        $message = unserialize($message);
+        if($message != FALSE) {
+          $this->_messages[$current_user->uid][] = $message;
+        }
+      }
+    }
+		return $this->_messages[$current_user->uid];
 	}
 		
 	public function Flush()
 	{
-		$this->_messages = array();
+    static $sql = "DELETE FROM {polling_messages} WHERE uid = %d";
+    $current_user = CUserManager::instance()->CurrentUser();
+		unset($this->_messages[$current_user->uid]);
+    db_query($sql, $current_user->uid);
 	}
 	
 	public function SendMessage($targetUid, $args) //Wait for symbol, text, link
