@@ -1,3 +1,22 @@
+<?php
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//    Copyright (C) 2010 OutFlop
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+?>
 				<div id="tourney-teaser" class="main-teaser">
 					<?php if (!user_is_logged_in()): ?>
 					<h2><a href="<?php print url("", array('fragment' => 'registration-window')); ?>"><?php print t('Register now'); ?></a></h2>
@@ -26,7 +45,7 @@
 						<div class="infobox" id="after-work">
 							<h3>After Work Poker</h3>
 							<p><strong>After Work Poker</strong></p>
-							<p>Spät ins Bett gehen nur weil man ein Pokerturnier spielen will, muss unter der Woche niemand mehr.</p>
+							<p>Spät ins Bett gehen, nur weil man ein Pokerturnier spielen will, muss unter der Woche niemand mehr.</p>
 							<p>Auf Playboy Poker <strong>jeden Donnerstag um 18:30 Uhr</strong> ganz entspannt <strong>Afterwork Poker</strong> spielen!</p>
 						</div>
 						<div class="infobox" id="gentlemen">
@@ -39,7 +58,7 @@
 					<div id="middle-content-right">
 						<div class="infobox" id="participation-box">
 							<h3>Wie kann ich teilnehmen?</h3>
-							<p>Jetzt kostenlos anmelden und <strong>$1.000 Chips</strong> Startguthaben sichern. Nur noch Dein Profil ausfüllen und fertig! So einfach ist das...<br/>Die Turniere findest du in der Lobby unter "Turniere", hier kannst du dich registrieren.</p>
+							<p>Jetzt kostenlos anmelden und <strong>$1.000 Chips</strong> Startguthaben sichern. Nur noch dein Profil ausfüllen und fertig! So einfach ist das...<br/>Die Turniere findest du in der Lobby unter "Turniere", hier kannst du dich registrieren.</p>
 							<?php if (!user_is_logged_in()): ?>
 								<div class="poker_submit"><div class="pre"></div><div class="label"><a href="<?php print url("", array('fragment' => 'registration-window')); ?>"><?php print t('Register now'); ?></a></div></div>
 							<?php endif; ?>
@@ -47,7 +66,7 @@
 						<div class="infobox" id="video-box">
 							<h3>Noch nie gepokert?</h3>
 							<p id="gototuto">Hier geht's zum Videotutorial mit Bunny Michaela.</p>
-							<div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => '#help-tutorial')); ?></div></div>
+					 <div class="poker_submit"><div class="pre"></div><div class="label"><?php print l("zum Tutorial", "poker/help/", array('attributes' => array('class' => 'thickbox'), 'query' => 'height=442&width=603&keepThis=true&TB_iframe=true', 'fragment' => 'help-tutorial')); ?></div></div>
 						</div>
 						<div class="infobox" id="promos-and-events">
 							<?php print l("Zu den Promotions", "poker/pages/promotion_and_events"); ?>
