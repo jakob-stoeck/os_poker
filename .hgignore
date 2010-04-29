@@ -13,3 +13,4 @@ modules/shindig_integrator/shindig/php/config/local.php
 modules/shindig_integrator/shindig/php/src/common/Config.php
 modules/shindig_integrator/shindig/php/.htaccess
 #*#
+os_poker/scripts/long-poll-server/coverage
