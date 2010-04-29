@@ -103,9 +103,14 @@ class drupalDao implements longPollDao {
   }
 
   public function set_active_users($uids) {
+    $count = count($uids);
+    if ($count >= 5000) {
+      throw new Exception("Too many active users ($count). Abort to avoid overflowing mysql request maximum size max_allowed_packet.");
+    }
     $now = time();
-    foreach($uids as $uid) {
-      $this->query("INSERT INTO polling_users VALUES (". $uid .", ". $now .") ON DUPLICATE KEY UPDATE timestamp = ". $now);
+    if ($count > 0) {      
+      $values =  '('. implode(",$now),(", $uids) . ",$now)";
+      $this->query("INSERT INTO polling_users (uid, timestamp) VALUES $values ON DUPLICATE KEY UPDATE timestamp = ". $now);
     }
     $this->query("DELETE FROM polling_users WHERE timestamp < " . ($now - 60));
   }
