@@ -66,6 +66,12 @@ class longPollServerClientTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse($client->disconnected);
     $client->on_timer();
     $this->assertContains('Content-Length:', $client->output);
+    $body = json_encode(array(
+      'errorMsg' => null,
+      'error' => false,
+      'messages' => array('foo', 'bar'),
+    ));
+    $this->assertContains("\r\n\r\n". $body, $client->output);
     $this->assertTrue($client->disconnected);
   }
 
