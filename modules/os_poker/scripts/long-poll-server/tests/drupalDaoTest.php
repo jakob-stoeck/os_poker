@@ -69,9 +69,6 @@ class drupalDaoTest extends PHPUnit_Extensions_Database_TestCase {
       array('polling_users' => array('timestamp'))
     );
     $this->assertDataSetsEqual($csv_dataset, $database_dataset);
-  }
-  
-  public function testSetActiveUsersWithoutAnyUser() {
     $this->object->set_active_users(array());
     $csv_dataset = new PHPUnit_Extensions_Database_DataSet_CsvDataSet(';', "'");
     $csv_dataset->addTable('polling_users', dirname(__FILE__).'/fixtures/polling_users_empty.csv');

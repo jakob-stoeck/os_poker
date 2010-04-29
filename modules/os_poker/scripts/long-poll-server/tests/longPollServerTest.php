@@ -49,7 +49,7 @@ class longPollServerTest extends PHPUnit_Framework_TestCase {
     //DAO's set_active_users is callid once with the expected active users
     $this->dao->expects($this->once())
       ->method('set_active_users')
-      ->with($this->equalTo($active_users));
+      ->with($this->equalTo(array_values($active_users)));
 
     //For the server, active users are those for which get_messages has been
     //called since last on_timer call.
@@ -59,8 +59,55 @@ class longPollServerTest extends PHPUnit_Framework_TestCase {
     $this->object->on_timer();
     foreach($messages as $uid => $m) {
       $this->assertEquals(isset($m) ? $m : array(), $this->object->get_messages($uid), 'Messages from DAO are returned by longPollServer::get_messages after longPollServer::on_timer.');
+    }
+  }
+
+  /**
+   * @dataProvider messagesProvider
+   */
+  public function testFlushMessages($messages) {
+    $active_users = array_keys($messages);
+    //DAO's get_message is called once
+    $this->dao->expects($this->exactly(2))
+      ->method('get_messages')
+      ->will($this->returnValue($messages));
+
+    //DAO's set_active_users is callid once with the expected active users
+    $this->dao->expects($this->exactly(2))
+      ->method('set_active_users')
+      ->with($this->equalTo(array_values($active_users)));
+      
+    //For the server, active users are those for which get_messages has been
+    //called since last on_timer call.
+    foreach($active_users as $uid) {
+      $this->object->get_messages($uid);
+    }
+    $this->object->on_timer();
+    foreach($messages as $uid => $m) {
       $this->object->flush_messages($uid);
       $this->assertEquals(array(), $this->object->get_messages($uid), 'Messages are not returned after longPollServer::flush_messages.');
+    }
+    $this->object->on_timer();
+    foreach($messages as $uid => $m) {
+      $this->assertEquals(isset($m) ? $m : array(), $this->object->get_messages($uid), 'Only messages from DAO are returned by longPollServer::get_messages after longPollServer::flush_messages and longPollServer::on_timer.');
+      $this->object->flush_messages($uid);
+      $this->assertEquals(array(), $this->object->get_messages($uid), 'Messages are not returned after longPollServer::flush_messages.');
+    }
+  }
+  
+  public function testMessagesAreDiscardedAfter20OnTimer() {
+    //DAO's get_message is called once
+    $this->dao->expects($this->exactly(30))
+      ->method('get_messages')
+      ->will($this->returnValue(array(1 => array('foo'))));
+
+    //DAO's set_active_users is callid once with the expected active users
+    $this->dao->expects($this->exactly(30))
+      ->method('set_active_users');
+      
+    for($i = 0; $i < 30; $i++) {
+      $this->object->on_timer();
+      $this->assertEquals(min($i+1, 20), count($this->object->get_messages(1)));
     }
   }
 
@@ -84,7 +131,7 @@ class longPollServerTest extends PHPUnit_Framework_TestCase {
           3 => explode(' ', 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua'),
         ),
         //active_users
-        array(1,2,3),
+        array(1, 2, 3),
       ),
       array(
         //messages

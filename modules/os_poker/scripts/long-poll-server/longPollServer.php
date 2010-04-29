@@ -22,15 +22,30 @@ require_once("socket.php");
 
 class longPollServer extends socketServer {
   private $messages = array();
+  private $buckets;
+  private $buckets_size = 20;
+  private $buckets_index = 0;
   private $active_users = array();
   
-
+  public function __construct($client_class, $bind_address = 0, $bind_port = 0, $domain = AF_INET, $type = SOCK_STREAM, $protocol = SOL_TCP) {
+    parent::__construct($client_class, $bind_address, $bind_port, $domain, $type, $protocol);
+    $this->buckets = array_fill(0, $this->buckets_size, array());
+  }
+  
   public function on_timer() {
     $now = time();
-    $this->dao->set_active_users($this->active_users);
+    $this->dao->set_active_users(array_values($this->active_users));
     $this->active_users = array();
-    foreach($this->dao->get_messages() as $uid => $messages) {
-      $this->messages[$uid] = array_merge(isset($this->messages[$uid]) ? $this->messages[$uid] : array(), $messages);
+    //Store messages from DB in next bucket
+    $this->buckets[$this->buckets_index] = $this->dao->get_messages();
+    //Increment index to next bucket
+    $this->buckets_index = ($this->buckets_index + 1) % $this->buckets_size;
+    //Merge buckets
+    $this->messages = array();
+    foreach($this->buckets as &$bucket) {
+      foreach($bucket as $uid => &$messages) {
+        $this->messages[$uid] = array_merge(isset($this->messages[$uid]) ? $this->messages[$uid] : array(), $messages);
+      }
     }
   }
 
@@ -41,14 +56,18 @@ class longPollServer extends socketServer {
   }
 
   public function get_messages($uid) {
-    $this->active_users[] = $uid;
+    $this->active_users[$uid] = $uid;
     return isset($this->messages[$uid]) ? $this->messages[$uid] : array();
   }
 
   public function flush_messages($uid) {
+    //flush messages from buckets
+    foreach($this->buckets as &$bucket) {
+      unset($bucket[$uid]);
+    }    
+    //flush messages from merged buckets
     unset($this->messages[$uid]);
   }
-
 }
 
 interface longPollDao {
@@ -62,9 +81,6 @@ class drupalDao implements longPollDao {
   private $db;
 
   public function  __construct($dbserver, $dbuser, $dbpass, $dbname, $dbport=NULL) {
-    /*if(file_exists($dbconfig)) {
-      include_once $dbconfig;
-    }*/
     ini_set('mysqli.reconnect', TRUE);
     $this->db = new mysqli($dbserver, $dbuser, $dbpass, $dbname, $dbport);
     if (mysqli_connect_error()) {
@@ -107,12 +123,13 @@ class drupalDao implements longPollDao {
     if ($count >= 5000) {
       throw new Exception("Too many active users ($count). Abort to avoid overflowing mysql request maximum size max_allowed_packet.");
     }
+    $this->query("TRUNCATE polling_users");
     $now = time();
     if ($count > 0) {      
-      $values =  '('. implode(",$now),(", $uids) . ",$now)";
-      $this->query("INSERT INTO polling_users (uid, timestamp) VALUES $values ON DUPLICATE KEY UPDATE timestamp = ". $now);
+      //$values =  '('. implode(",$now),(", $uids) . ",$now)";
+      $values =  '('. implode("),(", $uids) . ")";
+      $this->query("INSERT IGNORE INTO polling_users (uid) VALUES $values");
     }
-    $this->query("DELETE FROM polling_users WHERE timestamp < " . ($now - 60));
   }
 
   private function query($query) {
