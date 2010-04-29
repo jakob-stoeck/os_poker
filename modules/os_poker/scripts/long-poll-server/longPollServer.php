@@ -44,7 +44,11 @@ class longPollServer extends socketServer {
     $this->messages = array();
     foreach($this->buckets as &$bucket) {
       foreach($bucket as $uid => &$messages) {
-        $this->messages[$uid] = array_merge(isset($this->messages[$uid]) ? $this->messages[$uid] : array(), $messages);
+				if(isset($this->messages[$uid])) {
+					$this->messages[$uid] = array_merge($this->messages[$uid], $messages);
+				} else {
+					$this->messages[$uid] = $messages;
+				}
       }
     }
   }
