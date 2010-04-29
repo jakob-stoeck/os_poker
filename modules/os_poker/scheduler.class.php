@@ -619,12 +619,12 @@ class CScheduler
 	}
 
   public function ProcessLiveEvents() {
-    static $sql = "SELECT *, (moment <= NOW()) AS active FROM {poker_scheduler} WHERE uid IN (SELECT uid FROM {polling_users}) AND uid IN (SELECT uid FROM {poker_user_ext} WHERE dirty_flags) AND (`moment` <= NOW() OR `visible` = 1) AND (`trigger` like '%\"live\"%' OR (`trigger` like '%\"inbox\"%' AND NOT is_read)) ORDER BY moment ASC EOQ";
+    static $sql = "SELECT *, (moment <= NOW()) AS active FROM {poker_scheduler} WHERE uid IN (SELECT uid FROM {polling_users}) AND uid IN (SELECT uid FROM {poker_user_ext} WHERE dirty_flags) AND (`moment` <= NOW() OR `visible` = 1) AND (`trigger` like '%\"live\"%' OR (`trigger` like '%\"inbox\"%' AND NOT is_read)) ORDER BY moment ASC";
 
     //Gather all pending live events and unread ibox messages tasks
     $results = db_query($sql);
     $tasks = array();
-    while ($task = db_fetch_object($result)) {
+    while ($task = db_fetch_object($results)) {
       $triggers = json_decode($task->trigger);
       if (is_array($triggers))
       {
@@ -635,6 +635,7 @@ class CScheduler
         }
       }
     }
+    
     //Process all tasks for each user
     foreach($tasks as $uid => $user_tasks) {
       $this->ClearNewTask($uid);

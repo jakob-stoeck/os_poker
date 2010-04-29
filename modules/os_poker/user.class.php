@@ -48,7 +48,7 @@ class CUser
 
 	public function __construct( $uid )
 	{
-		if (user_is_logged_in() == FALSE)
+		if (user_is_logged_in() == FALSE && !defined('OS_POKER_SCRIPT'))
 			throw new Exception('Forbidden (User must be logged in)');
 
 		if ($this->Load($uid) == FALSE)

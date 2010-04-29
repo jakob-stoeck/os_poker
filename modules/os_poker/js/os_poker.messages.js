@@ -144,7 +144,7 @@ function	os_poker_message_listen()
 {
 	_os_poker_listen_handler = $.ajax({
             type: "GET",
-            url: _os_poker_message_url + "/receive",
+            url: '/POLL',
             async: true,
             cache: false,
             timeout: _os_poker_timeout,
