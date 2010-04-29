@@ -71,6 +71,16 @@ class OSPokerLongPollMessagesTestCase extends OsPokerWebTestCase {
     //mongolito404: json_decode($this->drupalGetContent()) doesn't work neither :(
     $this->assertText(json_encode($message));
   }
+  
+  public function testPushMsg() {
+    $original_message = array('foo' => 'bar', 'bar' => 'foo');
+    CMessageSpool::instance()->PushMsg($this->user, $original_message);
+    
+    $results = db_query("SELECT message FROM {polling_messages} WHERE uid = %d", $this->user->uid);
+    $this->assertTrue($results, 'The table polling_messages contains a row for the user.');
+    $loaded_message = unserialize(db_result($results));
+    $this->assertEqual($original_message, $loaded_message, 'The message is the DB is the message passed to CMessageSpool::PushMsg.');
+  }
 }
 
 ?>

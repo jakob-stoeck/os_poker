@@ -111,6 +111,31 @@ class OSPokerScheduler extends OsPokerWebTestCase
 		parent::tearDown();
 	}
 
+  function testProcessLiveEvents() {
+    $this->_current_user = CUserManager::instance()->CurrentUser();
+    $scheduler = CScheduler::instance();
+    $scheduler->RegisterTask(new CMessage(), $this->_current_user->uid, 'live', '-1 day', array('body' => 'foo'));
+    $scheduler->RegisterTask(new CMessage(), $this->_current_user->uid, 'live', '+1 day', array('body' => 'bar'));
+    CMessageSpool::instance()->SendMessage($this->_current_user->uid, "Message in inbox");
+      
+    $scheduler->ProcessLiveEvents();
+    $this->assertFalse(CMessageSpool::instance()->Get(), 'No message for in-active user.');
+
+    db_query("INSERT INTO {polling_users} (uid) VALUES (%d)", $this->_current_user->uid);
+
+    $scheduler->ProcessLiveEvents();
+    $messages = CMessageSpool::instance()->Get();
+    $this->assertTrue(in_array(array('body' => 'foo'), $messages), 'CMessage registred for yesterday has been processed.');
+    $this->assertFalse(in_array(array('body' => 'bar'), $messages), 'CMessage registred for tomorrow has been processed.');
+    $this->assertTrue(in_array(array(
+      'type' => 'os_poker_messagebox',
+      'body' => array(
+          'inbox' => 1,
+          'picture' => 'sites/all/modules/os_poker/images/mailbox.png'
+        )
+      ), $messages), 'A message has been added to upodated the message box status.');
+  }
+
 	function	check_drupal_msg($msg)
 	{
 		$messages = drupal_get_messages(NULL, FALSE);
@@ -127,7 +152,7 @@ class OSPokerScheduler extends OsPokerWebTestCase
 		return $msgCount;
 	}
 
-    function        testSchedulerClass()
+    function        xtestSchedulerClass()
 	{
 		$this->_current_user = CUserManager::instance()->CurrentUser();
 

@@ -138,6 +138,7 @@ class CMessageSpool
     static $sql = "SELECT message FROM {polling_messages} WHERE uid = %d";
     $current_user = CUserManager::instance()->CurrentUser();
     if (!isset($this->_messages[$current_user->uid])) {
+      $this->_messages[$current_user->uid] = array();
       $result = db_query($sql, $current_user->uid);
       while ($message = db_result($result)) {
         $message = unserialize($message);
