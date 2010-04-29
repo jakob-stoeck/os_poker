@@ -126,7 +126,6 @@ class drupalDao implements longPollDao {
 }
 
 class longPollServerClient extends socketServerClient {
-	private $max_total_time = 3600;
 	private $max_idle_time  = 60;
 	private $accepted;
 	private $last_action;
@@ -226,7 +225,7 @@ class longPollServerClient extends socketServerClient {
 
 	public function on_write()
 	{
-		if (strlen($this->write_buffer) == 0 && !$this->uid !== FALSE) {
+		if (strlen($this->write_buffer) == 0 && $this->uid === FALSE) {
 			$this->disconnected = true;
 			$this->on_disconnect();
 			$this->close();
@@ -235,19 +234,11 @@ class longPollServerClient extends socketServerClient {
 
 	public function on_timer()
 	{
-    $time = time();
-		$idle_time  = $time - $this->last_action;
-		$total_time = $time - $this->accepted;
     if ($this->uid !== FALSE) {
-      $messages_sent = $this->poll_messages($total_time > $this->max_total_time || $idle_time > $this->max_idle_time);
-      if ($messages_sent) {
-        $idle_time = 0;
-      }
+      $time = time();
+  		$idle_time  = $time - $this->last_action;
+      $messages_sent = $this->poll_messages($idle_time > $this->max_idle_time);
     }
-		if ($total_time > $this->max_total_time || $idle_time > $this->max_idle_time) {
-      $this->on_disconnect();
-			$this->close();
-		}
 	}
 
   /**
