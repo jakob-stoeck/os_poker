@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/src/drupal6/sites/all/modules/os_poker/scripts/long-poll-server/os-poker-poll /etc/drupal/6/sites/default/dbconfig.php | /usr/bin/logger -t os-poker-poll &
