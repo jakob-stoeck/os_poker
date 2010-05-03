@@ -1,3 +1,22 @@
+<?php
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//    Copyright (C) 2010 OutFlop
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+?>
 				<div id="tourney-teaser" class="main-teaser">
 					<?php if (!user_is_logged_in()): ?>
 					<h2><a href="<?php print url("", array('fragment' => 'registration-window')); ?>"><?php print t('Register now'); ?></a></h2>
@@ -5,12 +24,17 @@
 				</div>
 				<div id="middle-content">
 					<div id="middle-content-left">
-						<div class="infobox" id="poker-masters">
+						
+            <!-- 
+            
+            <div class="infobox" id="poker-masters">
 							<h3>Playboy Poker Masters</h3>
 						    <p>Die Turniere der <strong>Playboy Poker Masters</strong> darf man sich einfach nicht entgehen lassen: Exklusive Preise von Playboy für die Gewinner, besser kann man die Zeit am Sonntagabend kaum nutzen!</p>
 							<p>Die Playboy Poker Masters finden alle 2 Monate statt.<br />
 							<strong>Nächster Termin: Sonntag, 25. April um 19:00 Uhr</strong></p>
 						</div>
+						-->
+						
 						<div class="infobox" id="bunny-hunter">
 							<h3>Bunny Hunter</h3>
 							<p><strong>Die Hasen-Jagd-Saison ist eröffnet</strong></p>

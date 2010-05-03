@@ -1,4 +1,22 @@
-<?php /* this is in fact the contents of the non logged in homepage */ ?>
+<?php
+//
+//    Copyright (C) 2009, 2010 Pokermania
+//    Copyright (C) 2010 OutFlop
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU Affero General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU Affero General Public License for more details.
+//
+//    You should have received a copy of the GNU Affero General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+/* this is in fact the contents of the non logged in homepage */ ?>
 
 <div id="poker-teaser">
 <h2><?php print t("Poker with your friends and our Bunnys"); ?></h2>
@@ -67,6 +85,6 @@
 <div id="page-front-banners">
   <a href="<?php print url('poker/help', array('query' => 'height=442&width=603&keepThis=true&TB_iframe=true&#help-tutorial'))?>" class="thickbox banner open-video-tutorial" id="banner-signup" title="<?php print t("This is how it works"); ?>"><span class="banner-inner"><?php print t("This is how it works"); ?></span></a>
   <strong class="banner" id="banner-tournament"><span class="banner-inner"><?php print t("Poker with our Bunnies"); ?></span></strong>
-  <a href=<?php print url('poker/pages/tourneyinfo') ?> class="banner" id="banner-join" title="<?php print t("Alle Infos"); ?>"><span class="banner-inner">Alle Infos</span></a>
+<a class="banner open-register-form" id="banner-join" title="<?php print t("Join the world&#039;s sexiest poker!"); ?>"><span class="banner-inner">Join the world's <strong>sexiest poker!</strong></span></a>
 </div>
 
