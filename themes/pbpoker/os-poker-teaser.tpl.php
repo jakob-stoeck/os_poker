@@ -85,6 +85,6 @@
 <div id="page-front-banners">
   <a href="<?php print url('poker/help', array('query' => 'height=442&width=603&keepThis=true&TB_iframe=true&#help-tutorial'))?>" class="thickbox banner open-video-tutorial" id="banner-signup" title="<?php print t("This is how it works"); ?>"><span class="banner-inner"><?php print t("This is how it works"); ?></span></a>
   <strong class="banner" id="banner-tournament"><span class="banner-inner"><?php print t("Poker with our Bunnies"); ?></span></strong>
-  <a href=<?php print url('poker/pages/tourneyinfo') ?> class="banner" id="banner-join" title="<?php print t("Alle Infos"); ?>"><span class="banner-inner">Alle Infos</span></a>
+<a class="banner open-register-form" id="banner-join" title="<?php print t("Join the world&#039;s sexiest poker!"); ?>"><span class="banner-inner">Join the world's <strong>sexiest poker!</strong></span></a>
 </div>
 

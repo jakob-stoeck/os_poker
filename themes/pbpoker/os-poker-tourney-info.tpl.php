@@ -24,12 +24,17 @@
 				</div>
 				<div id="middle-content">
 					<div id="middle-content-left">
-						<div class="infobox" id="poker-masters">
+						
+            <!-- 
+            
+            <div class="infobox" id="poker-masters">
 							<h3>Playboy Poker Masters</h3>
 						    <p>Die Turniere der <strong>Playboy Poker Masters</strong> darf man sich einfach nicht entgehen lassen: Exklusive Preise von Playboy für die Gewinner, besser kann man die Zeit am Sonntagabend kaum nutzen!</p>
 							<p>Die Playboy Poker Masters finden alle 2 Monate statt.<br />
 							<strong>Nächster Termin: Sonntag, 25. April um 19:00 Uhr</strong></p>
 						</div>
+						-->
+						
 						<div class="infobox" id="bunny-hunter">
 							<h3>Bunny Hunter</h3>
 							<p><strong>Die Hasen-Jagd-Saison ist eröffnet</strong></p>
