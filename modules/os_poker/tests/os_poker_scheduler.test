@@ -152,7 +152,7 @@ class OSPokerScheduler extends OsPokerWebTestCase
 		return $msgCount;
 	}
 
-    function        xtestSchedulerClass()
+    function        testSchedulerClass()
 	{
 		$this->_current_user = CUserManager::instance()->CurrentUser();
 
