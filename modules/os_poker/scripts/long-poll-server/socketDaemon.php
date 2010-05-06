@@ -1,6 +1,9 @@
 <?
 /*
-phpSocketDaemon 1.0
+os-poker-poll server
+Copyright (C) 2010 Pierre Buyle <pierre@buyle.org>
+
+Based on phpSocketDaemon 1.0
 Copyright (C) 2006 Chris Chabot <chabotc@xs4all.nl>
 See http://www.chabotc.nl/ for more information
 
