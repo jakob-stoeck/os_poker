@@ -37,8 +37,9 @@ require_once(drupal_get_path('module', 'os_poker') . "/scheduler.class.php");
 while(sleep(3) !== FALSE) {
   CScheduler::instance()->ProcessLiveEvents();
   foreach (drupal_get_messages() as $type => $messages) {
+    $type = drupal_strtoupper($type);
     foreach ($messages as $message) {
-      print "[$type] $message";
+      print "[$type] ". @strip_tags($message);
     }
   } 
 }
