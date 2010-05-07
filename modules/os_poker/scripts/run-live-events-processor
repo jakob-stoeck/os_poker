@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/src/drupal6/sites/all/modules/os_poker/scripts/live-events-processor /usr/share/drupal6 | /usr/bin/logger -t live-event-processor &
