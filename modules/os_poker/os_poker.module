@@ -2043,13 +2043,14 @@ function _os_poker_support_mail() {
 }
 
 function _os_poker_clean_cookies() {
+  global $cookie_domain;
   //Clear old invalid session cookies
   foreach (array_keys($_COOKIE) as $name) {
     if ($name != session_name() && preg_match('/SESS[a-f0-9]{32}/i', $name)) {
       if (!isset($expire)) {
         $expire = time() - 42000;
       }
-      setcookie($name, '', $expire, '/');
+      setcookie($name, $_COOKIE[$name], $expire, '/', $cookie_domain);
     }
   }
 }
