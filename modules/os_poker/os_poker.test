@@ -571,6 +571,16 @@ class OSPokerToolkitTestCase extends DrupalWebTestCase
 		$os_poker_db_query_override = "db_query_24";
 		$this->assertEqual(24, os_poker_db_query("SELECT 42"));
 	}
+
+  function testCleanCookies() {
+    $name = 'SESS'.md5($this->randomString());
+    //Do a request with an invalid session cookie
+    $this->drupalGet('<front>', array(), array("cookie: $name=foo; foo=bar"));
+    //$this->pass('<pre>'. print_r($this->drupalGetHeader('set-cookie'), true) .'</pre>');
+    //Check that the response header remove the cookie
+    $this->assertTrue(preg_match("/$name=deleted; expires=([^;]+)/", $this->drupalGetHeader('set-cookie'), $matches), "Invalid session cookie's value is 'deleted'...");
+    $this->assertTrue(strtotime($matches[1]) != 0 && strtotime($matches[1]) < time(), "... and it has already expired.");
+  }
 }
 
 class OSPokerThemeTestCase extends DrupalWebTestCase

@@ -304,6 +304,8 @@ function os_poker_init()
     CPoker::ChangePokerDB('pythonpokernetworktest');
   }
 
+  _os_poker_clean_cookies();
+
 	$inpoker = FALSE;
 	if (isset($_GET["q"]))
 	{
@@ -2038,4 +2040,16 @@ function _os_poker_support_mail() {
     }
   }
   return $os_poker_support_mail;
+}
+
+function _os_poker_clean_cookies() {
+  //Clear old invalid session cookies
+  foreach (array_keys($_COOKIE) as $name) {
+    if ($name != session_name() && preg_match('/SESS[a-f0-9]{32}/i', $name)) {
+      if (!isset($expire)) {
+        $expire = time() - 42000;
+      }
+      setcookie($name, '', $expire, '/');
+    }
+  }
 }

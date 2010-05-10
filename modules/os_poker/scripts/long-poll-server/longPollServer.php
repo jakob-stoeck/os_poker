@@ -183,9 +183,16 @@ class longPollServerClient extends socketServerClient {
 			$output  = '405: Method Not Allowed';
     }
     else {
-      if (isset($request['cookie']) && preg_match('/SESS[a-f0-9]+=([a-f0-9]+)/i', $request['cookie'], $matches)) {
+      if (isset($request['cookie']) && $sess_count = preg_match_all('/SESS[a-f0-9]+=([a-f0-9]+)/i', $request['cookie'], $matches, PREG_PATTERN_ORDER)) {
+        if ($sess_count > 1) {
+          print '[ERROR] Multiple sessions in client request: ['. implode(', ', $matches[0]) .']';
+        }
         // $matches[1] is safe for db query since it is extract from ([a-zA-Z0-9]*).
-        $this->uid = $this->dao->get_uid_for_session($matches[1]);
+        $i = 0;
+        while(!$this->uid && $i < $sess_count) {
+          $this->uid = $this->dao->get_uid_for_session($matches[1][$i]);
+          $i += 1;
+        }
       }
       else {
         $this->uid = FALSE;
@@ -198,6 +205,7 @@ class longPollServerClient extends socketServerClient {
         // no uid == no authorization
         $header  = 'HTTP/'.$request['version']." 403 Forbidden\r\n";
         $output  = '403: Forbidden';
+        $this->uid = FALSE;
       }
     }
     if(isset($header) || isset($output)) {
