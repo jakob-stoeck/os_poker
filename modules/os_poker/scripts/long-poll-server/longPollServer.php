@@ -185,7 +185,7 @@ class longPollServerClient extends socketServerClient {
     else {
       if (isset($request['cookie']) && $sess_count = preg_match_all('/SESS[a-f0-9]+=([a-f0-9]+)/i', $request['cookie'], $matches, PREG_PATTERN_ORDER)) {
         if ($sess_count > 1) {
-          print '[ERROR] Multiple sessions in client request: ['. implode(', ', $matches[0]) .']';
+          print '[ERROR] Multiple sessions in client request: ['. implode(', ', $matches[0]) .']'."\n";
         }
         // $matches[1] is safe for db query since it is extract from ([a-zA-Z0-9]*).
         $i = 0;
