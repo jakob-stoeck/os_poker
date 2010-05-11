@@ -5,10 +5,9 @@
 # Required-Stop:     $remote_fs
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Long poll daemon for os_poker 
-# Description:       http://drupal-demo.pokersource.info/drupal6/
-#                    needs a long poll daemon designed to wait for
-#		     messages to be pushed to the user.
+# Short-Description: Trigger live events for os_poker
+# Description:       When a user is connected, some actions
+#                    must be performed on a regular basis.
 ### END INIT INFO
 
 # Author: Loic Dachary <loic@dachary.org>
