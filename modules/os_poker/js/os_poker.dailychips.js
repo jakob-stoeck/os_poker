@@ -16,17 +16,19 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /*
- * this script is included in the messagebox iframe, and resets the unread message count in the navbar.
+ * This script is included in the main window when the user receive the daily bonus (at login, once every day)
  */ 
 
 Drupal.behaviors.dailygiftBehavior = function() {
-// Trigger invite friends thickbox instead of dailychips confirmation
-setTimeout(function() {
-    var bl = $(".buddy_list_placeholder a.thickbox");
-    if (bl.length > 0) {
-        bl.eq(0).trigger('click');
-    } 
-}, 1000);
+  // Trigger invite friends thickbox instead of dailychips confirmation
+  setTimeout(function() {
+      var bl = $(".buddy_list_placeholder a.thickbox");
+      if (bl.length > 0) {
+          bl.eq(0).trigger('click');
+      } 
+  }, 1000);
+  //Avoid running this behavior more than once
+  delete Drupal.behaviors.dailygiftBehavior;
 }
 
 
