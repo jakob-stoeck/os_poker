@@ -116,13 +116,21 @@ class drupalDao implements longPollDao {
     $this->query("LOCK TABLES polling_messages WRITE");
     $results = $this->query("SELECT uid, message FROM polling_messages");
     if($results) {
+      set_error_handler(array($this, 'get_messages_notice_handler'), E_USER_NOTICE);
       while($row = $results->fetch_row()) {
         $messages[$row[0]][] = unserialize($row[1]);
       }
+      restore_error_handler();
     }
     $this->query('DELETE FROM polling_messages');
     $this->query("UNLOCK TABLES");    
     return $messages;
+  }
+
+  public function get_messages_notice_handler($errno , $errstr, $errfile, $errline, $errcontext) {
+    print 'Error while processing row: '. print_r($errcontext['row'], true);
+    //Let normal error handling proceed
+    return FALSE;
   }
 
   public function set_active_users($uids) {
