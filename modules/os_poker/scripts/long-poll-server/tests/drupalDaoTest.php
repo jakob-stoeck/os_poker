@@ -21,6 +21,7 @@ require_once 'PHPUnit/Framework.php';
 require_once 'PHPUnit/Extensions/Database/TestCase.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/CsvDataSet.php';
 require_once 'PHPUnit/Extensions/Database/DataSet/DataSetFilter.php';
+require_once 'PHPUnit/Extensions/OutputTestCase.php';
 require_once dirname(__FILE__).'/../longPollServer.php';
 
 /**
@@ -105,6 +106,18 @@ class drupalDaoTest extends PHPUnit_Extensions_Database_TestCase {
       $uids[] = $i;
     }
     $this->object->set_active_users($uids);
+  }
+  
+  public function testLogErrorDuringUnzerialize() {
+    error_reporting(E_ALL | E_STRICT);
+    $this->object->get_messages();
+    $db = $this->getConnection()->getConnection()->query("INSERT INTO polling_messages (uid, message) VALUES (1, '\"')");
+    ob_start();
+    $messages_from_DAO = $this->object->get_messages();
+    $output = ob_get_contents();
+    ob_end_clean();
+    $this->assertContains('Error while processing row', $output);
+    $this->assertContains('Notice: unserialize(): Error', $output);
   }
 }
 ?>

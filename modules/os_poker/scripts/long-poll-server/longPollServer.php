@@ -116,7 +116,7 @@ class drupalDao implements longPollDao {
     $this->query("LOCK TABLES polling_messages WRITE");
     $results = $this->query("SELECT uid, message FROM polling_messages");
     if($results) {
-      set_error_handler(array($this, 'get_messages_notice_handler'), E_USER_NOTICE);
+      set_error_handler(array($this, 'get_messages_notice_handler'), E_NOTICE);
       while($row = $results->fetch_row()) {
         $messages[$row[0]][] = unserialize($row[1]);
       }

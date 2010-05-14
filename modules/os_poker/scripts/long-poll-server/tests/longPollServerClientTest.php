@@ -113,7 +113,7 @@ class longPollServerClientTest extends PHPUnit_Extensions_OutputTestCase {
     $this->assertContains($response, $client->output);
     $this->assertTrue($client->disconnected);
     if($output) {
-      $this->expectOutputString($output);
+      $this->expectOutputRegex('/'. preg_quote($output) .'/');
     }
   }
 
