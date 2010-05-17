@@ -98,13 +98,15 @@ class drupalDao implements longPollDao {
   public function get_uid_for_session($session_id) {
     $results = $this->query("SELECT uid FROM sessions WHERE sid = '". $this->db->real_escape_string($session_id). "'");
     if($results) {
-      $row = $results->fetch_row();
+      $row = $results->fetch_row();     
       if($row) {
-        return $row[0];
+        $sid = $row[0];
       }
       else {
-        return FALSE;
+        $sid = FALSE;
       }
+      $results->close();
+      return $sid;
     }
     else {
       return FALSE;
@@ -121,6 +123,7 @@ class drupalDao implements longPollDao {
         $messages[$row[0]][] = unserialize($row[1]);
       }
       restore_error_handler();
+      $results->close();
     }
     $this->query('DELETE FROM polling_messages');
     $this->query("UNLOCK TABLES");    
