@@ -231,6 +231,3 @@ class CMessageSpool
 	}
 
 }
-	
-?>
-

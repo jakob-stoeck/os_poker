@@ -2,8 +2,8 @@
 // $Id: simple_payments_paypal.module,v 1.1 2009/11/17 03:48:49 jbrown Exp $
 
 //cmirey test on paypal's developer environment
-//define('SIMPLE_PAYMENTS_PAYPAL_SUBMIT_URL', 'https://www.paypal.com/cgi-bin/webscr');
-define('SIMPLE_PAYMENTS_PAYPAL_SUBMIT_URL', 'https://sandbox.paypal.com/cgi-bin/webscr');
+define('SIMPLE_PAYMENTS_PAYPAL_SUBMIT_URL', 'https://www.paypal.com/cgi-bin/webscr');
+//define('SIMPLE_PAYMENTS_PAYPAL_SUBMIT_URL', 'https://sandbox.paypal.com/cgi-bin/webscr');
 define('SIMPLE_PAYMENTS_PAYPAL_IPN_PATH', 'system/simple_payments_paypal/ipn');
 
 
