@@ -80,7 +80,7 @@ $(document).bind('thickbox_show_after', function(even, caption, url, imageGroup)
 Drupal.behaviors.os_poker = function(context) {
   /* Hack to fix forgot password iframe in IE7 */
   if ($.browser.msie && $.browser.version === '7.0') {
-	  if ($('#forgot_password').length > 0) {
+	  if ($('#forgot_password:not(.os-poker-processed)').addClass('os-poker-processed').length > 0) {
           var href = $('#forgot_password').get(0).href;
           $('#forgot_password').get(0).href = href.replace(/(165)/, '167');
       }
@@ -95,6 +95,8 @@ Drupal.behaviors.os_poker = function(context) {
       if(typeof os_poker_message_start === 'function') {os_poker_message_start();}
       if(typeof os_poker_init_events === 'function') {os_poker_init_events();}
       if(typeof os_poker_init_menu === 'function') {os_poker_init_menu();}
+      if(typeof os_poker_init_tourney === 'function') {os_poker_init_tourney();}
+      if(typeof os_poker_init_router === 'function') {os_poker_init_router();}
   }
   
   //Register slider handler for the Buddy List's panel
@@ -107,12 +109,12 @@ Drupal.behaviors.os_poker = function(context) {
   });
 
   //Register handler for Buddy List's "Today Gift" banner (only for first click)
-  $('#today_gift').one('click', function(){
+  $('#today_gift:not(.os-poker-processed)').addClass('os-poker-processed').one('click', function(){
     os_poker_send_message({type: 'os_poker_daily_gift'});
   })
 
   //Display hint in form field
-  $('#user_login input[name=name]').focus(function(){
+  $('#user_login input[name=name]:not(.os-poker-processed)').addClass('os-poker-processed').focus(function(){
     if($(this).val() === 'E-mail') {
       $(this).val('');
     }
@@ -121,7 +123,7 @@ Drupal.behaviors.os_poker = function(context) {
       $(this).val('E-mail');
     }
   }).blur();
-  $('#user_login input[name=pass]').focus(function(){
+  $('#user_login input[name=pass]:not(.os-poker-processed)').addClass('os-poker-processed').focus(function(){
     if($(this).val() === 'password') {
       $(this).val('');
     }
@@ -144,8 +146,7 @@ Drupal.behaviors.os_poker = function(context) {
   if (typeof $.fn.tabs == 'function') {
     $('#ContainerContentHelp div.tabs:not(.os-poker-processed)').addClass('os-poker-processed').tabs();
   }
-  os_poker_init_tourney();
-  os_poker_init_router();
+
 };
 
 OsPoker.dialog = function(content) {
