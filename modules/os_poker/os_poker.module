@@ -271,6 +271,8 @@ function	os_poker_gadget()
 
 	$app_id = os_poker_get_poker_app_id();
 
+  drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.oscontainer.js", "module", DEFAULT_JS_SCOPE);
+
 	if ($app_id != FALSE)
 	{
 		global $user;
@@ -1037,6 +1039,12 @@ function os_poker_menu() {
       'file' 			   => 'os_poker_pages.php',
       'access arguments' => array('administer os poker'),
     ),
+    'poker/gadget' => array(
+      'title' => '',
+      'type' => MENU_CALLBACK,
+      'access callback'  => 'user_is_logged_in',
+      'page callback' => 'os_poker_gadget',
+    )
 
   );
 	return $menu;
