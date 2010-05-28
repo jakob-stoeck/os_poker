@@ -90,6 +90,8 @@ class drupalDao implements longPollDao {
   public function  __construct($dbserver, $dbuser, $dbpass, $dbname, $dbport=NULL) {
     ini_set('mysqli.reconnect', TRUE);
     $this->db = new mysqli($dbserver, $dbuser, $dbpass, $dbname, $dbport);
+    $this->db->set_charset('utf8');
+
     if (mysqli_connect_error()) {
       throw new Exception('Database connection error ('. mysqli_connect_errno() .') ' . mysqli_connect_error());
     }

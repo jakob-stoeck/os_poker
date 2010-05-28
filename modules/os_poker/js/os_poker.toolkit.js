@@ -274,21 +274,47 @@ function os_poker_play_now_clicked()
 }
 
 /**
+ * Returns the topmost frame in the same domain
+ * Use instead of window.top because of same origin policy
+ *
+ * @param win
+ *   The window object
+ */
+function get_top_window(win) {
+	try {
+		if (win.parent != win) {
+			// The topmost window is its own parent
+			return get_top_window(win.parent);
+		}
+	} catch(e) {
+		// Parent window is not in the same domain anymore
+	}
+
+	return win;
+}
+
+
+/**
  * Router invokes JS functions based on the # anchor in the url.
  * if the anchor is #load_xyz, it will invoke a function window.top.os_poker_load_xyz() if such
  * a function exists.
- */ 
-function os_poker_init_router() 
+ */
+function os_poker_init_router()
 {
-	if (window.top.location.href.match(/#(load_.+)/) ||
-		window.top.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
-                var route = 'os_poker_' + RegExp.$1;
-                if (window.top[route] && typeof(window.top[route]) == 'function') {
-                        setTimeout(function() {
-                                window.top[route]();
-                        }, 1000);
- 		}
+	var top_window = get_top_window(window);
+
+	if (top_window != window) {
+		if (top_window.location.href.match(/#(load_.+)/) ||
+			top_window.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {
+	                var route = 'os_poker_' + RegExp.$1;
+	                if (top_window[route] && typeof(top_window[route]) == 'function') {
+	                        setTimeout(function() {
+	                                top_window[route]();
+	                        }, 1000);
+	 		}
+		}
 	}
+
 
 	if (window.location.href.match(/#(load_.+)/) ||
                 window.location.href.match(/initcall_([a-z0-9A-Z_]+)/)) {

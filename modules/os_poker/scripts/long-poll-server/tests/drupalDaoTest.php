@@ -57,7 +57,7 @@ class drupalDaoTest extends PHPUnit_Extensions_Database_TestCase {
   }
 
   protected function getConnection() {
-    $pdo = new PDO('mysql:host=localhost;dbname=phpunit', 'root', '');
+    $pdo = new PDO('mysql:host=localhost;dbname=phpunit', 'root', '', array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8;'));
     return $this->createDefaultDBConnection($pdo, 'phpunit');
   }
 
@@ -75,7 +75,7 @@ class drupalDaoTest extends PHPUnit_Extensions_Database_TestCase {
   }
 
   public function testGetMessages() {
-    $this->assertEquals(array(1 => array('foo', 'bar')), $this->object->get_messages());
+    $this->assertEquals(array(1 => array('foo', 'bar', 'éèêëóòôöúùûüáàâäśŝṕŚÉÈÊË©ª³²º¼|@½æ')), $this->object->get_messages());
     $this->assertEquals(array(), $this->object->get_messages());
   }
 
