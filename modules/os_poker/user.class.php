@@ -393,38 +393,38 @@ class CUser
 		return FALSE;
 	}
 
-	public function CanDailyGift()
-	{
-		$lg = $this->LastDailyGift();
-
-		return (!$lg || $lg + 86400 <= time()) && count($this->Buddies(TRUE));
+	public function CanDailyGift() {
+    $lg = $this->LastDailyGift();
+    return (!$lg || $lg + 86400 <= time()) && count($this->Buddies(TRUE));
 	}
 
-	public function DailyGift()
-	{
-		$sql = "INSERT INTO `{poker_user_ext}` (`uid`, `last_gift`) VALUES (%d, NOW())
-				ON DUPLICATE KEY UPDATE `last_gift`= NOW()";
+	public function DailyGift() {
+    $result = db_query("INSERT IGNORE INTO {poker_user_ext} (uid, last_gift) VALUES (%d, NOW())", $this->_user->uid);
+    if ($result && db_affected_rows() == 0) {
+      //No row affected, then the row for the user already exist and should be
+      //updated only if (s)he has not sent the gift during the last 86400 seconds.
+      $result = db_query("UPDATE {poker_user_ext} SET last_gift = NOW() WHERE uid = %d AND NOW() - last_gift > 86400", $this->_user->uid);
+    }
+    //Only proceed if a row was affected by the previous INSERT or UPDATE query.
+    if ($result && db_affected_rows() > 0) {
+      $buddies = $this->Buddies(TRUE);
 
-		$result = db_query($sql, $this->_user->uid);
+      $amount = 100;
+      foreach($buddies as $buddy) {
+        $buddy->AddChips($amount);
+        $buddy->Save();
 
-		$buddies = $this->Buddies(TRUE);
+        $args["symbol"] = 'chips';
+        $args["text"] = t("You just receive a daily gift from !user", array("!user", $this->profile_nickname));
 
-    $amount = 100;
-		foreach($buddies as $buddy)
-		{
-			$buddy->AddChips($amount);
-			$buddy->Save();
+        CMessageSpool::instance()->SendMessage($buddy->uid, $args);
 
-			$args["symbol"] = 'chips';
-			$args["text"] = t("You just receive a daily gift from !user", array("!user", $this->profile_nickname));
-
-			CMessageSpool::instance()->SendMessage($buddy->uid, $args);
-
-      //drupal_mail('os_poker', 'daily_gift', $buddy->mail, user_preferred_language($buddy->DrupalUser()), array('amount' => $amount, 'sender' => $this->DrupalUser(), 'account' => $buddy->DrupalUser()));
-		}
-
-		return $result;
-	}
+        //drupal_mail('os_poker', 'daily_gift', $buddy->mail, user_preferred_language($buddy->DrupalUser()), array('amount' => $amount, 'sender' => $this->DrupalUser(), 'account' => $buddy->DrupalUser()));
+      }
+    }
+		
+    return $result;
+  }
 
 	public function CompleteProfile()
 	{
