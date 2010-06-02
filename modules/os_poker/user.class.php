@@ -403,7 +403,7 @@ class CUser
     if ($result && db_affected_rows() == 0) {
       //No row affected, then the row for the user already exist and should be
       //updated only if (s)he has not sent the gift during the last 86400 seconds.
-      $result = db_query("UPDATE {poker_user_ext} SET last_gift = NOW() WHERE uid = %d AND NOW() - last_gift > 86400", $this->_user->uid);
+      $result = db_query("UPDATE {poker_user_ext} SET last_gift = NOW() WHERE uid = %d AND (last_gift IS NULL OR NOW() - last_gift > 86400)", $this->_user->uid);
     }
     //Only proceed if a row was affected by the previous INSERT or UPDATE query.
     if ($result && db_affected_rows() > 0) {
