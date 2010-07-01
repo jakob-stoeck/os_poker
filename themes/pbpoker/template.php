@@ -17,6 +17,28 @@
 //    You should have received a copy of the GNU Affero General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
+function pbpoker_user_picture($user) {
+    $result = db_query("SELECT authname FROM {authmap} WHERE uid = %s", $user->uid);
+
+    $fbid = null;
+    if ($uids = db_fetch_array($result)) {
+        $fbid = $uids['authname'];
+    }
+    $url = null;
+//    echo $user->picture;
+    if ($fbid!=null && $user->picture=='') {
+        $url ='https://graph.facebook.com/'.$fbid.'/picture';
+    }else if ($user->picture!='') {
+        $url =$user->picture;
+    }
+/*
+ * <div class="picture">
+  <a class="thickbox" title="Spielerprofil ansehen." href="/?q=poker/profile/profile/3288&amp;height=442&amp;width=603&amp;TB_iframe=true"><img width="118" height="118" title="christian's Profilbild" alt="christian's Profilbild" src="http://playboyde.pokersource.info//?q=sites/default/files/imagecache/user_picture/pictures/playboy.jpg"></a></div>
+ */
+
+//  <a class="thickbox" title="Spielerprofil ansehen." href="/?q=poker/profile/profile/3288&amp;height=442&amp;width=603&amp;TB_iframe=true">
+    return '<div align="middle" class="picture"><a class="thickbox" title="Spielerprofil ansehen." href="/?q=poker/profile/profile/'.$user->uid.'&amp;height=442&amp;width=603&amp;TB_iframe=true"><img src="'.$url.'"></a></div>';
+}
 function pbpoker_theme() {
   return array(
     'user_relationships' => array(

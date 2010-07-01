@@ -1,0 +1,13 @@
+name = Canvas Pages
+description = For <a href=http://developers.facebook.com/get_started.php target=_blank>traditional Facebook Apps</a>.  Also for Profile Tabs.
+package = Drupal for Facebook
+dependencies[] = fb
+dependencies[] = fb_app
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-05-13
+version = "6.x-2.0-rc2"
+core = "6.x"
+project = "fb"
+datestamp = "1273711810"
+

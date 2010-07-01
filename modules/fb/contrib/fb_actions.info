@@ -1,0 +1,13 @@
+name = Drupal for Facebook Actions
+description = Since facebook has deprecated user profiles, there is little reason to enable this module.  (May become deprecated in the near future).
+package = Drupal for Facebook - contrib
+dependencies[] = fb
+dependencies[] = trigger
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-05-13
+version = "6.x-2.0-rc2"
+core = "6.x"
+project = "fb"
+datestamp = "1273711810"
+

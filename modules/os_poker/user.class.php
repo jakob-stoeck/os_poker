@@ -99,8 +99,13 @@ class CUser
 
 	private function 	Load( $uid )
 	{
+		global $user;
+		if ($user!=null && $uid==$user->uid) {
+			$this->_user = $user;
+		}else { 
+			$this->_user = user_load(array('uid' => $uid));
+		}
     static $sql = "SELECT `name`, `value` FROM `{application_settings}` WHERE `application_id`=%d AND `user_id`=%d";
-		$this->_user = user_load(array('uid' => $uid));
 
 		if ($this->_user != FALSE)
 		{

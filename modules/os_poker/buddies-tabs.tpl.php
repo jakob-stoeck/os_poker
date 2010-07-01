@@ -23,5 +23,8 @@
 		<li <?php if ($action == NULL) { print 'class="active"'; } ?>><a href="?q=poker/buddies" ><?php print t("Buddies"); ?></a></li>
 		<li <?php if ($action == "search") { print 'class="active"'; } ?>><a href="?q=poker/buddies/search"><?php print t("Search"); ?></a></li>
 		<li <?php if ($action == "invite" || $action == "invitedlist") { print 'class="active"'; } ?>><a href="?q=poker/buddies/invite"><?php print t("Invite Friends"); ?></a></li>
+                <?php if (isset($user->fbu)):?>
+		<li <?php if ($action == "invitefb" || $action == "invitedfb")  { print 'class="active"'; } ?>><a href="?q=poker/buddies/invitefb"><?php print t("Invite Facebook Friends"); ?></a></li>
+                <?php endif;?>
 	</ul>
 </div>

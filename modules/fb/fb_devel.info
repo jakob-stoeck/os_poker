@@ -1,0 +1,16 @@
+name = Drupal for Facebook Devel
+description = <strong>HIGHLY RECOMMENDED</strong>.  Displays messages and blocks that help when developing and debugging Apps.  Do not even try to get started without this module.  Disable it later, on your production server when your site is live.
+package = Drupal for Facebook
+dependencies[] = fb
+dependencies[] = devel
+core = 6.x
+
+
+
+
+; Information added by drupal.org packaging script on 2010-05-13
+version = "6.x-2.0-rc2"
+core = "6.x"
+project = "fb"
+datestamp = "1273711810"
+
