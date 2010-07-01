@@ -19,16 +19,16 @@ if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 				</div>
 			<?php endif; ?>
 
-                        <?php if ((!function_exists('fb_is_iframe_canvas') || !fb_is_iframe_canvas()) && $user->uid==0 && !isset($user->fbu)):?>
+                        <?php if (function_exists('fb_is_iframe_canvas') && !fb_is_iframe_canvas() && $user->uid==0 && !isset($user->fbu)):?>
                                 <div style="float:left; margin-left:24px;margin-top:64px">
 					<?php print $facebook; ?>
 				</div>
                         <?php endif; ?>
 
-			<?php if ($header  ): ?>
+			<?php if ($header): ?>
 				<div id="header-blocks" class="region region-header">
 
-				<?php if (!function_exists('fb_is_iframe_canvas') || !fb_is_iframe_canvas() || $user->uid!=0):?>
+				<?php if ((function_exists('fb_is_iframe_canvas') && !fb_is_iframe_canvas()) || $user->uid!=0):?>
 				  <?php print $header; ?>
 				<?php endif; ?>
 
@@ -36,9 +36,7 @@ if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 
 			<?php endif;?>
 
-				<?php if(!isset($user->fbu)):
-                                        
-                                        ?>
+				<?php if(!isset($user->fbu)): ?>
 				<div style="float:right; margin-right:20px;margin-top:50px">
 					<?php print $facebook; ?>
 				</div>
