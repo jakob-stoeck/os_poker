@@ -14,7 +14,7 @@
 function fb_fbml_preprocess_page(&$vars, $hook) {
   global $_fb_app, $user, $conf;
   
-  if (fb_is_iframe_canvas()) {
+  if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()) {
     // Iframe in a canvas
     $vars['template_file'] = 'iframe';
   }

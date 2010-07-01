@@ -274,7 +274,7 @@
 
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
 
-    <?php if (fb_is_iframe_canvas()):?>
+    <?php if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
     <script type="text/javascript">
         FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init('sites/all/modules/fb/fb_receiver.html'); FB.CanvasClient.startTimerToSizeToContent(); });
     </script>

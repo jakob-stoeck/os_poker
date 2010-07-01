@@ -1,7 +1,7 @@
 <?php
 global $variables;
 print_r($node);
-if (fb_is_iframe_canvas()):?>
+if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 <style>
     #header .language-bar{
         display: none;
@@ -19,7 +19,7 @@ if (fb_is_iframe_canvas()):?>
 				</div>
 			<?php endif; ?>
 
-                        <?php if (!fb_is_iframe_canvas() && $user->uid==0 && !isset($user->fbu)):?>
+                        <?php if ((!function_exists('fb_is_iframe_canvas') || !fb_is_iframe_canvas()) && $user->uid==0 && !isset($user->fbu)):?>
                                 <div style="float:left; margin-left:24px;margin-top:64px">
 					<?php print $facebook; ?>
 				</div>
@@ -28,7 +28,7 @@ if (fb_is_iframe_canvas()):?>
 			<?php if ($header  ): ?>
 				<div id="header-blocks" class="region region-header">
 
-				<?php if (!fb_is_iframe_canvas() || $user->uid!=0):?>
+				<?php if (!function_exists('fb_is_iframe_canvas') || !fb_is_iframe_canvas() || $user->uid!=0):?>
 				  <?php print $header; ?>
 				<?php endif; ?>
 
