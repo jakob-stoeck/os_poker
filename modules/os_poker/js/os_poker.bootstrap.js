@@ -22,7 +22,7 @@ var OsPoker = OsPoker || {};
  * in any nested (i)frame. Yes this is an ugly hack. But its needed since
  * thickbox is so unflexible.
  */
-if(window != window.top) {
+if(window != os_poker_get_top_window(window)) {
   //Everything is wrapped in an anynmous function to avoid pollution of the
   //global namespace.
   (function($){
