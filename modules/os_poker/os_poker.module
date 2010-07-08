@@ -378,8 +378,8 @@ function os_poker_init()
 
 	function	os_poker_close_tutorial()
 	{
-		if(typeof window.top.tb_remove === 'function' ) {
-      			window.top.tb_remove();
+		if(typeof os_poker_get_top_window(window).tb_remove === 'function' ) {
+      			os_poker_get_top_window(window).tb_remove();
     		}
 	}
 
@@ -399,7 +399,7 @@ function os_poker_init()
 				$tourney_name = $tourneys[0]->name;
 				$table_id = $tourneys[0]->table_serial;
 				$inline_js = "
-window.top.tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
+os_poker_get_top_window(window).tourney_notify = {name: '{$tourney_name}', table_id: '{$table_id}'};
 ";
 
 				if (!isset($_REQUEST["game_id"]) ||
@@ -1080,12 +1080,12 @@ function os_poker_closebox_page() {
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
-    if(window == window.top) {
-       window.top.location = $front;
-    } else if(typeof window.top.tb_remove === 'function' ) {
-      window.top.tb_remove();
+    if(window == os_poker_get_top_window(window)) {
+       os_poker_get_top_window(window).location = $front;
+    } else if(typeof os_poker_get_top_window(window).tb_remove === 'function' ) {
+      os_poker_get_top_window(window).tb_remove();
     } else {
-      window.top.location = window.top.location;
+      os_poker_get_top_window(window).location = os_poker_get_top_window(window).location;
     }
     //--><!]]>
   </script></head></html>

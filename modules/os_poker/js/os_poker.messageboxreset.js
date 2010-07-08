@@ -20,7 +20,7 @@
  */ 
 
 Drupal.behaviors.mesageboxResetBehavior = function() {
-	var mbox_container = $("#block-menu-menu-messages-links a", window.top.document);
+	var mbox_container = $("#block-menu-menu-messages-links a", os_poker_get_top_window(window).document);
 	
 	var pix = mbox_container.find("#mbox_pix");										
 	var count = mbox_container.find("#mbox_count");						
