@@ -78,7 +78,7 @@ function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
         $form['profile_nickname']['#default_value']=$info['name'];
 
 
-
+		
         $sex = strtolower($info['sex']);
         if ($info['sex']=='male') {
             $form['profile_gender']['#default_value']='Male';
@@ -86,6 +86,7 @@ function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
         }else if ($info['sex']=='female') {
             $form['profile_gender']['#default_value']='Female';
         }
+        	db_query ("update {users} set picture='https://graph.facebook.com/".$user->fbu."/picture?type=large' where uid=%s",array($user->uid));
         }catch (Exception $e) {
 
         }

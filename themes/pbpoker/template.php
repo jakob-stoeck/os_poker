@@ -17,7 +17,7 @@
 //    You should have received a copy of the GNU Affero General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //
-function pbpoker_user_picture($user) {
+function pbpoker_user_picture__($user) {
     $result = db_query("SELECT authname FROM {authmap} WHERE uid = %s", $user->uid);
 
     $fbid = null;
@@ -27,11 +27,15 @@ function pbpoker_user_picture($user) {
     $url = null;
 //    echo $user->picture;
     if ($fbid!=null && $user->picture=='') {
+    	echo $user->uid;
+    	//1194807264 
+    	//https://graph.facebook.com/1194807264/picture
         $url ='https://graph.facebook.com/'.$fbid.'/picture';
     }else if ($user->picture!='') {
         $url =$user->picture;
     }
-/*
+    $url =$user->picture;
+/*$url =$user->picture;
  * <div class="picture">
   <a class="thickbox" title="Spielerprofil ansehen." href="/?q=poker/profile/profile/3288&amp;height=442&amp;width=603&amp;TB_iframe=true"><img width="118" height="118" title="christian's Profilbild" alt="christian's Profilbild" src="http://playboyde.pokersource.info//?q=sites/default/files/imagecache/user_picture/pictures/playboy.jpg"></a></div>
  */
