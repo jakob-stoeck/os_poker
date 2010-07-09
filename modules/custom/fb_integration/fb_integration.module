@@ -1,20 +1,13 @@
 <?php
 
 function fb_integration_user($op, &$edit, &$account, $category = NULL) {
-
-
     $user = $account;
-
     if ($op!='login') {
         return;
     }
-
-
     if (!isset($user->fbu)) {
         return;
     }
-
-
     global $fb;
     //fb_get_friends($user->fbu);
     //$items = $fb->api_client->friends_getAppUsers();
@@ -55,16 +48,18 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
 
 
 }
+
 function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_state) {
     global $user;
     global $fb;
-
+    
     if (isset($user->fbu) ) {
-        //print_r($form['profile_nickname']);
-        //$info = fb_users_getInfo(array($user->fbu));
-
-
-
+        $folder =  file_directory_path().'/fb_pictures';
+    	$url = 'https://graph.facebook.com/'.$user->fbu.'/picture?type=large';
+    	file_check_directory($folder,FILE_CREATE_DIRECTORY);
+    	$file= $folder.'/pic_'.$user->fbu.'.jpg';
+    	file_save_data(file_get_contents($url),$file);
+		db_query ("update {users} set picture='".$file."' where uid=%s",array($user->uid));
         try {
         $info = $fb->api_client->users_getStandardinfo(array($user->fbu),array('name','first_name','sex','current_location','locale','birthday'));
         $info=$info[0];
@@ -86,7 +81,7 @@ function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
         }else if ($info['sex']=='female') {
             $form['profile_gender']['#default_value']='Female';
         }
-        	db_query ("update {users} set picture='https://graph.facebook.com/".$user->fbu."/picture?type=large' where uid=%s",array($user->uid));
+        	
         }catch (Exception $e) {
 
         }
