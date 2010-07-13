@@ -268,7 +268,7 @@
     <div id="closure-blocks" class="region region-closure"><?php print $closure_region; ?></div>
   <?php endif; ?>
 
-
+  <?php print $closure; ?>
   <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
