@@ -1,6 +1,4 @@
 <?php
-global $variables;
-print_r($node);
 if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 <style>
     #header .language-bar{

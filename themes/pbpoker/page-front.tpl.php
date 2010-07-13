@@ -271,7 +271,6 @@
   <?php print $closure; ?>
   <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
-<?php print_r($user);?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
 
     <?php if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>

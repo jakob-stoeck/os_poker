@@ -1080,6 +1080,18 @@ function os_poker_closebox_page() {
   print <<<EOT
   <html><head><script type="text/javascript">
   <!--//--><![CDATA[//><!--
+  function os_poker_get_top_window(win) {
+	try {
+		
+		if (win.parent.name) {
+			return os_poker_get_top_window(win.parent);
+		}
+	} catch (e) {
+		return win;
+	}
+	return win;
+
+}
     if(window == os_poker_get_top_window(window)) {
        os_poker_get_top_window(window).location = $front;
     } else if(typeof os_poker_get_top_window(window).tb_remove === 'function' ) {
