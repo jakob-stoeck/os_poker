@@ -255,6 +255,6 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
-
+HANSI
 </body>
 </html>
