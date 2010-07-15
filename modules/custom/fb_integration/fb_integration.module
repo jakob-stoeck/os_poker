@@ -1,5 +1,6 @@
 <?php
 $fb_connect_logging_out =true;
+header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 function fb_integration_user($op, &$edit, &$account, $category = NULL) {
 	if ($op == 'logout') {
       global $_fb, $fb_app;
