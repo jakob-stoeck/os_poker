@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_devel.install,v 1.3 2010/03/20 19:44:14 yogadex Exp $
+// $Id: fb_devel.install,v 1.4 2010/06/23 19:39:48 yogadex Exp $
 /**
  * @file
  * Install file for fb_devel.module.
@@ -53,15 +53,6 @@ function fb_devel_requirements($phase) {
     );
   }
   
-  // arg_separator sanity check
-  $sep = ini_get('arg_separator.output');
-  if ($sep != '&') {
-    $items[] = array(
-      'title' => $t('Argument Separator'),
-      'severity' => REQUIREMENT_ERROR,
-      'description' => $t('Facebook client libraries will not work properly if arg_separator.output is not "&".  Currently the value is "!sep".  Please change this in settings.php or php.ini.', array('!sep' => check_plain($sep))),
-    );
-  }
   
   // clean url sanity check
   if (!variable_get('clean_url', FALSE) && module_exists('fb_canvas') && $phase == 'runtime') {

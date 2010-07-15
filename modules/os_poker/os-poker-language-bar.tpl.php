@@ -64,7 +64,7 @@
 		{
 			print implode("", $output);
       if (user_is_logged_in()) {
-        print l(t('Logout'), 'poker/logout', array('attributes'=> array('class' => 'logout')));
+        print l(t('Logout'), 'logout', array('attributes'=> array('class' => 'logout')));
       }
 		}
 		else

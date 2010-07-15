@@ -1,10 +1,11 @@
 <?php
-if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
+if (function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()):?>
 <style>
     #header .language-bar{
         display: none;
 }
 </style>
+
 <?php endif ?>
 <div id="header">
 		<div id="header-inner" class="clear-block">
@@ -17,7 +18,7 @@ if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 				</div>
 			<?php endif; ?>
 
-                        <?php if (function_exists('fb_is_iframe_canvas') && !fb_is_iframe_canvas() && $user->uid==0 && !isset($user->fbu)):?>
+                        <?php if (function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe() && $user->uid==0 && !isset($user->fbu)):?>
                                 <div style="float:left; margin-left:24px;margin-top:64px">
 					<?php print $facebook; ?>
 				</div>
@@ -26,7 +27,7 @@ if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
 			<?php if ($header): ?>
 				<div id="header-blocks" class="region region-header">
 
-				<?php if ((function_exists('fb_is_iframe_canvas') && !fb_is_iframe_canvas()) || $user->uid!=0):?>
+				<?php if ((function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe()) || $user->uid!=0):?>
 				  <?php print $header; ?>
 				<?php endif; ?>
 

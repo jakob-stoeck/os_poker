@@ -1,6 +1,26 @@
 <?php
-
+$fb_connect_logging_out =true;
 function fb_integration_user($op, &$edit, &$account, $category = NULL) {
+	if ($op == 'logout') {
+      global $_fb, $fb_app;
+      try {
+		if ($_fb) {
+			$appId = $_fb->getAppId();
+			$cookieId = 'fbs_'.$appId;
+			print_r($_COOKIE);
+			//unset($_COOKIE[$cookieId]);
+			setcookie($cookieId,"",time()-1000);
+			session_unset();
+			session_destroy();
+		
+			
+			
+        }
+      } catch (Exception $e) {
+		fb_log_exception($e, t('Failed to log out of fbConnect session'));
+      }
+	}
+
     $user = $account;
     if ($op!='login') {
         return;
@@ -51,39 +71,49 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
 
 function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_state) {
     global $user;
-    global $fb;
+    global $_fb;
     
     if (isset($user->fbu) ) {
+    
         $folder =  file_directory_path().'/fb_pictures';
     	$url = 'https://graph.facebook.com/'.$user->fbu.'/picture?type=large';
     	file_check_directory($folder,FILE_CREATE_DIRECTORY);
     	$file= $folder.'/pic_'.$user->fbu.'.jpg';
     	file_save_data(file_get_contents($url),$file);
-		db_query ("update {users} set picture='".$file."' where uid=%s",array($user->uid));
+		
+
         try {
-        $info = $fb->api_client->users_getStandardinfo(array($user->fbu),array('name','first_name','sex','current_location','locale','birthday'));
-        $info=$info[0];
-        if ($info['locale']!='') {
-            $locales = explode('_',$info['locale']);
-            $locale = strtoupper($locales[0]);
+        $me = $_fb->api('/me');
+        db_query ("update {users} set mail='".$me['email']."',picture='".$file."' where uid=%s",array($user->uid));
+		//$user->email = $me['email'];
+		
+        if ($me!=null) {
+            $locales = explode('_',$me['locale']);
+            $locale = strtoupper($locales[1]);
             $form['profile_country']['#default_value'] = $locale;
         }
-
-        $form['profile_city']['#default_value'] = $info['current_location'];
-        $form['profile_nickname']['#default_value']=$info['name'];
-
-
-		
-        $sex = strtolower($info['sex']);
-        if ($info['sex']=='male') {
+        
+        $birthdayAry = explode('/',$me['birthday']);
+        if (count($birthdayAry)==3) {
+         
+        	$form['profile_dob']['#default_value']['day']=(int)$birthdayAry[1];
+        	$form['profile_dob']['#default_value']['month']=(int)$birthdayAry[0];
+        	$form['profile_dob']['#default_value']['year']=$birthdayAry[2];
+        }
+        $form['profile_nickname']['#default_value']=$me['name'];
+        //$form['mail']['#default_value']=$me['email'];
+        //$form['mail']['#type']='textfield';
+        //$form['mail']['#attributes']['type']='hidden';
+        $names = explode (',',$me['hometown']['name']);
+        $form['profile_city']['#default_value']=$names[0];
+        $sex = strtolower($me['gender']);
+        if ($sex=='male' || $sex=='männlich') {
             $form['profile_gender']['#default_value']='Male';
-            //$sex=='male'?$form['profile_gender']['#default_value']='Male':$form['profile_gender']['#default_value']='Female';
-        }else if ($info['sex']=='female') {
+        }else if ($sex=='female' || $sex=='female') {
             $form['profile_gender']['#default_value']='Female';
         }
-        	
         }catch (Exception $e) {
-
+			echo $e->getMessage();
         }
 
     }

@@ -13,21 +13,15 @@ Drupal.behaviors.fb_connect = function(context) {
     
   // Tell Facebook to parse any XFBML elements found in the context.
   FB_RequireFeatures(['XFBML'], function() {
-      if ($(context)) {
-
-
       $(context).each(function() {
           var elem = $(this).get(0);
           //alert('fb_connect: ' + elem + $(elem).html()); // debug
           FB.XFBML.Host.parseDomElement(elem);
           
       });
-      }
       // Respect fb_connect classes on new content.
-      var show = $('.fb_connect_show', context);
-      if (show!=null)show.show();
-      var hide = $('.fb_connect_hide', context)
-      if (hide!=null)hide.hide();
+      $('.fb_connect_show', context).show();
+      $('.fb_connect_hide', context).hide();
   });
 
   // Support for easy fbml popup markup which degrades when javascript not enabled.
@@ -123,17 +117,20 @@ FB_Connect.sessionEnd = function(callback) {
   }
 };
 
+// An FB.Event handler
+FB_Connect.sessionChange = function(response) {
+  alert('FB_Connect.sessionChange');
+  var status = {'changed': true, 'fbu': response.session.uid};
+  $.event.trigger('fb_connect_status', status);    
+};
+
+
 // TODO: for some reason, when you start connected, then log out of facebook and log in as another user, this routine still thinks you are the first user, the next time a page is loaded.
 FB_Connect.on_connected = function(fbu) {
   var status = {'changed': false, 'fbu': fbu};
   if ((FB_Connect.fbu === 0 || Drupal.settings.fb_connect.fbu != fbu) &&
       Drupal.settings.fb_connect.in_iframe != 1) {
-      status.changed = true;
-  }
-  if ((FB_Connect.fbu === 0 || Drupal.settings.fb_connect.fbu != fbu) &&
-      Drupal.settings.fb_connect.in_iframe == 1) {
-      var url = window.location+'&fb_sig_user='+fbu;
-      window.location.href=url;
+    status.changed = true;
   }
   FB_Connect.fbu = fbu;
   $.event.trigger('fb_connect_status', status);

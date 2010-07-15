@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_app.admin.inc,v 1.11 2010/04/10 00:22:02 yogadex Exp $
+// $Id: fb_app.admin.inc,v 1.15 2010/06/23 19:40:41 yogadex Exp $
 /**
  * @file
  * Admin pages and forms for facebook applications.
@@ -33,7 +33,6 @@ function fb_app_fb_admin($op, $data, &$return) {
   elseif (($op == FB_ADMIN_OP_LOCAL_LINKS) && isset($fb_app->fba_id)) {
     // Path to edit this app.
     $return[t('edit')] = FB_PATH_ADMIN_APPS . '/' . $fb_app->label . '/fb_app';
-    // TODO!!! Support delete, and maybe view.
   }
 }
 
@@ -129,8 +128,6 @@ function fb_app_edit_form($form_state, $fb_app = NULL) {
     '#default_value' => $fb_app->id,
     '#description' => t('Facebook will generate this value when you create the application.'),
   );
-
-  
   
   // fb_app_data is a placeholder where other modules can attach settings.
   $form['fb_app_data'] = array('#tree' => TRUE);  
@@ -150,8 +147,9 @@ function fb_app_edit_form($form_state, $fb_app = NULL) {
     '#type' => 'submit',
     '#value' => t('Save'),
     '#weight' => 5,
-    '#submit' => array('fb_app_admin_form_submit'),
   );
+  
+  $form['#submit'] = array('fb_app_admin_form_submit');
   if ($fb_app->fba_id) {
     $form['buttons']['delete'] = array(
       '#type' => 'submit',
@@ -170,11 +168,10 @@ function fb_app_edit_form($form_state, $fb_app = NULL) {
 function fb_app_edit_form_validate($form, &$form_state) {
   $fb_app = (object) $form_state['values'];
   $fb_app->data = serialize($fb_app->fb_app_data);
-	
+  
   if ($form_state['values']['op'] != t('Delete')) {
     // Labels must be unique.
     $apps = fb_get_all_apps();
-    
     foreach ($apps as $app) {
       if ($app->label == $fb_app->label &&
           (!isset($form['#fb_app']) || $form['#fb_app']->label != $fb_app->label)) {
@@ -292,7 +289,7 @@ function fb_app_admin_delete_confirm_form_submit($form, &$form_state) {
   if ($form_state['values']['confirm']) {
     $fba_id = $form_state['values']['fba_id'];
 
-    // TODO: invoke hooks so that third-party modules may act.
+    // @TODO: invoke hooks so that third-party modules may act.
     
     db_query("DELETE FROM {fb_app} WHERE fba_id = %d",
              $fba_id);
@@ -307,15 +304,16 @@ function fb_app_admin_delete_confirm_form_submit($form, &$form_state) {
  * Sets callback URLs and other properties of a facebook app.  Calls the facebook 
  */
 function fb_app_set_app_properties($fb_app) {
-	
   $data = fb_get_app_data($fb_app);
   $fb_app_data = $data['fb_app'];
   $props = fb_invoke(FB_ADMIN_OP_SET_PROPERTIES, array('fb_app' => $fb_app), array(), FB_ADMIN_HOOK);
   if (count($props)) {
     if ($fb_app_data['set_app_props']) {
-      if ($fb = fb_api_init($fb_app, FB_FBU_CURRENT)) {
+      if ($fb = fb_api_init($fb_app)) {
         try {
-          $fb->api_client->admin_setAppProperties($props);
+          $result = fb_call_method($fb, 'admin.setAppProperties', array(
+                                     'properties' => json_encode($props),
+                                   ));
           drupal_set_message(t('Note that it may take several minutes for property changes to propigate to all facebook servers.'));
           if (fb_verbose()) {
             drupal_set_message(t('Set the following properties for %label application:<br/><pre>!props</pre>', array('%label' => $fb_app->label, '!props' => print_r($props, 1))));
@@ -326,6 +324,7 @@ function fb_app_set_app_properties($fb_app) {
                      l(t('view apps'), FB_PATH_ADMIN));
           }
         } catch (Exception $e) {
+          drupal_set_message(t('Failed to set the following properties for %label application.  You may need to manually editing remote settings!<br/><pre>!props</pre>', array('%label' => $fb_app->label, '!props' => print_r($props, 1))), 'error');
           fb_log_exception($e, t('Failed to set application properties on Facebook'));
         }
       }

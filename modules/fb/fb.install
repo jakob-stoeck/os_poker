@@ -1,5 +1,5 @@
 <?php
-// $Id: fb.install,v 1.14.2.1 2010/05/13 00:43:35 yogadex Exp $
+// $Id: fb.install,v 1.15 2010/05/13 18:34:55 yogadex Exp $
 /**
  * @file
  * Install file to support fb.module.
@@ -42,7 +42,7 @@ function fb_requirements($phase) {
   $items[] = $status;
   
   $status = array('title' => $t('Facebook Client API'));
-  $fb_platform = variable_get('fb_api_file', 'facebook-platform/php/facebook.php');
+  $fb_platform = variable_get('fb_api_file', 'sites/all/libraries/facebook-php-sdk/src/facebook.php');
 
   if (class_exists('Facebook')) {
     $status['description'] = $t('Facebook Client API loaded.');

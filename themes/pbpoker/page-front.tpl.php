@@ -99,7 +99,6 @@
   <?php print css_using_cdn($styles); ?>
   <?php print $special_scripts; ?>
   <?php print $analytic_scripts; ?>
-  
 </head>
 
 <body class="<?php print $body_classes; ?>">
@@ -269,14 +268,43 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
+   
   <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
+<script>
+</script>
+ 
+  <script type="text/javascript">
+  
+  function fb_extended_login()  {
+	  return ;
+		FB.login(function(response) {
+		  	  if (response.session) {
+		  	    if (response.perms) {
+		  	      // user is logged in and granted some permissions.
+		  	      // perms is a comma separated list of granted permissions
+		  		      
+		  	    } else {
+		  	    	
+		  	      // user is logged in, but did not grant any permissions
+		  	    }
+		  	  } else {
+		  		  //alert("user is not logged in");
+		  	    // user is not logged in
+		  	  }
+		  	}, {perms:'email,read_stream,publish_stream,offline_access'});
+  }
+      
+  <?php if (fb_canvas_is_iframe()):?>
+    
+    
+  
+    FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init('sites/all/modules/fb/fb_receiver.html'); FB.CanvasClient.startTimerToSizeToContent(); });
 
-    <?php if (function_exists('fb_is_iframe_canvas') && fb_is_iframe_canvas()):?>
-    <script type="text/javascript">
-        FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init('sites/all/modules/fb/fb_receiver.html'); FB.CanvasClient.startTimerToSizeToContent(); });
-    </script>
+        
+  
     <?php endif?>
+    </script>
 </body>
 </html>

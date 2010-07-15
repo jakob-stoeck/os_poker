@@ -299,6 +299,7 @@ function fb_register_cron() {
  * Register users whenever an email address may have changed.
  */
 function fb_register_user($op, &$edit, &$account, $category = NULL) {
+return;
   if ($op == 'delete') {
     db_query("DELETE FROM {fb_register} WHERE uid = %d",
              $account->uid);
