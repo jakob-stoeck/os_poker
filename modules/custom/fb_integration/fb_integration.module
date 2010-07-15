@@ -7,13 +7,10 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
 		if ($_fb) {
 			$appId = $_fb->getAppId();
 			$cookieId = 'fbs_'.$appId;
-			print_r($_COOKIE);
 			//unset($_COOKIE[$cookieId]);
 			setcookie($cookieId,"",time()-1000);
 			session_unset();
 			session_destroy();
-		
-			
 			
         }
       } catch (Exception $e) {
