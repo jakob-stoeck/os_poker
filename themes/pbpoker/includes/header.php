@@ -1,4 +1,9 @@
+<script>
+
+var user_logged_in =<?php echo $user->uid==0 ? 'false':'true';?>;
+</script>
 <?php
+
 if (function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()):?>
 <style>
     #header .language-bar{

@@ -10,6 +10,7 @@ window.fbAsyncInit = function() {
     settings.cookie = true;
   }
   FB.init(settings);
+  FB.Canvas.setSize();
   FB.Event.subscribe('auth.sessionChange', FB_JS.sessionChange); // Catches login via connect button.
   jQuery.event.trigger('fb_init');  // Trigger event so that other code can now execute.
 };
@@ -18,7 +19,12 @@ FB_JS = function(){};
 
 // Facebook pseudo-event handler.
 FB_JS.sessionChange = function(response) {
+	
+	if (response.status=='connected' && user_logged_in==true){
+		return ;
+	}
   var status = {'changed': true, 'session': response.session, 'response' : response};
+  
   if (response.session) {
     status.fbu = response.session.uid;
   }

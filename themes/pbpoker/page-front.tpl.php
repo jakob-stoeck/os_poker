@@ -273,38 +273,8 @@
   <?php print $footer_scripts; ?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
 <script>
-</script>
- 
-  <script type="text/javascript">
-  
-  function fb_extended_login()  {
-	  return ;
-		FB.login(function(response) {
-		  	  if (response.session) {
-		  	    if (response.perms) {
-		  	      // user is logged in and granted some permissions.
-		  	      // perms is a comma separated list of granted permissions
-		  		      
-		  	    } else {
-		  	    	
-		  	      // user is logged in, but did not grant any permissions
-		  	    }
-		  	  } else {
-		  		  //alert("user is not logged in");
-		  	    // user is not logged in
-		  	  }
-		  	}, {perms:'email,read_stream,publish_stream,offline_access'});
-  }
       
-  <?php if (fb_canvas_is_iframe()):?>
-    
-    
   
-    FB_RequireFeatures(["CanvasUtil"], function(){ FB.XdComm.Server.init('sites/all/modules/fb/fb_receiver.html'); FB.CanvasClient.startTimerToSizeToContent(); });
-
-        
-  
-    <?php endif?>
     </script>
 </body>
 </html>
