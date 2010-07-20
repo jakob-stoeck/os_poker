@@ -34,7 +34,7 @@ function	os_poker_goto_table(game_id)
   if (typeof Drupal.settings.os_poker.language == 'object') {
     location += '&q=' + Drupal.settings.os_poker.language.language;
   }
-	document.location = location;
+  document.location = location;
 }
 
 function	os_poker_goto_lobby()
@@ -235,8 +235,8 @@ function	os_poker_activate_item(elem)
 	os_poker_send_message({type:"os_poker_activate_item", id_item:parseInt(elem.id)});
 	$(elem).parent().children().removeClass("active");
 	$(elem).addClass('active');
-  if(typeof window.top.tb_remove === 'function') {
-    window.top.tb_remove();
+  if(typeof os_poker_get_top_window(window).tb_remove === 'function') {
+	  os_poker_get_top_window(window).tb_remove();
   }
 }
 
@@ -280,17 +280,17 @@ function os_poker_play_now_clicked()
  * @param win
  *   The window object
  */
-function get_top_window(win) {
+function os_poker_get_top_window(win) {
 	try {
-		if (win.parent != win) {
-			// The topmost window is its own parent
-			return get_top_window(win.parent);
+		
+		if (win.parent.name) {
+			return os_poker_get_top_window(win.parent);
 		}
-	} catch(e) {
-		// Parent window is not in the same domain anymore
+	} catch (e) {
+		return win;
 	}
-
 	return win;
+
 }
 
 
@@ -301,7 +301,7 @@ function get_top_window(win) {
  */
 function os_poker_init_router()
 {
-	var top_window = get_top_window(window);
+	var top_window = os_poker_get_top_window(window);
 
 	if (top_window != window) {
 		if (top_window.location.href.match(/#(load_.+)/) ||

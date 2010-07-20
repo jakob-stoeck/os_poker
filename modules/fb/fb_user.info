@@ -1,0 +1,13 @@
+name= User Management
+description = Create local accounts for users of Facebook Apps.  Uses Drupal's authmap to link facebook accounts with local accounts.
+package = Drupal for Facebook
+dependencies[] = fb
+dependencies[] = fb_app
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-07-14
+version = "6.x-3.x-dev"
+core = "6.x"
+project = "fb"
+datestamp = "1279065976"
+

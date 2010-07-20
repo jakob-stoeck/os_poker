@@ -17,6 +17,7 @@ stylesheets[all][]   = pbpoker.css
 stylesheets[print][] = print.css
 
 regions[header]         		= header
+regions[facebook]         		= Facebook Connect
 regions[navbar]         		= navigation bar
 regions[left]           		= left sidebar
 regions[right]         		 	= right sidebar

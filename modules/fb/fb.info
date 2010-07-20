@@ -1,0 +1,12 @@
+name = Drupal for Facebook
+description = Initializes facebook's PHP and Javascript client libraries.  Allows you to add Like buttons and other FBML tags to your web site.  (See <em>modules/fb/README.txt</em>.)
+package = Drupal for Facebook
+core = 6.x
+php = 5
+
+; Information added by drupal.org packaging script on 2010-07-14
+version = "6.x-3.x-dev"
+core = "6.x"
+project = "fb"
+datestamp = "1279065976"
+

@@ -104,28 +104,15 @@
 </head>
 
 <body class="<?php print $body_classes; ?>">
+
   <div id="page">
 	<div id="page-inner">
 
-    <div id="header">
-		<div id="header-inner" class="clear-block">
-			<?php if ($logo): ?>
-				<div id="logo">
-					<a href="<?php print $front_page; ?>" title="<?php print t('Home'); ?>" rel="home">
-						<img src="<?php print $logo; ?>" alt="<?php print t('Home'); ?>" id="logo-image" />
-					</a>
-				</div>
-			<?php endif; ?>
-
-			<?php if ($header): ?>
-				<div id="header-blocks" class="region region-header">
-				  <?php print $header; ?>
-				</div> <!-- /#header-blocks -->
-			<?php endif; ?>
-			<div class="clear"></div>
-		</div>
-	</div> <!-- /#header-inner, /#header -->
-	<?php if ($navbar): ?>
+          <?php
+        require_once('sites/all/themes/pbpoker/includes/header.php');
+        ?>
+<?php if ($navbar): ?>
+            
 	<div id="navbar">
 		<div id="navbar-inner" class="clear-block region region-navbar">
 			<a name="navigation" id="navigation"></a>
@@ -256,6 +243,5 @@
 
   <?php print $closure; ?>
   <?php print $footer_scripts; ?>
-
 </body>
 </html>

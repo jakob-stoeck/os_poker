@@ -69,6 +69,11 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 			  $output .= theme('buddies_search', drupal_get_form('os_poker_buddy_search_form'), CUserManager::instance()->CurrentUser());
 			}
 		break;
+		case "invitefb":
+			$block = module_invoke('fb_friend', 'block', 'view', FB_FRIEND_DELTA_INVITE_APP);
+			
+			$output .= '<div style="height:420px;overflow:auto">'.$block['content'].'</div>';
+		break;
 		case "invite":
 			$output .= theme('buddies_invite', drupal_get_form('os_poker_buddies_invite_form'), CUserManager::instance()->CurrentUser());
 

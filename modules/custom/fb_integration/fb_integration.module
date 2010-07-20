@@ -1,0 +1,125 @@
+<?php
+
+function fb_integration_init() {
+	if (isset($_REQUEST['fb_int_sig_in_iframe'])) {
+		$_REQUEST['fb_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe']; 
+	}
+	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
+}
+function fb_integration_user($op, &$edit, &$account, $category = NULL) {
+	if ($op == 'logout') {
+      global $_fb, $fb_app;
+      try {
+		if ($_fb) {
+			$appId = $_fb->getAppId();
+			$cookieId = 'fbs_'.$appId;
+			//unset($_COOKIE[$cookieId]);
+			setcookie($cookieId,"",time()-1000);
+			session_unset();
+			session_destroy();
+			
+        }
+      } catch (Exception $e) {
+		fb_log_exception($e, t('Failed to log out of fbConnect session'));
+      }
+	}
+
+    $user = $account;
+    if ($op!='login') {
+        return;
+    }
+    if (!isset($user->fbu)) {
+        return;
+    }
+    global $fb;
+    //fb_get_friends($user->fbu);
+    //$items = $fb->api_client->friends_getAppUsers();
+    //print_r($items);
+    //$friends_ids = fb_user_get_local_friends($user->fbu);
+    //print_r($friends_ids);
+
+    $fbus = $fb->api_client->friends_getAppUsers();//array(1328933654,100000684168920,100001206182306 ) ;
+
+    $query = "SELECT uid FROM {authmap}
+        left join {user_relationships} on {user_relationships}.requestee_id = {authmap}.uid
+	and {user_relationships}.requester_id=%s
+        WHERE authname IN (%s) AND module='%s'  and {user_relationships}.requestee_id is null"  ; // better? way using authmap.
+    $args[] = $user->uid;
+    $args[] = implode(',', $fbus);
+    $args[] = 'fb_user';
+
+    $result = db_query($query, $args);
+    $uids = array();
+    while ($data = db_fetch_object($result)) {
+      if ($data->uid) {
+        $uids[] = $data->uid;
+      }
+    }
+    if (count($uids)==0) {
+        return ;
+    }
+    $rtype = user_relationships_type_load(array('name'=>'buddy'));
+
+    for ($i=0;$i<count($uids);$i++) {
+      $relationship = new stdClass();
+      $relationship->requestee_id = $uids[$i];
+      $relationship->requester_id=$user->uid;
+      $relationship->rtid =$rtype->rtid;
+      $relationship->approved = 1;
+      user_relationships_save_relationship($relationship,'fbapprove');
+    }
+
+
+}
+
+function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_state) {
+    global $user;
+    global $_fb;
+    
+    if (isset($user->fbu) ) {
+    
+        $folder =  file_directory_path().'/fb_pictures';
+    	$url = 'https://graph.facebook.com/'.$user->fbu.'/picture?type=large';
+    	file_check_directory($folder,FILE_CREATE_DIRECTORY);
+    	$file= $folder.'/pic_'.$user->fbu.'.jpg';
+    	file_save_data(file_get_contents($url),$file);
+		
+
+        try {
+        $me = $_fb->api('/me');
+        db_query ("update {users} set mail='".$me['email']."',picture='".$file."' where uid=%s",array($user->uid));
+		//$user->email = $me['email'];
+		
+        if ($me!=null) {
+            $locales = explode('_',$me['locale']);
+            $locale = strtoupper($locales[1]);
+            $form['profile_country']['#default_value'] = $locale;
+        }
+        
+        $birthdayAry = explode('/',$me['birthday']);
+        if (count($birthdayAry)==3) {
+         
+        	$form['profile_dob']['#default_value']['day']=(int)$birthdayAry[1];
+        	$form['profile_dob']['#default_value']['month']=(int)$birthdayAry[0];
+        	$form['profile_dob']['#default_value']['year']=$birthdayAry[2];
+        }
+        $form['profile_nickname']['#default_value']=$me['name'];
+        //$form['mail']['#default_value']=$me['email'];
+        //$form['mail']['#type']='textfield';
+        //$form['mail']['#attributes']['type']='hidden';
+        $names = explode (',',$me['hometown']['name']);
+        $form['profile_city']['#default_value']=$names[0];
+        $sex = strtolower($me['gender']);
+        if ($sex=='male' || $sex=='männlich') {
+            $form['profile_gender']['#default_value']='Male';
+        }else if ($sex=='female' || $sex=='female') {
+            $form['profile_gender']['#default_value']='Female';
+        }
+        }catch (Exception $e) {
+			echo $e->getMessage();
+        }
+
+    }
+}
+
+?>
