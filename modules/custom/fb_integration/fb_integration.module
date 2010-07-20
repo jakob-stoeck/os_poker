@@ -7,8 +7,10 @@ function fb_integration_init() {
 	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 }
 function fb_integration_user($op, &$edit, &$account, $category = NULL) {
+	
+	
+	global $_fb, $fb_app;
 	if ($op == 'logout') {
-      global $_fb, $fb_app;
       try {
 		if ($_fb) {
 			$appId = $_fb->getAppId();
@@ -24,27 +26,23 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
       }
 	}
 
-    $user = $account;
+    
     if ($op!='login') {
         return;
     }
-    if (!isset($user->fbu)) {
+    
+    if ($_fb==null) {
         return;
     }
-    global $fb;
-    //fb_get_friends($user->fbu);
-    //$items = $fb->api_client->friends_getAppUsers();
-    //print_r($items);
-    //$friends_ids = fb_user_get_local_friends($user->fbu);
-    //print_r($friends_ids);
 
-    $fbus = $fb->api_client->friends_getAppUsers();//array(1328933654,100000684168920,100001206182306 ) ;
+    
 
+    $fbus = $_fb->api(array('method' => 'friends.getAppUsers'));//array(1328933654,100000684168920,100001206182306 ) ;
     $query = "SELECT uid FROM {authmap}
         left join {user_relationships} on {user_relationships}.requestee_id = {authmap}.uid
 	and {user_relationships}.requester_id=%s
         WHERE authname IN (%s) AND module='%s'  and {user_relationships}.requestee_id is null"  ; // better? way using authmap.
-    $args[] = $user->uid;
+    $args[] = $account->uid;
     $args[] = implode(',', $fbus);
     $args[] = 'fb_user';
 
@@ -63,7 +61,7 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
     for ($i=0;$i<count($uids);$i++) {
       $relationship = new stdClass();
       $relationship->requestee_id = $uids[$i];
-      $relationship->requester_id=$user->uid;
+      $relationship->requester_id=$account->uid;
       $relationship->rtid =$rtype->rtid;
       $relationship->approved = 1;
       user_relationships_save_relationship($relationship,'fbapprove');
