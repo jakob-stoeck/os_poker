@@ -256,5 +256,6 @@
   <?php endif; ?>
 
   <?php print $footer_scripts; ?>
+  <?php print $closure; ?>
 </body>
 </html>
