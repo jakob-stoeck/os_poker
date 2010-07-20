@@ -20,7 +20,7 @@
 /**
  * This class implements the basic OpenSocia container functionality, see the RPC service hooks in the init function as reference
  */
-var Container = $.extend({
+var Container = Class.extend({
 	
 	maxHeight: 4096,
 	
