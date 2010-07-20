@@ -255,7 +255,6 @@
     <div id="closure-blocks" class="region region-closure"><?php print $closure_region; ?></div>
   <?php endif; ?>
 
-  <?php print $closure; ?>
   <?php print $footer_scripts; ?>
 </body>
 </html>
