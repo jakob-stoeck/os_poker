@@ -36,7 +36,7 @@
             'class' => 'thickbox',
           ),
           'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
-        )));
+        ));
 		?>
 	</div>
 </div>
