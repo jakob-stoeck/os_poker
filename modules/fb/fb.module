@@ -380,7 +380,6 @@ function fb_api_check_session($fb) {
     $success = TRUE;
   }
   catch (Exception $e) {
-  print_r($e);
     $success = FALSE;
   }
   return $success;
