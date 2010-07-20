@@ -37,7 +37,11 @@ function fb_integration_user($op, &$edit, &$account, $category = NULL) {
 
     
 
-    $fbus = $_fb->api(array('method' => 'friends.getAppUsers'));//array(1328933654,100000684168920,100001206182306 ) ;
+	try { 
+    	$fbus = $_fb->api(array('method' => 'friends.getAppUsers'));//array(1328933654,100000684168920,100001206182306 ) ;
+    }catch (Exception $e) {
+    	return; 
+    }
     $query = "SELECT uid FROM {authmap}
         left join {user_relationships} on {user_relationships}.requestee_id = {authmap}.uid
 	and {user_relationships}.requester_id=%s
