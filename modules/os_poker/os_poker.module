@@ -892,14 +892,6 @@ function os_poker_menu() {
       'page callback'    => 'os_poker_logout',
       'type'             => MENU_CALLBACK,
     ),
-    'poker/buddies' => array(
-      'title'            => '',
-      'access callback'  => 'user_is_logged_in',
-      'page arguments'   => array(2, 3),
-      'page callback'    => 'os_poker_buddies_page',
-      'file' 			   => 'os_poker_pages.php',
-      'type'             => MENU_CALLBACK,
-    ),
     'poker/shop' => array(
       'title'            => '',
       'access callback'  => 'user_is_logged_in',
@@ -1103,6 +1095,16 @@ function os_poker_menu_alter(&$items)
   $items['user/reset/%/%/%']['file'] = '/os_poker_forms.php';
   $items['user/reset/%/%/%']['page callback'] = 'os_poker_pass_reset_page';
   $items['user/reset/%/%/%']['page arguments'] = array(2, 3, 4);
+
+  $items['node/9'] = array( // poker/buddies
+    'title'            => '',
+    'access callback'  => 'user_is_logged_in',
+    'page arguments'   => array(2, 3),
+    'page callback'    => 'os_poker_buddies_page',
+    'file' 			   => 'os_poker_pages.php',
+    'type'             => MENU_CALLBACK,
+  );
+  
 }
 
 /**
