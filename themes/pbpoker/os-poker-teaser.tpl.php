@@ -52,7 +52,11 @@
       </object>
       <script type="text/javascript">
         function pb_open_registration_form() {
+					<?php if(fb_canvas_is_iframe()): // no standard registration on facebook ?>
+					return FB_Connect.login_onclick();
+					<?php else: ?>
           OsPoker.inlineThickbox('middle-content-right', {width: 410, height: 420});
+					<?php endif; ?>
         }
       </script>
     </div>
