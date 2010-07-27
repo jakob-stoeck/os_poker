@@ -1,0 +1,98 @@
+<?php
+// $Id
+
+/**
+ * @file
+ * Install file for autoadmin_simpletest module.
+ *
+ * @tables {autoadmin_simpletest}, {autoadmin_simpletest_has_many}, {autoadmin_simpletest_has_one}
+ */
+
+/**
+ * Implementation of hook_install().
+ */
+function autoadmin_simpletest_install() {
+  // Create tables.
+  drupal_install_schema('autoadmin_simpletest');
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function autoadmin_simpletest_uninstall() {
+  // Remove tables.
+  drupal_uninstall_schema('autoadmin_simpletest');
+  menu_rebuild();
+}
+
+/**
+ * Implementation of hook__schema().
+ */
+function autoadmin_simpletest_schema() {
+  // Database schema for {autoadmin_simpletest} table.
+  $schema['autoadmin_simpletest'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'test_bool' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+      ),
+      'test_int' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+      'test_varchar' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => TRUE,
+      ),
+      'test_text' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'text',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  // Database schema for {autoadmin_simpletest_has_many} table.
+  $schema['autoadmin_simpletest_has_many'] = array(
+    'description' => t('TODO: please describe this table!'),
+    'fields' => array(
+      'id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'test_varchar' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'varchar',
+        'length' => '128',
+        'not null' => TRUE,
+      ),
+      'test_bool_override_options' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+      ),
+      'autoadmin_simpletest_id' => array(
+        'description' => t('TODO: please describe this field!'),
+        'type' => 'int',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  return $schema;
+}

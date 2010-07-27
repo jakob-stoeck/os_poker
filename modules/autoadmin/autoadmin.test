@@ -1,0 +1,179 @@
+<?php
+class AutoadminTestCase extends DrupalWebTestCase {
+
+  /* init */
+
+  public static function getInfo() {
+    return array(
+      'name' => 'Autoadmin Simpletest',
+      'description' => 'Ensure that the Autoadmim module functions properly.',
+      'group' => 'Autoadmin',
+    );
+  }
+
+  public function setUp() {
+    parent::setUp('autoadmin', 'autoadmin_simpletest', 'schema');
+    $privileged_user = $this->drupalCreateUser(array(
+      'autoadmin_simpletest create', 'autoadmin_simpletest delete', 'autoadmin_simpletest read', 'autoadmin_simpletest update',
+      'autoadmin_simpletest_has_many create', 'autoadmin_simpletest_has_many delete', 'autoadmin_simpletest_has_many read', 'autoadmin_simpletest_has_many update',
+    ));
+    $this->drupalLogin($privileged_user);
+  }
+
+  /* functional tests */
+
+  public function testEmptyResultSet() {
+    $this->drupalGet('admin/content/autoadmin_simpletest  ');
+    $this->assertText(t('No records have been added.'));
+    $this->assertText(t('Test Bool'));
+    $this->assertText(t('Test Int'));
+    $this->assertText(t('Test Varchar'));
+    $this->assertText(t('Test Text'));
+    $this->assertText(t('Operations'));
+    $this->assertLink(t('Add'));
+    $this->assertNoText('warning');
+  }
+
+  public function testAddRecord() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    $this->drupalPost('admin/content/autoadmin_simpletest/add', $autoadmin_simpletest, t('Save'));
+    $this->assertText($this->getBooleanLabelString($autoadmin_simpletest));
+    $this->assertText(t('1'));
+    $this->assertText($autoadmin_simpletest['test_int']);
+    $this->assertText($autoadmin_simpletest['test_varchar']);
+    $this->assertText($autoadmin_simpletest['test_text']);
+    $this->assertLink(t('Edit'));
+    $this->assertLink(t('Delete'));
+    $this->assertRaw(t('Edit&nbsp;Autoadmin&nbsp;Simpletest&nbsp;Has&nbsp;Manies'), t('"Edit&nbsp;Autoadmin&nbsp;Simpletests" found'));
+    $this->assertNoText('warning');
+  }
+
+  public function testEditRecord() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    $this->drupalPost('admin/content/autoadmin_simpletest/1/edit', $autoadmin_simpletest, t('Save'));
+    $this->assertText(t('1'));
+    $this->assertText($autoadmin_simpletest['test_int']);
+    $this->assertText($autoadmin_simpletest['test_varchar']);
+    $this->assertText($autoadmin_simpletest['test_text']);
+    $this->assertLink(t('Edit'));
+    $this->assertLink(t('Delete'));
+    $this->assertRaw(t('Edit&nbsp;Autoadmin&nbsp;Simpletest&nbsp;Has&nbsp;Manies'), t('"Edit&nbsp;Autoadmin&nbsp;Simpletests" found'));
+    $this->assertNoText('warning');
+  }
+
+  public function testHasOneFilter() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    $this->drupalGet('admin/content/autoadmin_simpletest_has_many', array('query' => array('autoadmin_simpletest_id' => '1')));
+    $this->assertText(t('Showing Autoadmin Simpletest Has Manies where Autoadmin Simpletest is !alias', array('!alias' => $autoadmin_simpletest['test_varchar'])));
+    $this->assertNoText('warning');
+  }
+
+  public function testDeleteConfirm() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    $this->drupalGet('admin/content/autoadmin_simpletest/1/delete');
+    $this->assertText(t('Are you sure you want to delete the Autoadmin Simpletest: !alias?', array('!alias' => $autoadmin_simpletest['test_varchar'])));
+    $this->assertLink(t('Cancel'));
+    $this->assertRaw(t('Delete'));
+    $this->assertNoText('warning');
+  }
+
+  public function testDelete() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    $this->drupalPost('admin/content/autoadmin_simpletest/1/delete', array(), 'Delete');
+    $this->assertText(t('Your Autoadmin Simpletest was deleted.'));
+    $this->assertText(t('No records have been added.'));
+    $this->assertNoText($autoadmin_simpletest['test_varchar']);
+    $this->assertNoText('warning');
+  }
+
+
+
+  public function testCascadingDeleteConfirm() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    $autoadmin_simpletest_has_many1 = $this->getRandomSimpletestHasMany();
+    $autoadmin_simpletest_has_many2 = $this->getRandomSimpletestHasMany();
+    $autoadmin_simpletest_has_many3 = $this->getRandomSimpletestHasMany();
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many1);
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many2);
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many3);
+    $this->drupalGet('admin/content/autoadmin_simpletest/1/delete');
+    $this->assertText(t('Are you sure you want to delete the Autoadmin Simpletest: !alias?', array('!alias' => $autoadmin_simpletest['test_varchar'])));
+    $this->assertText(t('This Autoadmin Simpletest has 3 Autoadmin Simpletest Has Manies. The following Autoadmin Simpletest Has Manies will also be deleted!'));
+    $this->assertText($autoadmin_simpletest_has_many1['test_varchar']);
+    $this->assertText($autoadmin_simpletest_has_many2['test_varchar']);
+    $this->assertText($autoadmin_simpletest_has_many3['test_varchar']);
+    $this->assertNoText('warning');
+  }
+
+
+  public function testCascadingDelete() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    $autoadmin_simpletest_has_many1 = $this->getRandomSimpletestHasMany();
+    $autoadmin_simpletest_has_many2 = $this->getRandomSimpletestHasMany();
+    $autoadmin_simpletest_has_many3 = $this->getRandomSimpletestHasMany();
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many1);
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many2);
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many3);
+    $this->drupalPost('admin/content/autoadmin_simpletest/1/delete', array(), 'Delete');
+    $this->assertText(t('Your Autoadmin Simpletest was deleted.'));
+    $this->assertText(t('Deleted 3 Autoadmin Simpletest Has Manies.'));
+    $this->assertText(t('No records have been added.'));
+    $this->assertNoText('warning');
+  }
+
+
+  public function testPaginationDisabled() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    for ($i=0; $i<20; $i++) {
+      drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    }
+    $this->drupalGet('admin/content/autoadmin_simpletest/list');
+    $this->assertNoRaw('/admin/content/autoadmin_simpletest/list?page=1', '"/admin/content/autoadmin_simpletest/list?page=1" not found');
+  }
+
+  public function testPaginationEnabled() {
+    $autoadmin_simpletest = $this->getRandomAutoadminSimpletest();
+    for ($i=0; $i<21; $i++) {
+      drupal_write_record('autoadmin_simpletest', $autoadmin_simpletest);
+    }
+    $this->drupalGet('admin/content/autoadmin_simpletest/list');
+    $this->assertRaw('/admin/content/autoadmin_simpletest/list?page=1', '"/admin/content/autoadmin_simpletest/list?page=1" found');
+  }
+
+  public function testFormOveridesForField() {
+    $autoadmin_simpletest_has_many = $this->getRandomSimpletestHasMany();
+    drupal_write_record('autoadmin_simpletest_has_many', $autoadmin_simpletest_has_many);
+    $this->drupalGet('admin/content/autoadmin_simpletest_has_many/1/edit');
+    $this->assertText(t('Option for no'));
+    $this->assertText(t('Option for yes'));
+  }
+  
+  /* internal functions */
+  
+  private function getRandomAutoadminSimpletest() {
+    return array(
+       'test_bool' => (bool) rand(0,1),
+       'test_int' => (string)rand(-5000,5000),
+       'test_varchar' => $this->randomName(16, ''),
+       'test_text' => $this->randomName(16, ''),
+    );
+  }
+
+  private function getRandomSimpletestHasMany() {
+    return array(
+      'autoadmin_simpletest_id' => '1',
+      'test_varchar' => $this->randomName(16, ''),
+      'test_bool_override_options' => (bool) rand(0,1),
+    );
+  }
+
+  private function getBooleanLabelString($data) {
+    return $data['test_bool'] ? t('Yes') : t('No');
+  }
+  
+}
