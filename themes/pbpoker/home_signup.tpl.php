@@ -22,7 +22,7 @@
 		<?php print t("SIGN UP : It's free and anyone can join !"); ?>
 	</div>
 	<div id="home_signup_form">
-		<?php if(!fb_canvas_is_iframe()): // no standard registration on facebook ?>
+		<?php if(fb_canvas_is_iframe()): // no standard registration on facebook ?>
 		<?php print $facebook; ?>
 		<?php else: ?>
 		<?php print $form; ?>
