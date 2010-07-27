@@ -40,13 +40,13 @@ if (function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()):?>
 				</div> <!-- /#header-blocks -->
 
 			<?php endif;?>
-
-				<?php if(!isset($user->fbu)): ?>
-				<div style="float:right; margin-right:20px;margin-top:50px">
-					<?php print $facebook; ?>
-				</div>
-				<?php endif; ?>
-                                
+			<div style="position:absolute;left:210px;top:46px;">
+				<fb:like href="poker.playboy.de" layout="button_count" show_faces="false" colorscheme="dark"></fb:like><br />
+					<fb:bookmark type="<?=($user->fbu?'on':'off')?>-facebook"></fb:bookmark>
+			</div>
+			<?php if(!isset($user->fbu)): ?>
+			<div style="position:absolute; top: 67px; right: 40px;"><?php print $facebook; ?></div>
+			<?php endif; ?>
 			<div class="clear"></div>
 		</div>
 	</div> <!-- /#header-inner, /#header -->
