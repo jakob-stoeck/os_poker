@@ -134,7 +134,7 @@ function p4f_preprocess_block(&$variables) {
 }
 
 function p4f_preprocess_os_poker_help(&$variables) {
-  $variables['tutorial'] = base_path() . drupal_get_path('theme', 'p4f') . '/swf/help/Tutorial_002.html';
+  $variables['tutorial'] = drupal_get_path('theme', 'p4f') . '/swf/help/Tutorial_002.html';
 }
 
 function p4f_poker_tutorial_link() {
