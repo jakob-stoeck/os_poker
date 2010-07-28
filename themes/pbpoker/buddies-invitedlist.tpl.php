@@ -158,7 +158,7 @@ Page: <a href="#">1</a> <span class="Marked">2</span> <a href="#">3</a> <a href=
 
 <div class="InviteMore">
     <a href="?q=poker/buddies/invite">
-		<img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
+		<img src="/<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
 	</a>
     </div>
 

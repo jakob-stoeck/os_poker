@@ -35,7 +35,7 @@
 					?>
 						<div class="reward">
 						<div>
-							<img alt="Badge" src="<?php print $value["picture"] ?>"  />
+							<img alt="Badge" src="/<?php print $value["picture"] ?>"  />
 						</div>
 						<div class="text">
 							<?php print $value["name"] ?>
