@@ -740,11 +740,10 @@ function theme_add_gadget($app_id, $mod_id, $view, $owner_id) {
     drupal_add_js($path ."/shindig/features/src/main/javascript/features/rpc/rpc.js");
     drupal_add_js($path ."/js/jquery.all.js");
     drupal_add_js($path ."/js/container.js");
-
-    $iframe_str  = '<iframe width="100%" height='. $height .' name='. $iframe_name .' id='. $iframe_id .' scrolling ='. $scrolling .' frameborder="no" src= "'. $iframe_url .'" class="gadgets-gadget"></iframe>';
+    $iframe_str  = '<iframe onload="if (!frame_init){this.src=\''.$iframe_url.'\';frame_init=true;}" width="100%" height='. $height .' name='. $iframe_name .' id='. $iframe_id .' scrolling ='. $scrolling .' frameborder="no" src= "'.ShindigConfig::get('gadget_server').'/preload.htm" class="gadgets-gadget"></iframe>';
 
     $output .= '<div class="iframe_div"'.' id='. $iframe_id .'_title align="center" style="padding-top:30px;font-family: inherit;font-size: large;font-weight: bold;">'. check_plain($gadget->title) .'</div><br/>';
-    $output .= '<div class="iframe_div" align="center" style="padding-top:30px;">'. $iframe_str ."</div>\n";
+    $output .= '<div class="iframe_div" align="center" style="padding-top:30px;"><script>var frame_init  = false;</script>'. $iframe_str ."</div>\n";
   }
   return $output;
 }

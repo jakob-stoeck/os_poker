@@ -138,7 +138,6 @@ var Container = Class.extend({
  */
 $(document).ready(function() {
   gadgets.container = new Container();
-  
   // Also set mouse-over events for the various icons and profile menu items. This is not a part of anything OpenSocial related, just some UI stuff
   $('div.gadgets-gadget-title-button-bar, .profileMenu li, .button, .submit').hover(
     function() { $(this).addClass('ui-state-hover'); },
