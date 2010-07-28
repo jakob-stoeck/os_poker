@@ -94,6 +94,7 @@
 <html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" lang="<?php print $language->language; ?>" dir="<?php print $language->dir; ?>">
 
 <head>
+
   <title><?php print $head_title; ?></title>
   <?php print $head; ?>
   <?php print css_using_cdn($styles); ?>
