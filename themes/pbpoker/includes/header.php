@@ -5,7 +5,7 @@ var user_logged_in =<?php echo $user->uid==0 ? 'false':'true';?>;
 
 <style>
 
-<?php if (function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe()):?>
+<?php if (function_exists('fb_canvas_is_iframe') && drupal_is_front_page() && fb_canvas_is_iframe()):?>
     #header .language-bar{
         display: block ;
 }
