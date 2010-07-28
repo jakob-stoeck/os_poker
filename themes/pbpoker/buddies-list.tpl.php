@@ -111,12 +111,12 @@ for ($i = 0; $i < $items_per_page; $i++)
 ?>
 <div class="BannerTop">
  <a title="" href="?q=poker/buddies/invite">
-    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
+    <img src="/<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/invitefriends.png" alt="" />
  </a>
 </div>
 <div class="BannerBottom">
  <a title="" href="?q=poker/shop/get_chips">
-    <img src="<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt="" />
+    <img src="/<?php  print drupal_get_path('theme', 'pbpoker'); ?>/images/buychips.png" alt="" />
  </a>
 </div>
 

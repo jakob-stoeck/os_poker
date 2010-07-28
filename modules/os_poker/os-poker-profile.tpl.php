@@ -95,7 +95,7 @@
 								{
 									$head = $card[0];
 									$color = $card[1];
-									print "<span class='card color_{$color}'>{$head}<img title='{$card}' alt='{$card}' src='" . drupal_get_path("module", "os_poker") . "/images/{$color}.png'/></span>";
+									print "<span class='card color_{$color}'>{$head}<img title='{$card}' alt='{$card}' src='/" . drupal_get_path("module", "os_poker") . "/images/{$color}.png'/></span>";
 								}
 							}
 							else

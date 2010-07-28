@@ -45,7 +45,7 @@
 			  $rewards = $os_user->Rewards();
 			  $reward_key = $os_user->GetLastReward();
 			  $reward_last = $rewards[$reward_key];
-			  $imagePath = file_directory_path() . "/poker_rewards/";
+			  $imagePath = '/'.file_directory_path() . "/poker_rewards/";
 			  $defaultPicture = $imagePath ."reward_default.gif";
 
 		?>
