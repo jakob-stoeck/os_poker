@@ -3,16 +3,20 @@
 var user_logged_in =<?php echo $user->uid==0 ? 'false':'true';?>;
 </script>
 
-<?php
-
-if (function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()):?>
 <style>
+
+<?php if (function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe()):?>
     #header .language-bar{
+        display: block ;
+}
+<?php else: ?>
+#header .language-bar{
         display: none;
 }
+<?php endif ?>
 </style>
 
-<?php endif ?>
+
 <div id="header">
 		<div id="header-inner" class="clear-block">
 			<?php if ($logo): ?>
