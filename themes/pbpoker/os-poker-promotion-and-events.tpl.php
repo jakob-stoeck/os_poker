@@ -30,8 +30,8 @@
 							<p>Unter allen Mitspielern, die mindestens 5 Freunde erfolgreich eingeladen haben, verlosen wir jeden Monat eine von dem aktuellen Cover-Girl signierte Ausgabe des Playboys.</p>
 						</div>
 						<div class="infobox" id="party">
-							<h3>Playboy Club-Tour 2009 - Party, Spass und Playmates</h3>
-							<p>Je besser du spielst, je höher du aufsteigst in der Poker-Hierarchie, desto grösser werden deine Chancen auf ein Treffen mit einem echten Playboy Bunny bei der Playboy Club-Tour 2009. </p>
+							<h3>Playboy Club-Tour 2010 - Party, Spass und Playmates</h3>
+							<p>Je besser du spielst, je höher du aufsteigst in der Poker-Hierarchie, desto grösser werden deine Chancen auf ein Treffen mit einem echten Playboy Bunny bei der Playboy Club-Tour 2010. </p>
 							<p>Der Gewinner wird Anfang November ermittelt.</p>
 						</div>
 						<div class="infobox" id="sitngochamp">

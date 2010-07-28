@@ -1,0 +1,185 @@
+<?php
+// $Id: autoadmin.module,v 1.2 2009/12/06 21:11:00 rune Exp $
+
+/**
+ * @file
+ * Creates forms from database schemas and additional information from hook_autoadmin().
+ *
+ * @ingroup autoadmin
+ * @author Rune Kaagaard rune@prescriba.com
+ */
+
+// Constants.
+define('AUTOADMIN_PATH', drupal_get_path('module', 'autoadmin'));
+db_set_active('pythonpokernetwork');
+// Includes.
+module_load_include('inc', 'autoadmin', 'autoadmin.cache');
+module_load_include('inc', 'autoadmin', 'autoadmin.helper');
+module_load_include('inc', 'autoadmin', 'autoadmin.db');
+module_load_include('inc', 'autoadmin', 'autoadmin.query');
+module_load_include('inc', 'autoadmin', 'autoadmin.schema');
+module_load_include('inc', 'autoadmin', 'autoadmin.theme');
+module_load_include('inc', 'autoadmin', 'autoadmin.validate');
+
+/**
+ * Implementation of hook_menu(). Generate menu items for all autoadmin tables.
+ *
+ * @return array
+ */
+function autoadmin_menu() {
+  $schemas = autoadmin_cache_function('autoadmin_schema_get_all', array('clear' => TRUE));
+  $items = array();
+  foreach ($schemas as $table => $schema) {
+    if (!empty($schema['has_autoadmin'])) {
+      $schema = autoadmin_schema_load($schema);
+      _autoadmin_build_menu($schema, $items, $weight);
+    }
+  }
+  return $items;
+}
+
+/**
+ * Creates the items for the schema.
+ *
+ * @param array $schema
+ *   Single schema.
+ * @param array $items
+ *   By ref.
+ * @param int $weight
+ */
+function _autoadmin_build_menu($schema, &$items, &$weight = 0) {
+  // Menu path.
+  $path = $schema['path'];
+
+  // Build items.
+  $items[$path] = array(
+    'title' => $schema['title_plural'],
+    'description' => $schema['description'],
+    'page arguments' => array($schema['table']),
+    'page callback' => "autoadmin_list",
+    'file' => 'autoadmin.list.inc',
+    'file path' => AUTOADMIN_PATH,
+    'weight' => ++$weight,
+    'access arguments' => array(_autoadmin_perm_name('read', $schema['table'])),
+  );
+  // List.
+  $items[$path . '/list'] = array(
+    'title' => 'List',
+    'page callback' => "autoadmin_list",
+    'page arguments' => array($schema['table']),
+    'file' => 'autoadmin.list.inc',
+    'file path' => AUTOADMIN_PATH,
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => ++$weight,
+    'access arguments' => array(_autoadmin_perm_name('read', $schema['table'])),
+  );
+  // Edit.
+  $items[$path . '/%/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => "drupal_get_form",
+    'page arguments' => array('autoadmin_edit_form', $schema['table'], $schema['argument_num']),
+    'file' => 'autoadmin.edit.inc',
+    'file path' => AUTOADMIN_PATH,
+    'type' => MENU_CALLBACK,
+    'access arguments' => array(_autoadmin_perm_name('update', $schema['table'])),
+  );
+  // Add.
+  $items[$path . '/add'] = array(
+    'title' => 'Add',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('drupal_get_form'),
+    'page arguments' => array('autoadmin_edit_form', $schema['table'], FALSE),
+    'file' => 'autoadmin.edit.inc',
+    'file path' => AUTOADMIN_PATH,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => ++$weight,
+    'access arguments' => array(_autoadmin_perm_name('create', $schema['table'])),
+  );
+  // Delete.
+  $items[$path . '/%/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('autoadmin_delete_confirm', $schema['table'], $schema['argument_num']),
+    'file' => 'autoadmin.delete.inc',
+    'file path' => AUTOADMIN_PATH,
+    'type' => MENU_CALLBACK,
+    'access arguments' => array(_autoadmin_perm_name('delete', $schema['table'])),
+  );
+}
+
+/**
+ * Add an error message and returns FALSE.
+ *
+ * @param string $msg
+ *   Error message displayed.
+ * @param array $schema
+ *   By ref. Schema name will be displayed if provided.
+ * @param array $field
+ *   Fields name will be displayed if provided.
+ * @return FALSE
+ */
+function autoadmin_add_error($msg, &$schema = NULL, $field = NULL) {
+  drupal_set_message(
+      ($schema ? '[' . t('SCHEMA') . ': ' . $schema['table'] . '] ' : '')
+    . ($field ? '[' . t('FIELD') . ': ' . $field['key'] . '] ' : '')
+    . $msg
+    , 'error');
+  $schema['has_error'] = TRUE;
+  return FALSE;
+}
+
+/**
+ * Implementation of hook_perm(). Create permissions for all schemas.
+ */
+function autoadmin_perm() {
+  $schemas = autoadmin_cache_function('autoadmin_schema_get_all');
+  $perms = array();
+  foreach ($schemas as $table => $schema) {
+    if (!autoadmin_schema_has_autoadmin($schema)) {
+      continue;
+    }
+    $perms[] = _autoadmin_perm_name('create', $table);
+    $perms[] = _autoadmin_perm_name('read', $table);
+    $perms[] = _autoadmin_perm_name('update', $table);
+    $perms[] = _autoadmin_perm_name('delete', $table);
+  }
+  return $perms;
+}
+
+/**
+ * Create access arguments for each schema.
+ *
+ * @param string $op
+ * @param array $schema
+ * @return array
+ */
+function _autoadmin_get_access_arguments($op, $schema) {
+  $perm =  _autoadmin_perm_name($op, $schema['table']);
+  return user_access($perm);
+}
+
+/**
+ * Build an permission based on the mode of operation and table name.
+ *
+ * @param String $op
+ * @param string $table
+ * @return string
+ */
+function _autoadmin_perm_name($op, $table) {
+  return $table . ' ' . $op;
+}
+
+/**
+ * Initialize page.
+ * 
+ * @param array $schema current schema
+ */
+function autoadmin_init_page($table) {
+  drupal_add_css(AUTOADMIN_PATH . '/autoadmin.css');
+  $schema = autoadmin_schema_get_one($table);
+  autoadmin_session_check_for_reset($schema);
+  drupal_set_title(theme('autoadmin_description', $schema));
+  return $schema;
+}
+
+db_set_active('default');

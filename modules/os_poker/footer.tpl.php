@@ -18,11 +18,11 @@
 //
 ?>
 <div id="poker-footer">
-	<?php 
+	<?php
 		print theme("os_poker_languages", FALSE);
 	?>
 	<div class="footer-links">
-		<?php 
+		<?php
 			print 	l(t("Terms of service"), 'poker/tos', array(
           'attributes' => array(
             'class' => 'thickbox',
@@ -36,8 +36,7 @@
             'class' => 'thickbox',
           ),
           'query' => array("height" => 442, "width" => 603, 'keepThis' => TRUE, 'TB_iframe' => TRUE),
-        )) . " - " .
-				l(t("Sources"), "<front>");
+        ));
 		?>
 	</div>
 </div>
