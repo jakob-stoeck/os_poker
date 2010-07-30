@@ -19,7 +19,10 @@ function fb_integration_forward() {
 }*/
 function fb_integration_init() {
 	if (isset($_REQUEST['fb_int_sig_in_iframe'])) {
-		$_REQUEST['fb_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe']; 
+		$_REQUEST['fb_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
+		$_SESSION['fb_int_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
+	}else if(isset($_SESSION['fb_int_sig_in_iframe'])){ 
+		$_REQUEST['fb_sig_in_iframe']= $_SESSION['fb_int_sig_in_iframe'];
 	}
 	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 }
