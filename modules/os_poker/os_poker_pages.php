@@ -93,7 +93,7 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 					if ($res != FALSE)
 					{
 						$inv = db_fetch_object($res);
-
+	
 						if ($inv != FALSE)
 						{
 							require_once(drupal_get_path('module', 'invite') . "/invite.module");

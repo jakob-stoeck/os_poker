@@ -968,8 +968,8 @@ function os_poker_first_profile_form_submit($form, &$form_state)
 	CScheduler::instance()->RegisterTask(new CDailyChips(), $cuser->uid, array('login', "live"), "+1 Day 00:00");
 
   //Send mail
-  if (variable_get('user_email_verification', TRUE)) {
-    $account = $cuser->DrupalUser();
+  $account = $cuser->DrupalUser();
+  if (variable_get('user_email_verification', TRUE) && !isset($account->fbu)) {
     drupal_mail('os_poker', 'profile', $account->mail, user_preferred_language($account), 
 								array('account' => $account,
 											'raw_password' => $raw_password));
