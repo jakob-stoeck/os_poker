@@ -22,7 +22,7 @@
 
 		<?php if ($header): ?>
 		<div id="header-blocks" class="region region-header">
-		<?php if ((function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe()) || $user->uid!=0):?>
+		<?php if ((!function_exists('fb_canvas_is_iframe') || !fb_canvas_is_iframe()) || $user->uid!=0):?>
 		  <?php print $header; ?>
 		<?php endif; ?>
 		</div> <!-- /#header-blocks -->

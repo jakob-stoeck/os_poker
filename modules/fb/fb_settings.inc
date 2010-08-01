@@ -67,7 +67,7 @@ function fb_settings_get_facebook_cookie($app_id, $application_secret = NULL) {
       return null;
     }
   }
-  print_r( $args);
+  // print_r( $args);
   return $args;
 }
 
