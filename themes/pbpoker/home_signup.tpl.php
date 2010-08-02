@@ -22,7 +22,7 @@
 		<?php print t("SIGN UP : It's free and anyone can join !"); ?>
 	</div>
 	<div id="home_signup_form">
-		<?php if(fb_canvas_is_iframe()): // no standard registration on facebook ?>
+		<?php if(function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()): // no standard registration on facebook ?>
 			<p style="margin:20px 0 0 160px"><fb:login-button perms="email,user_birthday,user_hometown,user_location" onclick="FB_Connect.login_onclick()" v="2"><fb:intl>Connect with Facebook</fb:intl></fb:login-button></p>
 		<?php else: ?>
 		<?php print $form; ?>

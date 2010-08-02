@@ -22,18 +22,17 @@
 
 		<?php if ($header): ?>
 		<div id="header-blocks" class="region region-header">
-		<?php if ((function_exists('fb_canvas_is_iframe') && !fb_canvas_is_iframe()) || $user->uid!=0):?>
+		<?php if ((!function_exists('fb_canvas_is_iframe') || !fb_canvas_is_iframe()) || $user->uid!=0):?>
 		  <?php print $header; ?>
 		<?php endif; ?>
 		</div> <!-- /#header-blocks -->
 		<?php endif; ?>
 		
-		<div style="position:absolute;left:210px;top:46px;">
-			<fb:like href="poker.playboy.de" layout="button_count" show_faces="false" colorscheme="dark"></fb:like><br />
-			<fb:bookmark type="<?php echo $user->fbu ? 'on' : 'off'; ?>-facebook"></fb:bookmark>
-		</div>
-		<?php if(!isset($user->fbu)): ?>
-		<div style="position:absolute; top: 3px; right: 13px;"><?php print $facebook; ?></div>
+		<?php global $user; if($user->uid): ?>
+		<div style="position:absolute;left:210px;top:63px;"><fb:bookmark type="<?php echo $user->fbu ? 'on' : 'off'; ?>-facebook"></fb:bookmark></div>
+		<div style="position:absolute;left:392px;top:63px;"><fb:like href="poker.playboy.de" layout="button_count" show_faces="false" colorscheme="dark"></fb:like></div>
+		<?php else: ?>
+		<div style="position:absolute;left:210px;top:63px;"><?php print $facebook; ?></div>
 		<?php endif; ?>
 		<div class="clear"></div>
 	</div>
