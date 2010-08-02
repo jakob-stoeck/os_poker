@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_user.module,v 1.71 2010/07/13 20:12:22 yogadex Exp $
+// $Id: fb_user.module,v 1.72 2010/07/30 06:33:09 yogadex Exp $
 
 /**
  * @file
@@ -150,8 +150,8 @@ function fb_user_fb($op, $data, &$return) {
   if ($fb_app) {
     $fb_user_data = _fb_user_get_config($fb_app);
   }
+
   if ($op == FB_OP_APP_IS_AUTHORIZED) {
-  
     // This hook is called on every page request, if the user has authorized the app.
     
     $fbu = $data['fbu']; // The user id on facebook.
@@ -162,7 +162,6 @@ function fb_user_fb($op, $data, &$return) {
     // Make sure session is valid and authmap table is correct.
     // Relatively expensive operations, so we perform them only once per session.
     if (!isset($_SESSION['fb_user_fbu']) || $_SESSION['fb_user_fbu'] != $fbu) {
-    
       if ($valid_session = fb_api_check_session($fb)) {
         $_SESSION['fb_user_fbu'] = $fbu;
 
@@ -173,7 +172,6 @@ function fb_user_fb($op, $data, &$return) {
         else {
           // We're anonymous.  Check authmap to see if there is a local user for this fbu.
           $account = fb_user_get_local_user($fbu, $fb_app);
-
           
           if ($account) {
             // Honoring facebook accounts in off-line mode causes problems.
@@ -317,7 +315,10 @@ function fb_user_fb($op, $data, &$return) {
     // fb.js has notified us of an event via AJAX.  Not the same as facebook event callback above.
     if ($data['event_type'] == 'session_change' && isset($data['event_data']['fbu'])) {
       // A user has logged in.
-      _fb_user_set_authmap($data['fb_app'], $data['status']['fbu'], $GLOBALS['user']);
+      // Don't trust fbu from $data['event_data'], too easy to spoof.
+      if ($fbu = fb_facebook_user($data['fb'])) {
+        _fb_user_set_authmap($data['fb_app'], $fbu, $GLOBALS['user']);
+      }
     }
   }
 }
@@ -508,7 +509,6 @@ function fb_user_user($op, &$edit, &$account, $category = NULL) {
       // Use proxied email, if facebook app is active and user uses it.
       // TODO: confirm drupal never saves proxied address to users.mail.
       $account->mail = fb_user_get_proxied_email($fbu, $fb_app);
-      
       $account->fb_user_proxied_mail = $account->mail; // Remember where we got address.
     }
   }

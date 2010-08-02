@@ -3,11 +3,11 @@ description = Avoid duplicate accounts when your site has local users who may be
 package = Drupal for Facebook - contrib
 dependencies[] = fb
 dependencies[] = fb_app
-;;core = 6.x @TODO - port to new libs
+core = 6.x
 
-; Information added by drupal.org packaging script on 2010-07-14
+; Information added by drupal.org packaging script on 2010-07-30
 version = "6.x-3.x-dev"
 core = "6.x"
 project = "fb"
-datestamp = "1279065976"
+datestamp = "1280491629"
 
