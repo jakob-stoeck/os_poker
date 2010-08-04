@@ -388,27 +388,33 @@ function	os_poker_shop_page($tab, $category = NULL, $target_type = NULL, $target
 				case "subtarget":
 					if ($subtarget->uid == $current_user->uid)
 					{
+						
 						$success = CShop::BuyItem($_POST["shop_item"], empty($_POST["shop_item_activate"]) ? FALSE : !!$_POST["shop_item_activate"]);
+						watchdog('os_poker', ' buy: '.$success);
 					}
 					else
 					{
 						$success = CShop::GiveItem($_POST["shop_item"], array($subtarget));
+						watchdog('os_poker', ' giveItem: '.$success);
 					}
 				break;
 
 				case "target":
 					$success = CShop::GiveItem($_POST["shop_item"], $target);
+					watchdog('os_poker', ' target: '.$success);
 				break;
 
 				case "special":
-
+					
 					$success = CShop::GiveItem($_POST["shop_item"], $special);
+					watchdog('os_poker', ' spezial: '.$success);
 				break;
 			}
 
 			if ($success == FALSE) {
 				$error = theme('poker_error_message', "<h1>" . t("Sorry !") . "</h1>" . t("You don't have enough Chips."));
       } else if ($target_type == 'table') {
+      	watchdog('os_poker', ' goto');
         drupal_goto('poker/closebox');
       }
 		}
