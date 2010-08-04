@@ -103,7 +103,6 @@
 </head>
 
 <body class="<?php print $body_classes; ?>">
-
   <div id="page">
 	<div id="page-inner">
 

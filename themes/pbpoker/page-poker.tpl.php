@@ -105,6 +105,7 @@
 </head>
 
 <body class="iframe <?php print $body_classes; ?>">
+
 <div id="root"></div>
   <div id="page">
 	<div id="page-inner">
@@ -199,6 +200,6 @@
 	</div> <!-- /#main-inner, /#main -->
 
   <?php print $footer_scripts; ?>
-  <?php print $closure; ?>
+
 </body>
 </html>
