@@ -125,10 +125,11 @@ function fb_init() {
   }
 
   // Add javascript to all pages.
-  
+  if (drupal_is_front_page()) {
   drupal_add_js(drupal_get_path('module', 'fb') . '/fb.js');
   // ??? Should $js_settings by alterable by other modules?
   drupal_add_js(array('fb' => $js_settings), 'setting');
+  }
 
   
   fb_invoke(FB_OP_POST_INIT, array('fb_app' => $_fb_app,
