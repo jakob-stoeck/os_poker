@@ -3,12 +3,15 @@
 window.fbAsyncInit = function() {
   //debugger; // debug
   var settings = {xfbml: true};
+//alert('init');
   if (Drupal.settings.fb.apikey) {
     settings.apiKey = Drupal.settings.fb.apikey;
     settings.status = true;
     settings.cookie = true;
   }
+  
   FB.init(settings);
+  
   FB.Event.subscribe('auth.sessionChange', FB_JS.sessionChange); // Catches login via connect button.
   //FB.Event.subscribe('auth.login', FB_JS.debugHandler);
   //FB.Event.subscribe('auth.logout', FB_JS.debugHandler);
@@ -69,16 +72,20 @@ FB_JS.ajaxEvent = function(event_type, data) {
     jQuery.post(Drupal.settings.fb.ajax_event_url + '/' + event_type, data,
 		function(js_array, textStatus, XMLHttpRequest) {
 		  for (var i = 0; i < js_array.length; i++) {
+			  
 		    eval(js_array[i]);
 		  }
 		}, 'json');
   }
 };
-
+var fb_is_loaded =false;
 Drupal.behaviors.fb = function(context) {
   if (typeof(FB) == 'undefined') {
     // Include facebook's javascript.  @TODO - determine locale dynamically.
-    jQuery.getScript(Drupal.settings.fb.js_sdk_url);
+	  if (!fb_is_loaded) {
+		  jQuery.getScript(Drupal.settings.fb.js_sdk_url);
+		  fb_is_loaded = true;
+	  }
   }
   else {
     $(context).each(function() {

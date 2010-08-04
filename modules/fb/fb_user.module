@@ -161,8 +161,10 @@ function fb_user_fb($op, $data, &$return) {
     
     // Make sure session is valid and authmap table is correct.
     // Relatively expensive operations, so we perform them only once per session.
+    
     if (!isset($_SESSION['fb_user_fbu']) || $_SESSION['fb_user_fbu'] != $fbu) {
-      if ($valid_session = fb_api_check_session($fb)) {
+
+    	if ($valid_session = fb_api_check_session($fb)) {
         $_SESSION['fb_user_fbu'] = $fbu;
 
         if ($user->uid != 0) {
@@ -174,6 +176,7 @@ function fb_user_fb($op, $data, &$return) {
           $account = fb_user_get_local_user($fbu, $fb_app);
           
           if ($account) {
+          	
             // Honoring facebook accounts in off-line mode causes problems.
             if (!variable_get('site_offline', FALSE) || 
                 user_access('administer site configuration', $account)) {
@@ -183,6 +186,7 @@ function fb_user_fb($op, $data, &$return) {
               $valid_user = user_external_login($account);
               if (!$valid_user) {
                 drupal_access_denied();
+                watchdog("fb_user", "exit");
                 exit();
               }
             }

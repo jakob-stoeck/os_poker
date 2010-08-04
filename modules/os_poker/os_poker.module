@@ -420,7 +420,9 @@ os_poker_get_top_window(window).tourney_notify = {name: '{$tourney_name}', table
     //pages except poker/first_profile and logout
 		if (empty($_GET["q"]) || !($_GET["q"] == "poker/first_profile" || $_GET["q"] == "logout")) {
       if (empty($prof)) {
+      	if (empty($_GET["q"]) || $_GET["q"]!='fb/ajax/session_change') { 
         drupal_goto("poker/first_profile");
+      	}
         //TODO: Remove drupal goto and user os_poker_set_overlay
       }
       else if (!$user->splash || isset($_GET['splash'])) {

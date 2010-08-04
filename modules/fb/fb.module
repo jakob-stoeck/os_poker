@@ -803,6 +803,7 @@ function _fb_form_cache_cb($cid) {
   // Don't clear, as user may refresh browser.  Cache will expire eventually.
   // cache_clear_all($cid, 'cache_page');
   print $cache->data;
+  watchdog("_fb_form_cache_cb", "exit");
   exit();
 }
 
@@ -1042,6 +1043,7 @@ function fb_js_cb() {
   $js_array = fb_invoke(FB_OP_JS, array('fb' => $GLOBALS['_fb'], 'fb_app' => $GLOBALS['_fb_app']), array());
   $extra_js = implode("\n", $extra);
   print $extra_js;
+  watchdog("fb_js_cb", "exit");
   exit();
 }
 
@@ -1053,8 +1055,11 @@ function fb_js_cb() {
  * @return Array of javascript to be evaluated by the page which called this callback.
  */
 function fb_ajax_event($event_type) {
+watchdog('fb_debug', "fb_ajax_event init" . $event_type);
   $fb_app = fb_get_app(array('apikey' => $_REQUEST['apikey']));
+  watchdog('fb_debug', "fb_ajax_event getapp" . $event_type);
   $fb = fb_api_init($fb_app);
+  watchdog('fb_debug', "fb_ajax_event appinniit" . $event_type);
   // Data to pass to hook_fb.
   $data = array(
     'fb_app' => $fb_app,
@@ -1081,5 +1086,6 @@ function fb_ajax_event($event_type) {
       fb_session_destroy();
     }
   }
+  watchdog("fb_ajax_event", "exit");
   exit();
 }
