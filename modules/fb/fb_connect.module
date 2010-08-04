@@ -126,6 +126,9 @@ function fb_connect_fb($op, $data, &$return) {
  * settings are added once and only once when needed.
  */
 function _fb_connect_add_js() {
+	  if (!drupal_is_front_page()) {
+	  	return ;
+	  }
   static $just_once;
   if (!isset($just_once)) {
     drupal_add_js(array(
