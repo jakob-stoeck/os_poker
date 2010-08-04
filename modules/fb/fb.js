@@ -8,6 +8,7 @@ window.fbAsyncInit = function() {
     settings.apiKey = Drupal.settings.fb.apikey;
     settings.status = true;
     settings.cookie = true;
+    settings.doNotUseCachedConnectState= false;
   }
   
   FB.init(settings);
