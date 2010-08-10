@@ -172,8 +172,20 @@ function customreports_render($type, $node) {
   $args = func_get_args();
   unset($args[0]);
   unset($args[1]);
+
+  $use_db_regex = '/^use (\w+);/i';
+  $custom_db = preg_match($use_db_regex, $node->body, $matches);
+  if($custom_db) {
+    db_set_active($matches[1]);
+    $node->body = str_replace($matches[0], '', $node->body);
+  }
+
   // Allow parameters to be passed as arguments.
   $result = db_query($node->body, $args);
+
+  if($custom_db) {
+    db_set_active();
+  }
 
   while ($item = db_fetch_array($result)) {
     $data[] = $item;
