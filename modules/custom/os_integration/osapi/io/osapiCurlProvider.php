@@ -50,7 +50,6 @@ class osapiCurlProvider extends osapiHttpProvider {
     if ($postBody) {
       curl_setopt($ch, CURLOPT_POSTFIELDS, $postBody);
     }
-    echo $url; 
     // We need to set method even when we don't have a $postBody 'DELETE'
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

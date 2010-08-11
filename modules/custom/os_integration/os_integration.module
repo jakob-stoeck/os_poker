@@ -6,9 +6,9 @@ require_once drupal_get_path('module','os_integration').'/osapi/osapi.php';
 function os_integration_get_profile_infos($myspace_profile_id) {
 	//$storage = new osapiFileStorage('/home/cw');
 	//$storage,session_id(),
-	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$_REQUEST['opensocial_viewer_id']);
+//	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$myspace_profile_id);
 //stage 
-//	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/545832201','8cbe3344158c4367a159e3b65d8b47c5edfb58a7c2c84a08acd879045a60b9de',$_REQUEST['opensocial_viewer_id']);
+	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/545832201','8cbe3344158c4367a159e3b65d8b47c5edfb58a7c2c84a08acd879045a60b9de',$myspace_profile_id);
 
 	$myspaceprovider = new osapiMySpaceProvider();
 	$osapi = new osapi($myspaceprovider,$authprovider);
@@ -23,6 +23,7 @@ function os_integration_get_profile_infos($myspace_profile_id) {
  );
  $batch->add($osapi->people->get($self_request_params), 'self');
  $response = $batch->execute();
+
  return $response['self']; 
 }
 function os_integration_create_profile($myspace_profile_id) {
@@ -31,7 +32,7 @@ function os_integration_create_profile($myspace_profile_id) {
 
 	$edit = array();
 	$edit['roles'][DRUPAL_AUTHENTICATED_RID] = 'authenticated user';
-
+ 
 	// Ensure unique username.  Append "_N" if necessary.
 	if (isset($edit['name']) && $edit['name']) {
 		$username = $edit['name'];
@@ -77,7 +78,7 @@ function os_integration_menu() {
     'access arguments' => array('access content'),
     'page arguments' => array(
       1
-    )
+    ),
     'type' => MENU_CALLBACK,
   );
   return $items;
@@ -186,7 +187,7 @@ function os_integration_get_opensocial_user($myspace_profile_id) {
 	}
 	return false;
 }
-function os_integration_addjs()  {
+function os_integration_addjs($myspace_profile_id)  {
 //	drupal_add_js('http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js',);
 	drupal_add_js(drupal_get_path('module','os_integration').'/js/IFPC_externalIframe011.js');
 
@@ -252,8 +253,9 @@ function os_integration_init()  {
 	if (!isset($_REQUEST['opensocial_viewer_id'])) {
 		return ;
 	}
-	os_integration_addjs() ;
+
 	$myspace_profile_id = $_REQUEST['opensocial_viewer_id'];
+	os_integration_addjs($myspace_profile_id) ;
 	if ($user->uid!=0 && isset($user->_osu) && $user->_osu==$myspace_profile_id) {
 		return ;
 	}
@@ -265,7 +267,8 @@ function os_integration_init()  {
 	if (os_integration_get_opensocial_user($myspace_profile_id)==true) {
 		return ;
 	}
-	drupal_add_js('os_integration_requestPermission()');
+
+	drupal_add_js('os_integration_requestPermission();','inline');
 	
 }
 ?>
