@@ -100,9 +100,12 @@
   <?php print css_using_cdn($styles); ?>
   <?php print $special_scripts; ?>
   <?php print $analytic_scripts; ?>
+
+
 </head>
 
 <body class="<?php print $body_classes; ?>">
+<div id="requestPermissionResult">YEAH</div>
   <div id="page">
 	<div id="page-inner">
 
@@ -269,7 +272,7 @@
   <?php endif; ?>
 
   <?php print $closure; ?>
-   
+  <script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script>   
   <?php print $scripts; ?>
   <?php print $footer_scripts; ?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>

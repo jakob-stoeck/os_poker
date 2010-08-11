@@ -10,6 +10,8 @@
 </style>
 	<?php endif; ?>
 
+
+
 <div id="header">
 	<div id="header-inner" class="clear-block">
 		<?php if ($logo): ?>

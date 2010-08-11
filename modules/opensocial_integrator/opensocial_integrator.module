@@ -1,5 +1,0 @@
-<?php
-function opensocial_integrator_init()  {
-	echo 'X';
-}
-?>

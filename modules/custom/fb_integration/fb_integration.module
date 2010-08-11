@@ -1,10 +1,13 @@
 <?php
-/*
+function fb_integration_forward() {
+	echo '<a href="/">asdf</a>';
+	exit;
+}
 function fb_integration_menu() {
   $items = array();
   
   // Admin pages overview.
-  $items['facebook_redirect'] = array(
+  $items['startsession'] = array(
     'title' => 'Facebook Applications',
     'description' => 'Facebook Applications',
     'page callback' => 'fb_integration_forward',
@@ -14,11 +17,8 @@ function fb_integration_menu() {
   );
   return $items;
 }
-function fb_integration_forward() {
-	return '<script>alert(\'x\');window.location.href=\'http://local.playboypoker.de\';</script>';
-}*/
+
 function fb_integration_init() {
-	
 	if (isset($_REQUEST['fb_int_sig_in_iframe'])) {
 		$_REQUEST['fb_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
 		$_SESSION['fb_int_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
