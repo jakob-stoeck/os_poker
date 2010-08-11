@@ -6,8 +6,9 @@ require_once drupal_get_path('module','os_integration').'/osapi/osapi.php';
 function os_integration_get_profile_infos($myspace_profile_id) {
 	//$storage = new osapiFileStorage('/home/cw');
 	//$storage,session_id(),
-//	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$_REQUEST['opensocial_viewer_id']);
-	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/545832201','8cbe3344158c4367a159e3b65d8b47c5edfb58a7c2c84a08acd879045a60b9de',$_REQUEST['opensocial_viewer_id']);
+	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$_REQUEST['opensocial_viewer_id']);
+//stage 
+//	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/545832201','8cbe3344158c4367a159e3b65d8b47c5edfb58a7c2c84a08acd879045a60b9de',$_REQUEST['opensocial_viewer_id']);
 
 	$myspaceprovider = new osapiMySpaceProvider();
 	$osapi = new osapi($myspaceprovider,$authprovider);
@@ -61,6 +62,27 @@ function os_integration_create_profile($myspace_profile_id) {
 	WATCHDOG_NOTICE, l(t('edit'), 'user/'. $account->uid .'/edit'));
 	
 }
+function os_integration_create_profile_callback($myspace_profile_id) {
+	os_integration_create_profile($myspace_profile_id);
+	drupal_goto('poker/first_profile');
+}
+function os_integration_menu() {
+  $items = array();
+  
+  // Admin pages overview.
+  $items['os_integration_create_user/%'] = array(
+    'title' => 'Opensocial create profile',
+    'description' => 'creates profile and forward to /first_profile',
+    'page callback' => 'os_integration_create_profile_callback',
+    'access arguments' => array('access content'),
+    'page arguments' => array(
+      1
+    )
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
 function os_integration_form_os_poker_first_profile_form_alter(&$form,&$form_state) {
     global $user;
     
@@ -75,11 +97,38 @@ function os_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
     	file_check_directory($folder,FILE_CREATE_DIRECTORY);
     	$file= $folder.'/pic_'.$user->_osu.'.jpg';
     	file_save_data(file_get_contents($url),$file);
-		
+		try { 
     	$form['profile_nickname']['#default_value']=$profile->displayName;
+    	if (isset($profile->currentLocation['country'])) { 
+    		$form['profile_country']['#default_value'] = $profile->currentLocation['country'];
+    	}
+    	
+    	if ($profile->birthday!='') { 
+    	$birthday = explode('T',$profile->birthday);
+    	$birthday = $birthday[0]; 
+    	$birthdayAry = explode('-',$profile->birthday);
+        if (count($birthdayAry)==3) {
+         
+        	$form['profile_dob']['#default_value']['day']=(int)$birthdayAry[2];
+        	$form['profile_dob']['#default_value']['month']=(int)$birthdayAry[1];
+        	$form['profile_dob']['#default_value']['year']=$birthdayAry[0];
+        }
+    	}
+        $form['profile_city']['#default_value']=$profile->currentLocation['locality'];
+    	$sex = strtolower($profile->gender);
+        if ($sex=='male' ) {
+            $form['profile_gender']['#default_value']='Male';
+        }else if ($sex=='female') {
+            $form['profile_gender']['#default_value']='Female';
+        }
+		}catch (Exception $e) {
+			watchdog('opensocial error', $e->getMessage());
+        }
 /*
+ * 
         try {
         
+        currentLocation
         //db_query ("update {users} set mail='".$me['email']."',picture='".$file."' where uid=%s",array($user->uid));
 		//$user->email = $me['email'];
 		
@@ -152,31 +201,27 @@ gadgets.rpc.setRelayUrl(\'..\', \'http://profile.myspace.com/Modules/Application
 //Set the location of the ifpc_relay_external001.html within your server
     MyOpenSpace.MySpaceContainer.get().registerParam("localRelay", "http://'.$_SERVER['HTTP_HOST'].'/'.drupal_get_path('module','os_integration').'/relay.html");
 
-    function requestPermission(){
+    function os_integration_call_regist_user() {
+    	window.location.href=\'/os_integration_create_user/'.$myspace_profile_id.'\'; 
+    }
+    function os_integration_requestPermission(){
     	
 		var permissionValue = "VIEWER_FULL_PROFILE_INFO";
 		var container = MyOpenSpace.MySpaceContainer.get();
 		var permission = MyOpenSpace.Permission[permissionValue];
 		
 		var hasPermission = container.hasPermission(permission);
-		alert(hasPermission);
-		var resultsDiv = document.getElementById("requestPermissionResult");
+	
 		
-		if (resultsDiv.style.color == "Blue"){
-			resultsDiv.style.color = "Red";										
-		}
-		else{
-			resultsDiv.style.color = "Blue";					
-		}
 		
 		
 		if (hasPermission){
-			resultsDiv.innerHTML = "You already have the permission.";
+			os_integration_call_regist_user();
 			return;
 		}
 		var callback = function (response){
 			var responseText;
-			alert("hans");
+			
 			if (response.errorMessage){
 				responseText = "Error: " + response.errorMessage;
 				if (response.permissions){
@@ -185,14 +230,11 @@ gadgets.rpc.setRelayUrl(\'..\', \'http://profile.myspace.com/Modules/Application
 						responseText += "<br />" + permission.permission;
 					}
 				}
+				alert(responseText);
 			}
 			else if (response.permissions){
-					responseText = "Permissions granted:<br />"
-					for (var i in response.permissions){
-						responseText += "<br />" + response.permissions[i].permission;
-					}
+					os_integration_call_regist_user();
 			}
-			resultsDiv.innerHTML = responseText;
 		}
 		
 		container.requestPermission(permission,"Test permission request", callback);
@@ -223,7 +265,7 @@ function os_integration_init()  {
 	if (os_integration_get_opensocial_user($myspace_profile_id)==true) {
 		return ;
 	}
-	//os_integration_create_profile($myspace_profile_id);
-	//drupal_goto('poker/first_profile');
+	drupal_add_js('os_integration_requestPermission()');
+	
 }
 ?>
