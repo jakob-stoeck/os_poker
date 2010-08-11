@@ -105,8 +105,6 @@
 </head>
 
 <body class="<?php print $body_classes; ?>">
-<a href="#" onclick="requestPermission();">TEST LINK</a>
-<div id="requestPermissionResult">YEAH</div>
   <div id="page">
 	<div id="page-inner">
 
