@@ -33,6 +33,7 @@ gadgets.config = function () {
         */
         register: function (component, opt_validators, opt_callback) {
             if (components[component]) {
+            	return ;
                 throw new Error('Component "' + component + '" is already registered.');
             }
             components[component] = {
@@ -2273,7 +2274,7 @@ MyOpenSpace.MySpaceContainer.prototype.requestPermission = function (permission,
     var isFullContactInfo = false;
     var isFullProfileInfo = false;
     //Check that is a valid permission object
-    alert(permission.permission);
+    
     if (permission && typeof (permission.permission) !== 'undefined') {
         //Check if the permission is supported	
         for (var supported in supportedPermissions) {

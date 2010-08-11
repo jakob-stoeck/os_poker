@@ -6,7 +6,8 @@ require_once drupal_get_path('module','os_integration').'/osapi/osapi.php';
 function os_integration_get_profile_infos($myspace_profile_id) {
 	//$storage = new osapiFileStorage('/home/cw');
 	//$storage,session_id(),
-	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$_REQUEST['opensocial_viewer_id']);
+//	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/543425949','98a4536e0b4a4a4e8ac285e0b9d3836bfc8fa8bf4891484c97b2928de77727fa',$_REQUEST['opensocial_viewer_id']);
+	$authprovider = new osapiOAuth2Legged('http://www.myspace.com/545832201','8cbe3344158c4367a159e3b65d8b47c5edfb58a7c2c84a08acd879045a60b9de',$_REQUEST['opensocial_viewer_id']);
 
 	$myspaceprovider = new osapiMySpaceProvider();
 	$osapi = new osapi($myspaceprovider,$authprovider);
@@ -144,7 +145,7 @@ function os_integration_addjs()  {
 	drupal_add_js(' 
 
 
-gadgets.rpc.setRelayUrl("..", "http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx");
+gadgets.rpc.setRelayUrl(\'..\', \'http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx\'); 
 // set the correct panel id. The name will be apppanel_XXXXXX_canvas where
 // XXXXXX is the id of the application
     MyOpenSpace.MySpaceContainer.get().registerParam("panelId", "apppanel_'.$_REQUEST['appid'].'_canvas");
@@ -167,6 +168,8 @@ gadgets.rpc.setRelayUrl("..", "http://profile.myspace.com/Modules/Applications/P
 		else{
 			resultsDiv.style.color = "Blue";					
 		}
+		
+		
 		if (hasPermission){
 			resultsDiv.innerHTML = "You already have the permission.";
 			return;
@@ -194,12 +197,7 @@ gadgets.rpc.setRelayUrl("..", "http://profile.myspace.com/Modules/Applications/P
 		
 		container.requestPermission(permission,"Test permission request", callback);
 	}
-window.fbAsyncInit = function() {
-  //debugger; // debug
-  requestPermission();
-	alert(\'init\');
-  
-};
+
 	
     //;
 
