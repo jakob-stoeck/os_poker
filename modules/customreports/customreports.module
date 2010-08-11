@@ -1,0 +1,320 @@
+<?php
+// $Id: customreports.module,v 1.4.2.4.2.2 2010/03/20 00:34:08 snufkin Exp $
+
+/**
+ * @file
+ *
+ * This module provides a sql input format and interface to select a report
+ * content type.
+ *
+ * Once configured it will allow authorized users to create and download SQL
+ * driven reports as CSV files
+ *
+ * @author Alex McFadyen <alex@openlyconnected.com>
+ * @author Balazs Dianiska <balazs@dianiska.net>
+ *
+ */
+
+define('CUSTOMREPORTS_CREATE', 100);
+
+/**
+ * Implementation of hook_perm().
+ */
+function customreports_perm() {
+  return array(
+    'view custom reports',
+    'edit custom reports',
+  );
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function customreports_menu() {
+  $items = array();
+  /**
+   * Administration form.
+   */
+  $items['admin/settings/customreports'] = array(
+    'title' => 'Custom Reports',
+    'description' => t('Settings to control what nodes are classed as customreports and who can view them'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('customreports_admin_settings'),
+    'access arguments' => array('administer site configuration'),
+  );
+  
+  $items['node/%node/csv'] = array(
+    'title' => 'CSV export',
+    'page callback' => 'customreports_render',
+    'page arguments' => array('csv', 1),
+    'access callback' => 'customreports_access',
+    'access arguments' => array(1, 'view custom reports'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['node/%node/xls'] = array(
+    'title' => 'XLS export',
+    'page callback' => 'customreports_render',
+    'page arguments' => array('xls', 1),
+    'access callback' => 'customreports_access',
+    'access arguments' => array(1, 'view custom reports'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  return $items;
+}
+
+/**
+ * Combine node setting with access callback to determine if we can have a tab.
+ */
+function customreports_access($node, $perm) {
+  $customreport_type = variable_get('customreports_node_type', 'customreport');
+  return ($customreport_type == $node->type) && user_access($perm);
+}
+
+/**
+ * Menu callback - Admin settings form.
+ */
+function customreports_admin_settings() {
+  $form = array();
+  
+  $options = array(
+    0 => t('<please select a node type>'),
+    CUSTOMREPORTS_CREATE => t('<create a customreports node type'),
+  );
+  $types = node_get_types('names');
+  $options += $types;
+  
+  $form['customreports_node_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Node Type'),
+    '#options' => $options,
+    '#default_value' => variable_get('customreports_node_type', 'customreport'),
+    '#description' => t('Select the node type that corresponds to a custom report.
+                        This node type will be processed as a report when viewed.
+                        Changing this selection later may cause issues and you may need to !node_permissions.',
+                        array('!node_permissions' => l(t('rebuild node access permissions'), 'admin/content/node-settings/rebuild'))), 
+  );
+
+  $form['customreports_display_sql'] = array(
+    '#title' => 'SQL display',
+    '#type' => 'textarea',
+    '#description' => t('Enter any text you want to replace the SQL query with when the node is viewed. Note, this will not affect the rendering of the output. Leave empty to have the query displayed.'),
+    '#default_value' => variable_get('customreports_display_sql', ''),
+  );
+  
+  $form = system_settings_form($form);
+  $form['#submit'][] = 'customreports_admin_settings_custom_submit';
+  return $form;
+}
+
+/**
+ * Implementation of hook_submit - Create customreports node type
+ */
+function customreports_admin_settings_custom_submit($form_id, $form_values) {
+  if (CUSTOMREPORTS_CREATE == $form_values['values']['customreports_node_type']) {
+    // The user would like a customreport node type created
+    $node_types = node_get_types('names');
+    // Check to make sure there isn't already a node type of "customreport"
+    if (isset($node_types['customreport'])) {
+      //Just make the customreport node type the default value and let the user know.
+      variable_set('customreports_node_type', 'customreport');
+      drupal_set_message(t('There is already a node type of %type. The node type is being used.', array('%type' => 'customreport')));
+    }
+    else {
+      //Generate the new node type.
+      $node_type = new stdClass();
+      $node_type->type = 'customreport';
+      $node_type->name = t('Custom Report');
+      $node_type->module = 'node'; // We trick node module into believing this is his own node type.
+      $node_type->has_title = 1;
+      $node_type->title_label = t('Report Name');
+      $node_type->has_body = 1;
+      $node_type->body_label = t('Report Code');
+      $node_type->description = t('Custom reports are used to create a report that can then be viewed in different formats.');
+      $node_type->help = t('Enter the code to generate the rows of the report. Be sure to select the corresponding input format.');
+      $node_type->min_word_count = 1; //Require the report code
+      $node_type->custom = 1;
+      $node_type->modified = TRUE;
+      $node_type->locked = 0;
+      $node_type->orig_type = 'customreport';
+      $node_type->status = 1;
+      if (module_exists('comment')) {
+        $node_type->comment = COMMENT_NODE_DISABLED;
+      }
+      node_type_save($node_type);
+      variable_set('customreports_node_type', 'customreport');
+      drupal_set_message(t('Created new node type %type.', array('%type' => 'customreport')));
+      //Rebuild the menu so the new content type shows up
+      menu_rebuild();
+    }
+  }
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function customreports_nodeapi(&$node, $op, $a3, $a4) {
+  if ($node->type == variable_get("customreports_node_type", 'customreport')) {
+    if ('view' == $op) {
+      if ($message = trim(variable_get('customreports_display_sql', ''))) {
+        unset($node->content['body']);
+        $node->content['body']['#value'] = $message;
+      }
+    }
+  }
+}
+
+/**
+ * Central interpreter for the query and arguments.
+ */
+function customreports_render($type, $node) {
+  $args = func_get_args();
+  unset($args[0]);
+  unset($args[1]);
+
+  $use_db_regex = '/^use (\w+);/i';
+  $custom_db = preg_match($use_db_regex, $node->body, $matches);
+  if($custom_db) {
+    db_set_active($matches[1]);
+    $node->body = str_replace($matches[0], '', $node->body);
+  }
+
+  // Allow parameters to be passed as arguments.
+  $result = db_query($node->body, $args);
+
+  if($custom_db) {
+    db_set_active();
+  }
+
+  while ($item = db_fetch_array($result)) {
+    $data[] = $item;
+  }
+  
+  if (count($data)) {
+    // Any element will hold the field names, lets pick the first one.
+    foreach ($data[0] as $key => $value) {
+      $header[] = $key;
+    }
+  }
+  
+  if (is_array($header) && is_array($data)) {
+    $function = 'customreports_render_'. $type;
+    if (function_exists($function)) {
+      return call_user_func($function, $header, $data, $node);
+    }
+    else {
+      drupal_set_message(t('Requested render type not available, falling back to table display.'), 'warning');
+      return theme('table', $header, $data);
+    }
+  }
+  else {
+    drupal_set_message(t('No output from query.'), 'warning');
+    return '';
+  }
+}
+
+/**
+ * Render a CSV file from the input.
+ * @param array $header
+ *   Array of items to be rendered as the CSV header.
+ * @param array $rows
+ *   Array of items to be rendered as the CSV content.
+ * @param string $separator
+ *   The data column separator string.
+ * @param string $delimiter
+ *   The field delimiter string.
+ */
+function customreports_render_csv($header, $rows, $node, $separator = ',', $delimiter = '"') {
+  $timestamp = date("Y-m-d"); // Create a timestamp for the filename.
+  $filename = $node->title.' '.$timestamp.'.csv';
+  header("Content-type: text/csv");
+  header('Content-Disposition: attachment; filename="'. $filename .'"');
+
+  /**
+   * Warning, we are replacing double quotes with single quotes so the delimiter will 
+   * not get confused.
+   */
+  array_walk_recursive($header, '_clean_quotes');
+  array_walk_recursive($rows, '_clean_quotes');
+
+  $output = $delimiter . implode('"'. $separator .'"', $header) . $delimiter ."\n"; // header
+  foreach ($rows as $row) { // loop through all rows
+    $output .= $delimiter . implode('"'. $separator .'"', $row) . $delimiter . "\n"; // create CSV of rows
+  }
+
+  print $output;
+  exit;
+}
+
+/**
+ * Render an XLS file from the input.
+ * @param array $header
+ *   Array of items to be rendered as the header of the XLS table.
+ * @param array $rows
+ *   Array of items to be rendered as the XLS content.
+ */
+function customreports_render_xls($header, $rows, $node) {
+  $timestamp = date("Y-m-d"); // Create a timestamp for the filename.
+  $filename = $node->title.' '.$timestamp.'.xls';
+
+  header('Content-type: application/vnd.ms-excel');
+  header('Content-Disposition: attachment; filename="'. $filename .'"');
+  $output = '<html>';
+  $output .= '<head><meta http-equiv=Content-Type content="text/html; charset=utf-8"></head>';
+  $output .= '<body>';
+  $output .= theme('table', $header, $rows);
+  $output .= "</body></html>";
+  print $output;
+  exit;
+}
+
+
+/**
+ * Note: since we trick node module to take ownership for the dynamically
+ * created new content type (so we get the forms and submission handlers for free),
+ * we can not use the hook_access() to define our own permission handling.
+ */
+
+/**
+ * Implementation of hook_node_grants().
+ * Declare our realm and add the role keys to it that we use as grant id.
+ * @see customreports_node_access_records().
+ */
+function customreports_node_grants($account, $op) {
+  return array(
+    'customreports' => array_keys($account->roles),
+  );
+}
+
+/**
+ * Implementation of hook_node_access_records()
+ * For our content type allow only signed in users with access content
+ * permission, and then check if they have the 'edit custom reports' 
+ * permission for edit, or delete, and the 'view custom reports' to view.
+ */
+function customreports_node_access_records($node) {
+  $grants = array();
+  if ($node->type == variable_get("customreports_node_type", 'customreport')) {
+    //Load all the roles with the custom reports view role.
+    $view_reports_roles = user_roles(FALSE, 'view custom reports');
+    $edit_reports_roles = user_roles(FALSE, 'edit custom reports');
+    //Step through all the users with the "access content" role and set
+    //permissions to either allow viewing of the report or deny it
+    foreach (user_roles(TRUE, 'access content') as $rid => $role) {
+      $grants[$rid] = array(
+        'grant_view' => isset($view_reports_roles[$rid]),
+        'grant_update' => isset($edit_reports_roles[$rid]),
+        'grant_delete' => isset($edit_reports_roles[$rid]),
+        'realm' => 'customreports',
+        'gid' => $rid
+        );
+    }
+  }
+  return $grants;
+}
+
+function _clean_quotes(&$item, $key) {
+  $item = str_replace('"', "'", $item);
+}
+
