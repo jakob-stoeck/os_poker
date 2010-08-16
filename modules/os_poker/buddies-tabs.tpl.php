@@ -26,5 +26,9 @@
                 <?php if (isset($user->fbu)):?>
 		<li <?php if ($action == "invitefb" || $action == "invitedfb")  { print 'class="active"'; } ?>><a href="?q=poker/buddies/invitefb"><?php print t("Invite Facebook Friends"); ?></a></li>
                 <?php endif;?>
+                <?php if (isset($user->_osu)):?>
+		<li <?php if ($action == "inviteos" || $action == "invitedos")  { print 'class="active"'; } ?>><a href="?q=poker/buddies/inviteos"><?php print t("Invite Myspace Friends"); ?></a></li>
+                <?php endif;?>
+         
 	</ul>
 </div>

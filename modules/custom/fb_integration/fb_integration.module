@@ -3,7 +3,7 @@ function fb_integration_forward() {
 	echo '<a href="/">asdf</a>';
 	exit;
 }
-function fb_integration_menu() {
+/*function fb_integration_menu() {
   $items = array();
   
   // Admin pages overview.
@@ -16,15 +16,15 @@ function fb_integration_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   return $items;
-}
+}*/
 
 function fb_integration_init() {
-	if (isset($_REQUEST['fb_int_sig_in_iframe'])) {
+/*	if (isset($_REQUEST['fb_int_sig_in_iframe'])) {
 		$_REQUEST['fb_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
 		$_SESSION['fb_int_sig_in_iframe']= $_REQUEST['fb_int_sig_in_iframe'];
 	}else if(isset($_SESSION['fb_int_sig_in_iframe'])){ 
 		$_REQUEST['fb_sig_in_iframe']= $_SESSION['fb_int_sig_in_iframe'];
-	}
+	}*/
 	header('P3P:CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 }
 function fb_integration_user($op, &$edit, &$account, $category = NULL) {
@@ -128,9 +128,6 @@ function fb_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
         	$form['profile_dob']['#default_value']['year']=$birthdayAry[2];
         }
         $form['profile_nickname']['#default_value']=$me['name'];
-        //$form['mail']['#default_value']=$me['email'];
-        //$form['mail']['#type']='textfield';
-        //$form['mail']['#attributes']['type']='hidden';
         $names = explode (',',$me['hometown']['name']);
         $form['profile_city']['#default_value']=$names[0];
         $sex = strtolower($me['gender']);

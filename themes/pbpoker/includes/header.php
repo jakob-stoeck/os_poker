@@ -1,3 +1,4 @@
+
 <script type="text/javascript" charset="utf-8">
 	var user_logged_in =<?php echo $user->uid==0 ? 'false' : 'true'; ?>;
 </script>
