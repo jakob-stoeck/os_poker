@@ -19,6 +19,7 @@ window.fbAsyncInit = function() {
   //FB.Event.subscribe('auth.statusChange', FB_JS.debugHandler);
   
   jQuery.event.trigger('fb_init');  // Trigger event so that other code can now execute.
+  FB.Canvas.setAutoResize();
 };
 
 FB_JS = function(){};

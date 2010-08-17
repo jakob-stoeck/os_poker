@@ -6,7 +6,8 @@ FB_Canvas = function(){};
  */
 FB_Canvas.initHandler = function() {
   // @TODO - call setAutoResize only if iframe is resizeable.
-  FB.Canvas.setAutoResize();
+	
+	FB.Canvas.setAutoResize();
 };
 
 /**

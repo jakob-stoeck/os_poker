@@ -1,12 +1,13 @@
 
 <style type="text/css">
 	#header .language-bar {
-	display: none;
+	display:none
 	}
 </style>
 
 <script type="text/javascript" charset="utf-8">
 	var user_logged_in =<?php echo $user->uid==0 ? 'false' : 'true'; ?>;
+	
 	function os_poker_getVersion(a, b) {
 		var t = navigator.userAgent.split(a)[1];
 		return (t) ? t.split(b)[0] : false;
@@ -16,18 +17,23 @@
 	}
 	
 	function os_poker_is_in_iframe() {
-		try { 
+		try {
+ 
 			var src = window.parent.src;
-			return true; 
-		} catch (e){
+
 			return false; 
+		} catch (e){
+			return true; 
 		}
 	}
-	window.fbAsyncInit = function() {
-		if (os_poker_is_in_iframe()) { 
-		  FB.Canvas.setAutoResize();
+	$(document).ready(function (){
+		if (os_poker_is_in_iframe()) {
+		  	//
+		}else {
+			$("#header .language-bar").css("display","block");
+			 
 		}
-	}
+	});
 	if (os_poker_isSafari() && os_poker_is_in_iframe()) {
 		alert('Sorry this application is not working in Safari. We are working on it. Please use another browser');
 	}		
@@ -50,7 +56,7 @@
 		<div id="header-blocks" class="region region-header">
 		
 		<?php print $header; ?>
-		<script>if (!os_poker_is_in_iframe()) { $("#header .language-bar").css("display","");}</script>
+		
 		</div> <!-- /#header-blocks -->
 		<?php endif; ?>
 		
