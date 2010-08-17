@@ -52,7 +52,7 @@ function os_integration_block($op='list',$delta=0,$edit =array()) {
 						break;					
 					}
 					var getIds = function(values){
-						var vals = '';
+						var vals = \'\';
 						for(var item in values){
 							vals = vals + values[item] + \', \';
 						}
@@ -68,15 +68,15 @@ function os_integration_block($op='list',$delta=0,$edit =array()) {
 				var message = container.newMessage(reason, params);
 
 				var inviteParams = {};
-                var parametersList = document.getElementById('shareAppParams');
+                var parametersList = document.getElementById(\'shareAppParams\');
                 for (var i = 0; i < parametersList.options.length; i++) {
-                    var val = parametersList.options[i].value.split('=');
+                    var val = parametersList.options[i].value.split(\'=\');
                     var key = val[0];
                     var value = val[1];
                     inviteParams[key] = value;
                 }
                 var navParams = {};
-                navParams[MyOpenSpace.NavigationParameters.Field.DESTINATION_TYPE] = MyOpenSpace.NavigationParameters.DestinationType[document.getElementById('shareAppDestinationType').value];
+                navParams[MyOpenSpace.NavigationParameters.Field.DESTINATION_TYPE] = MyOpenSpace.NavigationParameters.DestinationType[document.getElementById(\'shareAppDestinationType\').value];
                 navParams[MyOpenSpace.NavigationParameters.Field.PARAMETERS] = inviteParams;
                 var navigationParams = container.newNavigationParameters(navParams);
                 container.requestShareApp(recipients, message, callback, [navigationParams]);
