@@ -1,5 +1,5 @@
 <?php
-// $Id: fb_canvas.admin.inc,v 1.9 2010/08/14 04:54:13 yogadex Exp $
+// $Id: fb_canvas.admin.inc,v 1.8 2010/06/22 23:49:36 yogadex Exp $
 /**
  * @file
  * Admin pages and forms for canvas apps.
@@ -17,7 +17,7 @@ function fb_canvas_fb_admin($op, $data, &$return) {
   if ($op == FB_ADMIN_OP_SET_PROPERTIES) {
     // Compute properties which we can set automatically.
     if (function_exists('fb_url_inbound_alter')) {
-      $callback_url = url('', array('absolute' => TRUE)) . FB_SETTINGS_CB . '/' . $fb_app->apikey . '/';
+      $callback_url = url('', array('absolute' => TRUE)) . FB_SETTINGS_CB . '/' . $fb_app->label . '/';
     }
     else {
       // Paving the way to make URL alters optional.
