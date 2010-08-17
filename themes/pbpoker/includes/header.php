@@ -1,15 +1,38 @@
 
-<script type="text/javascript" charset="utf-8">
-	var user_logged_in =<?php echo $user->uid==0 ? 'false' : 'true'; ?>;
-</script>
-
-<?php if (function_exists('fb_canvas_is_iframe') && fb_canvas_is_iframe()): ?>
 <style type="text/css">
 	#header .language-bar {
 	display: none;
 	}
 </style>
-	<?php endif; ?>
+
+<script type="text/javascript" charset="utf-8">
+	var user_logged_in =<?php echo $user->uid==0 ? 'false' : 'true'; ?>;
+	function os_poker_getVersion(a, b) {
+		var t = navigator.userAgent.split(a)[1];
+		return (t) ? t.split(b)[0] : false;
+	}
+	function os_poker_isSafari() {
+		return (document.createCDATASection && document.createElementNS) ? os_poker_getVersion('AppleWebKit/', '(') : false;
+	}
+	
+	function os_poker_is_in_iframe() {
+		try { 
+			var src = window.parent.src;
+			return true; 
+		} catch (e){
+			return false; 
+		}
+	}
+	window.fbAsyncInit = function() {
+		if (os_poker_is_in_iframe()) { 
+		  FB.Canvas.setAutoResize();
+		}
+	}
+	if (os_poker_isSafari() && os_poker_is_in_iframe()) {
+		alert('Sorry this application is not working in Safari. We are working on it. Please use another browser');
+	}		
+	
+</script>
 
 
 
@@ -25,16 +48,16 @@
 
 		<?php if ($header): ?>
 		<div id="header-blocks" class="region region-header">
-		<?php if ((!function_exists('fb_canvas_is_iframe') || !fb_canvas_is_iframe()) || $user->uid!=0):?>
-		  <?php print $header; ?>
-		<?php endif; ?>
+		
+		<?php print $header; ?>
+		<script>if (!os_poker_is_in_iframe()) { $("#header .language-bar").css("display","");}</script>
 		</div> <!-- /#header-blocks -->
 		<?php endif; ?>
 		
 		<?php global $user; if($user->uid): ?>
 		<div style="position:absolute;left:210px;top:63px;"><fb:bookmark type="<?php echo $user->fbu ? 'on' : 'off'; ?>-facebook"></fb:bookmark></div>
 		<div style="position:absolute;left:392px;top:63px;"><fb:like href="poker.playboy.de" layout="button_count" show_faces="false" colorscheme="dark"></fb:like></div>
-		<?php else: ?>
+		<?php elseif (drupal_is_front_page()): ?>
 		<div style="position:absolute;left:210px;top:63px;"><?php print $facebook; ?></div>
 		<?php endif; ?>
 		<div class="clear"></div>
