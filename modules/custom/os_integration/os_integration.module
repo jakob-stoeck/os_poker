@@ -18,10 +18,25 @@ function os_integration_admin_settings(){
 		'#title'=>'OAuth Consumer Secret');
 	return system_settings_form($form);
 }
+function os_integration_friends_callback($myspace_profile_id,$page) { 
+	echo json_encode(os_integration_get_friends($myspace_profile_id,$page,3));
+	exit;
+}
 function os_integration_menu() {
 	$items = array();
 
 	// Admin pages overview.
+	$items['os_integration_friends/%/%'] = array(
+    'title' => 'Opensocial create profile',
+    'description' => 'returns friends',
+    'page callback' => 'os_integration_friends_callback',
+    'access arguments' => array('access content'),
+    'page arguments' => array(
+	1,2
+	),
+    'type' => MENU_CALLBACK,
+	);
+	
 	$items['os_integration_create_user/%'] = array(
     'title' => 'Opensocial create profile',
     'description' => 'creates profile and forward to /first_profile',

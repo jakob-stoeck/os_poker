@@ -1,11 +1,19 @@
 <?php
 function os_integration_block($op='list',$delta=0,$edit =array()) {
-
-	$html = '<html>
-			<head>
-			<script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script> 
+global $user;
+	$html = '
+			<script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script>
 			<script src="/'. drupal_get_path('module','os_integration').'/js/IFPC_externalIframe011.js"></script>
+			<script src="/'. drupal_get_path('module','os_integration').'/js/invitefriends.js"></script>
 			<script>
+			
+			$(document).ready(function(){
+				friend = new os_inviteFriendsModel('.$user->_osu.');
+				friend.loadFriends(1,os_inviteFriendsDisplayer);
+			});
+				
+			
+			
 			gadgets.rpc.setRelayUrl(\'..\', \'http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx\'); 
 // set the correct panel id. The name will be apppanel_XXXXXX_canvas where
 // XXXXXX is the id of the application
@@ -13,20 +21,16 @@ function os_integration_block($op='list',$delta=0,$edit =array()) {
 //Set the location of the ifpc_relay_external001.html within your server
     MyOpenSpace.MySpaceContainer.get().registerParam("localRelay", "http://'.$_SERVER['HTTP_HOST'].'/'.drupal_get_path('module','os_integration').'/relay.html");
 			
-    function shareApp(){
-    
+    function os_shareApp(myspaceid){
+    var container =  MyOpenSpace.MySpaceContainer.get();
 			    var reason = "toller grund " ;;
 				var recipients = [];
 				
-				var shareAppIds = 1333;
-				for (var i = 0; i < shareAppIds.options.length; i++) {
-					var val = shareAppIds.options[i].value;
-					recipients.push(val);
-				}
-				
+				recipients.push(1222)
 				
 				if (recipients.length < 1) return;
 				var callback = function(response){
+				
 					var resultsDiv = document.getElementById(\'shareAppResult\');
 					if (resultsDiv.style.color == "Blue"){
 						resultsDiv.style.color = "Red";										
@@ -67,26 +71,29 @@ function os_integration_block($op='list',$delta=0,$edit =array()) {
 				var params = {};
 				var message = container.newMessage(reason, params);
 
-				var inviteParams = {};
-                var parametersList = document.getElementById(\'shareAppParams\');
-                for (var i = 0; i < parametersList.options.length; i++) {
-                    var val = parametersList.options[i].value.split(\'=\');
-                    var key = val[0];
-                    var value = val[1];
-                    inviteParams[key] = value;
-                }
-                var navParams = {};
-                navParams[MyOpenSpace.NavigationParameters.Field.DESTINATION_TYPE] = MyOpenSpace.NavigationParameters.DestinationType[document.getElementById(\'shareAppDestinationType\').value];
-                navParams[MyOpenSpace.NavigationParameters.Field.PARAMETERS] = inviteParams;
-                var navigationParams = container.newNavigationParameters(navParams);
-                container.requestShareApp(recipients, message, callback, [navigationParams]);
+             var inviteParams = {"casino":"Sun Monte Carlo","table":"blackjack123"}; 
+
+			var navParams = {}; 
+			navParams[MyOpenSpace.NavigationParameters.Field.DESTINATION_TYPE] = MyOpenSpace.NavigationParameters.DestinationType.RECIPIENT_DESTINATION; 
+			navParams[MyOpenSpace.NavigationParameters.Field.PARAMETERS] = inviteParams; 
+			var navigationParams = container.newNavigationParameters(navParams); 
+                
+            var navigationParams = container.newNavigationParameters(navParams);
+            try { 
+            container.requestShareApp(recipients, message, callback, [navigationParams]);
+            }catch (e) {
+            	alert(e); 
+            }
 			}
     
 
     </script>
 			
 			</head>
-<body onload="shareApp();">HELLLLLLLLLLOOOOOOOOOO<div id="shareAppResult">DIV</div></body>
+<body>
+
+<div id="os_invite_div"></div>
+</body>
 ';	
 	switch ($op) {
 		case 'list':

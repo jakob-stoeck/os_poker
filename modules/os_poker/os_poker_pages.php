@@ -83,8 +83,8 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 			$block = module_invoke('os_integration', 'block', 'view', 0);
 			//$output .= $block['content'];
 			$output .=$block['content'];
-			echo $block['content'];
-			exit;
+			//echo $block['content'];
+			//exit;
 			//$output .= '<div style="height:420px;overflow:auto">'.$block['content'].'</div>';
 			//$output .= '<iframe id="fefb8c28d21458" name="f27c57d4e8604" style="border: medium none; auto: hidden; height: 300px; width: 500px;" src="http://www.facebook.com/plugins/serverfbml.php?api_key=e7ee5832089cee7e9efb7a73ba5d31c6&amp;channel_url=http%3A%2F%2Fstatic.ak.fbcdn.net%2Fconnect%2Fxd_proxy.php%23%3F%3D%26cb%3Df191a7e5029e0ca%26origin%3Dhttp%253A%252F%252Flocal.playboypoker.de%252Ff13f4f0b23df972%26relation%3Dparent.parent%26transport%3Dpostmessage&amp;fbml=%3Cfb%3Arequest-form%20%20type%3D%22PlayboyPoker%22%20content%3D%22%26lt%3Bfb%3Areq-choice%20%20url%3D%26quot%3Bhttp%3A%2F%2Flocal.playboypoker.de%2F%26quot%3B%20label%3D%26quot%3BAnnehmen%26quot%3B%20%2F%26gt%3B%0AYou%20may%20like%20this%20site%20-%20%26lt%3Ba%20href%3D%26quot%3Bhttp%3A%2F%2Flocal.playboypoker.de%2F%26quot%3B%26gt%3BPlayboyPoker%26lt%3B%2Fa%26gt%3B.%22%20invite%3D%221%22%20action%3D%22http%3A%2F%2Flocal.playboypoker.de%2Fpoker%2Fbuddies%2Finvitefb%22%20method%3D%22POST%22%3E%3Cfb%3Amulti-friend-selector%20%20actiontext%3D%22Freunde%20einladen%22%20exclude_ids%3D%221328933654%2C100000684168920%2C100001070884258%2C100001206182306%22%3E%3C%2Ffb%3Amulti-friend-selector%3E%0A%3C%2Ffb%3Arequest-form%3E%0A&amp;locale=en_US&amp;sdk=joey&amp;session_key=2.I4Y8zLzlR_HnnvcyjuYv3Q__.3600.1280509200-1194807264"></iframe>'; 
 		break;

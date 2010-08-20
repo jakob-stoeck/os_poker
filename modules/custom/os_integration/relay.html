@@ -15,8 +15,16 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
--->
+--> 
 <script type="text/javascript"> 
+var u = location.href, h = u.substr(u.indexOf('#') + 1).split('&'), t, r;
+try {
+  t = h[0] === '..' ? parent.parent : parent.frames[h[0]];
+  r = t.gadgets.rpc.receive;
+} catch (e) {
+}
+r && r(h);
+</script> 
 var u = location.href, h = u.substr(u.indexOf('#') + 1).split('&'), t, r;
 try {
   t = h[0] === '..' ? parent.parent : parent.frames[h[0]];

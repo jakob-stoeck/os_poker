@@ -9,59 +9,82 @@ function os_integration_get_osapi() {
 	$osapi = new osapi($myspaceprovider,$authprovider);
 	return $osapi;
 }
+ 
+function os_integration_get_friends($myspace_profile_id,$page,$itemsPerPage) {
+	$osapi = os_integration_get_osapi();
+	$batch = $osapi->newBatch();
+
+	$profile_fields = array();
+	$self_request_params = array(
+ 'userId' => $myspace_profile_id, 
+ 'groupId' => '@friends', 
+ 
+	'count' => $itemsPerPage,
+	'startIndex' => ($itemsPerPage*($page-1))+1,
+	'format'=>'json'
+	);
+	$batch->add($osapi->people->get($self_request_params), 'friends');
+	$response = $batch->execute();
+	
+	//$persons = $response['friends']->getList() ;
+	
+	return $response;
+
+
+}
 function os_integration_map_friends($account) {
 	$osapi = os_integration_get_osapi();
 	$myspace_profile_id =  $account->_osu;
 	$batch = $osapi->newBatch();
 
 	$profile_fields = array();
- $self_request_params = array(
+	$self_request_params = array(
  'userId' => $myspace_profile_id, 
  'groupId' => '@friends', 
  'fields' => $profile_fields 
- );
- $batch->add($osapi->people->get($self_request_params), 'friends');
- $response = $batch->execute();
- $persons = $response['friends']->getList() ;
- $oids = array();
- foreach ($persons as $key=>$person) {
- 	$idary	= explode('.',$person->id);
- 	$oids[] = $idary[3];
- }
- if (count($oids)==0) { 
- 	return ;
- }
-    $query = "SELECT uid FROM {authmap}
+	);
+	$batch->add($osapi->people->get($self_request_params), 'friends');
+	$response = $batch->execute();
+	$persons = $response['friends']->getList() ;
+	$oids = array();
+	foreach ($persons as $key=>$person) {
+		$idary	= explode('.',$person->id);
+		$oids[] = $idary[3];
+	}
+	if (count($oids)==0) {
+		return ;
+	}
+	$query = "SELECT uid FROM {authmap}
         left join {user_relationships} on {user_relationships}.requestee_id = {authmap}.uid
 	and {user_relationships}.requester_id=%s
         WHERE authname IN (%s) AND module='%s'  and {user_relationships}.requestee_id is null"  ; // better? way using authmap.
-    $args[] = $account->uid;
-    $args[] = implode(',', $oids);
-    $args[] = 'os_user';
+	$args[] = $account->uid;
+	$args[] = implode(',', $oids);
+	$args[] = 'os_user';
 
-    $result = db_query($query, $args);
-    $uids = array();
-    while ($data = db_fetch_object($result)) {
-      if ($data->uid) {
-        $uids[] = $data->uid;
-      }
-    }
-    if (count($uids)==0) {
-        return ;
-    }
-    $rtype = user_relationships_type_load(array('name'=>'buddy'));
+	$result = db_query($query, $args);
+	$uids = array();
+	while ($data = db_fetch_object($result)) {
+		if ($data->uid) {
+			$uids[] = $data->uid;
+		}
+	}
+	if (count($uids)==0) {
+		return ;
+	}
+	$rtype = user_relationships_type_load(array('name'=>'buddy'));
 
-    for ($i=0;$i<count($uids);$i++) {
-      $relationship = new stdClass();
-      $relationship->requestee_id = $uids[$i];
-      $relationship->requester_id=$account->uid;
-      $relationship->rtid =$rtype->rtid;
-      $relationship->approved = 1;
-      user_relationships_save_relationship($relationship,'osapprove');
-    }
- 
- 
- 
+	for ($i=0;$i<count($uids);$i++) {
+		$relationship = new stdClass();
+		$relationship->requestee_id = $uids[$i];
+		$relationship->requester_id=$account->uid;
+		$relationship->rtid =$rtype->rtid;
+		$relationship->approved = 1;
+		user_relationships_save_relationship($relationship,'osapprove');
+	}
+
+
+
 }
 function os_integration_get_profile_infos($myspace_profile_id) {
 	$osapi = os_integration_get_osapi();
@@ -132,7 +155,7 @@ function os_integration_login_opensocial_user($myspace_profile_id) {
 	global $user;
 	$ids = os_integration_get_user_id($myspace_profile_id);
 	if (isset($ids['os_user'])) {
-		
+
 		$user = user_load($ids['os_user']);
 		sess_regenerate();
 		watchdog('opensocial', 'get user: '.$user->uid. ' '.$usser->name);
