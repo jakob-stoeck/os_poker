@@ -1,0 +1,951 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html> 
+	<head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+		<title>test</title> 
+		<script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script> 
+	<script src="/sites/all/modules/custom/os_integration/js/IFPC_externalIframe011.js"></script> 
+			<script> 
+			gadgets.rpc.setRelayUrl('..', 'http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx'); 
+// set the correct panel id. The name will be apppanel_XXXXXX_canvas where
+// XXXXXX is the id of the application
+    MyOpenSpace.MySpaceContainer.get().registerParam("panelId", "apppanel_192688_canvas");
+//Set the location of the ifpc_relay_external001.html within your server
+    MyOpenSpace.MySpaceContainer.get().registerParam("localRelay", "http://local.playboypoker.de/sites/all/modules/custom/os_integration/relay.html"); 
+ 
+ 
+ 
+//<![CDATA[
+// set the correct panel id. The name will be apppanel_XXXXXX_canvas where
+// XXXXXX is the id of the application
+
+//Set the location of the ifpc_relay_external001.html within your server
+
+ 
+//]]>
+</script> 
+ 
+ 
+<style type="text/css"> 
+	div.form{
+		width: 650px;
+		padding: 10px;
+	}
+	
+	div.form
+	label, 
+	div.form
+	input, 
+	div.form
+	select,
+	
+	div.form
+	div.result{
+		display: block;
+		width: 175px;
+		float: left;
+		margin-bottom: 10px;
+ 
+	}
+	
+	div.form
+	div.mediaItems{
+		display:block;
+		float:left;
+		width:500px;
+	}
+	
+	div.form
+	label {
+		text-align: right;
+		width: 100px;
+		padding-right: 20px;
+	}
+	
+	div.form
+	br {
+		clear: both;;
+	}
+	
+	div.form
+	fieldset {  
+		float: left;  
+		clear: both;  
+		width: 100%;  
+		margin: 0 0 -1em 0;  
+		padding: 0 0 1em 0;
+		border-top: 1px solid #BFBAB0;  
+		background-color: #F2EFE9; 
+	}
+	
+	div.form
+	fieldset.options{
+		float:none;
+		width: 90%;
+		background-color: #ffffff;
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+	
+	div.form
+	input.button
+	{
+		float: right;
+		width: 130px;
+		margin-right: 20px;
+	}
+	
+ 
+</style> 
+ 
+</head> 
+<body> 
+<div class="form"> 
+	<fieldset> 
+ 
+		<legend>PostTo</legend> 
+ 
+		
+		<label id="titleLabel" for="title">Title:</label> 
+		<input id="title" type="text"  /><br /> 
+		<label id="messageLabel" for="message">Message:</label> 
+		<input id="message" type="text"  /> <br /> 
+		<label id="postToTypeLabel" for="postToType">PostTo Type:</label> 
+		<select id="postToType" onchange="javascript:displayRecipient();" onkeyup="displayRecipient()"> 
+ 
+		<option value="">Select one</option> 
+ 
+		
+		<option value="PROFILE">PROFILE</option> 
+		<option value="BLOG">BLOG</option> 
+		<option value="BULLETINS">BULLETINS</option> 
+		
+		<option value="">-------------------</option> 
+		
+		<option value="SEND_MESSAGE">SEND MESSAGE</option> 
+		<option value="APP_MESSAGE">APP MESSAGE</option> 
+		<option value="COMMENTS">COMMENTS</option> 
+		<option value="ADD_TO_FRIENDS">ADD TO FRIENDS</option> 
+		
+		</select> 
+		<br /> 
+		<fieldset class="options" id="recipientInfo"> 
+			<legend>Recipient</legend> 
+			<label id="recipientIdLabel" for="recipientId">Id:</label> 
+			<input id="recipientId" type="text" /><br id="brakeId" /> 
+ 
+			<label id="recipientNameLabel" for="recipientName">Name:</label> 
+			<input id="recipientName" type="text" /><br id="brakeName" /> 
+			
+			<label id="recipientThumbnailLabel" for="recipientThumbnail">Thumbnail Url:</label> 
+			<input id="recipientThumbnail" type="text" /><br id="brakeThumbnail" /> 
+			
+			<label id="recipientProfileLabel" for="recipientProfile">Profile Url:</label> 
+			<input id="recipientProfile" type="text" /><br id="brakeProfile" /> 
+			<span id="shareAppDeprecated" style="color: Red;" >This method has been deprecated please use requestShareApp insted.</span> 
+		</fieldset> 
+ 
+		<fieldset class="options" id="appMessageOptions"> 
+			<legend>Recipient</legend> 
+			<label id="recipientIdLabel" for="recipientId">Id:</label> 
+			<input id="recipientId" type="text" /><br/> 
+ 
+			<label id="mediaItemLabel" for="mediaItemmediaItem">mediaItem:</label> 
+			<input id="mediaItem" type="text" /><br/> 
+			
+			<label id="actionTextLabel" for="actionText">action text:</label> 
+			<input id="actionText" type="text" /><br/> 
+ 
+			<label id="appParamsLabel" for="appParams">app params:</label> 
+			<input id="appParams" type="text" /><br/> 
+		</fieldset> 
+ 
+		<br /> 
+		<label id="postToResultLabel" for="postToResult">Result:</label> 
+		<div id="postToResult" class="result" style="color:Red;height: 40px; width: 400px;">&nbsp;</div> 
+		<br /> 
+		<input type="button" onclick="javascript:sendMessage();" value="Send Message" class="button" /> 
+ 
+	</fieldset> 
+	<fieldset> 
+		<legend>Request Share App</legend> 
+		
+		<label id="shareAppReasonLabel" for="message">Reason:</label> 
+		<input id="shareAppReason" type="text" style="width:400px;" /> <br /> 
+		
+		<label id="shareAppIdsLabel" for="shareAppIds">Recipients Id:</label> 
+		<div class="mediaItems"> 
+			<input id="shareAppIdText" type="text" style="width:400px;" /> 
+			<input type="button" onclick="addShareAppId();"style="width:60px;" value="Add" /> 
+			<br /> 
+				<script type="text/javascript"> 
+					if (MyOpenSpace.MDPContainerRSAMultipleRecipients === false){
+						document.write('<span style="color:red;">Multiple Recipients is disable at this time.<span>');
+					}
+				</script> 
+			<br /> 
+			<select id="shareAppIds" multiple="multiple" style="height: 150px;width:400px;"> 
+			</select> 
+		    <input type="button" onclick="editShareAppId();"  value="Edit" style="width:60px;" /> 
+			<input type="button" onclick="deleteShareAppId();" value="Delete" style="width:60px;" /> 
+			
+	    </div> 
+	    
+	    <div> 
+	    <label id="Label2" for="destinationType">Destination Type:</label> 
+		<select id="shareAppDestinationType" style="width:350px;"> 
+			<option value="RECIPIENT_DESTINATION">RECIPIENT_DESTINATION</option> 
+			<option value="VIEWER_DESTINATION">VIEWER_DESTINATION</option> 
+		</select> 
+		</div> 
+              <br /> 
+           
+        	    <label id="Label1" for="activitiesParameters">Parameters:</label> 
+        	     <div class="mediaItems"> 
+        	    <input id="shareAppParameterKey" type="text" style="width:140px;margin-right: 10px;" /> 
+			    <input id="shareAppParameterValue" type="text" style="width:240px;" /> 
+			    <input type="button" onclick="addShareAppParameter();"style="width:60px;" value="Add" /> 
+		   
+		  	  <select id="shareAppParams" multiple="multiple" style="height: 150px;width:400px;"> 
+			  </select> 
+		      <input type="button" onclick="editShareAppParameter();"  value="Edit" style="width:60px;" /> 
+		      <input type="button" onclick="deleteShareAppParameter();" value="Delete" style="width:60px;" /> 
+		    </div> 
+		<br /> 
+		<label id="shareAppResultLabel" for="shareAppResult">Result:</label> 
+		<div id="shareAppResult" class="result" style="color:Red;height: 40px; width: 400px;">&nbsp;</div> 
+		<br /> 
+		<input type="button" onclick="javascript:shareApp();" value="Share App" class="button" /> 
+	</fieldset> 
+	<fieldset> 
+		<legend>Adjust Height</legend> 
+ 
+		<label id="adjustHeightLabel" for="adjustHeight">Height:</label><input id="adjustHeight" type="text" style="width: 200px;" /><br /> 
+		<input type="button" onclick="adjustHeight();" value="Adjust Height" class="button" /> 
+ 
+	</fieldset> 
+ 
+	<fieldset> 
+ 
+		<legend>Navigate To</legend> 
+		<label id="navigateToLabel" for="navigateTo">Navigate to:</label> 
+		<select id="navigateTo"> 
+ 
+		<option value="">Select one</option> 
+		
+		<option value="profile">Profile</option> 
+		<option value="home">Home</option> 
+ 
+		<option value="canvas">Canvas</option> 
+		<option value="default">Default</option> 
+		
+		</select><br /> 
+ 
+		<input type="button" onclick="navigateTo();" value="Navigate To" class="button" /> 
+ 
+	</fieldset> 
+	<fieldset> 
+		<legend>Has Permission</legend> 
+ 
+		<label id="hasPermissionLabel" for="hasPermission">Permission:</label> 
+		<select id="hasPermission" style="width:350px;"> 
+			<option value="VIEWER_DISPLAY_ON_PROFILE">VIEWER_DISPLAY_ON_PROFILE</option> 
+ 
+			<option value="VIEWER_DISPLAY_ON_HOME">VIEWER_DISPLAY_ON_HOME</option> 
+			<option value="VIEWER_SEND_UPDATES_TO_FRIENDS">VIEWER_SEND_UPDATES_TO_FRIENDS</option> 
+			<option value="VIEWER_SHOW_UPDATES_FROM_FRIENDS">VIEWER_SHOW_UPDATES_FROM_FRIENDS</option> 
+ 
+			<option value="VIEWER_ACCESS_TO_PRIVATE_VIDEOS_PHOTOS">VIEWER_ACCESS_TO_PRIVATE_VIDEOS_PHOTOS</option> 
+			<option value="VIEWER_ACCESS_TO_PUBLIC_VIDEOS_PHOTOS">VIEWER_ACCESS_TO_PUBLIC_VIDEOS_PHOTOS</option> 
+			<option value="VIEWER_ACCESS_TO_IDENTITY_INFORMATION">VIEWER_ACCESS_TO_IDENTITY_INFORMATION</option> 
+ 
+			<option value="VIEWER_ADD_PHOTOS_TO_ALBUMS">VIEWER_ADD_PHOTOS_TO_ALBUMS</option> 
+			<option value="VIEWER_UPDATE_MOOD_STATUS">VIEWER_UPDATE_MOOD_STATUS</option> 
+			<option value="VIEWER_UPDATE_PROFILE">VIEWER_UPDATE_PROFILE</option> 
+ 
+			<option value="VIEWER_CONTACT_INFO">VIEWER_CONTACT_INFO</option> 
+			<option value="VIEWER_FULL_PROFILE_INFO">VIEWER_FULL_PROFILE_INFO</option> 
+			<option value="VIEWER_ACCESS_TO_BASIC_INFO">VIEWER_ACCESS_TO_BASIC_INFO</option> 
+ 
+			<option value="VIEWER_ACCESS_TO_FRIEND_LIST">VIEWER_ACCESS_TO_FRIEND_LIST</option> 
+			<option value="VIEWER_BASIC_COMMUNICATIONS">VIEWER_BASIC_COMMUNICATIONS</option> 
+		</select> 
+ 
+		<br /> 
+		<label id="hasPermissionResutlLabel" for="hasPermissionResult">Result:</label> 
+		<div id="hasPermissionResult" class="result" style="color:Red;  width: 400px;"></div> 
+		<br /> 
+ 
+		<input type="button" onclick="hasPermission();" value="Has Permission" class="button" /> 
+	</fieldset> 
+	<fieldset> 
+		<legend>Request Permission</legend> 
+ 
+		<label id="requestPermissionLabel" for="requestPermission">Permission:</label> 
+		<select id="requestPermission" style="width:350px;"> 
+			<option value="VIEWER_DISPLAY_ON_PROFILE">VIEWER_DISPLAY_ON_PROFILE</option> 
+ 
+			<option value="VIEWER_DISPLAY_ON_HOME">VIEWER_DISPLAY_ON_HOME</option> 
+			<option value="VIEWER_SEND_UPDATES_TO_FRIENDS">VIEWER_SEND_UPDATES_TO_FRIENDS</option> 
+			<option value="VIEWER_SHOW_UPDATES_FROM_FRIENDS">VIEWER_SHOW_UPDATES_FROM_FRIENDS</option> 
+ 
+			<option value="VIEWER_ACCESS_TO_PRIVATE_VIDEOS_PHOTOS">VIEWER_ACCESS_TO_PRIVATE_VIDEOS_PHOTOS</option> 
+			<option value="VIEWER_ACCESS_TO_PUBLIC_VIDEOS_PHOTOS">VIEWER_ACCESS_TO_PUBLIC_VIDEOS_PHOTOS</option> 
+			<option value="VIEWER_ACCESS_TO_IDENTITY_INFORMATION">VIEWER_ACCESS_TO_IDENTITY_INFORMATION</option> 
+ 
+			<option value="VIEWER_ADD_PHOTOS_TO_ALBUMS">VIEWER_ADD_PHOTOS_TO_ALBUMS</option> 
+			<option value="VIEWER_UPDATE_MOOD_STATUS">VIEWER_UPDATE_MOOD_STATUS</option> 
+			<option value="VIEWER_UPDATE_PROFILE">VIEWER_UPDATE_PROFILE</option> 
+ 
+			<option value="VIEWER_CONTACT_INFO">VIEWER_CONTACT_INFO</option> 
+			<option value="VIEWER_FULL_PROFILE_INFO">VIEWER_FULL_PROFILE_INFO</option> 
+		</select> 
+ 
+		<br /> 
+		<label id="requestPermissionResutlLabel" for="requestPermissionResult">Result:</label> 
+		<div id="requestPermissionResult" class="result" style="color:Red;height: 40px; width: 400px;"></div> 
+		<br /> 
+ 
+		<input type="button" onclick="requestPermission();" value="Request Permission" class="button" /> 
+	</fieldset> 
+	<fieldset> 
+		<legend>Activities</legend> 
+		<fieldset id="recipientInfo1"> 
+			<legend>Templates</legend> 
+				<p>To test you can use the following templates and values:</p> 
+ 
+				<table> 
+					<tr> 
+						<td style="width: 120px" ><b>Template name:</b></td> 
+						<td>test1</td> 
+					</tr> 
+					<tr> 
+						<td><b>Media Items:</b><br /> (optional)</td> 
+ 
+						<td>http://api.myspace.com/v1/users/345900341/albums/774700/photos/7967554</td> 
+					</tr> 
+					
+				</table> 
+ 
+				<hr /> 
+				<table> 
+					<tr> 
+						<td style="width: 120px" ><b>Template name:</b></td> 
+ 
+						<td>test2</td> 
+					</tr> 
+					<tr> 
+						<td><b>Media Items:</b><br /> (optional)</td> 
+						<td>http://api.myspace.com/v1/users/345900341/albums/774700/photos/7967554</td> 
+					</tr> 
+ 
+					<tr> 
+						<td><b>Parameters key:</b> <br />(required)</td> 
+						<td>parameter1</td> 
+					</tr> 
+					
+				</table> 
+ 
+		</fieldset> 
+ 
+		<br /> 
+		<br /> 
+ 
+				
+ 
+		<label id="activitiesTemplateNameLabel" for="activitiesTemplateName">Template Name:</label> 
+		<input id="activitiesTemplateName" type="text" /><br /> 
+		<label id="activitiesPriorityLabel" for="activitiesPriority">Priority:</label> 
+		<select id="activitiesPriority" style="width:350px;"> 
+			<option value="HIGH">HIGH</option> 
+ 
+			<option value="LOW">LOW</option> 
+		</select> 
+ 
+		<br /> 
+		<label id="activitiesMediaItemsLabel" for="activitiesMediaItems">Media Items:</label> 
+		<div class="mediaItems"> 
+			<input id="mediaItemText" type="text" style="width:400px;" /> 
+			<input type="button" onclick="addMediaItem();"style="width:60px;" value="Add" /> 
+ 
+			<br /> 
+			<select id="activitiesMediaItems" multiple="multiple" style="height: 150px;width:400px;"> 
+				
+			</select> 
+ 
+			<input type="button" onclick="editMediaItem();"  value="Edit" style="width:60px;" /> 
+			<input type="button" onclick="deleteMediaItem();" value="Delete" style="width:60px;" /> 
+		</div> 
+		<label id="activitiesParametersLabel" for="activitiesParameters">Parameters:</label> 
+		<div class="mediaItems"> 
+ 
+			<input id="activitiesParametersKey" type="text" style="width:195px;margin-right: 10px;" /> 
+			<input id="activitiesParametersValue" type="text" style="width:190px;" /> 
+			<input type="button" onclick="addParameter();"style="width:60px;" value="Add" /> 
+ 
+			<br /> 
+			<select id="activitiesParameters" multiple="multiple" style="height: 150px;width:400px;"> 
+				
+			</select> 
+			<input type="button" onclick="editParameter();"  value="Edit" style="width:60px;" /> 
+			<input type="button" onclick="deleteParameter();" value="Delete" style="width:60px;" /> 
+ 
+		</div> 
+		<br /> 
+		<label id="activitiesResutlLabel" for="activitiesResult">Result:</label> 
+ 
+		<div id="activitiesResult" class="result" style="color:Red;height: 40px;width:400px;">&nbsp;</div> 
+		<br /> 
+		<input type="button" onclick="createActivity();" value="Create Activity" class="button" /> 
+	</fieldset> 
+	<fieldset> 
+ 
+		<legend>Query String</legend> 
+		<label id="oldQueryStringLabel" for="oldQueryString">Original Query String:</label> 
+		<textarea id="oldQueryString" style="height: 150px;width:400px;"> 
+			
+		</textarea> 
+ 
+		<br /> 
+			<input type="button" onclick="getNewQueryString();" value="New Query String" class="button" /> 
+		<br /> 
+		<label id="newQueryStringLabel" for="newQueryString">New Query String:</label> 
+ 
+		<textarea id="newQueryString" style="height: 150px;width:400px;"> 
+			
+		</textarea> 
+		<br /> 
+	</fieldset> 
+ 
+	
+</div> 
+ 
+ 
+		<script type="text/javascript"> 
+			
+			var container = MyOpenSpace.MySpaceContainer.get();
+			
+			(function(){
+				var oldQueryString = document.getElementById('oldQueryString');	
+				oldQueryString.value = window.location.search.substring(1);
+			})();
+			
+			function getNewQueryString(){
+				var newQueryString = document.getElementById('newQueryString');	
+				newQueryString.value = container.getQueryString();
+			}
+			
+			function addParameter(){
+				var key = document.getElementById('activitiesParametersKey').value;
+				var value = document.getElementById('activitiesParametersValue').value;
+				
+				key = key.replace(/^\s+|\s+$/g, '');
+				value = value.replace(/^\s+|\s+$/g, '');
+				if (key === '' || value === ''){
+					return;
+				}
+				var keyValue = key + "=" + value;
+ 
+				var parameters = document.getElementById('activitiesParameters');
+				parameters.options[parameters.options.length] = new Option(keyValue, keyValue);
+				document.getElementById('activitiesParametersKey').value = '';
+				document.getElementById('activitiesParametersValue').value = '';
+			}
+			
+			function deleteParameter(){
+				var parameters = document.getElementById('activitiesParameters');
+				for (var i = parameters.options.length - 1; i >= 0; i--){
+					if (parameters.options[i].selected){
+						parameters.remove(i);
+					}
+				}
+			}
+			
+			function editParameter(){
+				var parameters = document.getElementById('activitiesParameters');
+				for (var i = 0; i < parameters.options.length; i++){
+					if (parameters.options[i].selected){
+						var val = parameters.options[i].value.split('=');
+						var key = val[0];
+						var value = val[1];
+						
+						document.getElementById('activitiesParametersKey').value = key;
+						document.getElementById('activitiesParametersValue').value = value;
+						
+						parameters.remove(i);
+						break;
+					}
+				}
+			}
+ 
+			function addShareAppParameter() {
+			    var key = document.getElementById('shareAppParameterKey').value;
+			    var value = document.getElementById('shareAppParameterValue').value;
+ 
+			    key = key.replace(/^\s+|\s+$/g, '');
+			    value = value.replace(/^\s+|\s+$/g, '');
+			    if (key === '' || value === '') {
+			        return;
+			    }
+			    var keyValue = key + "=" + value;
+ 
+			    var parameters = document.getElementById('shareAppParams');
+			    parameters.options[parameters.options.length] = new Option(keyValue, keyValue);
+			    document.getElementById('shareAppParameterKey').value = '';
+			    document.getElementById('shareAppParameterValue').value = '';
+			}
+ 
+			function deleteShareAppParameter() {
+			    var parameters = document.getElementById('shareAppParams');
+			    for (var i = parameters.options.length - 1; i >= 0; i--) {
+			        if (parameters.options[i].selected) {
+			            parameters.remove(i);
+			        }
+			    }
+			}
+ 
+			function editShareAppParameter() {
+			    var parameters = document.getElementById('shareAppParams');
+			    for (var i = 0; i < parameters.options.length; i++) {
+			        if (parameters.options[i].selected) {
+			            var val = parameters.options[i].value.split('=');
+			            var key = val[0];
+			            var value = val[1];
+ 
+			            document.getElementById('shareAppParameterKey').value = key;
+			            document.getElementById('shareAppParameterValue').value = value;
+ 
+			            parameters.remove(i);
+			            break;
+			        }
+			    }
+			}
+			
+			
+			//----------------------------------------------------------------------------			
+			function addShareAppId(){
+				var recepientId = document.getElementById('shareAppIdText').value;
+				if (recepientId === ''){
+					return;
+				}
+				
+				var shareAppIds = document.getElementById('shareAppIds');
+				shareAppIds.options[shareAppIds.options.length] = new Option(recepientId, recepientId);
+				document.getElementById('shareAppIdText').value = '';
+			}
+			
+			function deleteShareAppId(){
+				var shareAppIds = document.getElementById('shareAppIds');
+				for (var i = shareAppIds.options.length - 1; i >= 0; i--){
+					if (shareAppIds.options[i].selected){
+						shareAppIds.remove(i);
+					}
+				}
+			}
+			
+			function editShareAppId(){
+				var shareAppIds = document.getElementById('shareAppIds');
+				for (var i = 0; i < shareAppIds.options.length; i++){
+					if (shareAppIds.options[i].selected){
+						var val = shareAppIds.options[i].value;
+						document.getElementById('shareAppIdText').value = val;
+						shareAppIds.remove(i);
+						break;
+					}
+				}
+			}
+			//----------------------------------------------------------------------------
+			function addMediaItem(){
+				var mediaItem = document.getElementById('mediaItemText').value;
+				mediaItem = mediaItem.replace(/^\s+|\s+$/g, '');
+				if (mediaItem === ''){
+					return;
+				}
+				
+				var mediaItems = document.getElementById('activitiesMediaItems');
+				mediaItems.options[mediaItems.options.length] = new Option(mediaItem, mediaItem);
+				document.getElementById('mediaItemText').value = '';
+			}
+			
+			function deleteMediaItem(){
+				var mediaItems = document.getElementById('activitiesMediaItems');
+				for (var i = mediaItems.options.length - 1; i >= 0; i--){
+					if (mediaItems.options[i].selected){
+						mediaItems.remove(i);
+					}
+				}
+			}
+			
+			function editMediaItem(){
+				var mediaItems = document.getElementById('activitiesMediaItems');
+				for (var i = 0; i < mediaItems.options.length; i++){
+					if (mediaItems.options[i].selected){
+						var val = mediaItems.options[i].value;
+						document.getElementById('mediaItemText').value = val;
+						mediaItems.remove(i);
+						break;
+					}
+				}
+			}
+			
+			function createActivity(){
+				var template =  document.getElementById('activitiesTemplateName').value;
+				
+				var priority = MyOpenSpace.CreateActivityPriority[document.getElementById('activitiesPriority').value];
+				
+				var params = {};
+				params[MyOpenSpace.Activity.Field.TITLE_ID] = template;
+				
+				var parameters = {};
+				var parametersList = document.getElementById('activitiesParameters');
+				for (var i = 0; i < parametersList.options.length; i++){
+					var val = parametersList.options[i].value.split('=');
+					var key = val[0];
+					var value = val[1];
+					parameters[key] = value;
+				}
+				
+				params[MyOpenSpace.Activity.Field.TEMPLATE_PARAMS] = parameters;
+ 
+				var mediaItemArray = [];
+				
+				var mediaItems = document.getElementById('activitiesMediaItems');
+				for (var i = 0; i < mediaItems.options.length; i++) {
+					var val = mediaItems.options[i].value;
+					mediaItemArray.push(container.newMediaItem("", val));
+				}
+				
+				params[MyOpenSpace.Activity.Field.MEDIA_ITEMS] = mediaItemArray;
+ 
+				var activity = container.newActivity(params);
+				
+				var opt_callBack = function(response){
+					var resultsDiv = document.getElementById('activitiesResult');
+					if (resultsDiv.style.color == "Blue"){
+						resultsDiv.style.color = "Red";										
+					}
+					else{
+						resultsDiv.style.color = "Blue";					
+					}
+					if (response.errorMessage){
+						resultsDiv.innerHTML = "Error:" + response.errorMessage;
+						return;	
+					}
+					
+					switch (response){
+						case MyOpenSpace.PostTo.Result.ERROR:
+							resultsDiv.innerHTML = "Error";
+						break;
+						case MyOpenSpace.PostTo.Result.CANCELLED:
+							resultsDiv.innerHTML = "Cancelled";
+						break;
+						case MyOpenSpace.PostTo.Result.SUCCESS:
+							resultsDiv.innerHTML = "Success";
+						break;					
+					}
+ 
+ 
+				}
+				
+				container.requestCreateActivity(activity, priority, opt_callBack);
+			}
+			
+			function requestPermission(){
+				var permissionValue = document.getElementById('requestPermission').value;
+				var container = MyOpenSpace.MySpaceContainer.get();
+				var permission = MyOpenSpace.Permission[permissionValue];
+				var hasPermission = container.hasPermission(permission);
+				var resultsDiv = document.getElementById('requestPermissionResult');
+				if (resultsDiv.style.color == "Blue"){
+					resultsDiv.style.color = "Red";										
+				}
+				else{
+					resultsDiv.style.color = "Blue";					
+				}
+				if (hasPermission){
+					resultsDiv.innerHTML = "You already have the permission.";
+					return;
+				}
+				var callback = function (response){
+					var responseText;
+					if (response.errorMessage){
+						responseText = "Error: " + response.errorMessage;
+						if (response.permissions){
+							responseText += "Permissions granted:<br />"
+							for (var i in permission){
+								responseText += "<br />" + permission.permission;
+							}
+						}
+					}
+					else if (response.permissions){
+							responseText = "Permissions granted:<br />"
+							for (var i in response.permissions){
+								responseText += "<br />" + response.permissions[i].permission;
+							}
+					}
+					resultsDiv.innerHTML = responseText;
+				}
+				container.requestPermission(permission,"Test permission request", callback);
+			}
+			
+			function hasPermission(){
+				var permission = document.getElementById('hasPermission').value;
+				var container = MyOpenSpace.MySpaceContainer.get();
+				var permission = container.hasPermission(MyOpenSpace.Permission[permission]);
+				var resultsDiv = document.getElementById('hasPermissionResult');
+				var result = resultsDiv.innerHTML = permission;
+				if (resultsDiv.style.color == "Blue"){
+					resultsDiv.style.color = "Red";										
+				}
+				else{
+					resultsDiv.style.color = "Blue";					
+				}
+			}
+			
+			function displayRecipient(){
+				var postToType = document.getElementById('postToType').value;
+				var recipientInfo = document.getElementById('recipientInfo');
+				var appMessageOptions = document.getElementById('appMessageOptions');
+				appMessageOptions.style.display = 'none';
+				switch(postToType){
+					case "SEND_MESSAGE":
+					case "COMMENTS":
+					case "SHARE_APP":
+					case "ADD_TO_FRIENDS":
+						recipientInfo.style.visibility = 'visible';
+						recipientInfo.style.display = 'block';
+						var display = "inline";
+						var displayDeprecated = "none";
+						if (postToType === 'SHARE_APP'){
+							display = "none";
+							displayDeprecated = "inline"
+						}
+						document.getElementById('titleLabel').style.display = display;
+						document.getElementById('title').style.display = display;
+						
+						document.getElementById('recipientNameLabel').style.display = display;
+						document.getElementById('recipientName').style.display = display;
+						document.getElementById('brakeName').style.display = display;
+							
+						document.getElementById('recipientThumbnailLabel').style.display = display;
+						document.getElementById('recipientThumbnail').style.display = display;
+						document.getElementById('brakeThumbnail').style.display = display;
+							
+						document.getElementById('recipientProfileLabel').style.display = display;
+						document.getElementById('recipientProfile').style.display = display;
+						document.getElementById('brakeProfile').style.display = display;
+						
+						document.getElementById('shareAppDeprecated').style.display = displayDeprecated;
+						
+						break;
+					case "APP_MESSAGE":
+						appMessageOptions.style.display = 'block';
+						// fall through
+					default:
+						recipientInfo.style.visibility = 'hidden';
+						recipientInfo.style.display = 'none';
+						break;
+				}
+				
+			}
+			
+			
+			
+			function navigateTo(){
+				var navigateToText = document.getElementById('navigateTo').value;
+				var navigateTo;
+				switch (navigateToText){
+					case "profile":
+						navigateTo = MyOpenSpace.View.Field.PROFILE;
+						break;
+					case "home":
+						navigateTo = MyOpenSpace.View.Field.HOME;
+						break;
+					case "canvas":
+						navigateTo = MyOpenSpace.View.Field.CANVAS;
+						break;
+					case "default":
+						navigateTo = MyOpenSpace.View.Field.DEFAULT;
+						break;
+				}
+				if (navigateTo) {
+					container.requestNavigateTo(navigateTo);
+				}
+			}
+			
+			function adjustHeight(){
+				var height = document.getElementById('adjustHeight').value;
+				container.adjustHeight(height);
+			}
+			
+			function shareApp(){
+			    var reason = document.getElementById('shareAppReason').value;
+				var recipients = [];
+				
+				var shareAppIds = document.getElementById('shareAppIds');
+				for (var i = 0; i < shareAppIds.options.length; i++) {
+					var val = shareAppIds.options[i].value;
+					recipients.push(val);
+				}
+				
+				
+				if (recipients.length < 1) return;
+				var callback = function(response){
+					var resultsDiv = document.getElementById('shareAppResult');
+					if (resultsDiv.style.color == "Blue"){
+						resultsDiv.style.color = "Red";										
+					}
+					else{
+						resultsDiv.style.color = "Blue";					
+					}
+					if (response.errorMessage){
+						resultsDiv.innerHTML = "Error:" + response.errorMessage;
+						return;	
+					}
+					var code = response.ResultCode;
+					var summary;
+					switch (code){
+						case MyOpenSpace.PostTo.Result.ERROR:
+							summary = "Error";
+						break;
+						case MyOpenSpace.PostTo.Result.CANCELLED:
+							summary = "Cancelled";
+						break;
+						case MyOpenSpace.PostTo.Result.SUCCESS:
+							summary = "Success";
+						break;					
+					}
+					var getIds = function(values){
+						var vals = '';
+						for(var item in values){
+							vals = vals + values[item] + ', ';
+						}
+						return vals;
+					}
+					if (typeof response.ResponseValues !== 'undefined'){
+						summary += "<br />falures: " + getIds(response.ResponseValues.failure);
+						summary += "<br />success: " + getIds(response.ResponseValues.success);
+					}
+					resultsDiv.innerHTML = summary;
+				}
+				var params = {};
+				var message = container.newMessage(reason, params);
+ 
+				var inviteParams = {};
+                var parametersList = document.getElementById('shareAppParams');
+                for (var i = 0; i < parametersList.options.length; i++) {
+                    var val = parametersList.options[i].value.split('=');
+                    var key = val[0];
+                    var value = val[1];
+                    inviteParams[key] = value;
+                }
+                var navParams = {};
+                navParams[MyOpenSpace.NavigationParameters.Field.DESTINATION_TYPE] = MyOpenSpace.NavigationParameters.DestinationType[document.getElementById('shareAppDestinationType').value];
+                navParams[MyOpenSpace.NavigationParameters.Field.PARAMETERS] = inviteParams;
+                var navigationParams = container.newNavigationParameters(navParams);
+                container.requestShareApp(recipients, message, callback, [navigationParams]);
+			}
+			
+			function sendMessage(){
+			
+				// We get the title
+				var titleText = document.getElementById('title').value;
+				// We get the message
+				var messageText = document.getElementById('message').value;
+				// We get the type of message
+				var postToType = document.getElementById('postToType').value;
+				
+				var person;
+				
+				if (postToType === ''){
+					//If no type was selected we exit the function
+					return;
+				}
+				else if (postToType === 'SEND_MESSAGE' || 
+						postToType === 'COMMENTS' || 
+						postToType === 'SHARE_APP' || 
+						postToType === "ADD_TO_FRIENDS" || 
+						postToType === "APP_MESSAGE"){
+					// The rest a recepient other than the viewer is required
+					person = getRecipient();
+				}
+				
+				var params = {};
+				//Set The title of the message
+				params[MyOpenSpace.Message.Field.TITLE] = titleText;
+				//Set the type of message
+				params[MyOpenSpace.Message.Field.TYPE] = postToType;
+				
+				if (postToType === "APP_MESSAGE") {
+					var templateParams = {};
+					var mediaItems = [document.getElementById('mediaItem').value];
+					templateParams.action1Text = document.getElementById('actionText').value;
+					templateParams.appParams = document.getElementById('appParams').value;
+					params[MyOpenSpace.Message.Field.TEMPLATE_PARAMS] = templateParams; 
+					params[MyOpenSpace.Message.Field.MEDIA_ITEMS] = mediaItems; 
+				}
+ 
+				var message = container.newMessage(messageText, params);
+				
+				
+				var postback = function(response){
+					var resultsDiv = document.getElementById('postToResult');
+					if (resultsDiv.style.color == "Blue"){
+						resultsDiv.style.color = "Red";										
+					}
+					else{
+						resultsDiv.style.color = "Blue";					
+					}
+					if (response.errorMessage){
+						resultsDiv.innerHTML = "Error:" + response.errorMessage;
+						return;	
+					}
+					switch (response){
+						case MyOpenSpace.PostTo.Result.ERROR:
+							resultsDiv.innerHTML = "Error";
+						break;
+						case MyOpenSpace.PostTo.Result.CANCELLED:
+							resultsDiv.innerHTML = "Cancelled";
+						break;
+						case MyOpenSpace.PostTo.Result.SUCCESS:
+							resultsDiv.innerHTML = "Success";
+						break;					
+					}
+				}
+				
+				if (person) {
+					//Use this only for Send message, comments or share app
+					//recipient information is required. if you don't have a postback call 
+					//use undefined
+					container.postTo(message, postback, person.Id, person.Name, person.Thumbnail, person.ProfileUrl);
+				}
+				else{
+					//Use this only for Profile, Blog, or Bulletins
+					//No recipient information needed it will always post to viewer.
+					container.postTo(message, postback);
+				}
+				
+			}
+			
+			function getRecipient(){
+				//Change This code to get the recipient information. using REST on your server.
+				var personThumbnail = document.getElementById('recipientThumbnail').value;
+				var personId = document.getElementById('recipientId').value;
+				var personProfileUrl = document.getElementById('recipientProfile').value;
+				var personName = document.getElementById('recipientName').value;
+				
+				return {
+					"Thumbnail" : personThumbnail,
+					"Id" : personId,
+					"ProfileUrl" : personProfileUrl,
+					"Name" : personName
+				}
+			}
+			
+			
+			MyOpenSpace.MySpaceContainer.get().adjustHeight(2500);
+			displayRecipient();
+		</script> 
+	</body> 
+ 
+</html> 
