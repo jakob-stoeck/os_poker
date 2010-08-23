@@ -31,7 +31,6 @@
 		  	//
 		}else {
 			$("#header .language-bar").css("display","block");
-			 
 		}
 	});
 	if (os_poker_isSafari() && os_poker_is_in_iframe()) {

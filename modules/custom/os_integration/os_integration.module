@@ -97,6 +97,8 @@ function os_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
 }
 function os_integration_addjs($myspace_profile_id)  {
 	drupal_add_js(drupal_get_path('module','os_integration').'/js/IFPC_externalIframe011.js');
+	drupal_add_js(drupal_get_path('module','os_integration').'/js/invitefriends.js');
+	
 	drupal_add_js('
 	gadgets.rpc.setRelayUrl(\'..\', \'http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx\'); 
     MyOpenSpace.MySpaceContainer.get().registerParam("panelId", "apppanel_'.$_REQUEST['appid'].'_canvas");

@@ -1,6 +1,715 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
 <html> 
-	<head> 
+	<head> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml" xml:lang="de" lang="de" dir="ltr"> 
+ 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+ 
+  <title>PlayboyPoker</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<link rel="alternate" type="application/rss+xml" title="PlayboyPoker RSS" href="http://local.playboypoker.de/rss.xml" /> 
+<link rel="shortcut icon" href="/sites/all/themes/pbpoker/favicon.ico" type="image/x-icon" /> 
+  <link type="text/css" rel="stylesheet" media="all" href="/sites/default/files/css/css_4c0cd93f1b28c393a2315d6d0b5db8a4.css" /> 
+<link type="text/css" rel="stylesheet" media="print" href="/sites/default/files/css/css_c8e425f07f18780d640a3fe92f3abb6f.css" />  <script type="text/javascript" src="/misc/jquery.js?K"></script> 
+<script type="text/javascript" src="/misc/drupal.js?K"></script> 
+  
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+try {
+var pageTracker = _gat._getTracker("UA-15325887-1");
+pageTracker._trackPageview();
+} catch(err) {}</script> 
+ 
+<script type="text/javascript"><!--var agof = '10342';//--></script><!-- SZM VERSION="1.5" --> 
+<script type="text/javascript"> 
+	<!--
+	if(typeof agof === 'undefined'){
+		var agof = 10342;
+	}
+	document.write('<img id="ivwpx1" SRC="http://playboy.ivwbox.de/cgi-bin/ivw/CP/' + agof + ';?r=' + escape(document.referrer) + '&d=' + (Math.random() * 100000) + '" width="1" height="1" border="0" alt="" style="display: none;" />');
+	// -->
+</script> 
+<noscript> 
+	<img src="http://playboy.ivwbox.de/cgi-bin/ivw/CP/10342" width="1" height="1" alt="" style="display: none;" /> 
+</noscript> 
+ 
+ 
+</head> 
+ 
+<body class="front logged-in page-node no-sidebars de"> 
+<a href="test.htm">test</a> 
+  	<a href="javascript:os_shareApp(1212);">shareapp</a> 
+  <div id="page"> 
+	<div id="page-inner"> 
+ 
+        
+<style type="text/css"> 
+	#header .language-bar {
+	display:none
+	}
+</style> 
+ 
+<script type="text/javascript" charset="utf-8"> 
+	var user_logged_in =true;
+	
+	function os_poker_getVersion(a, b) {
+		var t = navigator.userAgent.split(a)[1];
+		return (t) ? t.split(b)[0] : false;
+	}
+	function os_poker_isSafari() {
+		return (document.createCDATASection && document.createElementNS) ? os_poker_getVersion('AppleWebKit/', '(') : false;
+	}
+	
+	function os_poker_is_in_iframe() {
+		try {
+ 
+			var src = window.parent.src;
+ 
+			return false; 
+		} catch (e){
+			return true; 
+		}
+	}
+	$(document).ready(function (){
+		if (os_poker_is_in_iframe()) {
+		  	//
+		}else {
+			$("#header .language-bar").css("display","block");
+			 
+		}
+	});
+	if (os_poker_isSafari() && os_poker_is_in_iframe()) {
+		alert('Sorry this application is not working in Safari. We are working on it. Please use another browser');
+	}		
+	
+</script> 
+ 
+ 
+ 
+<div id="header"> 
+	<div id="header-inner" class="clear-block"> 
+				<div id="logo"> 
+			<a href="/" title="Home" rel="home"> 
+				<img src="/sites/all/themes/pbpoker/logo.png" alt="Home" id="logo-image" /> 
+			</a> 
+		</div> 
+		
+				<div id="header-blocks" class="region region-header"> 
+		
+		<div id="block-os-poker-11" class="block os-poker-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Language bar</h2>--> 
+  
+  <div class="content"> 
+    <div class="language-bar"> 
+	<a href="/logout" class="logout">Ausloggen</a></div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-os-poker-0" class="block os-poker-block region-even region-block-2"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">OS header user brief</h2>--> 
+  
+  <div class="content"> 
+    <div id="user_login"> 
+	<div class="right_align"> 
+		<div class="user_login_brief_row"> 
+			<div class="poker_submit" onclick='javascript:os_poker_trigger("os_poker_jump", {url:"/poker/buddies/invite?height=442&width=603", lightbox:true});'> 
+				<div class='pre'>&nbsp;</div> 
+				<div class='label'>Einladen</div> 
+				<div class='user_login_clear'></div> 
+			</div> 
+		</div> 
+		<div class="user_login_brief_row"> 
+			<p class="buddy_count"> 
+				Du hast 0 Poker Buddies (<b><u>0 Online</u></b>)			</p> 
+		</div> 
+		<div class="user_login_clear"></div> 
+		<div class="user_login_brief_row"> 
+			<div class="poker_submit" onclick='javascript:os_poker_trigger("os_poker_jump", {url:"/poker/shop/get_chips?height=442&width=603", lightbox:true});'> 
+				<div class='pre'>&nbsp;</div> 
+				<div class='label' style="width: 60px; text-align: center;">Kaufen</div> 
+				<div class='user_login_clear'></div> 
+			</div> 
+		</div> 
+		<div class="user_login_brief_row"> 
+			<p class="chips_count"> 
+				Du hast <u><b class='chips'>$ 1,000</b></u> Chips			</p> 
+		</div> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+		
+		</div> <!-- /#header-blocks --> 
+				
+				<div style="position:absolute;left:210px;top:63px;"><fb:bookmark type="off-facebook"></fb:bookmark></div> 
+		<div style="position:absolute;left:392px;top:63px;"><fb:like href="poker.playboy.de" layout="button_count" show_faces="false" colorscheme="dark"></fb:like></div> 
+				<div class="clear"></div> 
+	</div> 
+</div> <!-- /#header-inner, /#header --> 
+		<div id="navbar"> 
+		<div id="navbar-inner" class="clear-block region region-navbar"> 
+			<a name="navigation" id="navigation"></a> 
+ 
+							  <div id="block-menu-secondary-links" class="block menu-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Secondary links</h2>--> 
+  
+  <div class="content"> 
+    <ul class="menu"><li class="leaf first active-trail"><a href="/" title="" class="active">Lobby</a></li> 
+<li class="leaf"><a href="/poker/buddies/?height=442&amp;width=603" title="">Freunde</a></li> 
+<li class="leaf"><a href="/poker/profile/?height=442&amp;width=603" title="">Profil</a></li> 
+<li class="leaf"><a href="/poker/shop/?height=442&amp;width=603" title="">Shop</a></li> 
+<li class="leaf last"><a href="/poker/profile/ranking/?height=442&amp;width=603" title="">Rangliste</a></li> 
+</ul>  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-menu-menu-messages-links" class="block menu-block region-even region-block-2"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Message Box</h2>--> 
+  
+  <div class="content"> 
+    <ul class="menu"><li class="leaf first last"><a href="/poker/messagebox/?height=294&amp;width=291" title="">Nachrichten</a></li> 
+</ul>  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-menu-menu-end-links" class="block menu-block region-odd region-block-3"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Navigation end</h2>--> 
+  
+  <div class="content"> 
+    <ul class="menu"><li class="leaf first last"><a href="/poker/help?height=442&amp;width=603&amp;keepThis=true&amp;TB_iframe=true" title="">Hilfe</a></li> 
+</ul>  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+			
+		</div> 
+	</div> <!-- /#navbar-inner, /#navbar --> 
+	    <div id="main" class="logged_in" > 
+		<div id="tourney-notify-template"> 
+	 	The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!		</div> 
+		<div id="main-inner" class="clear-block with-navbar"> 
+ 
+			<div id="content"> 
+				<div id="content-inner"> 
+ 
+				
+				
+        <noscript> 
+          <div class="messages error"> 
+            <p>Achtung, um auf PlayboyPoker spielen zu können, musst Du Javascript aktivieren!</p> 
+            <p>So funktioniert's im Internet Explorer: Gehe oben im Browsermenü auf: "Extras", dann weiter zu "Internetoptionen" - "Sicherheit". Setze jetzt die Sicherheitsstufe für "Internet" auf den Standardwert "Mittel".</p> 
+            <p>So funktioniert's im im Firefox: Gehe oben im Browsermenü auf: "Extras", dann weiter zu: "Einstellungen" - "Inhalt" - "Javascript aktivieren" (muss angekreuzt sein).</p> 
+          </div> 
+        </noscript> 
+        <!--[if lt IE 7]>
+          <div class="messages error">
+            <p>Du verwendest eine veraltete Version des Internet Explorers. Dieser Browser wird von Playboy Poker nicht unterstützt. Um Playboy Poker nutzen zu können aktualisiere dein System bitte auf einen modernen Browser, wie z.B.:</p>
+            <p>Internet Explorer 8, Safari 4, Firefox 3.6, Google Chrome</p>
+          </div>
+        <![endif]--> 
+ 
+				
+			
+								<div id="middle-content"> 
+										<div id="middle-content-left"> 
+						<div id="block-os-poker-5" class="block os-poker-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">OS user brief</h2>--> 
+  
+  <div class="content"> 
+    <div id="user-brief"> 
+	<div id="user-brief-inner"> 
+		<div class="fleft avatar"> 
+      <div class="picture"> 
+  <a href="/poker/profile/profile/3422?height=442&amp;width=603&amp;TB_iframe=true" title="Spielerprofil ansehen." class="thickbox"><img src="http://local.playboypoker.de/sites/default/files/imagecache/user_picture/os_pictures/pic_543312613.jpg" alt="nix&#039;s Profilbild" title="nix&#039;s Profilbild"  class="imagecache imagecache-user_picture" /></a></div> 
+		</div> 
+		<div class="fleft info1"> 
+			<p class="welcome"> 
+				Willkommen,<br/>Nix			</p> 
+			<p class="info"> 
+				Chips: <b class='chips'>$ 1,000</b><br/>Status: Fisch (1/10)			</p> 
+		</div> 
+ 
+		
+			<div class="fleft reward_separator"> 
+				<img src="sites/all/themes/pbpoker/images/brief_separator.png" alt="avatar"/> 
+			</div> 
+			<div class="fleft"> 
+			    <p class="reward_title"><strong> 
+					Deine Auszeichnungen:			    </strong></p> 
+			    <div class="reward_icon"> 
+			     			      <img class='reward_picture' src=sites/default/files/poker_rewards/reward_default.gif alt='reward' />			     			    </div> 
+			    <div class="reward_status"><p><strong> 
+            noch keine Auszeichnungen			    </strong> 
+			    <br/> 
+			      0 / 64			    </p></div> 
+			</div> 
+ 
+		
+		<div class="clear"></div> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-os-poker-3" class="block os-poker-block region-even region-block-2"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Poker Gadjet</h2>--> 
+  
+  <div class="content"> 
+    <div class="iframe_div" id=remote_iframe_os_poker_title align="center" style="padding-top:30px;font-family: inherit;font-size: large;font-weight: bold;">jpoker</div><br/><div class="iframe_div" align="center" style="padding-top:30px;"><script>var frame_init  = false;</script><iframe onload="if (!frame_init){this.src='http://pbpoker-dev.stoeck.it/sites/all/modules/shindig_integrator/shindig/php/gadgets/ifr?synd=default&container=default&viewer=3422&owner=3422&aid=MTc=&mid=b3NfcG9rZXI=&nocache=1&country=US&lang=DE&view=canvas&parent=http%3A%2F%2Flocal.playboypoker.de&up_os_poker_skin=http%3A%2F%2Fpoker.playboy.de%2F%3Fq%3Dpoker%2Fskin.css&up_money=%7B%221%22%3A100000%7D&st=UG5ST1RLZHRJdHVnUFIwVlJHUktjb1olMkZUY2slMkZDUEE0eFNxJTJCVTQzVGFlQ2E5a3lmRzFpdjM3UUZjWTl2NW1rRSUyRmE2TFVKY1RQS0tRJTJGUDNsTG9JTmc5SGFjYmNEWVUweFhoWmZSc1o1MlNMRlJXVmZ3WkVPb1dCc0lwY0MzVGZPdXJsYWFaOU5kZE5JQjlpJTJCVERraFROcWVSeCUyQlVHRktyb0U0NVlVbktzMHRFM2w3T2Q4Q1FIZyUyQnVlNmpWUnFCYXd1bXVZYlZiQU00ZkQzc21EVHpGVlI5NW5qSW0lMkI5YW15cFltSTA4RzU3MTd5V2hkWFo5SFI3NzdjTzVLajN4dHFxbVNlZyUzRCUzRA==&v=87a9ebba38ffb7878fe4258c87387448&url=http%3A%2F%2Fpbpoker-dev.stoeck.it%2Fpb_jpoker%2Fjpoker-opensocial.xml#rpctoken=1977754708';frame_init=true;}" width="100%" height=600 name=remote_iframe_os_poker id=remote_iframe_os_poker scrolling =no frameborder="no" src= "http://pbpoker-dev.stoeck.it/sites/all/modules/shindig_integrator/shindig/php/preload.htm" class="gadgets-gadget"></iframe></div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+					</div> 
+															<div id="middle-content-right"> 
+                          <div id="block-os-poker-6" class="block os-poker-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Jetzt spielen!</h2>--> 
+  
+  <div class="content"> 
+    <div id="play-now"> 
+	<div id="play-now-inner"> 
+		<p class="link"> 
+			<a id="play-now-button" href="javascript:void(0);" onclick="javascript:os_poker_play_now_clicked();"></a> 
+		</p> 
+		<p class="text"> 
+			1 Spieler momentan online !		</p> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-os-poker-4" class="block os-poker-block region-even region-block-2"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Wer spielt an diesem Tisch</h2>--> 
+  
+  <div class="content"> 
+    <div id="table_users"> 
+	<div class="panel"> 
+		<div class="previous"></div> 
+		<div class="list splash"> 
+      <div class="header block_title_bar block_title_text"> 
+        An diesem Tisch      </div> 
+			<div class="inner-list"> 
+			</div> 
+      <div id="list-banner"> 
+  		</div> 
+ 
+  		        <script type="text/javascript"> 
+    	 $(window).ready(function() {
+		swfobject.embedSWF('sites/all/themes/pbpoker/swf/promotion/poker_300x250.swf?1', "list-banner", "300", "250", "9.0.0", undefined, {'clickTag' : 'http://www.playboy.de/cyberclub'}, {
+	          'wmode': 'transparent'
+        	});
+	 });
+      </script> 
+ 
+		</div> 
+		<div class="next"></div> 
+		<div class="clear"></div> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-os-poker-9" class="block os-poker-block region-odd region-block-3"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Home News</h2>--> 
+  
+  <div class="content"> 
+    <div id="home_promotion_1"> 
+	<div class="panel"> 
+		<div class="previous"></div> 
+      <div class="list splash"> 
+        <div id="home_promotion_1-banner"> 
+          <div class="header block_title_bar block_title_text">Freunde einladen</div> 
+          <img src="/sites/all/themes/pbpoker/images/home_promotion_1.jpg" alt="" title="" width="115" height="61" />          <p>Je mehr Freunde Du einlädst, umso mehr Chips bekommst Du von uns geschenkt!</p> 
+          <div id="home_promotion_1-button" class="poker_submit"> 
+            <div class="pre">&nbsp;</div> 
+            <div class="label"> 
+              <a class="thickbox" href="/poker/buddies/invite?height=442&width=603&keepThis=1&TB_iframe=1">Einladen</a> 
+            </div> 
+            <div class="user_login_clear"></div> 
+          </div> 
+        </div> 
+      </div> 
+		<div class="next"></div> 
+		<div class="clear"></div> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+<div id="block-os-poker-10" class="block os-poker-block region-even region-block-4"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Home Promotion</h2>--> 
+  
+  <div class="content"> 
+    <div id="home_promotion_2"> 
+  <div class="panel"> 
+    <div class="previous"></div> 
+      <div class="list splash"> 
+        <div id="home_promotion_2-banner"> 
+          <div class="header block_title_bar block_title_text">Video Tutorial</div> 
+          <img src="/sites/all/themes/pbpoker/images/home_promotion_2.jpg" alt="" title="" width="115" height="61" />          <p>Noch nie gepokert? Wir zeigen Dir in wenigen Schritten wie es geht!</p> 
+          <div id="home_promotion_2-button" class="poker_submit"> 
+            <div class="pre">&nbsp;</div> 
+            <div class="label"> 
+              <a class="thickbox" href="/poker/help?height=442&width=603&keepThis=1&TB_iframe=1">zum Tutorial</a> 
+            </div> 
+            <div class="user_login_clear"></div> 
+          </div> 
+        </div> 
+    </div> 
+    <div class="next"></div> 
+    <div class="clear"></div> 
+  </div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+                          					</div> 
+					<div class="clear"></div> 
+									</div> 
+				
+								<div id="content-bottom" class="region region-content_bottom"> 
+				<div id="block-os-poker-2" class="block os-poker-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Buddyliste</h2>--> 
+  
+  <div class="content"> 
+    <div id="buddylist"> 
+	<div class="header block_title_bar block_title_text"> 
+		<div class="fleft"> 
+			Buddyliste		</div> 
+		<div class="fleft"> 
+			<form action="/?appid=192688&amp;country=de&amp;installState=1&amp;lang=de&amp;mc=UOC&amp;oauth_consumer_key=http%3A%2F%2Fwww.myspace.com%2F543425949&amp;oauth_nonce=634179023640183992&amp;oauth_signature=7R3M%2FwayXsCvr2fCM1eoeoilynE%3D&amp;oauth_signature_method=HMAC-SHA1&amp;oauth_timestamp=1282305564&amp;oauth_version=1.0&amp;opensocial_owner_id=543312613&amp;opensocial_surface=canvas&amp;opensocial_token=G1uhdksr2%20CQE%2Fi0rB94%2F4hUXn1xHnSVXHFD7pZK%2FEAfZlZweKzTaH5XcYKIZkLRapTCx9mM9WeLSyU5gQ5I4OGHg3229ELXd4VpiODTsGM%3D&amp;opensocial_viewer_id=543312613&amp;ownerId=543312613&amp;perm=%5B%22UT%22%2C%22UF%22%2C%22RN%22%2C%22PB%22%2C%22SN%22%2C%22%22%2C%22BI%22%2C%22FL%22%5D&amp;ptoString=COMMENTS%2CBLOG%2CBULLETINS%2CPROFILE%2CSEND_MESSAGE%2CSHARE_APP%2CACTIVITY%2CADD_TO_FRIENDS%2CAPP_MESSAGE&amp;viewerId=543312613"  accept-charset="UTF-8" method="post" id="pv-buddy-filter"> 
+<div><div class="form-item" id="edit-online-wrapper"> 
+ <label class="option" for="edit-online"><input type="checkbox" name="online" id="edit-online" value="1"   class="form-checkbox" /> Zeige nur Poker Buddies die online sind.</label> 
+</div> 
+<input type="hidden" name="form_build_id" id="form-f115b07630a51c80bc3f963e4bcdaaf3" value="form-f115b07630a51c80bc3f963e4bcdaaf3"  /> 
+<input type="hidden" name="form_token" id="edit-pv-buddy-filter-form-token" value="cf58ff81062c4a7c9e0259f17af5be26"  /> 
+<input type="hidden" name="form_id" id="edit-pv-buddy-filter" value="pv_buddy_filter"  /> 
+ 
+</div></form> 
+		</div> 
+		<div class="clear"></div> 
+	</div> 
+ 
+ 
+ 
+	<div id="buddy_panel"> 
+ 
+		<a href="javascript:void(0);" class="previous">&nbsp;</a> 
+		<div class="list"> 
+						<div class="cursor"> 
+				<div class="buddy_list_block  first_buddy"> 
+ 
+	<div class="buddy_list_number "> 
+		<span>1</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>2</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>3</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>4</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>5</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>6</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+<div class="buddy_list_block  "> 
+ 
+	<div class="buddy_list_number "> 
+		<span>7</span> 
+	</div> 
+ 
+	<div style="clear:both"></div> 
+ 
+			<div class="buddy_list_placeholder"> 
+			<div class="title"> 
+				Einladen			</div> 
+			<div class="body"> 
+				<div class="buddy_list_invite"> 
+				<a href="/poker/buddies/invite?height=442&amp;width=603&amp;TB_iframe=true" class="thickbox">Freunde einladen</a>				</div> 
+			</div> 
+		</div> 
+	</div> 
+			</div> 
+		</div> 
+		<a href="javascript:void(0);" class="next">&nbsp;</a> 
+ 
+    <div id="today_gift_invite"><img src="/sites/all/themes/pbpoker/images/invite_more_friends.jpg" alt="Mehr Freunde einladen" title="" width="88" height="171" /></div>		<div id="invite_friends"> 
+		</div> 
+		<div class="clear"></div> 
+	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+ 
+				</div> <!-- /#content-bottom --> 
+				
+			
+			</div></div> <!-- /#content-inner, /#content --> 
+		</div> 
+	</div> <!-- /#main-inner, /#main --> 
+ 
+	<!-- seo text --> 
+    <!-- end seo --> 
+ 
+          <div id="footer"><div id="footer-inner" class="region region-footer"> 
+        
+        <div id="block-os-poker-1" class="block os-poker-block region-odd region-block-1"><div class="block-inner"> 
+ 
+      <!--<h2 class="title">Footer information</h2>--> 
+  
+  <div class="content"> 
+    <div id="poker-footer"> 
+	<div class="language-bar"> 
+	</div> 
+	<div class="footer-links"> 
+		<a href="/poker/tos?height=442&amp;width=603&amp;keepThis=1&amp;TB_iframe=1#help-terms-of-service" class="thickbox">AGB&#039;s</a> - <a href="/poker/help/?height=442&amp;width=603&amp;keepThis=true&amp;TB_iframe=true#help-rules" class="thickbox">Hilfe</a> - <a href="/poker/tos?height=442&amp;width=603&amp;keepThis=1&amp;TB_iframe=1" class="thickbox">Impressum</a>	</div> 
+</div> 
+  </div> 
+ 
+  
+</div></div> <!-- /block-inner, /block --> 
+ 
+      </div></div> <!-- /#footer-inner, /#footer --> 
+    
+	
+	
+  </div></div> <!-- /#page-inner, /#page --> 
+ 
+  
+  <div id="fb-root"></div> 
+ 
+<div id="user_relationships_popup_form" class="user_relationships_ui_popup_form"></div>  <script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script> 
+  <script type="text/javascript" src="/sites/all/modules/jquery_update/replace/jquery.min.js?K"></script> 
+<script type="text/javascript" src="/misc/drupal.js?K"></script> 
+<script type="text/javascript" src="/sites/default/files/languages/de_1ed12c97f3a894c7610e4f65b07756f7.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/fb/fb.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/fb/fb_connect.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/custom/os_integration/js/IFPC_externalIframe011.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/custom/os_integration/js/invitefriends.js?K"></script> 
+<script type="text/javascript" src="/sites/default/modules/user_relationships/user_relationships_ui/user_relationships_ui.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/json2.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.oscontainer.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/shindig_integrator/shindig/features/src/main/javascript/features/core/util.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/shindig_integrator/shindig/features/src/main/javascript/features/core/json.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/shindig_integrator/shindig/features/src/main/javascript/features/rpc/rpc.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/shindig_integrator/js/jquery.all.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/shindig_integrator/js/container.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/jquery.filestyle.mini.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.toolkit.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.messages.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.events.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.slider.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.tourney.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/thickbox-compressed.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.messagebox.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.menu.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/os_poker.bootstrap.js?K"></script> 
+<script type="text/javascript" src="/sites/all/themes/poker/poker.js?K"></script> 
+<script type="text/javascript" src="/sites/all/themes/pbpoker/pbpoker.js?K"></script> 
+<script type="text/javascript" src="/sites/all/modules/os_poker/js/swfobject.js?K"></script> 
+<script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "fb": { "ajax_event_url": "http://local.playboypoker.de/fb/ajax", "js_sdk_url": "http://connect.facebook.net/en_US/all.js", "apikey": "e7ee5832089cee7e9efb7a73ba5d31c6", "label": "playboypoker" }, "fb_connect": { "front_url": "/", "fbu": null, "uid": null }, "user_relationships_ui": { "loadingimage": "/sites/default/modules/user_relationships/user_relationships_ui/images/loadingAnimation.gif", "savingimage": "/sites/default/modules/user_relationships/user_relationships_ui/images/savingimage.gif", "position": { "position": "fixed", "left": "0.45", "top": "0.28" } }, "os_poker": { "user_picture_default": "pictures/playboy.jpg", "language": { "language": "de", "name": "German", "native": "Deutsch", "direction": "0", "enabled": "1", "plurals": "0", "formula": "", "domain": "", "prefix": "de", "weight": "0", "javascript": "1ed12c97f3a894c7610e4f65b07756f7", "dir": "ltr" }, "invite": false } });
+//--><!]]>
+</script> 
+<script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+ 
+	gadgets.rpc.setRelayUrl('..', 'http://profile.myspace.com/Modules/Applications/Pages/rpc_relay.aspx'); 
+    MyOpenSpace.MySpaceContainer.get().registerParam("panelId", "apppanel_192688_canvas");
+    MyOpenSpace.MySpaceContainer.get().registerParam("localRelay", "http://local.playboypoker.de/sites/all/modules/custom/os_integration/relay.html");
+ 
+    function os_integration_call_regist_user() {
+    	window.location.href='/os_integration_create_user/543312613'; 
+    }
+    function os_integration_requestPermission(){
+    	
+		var permissionValue = "VIEWER_FULL_PROFILE_INFO";
+		var container = MyOpenSpace.MySpaceContainer.get();
+		var permission = MyOpenSpace.Permission[permissionValue];
+		
+		var hasPermission = container.hasPermission(permission);
+		
+		if (hasPermission){
+			os_integration_call_regist_user();
+			
+			return;
+		}
+		var callback = function (response){
+			var responseText;
+			
+			if (response.errorMessage){
+				responseText = "Error: " + response.errorMessage;
+				if (response.permissions){
+					responseText += "Permissions granted:<br />"
+					for (var i in permission){
+						responseText += "<br />" + permission.permission;
+					}
+				}
+				alert(responseText);
+			}
+			else if (response.permissions){
+					os_integration_call_regist_user();
+			}
+		}
+		
+		container.requestPermission(permission,"Test permission request", callback);
+	}
+ 
+	
+    //;
+ 
+//--><!]]>
+</script> 
+<script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+ 
+ 
+	function	os_poker_input_file_style()
+	{
+		$('input[type=file]').filestyle({
+		 image: 'sites/all/themes/poker/images/browse_button_de.gif',
+		 imageheight : 18,
+		 imagewidth : 100,
+		 width : 160
+		 });
+     $('input#edit-picture-upload').parent().addClass('picture_upload_button');
+	}
+ 
+	
+//--><!]]>
+</script> 
+<script type="text/javascript"> 
+<!--//--><![CDATA[//><!--
+ 
+ 
+	function	os_poker_close_tutorial()
+	{
+		if(typeof os_poker_get_top_window(window).tb_remove === 'function' ) {
+      			os_poker_get_top_window(window).tb_remove();
+    		}
+	}
+ 
+	
+//--><!]]>
+</script> 
+ 
+      <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div> 
+</body> 
+</html> 
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 		<title>test</title> 
 		<script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script> 

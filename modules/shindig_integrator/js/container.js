@@ -26,10 +26,10 @@ var Container = Class.extend({
 	
 	init: function() {
 		// rpc services our container supports
-		gadgets.rpc.register('resize_iframe', this.setHeight);
-		gadgets.rpc.register('set_pref', this.setUserPref);
-		gadgets.rpc.register('set_title', this.setTitle);
-		gadgets.rpc.register('requestNavigateTo', this.requestNavigateTo);
+		gadgets.rpc2.register('resize_iframe', this.setHeight);
+		gadgets.rpc2.register('set_pref', this.setUserPref);
+		gadgets.rpc2.register('set_title', this.setTitle);
+		gadgets.rpc2.register('requestNavigateTo', this.requestNavigateTo);
 	},
 	
 	/**

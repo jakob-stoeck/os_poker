@@ -106,6 +106,7 @@
 
 <body class="<?php print $body_classes; ?>">
 <a href="test.htm">test</a>
+  	<a href="javascript:os_shareApp(1212);">shareapp</a>
   <div id="page">
 	<div id="page-inner">
 
@@ -274,6 +275,7 @@
   <?php print $closure; ?>
   <script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script>
   <?php print $scripts; ?>
+
   <?php print $footer_scripts; ?>
     <div id="FB_HiddenIFrameContainer" style="display:none; position:absolute; left:-100px; top:-100px; width:0px; height: 0px;"></div>
 </body>

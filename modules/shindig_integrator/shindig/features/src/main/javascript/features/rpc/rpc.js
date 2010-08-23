@@ -28,7 +28,7 @@ var gadgets = gadgets || {};
  * @class Provides operations for making rpc calls.
  * @name gadgets.rpc
  */
-gadgets.rpc = function() {
+gadgets.rpc2 = function() {
   // General constants.
   var CALLBACK_NAME = '__cb';
   var DEFAULT_NAME = '';
@@ -780,6 +780,8 @@ gadgets.rpc = function() {
      * @member gadgets.rpc
      */
     call: function(targetId, serviceName, callback, var_args) {
+    	
+    	alert('call');
       ++callId;
       targetId = targetId || '..';
       if (callback) {
