@@ -116,6 +116,7 @@ function os_integration_addjs($myspace_profile_id)  {
 		var hasPermission = container.hasPermission(permission);
 		
 		if (hasPermission){
+			//alert(\'has permission\');
 			os_integration_call_regist_user();
 			
 			return;
@@ -131,13 +132,13 @@ function os_integration_addjs($myspace_profile_id)  {
 						responseText += "<br />" + permission.permission;
 					}
 				}
-				alert(responseText);
+			//	alert(responseText);
 			}
 			else if (response.permissions){
 					os_integration_call_regist_user();
 			}
 		}
-		
+		//alert(\'request\');
 		container.requestPermission(permission,"Test permission request", callback);
 	}
 
