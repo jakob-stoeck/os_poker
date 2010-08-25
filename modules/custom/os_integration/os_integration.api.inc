@@ -2,8 +2,9 @@
 define ('OPENSOCIAL','opensocial');
 
 
-require_once drupal_get_path('module','os_integration').'/osapi/osapi.php';
+
 function os_integration_get_osapi() {
+	require_once drupal_get_path('module','os_integration').'/osapi/osapi.php';
 	$authprovider = new osapiOAuth2Legged(variable_get('os_integration_consumer_key',array()),variable_get('os_integration_consumer_secret',array()),$myspace_profile_id);
 	$myspaceprovider = new osapiMySpaceProvider();
 	$osapi = new osapi($myspaceprovider,$authprovider);
@@ -97,7 +98,7 @@ function os_integration_get_profile_infos($myspace_profile_id) {
  'groupId' => '@self', 
  'fields' => $profile_fields 
  );
- $batch->add($osapi->people->get($self_request_params), 'friends');
+ $batch->add($osapi->people->get($self_request_params), 'self');
  $response = $batch->execute();
 
  return $response['self'];

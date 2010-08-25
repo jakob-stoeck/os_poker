@@ -162,6 +162,7 @@ function os_integration_init()  {
 	if (!isset($_REQUEST['opensocial_viewer_id']) || !isset( $_REQUEST['appid'])) {
 		return ;
 	}
+	
 	$_SESSION['myspace_appid'] = $_REQUEST['appid'];
 	$myspace_profile_id = $_REQUEST['opensocial_viewer_id'];
 	os_integration_addjs($myspace_profile_id) ;
