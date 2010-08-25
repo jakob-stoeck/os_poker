@@ -1,9 +1,9 @@
-name = Facebook Connect
-description = For <a href=http://developers.facebook.com/docs/guides/web target=_blank>Facebook Connect apps</a>.  Allow users to log in using Facebook credentials and more.
+name = Profile Tabs
+description = For adding tabs to profiles and pages.
 package = Drupal for Facebook
-core = 6.x
 dependencies[] = fb
 dependencies[] = fb_app
+core = 6.x
 
 ; Information added by drupal.org packaging script on 2010-08-19
 version = "6.x-3.x-dev"
