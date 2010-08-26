@@ -1,4 +1,30 @@
 <?php
+
+/**
+ * Implementation of hook_fb().
+ *
+ * This hook customizes the behavior of modules/fb.
+ */
+function fb_integration_fb($op, $data, &$return) {
+  if ($op == FB_OP_JS) {
+    if (fb_is_canvas() && !fb_facebook_user()) {
+      // Canvas page and user has not authorized the app.  Call FB.login() to force authorization.
+      // Note: facebook does not recommend this approach and claims that many browsers will block the popup.
+      // Instead, we should call this only in response to a user click.
+      // http://developers.facebook.com/docs/reference/javascript/FB.login
+      $js = "FB.login(function(response) { }, Drupal.settings.fb.perms);";
+      //$return[] = "alert('$js');"; // debug
+      //$return[] = 'debugger;'; // debug
+      $return[] = $js;
+    }
+  }
+  if ($op == FB_OP_POST_INIT) {
+    //drupal_add_js(drupal_get_path('module', 'fb_integration') . '/fb_integration.js');
+  }
+}
+
+
+
 function fb_integration_forward() {
 	echo '<a href="/">asdf</a>';
 	exit;

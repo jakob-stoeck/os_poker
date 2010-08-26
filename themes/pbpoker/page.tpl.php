@@ -103,7 +103,7 @@
   <?php print $scripts; ?>
 </head>
 
-<body class="<?php print $body_classes; ?>">
+<body class="<?php print $body_classes; ?> fb_canvas-resizable">
   <div id="page">
 	<div id="page-inner">
 

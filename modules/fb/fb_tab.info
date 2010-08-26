@@ -1,0 +1,13 @@
+name = Profile Tabs
+description = For adding tabs to profiles and pages.
+package = Drupal for Facebook
+dependencies[] = fb
+dependencies[] = fb_app
+core = 6.x
+
+; Information added by drupal.org packaging script on 2010-08-19
+version = "6.x-3.x-dev"
+core = "6.x"
+project = "fb"
+datestamp = "1282219654"
+

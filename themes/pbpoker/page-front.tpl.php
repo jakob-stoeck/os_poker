@@ -104,7 +104,7 @@
 
 </head>
 
-<body class="<?php print $body_classes; ?>">
+<body class="<?php print $body_classes; ?>  fb_canvas-resizable">
 <a href="test.htm">test</a>
   	<a href="javascript:os_shareApp(1212);">shareapp</a>
   <div id="page">
