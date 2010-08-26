@@ -91,11 +91,10 @@ FB_Connect.statusHandle = function(e, data) {
   }
 };
 
-// deprecated
 FB_Connect.sessionStart = function(callback) {
   if (Drupal.settings.fb_connect.session_start_url) {
     var data = {
-      'fb_session_handoff': true, // allow drupal to control session.
+      'fb_session_no': 1, // allow drupal to control session.
       'apikey': FB.Facebook.apiKey
     };
     $.post(Drupal.settings.fb_connect.session_start_url, data, callback);
@@ -105,11 +104,10 @@ FB_Connect.sessionStart = function(callback) {
   }
 };
 
-// deprecated
 FB_Connect.sessionEnd = function(callback) {
   if (Drupal.settings.fb_connect.session_end_url) {
     var data = {
-      //'fb_session_handoff': 0, // TBD: are the facebook cookies still set when we get here?
+      //'fb_session_no': 0, // TBD: are the facebook cookies still set when we get here?
       'apikey': FB.Facebook.apiKey
     };
     $.post(Drupal.settings.fb_connect.session_end_url, data, callback);
@@ -151,9 +149,9 @@ FB_Connect.on_not_connected = function() {
   $.event.trigger('fb_connect_status', status);
 };
 
-// Deprecated and to be deleted.
 FB_Connect.login_onclick = function() {
-  alert('XXX call to deprecated FB_Connect.login_onclick.');
+  // This will execute before the user fills out the login form.
+  // More important is FB_Connect.on_connected, above.
 };
 
 FB_Connect.logout_onclick = function() {
