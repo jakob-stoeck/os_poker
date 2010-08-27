@@ -1,0 +1,36 @@
+; $Id:$
+
+name        = Pokermania Poker
+description = Theme for Pokermania
+screenshot = screenshot.png
+engine = phptemplate
+version = "6.x-1.0"
+core = "6.x"
+project = "poker"
+base theme = poker
+
+scripts[] = pbpoker.js
+
+;The next line will prevent the base theme's poker.css from being loaded
+stylesheets[all][]   = poker.css
+stylesheets[all][]   = pbpoker.css
+stylesheets[all][]   = main.css
+stylesheets[print][] = print.css
+
+regions[header]         		= header
+regions[navbar]         		= navigation bar
+regions[left]           		= left sidebar
+regions[right]         		 	= right sidebar
+regions[top_content] 			= top content
+regions[content] 				= content
+regions[middle_content_left] 	= middle content left
+regions[middle_content_right] 	= middle content right
+regions[bottom_content] 		= bottom content
+regions[footer]         		= footer
+
+
+features[] = favicon
+features[] = primary_links
+
+
+

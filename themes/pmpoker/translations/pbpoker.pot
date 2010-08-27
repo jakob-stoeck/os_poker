@@ -1,0 +1,360 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  buddies-invite.tpl.php: n/a
+#  buddies-invitedlist.tpl.php: n/a
+#  os-poker-user-brief.tpl.php: n/a
+#  buddies-list.tpl.php: n/a
+#  comment-wrapper.tpl.php,v 1.2 2008/09/14 12:12:38 johnalbin
+#  comment.tpl.php,v 1.3 2008/09/14 12:09:37 johnalbin
+#  node.tpl.php,v 1.4 2008/09/15 08:11:49 johnalbin
+#  home_signup.tpl.php: n/a
+#  maintenance-page.tpl.php,v 1.1.2.1 2009/02/13 18:17:08 johnalbin
+#  page.tpl.php,v 1.14.2.6 2009/02/13 16:28:33 johnalbin
+#  os-poker-teaser.tpl.php: n/a
+#  template.php: n/a
+#  pbpoker.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-04-12 15:40+0200\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: buddies-invite.tpl.php:20
+msgid "Send your friends !chipsamount Bonus chips!"
+msgstr ""
+
+#: buddies-invite.tpl.php:21
+msgid "Invite now all your friends!"
+msgstr ""
+
+#: buddies-invite.tpl.php:22
+msgid "For logging in daily you get: !dailyChips Bonus chips!"
+msgstr ""
+
+#: buddies-invite.tpl.php:24
+msgid "Get !amount per day!"
+msgstr ""
+
+#: buddies-invite.tpl.php:25
+msgid "Just invite !nb_buddies new pokerfriends!"
+msgstr ""
+
+#: buddies-invite.tpl.php:26
+msgid "The more friends you invite, the more free chips you get daily!"
+msgstr ""
+
+#: buddies-invite.tpl.php:31
+msgid "See present invitations"
+msgstr ""
+
+#: buddies-invite.tpl.php:32
+msgid "Continue to play"
+msgstr ""
+
+#: buddies-invite.tpl.php:36
+msgid "* The bonus applies only to successfully invited new friends."
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:17
+msgid "E-Mail"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:18
+msgid "Date"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:19 os-poker-user-brief.tpl.php:16
+msgid "Status"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:20
+msgid "Remind"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:21
+msgid "Delete"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94
+msgid "« first"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94
+msgid "‹ previous"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94
+msgid "next ›"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:94
+msgid "last »"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:105
+msgid "Invitation accepted="
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:107
+msgid "Not yet confirmed="
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:120
+msgid "Overview"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:124
+msgid "You have invited:<br/> <span>%total</span> friends"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:130
+msgid "Accepted<br/>invitations"
+msgstr ""
+
+#: buddies-invitedlist.tpl.php:136
+msgid "Pending<br/>invitations"
+msgstr ""
+
+#: buddies-list.tpl.php:53
+msgid "Challenge"
+msgstr ""
+
+#: buddies-list.tpl.php:61
+msgid "Join table"
+msgstr ""
+
+#: buddies-list.tpl.php:66
+msgid "Invite now"
+msgstr ""
+
+#: buddies-list.tpl.php:83
+msgid "Send gifts"
+msgstr ""
+
+#: buddies-list.tpl.php:118
+msgid "Sorry !"
+msgstr ""
+
+#: buddies-list.tpl.php:118
+msgid "your Searchrequest didn't match any Players."
+msgstr ""
+
+#: buddies-list.tpl.php:118
+msgid "Try again"
+msgstr ""
+
+#: buddies-list.tpl.php:124
+msgid "You don't have any buddy."
+msgstr ""
+
+#: buddies-list.tpl.php:124
+msgid "English for Jetzt Freunde Einladen"
+msgstr ""
+
+#: comment-wrapper.tpl.php:37
+msgid "Comments"
+msgstr ""
+
+#: comment.tpl.php:48 node.tpl.php:62
+msgid "Unpublished"
+msgstr ""
+
+#: home_signup.tpl.php:3
+msgid "SIGN UP : It's free and anyone can join !"
+msgstr ""
+
+#: home_signup.tpl.php:9
+msgid "Play poker with your friends and our bunnys!"
+msgstr ""
+
+#: home_signup.tpl.php:10
+msgid "Sex is like a poker game. If you do not have a good partner, you at least have to have a damn good hand."
+msgstr ""
+
+#: maintenance-page.tpl.php:32
+msgid "Skip to Navigation"
+msgstr ""
+
+#: maintenance-page.tpl.php:41;41;46 page-front.tpl.php:99;100 page-poker-first_profile.tpl.php:99;100 page-poker-pages.tpl.php:99;100 page-poker-skin.tpl.php:98;99 page.tpl.php:98;99
+msgid "Home"
+msgstr ""
+
+#: node.tpl.php:74
+msgid " in "
+msgstr ""
+
+#: os-poker-teaser.tpl.php:4
+msgid "Poker with your friends and our Bunnys"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:5
+msgid "Learn Texas Hold'em No Limit and win hot prizes!"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:42
+msgid "Experience with us the exciting world of poker! Get your thrills in high stakes games and tournaments and play for millions without any risk."
+msgstr ""
+
+#: os-poker-teaser.tpl.php:43
+msgid "The better you play, the greater your chances for a date with a Playmate."
+msgstr ""
+
+#: os-poker-teaser.tpl.php:44
+msgid "$1.000 Start bonus"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:46
+msgid "Poker Tutorial"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:47;68;68
+msgid "This is how it works"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:50
+msgid "You play in all games with virtual game money with no value."
+msgstr ""
+
+#: os-poker-teaser.tpl.php:69
+msgid "Poker with our Bunnies"
+msgstr ""
+
+#: os-poker-teaser.tpl.php:70
+msgid "Join the world&#039;s sexiest poker!"
+msgstr ""
+
+#: os-poker-user-brief.tpl.php:8
+msgid "Welcome"
+msgstr ""
+
+#: os-poker-user-brief.tpl.php:12
+msgid "Chips"
+msgstr ""
+
+#: os-poker-user-brief.tpl.php:39
+msgid "Your rewards"
+msgstr ""
+
+#: os-poker-user-brief.tpl.php:53
+msgid "no rewards achieved"
+msgstr ""
+
+#: page-front.tpl.php:128 page-poker-skin.tpl.php:127
+msgid "The tournament, to which you have signed up, has begun. Go to the Table <span></span>. Good luck!"
+msgstr ""
+
+#: page-front.tpl.php:146
+msgid "Attention to be able to play Playboy Poker you need to enable JavaScript!"
+msgstr ""
+
+#: page-front.tpl.php:147
+msgid "Internet Explorer: Go up in the browser menu: \"Tools\" then \"Internet Options\" - \"Security\". Set the security level for \"Internet\" to the default \"Medium\"."
+msgstr ""
+
+#: page-front.tpl.php:148
+msgid "How it works on in Firefox: Go up in the browser menu: \"Tools,\" then to \"Settings\" - \"content\" - \"Enable Javascript\" (must be ticked)."
+msgstr ""
+
+#: page-front.tpl.php:230
+msgid "Play online poker at Playboy Poker"
+msgstr ""
+
+#: page-front.tpl.php:231
+msgid "If you are always playing online poker, or want to learn it, then Playboy Poker is the place for you. We not only offer exciting poker tournaments with hot prices, but also all information about the poker rules and poker strategies to be successful at the poker table."
+msgstr ""
+
+#: page-front.tpl.php:232
+msgid "On our free poker site you will perhaps become the next star of the poker world and win a date with one of our Playmates. You play on our poker tables the most popular poker variant Texas Hold'em No Limit."
+msgstr ""
+
+#: template.php:106
+msgid "Click here!"
+msgstr ""
+
+#: template.php:125
+msgid "Sorry, your browser does not support Flash."
+msgstr ""
+
+#: template.php:129
+msgid "Full player data will also be rewarded with 2,000 poker chips!"
+msgstr ""
+
+#: template.php:130
+msgid "Our tip:"
+msgstr ""
+
+#: template.php:131
+msgid "For every friend you successfully invite to Playboy Poker, you and your friend collect additional poker chips."
+msgstr ""
+
+#: template.php:141
+msgid "Send <strong> !amount free chips</strong> to your poker buddies!"
+msgstr ""
+
+#: template.php:145
+msgid "Send"
+msgstr ""
+
+#: template.php:154
+msgid "Invite more friends"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "Playboy Poker"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "Theme for playboypoker.de"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "header"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "navigation bar"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "left sidebar"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "right sidebar"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "top content"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "content"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "middle content left"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "middle content right"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "bottom content"
+msgstr ""
+
+#: pbpoker.info:0
+msgid "footer"
+msgstr ""
+

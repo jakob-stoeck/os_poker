@@ -1,0 +1,327 @@
+/*
+ *    Copyright (C) 2009, 2010 Pokermania
+ *    Copyright (C) 2010 OutFlop
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Affero General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Affero General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Affero General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/*******************************
+ * Stylesheet Drupal
+ *******************************/
+
+body.not-logged-in #main {
+	width: 720px;
+	padding: 20px 20px 0;
+	background: url(images/home/home-main.png) top left no-repeat;
+}
+
+body.not-logged-in #middle-content {
+}
+
+body.not-logged-in #middle-content-left {
+	margin: 0;
+}
+
+body.not-logged-in #middle-content-right {
+	float: right;
+	display: none;
+}
+
+body.logged-in #middle-content-right {
+	width: 328px;
+}
+
+/**
+ * Front page teaser
+ */
+
+#poker-teaser {
+	position: relative;
+	height: 369px;
+	width: 470px;
+	padding-top: 10px;
+	padding-left: 315px;
+	margin-right: 30px;
+	color: #fff;
+}
+
+#poker-teaser h2 {
+	color: #c7b06c;
+	text-transform: uppercase;
+	font-size: 1.2em;
+	letter-spacing: 0.03em;
+}
+
+#poker-teaser h3 {
+	margin-bottom: 20px;
+	font-size: 1.1em;
+}
+
+#poker-teaser p.register-description {
+	margin-bottom: 2em;
+	width: 200px;
+	font-size: 1.05em;
+	line-height: 1.4em;
+}
+
+#poker-teaser #register-now span,
+#poker-teaser #register-now-chips span {
+	display: none;
+}
+
+#poker-teaser #register-now,
+#poker-teaser #register-now-chips {
+	display: block;
+	cursor: pointer;
+}
+
+#poker-teaser #register-now {
+	background: url(images/home/registernow.png) no-repeat;
+	width: 176px;
+	height: 215px;
+	position: absolute;
+	right: 70px;
+	top: 80px;
+}
+
+* html #poker-teaser #register-now {
+	background: none;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://pokerlounge.stoeck.it/sites/all/themes/pbpoker/images/home/registernow.png',sizingMethod='crop');
+}
+
+#poker-teaser #register-now-chips {
+	background: url(images/home/startbonus.png) no-repeat;
+	width: 143px;
+	height: 71px;
+	margin: 1em 0 1em 40px;
+}
+
+#poker-teaser #explanations {
+	list-style: none;
+	display: block;
+	background: none repeat scroll 0 0 transparent;
+	position: absolute;
+	bottom: 21px;
+	right: 57px;
+	padding: 7px 25px;
+	text-align: center;
+}
+
+#poker-teaser #explanations li {
+	display: inline;
+}
+
+#poker-teaser #explanations li a {
+	float: left;
+	display: block;
+	background: url(images/home/arrow-goto.png) left center no-repeat;
+	text-transform: uppercase;
+	font-weight: bold;
+	font-size: 1.1em;
+	letter-spacing: 0.01em;
+	padding: 7px 0 5px 25px;
+	margin-right: 25px;
+}
+
+#poker-teaser #explanations li a:hover {
+  text-decoration:none;
+}
+
+* html #poker-teaser #explanations li a {
+	margin-right: 15px;
+}
+
+#poker-teaser .legal {
+	color: #797979;
+	position: absolute;
+	bottom: 5px;
+	left: 325px;
+	font-size: 1em;
+}
+
+/**
+ * Front page banners
+ */
+
+#page-front-banners {
+	height: 175px;
+	width: 760px;
+	background-image: url(images/bg_signup_banners.png);
+	text-align: center;
+	position: relative; /* IE */
+	left: -20px;
+}
+
+#page-front-banners .banner {
+	display: block;
+	float: left;
+	display: inline; /* ie 6 */
+	width: 198px;
+	height: 162px;
+	margin: 7px 7px 0;
+	vertical-align: middle;
+	background-repeat: no-repeat;
+}
+
+#page-front-banners .banner span {
+	display: none;
+}
+
+#page-front-banners #banner-signup {
+  background-image: url('images/front-banner-signup.gif');
+}
+
+#page-front-banners #banner-tournament {
+  background-image: url('images/front-banner-tournament.gif');
+}
+
+#page-front-banners #banner-join {
+  background-image: url('images/front-banner-join.gif');
+  width: 321px;
+}
+
+/***********************************
+ * search engine optimisation text
+ * ********************************/
+
+#seo {
+	background: #1d1d1d;
+	color: #797979;
+	font-size: 0.9em;
+	padding: 20px 15px;
+	border-top: 1px solid #353430;
+	border-bottom: 1px solid #353430;
+}
+
+#seo h2, #seo strong {
+	font-size: 1.1em;
+}
+
+#seo h2 {
+	margin-bottom: 0.5em;
+}
+
+#seo strong {
+	font-weight: normal;
+}
+
+/*****************************
+ * optin
+ * *************************/
+
+#registration-window, #registration-successful, #password-reset {
+	color: #fff;
+	background: #0e0e0e url(images/register/registerboxes_bg.png) repeat-x top left !important;
+	border: 1px solid #555 !important;
+}
+
+#registration-window {
+	color: #666;
+}
+
+#registration-successful {
+	background: #0e0e0e url(images/register/registration-successful.png) no-repeat center bottom !important;
+	width: 379px !important;
+	height: 380px !important;
+}
+
+#registration-successful p span {
+	display: block;
+	margin: 2em auto;
+	text-align: center;
+}
+
+#registration-window a.closebutton {
+	text-indent: -10000px;
+	background-color: transparent;
+	background-image: url(images/button_layerclose.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+    display: block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 5px;
+	right: 35px;
+	cursor: pointer;
+}
+
+#registration-window #home_signup .title {
+	display: block;
+	background: url(images/register/signup-title-en.png) no-repeat 15px 0;
+	text-indent: -100000px;
+	overflow: hidden;
+	height: 56px;
+}
+
+#registration-window #home_signup .form-item label {
+	float: left;
+	clear: left;
+	width: 150px;
+	margin-right: 10px;
+	font-weight: normal;
+	text-align: right;
+}
+
+#registration-window #home_signup .form-text {
+	width: 190px;
+}
+
+#registration-window #home_signup_teaser {
+	position: absolute;
+	bottom: 20px;
+	left: 10px;
+    width: 390px;
+}
+
+#registration-window #home_signup_teaser h4 {
+	font-size: 1.1em;
+	margin-top: 1em;
+	background: url(images/register/signupteaser.png) bottom left no-repeat;
+	padding-bottom: 55px;
+	color: #fff;
+}
+
+#registration-window #home_signup_teaser p {
+	line-height: 1.2em;
+}
+
+#registration-window #messages a {
+	color: #fff !important;
+}
+
+#registration-window #home_signup .poker_submit,
+#registration-window #terms {
+	margin-left: 160px;
+}
+
+#registration-window #terms {
+	margin-top: 2em;
+	margin-right: 1em;
+}
+
+#registration-window  .messages.error {
+	position: absolute;
+	left: 10px;
+	bottom: 55px;
+	height: 60px;
+	width: 380px;
+	padding: 15px 5px 5px;
+	text-align: center;
+    z-index: 1;
+    display: block;
+}
+
+#registration-window  .messages.error a {
+	display: block;
+}
