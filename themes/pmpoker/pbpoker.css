@@ -18,10 +18,10 @@
 body {
 	margin: 0;
 	border: 0;
-	background: #000 url(images/bg.jpg) repeat fixed top center;
+	background: #000 url(images/bg.jpg) no-repeat fixed top center;
 	font-family: Arial, Verdana, sans-serif;
 	font-size: 11px;
-	color: #fff;
+	color: #CCC;
 	text-align: left;
 }
 
@@ -208,8 +208,8 @@ ul.secondary li a.active {
 }
 
 #main {
-	background: #121619 url(images/body_bg.png) repeat-x;
-	padding: 10px 5px 0 10px;
+	background: #100B05 url(images/pre_body_bg.png) repeat-x;
+	padding: 10px 5px 10px 10px;
 	width: 745px;
 }
 
@@ -218,7 +218,7 @@ ul.secondary li a.active {
 }
 
 #main.logged_in {
-	background: #121619 url(images/body_bg.png) repeat-x;
+	background: #141007 url(images/body_bg.png) repeat-x;
 }
 
 #content-bottom #buddylist {
@@ -245,20 +245,20 @@ ul.secondary li a.active {
 }
 
 #header {
-	background: #000 url(images/header.jpg) no-repeat;
+	background: #000 url(images/bg_footer.png) repeat;
 	width: 760px;
-	height: 96px;
+	height: 100px;
 	overflow: hidden;
 	position: relative;
 }
 
 #header #header-inner {
-	background: none repeat scroll 0 30px transparent; /* FIXME combine image with header image */
+	background: transparent url(images/bg_header_inner.png) 0 30px repeat-x; /* FIXME combine image with header image */
 }
 
 #header #logo {
-	padding-top: 17px;
-	padding-left: 9px;
+	padding-top: 21px;
+	padding-left: 11px;
 	float: left;
 }
 
@@ -304,7 +304,7 @@ ul.secondary li a.active {
 }
 
 #footer {
-	background: url(images/footer.png) no-repeat;
+	background: url(images/bg_footer.png);
 	height: 77px;
 	width: 760px;
 	text-align: right;
@@ -313,6 +313,7 @@ ul.secondary li a.active {
 
 #footer #footer-inner {
 	padding: 10px;
+	background-color: #000;
 }
 
 #footer .language-bar a {
@@ -539,7 +540,7 @@ body.poker-profile #TB_window {
 ************************/
 
 .poker_submit {
-	color: #000000;
+	color: #000;
 	font: normal 12px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -622,7 +623,7 @@ div.poker_submit.big div.label {
 	height: 26px;
 	padding-top: 8px;
 	padding-right: 0;
-	color: #000000;  
+	color: #000;  
 }
 
 div.poker_submit.big div.pre {
@@ -725,7 +726,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 #navbar ul.menu li a:hover {
 	text-decoration: none;
-	color: #C7B06C;
+	color: #E2C87B;
 }
 
 /*******************************
@@ -755,7 +756,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .header label {
-	color: #ffffff;
+	color: #E9DFD1;
 	font-size: 11px;
 	font-weight: bold;
 	vertical-align: middle;
@@ -770,13 +771,13 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .block_title_text {
-	color: #ffffff;
+	color: #E9DFD1;
 	font-size: 11px;
 	font-weight: bold;
 }
 
 #buddylist #buddy_panel {
-	background-color: ##19212C;
+	background-color: #EAE8E5;
 	background-image: url(images/bg_buddy_panel.png) repeat-x;
 	width: 740px;
 	height: 182px;
@@ -800,8 +801,8 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .buddy_list_block {
-	border-bottom: 1px dotted #212D3A;
-	border-right: 1px solid #212D3A;
+	border-bottom: 1px dotted #8C8C8C;
+	border-right: 1px solid #A2A2A0;
 	height: 167px;
 	padding-top: 4px;
 	width: 79px;
@@ -879,18 +880,18 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 .buddy_list_name, .buddy_list_name a, .buddy_list_chips {
-	color: #ffffff;
+	color: #5f5e5a;
 }
 
 .buddy_list_links, .buddy_list_links a {
-	color: #e2c87b;
+	color: #8a753e;
 }
 
 #buddylist #today_gift {
 	background: url(images/bg_today_gift.png) no-repeat center bottom;
 	width: 87px;
 	height: 170px;
-	color: #ffffff;
+	color: #6b6b6b;
 	text-align: center;
 	font-size: small; /* FIXME */
 	cursor: pointer;
@@ -1007,7 +1008,7 @@ div.poker_submit.big.disabled:hover div.label {
 
 #user-brief {
 	background: #fff url(images/bg_user_brief.png) left -20px repeat-x;
-	color: #ffffff;
+	color: #635E58;
 	font-weight: bold;
 	height: 72px;
 	width: 395px;
@@ -1045,7 +1046,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #user-brief p.info b {
-	color: #e2c87b;
+	color: #A9804A;
 }
 
 /*
@@ -1086,7 +1087,6 @@ div.poker_submit.big.disabled:hover div.label {
 	font-weight:bold;
 	text-align: center;
 	margin-top: 10px;
-	color: #E2C87B;
 }
 
 #play-now #play-now-button {
@@ -1384,7 +1384,6 @@ body.de #play-now #play-now-button {
 
 #rewards .reward {
 	background-color: #fff;
-	color: #525252;
 	float: left;
 	font-weight: bold;
 	height: 84px;
@@ -1405,7 +1404,6 @@ body.de #play-now #play-now-button {
 #rewards .mask {
 	position: absolute;
 	background-color: transparent;
-	color:#525252;
 	width: 90px;
 	height: 90px;
 	left: 0;
@@ -1431,7 +1429,7 @@ body.de #play-now #play-now-button {
 }
 
 #buddies-search .poker_submit .label {
-	color: #000000;
+	color: #000;
 }
 
 .buddies-search-banner {
@@ -1881,7 +1879,7 @@ ul.pager .pager-current {
 #buddies-invite .DailyBonusStep02 h4 strong {
 	font-size: 1.7em;
 	display: block;
-	color: #E2C87B;
+	color: #6c6c6c;
 }
 
 #buddies-invite .DailyBonusStep02 h4 em {
@@ -1933,7 +1931,7 @@ ul.pager .pager-current {
 }
 
 #buddies-invite p.Link a {
-	color: #E2C87B;
+	color: #666;
 	font-weight: bold;
 	text-decoration: underline;
 	margin-left: 10px;
@@ -2008,7 +2006,7 @@ div.TeaseMore .poker_submit .label {
 ****************************************/
 
 #buddies-invited_list .TableLeft {
-	border: medium none #DADADA;
+	border: 1px dotted #DADADA;
 	width: 452px;
 }
 
@@ -2122,7 +2120,7 @@ div.TeaseMore .poker_submit .label {
 
 #buddies-invited_list .TableRight tbody {
 	border: none;
-	background: #eee; /* fixme degrade */
+	background: #fff; /* fixme degrade */
 }
 
 #buddies-invited_list .TableRight th {
@@ -2138,13 +2136,12 @@ div.TeaseMore .poker_submit .label {
 
 #buddies-invited_list .TableRight td {
 	font-weight: bold;
-	color: #525252;
 	overflow: hidden;
 	padding: 6px;
 }
 
 #buddies-invited_list .TableRight td span {
-	color: #e2c87b;
+	color: #D70504;
 }
 
 #buddies-invited_list .TableRight td.Dotted {
@@ -2253,7 +2250,7 @@ div.TeaseMore .poker_submit .label {
   background-position: bottom center;
   background-repeat: repeat-x;
   background-image: url(images/bg_home_promotion.png);
-  color: #525252;
+  color: #6c6c6c;
 	float: left;
 	overflow: hidden;
   position: relative;
@@ -2288,7 +2285,7 @@ div.TeaseMore .poker_submit .label {
 
 #home_promotion_1 .list .poker_submit a,
 #home_promotion_2 .list .poker_submit a {
-  color: #000000;
+  color: #000;
   text-decoration: none;
 }
 
@@ -2428,17 +2425,16 @@ div.TeaseMore .poker_submit .label {
 .chips_title {
 	font-size: 13px;
 	font-weight: bold;
-	color: #000000;
+	color: #000;
 }
 
 .chips_desc {
 	line-height: 20px;
-	color: #525252;
 }
 
 #chips-paypal-form .form-item {
 	position: absolute;
-	color: #000000;
+	color: #000;
 }
 #chips-paypal-form .form-item label {
 	font-weight: bold;
@@ -2474,7 +2470,7 @@ div.TeaseMore .poker_submit .label {
 	width: 600px;
 	height: 146px;
 	background: transparent url(images/bg_chips_payment.png) bottom left repeat-x;
-	border: medium none;
+	border: 1px solid #d7d7d7;
 	margin-top: 12px;
 }
 
@@ -2499,7 +2495,7 @@ div.TeaseMore .poker_submit .label {
 	height: 70px;
 	margin: 10px 0;
 	padding: 5px 0;
-	color: #525252;
+	color: #313131;
 }
 
 .logo_paypal {
@@ -2538,15 +2534,14 @@ div.TeaseMore .poker_submit .label {
 
 div.poker_error_message {
     background: url(images/bg_no_result.png?X) no-repeat left 40px;
-    border-bottom:1px dotted #666666;
-    width:500px;
+    width: 100%;
     height: 264px;
 	color: #fff;
 }
 
 div.poker_error_message .msg a {
-	color: #000000;
-	font-weight: normal;
+	color: #70480b;
+	font-weight: bold;
 	text-decoration: none;
 }
 
@@ -2585,8 +2580,8 @@ body.iframe .messages-popup a.close
 #os-poker-overlay .content {
 	width: 409px;
 	height: 307px;
-	border: 1px solid #666;
-	background: #666 url(images/bg_overlay.png);
+	border: 1px solid #5b4321;
+	background: #251c0d url(images/bg_overlay.png);
 	padding: 15px;
 }
 
@@ -2803,7 +2798,7 @@ body.poker-report-abuse #page {
 body.poker-tourneyinfo,
 body.poker-promotion-and-events,
 body.poker-school {
-	background: #000000 url(images/bg.jpg) repeat fixed center top;
+	background: #000000 url(images/bg.jpg) no-repeat fixed center top;
 }
 
 body.poker-tourneyinfo #middle-content-left,
@@ -2847,7 +2842,7 @@ body.poker-school #middle-content-right {
 	position: absolute;
 	bottom: 37px;
 	left: 18px;
-	background: url(images/tourney/register.png) no-repeat;
+	background: url(images/tourney/register.gif) no-repeat;
 	display: block;
 	width: 146px;
 	height: 28px;
@@ -2855,8 +2850,8 @@ body.poker-school #middle-content-right {
 }
 
 .poker-tourneyinfo .main-teaser h2 a {
-	bottom: 38px;
-	left: 19px;
+	bottom: 25px;
+	left: 100px;
 }
 
 .poker-tourneyinfo .infobox,
