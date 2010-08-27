@@ -118,8 +118,7 @@ div.tb-fix-margin a.LayerClose {
 
 #profile-tabs .poker_submit .label
 {
-	color:#6E4809;
-	font-weight:bold;
+	color:#000;
 }
 
 #profile-tabs #profile
@@ -284,7 +283,7 @@ div.tb-fix-margin a.LayerClose {
 	float:left;
 	width:110px;
 	text-align:right;
-	padding-right:3px;
+	padding-right:13px;
 	padding-top:3px;
 	/*height:19px;*/
 	white-space:nowrap;
@@ -297,7 +296,7 @@ div.tb-fix-margin a.LayerClose {
 
 #profile-settings .setting-block .form-item input
 {
-	width:150px;
+	width:145px;
 	background:transparent url(images/bg_input_signup.gif) repeat scroll 0 0;
 	border:1px solid #D0D0CF;
 	font-size:11px;

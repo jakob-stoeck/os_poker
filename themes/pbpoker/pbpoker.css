@@ -21,7 +21,7 @@ body {
 	background: #000 url(images/bg.jpg) no-repeat fixed top center;
 	font-family: Arial, Verdana, sans-serif;
 	font-size: 11px;
-	color: #6c6c6c;
+	color: #CCC;
 	text-align: left;
 }
 
@@ -72,8 +72,8 @@ tr.even a {
 body.iframe a.LayerClose, #poker-first-profile a.LayerClose, div.tb-fix-margin a.LayerClose, body.iframe #profile-medium a.LayerClose {
 	background-image: url(images/button_layerclose.png) !important;
 	top: 5px;
-	width: 15px;
-	height: 15px;
+	width: 18px;
+	height: 18px;
 }
 
 body.iframe #profile-medium a.LayerClose, body.iframe #messagebox a.LayerClose, body.page-poker #content-header .title-wrapper a.LayerClose {
@@ -268,7 +268,7 @@ ul.secondary li a.active {
 	height: 70px;
 	margin-top: 10px;
 	margin-left: 5px;
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://poker.playboy.de/sites/all/themes/pbpoker/logo.png',sizingMethod='crop');
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='http://pokerlounge.stoeck.it/sites/all/themes/pbpoker/logo.png',sizingMethod='crop');
 }
 
 * html #header #logo img {
@@ -540,7 +540,7 @@ body.poker-profile #TB_window {
 ************************/
 
 .poker_submit {
-	color: #603c08;
+	color: #000;
 	font: normal 12px Arial, sans-serif;
 	text-decoration: none;
 	cursor: pointer;
@@ -623,8 +623,7 @@ div.poker_submit.big div.label {
 	height: 26px;
 	padding-top: 8px;
 	padding-right: 0;
-	color: #6E4809;
-	font-weight: bold;
+	color: #000;  
 }
 
 div.poker_submit.big div.pre {
@@ -661,7 +660,6 @@ div.poker_submit.big:hover div.pre {
 div.poker_submit.big:hover div.label {
   background: transparent url(images/bg_button_goldbig_middle.png) repeat-x;
 	background-position: top left;
-	text-decoration: underline;
 }
 
 div.poker_submit.big.disabled:hover {
@@ -727,7 +725,8 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #navbar ul.menu li a:hover {
-	text-decoration: underline;
+	text-decoration: none;
+	color: #E2C87B;
 }
 
 /*******************************
@@ -836,7 +835,7 @@ div.poker_submit.big.disabled:hover div.label {
 }
 
 #buddylist .buddy_list_placeholder .title {
-	color: #fbbe6b;
+	color: #E2C87B;
 	font-weight: bold;
 }
 
@@ -1265,6 +1264,7 @@ body.de #play-now #play-now-button {
 	left: 10px;
 	bottom: 5px;
 	padding: 15px 10px 5px 0px;
+	color:#525252;
 }
 
 #profile-update select option {
@@ -1429,8 +1429,7 @@ body.de #play-now #play-now-button {
 }
 
 #buddies-search .poker_submit .label {
-	color: #6E4809;
-	font-weight: bold;
+	color: #000;
 }
 
 .buddies-search-banner {
@@ -1619,7 +1618,7 @@ body.de #play-now #play-now-button {
 }
 
 #profile-tabs .header .right .darkred {
-	color: #666;
+	color: #E2C87B;
 	font-weight: normal;
 }
 
@@ -1759,7 +1758,7 @@ body.de #play-now #play-now-button {
 	-moz-box-shadow: 1px 1px 1px #CCCCCC;
 	-box-shadow: 1px 1px 1px #CCCCCC;
 	border-color: #eee;
-	font-size: 1.1em;
+	font-size: 1em;
 }
 
 #shop #items a span img {
@@ -2279,7 +2278,6 @@ div.TeaseMore .poker_submit .label {
 #home_promotion_2 .list .poker_submit {
   margin-top: 5px;
   color: #6F490A;
-  font-weight: bold;
   position: absolute;
   left: 135px;
   bottom: 10px;
@@ -2287,8 +2285,7 @@ div.TeaseMore .poker_submit .label {
 
 #home_promotion_1 .list .poker_submit a,
 #home_promotion_2 .list .poker_submit a {
-  color: #6F490A;
-  font-weight: bold;
+  color: #000;
   text-decoration: none;
 }
 
