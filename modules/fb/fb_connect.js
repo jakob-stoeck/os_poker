@@ -10,14 +10,14 @@ Drupal.behaviors.fb_connect = function(context) {
   if (typeof FB_RequireFeatures == 'undefined') {
     return;
   }
-    
+
   // Tell Facebook to parse any XFBML elements found in the context.
   FB_RequireFeatures(['XFBML'], function() {
       $(context).each(function() {
           var elem = $(this).get(0);
           //alert('fb_connect: ' + elem + $(elem).html()); // debug
           FB.XFBML.Host.parseDomElement(elem);
-          
+
       });
       // Respect fb_connect classes on new content.
       $('.fb_connect_show', context).show();
@@ -36,7 +36,7 @@ Drupal.behaviors.fb_connect = function(context) {
       $(this).next().remove(); // Remove FBML so facebook does not expand it.
     })
   // Handle clicks on the link element.
-  .bind('click', 
+  .bind('click',
         function (e) {
           var popup;
           //alert('Clicked!  Will show ' + this.fbml_popup); // debug
@@ -49,10 +49,10 @@ Drupal.behaviors.fb_connect = function(context) {
           }
           popup.set_placement(FB.UI.PopupPlacement.topCenter);
           popup.show();
-          e.preventDefault();      
+          e.preventDefault();
         })
   .parent().show();
-  
+
 };
 
 
@@ -80,11 +80,11 @@ FB_Connect.statusHandle = function(e, data) {
       // Refresh page for not-connected user.
       FB_Connect.sessionEnd(function(data) {
 	  //alert("reloading because user disconnected.");
-	  
+
 	  // User has disconnected.
 	  // Sometimes bogus cookies are left behind, here we try to clean up.
 	  FB_Connect.purgeCookies();
-	  
+
 	  window.location.reload();
 	});
     }
@@ -123,7 +123,7 @@ FB_Connect.sessionEnd = function(callback) {
 FB_Connect.sessionChange = function(response) {
   alert('FB_Connect.sessionChange');
   var status = {'changed': true, 'fbu': response.session.uid};
-  $.event.trigger('fb_connect_status', status);    
+  $.event.trigger('fb_connect_status', status);
 };
 
 
@@ -153,7 +153,7 @@ FB_Connect.on_not_connected = function() {
 
 // Deprecated and to be deleted.
 FB_Connect.login_onclick = function() {
-  alert('XXX call to deprecated FB_Connect.login_onclick.');
+  console.log('XXX call to deprecated FB_Connect.login_onclick.');
 };
 
 FB_Connect.logout_onclick = function() {
@@ -187,7 +187,7 @@ FB_Connect.init = function() {
  */
 FB_Connect.purgeCookies = function() {
   var cookies = { };
-  
+
   if (document.cookie && document.cookie != '') {
     var split = document.cookie.split(';');
     for (var i = 0; i < split.length; i++) {
@@ -197,7 +197,7 @@ FB_Connect.purgeCookies = function() {
       if (pos != -1) {
         // Looks like a facebook cookie.
         var apikey = name_value[0].substring(0, pos);
-        
+
         // Try to delete all the crud.
         FB_Connect.deleteCookie(apikey, '/', '');
         FB_Connect.deleteCookie(apikey + '_user', '/', '');
@@ -209,7 +209,7 @@ FB_Connect.purgeCookies = function() {
     }
   }
 };
-  
+
 // Delete a cookie.
 FB_Connect.deleteCookie = function( name, path, domain ) {
   document.cookie = name + "=" +
@@ -217,4 +217,3 @@ FB_Connect.deleteCookie = function( name, path, domain ) {
   ( ( domain ) ? ";domain=" + domain : "" ) +
   ";expires=Thu, 01-Jan-1970 00:00:01 GMT";
 };
-  
