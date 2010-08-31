@@ -356,7 +356,7 @@ function os_poker_init()
 
 	drupal_add_js(drupal_get_path('module', 'os_poker') . "/js/os_poker.bootstrap.js", "theme", DEFAULT_JS_SCOPE);
 
-	$file_button = drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";
+	$file_button = $base_path . drupal_get_path('theme', 'poker') . "/images/browse_button_{$language->language}.gif";
 	$inline_js = "
 
 	function	os_poker_input_file_style()
@@ -714,7 +714,7 @@ function os_poker_user_relationships($type, $relationship, $category = NULL)
 
 		$player = CUserManager::instance()->User($relationship->requester_id);
 
-		$args["symbol"] = drupal_get_path('module', 'os_poker') . "/images/msg_buddy_request.jpg";
+		$args["symbol"] = $base_path . drupal_get_path('module', 'os_poker') . "/images/msg_buddy_request.jpg";
 		$args["tags"] = array("type" => "buddy", "sender" => $player->uid);
 		$args["text"] = t("!user wants to be your buddy", array("!user", $player->profile_nickname));
 		$args["links"] = l(t("Accept"), "user/" . $relationship->requestee_id . "/relationships/requested/" . $relationship->rid . "/approve",
@@ -1379,8 +1379,8 @@ function theme_os_poker_message_symbol($symbol) {
   if(!isset($outputs[$symbol])) {
     $files = array(
       $symbol,
-      drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.gif",
-      drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.jpg"
+      $base_path . drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.gif",
+      $base_path . drupal_get_path('module', 'os_poker') . "/images/msg_$symbol.jpg"
     );
     foreach($files as $file) {
       if($info = image_get_info($file)) {
@@ -1490,7 +1490,7 @@ function os_poker_preprocess_user_picture(&$variables) {
       $picture = variable_get('user_picture_default', '');
     }
     else {
-      $picture = drupal_get_path("theme", "poker") . "/images/picture-default.png";
+      $picture = $base_path . drupal_get_path("theme", "poker") . "/images/picture-default.png";
     }
 
     if (isset($picture)) {
@@ -1679,7 +1679,7 @@ function os_poker_people_alter($people) {
       $picture = variable_get('user_picture_default', '');
     }
     else {
-      $picture = drupal_get_path("theme", "poker") . "/images/picture-default.png";
+      $picture = $base_path . drupal_get_path("theme", "poker") . "/images/picture-default.png";
     }
     //Set user picture using ImageCache URL
     $person->setThumbnailUrl(imagecache_create_url('user_picture_gadget', $picture, FALSE, TRUE));

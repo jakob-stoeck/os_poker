@@ -111,9 +111,9 @@ for ($i = 0; $i < $items_per_page; $i++)
 ?>
 <div class="BannerTop">
   <?php if ($current_user->CanDailyGift()) { ?>
-								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
+								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
 		     <?php } else { ?>
-			       <img src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
+			       <img src="<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
 		     <?php } ?>
 
 </div>
@@ -151,9 +151,9 @@ print theme('pager', NULL, $items_per_page);
 
 <div class="BannerTop">
   <?php if ($current_user->CanDailyGift()) { ?>
-								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
+								<img style="cursor: pointer;" onclick="javascript:os_poker_send_message({type: 'os_poker_daily_gift'}); this.style.cursor=''; this.src='<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg';" src="<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_free_gifts.jpg" alt="Today's free gift"/>
 		     <?php } else { ?>
-			       <img src="<?php  print drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
+			       <img src="<?php  print $base_path . drupal_get_path('theme', 'poker'); ?>/images/banner_invite_more_friends.jpg" alt="Today's free gift"/>
 		     <?php } ?>
 
 </div>
