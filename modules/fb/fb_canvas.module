@@ -501,7 +501,7 @@ function fb_canvas_url_outbound_alter(&$path, &$options, $original_path) {
       else {
         //dpm($options, "fb_canvas_url_outbound_alter($path)");
       }
-    } else {
+
       // Drupal has a habit of adding ?destination=... to some URLs.
       // And Facebook for no good reason screws up when you do that.
       if ($options['query']) {
