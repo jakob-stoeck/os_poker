@@ -67,7 +67,7 @@
 <div id="news">
 	<div class="header block_title_bar block_title_text">
 		<p>
-			<a href="javascript:void(0);"><img alt="rss" src="<?php print drupal_get_path('module', 'os_poker') . "/images/feed-icon.png"; ?>"></a>
+			<a href="javascript:void(0);"><img alt="rss" src="<?php print $base_path . drupal_get_path('module', 'os_poker') . "/images/feed-icon.png"; ?>"></a>
 			News
 		</p>
 	</div>

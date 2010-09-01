@@ -50,7 +50,6 @@ function os_poker_poll_messages()
 
 	if ($current_user && $current_user->uid != 0)
 	{
-
 		//process takes only 1mn to avoid js / php timeout
 		for ($pass = 0; $pass < 20; ++$pass)
 		{
@@ -61,7 +60,7 @@ function os_poker_poll_messages()
 				$mbox = CScheduler::instance()->GetUnreadTasks("inbox");
 				$mboxsize = count($mbox);
 				$resp["messages"][] = array("type" => "os_poker_messagebox", "body" => array("inbox" => $mboxsize,
-																							 "picture" => drupal_get_path('module', 'os_poker') . "/images/mailbox.png"));
+																							 "picture" => $base_path . drupal_get_path('module', 'os_poker') . "/images/mailbox.png"));
 			}
 
 			CScheduler::instance()->Trigger("live"); //Trigger live, and fill message spooler
@@ -196,7 +195,7 @@ function	_os_poker_process_message_unsafe()
 			if ($_GET["msgcount"] != $mboxsize)
 			{
 				$resp["messages"][] = array("type" => "os_poker_messagebox", "body" => array("inbox" => $mboxsize,
-																							 "picture" => drupal_get_path('module', 'os_poker') . "/images/mailbox.png"));
+																							 "picture" => $base_path . drupal_get_path('module', 'os_poker') . "/images/mailbox.png"));
 			}
 			else
 			{

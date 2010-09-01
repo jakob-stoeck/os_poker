@@ -43,7 +43,7 @@
 			
 			if ($icons == TRUE)
 			{
-				$img = "<img src=\"" . drupal_get_path('module', 'os_poker') . "/images/{$name}.png\" title=\"" . $links[$name]["title"] . "\" alt=\"" . $links[$name]["title"] . "\"/>";
+				$img = "<img src=\"" . $base_path . drupal_get_path('module', 'os_poker') . "/images/{$name}.png\" title=\"" . $links[$name]["title"] . "\" alt=\"" . $links[$name]["title"] . "\"/>";
 			}
 			else
 			{

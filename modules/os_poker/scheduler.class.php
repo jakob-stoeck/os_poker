@@ -651,7 +651,7 @@ class CScheduler
           "type" => "os_poker_messagebox",
           "body" => array(
             "inbox" => $mboxsize,
-            "picture" => drupal_get_path('module', 'os_poker') . "/images/mailbox.png"
+            "picture" => $base_path . drupal_get_path('module', 'os_poker') . "/images/mailbox.png"
           )
         ));
       }
