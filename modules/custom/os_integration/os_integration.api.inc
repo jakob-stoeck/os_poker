@@ -95,8 +95,8 @@ function os_integration_get_profile_infos($myspace_profile_id) {
  );
  $self_request_params = array(
  'userId' => $myspace_profile_id, 
- 'groupId' => '@self', 
- 'fields' => $profile_fields 
+ 'groupId' => '@self',
+ 'fields' => $profile_fields
  );
  $batch->add($osapi->people->get($self_request_params), 'self');
  $response = $batch->execute();
