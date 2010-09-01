@@ -96,7 +96,8 @@ function os_integration_form_os_poker_first_profile_form_alter(&$form,&$form_sta
 	}
 }
 function os_integration_addjs($myspace_profile_id)  {
-  	drupal_add_js('http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js','external');
+  
+  	drupal_set_html_head('<script type="text/javascript" src="http://js.myspacecdn.com/OpenSocial/RPC/RpcContainer.003.js"></script>'); 
 	drupal_add_js(drupal_get_path('module','os_integration').'/js/IFPC_externalIframe011.js');
 	drupal_add_js(drupal_get_path('module','os_integration').'/js/invitefriends.js');
 	
