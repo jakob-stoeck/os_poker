@@ -682,9 +682,6 @@ function 	os_poker_theme()
     'os_poker_help' => array(
       'template' => 'help.en',
     ),
-    'os_poker_tos' => array(
-      'template' => 'imprint.en',
-    ),
     'os_poker_skin' => array(
       'template' => 'skin',
     ),
