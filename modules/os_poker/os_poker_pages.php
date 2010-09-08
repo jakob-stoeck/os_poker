@@ -566,4 +566,8 @@ function os_poker_school_page() {
 function os_poker_promotion_and_events_page() {
   return theme('os_poker_promotion_and_events');
 }
+
+function os_poker_source_page() {
+  return theme('os_poker_source');
+}
 ?>

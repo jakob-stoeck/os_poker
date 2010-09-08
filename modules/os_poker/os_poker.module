@@ -1025,7 +1025,13 @@ function os_poker_menu() {
       'title' => 'Help',
       'access callback' => MENU_FOUND,
       'page callback' => 'os_poker_tos_page',
-      'file' 			   => 'os_poker_pages.php',
+      'file'         => 'os_poker_pages.php',
+    ),
+    'poker/source' => array(
+      'title' => 'Source',
+      'access callback' => MENU_FOUND,
+      'page callback' => 'os_poker_source_page',
+      'file'         => 'os_poker_pages.php',
     ),
     'invite/accept/%invite' => array(
       'page callback' => 'poker_invite_accept',
@@ -1036,7 +1042,7 @@ function os_poker_menu() {
     'poker/skin' => array(
       'title' => 'Skin',
       'page callback' => 'os_poker_skin_page',
-      'file' 			   => 'os_poker_pages.php',
+      'file'         => 'os_poker_pages.php',
       'access arguments' => array('administer os poker'),
     ),
     'poker/gadget' => array(
