@@ -73,7 +73,7 @@ function	os_poker_buddies_page($action = NULL, $page=0)
 		case "invitefb":
 			$block = module_invoke('fb_friend', 'block', 'view', FB_FRIEND_DELTA_INVITE_APP);
 			$block = str_replace('<fb:multi-friend-selector', '<fb:multi-friend-selector rows="3" cols="4"', $block['content']);
-			$block = str_replace('<fb:serverfbml', '<fb:serverfbml style="width:615px;height:420px;"', $block);
+			$block = str_replace('<fb:serverfbml', '<fb:serverfbml width="615" height="420"', $block);
 			$output .= $block;
 		break;
 
