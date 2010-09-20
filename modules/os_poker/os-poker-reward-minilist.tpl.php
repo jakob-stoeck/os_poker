@@ -35,7 +35,7 @@
 				{
 					if ($nreward >= $begin && $nreward < $end)
 					{
-						print '<img title="' . $value["name"] . '" src="/' . $value["picture"] . '" alt="' . $value["name"] . '"/>';
+						print '<img title="' . $value["name"] . '" src="' . $base_path . $value["picture"] . '" alt="' . $value["name"] . '"/>';
 					}
 					$nreward++;
 				}

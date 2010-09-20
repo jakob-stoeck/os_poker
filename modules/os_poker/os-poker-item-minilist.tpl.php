@@ -38,7 +38,7 @@
 		for ($i = $begin; $i < $end; ++$i)
 		{
 			$item = $inventory[$i];
-			print '<img ' . (($item->active == 1) ? ("class='active'") : ("")) . ' title="' . t($item->item->name) . '" src="' . $item->item->picture . '" alt="' . t($item->item->name) . '"/>';
+			print '<img ' . (($item->active == 1) ? ("class='active'") : ("")) . ' title="' . t($item->item->name) . '" src="' . $base_path . $item->item->picture . '" alt="' . t($item->item->name) . '"/>';
 		}
 	}
 ?>
